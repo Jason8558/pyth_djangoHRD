@@ -37,4 +37,8 @@ header {
 box-shadow: 0px 1px 3px 1px black;
 }
 
-.button:hover {box-shadow: 0px 0px 3px 4px #fe8a27;background: #774e3c;transition: 0.3s; color: white;}
+.button:hover {
+  box-shadow: 0px 0px 3px 4px #fe8a27;
+  background: #774e3c;
+  transition: 0.3s;
+  color: white;}
