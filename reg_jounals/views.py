@@ -13,4 +13,4 @@ def outbound_docs(request):
         usr = str(request.user.first_name)
         return render(request, 'reg_jounals/outbound_docs.html', context={'documents':documents, 'count':count})
     else:
-        return HttpResponse('Неавторизованный персонал!!!')
+        return render(request, 'reg_jounals/no_auth.html')

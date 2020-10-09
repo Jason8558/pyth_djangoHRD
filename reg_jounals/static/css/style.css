@@ -42,3 +42,25 @@ header {
   background: #774e3c;
   transition: 0.3s;
   color: white;}
+
+  table {
+    border: solid 1px black;
+  }
+
+  table tr th, td{
+    border-right: solid 1px black;
+    border-bottom: solid 1px black;
+  }
+
+  table tr th:last-child, td:last-child {
+    border-right: none;
+
+  }
+
+  table tbody tr th:last-child {
+    border-bottom: none;
+  }
+
+  table tr:last-child {
+    border-bottom: none;
+  }
