@@ -1,0 +1,23 @@
+{%extends "reg_jounals/index.html" %}
+
+{%block title%}Исходящие документы{%endblock%}
+{%block header%} Журнал регистрации исходящих документов. Всего: {{count}} {%endblock%}
+{%block content%}
+<table>
+  <tr>
+    <th>Дата документа</th>
+    <th>Название</th>
+    <th>Адресат</th>
+    <th>Дата регистрации</th>
+  </tr>
+  {%for doc in documents%}
+  <tr>
+    <td>{{doc.doc_date}}</td>
+    <td>{{doc.doc_name}}</td>
+    <td>{{doc.doc_dest}}</td>
+    <td>{{doc.doc_reg_date}}</td>
+</tr>
+  {%endfor%}
+</table>
+
+{%endblock%}

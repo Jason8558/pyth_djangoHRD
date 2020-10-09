@@ -7,25 +7,27 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
-  <title>Журналы регистрации СУП</title>
+  <title>{%block title%}Журналы регистрации СУП{%endblock%}</title>
 </head>
 <body>
   <header>
     <div class="container">
-      <h1>Журналы регистрации внутренней документации СУП</h1>
+      <h1>{%block header%}Журналы регистрации внутренней документации СУП{%endblock%}</h1>
     </div>
   </header>
 
   <div class="container d-block w-50">
+    {%block content%}
       <a href="#" class="button">Отпуска</a>
       <a href="#" class="button">Приказы по другим вопросам</a>
-      <a href="#" class="button">Исходящие</a>
+      <a href="{%url 'outbound'%}" class="button">Исходящие</a>
       <a href="#" class="button">Командировки</a>
       <a href="#" class="button">Приказы по личному составу</a>
       <a href="#" class="button">Трудовые договоры</a>
       <a href="#" class="button">Заявления на увольнение</a>
       <a href="#" class="button">Заявления на прием</a>
-
+    {%endblock%}
   </div>
+
 </body>
 </html>
