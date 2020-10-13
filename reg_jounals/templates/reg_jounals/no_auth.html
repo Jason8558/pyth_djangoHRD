@@ -1,18 +1,44 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
   <head>
+    {%load static%}
     <meta charset="utf-8">
     <title>ДОСТУП ЗАПРЕЩЕН</title>
 
   </head>
   <style media="screen">
+  @keyframes pulse {
+  from {opacity: 1.0;}
+
+  to {opacity: 0.0;}
+  }
+
     h1 {
+      animation-name: pulse;
+      animation-iteration-count: infinite;
+      animation-duration: 1.3s;
       color: red;
       text-align: center;
       font-family: roboto;
         }
+    a {
+          background: #ad6a3f;
+          padding: 11px;
+          text-decoration: none !important;
+          text-transform: uppercase;
+          color: black;
+          display: block;
+          width: 18%;
+          font-family: roboto;
+          text-align: center;
+          margin: 0 auto;
+          box-shadow: 0px 1px 3px 1px black;
+    }
   </style>
   <body>
-    <div><h1>Неавторизованный персонал! Доступ запрещен.</h1></div>
+    <div>
+      <h1>Неавторизованный персонал! Доступ запрещен.</h1>
+      <a href="{% url 'login' %}">ВОЙТИ В СИСТЕМУ</a>
+    </div>
   </body>
 </html>
