@@ -6,12 +6,12 @@ from django.contrib.auth.models import User
 class OutBoundDocument(models.Model):
 
 
-    doc_name = models.CharField(max_length=100, help_text="Введите название документа", verbose_name='Название', db_index=True)
-    doc_number = models.CharField(max_length=256, help_text="Введите номер документа", verbose_name='Номер документа', db_index=True)
+    doc_type = models.CharField(default='Письмо', max_length=100, help_text="Введите вид документа (письмо, справка, и.т.д)", verbose_name='Вид', db_index=True)
+    # doc_number = models.CharField(max_length=256, help_text="Введите номер документа", verbose_name='Номер документа', db_index=True)
     doc_date = models.DateField(help_text="Введите дату документа", verbose_name='Дата документа', db_index=True)
     doc_dest =  models.CharField(max_length=256, help_text="Введите адресата", verbose_name='Получатель (адресат)')
-    doc_additionalData = models.CharField(max_length=256, help_text="Введите дополнительную информацию по документу (необязательно)", verbose_name='Дополнительная информация')
-
+    doc_additionalData = models.CharField(max_length=256, help_text="Введите содержание документа", verbose_name='Содержание документа')
+    doc_res_officer = models.CharField(default='none', max_length=256, help_text="Сотрудник, который внес документ в систему ", verbose_name='Ответственный сотрудник')
 
     class Meta:
         ordering = ["-doc_date"]
@@ -22,5 +22,5 @@ class OutBoundDocument(models.Model):
 
 
     def __str__(self):
-        doc_fullname = self.doc_name + ' №' + str(self.doc_number) + ' от ' + str(self.doc_date)
+        doc_fullname = self.doc_type + ' №' + str(self.id) + ' от ' + str(self.doc_date)
         return doc_fullname

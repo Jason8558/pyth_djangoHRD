@@ -7,16 +7,20 @@
 <table>
   <tr>
     <th>Дата документа</th>
-    <th>Название</th>
+    <th>Номер документа</th>
+    <th>Вид</th>
     <th>Адресат</th>
-    <th>Дата регистрации</th>
+    <th>Содержание</th>
+    <th>Ответственный сотрудник</th>
   </tr>
   {%for doc in documents%}
   <tr>
     <td>{{doc.doc_date}}</td>
-    <td>{{doc.doc_name}}</td>
+    <td>{{doc.id}}</td>
+    <td>{{doc.doc_type}}</td>
     <td>{{doc.doc_dest}}</td>
-    <td>{{doc.doc_reg_date}}</td>
+    <td>{{doc.doc_additionalData}}</td>
+    <td>{{doc.doc_res_officer}}</td>
 </tr>
   {%endfor%}
 </table>
