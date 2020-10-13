@@ -13,6 +13,7 @@
   <header>
     <div class="container">
       <h1>{%block header%}Журналы регистрации внутренней документации СУП{%endblock%}</h1>
+      <h3>{{ user.first_name }} <a href="{% url 'logout'%}">выйти</a></h3>
     </div>
   </header>
 
