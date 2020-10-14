@@ -3,7 +3,7 @@
 {%block title%}Исходящие документы{%endblock%}
 {%block header%} Журнал регистрации исходящих документов. Всего: {{count}} {%endblock%}
 {%block content%}
-<h2>Пользователь: {{auth}}</h2>
+<a href="{% url 'doc_outbound_add_url' %}">Добавить</a>
 <table>
   <tr>
     <th>Дата документа</th>
