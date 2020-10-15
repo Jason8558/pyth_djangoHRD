@@ -19,7 +19,11 @@ background: #301551;
 }
 
 .container {
-width: 70%;
+width: 30%;
+}
+
+.container h1 {
+  text-align: center;
 }
 
 .button {

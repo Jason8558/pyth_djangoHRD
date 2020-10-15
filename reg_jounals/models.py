@@ -14,7 +14,7 @@ class OutBoundDocument(models.Model):
     doc_res_officer = models.CharField(blank=True, default='none', max_length=256, help_text="Сотрудник, который внес документ в систему ", verbose_name='Ответственный сотрудник')
 
     class Meta:
-        ordering = ["-doc_date"]
+        ordering = ["id"]
         verbose_name = 'Исходящий документ'
         verbose_name_plural = 'Исходящие документы'
 
