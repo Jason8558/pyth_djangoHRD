@@ -5,7 +5,9 @@
 {%block content%}
 <a href="{% url 'doc_outbound_add_url' %}">Добавить</a>
 <table>
+  <thead class="thead-dark">
   <tr>
+    <th scope="col">#</th>
     <th>Дата документа</th>
     <th>Номер документа</th>
     <th>Вид</th>
@@ -13,8 +15,12 @@
     <th>Содержание</th>
     <th>Ответственный сотрудник</th>
   </tr>
+  </thead>
+  
   {%for doc in documents%}
+  {{ i+1 }}
   <tr>
+    <td>{{i}}</td>
     <td>{{doc.doc_date}}</td>
     <td>{{doc.id}}</td>
     <td>{{doc.doc_type}}</td>

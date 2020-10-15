@@ -15,7 +15,8 @@ def outbound_docs(request):
         count = len(documents)
         method = str(request.method)
         usr = str(request.user.first_name)
-        return render(request, 'reg_jounals/outbound_docs.html', context={'documents':documents, 'count':count, 'auth':auth})
+        i = 0
+        return render(request, 'reg_jounals/outbound_docs.html', context={'documents':documents, 'count':count, 'auth':auth, 'i':i})
     else:
         return render(request, 'reg_jounals/no_auth.html')
 
