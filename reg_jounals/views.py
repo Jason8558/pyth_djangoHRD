@@ -2,6 +2,8 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from .models import *
 from .forms import *
+from django.shortcuts import redirect
+
 
 
 def index(request):
@@ -27,6 +29,7 @@ def nr_OutBoundDocument(request):
         if doc_form.is_valid():
             doc_form.doc_res_officer = str(request.user.first_name)
             doc_form.save()
+            return redirect('../outbound_docs/')
     else:
         doc_form = OutBoundDocument_form()
     return render(request, 'reg_jounals/outboundDocs_add.html', {'form':doc_form})

@@ -2,6 +2,7 @@ from django import forms
 from .models import *
 from django.contrib.auth.forms import AuthenticationForm
 
+
 class OutBoundDocument_form(forms.Form):
     doc_type = forms.CharField(label='Вид документа',max_length=100, help_text="Введите вид документа (письмо, справка, и.т.д)")
     doc_date = forms.DateField(label='Дата документа',help_text="Введите дату документа", input_formats=['%d.%M.%Y'])
@@ -17,6 +18,7 @@ class OutBoundDocument_form(forms.Form):
             doc_additionalData = self.cleaned_data['doc_additionalData'],
             doc_res_officer = self.cleaned_data['doc_res_officer']
             )
+
         return new_document
 
 class UserLoginForm(AuthenticationForm):
