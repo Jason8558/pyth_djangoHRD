@@ -15,7 +15,7 @@ header {
 }
 
 body {
-background: #301551;
+background: lightgray;
 }
 
 .container {
@@ -28,6 +28,18 @@ width: 30%;
 
 .button {
 
+}
+
+#central-panel {
+background-image: linear-gradient( 109.6deg,  rgba(48,207,208,1) 11.2%, rgba(51,8,103,1) 92.5% );
+}
+
+#central-panel form {
+
+}
+
+.lform-input {
+  color: black;
 }
 
 .m-auto {

@@ -1,5 +1,6 @@
 from django import forms
 from .models import *
+from django.contrib.auth.forms import AuthenticationForm
 
 class OutBoundDocument_form(forms.Form):
     doc_type = forms.CharField(label='Вид документа',max_length=100, help_text="Введите вид документа (письмо, справка, и.т.д)")
@@ -17,3 +18,17 @@ class OutBoundDocument_form(forms.Form):
             doc_res_officer = self.cleaned_data['doc_res_officer']
             )
         return new_document
+
+class UserLoginForm(AuthenticationForm):
+    def __init__(self, *args, **kwargs):
+        super(UserLoginForm, self).__init__(*args, **kwargs)
+
+    username = forms.CharField(widget=forms.TextInput(
+        attrs={'class': 'lform-input', 'placeholder': '', 'id': 'hello'}))
+    password = forms.CharField(widget=forms.PasswordInput(
+        attrs={
+            'class': 'lform-input',
+            'placeholder': '',
+            'id': 'hi',
+        }
+))
