@@ -7,12 +7,7 @@
     <link rel="stylesheet" href="{% static 'css/login.css'%}">
   </head>
   <body>
-    <header>
       <div class="container m-auto">
-        <h1>Система электронного документооборота Службы управления персоналом (beta)</h1>
-      </div>
-    </header>
-    <div class="container m-auto">
         {% if form.errors %}
           <p>Your username and password didn't match. Please try again.</p>
         {% endif %}
@@ -25,26 +20,27 @@
             <p>Please login to see this page.</p>
           {% endif %}
         {% endif %}
-      <div>
+  <div id="central-panel">
 
     <form method="post" action="{% url 'login' %}">
     {% csrf_token %}
-    <table>
 
-    <tr>
-      <td>{{ form.username.label_tag }}</td>
-      <td>{{ form.username }}</td>
-    </tr>
 
-    <tr>
-      <td>{{ form.password.label_tag }}</td>
-      <td>{{ form.password }}</td>
-    </tr>
-    </table>
+<div id="uname">
+      {{ form.username.label_tag }}
+      {{ form.username }}
+</div>
+
+<div id="pword">
+      {{ form.password.label_tag }}
+      {{ form.password }}
+</div>
+
 
     <input class="" type="submit" value="login" />
     <input type="hidden" name="next" value="{{ next }}" />
     </form>
+    <div class="fError">{{form.errors}}</div>
   </div>
 
 
