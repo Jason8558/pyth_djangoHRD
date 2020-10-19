@@ -1,12 +1,12 @@
 {%extends "reg_jounals/index.html" %}
 
 {%block title%}Исходящие документы{%endblock%}
-{%block header%} Журнал регистрации исходящих документов. Всего: {{count}} {%endblock%}
+{%block header%} Журнал регистрации исходящих документов. Всего: {{count}}. <a href="../">Назад</a> {%endblock%}
 {%block content%}
-<a href="{% url 'doc_outbound_add_url' %}">Добавить</a>
+<a class="btn btn-success btn-lg m-bottom " href="{% url 'doc_outbound_add_url' %}">Добавить</a>
 <table>
   <thead class="thead-dark">
-  <tr>
+  <tr class="tr-header">
 
     <th scope="col">Дата документа</th>
     <th scope="col">Номер документа</th>
@@ -21,7 +21,7 @@
 
   <tr>
 
-    <td>{{doc.doc_date}}</td>
+    <td>{{doc.doc_date|date:"d.m.Y"}}</td>
     <td>{{doc.id}}</td>
     <td>{{doc.doc_type}}</td>
     <td>{{doc.doc_dest}}</td>

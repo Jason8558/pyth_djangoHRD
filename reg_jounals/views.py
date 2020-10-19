@@ -25,10 +25,12 @@ def outbound_docs(request):
 def nr_OutBoundDocument(request):
     if request.method == "POST":
         doc_form = OutBoundDocument_form(request.POST)
-        doc_form.doc_res_officer = str(request.user.first_name)
         if doc_form.is_valid():
-            doc_form.doc_res_officer = str(request.user.first_name)
-            doc_form.save()
+            user_ = request.user.first_name
+
+            doc_form.doc_res_officer = user_
+            print(str(doc_form.doc_res_officer))
+            doc_form.save(user_)
             return redirect('../outbound_docs/')
     else:
         doc_form = OutBoundDocument_form()
