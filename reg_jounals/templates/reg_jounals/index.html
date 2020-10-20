@@ -6,17 +6,20 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
   <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+  <link rel="shortcut icon" href="{% static 'img/favicon.ico'%}" type="image/x-icon">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
   <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+  <script src="{% static 'js/dateMask.js'%}"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
   <title>{%block title%}Журналы регистрации СУП{%endblock%}</title>
 </head>
 <body>
   <header>
     <div class="container">
-      <h2>{%block header%}Журналы регистрации внутренней документации СУП{%endblock%}</h2>
-      <h3 style="text-align: right;">{{ user.first_name }} <a class="btn btn-outline-danger" href="{% url 'logout'%}">выйти</a></h3>
+      <h2>{%block header%}Журналы регистрации внутренней документации СУП{%endblock%}<span style="text-align: right; font-size: 14pt;"> {{ user.first_name }} <a class="btn btn-outline-danger" href="{% url 'logout'%}">выйти</a></span></h2>
+      <h3 style="text-align: right;"></h3>
     </div>
   </header>
 
@@ -29,7 +32,7 @@
       <a href="#" class="btn btn-info">Командировки</a>
       <a href="#" class="btn btn-info">Приказы по личному составу</a>
       <a href="#" class="btn btn-info">Трудовые договоры</a>
-      <a href="#" class="btn btn-info">Заявления на увольнение</a>
+      <a href="{%url 'resignation'%}" class="btn btn-info">Заявления на увольнение</a>
       <a href="#" class="btn btn-info">Заявления на прием</a>
       <a href="#" class="btn btn-info">Трудовые книжки</a>
     </div>

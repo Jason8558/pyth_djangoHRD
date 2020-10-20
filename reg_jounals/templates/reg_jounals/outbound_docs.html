@@ -4,6 +4,7 @@
 {%block header%} Журнал регистрации исходящих документов. Всего: {{count}}. <a href="../">Назад</a> {%endblock%}
 {%block content%}
 <a class="btn btn-success btn-lg m-bottom " href="{% url 'doc_outbound_add_url' %}">Добавить</a>
+{% if documents %}
 <table>
   <thead class="thead-dark">
   <tr class="tr-header">
@@ -30,5 +31,7 @@
 </tr>
   {%endfor%}
 </table>
-
+{%else%}
+<h2>Записей нет</h2>
+{%endif%}
 {%endblock%}

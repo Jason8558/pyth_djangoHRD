@@ -11,3 +11,4 @@ class OutBoundDocumentAdmin(admin.ModelAdmin):
         obj.save()
 
 admin.site.register(OutBoundDocument, OutBoundDocumentAdmin)
+admin.site.register(LetterOfResignation)

@@ -4,7 +4,12 @@
 {%block header%}Добавить запись - Исходящий документ{% endblock %}
 
 {%block content%}
+{% if form.errors%}
 
+<div class="alert alert-danger mt-5" role="alert">
+{{form.errors}}
+</div>
+{%endif%}
 <form class="add_form" action="" method="post">
   {% csrf_token %}
   {% for field in form %}

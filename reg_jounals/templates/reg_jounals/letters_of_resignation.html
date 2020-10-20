@@ -1,0 +1,38 @@
+{%extends "reg_jounals/index.html" %}
+
+{%block title%}Заявления на увольнение{%endblock%}
+{%block header%} Журнал регистрации заявлений на увольнение. Всего: {{count}}. <a href="../">Назад</a> {%endblock%}
+{%block content%}
+<a class="btn btn-success btn-lg m-bottom " href="#">Добавить</a>
+{% if letters %}
+<table>
+  <thead class="thead-dark">
+  <tr class="tr-header">
+    <th scope="col">Номер</th>
+    <th scope="col">Дата поступления</th>
+    <th scope="col">Увольняемый</th>
+    <th scope="col">Должность</th>
+    <th scope="col">Подразделение</th>
+    <th scope="col">Дата увольнения</th>
+    <th scope="col">Ответственный сотрудник</th>
+  </tr>
+  </thead>
+
+  {%for let in letters%}
+
+  <tr>
+
+    <td>{{let.id}}</td>
+    <td>{{let.lor_date|date:"d.m.Y"}}</td>
+    <td>{{let.lor_employee}}</td>
+    <td>{{let.lor_position}}</td>
+    <td>{{let.lor_departament}}</td>
+    <td>{{let.lor_dateOfRes|date:"d.m.Y"}}</td>
+    <td>{{let.lor_res_officer}}</td>
+</tr>
+  {%endfor%}
+</table>
+{%else%}
+<h2>Записей нет</h2>
+{%endif%}
+{%endblock%}

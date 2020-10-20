@@ -18,12 +18,20 @@ class OutBoundDocument(models.Model):
         verbose_name = 'Исходящий документ'
         verbose_name_plural = 'Исходящие документы'
 
-
-
-
-
-
-
     def __str__(self):
         doc_fullname = self.doc_type + ' №' + str(self.id) + ' от ' + str(self.doc_date)
         return doc_fullname
+
+class LetterOfResignation(models.Model):
+
+    lor_date = models.DateField(help_text="Введите дату поступления заявления", verbose_name="Дата поступления заявления", db_index=True)
+    lor_employee = models.CharField(max_length=256, help_text="Введите ФИО увольняемого сотрудника", verbose_name="Увольняемый сотрудник")
+    lor_position = models.CharField(max_length=256, help_text="Введите должность увольняемого сотрудника", verbose_name="Должность")
+    lor_departament = models.CharField(max_length=256, help_text="Введите подразделение увольняемого сотрудника", verbose_name="Подразделение")
+    lor_dateOfRes = models.DateField(help_text="Введите дату увольнения", verbose_name="Дата увольнения", db_index=True)
+    lor_res_officer = models.CharField(blank=True, editable=False,  max_length=256, help_text="Сотрудник, который внес документ в систему ", verbose_name='Ответственный сотрудник')
+
+    class Meta:
+        ordering = ["id"]
+        verbose_name = 'Заявление на увольнение'
+        verbose_name_plural = 'Заявления на увольнение'

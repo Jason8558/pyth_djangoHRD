@@ -35,3 +35,11 @@ def nr_OutBoundDocument(request):
     else:
         doc_form = OutBoundDocument_form()
     return render(request, 'reg_jounals/outboundDocs_add.html', {'form':doc_form})
+
+def letter_of_resignation(request):
+    if request.user.is_authenticated:
+        letters = LetterOfResignation.objects.all()
+        count = len(letters)
+        return render(request, 'reg_jounals/letters_of_resignation.html', context={'letters':letters, 'count':count})
+    else:
+        return render(request, 'reg_jounals/no_auth.html')
