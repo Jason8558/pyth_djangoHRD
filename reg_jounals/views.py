@@ -43,3 +43,11 @@ def letter_of_resignation(request):
         return render(request, 'reg_jounals/letters_of_resignation.html', context={'letters':letters, 'count':count})
     else:
         return render(request, 'reg_jounals/no_auth.html')
+
+def letter_of_invite(request):
+    if request.user.is_authenticated:
+        letters = LetterOfInvite.objects.all()
+        count = len(letters)
+        return render(request, 'reg_jounals/letters_of_invite.html', context={'letters':letters, 'count':count})
+    else:
+        return render(request, 'reg_jounals/no_auth.html')
