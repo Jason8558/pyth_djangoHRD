@@ -3,7 +3,7 @@
 {%block title%}Заявления на увольнение{%endblock%}
 {%block header%} Журнал регистрации заявлений на увольнение. Всего: {{count}}. <a href="../">Назад</a> {%endblock%}
 {%block content%}
-<a class="btn btn-success btn-lg m-bottom " href="#">Добавить</a>
+<a class="btn btn-success btn-lg m-bottom " href="{%url 'letter_resignation_add_url' %}">Добавить</a>
 {% if letters %}
 <table>
   <thead class="thead-dark">
