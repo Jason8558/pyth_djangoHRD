@@ -1,0 +1,38 @@
+{%extends "reg_jounals/index.html" %}
+
+{%block title%}Заявления на прием{%endblock%}
+{%block header%} Журнал регистрации заявлений на прием. Всего: {{count}}. <a href="../">Назад</a> {%endblock%}
+{%block content%}
+<a class="btn btn-success btn-lg m-bottom " href="{% url 'invite_add' %}">Добавить</a>
+{% if letters %}
+<table>
+  <thead class="thead-dark">
+  <tr class="tr-header">
+    <th scope="col">Номер</th>
+    <th scope="col">Дата поступления</th>
+    <th scope="col">Принимаемый</th>
+    <th scope="col">Должность</th>
+    <th scope="col">Подразделение</th>
+    <th scope="col">Дата начала работы</th>
+    <th scope="col">Ответственный сотрудник</th>
+  </tr>
+  </thead>
+
+  {%for let in letters%}
+
+  <tr>
+
+    <td>{{let.id}}</td>
+    <td>{{let.loi_date|date:"d.m.Y"}}</td>
+    <td>{{let.loi_employee}}</td>
+    <td>{{let.loi_position}}</td>
+    <td>{{let.loi_department}}</td>
+    <td>{{let.loi_dateOfInv|date:"d.m.Y"}}</td>
+    <td>{{let.loi_res_officer}}</td>
+</tr>
+  {%endfor%}
+</table>
+{%else%}
+<h2>Записей нет</h2>
+{%endif%}
+{%endblock%}

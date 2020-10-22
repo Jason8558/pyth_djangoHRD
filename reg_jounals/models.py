@@ -35,3 +35,16 @@ class LetterOfResignation(models.Model):
         ordering = ["id"]
         verbose_name = 'Заявление на увольнение'
         verbose_name_plural = 'Заявления на увольнение'
+
+class LetterOfInvite(models.Model):
+    loi_date = models.DateField(help_text="Введите дату поступления заявления", verbose_name="Дата поступления заявления", db_index=True)
+    loi_employee = models.CharField(max_length=256, help_text="Введите ФИО принимаемого сотрудника", verbose_name="Принимаемый сотрудник")
+    loi_position = models.CharField(max_length=256, help_text="Введите должность принимаемого сотрудника", verbose_name="Должность")
+    loi_department = models.CharField(max_length=256, help_text="Введите подразделение принимаемого сотрудника", verbose_name="Подразделение")
+    loi_dateOfInv = models.DateField(blank=True, null=True, help_text="Введите дату начала работы", verbose_name="Дата начала работы", db_index=True)
+    loi_res_officer = models.CharField(blank=True, editable=False,  max_length=256, help_text="Сотрудник, который внес документ в систему ", verbose_name='Ответственный сотрудник')
+
+    class Meta:
+        ordering = ["id"]
+        verbose_name = 'Заявление на прием'
+        verbose_name_plural = 'Заявления на прием'

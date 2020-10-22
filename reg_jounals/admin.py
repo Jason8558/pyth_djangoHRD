@@ -12,3 +12,4 @@ class OutBoundDocumentAdmin(admin.ModelAdmin):
 
 admin.site.register(OutBoundDocument, OutBoundDocumentAdmin)
 admin.site.register(LetterOfResignation)
+admin.site.register(LetterOfInvite)
