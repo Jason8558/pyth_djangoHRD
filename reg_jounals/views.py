@@ -51,3 +51,16 @@ def letter_of_invite(request):
         return render(request, 'reg_jounals/letters_of_invite.html', context={'letters':letters, 'count':count})
     else:
         return render(request, 'reg_jounals/no_auth.html')
+
+def nr_LetterOfInvite(request):
+    if request.user.is_authenticated:
+        letter_form = LetterOfInvite_form()
+        if request.method == 'POST':
+            letter_form = LetterOfInvite_form(request.POST)
+            if letter_form.is_valid():
+                user_ = request.user.first_name
+                letter_form.save(user_)
+                return redirect('../letters_of_invite/')
+        return render(request, 'reg_jounals/LetterOfInvite_add.html', context={'form':letter_form})
+    else:
+        return render(request, 'reg_jounals/no_auth.html')

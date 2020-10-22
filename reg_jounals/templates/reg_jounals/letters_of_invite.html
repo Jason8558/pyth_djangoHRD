@@ -3,7 +3,7 @@
 {%block title%}Заявления на прием{%endblock%}
 {%block header%} Журнал регистрации заявлений на прием. Всего: {{count}}. <a href="../">Назад</a> {%endblock%}
 {%block content%}
-<a class="btn btn-success btn-lg m-bottom " href="#">Добавить</a>
+<a class="btn btn-success btn-lg m-bottom " href="{% url 'invite_add' %}">Добавить</a>
 {% if letters %}
 <table>
   <thead class="thead-dark">
