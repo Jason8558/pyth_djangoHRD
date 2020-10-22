@@ -1,6 +1,7 @@
 $(document).ready(function() {
 var input = document.querySelectorAll('#id_doc_date')[0];
 
+
 var dateInputMask = function dateInputMask(elm) {
 
     elm.addEventListener('keyup', function(e) {
@@ -28,4 +29,5 @@ if(len === 5) {
 };
 
 dateInputMask(input);
+
 });

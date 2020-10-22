@@ -6,8 +6,8 @@ urlpatterns = [
     path('outbound_docs/', views.outbound_docs, name='outbound'),
     path('outbound_docs/add', views.nr_OutBoundDocument, name='doc_outbound_add_url'),
     path('letters_of_resignation/', views.letter_of_resignation, name='resignation'),
+    path('letters_of_resignation/add', views.nr_LetterOfResignation, name='letter_resignation_add_url')
     path('letters_of_invite/', views.letter_of_invite, name='invite'),
     path('letters_of_invite/add', views.nr_LetterOfInvite, name='invite_add'),
     path('letters_of_invite/<int:id>/edit', views.nr_LetterOfInvite, name='invite_add')
 
-]
