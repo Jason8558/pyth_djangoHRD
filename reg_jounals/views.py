@@ -58,14 +58,14 @@ def nr_LetterOfResignation(request):
         return render(request, 'reg_jounals/no_auth.html')
     return render(request, 'reg_jounals/LetterOfResignation_add.html', context={'form':letter_form})
 
-  
- def letter_of_invite(request):
-    if request.user.is_authenticated:
-        letters = LetterOfInvite.objects.all()
-        count = len(letters)
-        return render(request, 'reg_jounals/letters_of_invite.html', context={'letters':letters, 'count':count})
-    else:
-        return render(request, 'reg_jounals/no_auth.html')
+
+def letter_of_invite(request):
+        if request.user.is_authenticated:
+            letters = LetterOfInvite.objects.all()
+            count = len(letters)
+            return render(request, 'reg_jounals/letters_of_invite.html', context={'letters':letters, 'count':count})
+        else:
+            return render(request, 'reg_jounals/no_auth.html')
 
 def nr_LetterOfInvite(request):
     if request.user.is_authenticated:
