@@ -48,3 +48,14 @@ class LetterOfInvite(models.Model):
         ordering = ["id"]
         verbose_name = 'Заявление на прием'
         verbose_name_plural = 'Заявления на прием'
+
+class OrdersOnOtherMatters(models.Model):
+    oom_number = models.CharField(max_length=5, help_text="Введите номер приказа", verbose_name="Номер приказа", db_index=True)
+    oom_date = models.DateField(help_text="Введите дату приказа", verbose_name="Дата приказа", db_index=True)
+    oom_content = models.CharField(max_length=256, help_text="Введите содержание приказа", verbose_name='Содержание')
+    oom_res_officer = models.CharField(blank=True, editable=False,  max_length=256, help_text="Сотрудник, который внес документ в систему ", verbose_name='Ответственный сотрудник')
+
+    class Meta:
+        ordering = ["id"]
+        verbose_name = 'Приказ по другим вопросам'
+        verbose_name_plural = 'Приказы по другим вопросам'

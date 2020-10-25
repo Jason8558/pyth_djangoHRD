@@ -79,3 +79,11 @@ def nr_LetterOfInvite(request):
         return render(request, 'reg_jounals/LetterOfInvite_add.html', context={'form':letter_form})
     else:
         return render(request, 'reg_jounals/no_auth.html')
+
+def order_other_matters(request):
+    if request.user.is_authenticated:
+        orders = OrdersOnOtherMatters.objects.all()
+        count = len(orders)
+        return render(request, 'reg_jounals/orders_on_others.html', context={'orders':orders, 'count':count})
+    else:
+        return render(request, 'reg_jounals/no_auth.html')

@@ -26,15 +26,15 @@
 <div class="container">
     {%block content%}
     <div class="container_grid">
-      <a href="#" class="btn btn-info">Отпуска</a>
-      <a href="#" class="btn btn-info">Приказы по другим вопросам</a>
+      <a href="#" class="btn btn-info disabled" aria-disabled="true">Отпуска</a>
+      <a href="{% url 'orders_on_others' %}" class="btn btn-info">Приказы по другим вопросам</a>
       <a href="{%url 'outbound'%}" class="btn btn-info">Исходящие</a>
-      <a href="#" class="btn btn-info">Командировки</a>
-      <a href="#" class="btn btn-info">Приказы по личному составу</a>
-      <a href="#" class="btn btn-info">Трудовые договоры</a>
+      <a href="#" class="btn btn-info disabled" aria-disabled="true">Командировки</a>
+      <a href="#" class="btn btn-info disabled" aria-disabled="true">Приказы по личному составу</a>
+      <a href="#" class="btn btn-info disabled" aria-disabled="true">Трудовые договоры</a>
       <a href="{%url 'resignation'%}" class="btn btn-info">Заявления на увольнение</a>
       <a href="{%url 'invite'%}" class="btn btn-info">Заявления на прием</a>
-      <a href="#" class="btn btn-info">Трудовые книжки</a>
+      <a href="#" class="btn btn-info disabled" aria-disabled="true">Трудовые книжки</a>
     </div>
     {%endblock%}
   </div>

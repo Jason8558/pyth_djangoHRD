@@ -1,0 +1,33 @@
+{%extends "reg_jounals/index.html" %}
+
+{%block title%}Приказы по другим вопросам{%endblock%}
+{%block header%} Журнал регистрации приказов по другим вопросам. Всего: {{count}}. <a href="../">Назад</a> {%endblock%}
+{%block content%}
+<a class="btn btn-success btn-lg m-bottom " href="#">Добавить</a>
+{% if orders %}
+<table>
+  <thead class="thead-dark">
+  <tr class="tr-header">
+
+    <th scope="col">Дата приказа</th>
+    <th scope="col">Номер</th>
+    <th scope="col">Содержание</th>
+    <th scope="col">Ответственный сотрудник</th>
+  </tr>
+  </thead>
+
+  {%for order in orders%}
+
+  <tr>
+
+    <td>{{order.oom_date|date:"d.m.Y"}}</td>
+    <td>{{order.oom_number}}</td>
+    <td>{{order.oom_content}}</td>
+    <td>{{order.oom_res_officer}}</td>
+</tr>
+  {%endfor%}
+</table>
+{%else%}
+<h2>Записей нет</h2>
+{%endif%}
+{%endblock%}

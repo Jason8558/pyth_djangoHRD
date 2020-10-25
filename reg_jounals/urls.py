@@ -9,5 +9,6 @@ urlpatterns = [
     path('letters_of_resignation/add', views.nr_LetterOfResignation, name='letter_resignation_add_url'),
     path('letters_of_invite/', views.letter_of_invite, name='invite'),
     path('letters_of_invite/add', views.nr_LetterOfInvite, name='invite_add'),
-    path('letters_of_invite/<int:id>/edit', views.nr_LetterOfInvite, name='invite_add')
+    path('letters_of_invite/<int:id>/edit', views.nr_LetterOfInvite, name='invite_add'),
+    path('orders_on_others/', views.order_other_matters, name='orders_on_others')
     ]
