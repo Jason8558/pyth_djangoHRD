@@ -15,6 +15,8 @@
     <th scope="col">Подразделение</th>
     <th scope="col">Дата начала работы</th>
     <th scope="col">Ответственный сотрудник</th>
+    <th scope="col"></th>
+
   </tr>
   </thead>
 
@@ -29,6 +31,7 @@
     <td>{{let.loi_department}}</td>
     <td>{{let.loi_dateOfInv|date:"d.m.Y"}}</td>
     <td>{{let.loi_res_officer}}</td>
+    <td><a class="btn btn-outline-warning" href="#">Изменить</a></td>
 </tr>
   {%endfor%}
 </table>

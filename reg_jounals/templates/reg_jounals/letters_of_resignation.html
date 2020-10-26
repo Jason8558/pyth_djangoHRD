@@ -15,6 +15,7 @@
     <th scope="col">Подразделение</th>
     <th scope="col">Дата увольнения</th>
     <th scope="col">Ответственный сотрудник</th>
+    <th scope="col"></th>
   </tr>
   </thead>
 
@@ -29,6 +30,7 @@
     <td>{{let.lor_departament}}</td>
     <td>{{let.lor_dateOfRes|date:"d.m.Y"}}</td>
     <td>{{let.lor_res_officer}}</td>
+    <td><a href="{% url 'letter_resignation_upd_url' id=let.id %}">Изменить</a></td>
 </tr>
   {%endfor%}
 </table>
