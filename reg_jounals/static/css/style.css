@@ -3,7 +3,7 @@
 }
 
 body {
-  background: #eaeaea !important;
+  background: #white !important;
 }
 
 html {
@@ -15,11 +15,14 @@ header {
 }
 
 .add_form {
-
+  display: grid;
+      grid-template-rows: repeat(5, 42px);
+      grid-template-columns: repeat(2, 50%);
+      grid-gap: 33px;
 }
 
 .add_form input {
-
+width: 100%;
 }
 
 .container_grid {
@@ -59,6 +62,16 @@ header {
 box-shadow: 0px 1px 3px 1px black;
 }
 
+.btn-add {
+  float: left;
+    width: 100%;
+}
+
+.btn-del {
+  margin-bottom: 5px;
+    width: 100%;
+}
+
 .btn-info {
   background: #2d3261 !important;
 }
@@ -78,7 +91,12 @@ header {
     border: solid 2px gray;
     background: white;
     box-shadow: 0 0 10px 1px black;
-    margin-top: 10px;
+    border-collapse: collapse;
+    margin: 18px auto;
+    border-radius: 6px !important;
+    border: none;
+    float: left;
+    width: 100%;
   }
 
   table th {

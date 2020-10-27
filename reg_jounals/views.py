@@ -65,7 +65,7 @@ def upd_LetterOfResignation(request, id):
         if request.method == "GET":
             letter = LetterOfResignation.objects.get(id__iexact=id)
             bound_form = LetterOfResignation_form(instance=letter)
-            return render(request, 'reg_jounals/LetterOfResignation_upd.html', context={'form':bound_form})
+            return render(request, 'reg_jounals/LetterOfResignation_upd.html', context={'form':bound_form, 'letter':letter})
         else:
             letter = LetterOfResignation.objects.get(id__iexact=id)
             bound_form = LetterOfResignation_form(request.POST, instance=letter)

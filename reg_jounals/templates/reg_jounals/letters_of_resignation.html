@@ -32,7 +32,7 @@
     <td>{{let.lor_dateOfRes|date:"d.m.Y"}}</td>
     <td>{{let.lor_res_officer}}</td>
     <td>{{let.lor_additionalData}}</td>
-    <td><a class="btn btn-outline-danger btn-sm" style="margin-left: 5px" href="{% url 'letter_resignation_upd_url' id=let.id %}">Изменить</a><a class="btn btn-outline-danger btn-sm" href="{% url 'letter_resignation_del_url' id=let.id %}">Удалить</a></td>
+    <td><a class="btn btn-outline-danger btn-sm btn-del"  href="{% url 'letter_resignation_upd_url' id=let.id %}">Изменить</a><a class=" btn-del btn btn-outline-danger btn-sm" href="{% url 'letter_resignation_del_url' id=let.id %}">Удалить</a></td>
 </tr>
   {%endfor%}
 </table>
