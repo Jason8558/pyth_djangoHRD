@@ -79,6 +79,7 @@ width: 100%;
 .navbar {
   background-color:  #785589 !important;
   color: white;
+  box-shadow: 0 3px 10px -2px black;
 }
 
 .button:hover {
