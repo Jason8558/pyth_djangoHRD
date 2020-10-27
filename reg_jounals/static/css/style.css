@@ -32,6 +32,10 @@ header {
 grid-gap: 27px;
 }
 
+.container {
+  margin-top: 10px;
+}
+
 
 
 .d-block {
@@ -53,6 +57,15 @@ header {
 text-align: center;
 
 box-shadow: 0px 1px 3px 1px black;
+}
+
+.btn-info {
+  background: #2d3261 !important;
+}
+
+.navbar {
+  background-color:  #785589 !important;
+  color: white;
 }
 
 .button:hover {

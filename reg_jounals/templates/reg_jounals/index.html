@@ -17,8 +17,10 @@
 </head>
 <body>
   <header>
-    <div class="container">
-      <h2>{%block header%}Журналы регистрации внутренней документации СУП{%endblock%}<span style="text-align: right; font-size: 14pt;"> {{ user.first_name }} <a class="btn btn-outline-danger" href="{% url 'logout'%}">выйти</a></span></h2>
+    <nav class="navbar navbar-light ">
+
+
+    <span class="navbar-brand mb-0 h1">{%block header%}Журналы регистрации внутренней документации СУП{%endblock%}</span><span style="text-align: right; float: right;font-size: 14pt;"> {{ user.first_name }} <a class="btn btn-outline-danger" href="{% url 'logout'%}">выйти</a></span>
       <h3 style="text-align: right;"></h3>
     </div>
   </header>

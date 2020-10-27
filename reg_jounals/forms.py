@@ -11,32 +11,26 @@ class LetterOfResignation_form(forms.ModelForm):
     'lor_employee',
     'lor_position',
     'lor_departament',
-    'lor_dateOfRes']
+    'lor_dateOfRes',
+    'lor_additionalData']
 
-    def save(self, user_):
+
+
+
+
+    def saveFirst(self, user_):
         new_letter = LetterOfResignation.objects.create(
         lor_date = self.cleaned_data['lor_date'],
         lor_employee = self.cleaned_data['lor_employee'],
         lor_position = self.cleaned_data['lor_position'],
         lor_departament = self.cleaned_data['lor_departament'],
         lor_dateOfRes = self.cleaned_data['lor_dateOfRes'],
+        lor_additionalData = self.cleaned_data['lor_additionalData'],
         lor_res_officer = user_
         )
 
         return new_letter
 
-    def update(self, id):
-        obj = LetterOfResignation.objects.get(id__iexact=id)
-        new_letter = obj.update(
-        lor_date = self.cleaned_data['lor_date'],
-        lor_employee = self.cleaned_data['lor_employee'],
-        lor_position = self.cleaned_data['lor_position'],
-        lor_departament = self.cleaned_data['lor_departament'],
-        lor_dateOfRes = self.cleaned_data['lor_dateOfRes'],
-
-        )
-
-        return new_letter
 
 
 

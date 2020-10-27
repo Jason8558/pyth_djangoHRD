@@ -52,7 +52,7 @@ def nr_LetterOfResignation(request):
             letter_form = LetterOfResignation_form(request.POST)
             if letter_form.is_valid():
                 user_ = request.user.first_name
-                letter_form.save(user_)
+                letter_form.saveFirst(user_)
                 return redirect('../letters_of_resignation/')
 
 
@@ -65,14 +65,21 @@ def upd_LetterOfResignation(request, id):
         if request.method == "GET":
             letter = LetterOfResignation.objects.get(id__iexact=id)
             bound_form = LetterOfResignation_form(instance=letter)
-            return render(request, 'reg_jounals/LetterOfResignation_add.html', context={'form':bound_form})
+            return render(request, 'reg_jounals/LetterOfResignation_upd.html', context={'form':bound_form})
         else:
             letter = LetterOfResignation.objects.get(id__iexact=id)
             bound_form = LetterOfResignation_form(request.POST, instance=letter)
             if bound_form.is_valid():
                 user_ = request.user.first_name
-                bound_form.update(id)
-                return redirect('../letters_of_resignation/')
+                new_obj = bound_form.save()
+                return redirect('/journals/letters_of_resignation')
+
+def del_LetterOfResignation(request, id):
+    if request.user.is_authenticated:
+        letter = LetterOfResignation.objects.get(id__iexact=id)
+        letter.delete()
+        return redirect('/journals/letters_of_resignation')
+
 
 
 
