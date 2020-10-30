@@ -3,6 +3,7 @@ from django.http import HttpResponse
 from .models import *
 from .forms import *
 from django.shortcuts import redirect
+from django.core.paginator import Paginator
 
 
 
@@ -40,7 +41,11 @@ def letter_of_resignation(request):
     if request.user.is_authenticated:
         letters = LetterOfResignation.objects.all()
         count = len(letters)
-        return render(request, 'reg_jounals/letters_of_resignation.html', context={'letters':letters, 'count':count})
+        p_letters = Paginator(letters, 4)
+        page_number = request.GET.get('page', 1)
+        page = p_letters.get_page(page_number)
+
+        return render(request, 'reg_jounals/letters_of_resignation.html', context={'letters':page, 'count':count})
     else:
         return render(request, 'reg_jounals/no_auth.html')
 

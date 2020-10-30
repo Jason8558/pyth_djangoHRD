@@ -3,7 +3,7 @@
 {%block title%}Заявления на увольнение{%endblock%}
 {%block header%} Журнал регистрации заявлений на увольнение. Всего: {{count}}. <a href="../">Назад</a> {%endblock%}
 {%block content%}
-<a class="btn btn-success btn-lg m-bottom " href="{%url 'letter_resignation_add_url' %}">Добавить</a>
+<a class="btn btn-success btn-lg m-bottom  btn-add" href="{%url 'letter_resignation_add_url' %}">Добавить</a>
 {% if letters %}
 <table>
   <thead class="thead-dark">
@@ -20,7 +20,7 @@
   </tr>
   </thead>
 
-  {%for let in letters%}
+  {%for let in letters.object_list%}
 
   <tr>
 
@@ -36,7 +36,42 @@
 </tr>
   {%endfor%}
 </table>
+
+
+
 {%else%}
 <h2>Записей нет</h2>
 {%endif%}
+
+<nav  class="paginator" aria-label="Page navigation example">
+  <ul class="pagination">
+    <li class="page-item">
+      <a class="page-link" href="#" aria-label="Previous">
+<span aria-hidden="true">&laquo;</span>
+      </a>
+    </li>
+{% for p in letters.paginator.page_range %}
+  {% if letters.number == p%}
+   <li class="page-item active"><a class="page-link" href="?page={{p}}">{{ p }}</a></li>
+   {%else%}
+        <li class="page-item"><a class="page-link" href="?page={{p}}">{{ p }}</a></li>
+    {%endif%}
+  {% endfor %}
+
+{%if letters.has_next%}
+    <li class="page-item">
+      <a class="page-link" href='?page={{letters.next_page_number}}' aria-label="Next">
+<span aria-hidden="true">&raquo;</span>
+      </a>
+    </li>
+  {%else%}
+  <li class="page-item disabled">
+    <a class="page-link" href='#' aria-disabled='true' aria-label="Next">
+      <span aria-hidden="true">&raquo;</span>
+    </a>
+  </li>
+  {%endif%}
+  </ul>
+</nav>
+
 {%endblock%}

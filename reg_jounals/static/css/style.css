@@ -132,3 +132,8 @@ width: 100%;
   table tr:last-child {
     border-bottom: none;
   }
+
+  .paginator {
+    width: 100%;
+    float: left;
+  }
