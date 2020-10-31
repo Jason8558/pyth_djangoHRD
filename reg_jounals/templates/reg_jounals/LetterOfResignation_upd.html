@@ -17,8 +17,8 @@
   {% endfor%}
 
   <input class="btn btn-success" type="submit" value="Сохранить" />
-  <a class="btn btn-outline-danger" href="{% url 'letter_resignation_del_url' id=letter.id%}">Удалить запись</a>
-  <a class="btn btn-outline-info" href="..">Отмена</a>
+  <a class="btn btn-outline-danger btn-upd" href="{% url 'letter_resignation_del_url' id=letter.id%}">Удалить запись</a>
+  <a class="btn btn-outline-info btn-upd" href="..">Отмена</a>
 </form>
 
 {%endblock%}
