@@ -16,8 +16,9 @@
   <p>{{field.label}}{{ field }}</p>
   {% endfor%}
 
-  <input class="btn btn-success" type="submit" value="Изменить" />
-  <a class="btn btn-outline-danger" href="..">Отмена</a>
+  <input class="btn btn-success" type="submit" value="Сохранить" />
+  <a class="btn btn-outline-danger" href="{% url 'letter_resignation_del_url' id=letter.id%}">Удалить запись</a>
+  <a class="btn btn-outline-info" href="..">Отмена</a>
 </form>
 
 {%endblock%}

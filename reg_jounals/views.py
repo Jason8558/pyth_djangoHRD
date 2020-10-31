@@ -41,7 +41,7 @@ def letter_of_resignation(request):
     if request.user.is_authenticated:
         letters = LetterOfResignation.objects.all()
         count = len(letters)
-        p_letters = Paginator(letters, 4)
+        p_letters = Paginator(letters, 10)
         page_number = request.GET.get('page', 1)
         page = p_letters.get_page(page_number)
 
@@ -116,3 +116,18 @@ def order_other_matters(request):
         return render(request, 'reg_jounals/orders_on_others.html', context={'orders':orders, 'count':count})
     else:
         return render(request, 'reg_jounals/no_auth.html')
+
+def nr_OrderOnOtherMatters(request):
+    if request.user.is_authenticated:
+        order_form = OrdersOnOtherMatters_form()
+        if request.method == "POST":
+            order_form =OrdersOnOtherMatters_form(request.POST)
+            if order_form.is_valid():
+                user_ = request.user.first_name
+                order_form.saveFirst(user_)
+                return redirect('../orders_on_others/')
+
+
+            else:
+                return render(request, 'reg_jounals/no_auth.html')
+        return render(request, 'reg_jounals/OrdersOnOtherMatters_add.html', context={'form':order_form})

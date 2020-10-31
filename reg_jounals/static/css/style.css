@@ -104,12 +104,20 @@ width: 100%;
     text-align: center;
   }
 
+  table .tr-header
+  {
+    background: #977390;
+
+  }
+
   table .tr-header:hover
   {
     background: white;
+    color: black;
   }
   table tr:hover {
-    background: cornflowerblue;
+    background: #785589;
+    color: white;
   }
 
 

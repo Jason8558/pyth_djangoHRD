@@ -31,40 +31,26 @@ class LetterOfResignation_form(forms.ModelForm):
 
         return new_letter
 
+class OrdersOnOtherMatters_form(forms.ModelForm):
+    class Meta:
+        model = OrdersOnOtherMatters
+        fields = ['oom_number',
+    'oom_date',
+    'oom_content']
+
+    def saveFirst(self, user_):
+        new_order = OrdersOnOtherMatters.objects.create(
+            oom_number = self.cleaned_data['oom_number'],
+            oom_date = self.cleaned_data['oom_date'],
+            oom_content = self.cleaned_data['oom_content'],
+            oom_res_officer = user_
+        )
+
+        return new_order
 
 
 
-# class  LetterOfResignation_form(forms.Form):
-#     lor_date = forms.DateField(label='Дата поступления заявления', help_text="Введите дату поступления заявления", input_formats=['%d.%M.%Y'])
-#
-#     lor_employee =  forms.CharField(label='Увольняемый сотрудник',max_length=100, help_text="Введите ФИО увольняемого сотрудника")
-#
-#     lor_position = forms.CharField(max_length=256, help_text="Введите должность увольняемого сотрудника", label="Должность")
-#
-#     lor_departament = forms.CharField(max_length=256, help_text="Введите подразделение увольняемого сотрудника", label="Подразделение")
-#
-#     lor_dateOfRes = forms.DateField(label='Дата увольнения', help_text="Введите дату увольнения сотрудника", input_formats=['%d.%M.%Y'])
-#
-#     class Meta:
-#         model = LetterOfResignation
-#         fields = ['id', 'lor_date',
-# 'lor_employee',
-# 'lor_position',
-# 'lor_departament',
-# 'lor_dateOfRes',
-# 'lor_res_officer' ]
-#
-#     def save(self, user_):
-#         new_letter = LetterOfResignation.objects.create(
-#         lor_date = self.cleaned_data['lor_date'],
-#         lor_employee = self.cleaned_data['lor_employee'],
-#         lor_position = self.cleaned_data['lor_position'],
-#         lor_departament = self.cleaned_data['lor_departament'],
-#         lor_dateOfRes = self.cleaned_data['lor_dateOfRes'],
-#         lor_res_officer = user_
-#         )
-#
-#         return new_letter
+
 
 class OutBoundDocument_form(forms.Form):
     doc_type = forms.CharField(label='Вид документа',max_length=100, help_text="Введите вид документа (письмо, справка, и.т.д)")
