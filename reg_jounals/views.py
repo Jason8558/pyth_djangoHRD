@@ -131,3 +131,23 @@ def nr_OrderOnOtherMatters(request):
             else:
                 return render(request, 'reg_jounals/no_auth.html')
         return render(request, 'reg_jounals/OrdersOnOtherMatters_add.html', context={'form':order_form})
+
+def upd_OrderOnOtherMatters(request, id):
+    if request.user.is_authenticated:
+        if request.method == "GET":
+            order = OrdersOnOtherMatters.objects.get(id__iexact=id)
+            bound_form = OrdersOnOtherMatters_form(instance=order)
+            return render(request, 'reg_jounals/OrdersOnOtherMatters_upd.html', context={'form':bound_form, 'order':order})
+        else:
+            order = OrdersOnOtherMatters.objects.get(id__iexact=id)
+            bound_form = OrdersOnOtherMatters_form(request.POST, instance=order)
+            if bound_form.is_valid():
+                user_ = request.user.first_name
+                new_obj = bound_form.save()
+                return redirect('/journals/orders_on_others')
+
+def del_OrderOnOtherMatters(request, id):
+    if request.user.is_authenticated:
+        order = OrdersOnOtherMatters.objects.get(id__iexact=id)
+        order.delete()
+        return redirect('/journals/orders_on_others')

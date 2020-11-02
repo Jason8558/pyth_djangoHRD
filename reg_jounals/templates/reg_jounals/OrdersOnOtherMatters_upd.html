@@ -1,0 +1,24 @@
+{% extends "reg_jounals\index.html" %}
+
+{%block title%}Добавить запись{% endblock %}
+{%block header%}Изменить запись - Приказ {{order.oom_number}} от {{order.oom_date}}{% endblock %}
+
+{%block content%}
+{% if form.errors%}
+
+<div class="alert alert-danger mt-5" role="alert">
+{{form.errors}}
+</div>
+{%endif%}
+<form class="add_form" action="" method="post">
+  {% csrf_token %}
+  {% for field in form %}
+  <p>{{field.label}}{{ field }}</p>
+  {% endfor%}
+
+  <input class="btn btn-success" type="submit" value="Сохранить" />
+  <a class="btn btn-outline-danger btn-upd" href="{% url 'orders_on_others_del_url' id=order.id%}">Удалить запись</a>
+  <a class="btn btn-outline-info btn-upd" href="..">Отмена</a>
+</form>
+
+{%endblock%}
