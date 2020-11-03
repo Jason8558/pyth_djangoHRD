@@ -1,9 +1,9 @@
 {%extends "reg_jounals/index.html" %}
 
 {%block title%}Исходящие документы{%endblock%}
-{%block header%} Журнал регистрации исходящих документов. Всего: {{count}}. <a href="../">Назад</a> {%endblock%}
+{%block header%}  <a class="btn btn-outline-info" href="../"> < назад</a>Журнал регистрации исходящих документов. Всего: {{count}}. {%endblock%}
 {%block content%}
-<a class="btn btn-success btn-lg m-bottom " href="{% url 'doc_outbound_add_url' %}">Добавить</a>
+<a class="btn btn-success btn-lg m-bottom btn-add " href="{% url 'doc_outbound_add_url' %}">Добавить</a>
 {% if documents %}
 <table>
   <thead class="thead-dark">
@@ -20,7 +20,7 @@
 
   {%for doc in documents%}
 
-  <tr>
+  <tr onclick="return location.href = '{% url 'doc_outbound_upd_url' id=doc.id%}' ">
 
     <td>{{doc.doc_date|date:"d.m.Y"}}</td>
     <td>{{doc.id}}</td>
@@ -31,6 +31,38 @@
 </tr>
   {%endfor%}
 </table>
+
+<nav  class="paginator" aria-label="Page navigation example">
+  <ul class="pagination">
+    <li class="page-item">
+      <a class="page-link" href="#" aria-label="Previous">
+<span aria-hidden="true">&laquo;</span>
+      </a>
+    </li>
+{% for p in documents.paginator.page_range %}
+  {% if documents.number == p%}
+   <li class="page-item active"><a class="page-link" href="?page={{p}}">{{ p }}</a></li>
+   {%else%}
+        <li class="page-item"><a class="page-link" href="?page={{p}}">{{ p }}</a></li>
+    {%endif%}
+  {% endfor %}
+
+{%if documents.has_next%}
+    <li class="page-item">
+      <a class="page-link" href='?page={{documents.next_page_number}}' aria-label="Next">
+<span aria-hidden="true">&raquo;</span>
+      </a>
+    </li>
+  {%else%}
+  <li class="page-item disabled">
+    <a class="page-link" href='#' aria-disabled='true' aria-label="Next">
+      <span aria-hidden="true">&raquo;</span>
+    </a>
+  </li>
+  {%endif%}
+  </ul>
+</nav>
+
 {%else%}
 <h2>Записей нет</h2>
 {%endif%}

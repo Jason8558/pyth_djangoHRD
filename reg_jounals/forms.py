@@ -50,23 +50,22 @@ class OrdersOnOtherMatters_form(forms.ModelForm):
 
 
 
+class OutBoundDocument_form(forms.ModelForm):
+    class Meta:
+        model = OutBoundDocument
+        fields = ['doc_type',
+    'doc_date',
+    'doc_dest',
+    'doc_additionalData']
 
-
-class OutBoundDocument_form(forms.Form):
-    doc_type = forms.CharField(label='Вид документа',max_length=100, help_text="Введите вид документа (письмо, справка, и.т.д)")
-    doc_date = forms.DateField(label='Дата документа',help_text="Введите дату документа", input_formats=['%d.%M.%Y'])
-    doc_dest = forms.CharField(label='Адресат',max_length=256, help_text="Введите адресата")
-    doc_additionalData = forms.CharField(label='Содержание', help_text="Введите содержание",widget=forms.Textarea)
-
-
-    def save(self, user_):
+    def saveFirst(self, user_):
         new_document = OutBoundDocument.objects.create(
-            doc_type = self.cleaned_data['doc_type'],
-            doc_date = self.cleaned_data['doc_date'],
-            doc_dest = self.cleaned_data['doc_dest'],
-            doc_additionalData = self.cleaned_data['doc_additionalData'],
-            doc_res_officer = user_
-)
+        doc_type = self.cleaned_data['doc_type'],
+        doc_date = self.cleaned_data['doc_date'],
+        doc_dest = self.cleaned_data['doc_dest'],
+        doc_additionalData = self.cleaned_data['doc_additionalData'],
+        doc_res_officer = user_
+        )
 
         return new_document
 

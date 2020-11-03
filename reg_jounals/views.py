@@ -15,11 +15,14 @@ def outbound_docs(request):
     if request.user.is_authenticated:
         auth = request.user.is_authenticated
         documents = OutBoundDocument.objects.all()
+        p_documents = Paginator(documents, 10)
+        page_number = request.GET.get('page', 1)
+        page = p_documents.get_page(page_number)
         count = len(documents)
         method = str(request.method)
         usr = str(request.user.first_name)
         i = 0
-        return render(request, 'reg_jounals/outbound_docs.html', context={'documents':documents, 'count':count, 'auth':auth, 'i':i})
+        return render(request, 'reg_jounals/outbound_docs.html', context={'documents':page, 'count':count, 'auth':auth, 'i':i})
     else:
         return render(request, 'reg_jounals/no_auth.html')
 
@@ -31,11 +34,26 @@ def nr_OutBoundDocument(request):
 
             doc_form.doc_res_officer = user_
             print(str(doc_form.doc_res_officer))
-            doc_form.save(user_)
+            doc_form.saveFirst(user_)
             return redirect('../outbound_docs/')
     else:
         doc_form = OutBoundDocument_form()
     return render(request, 'reg_jounals/outboundDocs_add.html', {'form':doc_form})
+
+def upd_OutBoundDocument(request, id):
+    if request.user.is_authenticated:
+        if request.method == "GET":
+            document = OutBoundDocument.objects.get(id__iexact=id)
+            bound_form = OutBoundDocument_form(instance=document)
+            return render(request, 'reg_jounals/outboundDocs_upd.html', context={'form':bound_form, 'document':document})
+        else:
+            document = OutBoundDocument.objects.get(id__iexact=id)
+            bound_form =OutBoundDocument_form(request.POST, instance=document)
+            if bound_form.is_valid():
+                user_ = request.user.first_name
+                new_obj = bound_form.save()
+                return redirect('/journals/outbound_docs/')
+
 
 def letter_of_resignation(request):
     if request.user.is_authenticated:
@@ -112,8 +130,11 @@ def nr_LetterOfInvite(request):
 def order_other_matters(request):
     if request.user.is_authenticated:
         orders = OrdersOnOtherMatters.objects.all()
+        p_orders = Paginator(orders, 10)
+        page_number = request.GET.get('page', 1)
+        page = p_orders.get_page(page_number)
         count = len(orders)
-        return render(request, 'reg_jounals/orders_on_others.html', context={'orders':orders, 'count':count})
+        return render(request, 'reg_jounals/orders_on_others.html', context={'orders':page, 'count':count})
     else:
         return render(request, 'reg_jounals/no_auth.html')
 
