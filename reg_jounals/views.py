@@ -5,17 +5,17 @@ from .forms import *
 from django.shortcuts import redirect
 from django.core.paginator import Paginator
 
-
+page_count = 15
 
 def index(request):
     if request.user.is_authenticated:
         return render(request, 'reg_jounals/index.html')
-    else: return render(request, 'reg_jounals/no_auth.html')
+    else: return redirect('/accounts/login/')
 def outbound_docs(request):
     if request.user.is_authenticated:
         auth = request.user.is_authenticated
         documents = OutBoundDocument.objects.all()
-        p_documents = Paginator(documents, 10)
+        p_documents = Paginator(documents, 15)
         page_number = request.GET.get('page', 1)
         page = p_documents.get_page(page_number)
         count = len(documents)
@@ -54,12 +54,19 @@ def upd_OutBoundDocument(request, id):
                 new_obj = bound_form.save()
                 return redirect('/journals/outbound_docs/')
 
+def del_OutBoundDocument(request, id):
+    if request.user.is_authenticated:
+        document = OutBoundDocument.objects.get(id__iexact=id)
+        document.delete()
+        return redirect('/journals/outbound_docs/')
+
+
 
 def letter_of_resignation(request):
     if request.user.is_authenticated:
         letters = LetterOfResignation.objects.all()
         count = len(letters)
-        p_letters = Paginator(letters, 10)
+        p_letters = Paginator(letters, page_count)
         page_number = request.GET.get('page', 1)
         page = p_letters.get_page(page_number)
 
@@ -130,7 +137,7 @@ def nr_LetterOfInvite(request):
 def order_other_matters(request):
     if request.user.is_authenticated:
         orders = OrdersOnOtherMatters.objects.all()
-        p_orders = Paginator(orders, 10)
+        p_orders = Paginator(orders, page_count)
         page_number = request.GET.get('page', 1)
         page = p_orders.get_page(page_number)
         count = len(orders)

@@ -31,7 +31,13 @@ width: 30%;
 }
 
 #central-panel {
-background-image: linear-gradient( 109.6deg,  rgba(48,207,208,1) 11.2%, rgba(51,8,103,1) 92.5% );
+  width: 300px;
+  height: 300px;
+  background: #2D3261;
+  box-shadow: 0 0 19px 6px #3F51B5;
+  margin: 13% auto !important;
+  border-radius: 6px;
+  padding: 10px;
 }
 
 #central-panel form {

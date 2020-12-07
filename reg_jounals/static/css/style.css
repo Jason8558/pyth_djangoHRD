@@ -134,7 +134,7 @@ header {
 
   table .tr-header:hover
   {
-    background: white;
+    background: #977390;
     color: black;
   }
   table tr:hover {
@@ -171,6 +171,15 @@ header {
   .paginator {
     width: 100%;
     float: left;
+  }
+
+  .page-item.active .page-link {
+    background: #785589 !important;
+    border-color: black !important;
+  }
+
+  .page-link:focus {
+    box-shadow: 0 0 0 0.2rem rgb(255 166 238) !important;
   }
 @media (max-width: 1088px) {
     .container {

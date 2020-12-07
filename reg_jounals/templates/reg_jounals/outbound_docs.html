@@ -3,7 +3,7 @@
 {%block title%}Исходящие документы{%endblock%}
 {%block header%}  <a class="btn btn-outline-info" href="../"> < назад</a>Журнал регистрации исходящих документов. Всего: {{count}}. {%endblock%}
 {%block content%}
-<a class="btn btn-success btn-lg m-bottom btn-add " href="{% url 'doc_outbound_add_url' %}">Добавить</a>
+<a class="btn btn-success btn-lg m-bottom btn-add " href="{% url 'doc_outbound_add_url' %}"> + Добавить</a>
 {% if documents %}
 <table>
   <thead class="thead-dark">
