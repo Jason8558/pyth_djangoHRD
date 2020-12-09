@@ -1,0 +1,39 @@
+{% extends "reg_jounals\index.html" %}
+
+{%block title%}Добавить запись{% endblock %}
+{%block header%}Добавить запись - Приказ на отпуск{% endblock %}
+
+{%block content%}
+{% if form.errors%}
+
+<div class="alert alert-danger mt-5" role="alert">
+{{form.errors}}
+</div>
+{%endif%}
+<form class="add_form vacation" action="" method="post">
+  {% csrf_token %}
+  {% for field in form %}
+  <p>{{field.label}}{{ field }}</p>
+  {% endfor%}
+
+<div class="add_list">
+  <label for="emp_name">Имя</label>
+  <input type="text" name="emp_name"  value="">
+  <label for="emp_dep">Подразделение</label>
+  <input type="text" name="emp_dep" value="">
+  <label for="emp_dur">Период</label>
+  <input type="text" name="emp_dur">
+  <label for="emp_days">Кол-во дней</label>
+  <input type="text" name="emp_days">
+  <label for="emp_vacType">Вид отпуска</label>
+  <input type="text" name="emp_vacType">
+  <label for="comm">Примечание</label>
+  <input type="text" name="comm">
+  <input type="button" class="btn btn-success" name="" value="Добавить в список">
+</div>
+
+  <input class="btn btn-success" type="submit" value="Добавить" />
+  <a class="btn btn-outline-danger" href=".">Отмена</a>
+</form>
+
+{%endblock%}

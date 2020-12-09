@@ -14,8 +14,13 @@ urlpatterns = [
     path('letters_of_invite/', views.letter_of_invite, name='invite'),
     path('letters_of_invite/add', views.nr_LetterOfInvite, name='invite_add'),
     path('letters_of_invite/<int:id>/edit', views.upd_LetterOfInvite, name='invite_upd_url'),
+    path('letters_of_invite/<int:id>/del', views.del_LetterOfInvite, name='invite_del_url'),
     path('orders_on_others/', views.order_other_matters, name='orders_on_others'),
     path('orders_on_others/add', views.nr_OrderOnOtherMatters, name='orders_on_others_add_url'),
     path('orders_on_others/<int:id>/edit', views.upd_OrderOnOtherMatters, name='orders_on_others_upd_url'),
-    path('orders_on_others/<int:id>/del', views.del_OrderOnOtherMatters, name='orders_on_others_del_url')
+    path('orders_on_others/<int:id>/del', views.del_OrderOnOtherMatters, name='orders_on_others_del_url'),
+    path('orders_on_vacation/', views.order_on_vacation, name='orders_on_vacation'),
+    path('orders_on_vacation/add', views.nr_OrderOnVacation, name='orders_on_vacation_add_url'),
+    path('orders_on_vacation/<int:id>/upd', views.upd_OrderOnVacation, name='orders_on_vacation_upd_url'),
+    path('orders_on_vacation/<int:id>/del', views.del_OrderOnVacation, name='orders_on_vacation_del_url')
     ]

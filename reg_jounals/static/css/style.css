@@ -23,6 +23,11 @@ header {
   padding: 9px;
 }
 
+.add_list {
+  display: grid;
+  grid-template-columns: repeat(6, 100px)
+}
+
 .add_form input {width: 94%;}
 
 .container_grid {

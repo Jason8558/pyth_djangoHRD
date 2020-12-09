@@ -1,0 +1,65 @@
+{%extends "reg_jounals/index.html" %}
+
+{%block title%}Приказы на отпуск{%endblock%}
+{%block header%} <a class="btn btn-outline-info" href="../"> < назад</a> Журнал регистрации приказов на отпуск. Всего: {{count}}.  {%endblock%}
+{%block content%}
+<a class="btn btn-success btn-lg m-bottom btn-add " href="{%url 'orders_on_vacation_add_url'%}"> + Добавить</a>
+{% if orders %}
+<table>
+  <thead class="thead-dark">
+  <tr class="tr-header">
+
+    <th scope="col">Дата приказа</th>
+    <th scope="col">Номер</th>
+    <th scope="col">Ответственный сотрудник</th>
+
+
+  </tr>
+  </thead>
+
+  {%for order in orders%}
+
+<tr onclick="return location.href = '{% url 'orders_on_vacation_upd_url' id=order.id%}' ">
+
+    <td>{{order.oov_date|date:"d.m.Y"}}</td>
+    <td>{{order.oov_number}}</td>
+    <td>{{order.oov_res_officer}}</td>
+
+</tr>
+  {%endfor%}
+</table>
+<nav  class="paginator" aria-label="Page navigation example">
+  <ul class="pagination">
+    <li class="page-item">
+      <a class="page-link" href="#" aria-label="Previous">
+<span aria-hidden="true">&laquo;</span>
+      </a>
+    </li>
+{% for p in orders.paginator.page_range %}
+  {% if orders.number == p%}
+   <li class="page-item active"><a class="page-link" href="?page={{p}}">{{ p }}</a></li>
+   {%else%}
+        <li class="page-item"><a class="page-link" href="?page={{p}}">{{ p }}</a></li>
+    {%endif%}
+  {% endfor %}
+
+{%if orders.has_next%}
+    <li class="page-item">
+      <a class="page-link" href='?page={{orders.next_page_number}}' aria-label="Next">
+<span aria-hidden="true">&raquo;</span>
+      </a>
+    </li>
+  {%else%}
+  <li class="page-item disabled">
+    <a class="page-link" href='#' aria-disabled='true' aria-label="Next">
+      <span aria-hidden="true">&raquo;</span>
+    </a>
+  </li>
+  {%endif%}
+  </ul>
+</nav>
+
+{%else%}
+<h2>Записей нет</h2>
+{%endif%}
+{%endblock%}

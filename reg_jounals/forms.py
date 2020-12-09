@@ -48,6 +48,23 @@ class OrdersOnOtherMatters_form(forms.ModelForm):
 
         return new_order
 
+class OrdersOnVacation_form(forms.ModelForm):
+    class Meta:
+        model = OrdersOnVacation
+        fields = ['oov_number',
+    'oov_date',
+    'oov_empList']
+
+    def saveFirst(self, user_):
+        new_order = OrdersOnVacation.objects.create(
+            oov_number = self.cleaned_data['oov_number'],
+            oov_date = self.cleaned_data['oov_date'],
+            oov_empList = self.cleaned_data['oov_empList'],
+            oov_res_officer = user_
+        )
+
+        return new_order
+
 
 
 class OutBoundDocument_form(forms.ModelForm):
@@ -107,20 +124,3 @@ class LetterOfInvite_form(forms.ModelForm):
         )
 
         return new_letter
-
-    # loi_date = forms.DateField(label='Дата поступления заявления',help_text="Введите дату поступления заявления", input_formats=['%d.%M.%Y'])
-    # loi_employee = forms.CharField(label='ФИО принимаемого',max_length=256, help_text="Введите ФИО принимаемого сотрудника")
-    # loi_position = forms.CharField(label='Должность принимаемого',max_length=256, help_text="Введите должность принимаемого сотрудника")
-    # loi_department = forms.CharField(label='Подразделение', max_length=256, help_text="Введите подразделение, куда принимается сотрудник")
-    # loi_dateOfInv = forms.DateField(required=False, label='Дата начала работы (необязательно)',help_text="Введите дату начала работы сотрудника", input_formats=['%d.%M.%Y'])
-    #
-    # def save(self, user_):
-    #     new_letter = LetterOfInvite.objects.create(
-    #         loi_date = self.cleaned_data['loi_date'],
-    #         loi_employee = self.cleaned_data['loi_employee'],
-    #         loi_position = self.cleaned_data['loi_position'],
-    #         loi_department = self.cleaned_data['loi_department'],
-    #         loi_dateOfInv = self.cleaned_data['loi_dateOfInv'],
-    #         loi_res_officer = user_
-    #     )
-    #     return new_letter

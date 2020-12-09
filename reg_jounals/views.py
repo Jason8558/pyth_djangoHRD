@@ -117,7 +117,10 @@ def letter_of_invite(request):
         if request.user.is_authenticated:
             letters = LetterOfInvite.objects.all()
             count = len(letters)
-            return render(request, 'reg_jounals/letters_of_invite.html', context={'letters':letters, 'count':count})
+            p_letters = Paginator(letters, page_count)
+            page_number = request.GET.get('page', 1)
+            page = p_letters.get_page(page_number)
+            return render(request, 'reg_jounals/letters_of_invite.html', context={'letters':page, 'count':count})
         else:
             return render(request, 'reg_jounals/no_auth.html')
 
@@ -142,11 +145,17 @@ def nr_LetterOfInvite(request):
             letter_form = LetterOfInvite_form(request.POST)
             if letter_form.is_valid():
                 user_ = request.user.first_name
-                letter_form.save(user_)
+                letter_form.saveFirst(user_)
                 return redirect('../letters_of_invite/')
         return render(request, 'reg_jounals/LetterOfInvite_add.html', context={'form':letter_form})
     else:
         return render(request, 'reg_jounals/no_auth.html')
+
+def del_LetterOfInvite(request, id):
+    if request.user.is_authenticated:
+        letter = LetterOfInvite.objects.get(id__iexact=id)
+        letter.delete()
+        return redirect('/journals/letters_of_invite')
 
 def order_other_matters(request):
     if request.user.is_authenticated:
@@ -193,3 +202,49 @@ def del_OrderOnOtherMatters(request, id):
         order = OrdersOnOtherMatters.objects.get(id__iexact=id)
         order.delete()
         return redirect('/journals/orders_on_others')
+
+def order_on_vacation(request):
+    if request.user.is_authenticated:
+        orders =OrdersOnVacation.objects.all()
+        p_orders = Paginator(orders, page_count)
+        page_number = request.GET.get('page', 1)
+        page = p_orders.get_page(page_number)
+        count = len(orders)
+        return render(request, 'reg_jounals/orders_on_vacation.html', context={'orders':page, 'count':count})
+    else:
+        return render(request, 'reg_jounals/no_auth.html')
+
+def nr_OrderOnVacation(request):
+    if request.user.is_authenticated:
+        order_form = OrdersOnVacation_form()
+        if request.method == "POST":
+            order_form =OrdersOnVacation_form(request.POST)
+            if order_form.is_valid():
+                user_ = request.user.first_name
+                order_form.saveFirst(user_)
+                return redirect('../orders_on_vacation/')
+
+
+            else:
+                return render(request, 'reg_jounals/no_auth.html')
+        return render(request, 'reg_jounals/OrdersOnVacation_add.html', context={'form':order_form})
+
+def upd_OrderOnVacation(request, id):
+    if request.user.is_authenticated:
+        if request.method == "GET":
+            order = OrdersOnVacation.objects.get(id__iexact=id)
+            bound_form = OrdersOnVacation_form(instance=order)
+            return render(request, 'reg_jounals/OrdersOnVacation_upd.html', context={'form':bound_form, 'order':order})
+        else:
+            order = OrdersOnVacation.objects.get(id__iexact=id)
+            bound_form = OrdersOnVacation_form(request.POST, instance=order)
+            if bound_form.is_valid():
+                user_ = request.user.first_name
+                new_obj = bound_form.save()
+                return redirect('/journals/orders_on_vacation')
+
+def del_OrderOnVacation(request, id):
+    if request.user.is_authenticated:
+        order = OrdersOnVacation.objects.get(id__iexact=id)
+        order.delete()
+        return redirect('/journals/orders_on_vacation')

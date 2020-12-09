@@ -60,3 +60,14 @@ class OrdersOnOtherMatters(models.Model):
         ordering = ["id"]
         verbose_name = 'Приказ по другим вопросам'
         verbose_name_plural = 'Приказы по другим вопросам'
+
+class OrdersOnVacation(models.Model):
+    oov_number = models.CharField(max_length=8, help_text="Введите номер приказа", verbose_name="Номер приказа", db_index=True)
+    oov_date = models.DateField(help_text="Введите дату приказа", verbose_name="Дата приказа", db_index=True)
+    oov_empList = models.TextField(help_text="Введите сотрудников в приказ", verbose_name="Список сотрудников в приказе")
+    oov_res_officer = models.CharField(blank=True, editable=False,  max_length=256, help_text="Сотрудник, который внес документ в систему ", verbose_name='Ответственный сотрудник')
+
+    class Meta:
+        ordering = ["id"]
+        verbose_name = 'Приказ на отпуск'
+        verbose_name_plural = 'Приказы на отпуск'

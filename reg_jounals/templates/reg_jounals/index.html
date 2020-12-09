@@ -28,7 +28,7 @@
 <div class="container">
     {%block content%}
     <div class="container_grid">
-      <a href="#" class="btn btn-info disabled" aria-disabled="true">Отпуска</a>
+      <a href="{% url 'orders_on_vacation' %}" class="btn btn-info" >Отпуска</a>
       <a href="{% url 'orders_on_others' %}" class="btn btn-info">Приказы по другим вопросам</a>
       <a href="{%url 'outbound'%}" class="btn btn-info">Исходящие документы</a>
       <a href="#" class="btn btn-info disabled" aria-disabled="true">Командировки</a>

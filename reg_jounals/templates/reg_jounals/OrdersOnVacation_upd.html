@@ -1,7 +1,7 @@
 {% extends "reg_jounals\index.html" %}
 
 {%block title%}Изменить запись{% endblock %}
-{%block header%}Изменить запись - Заявление на прием № {{letter.id}} от {{letter.loi_date}}{% endblock %}
+{%block header%}Изменить запись - Приказ на отпуск № {{order.oov_number}} от {{order.oov_date}}{% endblock %}
 
 {%block content%}
 {% if form.errors%}
@@ -17,7 +17,7 @@
   {% endfor%}
 
   <input class="btn btn-success" type="submit" value="Сохранить" />
-  <a class="btn btn-outline-danger btn-upd" href="{% url 'invite_del_url' id=letter.id%}">Удалить запись</a>
+  <a class="btn btn-outline-danger btn-upd" href="{% url 'orders_on_vacation_del_url' id=order.id%}">Удалить запись</a>
   <a class="btn btn-outline-info btn-upd" href="..">Отмена</a>
 </form>
 
