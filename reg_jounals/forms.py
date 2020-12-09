@@ -83,20 +83,44 @@ class UserLoginForm(AuthenticationForm):
         }
 ))
 
-class LetterOfInvite_form(forms.Form):
-    loi_date = forms.DateField(label='Дата поступления заявления',help_text="Введите дату поступления заявления", input_formats=['%d.%M.%Y'])
-    loi_employee = forms.CharField(label='ФИО принимаемого',max_length=256, help_text="Введите ФИО принимаемого сотрудника")
-    loi_position = forms.CharField(label='Должность принимаемого',max_length=256, help_text="Введите должность принимаемого сотрудника")
-    loi_department = forms.CharField(label='Подразделение', max_length=256, help_text="Введите подразделение, куда принимается сотрудник")
-    loi_dateOfInv = forms.DateField(required=False, label='Дата начала работы (необязательно)',help_text="Введите дату начала работы сотрудника", input_formats=['%d.%M.%Y'])
+class LetterOfInvite_form(forms.ModelForm):
+    class Meta:
+        model = LetterOfInvite
+        fields = ['id', 'loi_date',
+    'loi_employee',
+    'loi_position',
+    'loi_department',
+    'loi_dateOfInv']
 
-    def save(self, user_):
+
+
+
+
+    def saveFirst(self, user_):
         new_letter = LetterOfInvite.objects.create(
-            loi_date = self.cleaned_data['loi_date'],
-            loi_employee = self.cleaned_data['loi_employee'],
-            loi_position = self.cleaned_data['loi_position'],
-            loi_department = self.cleaned_data['loi_department'],
-            loi_dateOfInv = self.cleaned_data['loi_dateOfInv'],
-            loi_res_officer = user_
+        loi_date = self.cleaned_data['loi_date'],
+        loi_employee = self.cleaned_data['loi_employee'],
+        loi_position = self.cleaned_data['loi_position'],
+        loi_department = self.cleaned_data['loi_department'],
+        loi_dateOfInv = self.cleaned_data['loi_dateOfInv'],
+        loi_res_officer = user_
         )
+
         return new_letter
+
+    # loi_date = forms.DateField(label='Дата поступления заявления',help_text="Введите дату поступления заявления", input_formats=['%d.%M.%Y'])
+    # loi_employee = forms.CharField(label='ФИО принимаемого',max_length=256, help_text="Введите ФИО принимаемого сотрудника")
+    # loi_position = forms.CharField(label='Должность принимаемого',max_length=256, help_text="Введите должность принимаемого сотрудника")
+    # loi_department = forms.CharField(label='Подразделение', max_length=256, help_text="Введите подразделение, куда принимается сотрудник")
+    # loi_dateOfInv = forms.DateField(required=False, label='Дата начала работы (необязательно)',help_text="Введите дату начала работы сотрудника", input_formats=['%d.%M.%Y'])
+    #
+    # def save(self, user_):
+    #     new_letter = LetterOfInvite.objects.create(
+    #         loi_date = self.cleaned_data['loi_date'],
+    #         loi_employee = self.cleaned_data['loi_employee'],
+    #         loi_position = self.cleaned_data['loi_position'],
+    #         loi_department = self.cleaned_data['loi_department'],
+    #         loi_dateOfInv = self.cleaned_data['loi_dateOfInv'],
+    #         loi_res_officer = user_
+    #     )
+    #     return new_letter

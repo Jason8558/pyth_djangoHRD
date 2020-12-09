@@ -121,6 +121,20 @@ def letter_of_invite(request):
         else:
             return render(request, 'reg_jounals/no_auth.html')
 
+def upd_LetterOfInvite(request, id):
+    if request.user.is_authenticated:
+        if request.method == "GET":
+            letter = LetterOfInvite.objects.get(id__iexact=id)
+            bound_form = LetterOfInvite_form(instance=letter)
+            return render(request, 'reg_jounals/LetterOfInvite_upd.html', context={'form':bound_form, 'letter':letter})
+        else:
+            letter = LetterOfInvite.objects.get(id__iexact=id)
+            bound_form = LetterOfInvite_form(request.POST, instance=letter)
+            if bound_form.is_valid():
+                user_ = request.user.first_name
+                new_obj = bound_form.save()
+                return redirect('/journals/letters_of_invite')
+
 def nr_LetterOfInvite(request):
     if request.user.is_authenticated:
         letter_form = LetterOfInvite_form()

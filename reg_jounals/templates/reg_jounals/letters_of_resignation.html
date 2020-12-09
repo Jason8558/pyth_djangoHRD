@@ -1,7 +1,7 @@
 {%extends "reg_jounals/index.html" %}
 
 {%block title%}Заявления на увольнение{%endblock%}
-{%block header%} Журнал регистрации заявлений на увольнение. Всего: {{count}}. <a href="../">Назад</a> {%endblock%}
+{%block header%}<a class="btn btn-outline-info" href="../"> < назад</a> Журнал регистрации заявлений на увольнение. Всего: {{count}}.  {%endblock%}
 {%block content%}
 <a class="btn btn-success btn-lg m-bottom  btn-add" href="{%url 'letter_resignation_add_url' %}"> + Добавить</a>
 {% if letters %}
