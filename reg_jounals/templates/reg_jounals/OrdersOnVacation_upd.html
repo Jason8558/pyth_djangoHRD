@@ -1,6 +1,7 @@
 {% extends "reg_jounals\index.html" %}
-
+{%load static%}
 {%block title%}Изменить запись{% endblock %}
+{%block addstyles%}<link rel="stylesheet" href="{% static 'css/VacListUpd.css'%}">{%endblock%}
 {%block header%}Изменить запись - Приказ на отпуск № {{order.oov_number}} от {{order.oov_date}}{% endblock %}
 
 {%block content%}
@@ -10,11 +11,23 @@
 {{form.errors}}
 </div>
 {%endif%}
-<form class="add_form" action="" method="post">
+<form class="add_form vac_upd" action="" method="post">
   {% csrf_token %}
-  {% for field in form %}
-  <p>{{field.label}}{{ field }}</p>
-  {% endfor%}
+<div class="date">
+    {{form.oov_date.label}}
+    {{form.oov_date}}
+</div>
+
+<div class="num">
+    {{form.oov_number.label}}
+    {{form.oov_number}}
+</div>
+
+<div class="vac_empList">
+  {{form.oov_empList.label}}
+  {{form.oov_empList}}
+</div>
+
 
   <input class="btn btn-success" type="submit" value="Сохранить" />
   <a class="btn btn-outline-danger btn-upd" href="{% url 'orders_on_vacation_del_url' id=order.id%}">Удалить запись</a>

@@ -217,6 +217,7 @@ def order_on_vacation(request):
 def nr_OrderOnVacation(request):
     if request.user.is_authenticated:
         order_form = OrdersOnVacation_form()
+        depts = Departments.objects.all()
         if request.method == "POST":
             order_form =OrdersOnVacation_form(request.POST)
             if order_form.is_valid():
@@ -227,7 +228,7 @@ def nr_OrderOnVacation(request):
 
             else:
                 return render(request, 'reg_jounals/no_auth.html')
-        return render(request, 'reg_jounals/OrdersOnVacation_add.html', context={'form':order_form})
+        return render(request, 'reg_jounals/OrdersOnVacation_add.html', context={'form':order_form, 'depts':depts})
 
 def upd_OrderOnVacation(request, id):
     if request.user.is_authenticated:
@@ -248,3 +249,31 @@ def del_OrderOnVacation(request, id):
         order = OrdersOnVacation.objects.get(id__iexact=id)
         order.delete()
         return redirect('/journals/orders_on_vacation')
+
+
+def order_of_BTrip(request):
+    if request.user.is_authenticated:
+        orders = OrdersOfBTrip.objects.all()
+        p_orders = Paginator(orders, page_count)
+        page_number = request.GET.get('page', 1)
+        page = p_orders.get_page(page_number)
+        count = len(orders)
+        return render(request, 'reg_jounals/orders_of_BTrip.html', context={'orders':page, 'count':count})
+    else:
+        return render(request, 'reg_jounals/no_auth.html')
+
+def nr_OrderOfBTrip(request):
+    if request.user.is_authenticated:
+        order_form = OrdersOfBTrip_form()
+        depts = Departments.objects.all()
+        if request.method == "POST":
+            order_form =OrdersOfBTrip_form(request.POST)
+            if order_form.is_valid():
+                user_ = request.user.first_name
+                order_form.saveFirst(user_)
+                return redirect('../orders_of_BTrip/')
+
+
+            else:
+                return render(request, 'reg_jounals/no_auth.html')
+        return render(request, 'reg_jounals/OrdersOfBTrip_add.html', context={'form':order_form})

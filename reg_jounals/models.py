@@ -71,3 +71,34 @@ class OrdersOnVacation(models.Model):
         ordering = ["id"]
         verbose_name = 'Приказ на отпуск'
         verbose_name_plural = 'Приказы на отпуск'
+
+class OrdersOfBTrip(models.Model):
+    bt_number = models.CharField(max_length=5, help_text="Введите номер приказа", verbose_name="Номер приказа", db_index=True)
+    bt_date = models.DateField(help_text="Введите дату приказа", verbose_name="Дата приказа", db_index=True)
+    bt_dep = models.ForeignKey('Departments', on_delete=models.CASCADE, verbose_name="Подразделение ", default="1")
+    bt_place = models.CharField(max_length=256, help_text="Введите место командировки", verbose_name="Место командировки", db_index=True)
+    bt_emloyer = models.CharField(max_length=256, help_text="Введите ФИО сотрудника", verbose_name="ФИО сотрудника", db_index=True)
+    bt_res_officer = models.CharField(blank=True, editable=False,  max_length=256, help_text="Сотрудник, который внес документ в систему ", verbose_name='Ответственный сотрудник')
+
+    class Meta:
+        ordering = ["bt_number"]
+        verbose_name = 'Приказ о командировке'
+        verbose_name_plural = 'Приказы о командировках'
+
+    def __str__(self):
+        doc_fullname = "Приказ о командировке" + ' №' + str(self.bt_number) + ' от ' + str(self.bt_date)
+        return doc_fullname
+
+
+
+
+class Departments(models.Model):
+    dep_name = models.CharField(max_length=256, help_text="Введите название подразделения", verbose_name="Название подразделения", db_index=True)
+
+    class Meta:
+        ordering = ["dep_name"]
+        verbose_name = 'Подразделение'
+        verbose_name_plural = 'Подразделения'
+    def __str__(self):
+        doc_fullname = self.dep_name
+        return doc_fullname

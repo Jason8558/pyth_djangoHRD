@@ -1,0 +1,83 @@
+.vacation {
+  display: grid;
+  grid-template-areas:
+  "v_num v_date"
+  "v_list v_list"
+  "v_list v_list"
+  "v_list v_list"
+  "fio dep"
+  "dur count"
+  "type comm"
+  "list_add list_add"
+  "save cancel";
+  grid-template-columns: repeat(2, 50%);
+  width: 95%;
+
+
+}
+
+
+
+
+
+
+.v_num {
+  grid-area: v_num;
+}
+
+.v_date {
+  grid-area: v_date;
+}
+
+.fio {
+  grid-area: fio;
+
+}
+
+.dep {
+  grid-area: dep;
+}
+
+.dur {
+  grid-area: dur;
+}
+
+.dur p {
+  margin-bottom: 0;
+
+}
+
+.days {
+  grid-area: count;
+}
+
+.vac_type {
+  grid-area: type;
+}
+
+.comm {
+  grid-area: comm;
+}
+
+.vac_empList {
+  grid-area: v_list;
+
+
+}
+
+.vac_empList textarea {
+  width: 95%;
+  height: 100%;
+}
+
+.list_add {
+  grid-area: list_add;
+}
+
+.vac_addDoc {
+  grid-area: save;
+}
+
+.vac_canDoc {
+  grid-area: cancel;
+}

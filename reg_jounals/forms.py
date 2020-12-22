@@ -65,6 +65,27 @@ class OrdersOnVacation_form(forms.ModelForm):
 
         return new_order
 
+class OrdersOfBTrip_form(forms.ModelForm):
+    class Meta:
+        model = OrdersOfBTrip
+        fields = ['bt_number',
+    'bt_date',
+    'bt_place',
+    'bt_dep',
+    'bt_emloyer']
+
+    def saveFirst(self, user_):
+        new_order = OrdersOfBTrip.objects.create(
+            bt_date  = self.cleaned_data['bt_date'],
+            bt_number  = self.cleaned_data['bt_number'],
+            bt_dep = self.cleaned_data['bt_dep'],
+            bt_place = self.cleaned_data['bt_place'],
+            bt_emloyer = self.cleaned_data['bt_emloyer'],
+            bt_res_officer = user_
+        )
+
+        return new_order
+
 
 
 class OutBoundDocument_form(forms.ModelForm):

@@ -1,0 +1,33 @@
+.vac_upd {
+  display: grid;
+  grid-template-areas:
+  "num date"
+  "list list"
+  "list list"
+  "save cancel"
+  "del del"
+}
+
+.date {
+  grid-area: date;
+}
+
+.num {
+  grid-area: num;
+}
+
+.vac_empList {
+  grid-area: list
+}
+
+.add_form .btn_success {
+  grid-area: save;
+}
+
+.add_form .btn-outline-danger {
+  grid-area: del;
+}
+
+.add_form .btn-outline-info {
+  grid-area: cancel;
+}
