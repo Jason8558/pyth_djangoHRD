@@ -37,11 +37,11 @@
       <a href="{% url 'orders_on_others' %}" class="btn btn-info">Приказы по другим вопросам</a>
       <a href="{%url 'outbound'%}" class="btn btn-info">Исходящие документы</a>
       <a href="{%url 'orders_of_BTrip'%}" class="btn btn-info " >Командировки</a>
-      <a href="#" class="btn btn-info disabled" aria-disabled="true">Приказы по личному составу</a>
-      <a href="#" class="btn btn-info disabled" aria-disabled="true">Трудовые договоры</a>
+      <a href="{%url 'orders_on_personnel'%}" class="btn btn-info">Приказы по личному составу</a>
+      <a href="{%url 'labor_contracts'%}" class="btn btn-info">Трудовые договоры</a>
       <a href="{%url 'resignation'%}" class="btn btn-info">Заявления на увольнение</a>
       <a href="{%url 'invite'%}" class="btn btn-info">Заявления на прием</a>
-      <a href="#" class="btn btn-info disabled" aria-disabled="true">Трудовые книжки</a>
+      <a href="{%url 'employment_history'%}" class="btn btn-info">Трудовые книжки</a>
     </div>
     {%endblock%}
   </div>

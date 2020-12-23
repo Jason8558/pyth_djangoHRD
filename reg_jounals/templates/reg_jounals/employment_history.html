@@ -1,0 +1,77 @@
+{%extends "reg_jounals/index.html" %}
+
+{%block title%}Трудовые книжки{%endblock%}
+{%block header%} <a class="btn btn-outline-info" href="../"> < назад</a> Журнал учета трудовых книжек. Всего: {{count}}.  {%endblock%}
+{%block content%}
+<a class="btn btn-success btn-lg m-bottom btn-add " href="{%url 'employment_history_add_url'%}"> + Добавить</a>
+{% if histories %}
+<table>
+  <thead class="thead-dark">
+  <tr class="tr-header">
+
+    <th scope="col">Номер ТК</th>
+    <th scope="col">Дата приема</th>
+    <th scope="col">ФИО работника</th>
+    <th scope="col">Подразделение</th>
+    <th scope="col">Приказ о приеме</th>
+    <th scope="col">Дата выдачи на руки</th>
+    <th scope="col">Приказ об увольнении</th>
+    <th scope="col">Ответственный сотрудник</th>
+
+
+
+  </tr>
+  </thead>
+
+  {%for history in histories %}
+
+<tr onclick="return location.href = '-' ">
+
+    <td>{{history.eh_number}}</td>
+    <td>{{history.eh_dateOfInv}}</td>
+    <td>{{history.eh_employer}}</td>
+    <td>{{history.eh_dep}}</td>
+    <td>{{history.eh_OrderInv}}</td>
+    <td>{{history.eh_dateOfReturn|date:"d.m.Y"}}</td>
+    <td>{{history.eh_OrderResign}}</td>
+    <td>{{history.eh_res_officer}}</td>
+
+
+</tr>
+  {%endfor%}
+</table>
+<nav  class="paginator" aria-label="Page navigation example">
+  <ul class="pagination">
+    <li class="page-item">
+      <a class="page-link" href="#" aria-label="Previous">
+<span aria-hidden="true">&laquo;</span>
+      </a>
+    </li>
+{% for p in histories.paginator.page_range %}
+  {% if histories.number == p%}
+   <li class="page-item active"><a class="page-link" href="?page={{p}}">{{ p }}</a></li>
+   {%else%}
+        <li class="page-item"><a class="page-link" href="?page={{p}}">{{ p }}</a></li>
+    {%endif%}
+  {% endfor %}
+
+{%if histories.has_next%}
+    <li class="page-item">
+      <a class="page-link" href='?page={{histories.next_page_number}}' aria-label="Next">
+<span aria-hidden="true">&raquo;</span>
+      </a>
+    </li>
+  {%else%}
+  <li class="page-item disabled">
+    <a class="page-link" href='#' aria-disabled='true' aria-label="Next">
+      <span aria-hidden="true">&raquo;</span>
+    </a>
+  </li>
+  {%endif%}
+  </ul>
+</nav>
+
+{%else%}
+<h2>Записей нет</h2>
+{%endif%}
+{%endblock%}

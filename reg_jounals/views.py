@@ -272,8 +272,147 @@ def nr_OrderOfBTrip(request):
                 user_ = request.user.first_name
                 order_form.saveFirst(user_)
                 return redirect('../orders_of_BTrip/')
+    else:
+        return render(request, 'reg_jounals/no_auth.html')
+    return render(request, 'reg_jounals/OrdersOfBTrip_add.html', context={'form':order_form, 'depts':depts})
+
+def upd_OrderOfBTrip(request, id):
+    if request.user.is_authenticated:
+        if request.method == "GET":
+            order = OrdersOfBTrip.objects.get(id__iexact=id)
+            bound_form = OrdersOfBTrip_form(instance=order)
+            return render(request, 'reg_jounals/OrdersOfBTrip_upd.html', context={'form':bound_form, 'order':order})
+        else:
+            order = OrdersOfBTrip.objects.get(id__iexact=id)
+            bound_form = OrdersOfBTrip_form(request.POST, instance=order)
+            if bound_form.is_valid():
+                user_ = request.user.first_name
+                new_obj = bound_form.save()
+                return redirect('/journals/orders_of_BTrip')
 
 
             else:
                 return render(request, 'reg_jounals/no_auth.html')
         return render(request, 'reg_jounals/OrdersOfBTrip_add.html', context={'form':order_form})
+
+def del_OrderOfBTrip(request, id):
+    if request.user.is_authenticated:
+        order = OrdersOfBTrip.objects.get(id__iexact=id)
+        order.delete()
+        return redirect('/journals/orders_of_BTrip')
+
+def order_on_personnel(request):
+    if request.user.is_authenticated:
+        orders = OrdersOnPersonnel.objects.all()
+        p_orders = Paginator(orders, page_count)
+        page_number = request.GET.get('page', 1)
+        page = p_orders.get_page(page_number)
+        count = len(orders)
+        return render(request, 'reg_jounals/orders_on_personnel.html', context={'orders':page, 'count':count})
+    else:
+        return render(request, 'reg_jounals/no_auth.html')
+
+def nr_OrderOnPersonnel(request):
+    if request.user.is_authenticated:
+        order_form = OrdersOnPersonnel_form()
+        depts = Departments.objects.all()
+        if request.method == "POST":
+            order_form =OrdersOnPersonnel_form(request.POST)
+            if order_form.is_valid():
+                user_ = request.user.first_name
+                order_form.saveFirst(user_)
+                return redirect('../orders_on_personnel/')
+    else:
+        return render(request, 'reg_jounals/no_auth.html')
+    return render(request, 'reg_jounals/OrdersOnPersonnel_add.html', context={'form':order_form, 'depts':depts})
+
+
+def upd_OrderOnPersonnel(request, id):
+    if request.user.is_authenticated:
+        if request.method == "GET":
+            order = OrdersOnPersonnel.objects.get(id__iexact=id)
+            bound_form = OrdersOnPersonnel_form(instance=order)
+            return render(request, 'reg_jounals/OrdersOnPersonnel_upd.html', context={'form':bound_form, 'order':order})
+        else:
+            order = OrdersOnPersonnel.objects.get(id__iexact=id)
+            bound_form = OrdersOnPersonnel_form(request.POST, instance=order)
+            if bound_form.is_valid():
+                user_ = request.user.first_name
+                new_obj = bound_form.save()
+                return redirect('/journals/orders_on_personnel')
+
+def del_OrderOnPersonnel(request, id):
+    if request.user.is_authenticated:
+        order = OrdersOnPersonnel.objects.get(id__iexact=id)
+        order.delete()
+        return redirect('/journals/orders_on_personnel')
+
+def LaborContracts(request):
+    if request.user.is_authenticated:
+        contracts = LaborContract.objects.all()
+        p_orders = Paginator(contracts, page_count)
+        page_number = request.GET.get('page', 1)
+        page = p_orders.get_page(page_number)
+        count = len(contracts)
+        return render(request, 'reg_jounals/laborContracts.html', context={'orders':page, 'count':count})
+    else:
+        return render(request, 'reg_jounals/no_auth.html')
+
+def nr_LaborContract(request):
+    if request.user.is_authenticated:
+        order_form = LaborContract_form()
+        depts = Departments.objects.all()
+        if request.method == "POST":
+            order_form = LaborContract_form(request.POST)
+            if order_form.is_valid():
+                user_ = request.user.first_name
+                order_form.saveFirst(user_)
+                return redirect('../laborContracts/')
+    else:
+        return render(request, 'reg_jounals/no_auth.html')
+    return render(request, 'reg_jounals/laborContract_add.html', context={'form':order_form, 'depts':depts})
+
+def upd_LaborContract(request, id):
+    if request.user.is_authenticated:
+        if request.method == "GET":
+            order = LaborContract.objects.get(id__iexact=id)
+            bound_form = LaborContract_form(instance=order)
+            return render(request, 'reg_jounals/LaborContract_upd.html', context={'form':bound_form, 'order':order})
+        else:
+            order = LaborContract.objects.get(id__iexact=id)
+            bound_form = LaborContract_form(request.POST, instance=order)
+            if bound_form.is_valid():
+                user_ = request.user.first_name
+                new_obj = bound_form.save()
+                return redirect('/journals/laborContracts')
+
+def del_LaborContract(request, id):
+    if request.user.is_authenticated:
+        order = LaborContract.objects.get(id__iexact=id)
+        order.delete()
+        return redirect('/journals/laborContracts')
+
+def employment_history(request):
+    if request.user.is_authenticated:
+        histories = EmploymentHistory.objects.all()
+        p_orders = Paginator(histories, page_count)
+        page_number = request.GET.get('page', 1)
+        page = p_orders.get_page(page_number)
+        count = len(histories)
+        return render(request, 'reg_jounals/employment_history.html', context={'histories':page, 'count':count})
+    else:
+        return render(request, 'reg_jounals/no_auth.html')
+
+def nr_EmploymentHistory(request):
+    if request.user.is_authenticated:
+        history_form = EmploymentHistory_form()
+        depts = Departments.objects.all()
+        if request.method == "POST":
+            history_form = EmploymentHistory_form(request.POST)
+            if history_form.is_valid():
+                user_ = request.user.first_name
+                history_form.saveFirst(user_)
+                return redirect('../employment_history/')
+    else:
+        return render(request, 'reg_jounals/no_auth.html')
+    return render(request, 'reg_jounals/EmploymentHistory_add.html', context={'form':history_form, 'depts':depts})

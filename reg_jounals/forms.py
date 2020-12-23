@@ -86,6 +86,27 @@ class OrdersOfBTrip_form(forms.ModelForm):
 
         return new_order
 
+class OrdersOnPersonnel_form(forms.ModelForm):
+    class Meta:
+        model = OrdersOnPersonnel
+        fields = ['op_number',
+    'op_date',
+    'op_content',
+    'op_dep',
+    'op_emloyer']
+
+    def saveFirst(self, user_):
+        new_order = OrdersOnPersonnel.objects.create(
+            op_date  = self.cleaned_data['op_date'],
+            op_number  = self.cleaned_data['op_number'],
+            op_dep = self.cleaned_data['op_dep'],
+            op_content = self.cleaned_data['op_content'],
+            op_emloyer = self.cleaned_data['op_emloyer'],
+            op_res_officer = user_
+        )
+
+        return new_order
+
 
 
 class OutBoundDocument_form(forms.ModelForm):
@@ -145,3 +166,55 @@ class LetterOfInvite_form(forms.ModelForm):
         )
 
         return new_letter
+
+class LaborContract_form(forms.ModelForm):
+    class Meta:
+        model = LaborContract
+        fields = ['lc_number',
+    'lc_date',
+    'lc_dateOfInv',
+    'lc_emloyer',
+    'lc_pos',
+    'lc_dep',
+    'lc_workCond']
+
+    def saveFirst(self, user_):
+        new_contract = LaborContract.objects.create(
+            lc_date  = self.cleaned_data['lc_date'],
+            lc_number  = self.cleaned_data['lc_number'],
+            lc_pos  = self.cleaned_data['lc_pos'],
+            lc_dep = self.cleaned_data['lc_dep'],
+            lc_dateOfInv = self.cleaned_data['lc_dateOfInv'],
+            lc_workCond = self.cleaned_data['lc_workCond'],
+            lc_emloyer = self.cleaned_data['lc_emloyer'],
+            lc_res_officer = user_
+        )
+
+        return new_contract
+
+class EmploymentHistory_form(forms.ModelForm):
+    class Meta:
+        model = EmploymentHistory
+        fields = [
+            'eh_number',
+            'eh_dateOfInv',
+            'eh_employer',
+            'eh_pos',
+            'eh_dep',
+            'eh_OrderInv',
+            'eh_OrderResign',
+            'eh_dateOfReturn']
+
+    def saveFirst(self, user_):
+        new_empHistory = EmploymentHistory.objects.create(
+            eh_number = self.cleaned_data['eh_number'],
+            eh_dateOfInv = self.cleaned_data['eh_dateOfInv'],
+            eh_employer = self.cleaned_data['eh_employer'],
+            eh_pos = self.cleaned_data['eh_pos'],
+            eh_dep = self.cleaned_data['eh_dep'],
+            eh_OrderInv = self.cleaned_data['eh_OrderInv'],
+            eh_OrderResign = self.cleaned_data['eh_OrderResign'],
+            eh_dateOfReturn = self.cleaned_data['eh_dateOfReturn'],
+            eh_res_officer = user_ )
+
+        return new_empHistory

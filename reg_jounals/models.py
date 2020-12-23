@@ -89,8 +89,52 @@ class OrdersOfBTrip(models.Model):
         doc_fullname = "Приказ о командировке" + ' №' + str(self.bt_number) + ' от ' + str(self.bt_date)
         return doc_fullname
 
+class OrdersOnPersonnel(models.Model):
+    op_number = models.CharField(max_length=5, help_text="Введите номер приказа", verbose_name="Номер приказа", db_index=True)
+    op_date = models.DateField(help_text="Введите дату приказа", verbose_name="Дата приказа", db_index=True)
+    op_dep = models.ForeignKey('Departments', on_delete=models.CASCADE, verbose_name="Подразделение ", default="1")
+    op_emloyer = models.CharField(max_length=256, help_text="Введите ФИО сотрудника", verbose_name="ФИО сотрудника", db_index=True)
+    op_content = models.TextField(help_text="Введите содержание", verbose_name="Содержание приказа")
+    op_res_officer = models.CharField(blank=True, editable=False,  max_length=256, help_text="Сотрудник, который внес документ в систему ", verbose_name='Ответственный сотрудник')
 
+    class Meta:
+        ordering = ["op_number"]
+        verbose_name = 'Приказ по личному составу'
+        verbose_name_plural = 'Приказы по личному составу'
 
+    def __str__(self):
+        doc_fullname = "Приказ по личному составу" + ' №' + str(self.op_number) + ' от ' + str(self.op_date)
+        return doc_fullname
+
+class LaborContract(models.Model):
+    lc_number = models.CharField(max_length=5, help_text="Введите номер договора", verbose_name="Номер договора", db_index=True)
+    lc_date = models.DateField(help_text="Введите дату договора", verbose_name="Дата договора", db_index=True)
+    lc_emloyer = models.CharField(max_length=256, help_text="Введите ФИО принимаемого сотрудника", verbose_name="ФИО принимаемого сотрудника", db_index=True)
+    lc_pos = models.CharField(max_length=256, help_text="Введите должность", verbose_name="Должность", db_index=True, default=' ')
+    lc_dep = models.ForeignKey('Departments', on_delete=models.CASCADE, verbose_name="Подразделение ", default="1")
+    lc_dateOfInv = models.DateField(help_text="Введите дату приема на работу", verbose_name="Дата приема на работу", db_index=True)
+    lc_workCond = models.CharField(max_length=256, help_text="Введите условие работы", verbose_name="Условие работы", db_index=True)
+    lc_res_officer = models.CharField(blank=True, editable=False,  max_length=256, help_text="Сотрудник, который внес документ в систему ", verbose_name='Ответственный сотрудник')
+
+    class Meta:
+        ordering = ["lc_number"]
+        verbose_name = 'Трудовой договор'
+        verbose_name_plural = 'Трудовые договоры'
+
+    def __str__(self):
+        doc_fullname = "Трудовой договор" + ' №' + str(self.lc_number) + ' от ' + str(self.lc_date)
+        return doc_fullname
+
+class EmploymentHistory(models.Model):
+    eh_number = models.CharField(max_length=256, help_text="Введите номер трудовой книжки", verbose_name="Номер\серия", db_index=True)
+    eh_dateOfInv = models.DateField(help_text="Введите дату приема на работу", verbose_name="Дата приема на работу", db_index=True)
+    eh_employer = models.CharField(max_length=256, help_text="Введите ФИО принимаемого сотрудника", verbose_name="ФИО принимаемого сотрудника", db_index=True)
+    eh_pos = models.CharField(max_length=256, help_text="Введите должность", verbose_name="Должность", db_index=True)
+    eh_dep = models.ForeignKey('Departments', on_delete=models.CASCADE, verbose_name="Подразделение ", default="1")
+    eh_OrderInv = models.CharField(max_length=256, help_text="Введите номер приказа о приеме", verbose_name="Приказ о приеме на работу:", db_index=True)
+    eh_OrderResign = models.CharField(null=True, blank=True, max_length=256, help_text="Введите номер приказа об увольнении", verbose_name="Приказ об увольнении:", db_index=True)
+    eh_dateOfReturn = models.DateField(null=True, blank=True, help_text="Введите дату выдачи на руки", verbose_name="Дата выдачи на руки", db_index=True)
+    eh_res_officer = models.CharField(blank=True, editable=False,  max_length=256, help_text="Сотрудник, который внес документ в систему ", verbose_name='Ответственный сотрудник')
 
 class Departments(models.Model):
     dep_name = models.CharField(max_length=256, help_text="Введите название подразделения", verbose_name="Название подразделения", db_index=True)

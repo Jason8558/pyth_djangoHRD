@@ -1,9 +1,9 @@
 {%extends "reg_jounals/index.html" %}
 
-{%block title%}Приказы о командировках{%endblock%}
-{%block header%} <a class="btn btn-outline-info" href="../"> < назад</a> Журнал регистрации приказов о командировках. Всего: {{count}}.  {%endblock%}
+{%block title%}Приказы по личному составу{%endblock%}
+{%block header%} <a class="btn btn-outline-info" href="../"> < назад</a> Журнал регистрации приказов по личному составу. Всего: {{count}}.  {%endblock%}
 {%block content%}
-<a class="btn btn-success btn-lg m-bottom btn-add " href="{%url 'orders_of_BTrip_add_url'%}"> + Добавить</a>
+<a class="btn btn-success btn-lg m-bottom btn-add " href="{%url 'orders_on_personnel_add_url'%}"> + Добавить</a>
 {% if orders %}
 <table>
   <thead class="thead-dark">
@@ -11,10 +11,10 @@
 
     <th scope="col">Дата приказа</th>
     <th scope="col">Номер</th>
-    <th scope="col">Место назначения</th>
-    <th scope="col">Командируемый сотрудник</th>
+    <th scope="col">Сотрудник</th>
     <th scope="col">Подразделение</th>
     <th scope="col">Ответственный сотрудник</th>
+
 
 
   </tr>
@@ -22,14 +22,14 @@
 
   {%for order in orders%}
 
-<tr onclick="return location.href = '{% url 'orders_of_BTrip_upd_url' id=order.id%}' ">
+<tr onclick="return location.href = '{% url 'orders_on_personnel_upd_url' id=order.id%}' ">
 
-    <td>{{order.bt_date|date:"d.m.Y"}}</td>
-    <td>{{order.bt_number}}</td>
-    <td>{{order.bt_place}}</td>
-    <td>{{order.bt_emloyer}}</td>
-    <td>{{order.bt_dep}}</td>
-    <td>{{order.bt_res_officer}}</td>
+    <td>{{order.op_date|date:"d.m.Y"}}</td>
+    <td>{{order.op_number}}</td>
+    <td>{{order.op_emloyer}}</td>
+    <td>{{order.op_dep}}</td>
+    <td>{{order.op_res_officer}}</td>
+
 
 </tr>
   {%endfor%}
