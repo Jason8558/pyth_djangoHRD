@@ -2,7 +2,7 @@
 
 {%block title%}Изменить запись{% endblock %}
 {%load static%}
-{%block addstyles%}<link rel="stylesheet" href="{% static 'css/eh_print.css'%}">{%endblock%}
+
 {%block header%}Трудовая книжка №{{history.eh_number}} - {{history.eh_employer}}{% endblock %}
 
 {%block content%}
@@ -21,7 +21,7 @@
   <input class="btn btn-success" type="submit" value="Сохранить" />
   <a class="btn btn-outline-danger" href="{%url 'employment_history_del_url' id=history.id%}">Удалить</a>
   <a class="btn btn-outline-info" href="..">Отмена</a>
-  <a class="btn btn-outline-warning" href="{% url 'employment_history_print_url' id=history.id%}">Сформировать документ</a>
+  <a class="btn btn-outline-warning" target="_blank" href="{% url 'employment_history_print_url' id=history.id%}">Сформировать документ</a>
 </form>
 
 {%endblock%}

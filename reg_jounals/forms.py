@@ -34,13 +34,14 @@ class LetterOfResignation_form(forms.ModelForm):
 class OrdersOnOtherMatters_form(forms.ModelForm):
     class Meta:
         model = OrdersOnOtherMatters
-        fields = ['oom_number',
+        fields = [
+
     'oom_date',
     'oom_content']
 
-    def saveFirst(self, user_):
+    def saveFirst(self, user_, order_next_num_):
         new_order = OrdersOnOtherMatters.objects.create(
-            oom_number = self.cleaned_data['oom_number'],
+            oom_number = str(order_next_num_) + "-К",
             oom_date = self.cleaned_data['oom_date'],
             oom_content = self.cleaned_data['oom_content'],
             oom_res_officer = user_
