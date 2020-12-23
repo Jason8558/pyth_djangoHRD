@@ -171,22 +171,27 @@ def order_other_matters(request):
 def nr_OrderOnOtherMatters(request):
     if request.user.is_authenticated:
         order_form = OrdersOnOtherMatters_form()
+        orders = OrdersOnOtherMatters.objects.all()
+        order_count = len(orders)
+        order_prev_num = orders[order_count - 1].oom_number
+        cut_symb = (len(str(order_prev_num)) - 2)
+        order_next_num_ = int(order_prev_num[:cut_symb]) + 1
         if request.method == "POST":
             order_form =OrdersOnOtherMatters_form(request.POST)
             if order_form.is_valid():
                 user_ = request.user.first_name
-                order_form.saveFirst(user_)
+                order_form.saveFirst(user_,order_next_num_)
                 return redirect('../orders_on_others/')
 
 
             else:
                 return render(request, 'reg_jounals/no_auth.html')
-        return render(request, 'reg_jounals/OrdersOnOtherMatters_add.html', context={'form':order_form})
+        return render(request, 'reg_jounals/OrdersOnOtherMatters_add.html', context={'form':order_form, 'next_num':order_next_num_})
 
 def upd_OrderOnOtherMatters(request, id):
     if request.user.is_authenticated:
         if request.method == "GET":
-            order = OrdersOnOtherMatters.objects.get(id__iexact=id)
+            order = OrdersOnOtherMatters.objects.get(id__exact=id)
             bound_form = OrdersOnOtherMatters_form(instance=order)
             return render(request, 'reg_jounals/OrdersOnOtherMatters_upd.html', context={'form':bound_form, 'order':order})
         else:
@@ -397,7 +402,7 @@ def employment_history(request):
 
         search_query = request.GET.get('eh_search','')
         if search_query:
-            histories = EmploymentHistory.objects.filter(eh_number__exact=search_query)
+            histories = EmploymentHistory.objects.filter(eh_employer__icontains=search_query)
             print(histories)
         else:
             histories = EmploymentHistory.objects.all()

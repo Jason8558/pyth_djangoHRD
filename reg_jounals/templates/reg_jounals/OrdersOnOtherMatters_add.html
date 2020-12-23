@@ -12,7 +12,9 @@
 {%endif%}
 <form class="add_form" action="" method="post">
   {% csrf_token %}
+  <p>№ приказа - {{next_num}}-К</p>
   {% for field in form %}
+
   <p>{{field.label}}{{ field }}</p>
   {% endfor%}
 
