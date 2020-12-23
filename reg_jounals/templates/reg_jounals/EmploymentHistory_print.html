@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="ru" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    {% load static %}
+    <link rel="stylesheet" href="{static 'css/eh_print.css'}">
+    <title>Печать документа</title>
+  </head>
+  <style>
+    @media print {
+      button {
+        visibility: hidden;
+      }
+    }
+  </style>
+  <body>
+    <header>
+      <h2>Свидетельство о получении трудовой книжки на руки</h2>
+    </header>
+
+<p> ФИО сотрудника: {{history.eh_employer}}</p>
+<p>Номер трудовой книжки: {{history.eh_number}}</p>
+<p> Дата приема на работу: {{history.eh_dateOfInv}} приказ: {{history.eh_OrderInv}}</p>
+<p>Дата увольнения: {{history.eh_dateOfResign}} приказ: {{history.eh_OrderResign}}</p>
+<p>Дата выдачи на руки трудовой книжки: {{history.eh_dateOfReturn}}</p>
+<h4>Трудовую книжку на руки получил  _____________________________  {{history.eh_employer}}</h4>
+
+<button onclick="javascript:window.print();" type="button" name="button">Печать</button>
+  </body>
+</html>

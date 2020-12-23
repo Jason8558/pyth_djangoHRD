@@ -394,7 +394,13 @@ def del_LaborContract(request, id):
 
 def employment_history(request):
     if request.user.is_authenticated:
-        histories = EmploymentHistory.objects.all()
+
+        search_query = request.GET.get('eh_search','')
+        if search_query:
+            histories = EmploymentHistory.objects.filter(eh_number__exact=search_query)
+            print(histories)
+        else:
+            histories = EmploymentHistory.objects.all()
         p_orders = Paginator(histories, page_count)
         page_number = request.GET.get('page', 1)
         page = p_orders.get_page(page_number)
@@ -416,3 +422,28 @@ def nr_EmploymentHistory(request):
     else:
         return render(request, 'reg_jounals/no_auth.html')
     return render(request, 'reg_jounals/EmploymentHistory_add.html', context={'form':history_form, 'depts':depts})
+
+def upd_EmploymentHistory(request, id):
+    if request.user.is_authenticated:
+        if request.method == "GET":
+            history = EmploymentHistory.objects.get(id__iexact=id)
+            bound_form = EmploymentHistory_form(instance=history)
+            return render(request, 'reg_jounals/EmploymentHistory_upd.html', context={'form':bound_form, 'history':history})
+        else:
+            order = EmploymentHistory.objects.get(id__iexact=id)
+            bound_form = EmploymentHistory_form(request.POST, instance=order)
+            if bound_form.is_valid():
+                user_ = request.user.first_name
+                new_obj = bound_form.save()
+                return redirect('/journals/employment_history')
+
+def del_EmploymentHistory(request, id):
+    if request.user.is_authenticated:
+        history = EmploymentHistory.objects.get(id__iexact=id)
+        history.delete()
+        return redirect('/journals/employment_history')
+
+def print_EmploymentHistory(request, id):
+    if request.user.is_authenticated:
+            history = EmploymentHistory.objects.get(id__iexact=id)
+            return render(request, 'reg_jounals/EmploymentHistory_print.html', context={'history':history})
