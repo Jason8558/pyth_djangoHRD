@@ -402,7 +402,7 @@ def employment_history(request):
 
         search_query = request.GET.get('eh_search','')
         if search_query:
-            histories = EmploymentHistory.objects.filter(eh_number__exact=search_query)
+            histories = EmploymentHistory.objects.filter(eh_employer__icontains=search_query)
             print(histories)
         else:
             histories = EmploymentHistory.objects.all()
