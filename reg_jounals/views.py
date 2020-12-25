@@ -328,7 +328,7 @@ def nr_OrderOfBTrip(request):
         orders = OrdersOfBTrip.objects.all()
         order_count = len(orders)
         order_prev_num = orders[order_count - 1].bt_number
-        if order_prev_num =< 0:
+        if order_prev_num <= 0:
             order_next_num_ = 1
         else:
             cut_symb = (len(str(order_prev_num)) - 1)
