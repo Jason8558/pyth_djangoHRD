@@ -328,8 +328,11 @@ def nr_OrderOfBTrip(request):
         orders = OrdersOfBTrip.objects.all()
         order_count = len(orders)
         order_prev_num = orders[order_count - 1].bt_number
-        cut_symb = (len(str(order_prev_num)) - 1)
-        order_next_num_ = int(order_prev_num[:cut_symb]) + 1
+        if order_prev_num =< 0:
+            order_next_num_ = 1
+        else:
+            cut_symb = (len(str(order_prev_num)) - 1)
+            order_next_num_ = int(order_prev_num[:cut_symb]) + 1
         if request.method == "POST":
             order_form =OrdersOfBTrip_form(request.POST)
             if order_form.is_valid():
