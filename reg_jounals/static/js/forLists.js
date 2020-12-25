@@ -42,7 +42,7 @@ function col_days() {
 
       let day_1 = new Date(f_date1),
           day_2 = new Date(f_date2);
-      alert(day_2 - day_1);
+
       vac_days = (day_2 - day_1) / (60 * 60 * 24 * 1000);
       form.emp_days.value = Math.ceil(vac_days)+1; }
           }
@@ -65,10 +65,10 @@ function col_days() {
     month = newDate.getMonth();
     month = month + 1;
     month = padNum(month)
-    alert("Месяц "+month)
+
     day = newDate.getDate();
     day = padNum(day);
-    alert(day + "." + month + "." + year);
+
     function padNum(num) {
     return num.toString().padStart(2,0);
   };
