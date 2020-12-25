@@ -12,6 +12,8 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 import os
 from pathlib import Path
 
+os.sep = "/"
+os.path.sep = "/"
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -85,10 +87,10 @@ WSGI_APPLICATION = 'hrd_docFlow.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'db_newsite',
-        'USER': 'ns_user',
-        'PASSWORD': 'ns_pass',
-        'HOST': '172.16.20.130',   # Or an IP Address that your DB is hosted on
+        'NAME': 'hrd_docflow',
+        'USER': 'hrd_user',
+        'PASSWORD': 'hrdpassword',
+        'HOST': '172.16.23.38',   # Or an IP Address that your DB is hosted on
         'PORT': '3306',
     }
 }
@@ -142,3 +144,8 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
 STATIC_URL = '/static/'
+
+STATICFILES_DIRS = [
+    BASE_DIR / "static",
+
+]

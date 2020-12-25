@@ -11,7 +11,12 @@ class OutBoundDocumentAdmin(admin.ModelAdmin):
         obj.save()
 
 admin.site.register(OutBoundDocument, OutBoundDocumentAdmin)
-admin.site.register(LetterOfResignation)
+admin.site.register(EmploymentHistory)
+admin.site.register(LaborContract)
 admin.site.register(LetterOfInvite)
+admin.site.register(LetterOfResignation)
+admin.site.register(OrdersOfBTrip)
+admin.site.register(OrdersOnPersonnel)
+admin.site.register(OrdersOnVacation)
 admin.site.register(OrdersOnOtherMatters)
 admin.site.register(Departments)
