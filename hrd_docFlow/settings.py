@@ -85,10 +85,10 @@ WSGI_APPLICATION = 'hrd_docFlow.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'db_newsite',
-        'USER': 'ns_user',
-        'PASSWORD': 'ns_pass',
-        'HOST': '172.16.20.130',   # Or an IP Address that your DB is hosted on
+        'NAME': 'hrd_docflow',
+        'USER': 'hrd_user',
+        'PASSWORD': 'hrd_password',
+        'HOST': '172.16.23.38',   # Or an IP Address that your DB is hosted on
         'PORT': '3306',
     }
 }
