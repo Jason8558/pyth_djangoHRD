@@ -56,7 +56,7 @@ ROOT_URLCONF = 'hrd_docFlow.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'reg_jounals/templates')],
+        'DIRS': [os.path.join(BASE_DIR, '/templates')],
         # 'DIRS': [BASE_DIR, 'templates'],
         'APP_DIRS': True,
         'OPTIONS': {
