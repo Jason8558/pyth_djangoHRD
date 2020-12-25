@@ -3,6 +3,10 @@
 {%block title%}Заявления на увольнение{%endblock%}
 {%block header%}<a class="btn btn-outline-info" href="../"> < назад</a> Журнал регистрации заявлений на увольнение. Всего: {{count}}.  {%endblock%}
 {%block content%}
+<form action="{% url 'resignation' %}">
+  <input type="search" name="lor_search" placeholder="Поиск по ФИО..">
+  <button class="btn btn-sm btn-warning" type="submit" name="" value="Найти">Найти</button>
+</form>
 <a class="btn btn-success btn-lg m-bottom  btn-add" href="{%url 'letter_resignation_add_url' %}"> + Добавить</a>
 {% if letters %}
 <table>
@@ -24,7 +28,7 @@
 
  <tr onclick="return location.href = '{% url 'letter_resignation_upd_url' id=let.id%}' ">
 
-    <td>{{let.id}}</td>
+    <td>{{let.lor_number}}</td>
     <td>{{let.lor_date|date:"d.m.Y"}}</td>
     <td>{{let.lor_employee}}</td>
     <td>{{let.lor_position}}</td>
@@ -36,12 +40,6 @@
 </tr>
   {%endfor%}
 </table>
-
-
-
-{%else%}
-<h2>Записей нет</h2>
-{%endif%}
 
 <nav  class="paginator" aria-label="Page navigation example">
   <ul class="pagination">
@@ -73,5 +71,11 @@
   {%endif%}
   </ul>
 </nav>
+
+
+
+{%else%}
+<h2>Записей нет</h2>
+{%endif%}
 
 {%endblock%}

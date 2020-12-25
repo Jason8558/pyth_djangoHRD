@@ -3,6 +3,10 @@
 {%block title%}Заявления на прием{%endblock%}
 {%block header%}<a class="btn btn-outline-info" href="../">< назад</a> Журнал регистрации заявлений на прием. Всего: {{count}}.  {%endblock%}
 {%block content%}
+<form action="{% url 'invite' %}">
+  <input type="search" name="loi_search" placeholder="Поиск по ФИО..">
+  <button class="btn btn-sm btn-warning" type="submit" name="" value="Найти">Найти</button>
+</form>
 <a class="btn btn-success btn-lg m-bottom btn-add" href="{% url 'invite_add' %}"> + Добавить</a>
 {% if letters %}
 <table>

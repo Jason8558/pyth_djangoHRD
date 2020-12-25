@@ -4,8 +4,8 @@
 {%block header%} <a class="btn btn-outline-info" href="../"> < назад</a> Журнал учета трудовых книжек. Всего: {{count}}.  {%endblock%}
 {%block content%}
 <form action="{% url 'employment_history' %}">
-  <input type="search" name="eh_search" placeholder="Поиск по номеру трудовой...">
-  <button class="btn btn-sm btn-warning" type="submit" name="" value="Найти"></button>
+  <input type="search" name="eh_search" placeholder="Поиск по ФИО...">
+  <button class="btn btn-sm btn-warning" type="submit" name="" value="Найти">Найти</button>
 </form>
 <a class="btn btn-success btn-lg m-bottom btn-add " href="{%url 'employment_history_add_url'%}"> + Добавить</a>
 {% if histories %}
@@ -18,7 +18,7 @@
     <th scope="col">ФИО работника</th>
     <th scope="col">Подразделение</th>
     <th scope="col">Приказ о приеме</th>
-    <th scope="col">Дата выдачи на руки</th>
+    <th scope="col">Дата увольнения</th>
     <th scope="col">Приказ об увольнении</th>
     <th scope="col">Ответственный сотрудник</th>
 
@@ -32,11 +32,11 @@
 <tr onclick="return location.href = '{% url 'employment_history_upd_url' id=history.id%}' ">
 
     <td>{{history.eh_number}}</td>
-    <td>{{history.eh_dateOfInv}}</td>
+    <td>{{history.eh_dateOfInv|date:"d.m.Y"}}</td>
     <td>{{history.eh_employer}}</td>
     <td>{{history.eh_dep}}</td>
     <td>{{history.eh_OrderInv}}</td>
-    <td>{{history.eh_dateOfReturn|date:"d.m.Y"}}</td>
+    <td>{{history.eh_dateOfResign|date:"d.m.Y"}}</td>
     <td>{{history.eh_OrderResign}}</td>
     <td>{{history.eh_res_officer}}</td>
 

@@ -3,6 +3,12 @@
 {%block title%}Исходящие документы{%endblock%}
 {%block header%}  <a class="btn btn-outline-info" href="../"> < назад</a>Журнал регистрации исходящих документов. Всего: {{count}}. {%endblock%}
 {%block content%}
+<form action="{% url 'outbound' %}">
+  <span>Поиск по периоду:</span>
+  <input type="search" id="search_date" name="doc_search_from" placeholder="C">
+  <input type="search" id="search_date2" name="doc_search_to" placeholder="По">
+  <button class="btn btn-sm btn-warning" type="submit" name="" value="Найти">Найти</button>
+</form>
 <a class="btn btn-success btn-lg m-bottom btn-add " href="{% url 'doc_outbound_add_url' %}"> + Добавить</a>
 {% if documents %}
 <table>
@@ -23,7 +29,7 @@
   <tr onclick="return location.href = '{% url 'doc_outbound_upd_url' id=doc.id%}' ">
 
     <td>{{doc.doc_date|date:"d.m.Y"}}</td>
-    <td>{{doc.id}}</td>
+    <td>{{doc.doc_number}}</td>
     <td>{{doc.doc_type}}</td>
     <td>{{doc.doc_dest}}</td>
     <td>{{doc.doc_additionalData}}</td>
