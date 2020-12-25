@@ -16,14 +16,7 @@
   {% for field in form %}
   <p>{{field.label}}{{ field }}</p>
   {% endfor%}
-  <p class="trip_duration">
-    <form action="{% url 'orders_of_BTrip_add_url'  %}" method="get">
-    <span>Период: </span>
-    <input type="text" name="bt_dur_from" placeholder="C">
-    <input style="margin-top: 10px;" type="text" name="bt_dur_from" placeholder="ПО" value="">
-    <button type="submit" name="button">ОК</button>
-</form>
-  </p>
+
   <input class="btn btn-success" type="submit" value="Добавить" />
   <a class="btn btn-outline-danger" href=".">Отмена</a>
 </form>
