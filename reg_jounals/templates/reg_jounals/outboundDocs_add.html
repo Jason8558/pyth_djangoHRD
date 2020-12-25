@@ -12,6 +12,7 @@
 {%endif%}
 <form class="add_form" action="" method="post">
   {% csrf_token %}
+  <h5>Номер документа: {{next_num}}</h5>
   {% for field in form %}
   <p>{{field.label}}{{ field }}</p>
   {% endfor%}

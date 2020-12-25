@@ -16,8 +16,7 @@
   <div>{{field.label}}{{ field }}</div>
   {% endfor%} -->
   <div class="v_num">
-    {{form.oov_number.label}}
-    {{form.oov_number}}
+    <h5>Номер приказа: {{next_num}}К-ОТП</h5>
   </div>
 
   <div class="v_date">
@@ -48,14 +47,14 @@
   <div class="dur">
       <p>Период:</p>
     <p><label for="emp_dur_from">C: </label></p>
-    <input onchange="setDateFormatFrom()" id="id_doc_date" type="text" name="emp_dur_from">
+    <input  id="id_doc_date" type="text" name="emp_dur_from">
     <p><label  for="emp_due_to">по: </label></p>
-    <input id="id_doc_date" onchange="col_days()"  type="text" name="emp_dur_to">
+    <input id="id_doc_date2" onchange="col_days()"  type="text" name="emp_dur_to">
   </div>
 
   <div class="days">
     <label for="emp_days">Кол-во дней:</label>
-    <input id="id_doc_date" type="text" name="emp_days">
+    <input id="id_doc_date" onchange="duration()" type="text" name="emp_days">
   </div>
 
   <div class="vac_type">
@@ -73,7 +72,7 @@
     <input type="text" name="comm">
   </div>
 
-  <input onclick="FillList()" type="button" class="btn btn-info list_add" name="" value="Добавить в список">
+  <input onclick="FillList()" type="button" class="btn btn-outline-info w50 list_add" name="" value="Добавить сотрудника">
 
 
 

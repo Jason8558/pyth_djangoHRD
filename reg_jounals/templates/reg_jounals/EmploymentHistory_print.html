@@ -8,6 +8,10 @@
   </head>
   <style>
     @media print {
+      * {
+        font-family: sans-serif;
+      }
+
       button {
         visibility: hidden;
       }
@@ -15,14 +19,13 @@
   </style>
   <body>
     <header>
-      <h2>Свидетельство о получении трудовой книжки на руки</h2>
+      <h2>Расписка о получении трудовой книжки на руки</h2>
     </header>
 
 <p> ФИО сотрудника: {{history.eh_employer}}</p>
 <p>Номер трудовой книжки: {{history.eh_number}}</p>
-<p> Дата приема на работу: {{history.eh_dateOfInv}} приказ: {{history.eh_OrderInv}}</p>
-<p>Приказ об увольнении: {{history.eh_OrderResign}}</p>
-<p>Дата выдачи на руки трудовой книжки: {{history.eh_dateOfReturn}}</p>
+<p>Дата приема на работу: {{history.eh_dateOfInv}} приказ: {{history.eh_OrderInv}}</p>
+<p>Дата увольнения: {{history.eh_dateOfResign}} приказ: {{history.eh_OrderResign}} </p>
 <h4>Трудовую книжку на руки получил(а)          _______________________  {{history.eh_employer}}</h4>
 
 <button onclick="javascript:window.print();" type="button" name="button">Печать</button>

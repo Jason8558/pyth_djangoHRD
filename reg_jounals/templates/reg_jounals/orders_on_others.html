@@ -3,6 +3,11 @@
 {%block title%}Приказы по другим вопросам{%endblock%}
 {%block header%} <a class="btn btn-outline-info" href="../"> < назад</a> Журнал регистрации приказов по другим вопросам. Всего: {{count}}.  {%endblock%}
 {%block content%}
+<form action="{% url 'orders_on_others' %}">
+  <input type="search" id="search_date" name="oom_search_from" placeholder="C">
+  <input type="search" id="search_date2" name="oom_search_to" placeholder="По">
+  <button class="btn btn-sm btn-warning" type="submit" name="" value="Найти">Найти</button>
+</form>
 <a class="btn btn-success btn-lg m-bottom btn-add " href="{%url 'orders_on_others_add_url'%}"> + Добавить</a>
 {% if orders %}
 <table>
