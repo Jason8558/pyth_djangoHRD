@@ -87,7 +87,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'hrd_docflow',
         'USER': 'hrd_user',
-        'PASSWORD': 'hrd_password',
+        'PASSWORD': 'hrdpassword',
         'HOST': '172.16.23.38',   # Or an IP Address that your DB is hosted on
         'PORT': '3306',
     }
