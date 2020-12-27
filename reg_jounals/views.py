@@ -42,8 +42,7 @@ def nr_OutBoundDocument(request):
             doc_next_num_ = 1
         else:
             doc_prev_num = docs[doc_count - 1].doc_number
-            cut_symb = (len(str(doc_prev_num)) - 1)
-            doc_next_num_ = int(doc_prev_num[:cut_symb]) + 1
+            doc_next_num_ = int(doc_prev_num) + 1
         if request.method == "POST":
             doc_form = OutBoundDocument_form(request.POST)
             if doc_form.is_valid():
@@ -108,8 +107,7 @@ def nr_LetterOfResignation(request):
             letter_next_num_ = 1
         else:
             letter_prev_num = letters[letters_count - 1].lor_number
-            cut_symb = (len(str(letter_prev_num)) - 1)
-            letter_next_num_ = int(letter_prev_num[:cut_symb]) + 1
+            letter_next_num_ = int(letter_prev_num) + 1
         if request.method == "POST":
             letter_form = LetterOfResignation_form(request.POST)
             if letter_form.is_valid():
@@ -189,8 +187,7 @@ def nr_LetterOfInvite(request):
             letter_next_num_ = 1
         else:
             letter_prev_num = letters[letters_count - 1].loi_number
-            cut_symb = (len(str(letter_prev_num)) - 1)
-            letter_next_num_ = int(letter_prev_num[:cut_symb]) + 1
+            letter_next_num_ = int(letter_prev_num) + 1
         if request.method == 'POST':
             letter_form = LetterOfInvite_form(request.POST)
             if letter_form.is_valid():
@@ -289,7 +286,7 @@ def nr_OrderOnVacation(request):
             order_next_num_ = 1
         else:
             order_prev_num = orders[orders_count - 1].oov_number
-            cut_symb = (len(str(order_prev_num)) - 1)
+            cut_symb = (len(str(order_prev_num)) - 5)
             order_next_num_ = int(order_prev_num[:cut_symb]) + 1
 
         if request.method == "POST":
@@ -476,7 +473,7 @@ def nr_LaborContract(request):
             order_next_num_ = 1
         else:
             order_prev_num = orders[orders_count - 1].lc_number
-            cut_symb = (len(str(order_prev_num)) - 1)
+            cut_symb = (len(str(order_prev_num)) - 4)
             order_next_num_ = int(order_prev_num[:cut_symb]) + 1
         if request.method == "POST":
             order_form = LaborContract_form(request.POST)
