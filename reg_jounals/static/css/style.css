@@ -30,6 +30,11 @@ header {
   margin: 0 auto;
 }
 
+.vac_upd {
+  grid-template-rows: none;
+  width: 70%;
+}
+
 .add_list {
   display: grid;
   grid-template-columns: repeat(6, 100px)
@@ -39,6 +44,7 @@ header {
 
 .add_form select {width: 100%;}
 
+.add_form a {width: 100%;}
 
 .add_form textarea {width: 100%;
 height: 149px;}

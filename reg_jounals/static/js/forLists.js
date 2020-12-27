@@ -66,7 +66,7 @@ function col_days() {
     days = days-1;
     var newDate = new Date(s_date.getTime() + (days * 24 * 60 * 60 * 1000) );
 
-    alert("дата" + newDate.toDateString());
+
 
     year = newDate.getFullYear();
     month = newDate.getMonth();
@@ -82,7 +82,7 @@ function col_days() {
 
     form.emp_dur_to.value = day + "." + month + "." + year
 
-    alert(newDate);
+
 
 
 
