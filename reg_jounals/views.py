@@ -231,7 +231,7 @@ def nr_OrderOnOtherMatters(request):
             order_next_num_ = 1
         else:
             order_prev_num = orders[orders_count - 1].oom_number
-            cut_symb = (len(str(order_prev_num)) - 1)
+            cut_symb = (len(str(order_prev_num)) - 2)
             order_next_num_ = int(order_prev_num[:cut_symb]) + 1
         if request.method == "POST":
             order_form =OrdersOnOtherMatters_form(request.POST)
