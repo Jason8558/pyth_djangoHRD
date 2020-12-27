@@ -284,8 +284,8 @@ def nr_OrderOnVacation(request):
         order_form = OrdersOnVacation_form()
         depts = Departments.objects.all()
         orders = OrdersOnVacation.objects.all()
-        order_count = len(orders)
-        if order_count == 0:
+        orders_count = len(orders)
+        if orders_count == 0:
             order_next_num_ = 1
         else:
             order_prev_num = orders[orders_count - 1].oov_number
@@ -471,8 +471,8 @@ def nr_LaborContract(request):
         orders = LaborContract.objects.all()
         year_ = str(DT.date.today().year)
         year_ = year_[:2]
-        order_count = len(orders)
-        if order_count == 0:
+        orders_count = len(orders)
+        if orders_count == 0:
             order_next_num_ = 1
         else:
             order_prev_num = orders[orders_count - 1].lc_number
