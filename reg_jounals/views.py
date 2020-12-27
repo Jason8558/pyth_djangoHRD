@@ -415,7 +415,7 @@ def nr_OrderOnPersonnel(request):
             order_next_num_ = 1
         else:
             order_prev_num = orders[order_count - 1].op_number
-            cut_symb = (len(str(order_prev_num)) - 1)
+            cut_symb = (len(str(order_prev_num)) - 2)
             order_next_num_ = int(order_prev_num[:cut_symb]) + 1
 
         if request.method == "POST":
