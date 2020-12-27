@@ -229,7 +229,7 @@ def nr_OrderOnOtherMatters(request):
     if request.user.is_authenticated:
         order_form = OrdersOnOtherMatters_form()
         orders = OrdersOnOtherMatters.objects.all()
-        order_count = len(orders)
+        orders_count = len(orders)
         if orders_count == 0:
             order_next_num_ = 1
         else:
@@ -414,8 +414,8 @@ def nr_OrderOnPersonnel(request):
         if order_count == 0:
             order_next_num_ = 1
         else:
+    	    order_prev_num = orders[orders_count - 1].op_number
             cut_symb = (len(str(order_prev_num)) - 1)
-            order_prev_num = orders[orders_count - 1].op_number
             order_next_num_ = int(order_prev_num[:cut_symb]) + 1
 
         if request.method == "POST":
