@@ -37,7 +37,7 @@ urlpatterns = [
     path('laborContracts/<int:id>/del', views.del_LaborContract, name='labor_contracts_del_url'),
     path('employment_history/', views.employment_history, name='employment_history'),
     path('employment_history/add', views.nr_EmploymentHistory, name='employment_history_add_url'),
-    path('employment_history/<int:id>/add', views.upd_EmploymentHistory, name='employment_history_upd_url'),
+    path('employment_history/<int:id>/upd', views.upd_EmploymentHistory, name='employment_history_upd_url'),
     path('employment_history/<int:id>/del', views.del_EmploymentHistory, name='employment_history_del_url'),
-    path('employment_history/<int:id>/print', views.print_EmploymentHistory, name='employment_history_print_url')   
+    path('employment_history/<int:id>/print', views.print_EmploymentHistory, name='employment_history_print_url')
      ]
