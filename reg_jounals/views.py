@@ -486,7 +486,7 @@ def nr_LaborContract(request):
                 return redirect('../laborContracts/')
     else:
         return render(request, 'reg_jounals/no_auth.html')
-    return render(request, 'reg_jounals/laborContract_add.html', context={'form':order_form, 'depts':depts, 'next_num':order_next_num_, 'year_':year_})
+    return render(request, 'reg_jounals/LaborContract_add.html', context={'form':order_form, 'depts':depts, 'next_num':order_next_num_, 'year_':year_})
 
 def upd_LaborContract(request, id):
     if request.user.is_authenticated:
