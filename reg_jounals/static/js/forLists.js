@@ -1,4 +1,11 @@
 
+function TextDisabled() {
+
+  var query = String(document.location.href).split('/');
+  if (query[5] == 'add') {
+    elem = document.getElementById('id_oov_empList').setAttribute('readonly', 'readonly');
+  }
+}
 
 
 function FillList() {
