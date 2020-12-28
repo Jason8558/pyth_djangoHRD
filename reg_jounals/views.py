@@ -112,7 +112,7 @@ def nr_LetterOfResignation(request):
             letter_form = LetterOfResignation_form(request.POST)
             if letter_form.is_valid():
                 user_ = request.user.first_name
-                letter_form.saveFirst(user_, letter_next_num_)
+                letter_form.saveFirst(user_)
                 return redirect('../letters_of_resignation/')
         else:
 

@@ -19,7 +19,14 @@ class LetterOfResignation_form(forms.ModelForm):
 
 
 
-    def saveFirst(self, user_, letter_next_num_):
+    def saveFirst(self, user_):
+        letters = LetterOfResignation.objects.all()
+        letters_count = len(letters)
+        if letters_count == 0:
+            letter_next_num_ = 1
+        else:
+            letter_prev_num = letters[letters_count - 1].lor_number
+            letter_next_num_ = int(letter_prev_num) + 1
         new_letter = LetterOfResignation.objects.create(
         lor_date = self.cleaned_data['lor_date'],
         lor_number = str(letter_next_num_),
