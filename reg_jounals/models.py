@@ -14,7 +14,7 @@ class OutBoundDocument(models.Model):
     doc_res_officer = models.CharField(blank=True, editable=False,  max_length=256, help_text="Сотрудник, который внес документ в систему ", verbose_name='Ответственный сотрудник')
 
     class Meta:
-        ordering = ["doc_number"]
+        ordering = ["id"]
         verbose_name = 'Исходящий документ'
         verbose_name_plural = 'Исходящие документы'
 
@@ -34,7 +34,7 @@ class LetterOfResignation(models.Model):
     lor_res_officer = models.CharField(blank=True, editable=False,  max_length=256, help_text="Сотрудник, который внес документ в систему ", verbose_name='Ответственный сотрудник')
 
     class Meta:
-        ordering = ["lor_number"]
+        ordering = ["id"]
         verbose_name = 'Заявление на увольнение'
         verbose_name_plural = 'Заявления на увольнение'
 
@@ -49,7 +49,7 @@ class LetterOfInvite(models.Model):
     loi_res_officer = models.CharField(blank=True, editable=False,  max_length=256, help_text="Сотрудник, который внес документ в систему ", verbose_name='Ответственный сотрудник')
 
     class Meta:
-        ordering = ["loi_number"]
+        ordering = ["id"]
         verbose_name = 'Заявление на прием'
         verbose_name_plural = 'Заявления на прием'
 
@@ -86,7 +86,7 @@ class OrdersOfBTrip(models.Model):
     bt_res_officer = models.CharField(blank=True, editable=False,  max_length=256, help_text="Сотрудник, который внес документ в систему ", verbose_name='Ответственный сотрудник')
 
     class Meta:
-        ordering = ["bt_number"]
+        ordering = ["id"]
         verbose_name = 'Приказ о командировке'
         verbose_name_plural = 'Приказы о командировках'
 
@@ -103,7 +103,7 @@ class OrdersOnPersonnel(models.Model):
     op_res_officer = models.CharField(blank=True, editable=False,  max_length=256, help_text="Сотрудник, который внес документ в систему ", verbose_name='Ответственный сотрудник')
 
     class Meta:
-        ordering = ["op_number"]
+        ordering = ["id"]
         verbose_name = 'Приказ по личному составу'
         verbose_name_plural = 'Приказы по личному составу'
 
@@ -122,7 +122,7 @@ class LaborContract(models.Model):
     lc_res_officer = models.CharField(blank=True, editable=False,  max_length=256, help_text="Сотрудник, который внес документ в систему ", verbose_name='Ответственный сотрудник')
 
     class Meta:
-        ordering = ["lc_number"]
+        ordering = ["id"]
         verbose_name = 'Трудовой договор'
         verbose_name_plural = 'Трудовые договоры'
 

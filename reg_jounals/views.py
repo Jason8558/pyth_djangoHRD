@@ -48,9 +48,7 @@ def nr_OutBoundDocument(request):
             if doc_form.is_valid():
                 user_ = request.user.first_name
 
-                doc_form.doc_res_officer = user_
-                print(str(doc_form.doc_res_officer))
-                doc_form.saveFirst(user_, doc_next_num_)
+                doc_form.saveFirst(user_)
                 return redirect('../outbound_docs/')
         else:
             doc_form = OutBoundDocument_form()
@@ -86,7 +84,7 @@ def letter_of_resignation(request):
         if search_query:
             letters = LetterOfResignation.objects.filter(lor_employee__icontains=search_query)
         else:
-            letters = LetterOfResignation.objects.all()
+            letters = LetterOfResignation.objects.all().order_by('-id')
         count = len(letters)
         p_letters = Paginator(letters, 10)
         page_number = request.GET.get('page', 1)
@@ -153,7 +151,7 @@ def letter_of_invite(request):
             if search_query:
                 letters = LetterOfInvite.objects.filter(loi_employee__icontains=search_query)
             else:
-                letters = LetterOfInvite.objects.all()
+                letters = LetterOfInvite.objects.all().order_by('-id')
             count = len(letters)
 
             p_letters = Paginator(letters, 10)
@@ -192,7 +190,7 @@ def nr_LetterOfInvite(request):
             letter_form = LetterOfInvite_form(request.POST)
             if letter_form.is_valid():
                 user_ = request.user.first_name
-                letter_form.saveFirst(user_, letter_next_num_)
+                letter_form.saveFirst(user_)
                 return redirect('../letters_of_invite/')
         return render(request, 'reg_jounals/LetterOfInvite_add.html', context={'form':letter_form, 'next_num':letter_next_num_})
     else:
@@ -237,7 +235,7 @@ def nr_OrderOnOtherMatters(request):
             order_form =OrdersOnOtherMatters_form(request.POST)
             if order_form.is_valid():
                 user_ = request.user.first_name
-                order_form.saveFirst(user_,order_next_num_)
+                order_form.saveFirst(user_)
                 return redirect('../orders_on_others/')
 
 
@@ -267,7 +265,7 @@ def del_OrderOnOtherMatters(request, id):
 
 def order_on_vacation(request):
     if request.user.is_authenticated:
-        orders =OrdersOnVacation.objects.all()
+        orders =OrdersOnVacation.objects.all().order_by('-id')
         p_orders = Paginator(orders, page_count)
         page_number = request.GET.get('page', 1)
         page = p_orders.get_page(page_number)
@@ -293,7 +291,7 @@ def nr_OrderOnVacation(request):
             order_form =OrdersOnVacation_form(request.POST)
             if order_form.is_valid():
                 user_ = request.user.first_name
-                order_form.saveFirst(user_, order_next_num_)
+                order_form.saveFirst(user_)
                 return redirect('../orders_on_vacation/')
 
 
@@ -355,7 +353,7 @@ def nr_OrderOfBTrip(request):
             order_form =OrdersOfBTrip_form(request.POST)
             if order_form.is_valid():
                 user_ = request.user.first_name
-                order_form.saveFirst(user_, order_next_num_, trip_dur)
+                order_form.saveFirst(user_)
                 return redirect('../orders_of_BTrip/')
 
     else:
@@ -393,7 +391,7 @@ def order_on_personnel(request):
         if search_query:
             orders = OrdersOnPersonnel.objects.filter(op_emloyer__icontains=search_query)
         else:
-            orders = OrdersOnPersonnel.objects.all()
+            orders = OrdersOnPersonnel.objects.all().order_by('id')
         p_orders = Paginator(orders, page_count)
         page_number = request.GET.get('page', 1)
         page = p_orders.get_page(page_number)
@@ -406,7 +404,8 @@ def nr_OrderOnPersonnel(request):
     if request.user.is_authenticated:
         order_form = OrdersOnPersonnel_form()
         depts = Departments.objects.all()
-        orders = OrdersOnPersonnel.objects.all()
+        orders = OrdersOnPersonnel.objects.all().order_by('id')
+
         order_count = len(orders)
         if order_count == 0:
             order_next_num_ = 1
@@ -419,7 +418,7 @@ def nr_OrderOnPersonnel(request):
             order_form =OrdersOnPersonnel_form(request.POST)
             if order_form.is_valid():
                 user_ = request.user.first_name
-                order_form.saveFirst(user_, order_next_num_)
+                order_form.saveFirst(user_)
                 return redirect('../orders_on_personnel/')
     else:
         return render(request, 'reg_jounals/no_auth.html')
@@ -452,7 +451,7 @@ def LaborContracts(request):
         if search_query:
             contracts = LaborContract.objects.filter(lc_dep__dep_name__icontains=search_query)
         else:
-            contracts = LaborContract.objects.all()
+            contracts = LaborContract.objects.all().order_by('-id')
         p_orders = Paginator(contracts, 10)
         page_number = request.GET.get('page', 1)
         page = p_orders.get_page(page_number)
@@ -479,7 +478,7 @@ def nr_LaborContract(request):
             order_form = LaborContract_form(request.POST)
             if order_form.is_valid():
                 user_ = request.user.first_name
-                order_form.saveFirst(user_, order_next_num_, year_)
+                order_form.saveFirst(user_, year_)
                 return redirect('../laborContracts/')
     else:
         return render(request, 'reg_jounals/no_auth.html')

@@ -48,7 +48,15 @@ class OrdersOnOtherMatters_form(forms.ModelForm):
     'oom_date',
     'oom_content']
 
-    def saveFirst(self, user_, order_next_num_):
+    def saveFirst(self, user_):
+        orders = OrdersOnOtherMatters.objects.all()
+        orders_count = len(orders)
+        if orders_count == 0:
+            order_next_num_ = 1
+        else:
+            order_prev_num = orders[orders_count - 1].oom_number
+            cut_symb = (len(str(order_prev_num)) - 2)
+            order_next_num_ = int(order_prev_num[:cut_symb]) + 1
         new_order = OrdersOnOtherMatters.objects.create(
             oom_number = str(order_next_num_) + "-К",
             oom_date = self.cleaned_data['oom_date'],
@@ -64,7 +72,15 @@ class OrdersOnVacation_form(forms.ModelForm):
         fields = ['oov_date',
     'oov_empList']
 
-    def saveFirst(self, user_, order_next_num_):
+    def saveFirst(self, user_):
+        orders = OrdersOnVacation.objects.all()
+        orders_count = len(orders)
+        if orders_count == 0:
+            order_next_num_ = 1
+        else:
+            order_prev_num = orders[orders_count - 1].oov_number
+            cut_symb = (len(str(order_prev_num)) - 5)
+            order_next_num_ = int(order_prev_num[:cut_symb]) + 1
         new_order = OrdersOnVacation.objects.create(
             oov_number = str(order_next_num_) + "К-ОТП",
             oov_date = self.cleaned_data['oov_date'],
@@ -86,7 +102,15 @@ class OrdersOfBTrip_form(forms.ModelForm):
     'bt_emloyer'
     ]
 
-    def saveFirst(self, user_, order_next_num_, trip_dur):
+    def saveFirst(self, user_):
+        orders = OrdersOfBTrip.objects.all()
+        order_count = len(orders)
+        if order_count == 0:
+            order_next_num_ = 1
+        else:
+            order_prev_num = orders[order_count - 1].bt_number
+            cut_symb = (len(str(order_prev_num)) - 1)
+            order_next_num_ = int(order_prev_num[:cut_symb]) + 1
         new_order = OrdersOfBTrip.objects.create(
             bt_date  = self.cleaned_data['bt_date'],
             bt_number  = str(order_next_num_) + "П",
@@ -110,7 +134,16 @@ class OrdersOnPersonnel_form(forms.ModelForm):
     'op_emloyer',
     'op_content']
 
-    def saveFirst(self, user_, order_next_num_):
+    def saveFirst(self, user_):
+        orders = OrdersOnPersonnel.objects.all().order_by('id')
+        order_count = len(orders)
+        if order_count == 0:
+            order_next_num_ = 1
+        else:
+            order_prev_num = orders[order_count - 1].op_number
+            cut_symb = (len(str(order_prev_num)) - 2)
+            order_next_num_ = int(order_prev_num[:cut_symb]) + 1
+
         new_order = OrdersOnPersonnel.objects.create(
             op_date  = self.cleaned_data['op_date'],
             op_number  = str(order_next_num_)+"ЛС",
@@ -132,7 +165,12 @@ class OutBoundDocument_form(forms.ModelForm):
     'doc_dest',
     'doc_additionalData']
 
-    def saveFirst(self, user_, doc_next_num_):
+    def saveFirst(self, user_):
+        if docs_count == 0:
+            doc_next_num_ = 1
+        else:
+            doc_prev_num = docs[doc_count - 1].doc_number
+            doc_next_num_ = int(doc_prev_num) + 1
         new_document = OutBoundDocument.objects.create(
         doc_type = self.cleaned_data['doc_type'],
         doc_number = str(doc_next_num_),
@@ -172,7 +210,14 @@ class LetterOfInvite_form(forms.ModelForm):
 
 
 
-    def saveFirst(self, user_, letter_next_num_):
+    def saveFirst(self, user_):
+        letters = LetterOfInvite.objects.all()
+        letters_count = len(letters)
+        if letters_count == 0:
+            letter_next_num_ = 1
+        else:
+            letter_prev_num = letters[letters_count - 1].loi_number
+            letter_next_num_ = int(letter_prev_num) + 1
         new_letter = LetterOfInvite.objects.create(
         loi_date = self.cleaned_data['loi_date'],
         loi_number = str(letter_next_num_),
@@ -197,7 +242,15 @@ class LaborContract_form(forms.ModelForm):
     'lc_dep',
     'lc_workCond']
 
-    def saveFirst(self, user_, order_next_num_, year_):
+    def saveFirst(self, user_, year_):
+        orders = LaborContract.objects.all()
+        orders_count = len(orders)
+        if orders_count == 0:
+            order_next_num_ = 1
+        else:
+            order_prev_num = orders[orders_count - 1].lc_number
+            cut_symb = (len(str(order_prev_num)) - 4)
+            order_next_num_ = int(order_prev_num[:cut_symb]) + 1
         new_contract = LaborContract.objects.create(
             lc_date  = self.cleaned_data['lc_date'],
             lc_number  = str(order_next_num_)+"("+str(year_)+")",
