@@ -1,32 +1,32 @@
 {%extends "reg_jounals/index.html" %}
 
-{%block title%}Приказы по личному составу{%endblock%}
+{%block title%}Реестры больничных листов{%endblock%}
 {%block header%} <a class="btn btn-outline-info" href="../"> < назад</a> Реестры больничных листов {%endblock%}
 {%block content%}
 <!-- <form action="{% url 'orders_on_personnel' %}">
   <input type="search" name="op_search" placeholder="Поиск по ФИО..">
   <button class="btn btn-sm btn-warning" type="submit" name="" value="Найти">Найти</button>
 </form> -->
-<a class="btn btn-success btn-lg m-bottom btn-add " href="{% url 'sick_list_add_url'%}"> + Добавить</a>
-{% if numbers %}
+<a class="btn btn-success btn-lg m-bottom btn-add " href="{% url 'sick_reg_add_url' %}"> + Добавить</a>
+{% if regs %}
 <table>
   <thead class="thead-dark">
   <tr class="tr-header">
 
     <th scope="col">Номер реестра</th>
-
+    <th scope="col">Ответственный</th>
 
 
 
   </tr>
   </thead>
 
-  {%for number_ in numbers %}
+  {%for reg in regs %}
 
-<tr onclick="return location.href = '{%url 'sick_list_create' sk_number=number_%}' ">
+<tr onclick="return location.href = ' ' ">
 
-    <td>{{number_}}</td>
-
+    <td>{{reg.sr_number}}</td>
+    <td>{{reg.sr_res_officer}}</td>
 
 
 </tr>

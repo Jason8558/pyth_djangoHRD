@@ -291,52 +291,39 @@ class EmploymentHistory_form(forms.ModelForm):
 
         return new_empHistory
 
-class SickList_form(forms.ModelForm):
+class SickRegistry_form(forms.ModelForm):
+
+        class Meta:
+            model = SickRegistry
+            fields = [
+            'sr_number']
+
+        def saveFirst(self,user_):
+            registries = SickRegistry.objects.all().order_by('sr_number')
+            regs_count = len(registries)
+            if regs_count == 0:
+                reg_next_num_ = 1
+            else:
+                reg_prev_num = registries[regs_count - 1].sr_number
+                reg_next_num_ = int(reg_prev_num) + 1
+
+            new_registry = SickRegistry.objects.create(
+            sr_number = reg_next_num_,
+            sr_res_officer = user_
+            )
+            return new_registry
+
+
+
+class SickDocument_form(forms.ModelForm):
     class Meta:
-        model = SickList
-        fields = [
-        'sk_number',
+        model = SickDocument
+        fields = [ 'sd_reg_number',
 
-    'sk_rnumber',
-    'sk_emp',
-    'sk_pos',
-    'sk_dep',
-    'sk_dur_from',
-    'sk_dur_to',
-    'sk_comm'
-
-        ]
-
-    def saveFirst(self):
-        positions = SickList.objects.all().order_by('sk_number')
-        pos_count = len(positions)
-        if pos_count == 0:
-            pos_next_num_ = 1
-        else:
-            pos_prev_num = positions[orders_count - 1].lc_number
-            cut_symb = (len(str(order_prev_num)) - 4)
-            order_next_num_ = int(order_prev_num[:cut_symb]) + 1
-        new_list = SickList.objects.create(
-    sk_number = num_,
-    sk_rnumber = self.cleaned_data['sk_rnumber'],
-    sk_emp = self.cleaned_data['sk_emp'],
-    sk_pos = self.cleaned_data['sk_pos'],
-    sk_dep = self.cleaned_data['sk_dep'],
-    sk_dur_from = self.cleaned_data['sk_dur_from'],
-    sk_dur_to = self.cleaned_data['sk_dur_to'],
-    sk_comm = self.cleaned_data['sk_comm']
-        )
-        return new_list
-
-    def saveItem(self, num_):
-        new_list = SickList.objects.create(
-    sk_number = num_,
-    sk_rnumber = self.cleaned_data['sk_rnumber'],
-    sk_emp = self.cleaned_data['sk_emp'],
-    sk_pos = self.cleaned_data['sk_pos'],
-    sk_dep = self.cleaned_data['sk_dep'],
-    sk_dur_from = self.cleaned_data['sk_dur_from'],
-    sk_dur_to = self.cleaned_data['sk_dur_to'],
-    sk_comm = self.cleaned_data['sk_comm']
-        )
-        return new_list
+    'sd_number',
+    'sd_emp',
+    'sd_pos',
+    'sd_dep',
+    'sd_dur_from',
+    'sd_dur_to',
+    'sd_comm']

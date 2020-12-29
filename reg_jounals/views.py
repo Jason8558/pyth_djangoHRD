@@ -561,14 +561,10 @@ def print_EmploymentHistory(request, id):
             history = EmploymentHistory.objects.get(id__iexact=id)
             return render(request, 'reg_jounals/EmploymentHistory_print.html', context={'history':history})
 
-def sick_list(request):
+def sick_regs(request):
     if request.user.is_authenticated:
-        lists = SickList.objects.all().order_by('sk_number')
-        numbers = []
-        for list in lists:
-            numbers.append(list.sk_number)
-        numbers_ = [el for el, _ in groupby(numbers)]
-        return render(request, 'reg_jounals/sick_lists.html', context={'numbers':sorted(numbers_)})
+        regs = SickRegistry.objects.all().order_by('sr_number')
+        return render(request, 'reg_jounals/sick_regs.html', context={'regs':regs})
     else:
         return render(request, 'reg_jounals/no_auth.html')
 
@@ -581,19 +577,18 @@ def create_SickList(request, sk_number):
     else:
         return render(request, 'reg_jounals/no_auth.html')
 
-def add_SickList(request):
+def add_SickRegistry(request):
     if request.user.is_authenticated:
-        list_form = SickList_form()
-        depts = Departments.objects.all()
+        reg_form = SickRegistry_form()
         if request.method == "POST":
-            list_form = SickList_form(request.POST)
-            if list_form.is_valid():
+            reg_form = SickRegistry_form(request.POST)
+            if reg_form.is_valid():
                 user_ = request.user.first_name
-                list_form.saveFirst()
+                reg_form.saveFirst()
 
     else:
         return render(request, 'reg_jounals/no_auth.html')
-    return render(request, 'reg_jounals/SickList_add.html', context={'form':list_form})
+    return render(request, 'reg_jounals/SickRegistry_add.html', context={'form':reg_form})
 
 def addItem_SickList(request, sk_number):
     if request.user.is_authenticated:
