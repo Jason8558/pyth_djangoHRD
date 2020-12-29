@@ -290,3 +290,53 @@ class EmploymentHistory_form(forms.ModelForm):
             eh_res_officer = user_ )
 
         return new_empHistory
+
+class SickList_form(forms.ModelForm):
+    class Meta:
+        model = SickList
+        fields = [
+        'sk_number',
+
+    'sk_rnumber',
+    'sk_emp',
+    'sk_pos',
+    'sk_dep',
+    'sk_dur_from',
+    'sk_dur_to',
+    'sk_comm'
+
+        ]
+
+    def saveFirst(self):
+        positions = SickList.objects.all().order_by('sk_number')
+        pos_count = len(positions)
+        if pos_count == 0:
+            pos_next_num_ = 1
+        else:
+            pos_prev_num = positions[orders_count - 1].lc_number
+            cut_symb = (len(str(order_prev_num)) - 4)
+            order_next_num_ = int(order_prev_num[:cut_symb]) + 1
+        new_list = SickList.objects.create(
+    sk_number = num_,
+    sk_rnumber = self.cleaned_data['sk_rnumber'],
+    sk_emp = self.cleaned_data['sk_emp'],
+    sk_pos = self.cleaned_data['sk_pos'],
+    sk_dep = self.cleaned_data['sk_dep'],
+    sk_dur_from = self.cleaned_data['sk_dur_from'],
+    sk_dur_to = self.cleaned_data['sk_dur_to'],
+    sk_comm = self.cleaned_data['sk_comm']
+        )
+        return new_list
+
+    def saveItem(self, num_):
+        new_list = SickList.objects.create(
+    sk_number = num_,
+    sk_rnumber = self.cleaned_data['sk_rnumber'],
+    sk_emp = self.cleaned_data['sk_emp'],
+    sk_pos = self.cleaned_data['sk_pos'],
+    sk_dep = self.cleaned_data['sk_dep'],
+    sk_dur_from = self.cleaned_data['sk_dur_from'],
+    sk_dur_to = self.cleaned_data['sk_dur_to'],
+    sk_comm = self.cleaned_data['sk_comm']
+        )
+        return new_list

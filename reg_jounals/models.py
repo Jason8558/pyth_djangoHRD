@@ -141,6 +141,22 @@ class EmploymentHistory(models.Model):
     eh_dateOfResign = models.DateField(null=True, blank=True, help_text="Введите дату увольнения", verbose_name="Дата увольнения", db_index=True)
     eh_res_officer = models.CharField(blank=True, editable=False,  max_length=256, help_text="Сотрудник, который внес документ в систему ", verbose_name='Ответственный сотрудник')
 
+class SickList(models.Model):
+    sk_number = models.IntegerField(help_text="Введите номер реестра", verbose_name="Номер реестра", db_index=True)
+    # sk_date = models.DateField(help_text="Введите дату реестра", verbose_name="Дата реестра", db_index=True)
+    sk_rnumber = models.CharField(max_length=256, help_text="Введите номер б\л", verbose_name="Номер б\л", db_index=True)
+    sk_emp = models.CharField(max_length=256, help_text="Введите ФИО сотрудника", verbose_name="ФИО", db_index=True)
+    sk_pos = models.CharField(max_length=256, help_text="Введите должность", verbose_name="Должность", db_index=True)
+    sk_dep = models.ForeignKey('Departments',  on_delete=models.CASCADE, verbose_name="Подразделение ", default="1")
+    sk_dur_from = models.DateField(help_text="Введите дату начала болезни", verbose_name="Дата начала болезни", db_index=True)
+    sk_dur_to = models.DateField(help_text="Введите дату окончания болезни", verbose_name="Дата окончания болезни", db_index=True)
+    sk_comm = models.CharField(blank=True, default=" ", max_length=256, help_text="Введите примечание", verbose_name="Примечание")
+
+    class Meta:
+        ordering = ["sk_number"]
+        verbose_name = 'Больничный лист'
+        verbose_name_plural = 'Больничные листы'
+
 class Departments(models.Model):
     dep_name = models.CharField(max_length=256,  help_text="Введите название подразделения", verbose_name="Название подразделения", db_index=True)
 

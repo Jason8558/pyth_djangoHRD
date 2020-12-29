@@ -5,6 +5,7 @@ from .forms import *
 from django.shortcuts import redirect
 from django.core.paginator import Paginator
 import datetime as DT
+from itertools import groupby
 
 page_count = 15
 
@@ -559,3 +560,57 @@ def print_EmploymentHistory(request, id):
     if request.user.is_authenticated:
             history = EmploymentHistory.objects.get(id__iexact=id)
             return render(request, 'reg_jounals/EmploymentHistory_print.html', context={'history':history})
+
+def sick_list(request):
+    if request.user.is_authenticated:
+        lists = SickList.objects.all().order_by('sk_number')
+        numbers = []
+        for list in lists:
+            numbers.append(list.sk_number)
+        numbers_ = [el for el, _ in groupby(numbers)]
+        return render(request, 'reg_jounals/sick_lists.html', context={'numbers':sorted(numbers_)})
+    else:
+        return render(request, 'reg_jounals/no_auth.html')
+
+def create_SickList(request, sk_number):
+    if request.user.is_authenticated:
+        positions = SickList.objects.filter(sk_number__exact=sk_number)
+        print(positions)
+        count = len(positions)
+        return render(request, 'reg_jounals/sick_lists_create.html', context={'positions':positions, 'rnum':sk_number, 'count':count})
+    else:
+        return render(request, 'reg_jounals/no_auth.html')
+
+def add_SickList(request):
+    if request.user.is_authenticated:
+        list_form = SickList_form()
+        depts = Departments.objects.all()
+        if request.method == "POST":
+            list_form = SickList_form(request.POST)
+            if list_form.is_valid():
+                user_ = request.user.first_name
+                list_form.saveFirst()
+
+    else:
+        return render(request, 'reg_jounals/no_auth.html')
+    return render(request, 'reg_jounals/SickList_add.html', context={'form':list_form})
+
+def addItem_SickList(request, sk_number):
+    if request.user.is_authenticated:
+        list_form = SickList_form()
+        if request.method == "POST":
+            list_form = SickList_form(request.POST)
+            if list_form.is_valid():
+                user_ = request.user.first_name
+                list_form.saveItem(sk_number)
+    else:
+        return render(request, 'reg_jounals/no_auth.html')
+    return render(request, 'reg_jounals/SickList_Itemadd.html', context={'form':list_form, 'num':sk_number})
+
+def ItemDel_SickList(request, id):
+    if request.user.is_authenticated:
+        item = SickList.objects.get(id__iexact=id)
+        num = item.sk_number
+        dest = '/journals/sick_list/create/' + str(num)
+        item.delete()
+        return redirect(dest)

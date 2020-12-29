@@ -1,0 +1,36 @@
+{% extends "reg_jounals/index.html" %}
+
+
+
+{%block title%}Новый реестр{% endblock %}
+{%block header%}Создать реестр больничных листов{% endblock %}
+
+{%block content%}
+{% if form.errors%}
+
+<div class="alert alert-danger mt-5" role="alert">
+{{form.errors}}
+</div>
+{%endif%}
+<form class="add_form sick_list" action="" method="post">
+  {% csrf_token %}
+
+<p>{{form.sk_number.label}}{{form.sk_number}}</p>
+<div class="add_sk_item">
+  <p>{{form.sk_rnumber.label}}{{form.sk_rnumber}}</p>
+  <p>{{form.sk_emp.label}}{{form.sk_emp}}</p>
+  <p>{{form.sk_pos.label}}{{form.sk_pos}}</p>
+  <p>{{form.sk_dep.label}}{{form.sk_dep}}</p>
+  <p>{{form.sk_dur_from.label}}{{form.sk_dur_from}}</p>
+  <p>{{form.sk_dur_to.label}}{{form.sk_dur_to}}</p>
+  <p>{{form.sk_comm.label}}{{form.sk_comm}}</p>
+
+<input class="btn btn-outline-info" onclick="ClearEnter()" type="submit" value="Добавить больничный лист в реестр" />
+</div>
+
+
+  <input type="button" onclick="CreateList();" class="btn btn-success" name="" value="Открыть реестр">
+  <a class="btn btn-outline-danger" href="..">Отмена</a>
+</form>
+
+{%endblock%}
