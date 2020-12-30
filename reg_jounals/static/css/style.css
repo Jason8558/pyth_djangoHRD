@@ -30,9 +30,20 @@ header {
   margin: 0 auto;
 }
 
+.sick_list {
+  grid-template-rows: none;
+  grid-gap: 15px;
+}
+
+.add_sk_item {
+  border: solid 1px #785589;
+    padding: 15px;
+    box-shadow: 0px 0px 9px 1px #785589;
+}
+
 .vac_upd {
-  grid-template-rows: none;
-  width: 70%;
+grid-template-rows: none;
+width: 70%;
 }
 
 .add_list {

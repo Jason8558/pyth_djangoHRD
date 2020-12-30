@@ -1,0 +1,24 @@
+{% extends "reg_jounals/index.html" %}
+
+
+
+{%block title%}Новый реестр{% endblock %}
+{%block header%}Создать реестр больничных листов{% endblock %}
+
+{%block content%}
+{% if form.errors%}
+
+<div class="alert alert-danger mt-5" role="alert">
+{{form.errors}}
+</div>
+{%endif%}
+<form class="add_form sick_list" action="" method="post">
+  {% csrf_token %}
+  {% for field in form %}
+  <p>{{field.label}}{{field}}</p>
+  {%endfor%}
+  <input type="button" onclick="CreateList();" class="btn btn-success" name="" value="Создать реестр">
+  <a class="btn btn-outline-danger" href=".">Отмена</a>
+</form>
+
+{%endblock%}

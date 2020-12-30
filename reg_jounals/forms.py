@@ -290,3 +290,59 @@ class EmploymentHistory_form(forms.ModelForm):
             eh_res_officer = user_ )
 
         return new_empHistory
+
+class SickRegistry_form(forms.ModelForm):
+
+        class Meta:
+            model = SickRegistry
+            fields = [
+            'sr_number']
+
+        def saveFirst(self,user_):
+            registries = SickRegistry.objects.all().order_by('sr_number')
+            regs_count = len(registries)
+            if regs_count == 0:
+                reg_next_num_ = 1
+            else:
+                reg_prev_num = registries[regs_count - 1].sr_number
+                reg_next_num_ = int(reg_prev_num) + 1
+
+            new_registry = SickRegistry.objects.create(
+            sr_number = reg_next_num_,
+            sr_res_officer = user_
+            )
+            return new_registry
+
+
+
+class SickDocument_form(forms.ModelForm):
+    class Meta:
+        model = SickDocument
+
+        fields = [
+
+    'sd_number',
+    'sd_emp',
+    'sd_pos',
+    'sd_dep',
+    'sd_dur_from',
+    'sd_dur_to',
+    'sd_comm']
+
+
+
+
+    def saveFirst(self,user_, sr_number_):
+        new_doc = SickDocument.objects.create(
+        sd_reg_number = sr_number_,
+        sd_number = self.cleaned_data['sd_number'],
+        sd_emp = self.cleaned_data['sd_emp'],
+        sd_pos = self.cleaned_data['sd_pos'],
+        sd_dep = self.cleaned_data['sd_dep'],
+        sd_dur_from = self.cleaned_data['sd_dur_from'],
+        sd_dur_to = self.cleaned_data['sd_dur_to'],
+        sd_comm = self.cleaned_data['sd_comm']
+
+        )
+
+        return new_doc

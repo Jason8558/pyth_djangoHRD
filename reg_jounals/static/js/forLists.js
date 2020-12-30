@@ -1,10 +1,34 @@
+function CreateList () {
+loc = '/journals/sick_list/create/' + document.getElementById('id_sk_number').value.toString();
+alert(loc)
+location.href = loc;
+
+}
+
+function ClearEnter() {
+
+    document.getElementById('id_sk_number').setAttribute('readonly', 'readonly');
+    document.getElementById('id_sk_rumber').value = "";
+    document.getElementById('id_sk_emp').value = "";
+    document.getElementById('id_sk_pos').value = "";
+    document.getElementById('id_sk_dur_from').value = "";
+    document.getElementById('id_sk_dur_to').value = "";
+    document.getElementById('id_sk_comm').value = "";
+
+}
+
 
 function TextDisabled() {
 
   var query = String(document.location.href).split('/');
   if (query[5] == 'add') {
     elem = document.getElementById('id_oov_empList').setAttribute('readonly', 'readonly');
-  }
+  };
+
+  if (query[5] == 'Itemadd') {
+  document.getElementById('id_sk_number').value = query[6];
+}
+
 }
 
 

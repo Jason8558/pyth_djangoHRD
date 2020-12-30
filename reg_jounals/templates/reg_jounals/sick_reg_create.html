@@ -1,0 +1,91 @@
+{%extends "reg_jounals/index.html" %}
+
+{%block title%}Приказы по личному составу{%endblock%}
+{%block header%} <a class="btn btn-outline-info" href="/journals/sick_regs/"> < назад</a> Реестр № {{rnum}}. Больничных листов в реестре: {{count}}  {%endblock%}
+{%block content%}
+<!-- <form action="{% url 'orders_on_personnel' %}">
+  <input type="search" name="op_search" placeholder="Поиск по ФИО..">
+  <button class="btn btn-sm btn-warning" type="submit" name="" value="Найти">Найти</button>
+</form> -->
+<style>
+.print-allow {
+  display: none;
+}
+
+  @media print {
+
+    @page {
+    	size: landscape
+    }
+
+body {
+  zoom: 74%;
+}
+
+
+  * {
+    font-size: 15pt;
+  }
+
+  .print {
+    display: none;
+  }
+
+  .print-allow {
+    display: block;
+  }
+
+  .tnumber {
+    padding: 0 6px;
+  }
+
+
+  }
+
+
+
+</style>
+
+
+
+<a class=" btn btn-sm btn-warning print" onclick="javascript:window.print();" style="margin-top: 5px;" href="">Печать реестра</a>
+{% if positions %}
+<h3 class="print-allow" style="text-align: center;"> Реестр больничных листов № {{rnum}}. Листов в реестре: {{count}}</h3>
+<table>
+  <thead class="thead-dark">
+  <tr class="tr-header">
+
+    <th scope="col">Номер б\л</th>
+    <th scope="col">ФИО</th>
+    <th scope="col">Должность</th>
+    <th scope="col">Подразделение</th>
+    <th scope="col">Дата начала</th>
+    <th scope="col">Дата окончания</th>
+    <th scope="col">Примечание</th>
+    <th class="print" scope="col"></th>
+
+
+
+  </tr>
+  </thead>
+
+  {%for pos in positions %}
+
+<tr>
+
+    <td class="tnumber">{{pos.sd_number}}</td>
+    <td>{{pos.sd_emp}}</td>
+    <td>{{pos.sd_pos}}</td>
+    <td>{{pos.sd_dep}}</td>
+    <td>{{pos.sd_dur_from|date:"d.m.Y"}}</td>
+    <td>{{pos.sd_dur_to|date:"d.m.Y"}}</td>
+    <td>{{pos.sd_comm}}</td>
+    <td class="print"><a class="btn btn-sm btn-danger btn-delete"href="{% url 'sick_reg_delDoc_url' id=pos.id%}">Удалить</a></td>
+</tr>
+  {%endfor%}
+
+</table>
+
+{%endif%}
+<a class="btn btn-success btn-lg m-bottom btn-sm btn-add print" href="{%url 'sick_reg_addItem_url' sr_number_=rnum%}"> + Добавить больничный лист в реестр</a>
+{%endblock%}

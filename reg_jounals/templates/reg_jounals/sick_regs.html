@@ -1,0 +1,69 @@
+{%extends "reg_jounals/index.html" %}
+
+{%block title%}Реестры больничных листов{%endblock%}
+{%block header%} <a class="btn btn-outline-info" href="../"> < назад</a> Реестры больничных листов {%endblock%}
+{%block content%}
+<!-- <form action="{% url 'orders_on_personnel' %}">
+  <input type="search" name="op_search" placeholder="Поиск по ФИО..">
+  <button class="btn btn-sm btn-warning" type="submit" name="" value="Найти">Найти</button>
+</form> -->
+<a class="btn btn-success btn-lg m-bottom btn-add " href="{% url 'sick_reg_add_url' %}"> + Добавить</a>
+{% if regs %}
+<table>
+  <thead class="thead-dark">
+  <tr class="tr-header">
+
+    <th scope="col">Номер реестра</th>
+    <th scope="col">Ответственный</th>
+
+
+
+  </tr>
+  </thead>
+
+  {%for reg in regs %}
+
+<tr onclick="return location.href = '{% url 'sick_reg_create_url'  sr_number=reg.sr_number %}'">
+
+    <td>{{reg.sr_number}}</td>
+    <td>{{reg.sr_res_officer}}</td>
+
+
+</tr>
+  {%endfor%}
+</table>
+<nav  class="paginator" aria-label="Page navigation example">
+  <ul class="pagination">
+    <li class="page-item">
+      <a class="page-link" href="#" aria-label="Previous">
+<span aria-hidden="true">&laquo;</span>
+      </a>
+    </li>
+{% for p in orders.paginator.page_range %}
+  {% if orders.number == p%}
+   <li class="page-item active"><a class="page-link" href="?page={{p}}">{{ p }}</a></li>
+   {%else%}
+        <li class="page-item"><a class="page-link" href="?page={{p}}">{{ p }}</a></li>
+    {%endif%}
+  {% endfor %}
+
+{%if orders.has_next%}
+    <li class="page-item">
+      <a class="page-link" href='?page={{orders.next_page_number}}' aria-label="Next">
+<span aria-hidden="true">&raquo;</span>
+      </a>
+    </li>
+  {%else%}
+  <li class="page-item disabled">
+    <a class="page-link" href='#' aria-disabled='true' aria-label="Next">
+      <span aria-hidden="true">&raquo;</span>
+    </a>
+  </li>
+  {%endif%}
+  </ul>
+</nav>
+
+{%else%}
+<h2>Записей нет</h2>
+{%endif%}
+{%endblock%}

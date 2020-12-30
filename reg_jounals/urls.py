@@ -39,5 +39,10 @@ urlpatterns = [
     path('employment_history/add', views.nr_EmploymentHistory, name='employment_history_add_url'),
     path('employment_history/<int:id>/upd', views.upd_EmploymentHistory, name='employment_history_upd_url'),
     path('employment_history/<int:id>/del', views.del_EmploymentHistory, name='employment_history_del_url'),
-    path('employment_history/<int:id>/print', views.print_EmploymentHistory, name='employment_history_print_url')
+    path('employment_history/<int:id>/print', views.print_EmploymentHistory, name='employment_history_print_url'),
+    path('sick_regs/', views.sick_regs, name='sick_regs'),
+    path('sick_reg/<int:sr_number>/create/', views.create_SickRegistry, name='sick_reg_create_url'),
+    path('sick_reg/add', views.add_SickRegistry, name='sick_reg_add_url'),
+    path('sick_reg/<int:sr_number_>/additem', views.add_SickDocument, name='sick_reg_addItem_url'),
+    path('sick_reg/Itemdel/<int:id>', views.ItemDel_SickList, name='sick_reg_delDoc_url')
      ]

@@ -1,4 +1,5 @@
 
+
 $(document).ready(function() {
 var input = document.querySelectorAll('#id_doc_date2')[0];
 
