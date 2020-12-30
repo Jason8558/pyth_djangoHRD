@@ -149,9 +149,11 @@ class SickRegistry(models.Model):
         ordering = ["sr_number"]
         verbose_name = 'Реестр больничных листов'
         verbose_name_plural = 'Реестры больничных листов'
-
+    def __str__(self):
+        reg_num = str(self.sr_number)
+        return reg_num
 class SickDocument(models.Model):
-    sd_reg_number = models.ForeignKey('SickRegistry', on_delete=models.CASCADE, verbose_name="№ реестра ", default=" ")
+    sd_reg_number = models.CharField(max_length=256, blank=True, help_text="Введите номер реестра", verbose_name="№ реестра ", default=" ")
     sd_number = models.CharField(max_length=256, help_text="Введите номер б\л", verbose_name="Номер б\л", db_index=True)
     sd_emp = models.CharField(max_length=256, help_text="Введите ФИО сотрудника", verbose_name="ФИО", db_index=True)
     sd_pos = models.CharField(max_length=256, help_text="Введите должность", verbose_name="Должность", db_index=True)
@@ -161,9 +163,13 @@ class SickDocument(models.Model):
     sd_comm = models.CharField(blank=True, default=" ", max_length=256, help_text="Введите примечание", verbose_name="Примечание")
 
     class Meta:
-        ordering = ["sd_reg_number__sr_number"]
+        ordering = ["sd_reg_number"]
         verbose_name = 'Больничный лист'
         verbose_name_plural = 'Больничные листы'
+
+    def __str__(self):
+        doc_name = 'Больничный № ' + str(self.sd_number) + ' в реестре № ' + str(self.sd_reg_number)
+        return doc_name
 
 class Departments(models.Model):
     dep_name = models.CharField(max_length=256,  help_text="Введите название подразделения", verbose_name="Название подразделения", db_index=True)

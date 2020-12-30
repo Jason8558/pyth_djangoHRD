@@ -318,7 +318,8 @@ class SickRegistry_form(forms.ModelForm):
 class SickDocument_form(forms.ModelForm):
     class Meta:
         model = SickDocument
-        fields = [ 'sd_reg_number',
+
+        fields = [
 
     'sd_number',
     'sd_emp',
@@ -327,3 +328,21 @@ class SickDocument_form(forms.ModelForm):
     'sd_dur_from',
     'sd_dur_to',
     'sd_comm']
+
+
+
+
+    def saveFirst(self,user_, sr_number_):
+        new_doc = SickDocument.objects.create(
+        sd_reg_number = sr_number_,
+        sd_number = self.cleaned_data['sd_number'],
+        sd_emp = self.cleaned_data['sd_emp'],
+        sd_pos = self.cleaned_data['sd_pos'],
+        sd_dep = self.cleaned_data['sd_dep'],
+        sd_dur_from = self.cleaned_data['sd_dur_from'],
+        sd_dur_to = self.cleaned_data['sd_dur_to'],
+        sd_comm = self.cleaned_data['sd_comm']
+
+        )
+
+        return new_doc

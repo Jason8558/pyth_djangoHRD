@@ -1,7 +1,7 @@
 {%extends "reg_jounals/index.html" %}
 
 {%block title%}Приказы по личному составу{%endblock%}
-{%block header%} <a class="btn btn-outline-info" href="../"> < назад</a> Реестр № {{rnum}}. Больничных листов в реестре: {{count}}  {%endblock%}
+{%block header%} <a class="btn btn-outline-info" href="/journals/sick_regs/"> < назад</a> Реестр № {{rnum}}. Больничных листов в реестре: {{count}}  {%endblock%}
 {%block content%}
 <!-- <form action="{% url 'orders_on_personnel' %}">
   <input type="search" name="op_search" placeholder="Поиск по ФИО..">
@@ -18,7 +18,7 @@
     	size: landscape
     }
 
-html {
+body {
   zoom: 74%;
 }
 
@@ -73,18 +73,19 @@ html {
 
 <tr>
 
-    <td class="tnumber">{{pos.sk_rnumber}}</td>
-    <td>{{pos.sk_emp}}</td>
-    <td>{{pos.sk_pos}}</td>
-    <td>{{pos.sk_dep}}</td>
-    <td>{{pos.sk_dur_from|date:"d.m.Y"}}</td>
-    <td>{{pos.sk_dur_to|date:"d.m.Y"}}</td>
-    <td>{{pos.sk_comm}}</td>
-    <td class="print"><a class="btn btn-sm btn-danger btn-delete"href="{% url 'sick_list_delItem_url' id=pos.id%}">Удалить</a></td>
+    <td class="tnumber">{{pos.sd_number}}</td>
+    <td>{{pos.sd_emp}}</td>
+    <td>{{pos.sd_pos}}</td>
+    <td>{{pos.sd_dep}}</td>
+    <td>{{pos.sd_dur_from|date:"d.m.Y"}}</td>
+    <td>{{pos.sd_dur_to|date:"d.m.Y"}}</td>
+    <td>{{pos.sd_comm}}</td>
+    <td class="print"><a class="btn btn-sm btn-danger btn-delete"href="{% url 'sick_reg_delDoc_url' id=pos.id%}">Удалить</a></td>
 </tr>
   {%endfor%}
 
 </table>
-<a class="btn btn-success btn-lg m-bottom btn-sm btn-add print" href="{%url 'sick_list_addItem_url' sk_number=rnum%}"> + Добавить больничный лист в реестр</a>
+
 {%endif%}
+<a class="btn btn-success btn-lg m-bottom btn-sm btn-add print" href="{%url 'sick_reg_addItem_url' sr_number_=rnum%}"> + Добавить больничный лист в реестр</a>
 {%endblock%}

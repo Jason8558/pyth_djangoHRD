@@ -568,44 +568,44 @@ def sick_regs(request):
     else:
         return render(request, 'reg_jounals/no_auth.html')
 
-def create_SickList(request, sk_number):
+def create_SickRegistry(request, sr_number):
     if request.user.is_authenticated:
-        positions = SickList.objects.filter(sk_number__exact=sk_number)
+        positions = SickDocument.objects.filter(sd_reg_number__exact=sr_number)
         print(positions)
         count = len(positions)
-        return render(request, 'reg_jounals/sick_lists_create.html', context={'positions':positions, 'rnum':sk_number, 'count':count})
+        return render(request, 'reg_jounals/sick_reg_create.html', context={'positions':positions, 'rnum':sr_number, 'count':count})
     else:
         return render(request, 'reg_jounals/no_auth.html')
 
 def add_SickRegistry(request):
     if request.user.is_authenticated:
         reg_form = SickRegistry_form()
-        if request.method == "POST":
-            reg_form = SickRegistry_form(request.POST)
-            if reg_form.is_valid():
-                user_ = request.user.first_name
-                reg_form.saveFirst()
+        regs = SickRegistry.objects.all().order_by('sr_number')
+        user_ = request.user.first_name
+        reg_form.saveFirst(user_)
 
     else:
         return render(request, 'reg_jounals/no_auth.html')
-    return render(request, 'reg_jounals/SickRegistry_add.html', context={'form':reg_form})
+    return redirect('/journals/sick_regs')
 
-def addItem_SickList(request, sk_number):
+def add_SickDocument(request, sr_number_):
     if request.user.is_authenticated:
-        list_form = SickList_form()
+        doc_form = SickDocument_form()
         if request.method == "POST":
-            list_form = SickList_form(request.POST)
-            if list_form.is_valid():
+            doc_form = SickDocument_form(request.POST)
+            if doc_form.is_valid():
                 user_ = request.user.first_name
-                list_form.saveItem(sk_number)
+                doc_form.saveFirst(user_, sr_number_)
+                loc = '/journals/sick_reg/'+str(sr_number_)+'/create/'
+                return redirect(loc)
     else:
         return render(request, 'reg_jounals/no_auth.html')
-    return render(request, 'reg_jounals/SickList_Itemadd.html', context={'form':list_form, 'num':sk_number})
+    return render(request, 'reg_jounals/SickDocument_add.html', context={'form':doc_form, 'reg_num':sr_number_})
 
 def ItemDel_SickList(request, id):
     if request.user.is_authenticated:
-        item = SickList.objects.get(id__iexact=id)
-        num = item.sk_number
-        dest = '/journals/sick_list/create/' + str(num)
+        item = SickDocument.objects.get(id__iexact=id)
+        num = item.sd_reg_number
+        dest = '/journals/sick_reg/' + str(num) + '/create/'
         item.delete()
         return redirect(dest)

@@ -23,7 +23,7 @@
 
   {%for reg in regs %}
 
-<tr onclick="return location.href = ' ' ">
+<tr onclick="return location.href = '{% url 'sick_reg_create_url'  sr_number=reg.sr_number %}'">
 
     <td>{{reg.sr_number}}</td>
     <td>{{reg.sr_res_officer}}</td>
