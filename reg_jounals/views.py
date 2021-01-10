@@ -42,7 +42,7 @@ def nr_OutBoundDocument(request):
         if docs_count == 0:
             doc_next_num_ = 1
         else:
-            doc_prev_num = docs[doc_count - 1].doc_number
+            doc_prev_num = documents[docs_count - 1].doc_number
             doc_next_num_ = int(doc_prev_num) + 1
         if request.method == "POST":
             doc_form = OutBoundDocument_form(request.POST)
