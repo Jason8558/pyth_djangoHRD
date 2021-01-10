@@ -467,7 +467,7 @@ def nr_LaborContract(request):
         depts = Departments.objects.all()
         orders = LaborContract.objects.all()
         year_ = str(DT.date.today().year)
-        year_ = year_[:2]
+        year_ = year_[2:]
         orders_count = len(orders)
         if orders_count == 0:
             order_next_num_ = 1
