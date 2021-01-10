@@ -17,7 +17,12 @@
   {% endfor%}
 
   <input class="btn btn-success" type="submit" value="Сохранить" />
-  <a class="btn btn-outline-danger" href="{% url 'letter_resignation_del_url' id=letter.id%}">Удалить запись</a>
+  <a class="btn btn-outline-danger" id="sure_btn" onclick="OpenSureDialog()">Удалить запись</a>
+  <div id="sure" style="display: none;" class="yousure">
+    <p>Вы уверены? <span style="color: red;"><b>ЭТО ДЕЙСТВИЕ НЕОБРАТИМО</b></span></p>
+    <a class="btn btn-outline-danger" href="{% url 'letter_resignation_del_url' id=letter.id%}">Да</a>
+
+  </div>
   <a class="btn btn-outline-info" href="..">Отмена</a>
 </form>
 

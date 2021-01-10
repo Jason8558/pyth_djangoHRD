@@ -17,6 +17,11 @@ function ClearEnter() {
 
 }
 
+function OpenSureDialog() {
+  document.getElementById('sure_btn').style.display = "none";
+  document.getElementById('sure').style.display = "block";
+}
+
 
 function TextDisabled() {
 
