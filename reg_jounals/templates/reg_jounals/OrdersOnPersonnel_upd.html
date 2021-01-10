@@ -6,6 +6,9 @@
 {%block content%}
 {% if form.errors%}
 
+<script type="text/javascript">
+
+</script>
 <div class="alert alert-danger mt-5" role="alert">
 {{form.errors}}
 </div>
@@ -18,6 +21,11 @@
 
   <input class="btn btn-success" type="submit" value="Сохранить" />
   <a class="btn btn-outline-danger" href="{% url 'orders_on_personnel_del_url' id=order.id%}">Удалить</a>
+  <div id="sure" class="yousure">
+    <p>Вы уверены? <span style="color: red;"><b>ЭТО ДЕЙСТВИЕ НЕОБРАТИМО</b></span></p>
+    <a class="btn btn-outline-danger" href="{% url 'orders_on_personnel_del_url' id=order.id%}">Да</a>
+
+  </div>
   <a class="btn btn-outline-info" href="..">Отмена</a>
 </form>
 
