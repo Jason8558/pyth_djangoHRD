@@ -1,14 +1,13 @@
 {% extends "reg_jounals/index.html" %}
 
+
 {%block title%}Приказ №{{order.op_number}}{% endblock %}
 {%block header%}Изменить запись - Приказ №{{order.op_number}}{% endblock %}
 
 {%block content%}
 {% if form.errors%}
 
-<script type="text/javascript">
 
-</script>
 <div class="alert alert-danger mt-5" role="alert">
 {{form.errors}}
 </div>
@@ -20,8 +19,8 @@
   {% endfor%}
 
   <input class="btn btn-success" type="submit" value="Сохранить" />
-  <a class="btn btn-outline-danger" href="{% url 'orders_on_personnel_del_url' id=order.id%}">Удалить</a>
-  <div id="sure" class="yousure">
+  <a id="sure_btn" onclick="OpenSureDialog()" class="btn btn-outline-danger">Удалить</a>
+  <div id="sure" style="display: none;" class="yousure">
     <p>Вы уверены? <span style="color: red;"><b>ЭТО ДЕЙСТВИЕ НЕОБРАТИМО</b></span></p>
     <a class="btn btn-outline-danger" href="{% url 'orders_on_personnel_del_url' id=order.id%}">Да</a>
 
