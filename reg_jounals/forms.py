@@ -166,6 +166,8 @@ class OutBoundDocument_form(forms.ModelForm):
     'doc_additionalData']
 
     def saveFirst(self, user_):
+        docs = OutBoundDocument.objects.all()
+        docs_count = len(docs)
         if docs_count == 0:
             doc_next_num_ = 1
         else:
