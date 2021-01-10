@@ -27,6 +27,9 @@ class LetterOfResignation_form(forms.ModelForm):
         else:
             letter_prev_num = letters[letters_count - 1].lor_number
             letter_next_num_ = int(letter_prev_num) + 1
+        log = open('log.txt', 'a')
+        log.write(str(DT.date.today()) + " пользователь " +str(user_) + ' внес запись о заявлении об увольнении : ' + str(letter_next_num_) +  ' от '+ str(self.cleaned_data['lor_date']) + " увольняемый сотрудник: " + str(self.cleaned_data['lor_employee']) + '\n'  )
+        log.close()
         new_letter = LetterOfResignation.objects.create(
         lor_date = self.cleaned_data['lor_date'],
         lor_number = str(letter_next_num_),
@@ -57,6 +60,9 @@ class OrdersOnOtherMatters_form(forms.ModelForm):
             order_prev_num = orders[orders_count - 1].oom_number
             cut_symb = (len(str(order_prev_num)) - 2)
             order_next_num_ = int(order_prev_num[:cut_symb]) + 1
+            log = open('log.txt', 'a')
+            log.write(str(DT.date.today()) + " пользователь " +str(user_) + ' внес запись: ' + str(order_next_num_) + "-К" + ' от '+ str(self.cleaned_data['oom_date']) + '\n'  )
+            log.close()
         new_order = OrdersOnOtherMatters.objects.create(
             oom_number = str(order_next_num_) + "-К",
             oom_date = self.cleaned_data['oom_date'],
@@ -81,6 +87,9 @@ class OrdersOnVacation_form(forms.ModelForm):
             order_prev_num = orders[orders_count - 1].oov_number
             cut_symb = (len(str(order_prev_num)) - 5)
             order_next_num_ = int(order_prev_num[:cut_symb]) + 1
+        log = open('log.txt', 'a')
+        log.write(str(DT.date.today()) + " пользователь " +str(user_) + ' внес запись: ' + str(order_next_num_ ) + 'К-ОТП '+  ' от '+ str(self.cleaned_data['oov_date'])  + '\n'  )
+        log.close()
         new_order = OrdersOnVacation.objects.create(
             oov_number = str(order_next_num_) + "К-ОТП",
             oov_date = self.cleaned_data['oov_date'],
@@ -111,6 +120,9 @@ class OrdersOfBTrip_form(forms.ModelForm):
             order_prev_num = orders[order_count - 1].bt_number
             cut_symb = (len(str(order_prev_num)) - 1)
             order_next_num_ = int(order_prev_num[:cut_symb]) + 1
+        log = open('log.txt', 'a')
+        log.write(str(DT.date.today()) + " пользователь " +str(user_) + ' внес запись: ' + str(order_next_num_ ) + '-П '+  ' от '+ str(self.cleaned_data['bt_date'])  + '\n'  )
+        log.close()
         new_order = OrdersOfBTrip.objects.create(
             bt_date  = self.cleaned_data['bt_date'],
             bt_number  = str(order_next_num_) + "П",
@@ -143,7 +155,9 @@ class OrdersOnPersonnel_form(forms.ModelForm):
             order_prev_num = orders[order_count - 1].op_number
             cut_symb = (len(str(order_prev_num)) - 2)
             order_next_num_ = int(order_prev_num[:cut_symb]) + 1
-
+        log = open('log.txt', 'a')
+        log.write(str(DT.date.today()) + " пользователь " +str(user_) + ' внес запись: ' + str(order_next_num_ ) + '-ЛС '+  ' от '+ str(self.cleaned_data['op_date'])  + '\n'  )
+        log.close()
         new_order = OrdersOnPersonnel.objects.create(
             op_date  = self.cleaned_data['op_date'],
             op_number  = str(order_next_num_)+"ЛС",
@@ -171,8 +185,11 @@ class OutBoundDocument_form(forms.ModelForm):
         if docs_count == 0:
             doc_next_num_ = 1
         else:
-            doc_prev_num = docs[doc_count - 1].doc_number
+            doc_prev_num = docs[docs_count - 1].doc_number
             doc_next_num_ = int(doc_prev_num) + 1
+        log = open('log.txt', 'a')
+        log.write(str(DT.date.today()) + " пользователь " +str(user_) + ' внес запись: '+ str(self.cleaned_data['doc_type'])+ " " + str(doc_next_num_ ) +  ' от '+ str(self.cleaned_data['doc_date'])  + '\n'  )
+        log.close()
         new_document = OutBoundDocument.objects.create(
         doc_type = self.cleaned_data['doc_type'],
         doc_number = str(doc_next_num_),
@@ -220,6 +237,9 @@ class LetterOfInvite_form(forms.ModelForm):
         else:
             letter_prev_num = letters[letters_count - 1].loi_number
             letter_next_num_ = int(letter_prev_num) + 1
+        log = open('log.txt', 'a')
+        log.write(str(DT.date.today()) + " пользователь " +str(user_) + ' внес запись о заявлении о приеме : ' + str(letter_next_num_) +  ' от '+ str(self.cleaned_data['loi_date']) + " принимаемый сотрудник: " + str(self.cleaned_data['loi_employee']) + '\n'  )
+        log.close()
         new_letter = LetterOfInvite.objects.create(
         loi_date = self.cleaned_data['loi_date'],
         loi_number = str(letter_next_num_),
@@ -253,6 +273,9 @@ class LaborContract_form(forms.ModelForm):
             order_prev_num = orders[orders_count - 1].lc_number
             cut_symb = (len(str(order_prev_num)) - 4)
             order_next_num_ = int(order_prev_num[:cut_symb]) + 1
+        log = open('log.txt', 'a')
+        log.write(str(DT.date.today()) + " пользователь " +str(user_) + ' внес запись о трудовом договоре: ' + str(order_next_num_) + " " + str(year_) +  ' от '+ str(self.cleaned_data['lc_date']) + " принимаемый сотрудник: " + str(self.cleaned_data['lc_emloyer']) + '\n'  )
+        log.close()
         new_contract = LaborContract.objects.create(
             lc_date  = self.cleaned_data['lc_date'],
             lc_number  = str(order_next_num_)+"("+str(year_)+")",
@@ -280,6 +303,9 @@ class EmploymentHistory_form(forms.ModelForm):
             'eh_dateOfResign']
 
     def saveFirst(self, user_):
+        log = open('log.txt', 'a')
+        log.write(str(DT.date.today()) + " пользователь " +str(user_) + ' внес запись о трудовой книжке #: ' +  str(self.cleaned_data['eh_number']) + " принимаемый сотрудник: " + str(self.cleaned_data['eh_employer']) + '\n'  )
+        log.close()
         new_empHistory = EmploymentHistory.objects.create(
             eh_number = self.cleaned_data['eh_number'],
             eh_dateOfInv = self.cleaned_data['eh_dateOfInv'],
@@ -335,6 +361,9 @@ class SickDocument_form(forms.ModelForm):
 
 
     def saveFirst(self,user_, sr_number_):
+        log = open('log.txt', 'a')
+        log.write(str(DT.date.today()) + " пользователь " +str(user_) + ' внес запись о больничном листе №: ' +  str(self.cleaned_data['sd_number']) + " в реестр №: "+ str(sr_number_) + '\n'  )
+        log.close()
         new_doc = SickDocument.objects.create(
         sd_reg_number = sr_number_,
         sd_number = self.cleaned_data['sd_number'],
