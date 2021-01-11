@@ -390,9 +390,9 @@ def order_on_personnel(request):
     if request.user.is_authenticated:
         search_query = request.GET.get('op_search','')
         if search_query:
-            orders = OrdersOnPersonnel.objects.filter(op_emloyer__icontains=search_query)
+            orders = OrdersOnPersonnel.objects.filter(op_emloyer__icontains=search_query).order_by('-id')
         else:
-            orders = OrdersOnPersonnel.objects.all().order_by('id')
+            orders = OrdersOnPersonnel.objects.all().order_by('-id')
         p_orders = Paginator(orders, page_count)
         page_number = request.GET.get('page', 1)
         page = p_orders.get_page(page_number)
