@@ -14,7 +14,7 @@
 {%endif%}
 <form class="add_form" style="grid-gap: 20px;" action="" method="post">
     {% csrf_token %}
-<a class="btn btn-warning" target="_blank" href="{% url 'employment_history_print_url' id=history.id%}">Сформировать документ</a>
+<a class="btn btn-warning" target="_blank" href="{% url 'employment_history_print_url' id=history.id%}">Печать расписки о получении ТК на руки (при увольнении)</a>
     {% for field in form %}
     <p>{{field.label}}{{ field }}</p>
     {% endfor%}
