@@ -302,10 +302,11 @@ def nr_OrderOnVacation(request):
 
 def upd_OrderOnVacation(request, id):
     if request.user.is_authenticated:
+        depts = Departments.objects.all()
         if request.method == "GET":
             order = OrdersOnVacation.objects.get(id__iexact=id)
             bound_form = OrdersOnVacation_form(instance=order)
-            return render(request, 'reg_jounals/OrdersOnVacation_upd.html', context={'form':bound_form, 'order':order})
+            return render(request, 'reg_jounals/OrdersOnVacation_upd.html', context={'form':bound_form, 'order':order, 'depts':depts})
         else:
             order = OrdersOnVacation.objects.get(id__iexact=id)
             bound_form = OrdersOnVacation_form(request.POST, instance=order)
