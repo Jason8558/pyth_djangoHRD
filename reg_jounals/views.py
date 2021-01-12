@@ -23,7 +23,7 @@ def outbound_docs(request):
             date_to = DT.datetime.strptime(date_to, '%d.%m.%Y').date()
             documents = OutBoundDocument.objects.filter(doc_date__range=(date_from, date_to)).order_by('doc_date')
         else:
-            documents = OutBoundDocument.objects.all()
+            documents = OutBoundDocument.objects.all().order_by('-id')
         p_documents = Paginator(documents, 15)
         page_number = request.GET.get('page', 1)
         page = p_documents.get_page(page_number)
@@ -212,7 +212,7 @@ def order_other_matters(request):
             date_to = DT.datetime.strptime(date_to, '%d.%m.%Y').date()
             orders = OrdersOnOtherMatters.objects.filter(oom_date__range=(date_from, date_to)).order_by('oom_date')
         else:
-            orders = OrdersOnOtherMatters.objects.all().order_by('-oom_number')
+            orders = OrdersOnOtherMatters.objects.all().order_by('-id')
         p_orders = Paginator(orders, 10)
         page_number = request.GET.get('page', 1)
         page = p_orders.get_page(page_number)
@@ -328,7 +328,7 @@ def order_of_BTrip(request):
         if search_query:
             orders = OrdersOfBTrip.objects.filter(bt_emloyer__icontains=search_query)
         else:
-            orders = OrdersOfBTrip.objects.all()
+            orders = OrdersOfBTrip.objects.all().order_by('-id')
 
         p_orders = Paginator(orders, page_count)
         page_number = request.GET.get('page', 1)
@@ -514,7 +514,7 @@ def employment_history(request):
             histories = EmploymentHistory.objects.filter(eh_employer__icontains=search_query)
             print(histories)
         else:
-            histories = EmploymentHistory.objects.all()
+            histories = EmploymentHistory.objects.all().order_by('-id')
         p_orders = Paginator(histories, page_count)
         page_number = request.GET.get('page', 1)
         page = p_orders.get_page(page_number)
@@ -564,7 +564,7 @@ def print_EmploymentHistory(request, id):
 
 def sick_regs(request):
     if request.user.is_authenticated:
-        regs = SickRegistry.objects.all().order_by('sr_number')
+        regs = SickRegistry.objects.all().order_by('-id')
         return render(request, 'reg_jounals/sick_regs.html', context={'regs':regs})
     else:
         return render(request, 'reg_jounals/no_auth.html')
