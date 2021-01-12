@@ -84,6 +84,8 @@ grid-gap: 27px;
 
 
 
+
+
 .d-block {
   display: block;
 }
@@ -129,13 +131,15 @@ box-shadow: 0px 1px 3px 1px black;
   width: 94%
 }
 
-.btn-info {
+.main_button{
+
   background: #2d3261 !important;
   border-color: none !important;
 
+
 }
 
-.btn-info:hover {
+.main_button:hover {
 
 
     border-color: #785589 !important;
