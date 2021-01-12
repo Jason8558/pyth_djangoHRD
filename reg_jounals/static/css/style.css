@@ -153,12 +153,12 @@ box-shadow: 0px 1px 3px 1px black;
 }
 
 .navbar {
-  
-  color: white;
 
-  box-shadow: 0 3px 10px -2px #004dfb;
-    background-image: url(/static/img/background.jpg);
-    background-position-y: center;
+  color: white;
+background: #977390;
+  box-shadow: 0 3px 10px -2px black;
+    /* background-image: url(/static/img/background.jpg);
+    background-position-y: center; */
 }
 
 .button:hover {
