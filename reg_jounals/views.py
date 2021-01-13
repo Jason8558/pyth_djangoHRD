@@ -11,8 +11,20 @@ page_count = 15
 
 def index(request):
     if request.user.is_authenticated:
+
         return render(request, 'reg_jounals/index.html')
+
     else: return redirect('/accounts/login/')
+
+def logfile(request):
+    if request.user.is_authenticated:
+        logfile = open('log.txt')
+        log = []
+        for line in logfile:
+            log.append(line)
+    return render(request, 'reg_jounals/log.html', context={'log':log})
+
+
 def outbound_docs(request):
     if request.user.is_authenticated:
         auth = request.user.is_authenticated
