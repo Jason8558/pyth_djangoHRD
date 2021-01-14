@@ -3,21 +3,32 @@
 {%block title%}Добавить запись{% endblock %}
 {%block header%}Добавить запись - Приказ по личному составу{% endblock %}
 
+
 {%block content%}
 {% if form.errors%}
+
+
 
 <div class="alert alert-danger mt-5" role="alert">
 {{form.errors}}
 </div>
 {%endif%}
+<style media="screen">
+  #id_op_selected {
+    width: 9%;
+  }
+</style>
 <form class="add_form op" action="" method="post">
   {% csrf_token %}
   <h5>Номер приказа {{next_num}}ЛС</h5>
-  {% for field in form %}
-  <p>{{field.label}}:{{ field }}</p>
-  {% endfor%}
 
-  <input class="btn btn-success" style="margin-top: 100px;" type="submit" value="Добавить" />
+  <p>{{form.op_selected.label}}:{{form.op_selected}}</p>
+  <p>{{form.op_date.label}}:{{form.op_date}}</p>
+  <p>{{form.op_emloyer.label}}:{{form.op_emloyer}}</p>
+  <p>{{form.op_dep.label}}:{{form.op_dep}}</p>
+  <p>{{form.op_content.label}}:{{form.op_content}}</p>
+
+  <input class="btn btn-success" style="" type="submit" value="Добавить" />
   <a class="btn btn-outline-danger" href=".">Отмена</a>
 </form>
 

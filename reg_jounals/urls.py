@@ -3,6 +3,7 @@ from . import views
 
 urlpatterns = [
     path('', views.index, name='index'),
+    path('log/', views.logfile, name='logfile'),
     path('outbound_docs/', views.outbound_docs, name='outbound'),
     path('outbound_docs/add', views.nr_OutBoundDocument, name='doc_outbound_add_url'),
     path('outbound_docs/<int:id>/edit', views.upd_OutBoundDocument, name='doc_outbound_upd_url'),

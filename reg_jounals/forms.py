@@ -144,7 +144,8 @@ class OrdersOnPersonnel_form(forms.ModelForm):
     'op_date',
     'op_dep',
     'op_emloyer',
-    'op_content']
+    'op_content',
+    'op_selected']
 
     def saveFirst(self, user_):
         orders = OrdersOnPersonnel.objects.all().order_by('id')

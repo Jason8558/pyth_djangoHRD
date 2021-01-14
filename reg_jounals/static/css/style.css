@@ -84,6 +84,8 @@ grid-gap: 27px;
 
 
 
+
+
 .d-block {
   display: block;
 }
@@ -129,13 +131,15 @@ box-shadow: 0px 1px 3px 1px black;
   width: 94%
 }
 
-.btn-info {
+.main_button{
+
   background: #2d3261 !important;
   border-color: none !important;
 
+
 }
 
-.btn-info:hover {
+.main_button:hover {
 
 
     border-color: #785589 !important;
@@ -184,8 +188,12 @@ background: #977390;
 
   table .tr-header
   {
-    background: #977390;
+    background: #977390 ;
 
+  }
+
+  table #selected_rec:hover {
+    background: #785589 !important;
   }
 
   table .tr-header:hover
@@ -194,7 +202,7 @@ background: #977390;
     color: black;
   }
   table tr:hover {
-    background: #785589;
+    background: #785589 ;
     color: white;
   }
 

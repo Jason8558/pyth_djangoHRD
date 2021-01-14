@@ -14,9 +14,13 @@
 {%endif%}
 <form class="add_form" action="" method="post">
   {% csrf_token %}
-  {% for field in form %}
-  <p>{{field.label}}{{ field }}</p>
-  {% endfor%}
+
+  <p>{{form.op_selected.label}}:{{form.op_selected}}</p>
+  <p>{{form.op_date.label}}:{{form.op_date}}</p>
+  <p>{{form.op_emloyer.label}}:{{form.op_emloyer}}</p>
+  <p>{{form.op_dep.label}}:{{form.op_dep}}</p>
+  <p>{{form.op_content.label}}:{{form.op_content}}</p>
+
 
   <input class="btn btn-success" type="submit" value="Сохранить" />
   <a id="sure_btn" onclick="OpenSureDialog()" class="btn btn-outline-danger">Удалить</a>
