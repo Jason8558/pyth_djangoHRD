@@ -18,7 +18,7 @@ def index(request):
 
 def logfile(request):
     if request.user.is_authenticated:
-        logfile = open('../log.txt')
+        logfile = open('log.txt')
         log = []
         for line in logfile:
             log.append(line)
