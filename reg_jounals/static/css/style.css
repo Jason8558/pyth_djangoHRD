@@ -188,8 +188,12 @@ background: #977390;
 
   table .tr-header
   {
-    background: #977390;
+    background: #977390 ;
 
+  }
+
+  table #selected_rec:hover {
+    background: #785589 !important;
   }
 
   table .tr-header:hover
@@ -198,7 +202,7 @@ background: #977390;
     color: black;
   }
   table tr:hover {
-    background: #785589;
+    background: #785589 ;
     color: white;
   }
 

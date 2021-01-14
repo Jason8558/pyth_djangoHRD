@@ -100,6 +100,7 @@ class OrdersOnPersonnel(models.Model):
     op_dep = models.ForeignKey('Departments', on_delete=models.CASCADE,  verbose_name="Подразделение ", default="1")
     op_emloyer = models.CharField(max_length=256, help_text="Введите ФИО сотрудника", verbose_name="ФИО сотрудника", db_index=True)
     op_content = models.TextField(help_text="Введите содержание", verbose_name="Содержание приказа")
+    op_selected = models.BooleanField(verbose_name="Выделить в списке", default=False)
     op_res_officer = models.CharField(blank=True, editable=False,  max_length=256, help_text="Сотрудник, который внес документ в систему ", verbose_name='Ответственный сотрудник')
 
     class Meta:

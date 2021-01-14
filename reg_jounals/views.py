@@ -402,10 +402,20 @@ def del_OrderOfBTrip(request, id):
 def order_on_personnel(request):
     if request.user.is_authenticated:
         search_query = request.GET.get('op_search','')
-        if search_query:
-            orders = OrdersOnPersonnel.objects.filter(op_emloyer__icontains=search_query).order_by('-id')
+        date_from = request.GET.get('op_search_from','')
+        date_to = request.GET.get('op_search_to', '')
+        if date_from and date_to:
+            date_from = DT.datetime.strptime(date_from, '%d.%m.%Y').date()
+            date_to = DT.datetime.strptime(date_to, '%d.%m.%Y').date()
+            orders = OrdersOnPersonnel.objects.filter(op_date__range=(date_from, date_to)).order_by('op_date')
         else:
-            orders = OrdersOnPersonnel.objects.all().order_by('-id')
+            if search_query:
+                orders = OrdersOnPersonnel.objects.filter(op_emloyer__icontains=search_query).order_by('-id')
+            else:
+                orders = OrdersOnPersonnel.objects.all().order_by('-id')
+
+
+
         p_orders = Paginator(orders, page_count)
         page_number = request.GET.get('page', 1)
         page = p_orders.get_page(page_number)

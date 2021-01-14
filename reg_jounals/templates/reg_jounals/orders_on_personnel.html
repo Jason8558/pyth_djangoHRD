@@ -3,21 +3,35 @@
 {%block title%}Приказы по личному составу{%endblock%}
 {%block header%} <a class="btn btn-outline-info" href="../"> < назад</a> Журнал регистрации приказов по личному составу. Всего: {{count}}.  {%endblock%}
 {%block content%}
+
+<div style="display: inline-flex" class="op_header">
+
+  <form style="margin-right: 15px;" action="{% url 'orders_on_personnel' %}">
+    <input type="search" id="search_date" name="op_search_from" placeholder="Период с:">
+    <input type="search" id="search_date2" name="op_search_to" placeholder="по">
+    <button class="btn btn-sm btn-dark" type="submit" name="" value="Найти">Найти</button>
+  </form>
 <form action="{% url 'orders_on_personnel' %}">
   <input type="search" name="op_search" placeholder="Поиск по ФИО..">
-  <button class="btn btn-sm btn-warning" type="submit" name="" value="Найти">Найти</button>
+  <button class="btn btn-sm btn-dark" type="submit" name="" value="Найти">Найти</button>
 </form>
+
+<a style="margin-left: 10px" onclick="PrintSelected();" class="op_print btn btn-sm btn-warning" href="#">Печать выбранных</a>
+</div>
 <a class="btn btn-success btn-lg m-bottom btn-add " href="{%url 'orders_on_personnel_add_url'%}"> + Добавить</a>
 {% if orders %}
 <table>
   <thead class="thead-dark">
   <tr class="tr-header">
 
+    <th></th>
     <th scope="col">Дата приказа</th>
     <th scope="col">Номер</th>
     <th scope="col">Сотрудник</th>
     <th scope="col">Подразделение</th>
+    <th scope="col">Содержание</th>
     <th scope="col">Ответственный сотрудник</th>
+
 
 
 
@@ -25,17 +39,33 @@
   </thead>
 
   {%for order in orders%}
+{%if order.op_selected %}
 
-<tr onclick="return location.href = '{% url 'orders_on_personnel_upd_url' id=order.id%}' ">
-
+<tr style="background: #f9dd89;" class="t_row" ondblclick="return location.href = '{% url 'orders_on_personnel_upd_url' id=order.id%}' ">
+    <td><input type="checkbox" class="for_print" name="forprint" value=""></td>
     <td>{{order.op_date|date:"d.m.Y"}}</td>
     <td>{{order.op_number}}</td>
     <td>{{order.op_emloyer}}</td>
     <td>{{order.op_dep}}</td>
+    <td>{{order.op_content}}</td>
     <td>{{order.op_res_officer}}</td>
 
 
 </tr>
+{%else%}
+<tr  class="t_row" ondblclick="return location.href = '{% url 'orders_on_personnel_upd_url' id=order.id%}' ">
+    <td><input type="checkbox" class="for_print" name="forprint" value=""></td>
+    <td>{{order.op_date|date:"d.m.Y"}}</td>
+    <td>{{order.op_number}}</td>
+    <td>{{order.op_emloyer}}</td>
+    <td>{{order.op_dep}}</td>
+    <td>{{order.op_content}}</td>
+    <td>{{order.op_res_officer}}</td>
+
+
+</tr>
+{%endif%}
+
   {%endfor%}
 </table>
 <nav  class="paginator" aria-label="Page navigation example">
@@ -72,4 +102,11 @@
 {%else%}
 <h2>Записей нет</h2>
 {%endif%}
+<style>
+table tr td input {
+  background: red;
+}
+
+
+</style>
 {%endblock%}
