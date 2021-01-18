@@ -12,7 +12,12 @@
 {{form.errors}}
 </div>
 {%endif%}
-<form class="add_form" action="" method="post">
+<style media="screen">
+  #id_op_selected {
+    width: 9%;
+  }
+</style>
+<form class="add_form personnel" action="" method="post">
   {% csrf_token %}
 
   <p>{{form.op_selected.label}}:{{form.op_selected}}</p>
@@ -21,7 +26,7 @@
   <p>{{form.op_dep.label}}:{{form.op_dep}}</p>
   <p>{{form.op_content.label}}:{{form.op_content}}</p>
 
-
+<div class="buttons">
   <input class="btn btn-success" type="submit" value="Сохранить" />
   <a id="sure_btn" onclick="OpenSureDialog()" class="btn btn-outline-danger">Удалить</a>
   <div id="sure" style="display: none;" class="yousure">
@@ -29,7 +34,9 @@
     <a class="btn btn-outline-danger" href="{% url 'orders_on_personnel_del_url' id=order.id%}">Да</a>
 
   </div>
-  <a class="btn btn-outline-info" href="..">Отмена</a>
+    <a class="btn btn-outline-info" href="..">Отмена</a>
+  </div>
+
 </form>
 
 {%endblock%}

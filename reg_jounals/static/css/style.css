@@ -30,8 +30,21 @@ header {
   margin: 0 auto;
 }
 
+.personnel {
+  grid-template-rows: repeat(8, 42px) !important;
+}
+
 #id_oom_content {
   height: 43px;
+}
+
+
+.buttons {
+  margin-top: 149px;
+}
+
+.buttons .btn {
+  margin: 10px 0;
 }
 
 .sick_list {

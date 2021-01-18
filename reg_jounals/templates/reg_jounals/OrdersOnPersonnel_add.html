@@ -18,7 +18,7 @@
     width: 9%;
   }
 </style>
-<form class="add_form op" action="" method="post">
+<form class="add_form personnel" action="" method="post">
   {% csrf_token %}
   <h5>Номер приказа {{next_num}}ЛС</h5>
 
@@ -28,8 +28,10 @@
   <p>{{form.op_dep.label}}:{{form.op_dep}}</p>
   <p>{{form.op_content.label}}:{{form.op_content}}</p>
 
+<div class="buttons">
   <input class="btn btn-success" style="" type="submit" value="Добавить" />
   <a class="btn btn-outline-danger" href=".">Отмена</a>
+  </div>
 </form>
 
 {%endblock%}
