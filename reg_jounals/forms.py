@@ -20,7 +20,7 @@ class LetterOfResignation_form(forms.ModelForm):
         attrs={'placeholder': 'Введите дату', 'id': 'hello', 'type':'date'}))
     lor_employee = forms.CharField(label="Увольняемый сотрудник")
 
-    lor_dateOfRes = forms.CharField(label="Дата увольнения" , widget=forms.TextInput(
+    lor_dateOfRes = forms.DateField(label="Дата увольнения", required=False, widget=forms.TextInput(
         attrs={'placeholder': 'Введите дату', 'id': 'hello', 'type':'date'}))
     lor_additionalData = forms.CharField(label="Примичание")
 
@@ -253,7 +253,7 @@ class LetterOfInvite_form(forms.ModelForm):
 
     loi_date = forms.CharField(label="Дата документа" , widget=forms.TextInput(
         attrs={'placeholder': 'Введите дату', 'id': '', 'type':'date'}))
-    loi_dateOfInv = forms.CharField(label="Дата приема" , widget=forms.TextInput(
+    loi_dateOfInv = forms.DateField(label="Дата приема" , required=False, widget=forms.TextInput(
         attrs={'placeholder': 'Введите дату', 'id': '', 'type':'date'}))
 
 
