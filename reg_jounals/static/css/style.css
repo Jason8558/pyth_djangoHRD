@@ -30,6 +30,10 @@ header {
   margin: 0 auto;
 }
 
+#id_oom_content {
+  height: 43px;
+}
+
 .sick_list {
   grid-template-rows: none;
   grid-gap: 15px;
