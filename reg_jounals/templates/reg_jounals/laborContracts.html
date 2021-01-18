@@ -5,7 +5,7 @@
 {%block content%}
 <form action="{% url 'labor_contracts' %}">
   <input type="search" name="lc_search" placeholder="Поиск по подразделению..">
-  <button class="btn btn-sm btn-warning" type="submit" name="" value="Найти">Найти</button>
+  <button class="btn btn-sm btn-dark" type="submit" name="" value="Найти">Найти</button>
 </form>
 <a class="btn btn-success btn-lg m-bottom btn-add " href="{%url 'labor_contracts_add_url'%}"> + Добавить</a>
 {% if orders %}

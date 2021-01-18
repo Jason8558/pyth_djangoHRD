@@ -5,7 +5,7 @@
 {%block content%}
 <form action="{% url 'resignation' %}">
   <input type="search" name="lor_search" placeholder="Поиск по ФИО..">
-  <button class="btn btn-sm btn-warning" type="submit" name="" value="Найти">Найти</button>
+  <button class="btn btn-sm btn-dark" type="submit" name="" value="Найти">Найти</button>
 </form>
 <a class="btn btn-success btn-lg m-bottom  btn-add" href="{%url 'letter_resignation_add_url' %}"> + Добавить</a>
 {% if letters %}
