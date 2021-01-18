@@ -3,10 +3,10 @@
 {%block title%}Реестры больничных листов{%endblock%}
 {%block header%} <a class="btn btn-outline-info" href="../"> < назад</a> Реестры больничных листов {%endblock%}
 {%block content%}
-<!-- <form action="{% url 'orders_on_personnel' %}">
-  <input type="search" name="op_search" placeholder="Поиск по ФИО..">
-  <button class="btn btn-sm btn-warning" type="submit" name="" value="Найти">Найти</button>
-</form> -->
+<form action="{% url 'sick_regs' %}">
+  <input type="search" name="sd_search" placeholder="Поиск по ФИО..">
+  <button class="btn btn-sm btn-dark" type="submit" name="" value="Найти">Найти</button>
+</form>
 <a class="btn btn-success btn-lg m-bottom btn-add " href="{% url 'sick_reg_add_url' %}"> + Добавить</a>
 {% if regs %}
 <table>

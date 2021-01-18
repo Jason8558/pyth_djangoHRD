@@ -586,8 +586,16 @@ def print_EmploymentHistory(request, id):
 
 def sick_regs(request):
     if request.user.is_authenticated:
-        regs = SickRegistry.objects.all().order_by('-id')
-        return render(request, 'reg_jounals/sick_regs.html', context={'regs':regs})
+        sick_docs = ""
+        regs = ""
+        search_query = request.GET.get('sd_search','')
+        if search_query:
+            sick_docs = SickDocument.objects.filter(sd_emp__icontains=search_query)
+            sdocs_count = len(sick_docs)
+            return render(request, 'reg_jounals/sick_search.html', context={'sick_docs':sick_docs, 'search_query':search_query, 'sdocs_count':sdocs_count})
+        else:
+            regs = SickRegistry.objects.all().order_by('-id')
+            return render(request, 'reg_jounals/sick_regs.html', context={'regs':regs})
     else:
         return render(request, 'reg_jounals/no_auth.html')
 

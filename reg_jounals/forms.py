@@ -8,14 +8,21 @@ import datetime as DT
 class LetterOfResignation_form(forms.ModelForm):
     class Meta:
         model = LetterOfResignation
-        fields = ['lor_date',
-    'lor_employee',
-    'lor_position',
-    'lor_departament',
-    'lor_dateOfRes',
-    'lor_additionalData']
+        fields =['lor_date',
+        'lor_employee',
+        'lor_dateOfRes',
+        'lor_position',
+        'lor_additionalData',
+        'lor_departament']
 
 
+    lor_date = forms.CharField(label="Дата приказа" , widget=forms.TextInput(
+        attrs={'placeholder': 'Введите дату', 'id': 'hello', 'type':'date'}))
+    lor_employee = forms.CharField(label="Увольняемый сотрудник")
+
+    lor_dateOfRes = forms.CharField(label="Дата увольнения" , widget=forms.TextInput(
+        attrs={'placeholder': 'Введите дату', 'id': 'hello', 'type':'date'}))
+    lor_additionalData = forms.CharField(label="Примичание")
 
 
 
@@ -51,6 +58,10 @@ class OrdersOnOtherMatters_form(forms.ModelForm):
     'oom_date',
     'oom_content']
 
+    oom_date = forms.CharField(label="Дата приказа" , widget=forms.TextInput(
+        attrs={'placeholder': 'Введите дату', 'id': '', 'type':'date'}))
+    oom_content = forms.CharField(label="Содержание", widget=forms.Textarea)
+
     def saveFirst(self, user_):
         orders = OrdersOnOtherMatters.objects.all()
         orders_count = len(orders)
@@ -77,6 +88,9 @@ class OrdersOnVacation_form(forms.ModelForm):
         model = OrdersOnVacation
         fields = ['oov_date',
     'oov_empList']
+
+    oov_date = forms.CharField(label="Дата приказа" , widget=forms.TextInput(
+        attrs={'placeholder': 'Введите дату', 'id': '', 'type':'date'}))
 
     def saveFirst(self, user_):
         orders = OrdersOnVacation.objects.all()
@@ -111,6 +125,14 @@ class OrdersOfBTrip_form(forms.ModelForm):
     'bt_emloyer'
     ]
 
+    bt_date = forms.CharField(label="Дата приказа" , widget=forms.TextInput(
+        attrs={'placeholder': 'Введите дату', 'id': '', 'type':'date'}))
+    bt_dur_from = forms.CharField(label="Дата начала командировки" , widget=forms.TextInput(
+        attrs={'placeholder': 'Введите дату', 'id': '', 'type':'date'}))
+
+    bt_dur_to = forms.CharField(label="Дата завершения командировки" , widget=forms.TextInput(
+        attrs={'placeholder': 'Введите дату', 'id': '', 'type':'date'}))
+
     def saveFirst(self, user_):
         orders = OrdersOfBTrip.objects.all()
         order_count = len(orders)
@@ -136,7 +158,6 @@ class OrdersOfBTrip_form(forms.ModelForm):
 
         return new_order
 
-
 class OrdersOnPersonnel_form(forms.ModelForm):
     class Meta:
         model = OrdersOnPersonnel
@@ -146,6 +167,9 @@ class OrdersOnPersonnel_form(forms.ModelForm):
     'op_emloyer',
     'op_content',
     'op_selected']
+
+    op_date = forms.CharField(label="Дата приказа" , widget=forms.TextInput(
+        attrs={'placeholder': 'Введите дату', 'id': '', 'type':'date'}))
 
     def saveFirst(self, user_):
         orders = OrdersOnPersonnel.objects.all().order_by('id')
@@ -170,8 +194,6 @@ class OrdersOnPersonnel_form(forms.ModelForm):
 
         return new_order
 
-
-
 class OutBoundDocument_form(forms.ModelForm):
     class Meta:
         model = OutBoundDocument
@@ -179,6 +201,9 @@ class OutBoundDocument_form(forms.ModelForm):
     'doc_date',
     'doc_dest',
     'doc_additionalData']
+
+    doc_date = forms.CharField(label="Дата документа" , widget=forms.TextInput(
+        attrs={'placeholder': 'Введите дату', 'id': '', 'type':'date'}))
 
     def saveFirst(self, user_):
         docs = OutBoundDocument.objects.all()
@@ -226,6 +251,10 @@ class LetterOfInvite_form(forms.ModelForm):
     'loi_dateOfInv',
     'loi_additionalData']
 
+    loi_date = forms.CharField(label="Дата документа" , widget=forms.TextInput(
+        attrs={'placeholder': 'Введите дату', 'id': '', 'type':'date'}))
+    loi_dateOfInv = forms.CharField(label="Дата приема" , widget=forms.TextInput(
+        attrs={'placeholder': 'Введите дату', 'id': '', 'type':'date'}))
 
 
 
@@ -265,6 +294,11 @@ class LaborContract_form(forms.ModelForm):
     'lc_dep',
     'lc_workCond']
 
+    lc_date = forms.CharField(label="Дата договора" , widget=forms.TextInput(
+        attrs={'placeholder': 'Введите дату', 'id': '', 'type':'date'}))
+    lc_dateOfInv = forms.CharField(label="Дата приема на работу" , widget=forms.TextInput(
+        attrs={'placeholder': 'Введите дату', 'id': '', 'type':'date'}))
+
     def saveFirst(self, user_, year_):
         orders = LaborContract.objects.all()
         orders_count = len(orders)
@@ -303,10 +337,19 @@ class EmploymentHistory_form(forms.ModelForm):
             'eh_OrderResign',
             'eh_dateOfResign']
 
+    eh_dateOfInv = forms.CharField(label="Дата приема на работу" , widget=forms.TextInput(
+        attrs={'placeholder': 'Введите дату', 'id': '', 'type':'date'}))
+    eh_dateOfResign = forms.DateField(label="Дата увольнения" , required=False,  widget=forms.TextInput(
+        attrs={'placeholder': 'Введите дату', 'id': '', 'type':'date'}))
+
+
+
     def saveFirst(self, user_):
         log = open('log.txt', 'a')
         log.write(str(DT.date.today()) + " пользователь " +str(user_) + ' внес запись о трудовой книжке #: ' +  str(self.cleaned_data['eh_number']) + " принимаемый сотрудник: " + str(self.cleaned_data['eh_employer']) + '\n'  )
         log.close()
+
+
         new_empHistory = EmploymentHistory.objects.create(
             eh_number = self.cleaned_data['eh_number'],
             eh_dateOfInv = self.cleaned_data['eh_dateOfInv'],
@@ -342,8 +385,6 @@ class SickRegistry_form(forms.ModelForm):
             )
             return new_registry
 
-
-
 class SickDocument_form(forms.ModelForm):
     class Meta:
         model = SickDocument
@@ -357,6 +398,11 @@ class SickDocument_form(forms.ModelForm):
     'sd_dur_from',
     'sd_dur_to',
     'sd_comm']
+
+    sd_dur_from = forms.DateField(label="Дата начала болезни" ,  widget=forms.TextInput(
+        attrs={'id': '', 'type':'date'}))
+    sd_dur_to = forms.DateField(label="Дата окончания болезни" ,  widget=forms.TextInput(
+        attrs={'id': '', 'type':'date'}))
 
 
 
