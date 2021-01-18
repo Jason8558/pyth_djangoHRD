@@ -411,6 +411,8 @@ def order_on_personnel(request):
         date_to = request.GET.get('op_search_to', '')
         if date_from and date_to:
             orders = OrdersOnPersonnel.objects.filter(op_date__range=(date_from, date_to)).order_by('op_date')
+            p_orders = Paginator(orders, 1000)
+            page_number = request.GET.get('page', 1)
         else:
             if search_query:
                 orders = OrdersOnPersonnel.objects.filter(op_emloyer__icontains=search_query).order_by('-id')
