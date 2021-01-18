@@ -31,8 +31,6 @@ def outbound_docs(request):
         date_from = request.GET.get('doc_search_from','')
         date_to = request.GET.get('doc_search_to', '')
         if date_from and date_to:
-            date_from = DT.datetime.strptime(date_from, '%d.%m.%Y').date()
-            date_to = DT.datetime.strptime(date_to, '%d.%m.%Y').date()
             documents = OutBoundDocument.objects.filter(doc_date__range=(date_from, date_to)).order_by('doc_date')
         else:
             documents = OutBoundDocument.objects.all().order_by('-id')
@@ -220,8 +218,6 @@ def order_other_matters(request):
         date_from = request.GET.get('oom_search_from','')
         date_to = request.GET.get('oom_search_to', '')
         if date_from and date_to:
-            date_from = DT.datetime.strptime(date_from, '%d.%m.%Y').date()
-            date_to = DT.datetime.strptime(date_to, '%d.%m.%Y').date()
             orders = OrdersOnOtherMatters.objects.filter(oom_date__range=(date_from, date_to)).order_by('oom_date')
         else:
             orders = OrdersOnOtherMatters.objects.all().order_by('-id')
@@ -405,8 +401,7 @@ def order_on_personnel(request):
         date_from = request.GET.get('op_search_from','')
         date_to = request.GET.get('op_search_to', '')
         if date_from and date_to:
-            date_from = DT.datetime.strptime(date_from, '%d.%m.%Y').date()
-            date_to = DT.datetime.strptime(date_to, '%d.%m.%Y').date()
+            
             orders = OrdersOnPersonnel.objects.filter(op_date__range=(date_from, date_to)).order_by('op_date')
         else:
             if search_query:
