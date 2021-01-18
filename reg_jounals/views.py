@@ -219,11 +219,14 @@ def order_other_matters(request):
         date_to = request.GET.get('oom_search_to', '')
         if date_from and date_to:
             orders = OrdersOnOtherMatters.objects.filter(oom_date__range=(date_from, date_to)).order_by('oom_date')
+            p_orders = Paginator(orders, 1000)
+            page_number = request.GET.get('page', 1)
+            page = p_orders.get_page(page_number)
         else:
             orders = OrdersOnOtherMatters.objects.all().order_by('-id')
-        p_orders = Paginator(orders, 10)
-        page_number = request.GET.get('page', 1)
-        page = p_orders.get_page(page_number)
+            p_orders = Paginator(orders, 10)
+            page_number = request.GET.get('page', 1)
+            page = p_orders.get_page(page_number)
         count = len(orders)
         return render(request, 'reg_jounals/orders_on_others.html', context={'orders':page, 'count':count})
     else:
@@ -401,7 +404,7 @@ def order_on_personnel(request):
         date_from = request.GET.get('op_search_from','')
         date_to = request.GET.get('op_search_to', '')
         if date_from and date_to:
-            
+
             orders = OrdersOnPersonnel.objects.filter(op_date__range=(date_from, date_to)).order_by('op_date')
         else:
             if search_query:
