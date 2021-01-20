@@ -40,7 +40,7 @@ function TextDisabled() {
 function FillList() {
   let form = document.forms[0];
 
-var vac_from = form.emp_dur_from.value;
+var vac_from = form.dur_from.value;
 var v_year_from = vac_from.slice(0,4);
 var v_mount_from = vac_from.slice(6,7);
 var v_day_from = vac_from.slice(8,10);
@@ -51,7 +51,7 @@ v_mount_from = "0" + v_mount_from;
 
 vac_from = v_day_from + "." + v_mount_from + "." + v_year_from
 
-var vac_to = form.emp_dur_to.value;
+var vac_to = form.dur_to.value;
 var v_year_to = vac_to.slice(0,4);
 var v_mount_to = vac_to.slice(6,7);
 var v_day_to = vac_to.slice(8,10);
@@ -64,14 +64,14 @@ vac_to = v_day_to + "." + v_mount_to + "." + v_year_to
 
 
   //добавляем позицию в список
-  form.oov_empList.value = form.oov_empList.value + "\n" + "| " +  form.emp_name.value + " | " + form.emp_dep.value + " | c " + vac_from + " по "+ vac_to + " | " + " дней: " + form.emp_days.value  + " | " + form.emp_vacType.value + " | " + form.comm.value + "\n" + "---------------------------------------------------------------------------------------------------";
+  form.oov_empList.value = form.oov_empList.value + "\n" + "| " +  form.emp_name.value + " | " + form.emp_dep.value + " | c " + vac_from + " по "+ vac_to + " | " + " дней: " + form.days_count.value  + " | " + form.emp_vacType.value + " | " + form.comm.value + "\n" + "---------------------------------------------------------------------------------------------------";
 
   //очищаем поля ввода
   form.emp_name.value = " ";
   form.emp_dep.value = " ";
-  form.emp_dur_to.value =" ";
-  form.emp_dur_from.value =" ";
-  form.emp_days.value = " ";
+  form.dur_to.value =" ";
+  form.dur_from.value =" ";
+  form.days_count.value = " ";
   form.emp_vacType.value = " ";
   form.comm.value = " ";
 }
@@ -79,11 +79,11 @@ vac_to = v_day_to + "." + v_mount_to + "." + v_year_to
 function col_days() {
 
   let form = document.forms[0];
-  if (form.emp_days.value == "") {
+  if (form.days_count.value == "") {
 
 
 
-      var s_date1 = form.emp_dur_from.value;
+      var s_date1 = form.dur_from.value;
       console.log(s_date1)
       var year1 = s_date1.slice(0,4);
       var mount1 = s_date1.slice(6,7);
@@ -91,7 +91,7 @@ function col_days() {
       var f_date1 = year1 + ", " + mount1 + ", " + day1;
       console.log(f_date1)
 
-      var s_date2 = form.emp_dur_to.value;
+      var s_date2 = form.dur_to.value;
       console.log(s_date2)
       var year2 = s_date2.slice(0,4);
       var mount2 = s_date2.slice(6,7);
@@ -105,18 +105,18 @@ function col_days() {
       console.log("c" + day_1 + "по" + day_2)
 
       vac_days = (day_2 - day_1) / (60 * 60 * 24 * 1000);
-      form.emp_days.value = Math.ceil(vac_days)+1; }
+      form.days_count.value = Math.ceil(vac_days)+1; }
           }
 
   function duration() {
     let form = document.forms[0];
-    var s_date1 = form.emp_dur_from.value;
+    var s_date1 = form.dur_from.value;
     var year1 = s_date1.slice(0,4);
     var mount1 = s_date1.slice(6,7);
     var day1 = s_date1.slice(8,10);
     var f_date1 = year1 + "," + mount1 + "," + day1;
     let s_date = new Date(f_date1);
-    let days = form.emp_days.value;
+    let days = form.days_count.value;
     days = days-1;
     var newDate = new Date(s_date.getTime() + (days * 24 * 60 * 60 * 1000) );
 
@@ -134,7 +134,7 @@ function col_days() {
     return num.toString().padStart(2,0);
   };
 
-    form.emp_dur_to.value = year + "-" + month + "-" + day
+    form.dur_to.value = year + "-" + month + "-" + day
 
 
 

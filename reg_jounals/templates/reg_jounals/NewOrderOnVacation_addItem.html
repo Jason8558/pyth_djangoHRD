@@ -1,0 +1,35 @@
+{% extends "reg_jounals/index.html" %}
+
+
+
+{%block title%}Новый сотрудник в приказе{% endblock %}
+{%block header%}Добавить сотрудника в приказ{% endblock %}
+
+{%block content%}
+{% if form.errors%}
+
+<div class="alert alert-danger mt-5" role="alert">
+{{form.errors}}
+</div>
+{%endif%}
+<form class="add_form sick_list" action="" method="post">
+  {% csrf_token %}
+  <!-- <p>Номер реестра:{{form.sd_reg_number}}</p> -->
+  <p>{{form.fio.label}}{{form.fio}}</p>
+  <p>{{form.dep.label}}{{form.dep}}</p>
+  <p>{{form.dur_from.label}}{{form.dur_from}}</p>
+  <p>{{form.dur_to.label}}{{form.dur_to}}</p>
+  <p>{{form.days_count.label}}{{form.days_count}}</p>
+  <p>{{form.vac_type.label}}{{form.vac_type}}</p>
+  <p>{{form.comm.label}}{{form.comm}}</p>
+
+
+
+<input class="btn btn-success" onclick="" type="submit" value="Добавить сотрудника в приказ" />
+
+
+  <!-- <input type="button" onclick="CreateList();" class="btn btn-success" name="" value="Сформировать реестр"> -->
+  <a class="btn btn-outline-danger" href="/journals/orders_on_vacation_new/">Отмена</a>
+</form>
+
+{%endblock%}
