@@ -643,10 +643,99 @@ def add_SickDocument(request, sr_number_):
         return render(request, 'reg_jounals/no_auth.html')
     return render(request, 'reg_jounals/SickDocument_add.html', context={'form':doc_form, 'reg_num':sr_number_})
 
+def upd_SickDocument(request, id):
+    if request.user.is_authenticated:
+        document = SickDocument.objects.get(id__exact=id)
+        reg = SickRegistry.objects.get(sr_number__exact=document.sd_reg_number)
+        b_reg = document.sd_reg_number
+        if request.method == "GET":
+            bound_form = SickDocument_form(instance=document)
+            return render(request, 'reg_jounals/SickDocument_upd.html', context={'form':bound_form, 'document':document, 'b_reg':b_reg})
+        else:
+            document = SickDocument.objects.get(id__exact=id)
+            bound_form = SickDocument_form(request.POST, instance=document)
+            if bound_form.is_valid():
+                user_ = request.user.first_name
+                bound_form.save()
+                loc = '/journals/sick_reg/'+str(b_reg)+'/create/'
+                return redirect(loc)
+
 def ItemDel_SickList(request, id):
     if request.user.is_authenticated:
         item = SickDocument.objects.get(id__iexact=id)
         num = item.sd_reg_number
         dest = '/journals/sick_reg/' + str(num) + '/create/'
+        item.delete()
+        return redirect(dest)
+
+# Приказы на отпуск новые ----------------------------
+
+def new_order_on_vacation(request):
+    if request.user.is_authenticated:
+        orders = NewOrdersOnVacation.objects.all().order_by('-id')
+        return render(request, 'reg_jounals/orders_on_vacation_new.html', context={'orders':orders})
+    else:
+        return render(request, 'reg_jounals/no_auth.html')
+
+def nr_new_order_on_vacation(request):
+    if request.user.is_authenticated:
+        order_form = NewOrdersOnVacation_form()
+        if request.method == "POST":
+            order_form = NewOrdersOnVacation_form(request.POST)
+            if order_form.is_valid():
+                user_ = request.user.first_name
+                order_form.saveFirst(user_)
+                return redirect('/journals/orders_on_vacation_new')
+    else:
+        return render(request, 'reg_jounals/no_auth.html')
+    return render(request, 'reg_jounals/OrdersOnVacation_new_add.html', context={'form':order_form})
+
+def create_new_order_on_vacation(request, id):
+    if request.user.is_authenticated:
+        items = NewOrdersOnVacation_item.objects.filter(bound_order__exact=id)
+        order = NewOrdersOnVacation.objects.get(id=id)
+        items_count = len(items)
+        return render(request, 'reg_jounals/OrderOnVacation_new_create.html', context={'items':items, 'order':order, 'count':items_count})
+    else:
+        return render(request, 'reg_jounals/no_auth.html')
+
+def new_order_on_vacation_addItem(request, order_id):
+    if request.user.is_authenticated:
+        item_form = NewOrdersOnVacationItem_form()
+        if request.method == "POST":
+            item_form = NewOrdersOnVacationItem_form(request.POST)
+            if item_form.is_valid():
+                user_ = request.user.first_name
+                print(order_id)
+                item_form.saveFirst(order_id)
+                loc = '/journals/orders_on_vacation_new/'+str(order_id)+'/create'
+                return redirect(loc)
+    else:
+        return render(request, 'reg_jounals/no_auth.html')
+    return render(request, 'reg_jounals/NewOrderOnVacation_addItem.html', context={'form':item_form, 'order_id':order_id})
+
+def new_order_on_vacation_updItem(request, id):
+    if request.user.is_authenticated:
+        item = NewOrdersOnVacation_item.objects.get(id__exact=id)
+        order = NewOrdersOnVacation.objects.get(id__exact=item.bound_order)
+        b_order = item.bound_order
+        if request.method == "GET":
+            bound_form = NewOrdersOnVacationItem_form(instance=item)
+            return render(request, 'reg_jounals/NewOrderOnVacation_updItem.html', context={'form':bound_form, 'item':item, 'b_order':b_order})
+        else:
+            item = NewOrdersOnVacation_item.objects.get(id__iexact=id)
+            bound_form = NewOrdersOnVacationItem_form(request.POST, instance=item)
+            if bound_form.is_valid():
+                user_ = request.user.first_name
+                bound_form.save()
+                loc = '/journals/orders_on_vacation_new/'+str(b_order)+'/create'
+                return redirect(loc)
+
+def new_order_on_vacation_delItem(request, id):
+    if request.user.is_authenticated:
+        item = NewOrdersOnVacation_item.objects.get(id__exact=id)
+        order = NewOrdersOnVacation.objects.get(id__exact=item.bound_order)
+        b_order = item.bound_order
+        dest = '/journals/orders_on_vacation_new/' + str(b_order) + '/create'
         item.delete()
         return redirect(dest)
