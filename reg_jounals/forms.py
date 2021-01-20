@@ -456,19 +456,23 @@ class NewOrdersOnVacation_form(forms.ModelForm):
 class NewOrdersOnVacationItem_form(forms.ModelForm):
     class Meta:
         model = NewOrdersOnVacation_item
-        fields = ['fio', 'dep', 'dur_from', 'dur_to', 'days_count', 'vac_type', 'comm']
+        fields = ['fio', 'dep', 'dur_from', 'days_count', 'dur_to',  'vac_type', 'comm']
 
     dur_from = forms.DateField(label="Дата начала отпуска" , widget=forms.TextInput(
         attrs={'placeholder': 'Введите дату', 'type':'date'}))
 
+    days_count = forms.CharField(label="Количество дней отпуска" , widget=forms.TextInput(
+    attrs={'onchange':'duration()', 'type':'text'}))
+
     dur_to = forms.DateField(label="Дата окончания отпуска" , widget=forms.TextInput(
-        attrs={'placeholder': 'Введите дату', 'type':'date'}))
+        attrs={'placeholder': 'Введите дату', 'type':'date', 'onchange':'col_days()'}))
+
 
     def saveFirst(self, order_id):
         # log = open('log.txt', 'a')
         # log.write(str(DT.date.today()) + " пользователь " +str(user_) + ' внес запись о заявлении об увольнении : ' + str(letter_next_num_) +  ' от '+ str(self.cleaned_data['lor_date']) + " увольняемый сотрудник: " + str(self.cleaned_data['lor_employee']) + '\n'  )
         # log.close()
-        new_item = NewOrdersOnVacation.objects.create(
+        new_item = NewOrdersOnVacation_item.objects.create(
             bound_order = order_id,
             fio = self.cleaned_data['fio'],
             dep = self.cleaned_data['dep'],

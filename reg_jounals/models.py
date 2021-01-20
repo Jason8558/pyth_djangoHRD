@@ -203,8 +203,8 @@ class NewOrdersOnVacation_item(models.Model):
     dur_from = models.DateField(help_text="Введите дату начала отпуска", verbose_name="Дата начала отпуска", db_index=True)
     dur_to = models.DateField(help_text="Введите дату окончания отпуска", verbose_name="Дата окончания отпуска", db_index=True)
     days_count = models.CharField(max_length=5, help_text="Количество дней", verbose_name="Количество дней", db_index=True)
-    vac_type = models.CharField(choices=vac_type_choices, max_length=256, help_text="Вид отпуска", verbose_name="Количество дней", db_index=True)
-    comm = models.CharField(max_length=256, help_text="Комментарий", verbose_name="Комментарий", db_index=True)
+    vac_type = models.CharField(choices=vac_type_choices, max_length=256, help_text="Вид отпуска", verbose_name="Вид отпуска", db_index=True)
+    comm = models.CharField(blank = True, null=True, max_length=256, help_text="Комментарий", verbose_name="Комментарий", db_index=True)
 
     class Meta:
         ordering = ["id"]

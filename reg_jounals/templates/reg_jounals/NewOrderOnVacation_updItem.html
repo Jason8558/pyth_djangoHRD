@@ -2,8 +2,8 @@
 
 
 
-{%block title%}Новый сотрудник в приказе{% endblock %}
-{%block header%}Добавить сотрудника в приказ{% endblock %}
+{%block title%}Изменить запись{% endblock %}
+{%block header%}{{item.fio}} в приказе {{order.order_number}}{% endblock %}
 
 {%block content%}
 {% if form.errors%}
@@ -25,11 +25,11 @@
 
 
 
-<input class="btn btn-success" onclick="" type="submit" value="Добавить сотрудника в приказ" />
+<input class="btn btn-success" onclick="" type="submit" value="Сохранить" />
 
 
   <!-- <input type="button" onclick="CreateList();" class="btn btn-success" name="" value="Сформировать реестр"> -->
-  <a class="btn btn-outline-danger" href="/journals/orders_on_vacation_new/">Отмена</a>
+  <a class="btn btn-outline-danger" href="/journals/orders_on_vacation_new/{{b_order}}/create">Отмена</a>
 </form>
 
 {%endblock%}

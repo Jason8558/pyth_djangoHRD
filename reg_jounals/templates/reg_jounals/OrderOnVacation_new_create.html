@@ -12,7 +12,7 @@
   <thead class="thead-dark">
   <tr class="tr-header">
 
-    <th scope="col">Номер ПП</th>
+
     <th scope="col">ФИО</th>
     <th scope="col">Подразделение</th>
     <th scope="col">Дата начала</th>
@@ -27,11 +27,11 @@
   </tr>
   </thead>
 
-  {%for pos in positions %}
+  {%for item in items %}
 
-<tr>
+<tr onclick="return location.href = '{% url 'new_order_on_vacation_updItem' id=item.id%}' ">
 
-    <td class="tnumber"></td>
+
     <td class="tnumber">{{item.fio}}</td>
     <td>{{item.dep}}</td>
     <td>{{item.dur_from|date:"d.m.Y"}}</td>
@@ -39,7 +39,7 @@
     <td>{{item.days_count}}</td>
     <td>{{item.vac_type}}</td>
     <td>{{item.comm}}</td>
-    <td><a class="btn btn-sm btn-danger btn-delete"href="">Удалить</a></td>
+    <td><a class="btn btn-sm btn-danger btn-delete"href="{% url 'new_order_on_vacation_delItem' id=item.id%}">Удалить</a></td>
 </tr>
   {%endfor%}
 
