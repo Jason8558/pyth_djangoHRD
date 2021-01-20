@@ -718,7 +718,7 @@ def new_order_on_vacation_addItem(request, order_id):
             if item_form.is_valid():
                 user_ = request.user.first_name
                 print(order_id)
-                item_form.saveFirst(order_id)
+                item_form.saveFirst(order_id, user_)
                 loc = '/journals/orders_on_vacation_new/'+str(order_id)+'/create'
                 return redirect(loc)
     else:
