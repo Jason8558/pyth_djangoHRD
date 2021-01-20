@@ -24,7 +24,7 @@
 
   {%for pos in sick_docs %}
 
-<tr>
+<tr onclick="return location.href = '{% url 'sick_reg_updDoc_url' id=pos.id%}' ">
 
     <td>{{pos.sd_reg_number}}</td>
     <td class="tnumber">{{pos.sd_number}}</td>
