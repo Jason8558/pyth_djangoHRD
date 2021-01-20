@@ -16,13 +16,13 @@ class LetterOfResignation_form(forms.ModelForm):
         'lor_departament']
 
 
-    lor_date = forms.CharField(label="Дата приказа" , widget=forms.TextInput(
+    lor_date = forms.CharField(label="Дата подачи заявления" , widget=forms.TextInput(
         attrs={'placeholder': 'Введите дату', 'id': 'hello', 'type':'date'}))
     lor_employee = forms.CharField(label="Увольняемый сотрудник")
 
     lor_dateOfRes = forms.DateField(label="Дата увольнения", required=False, widget=forms.TextInput(
         attrs={'placeholder': 'Введите дату', 'id': 'hello', 'type':'date'}))
-    lor_additionalData = forms.CharField(label="Примичание")
+    lor_additionalData = forms.CharField(label="Примечание")
 
 
 
