@@ -678,8 +678,13 @@ def ItemDel_SickList(request, id):
 
 def new_order_on_vacation(request):
     if request.user.is_authenticated:
+
         orders = NewOrdersOnVacation.objects.all().order_by('-id')
-        return render(request, 'reg_jounals/orders_on_vacation_new.html', context={'orders':orders})
+        count = len(orders)
+        p_orders = Paginator(orders, 20)
+        page_number = request.GET.get('page', 1)
+        page = p_orders.get_page(page_number)
+        return render(request, 'reg_jounals/orders_on_vacation_new.html', context={'orders':page, 'count':count})
     else:
         return render(request, 'reg_jounals/no_auth.html')
 
