@@ -424,3 +424,60 @@ class SickDocument_form(forms.ModelForm):
         )
 
         return new_doc
+
+class NewOrdersOnVacation_form(forms.ModelForm):
+    class Meta:
+        model = NewOrdersOnVacation
+        fields = ['order_date']
+
+    order_date = forms.DateField(label="Дата приказа" , widget=forms.TextInput(
+        attrs={'placeholder': 'Введите дату', 'type':'date'}))
+
+    def saveFirst(self, user_):
+        orders = NewOrdersOnVacation.objects.all()
+        orders_count = len(orders)
+        if orders_count == 0:
+            order_next_num_ = 1
+        else:
+            order_prev_num = orders[orders_count - 1].order_number
+            cut_symb = (len(str(order_prev_num)) - 6)
+            order_next_num_ = int(order_prev_num[:cut_symb]) + 1
+        # log = open('log.txt', 'a')
+        # log.write(str(DT.date.today()) + " пользователь " +str(user_) + ' внес запись о заявлении об увольнении : ' + str(letter_next_num_) +  ' от '+ str(self.cleaned_data['lor_date']) + " увольняемый сотрудник: " + str(self.cleaned_data['lor_employee']) + '\n'  )
+        # log.close()
+        new_order = NewOrdersOnVacation.objects.create(
+        order_date = self.cleaned_data['order_date'],
+        order_number = str(order_next_num_) + '-К-ОТП' ,
+        res_officer = user_
+        )
+
+        return new_order
+
+class NewOrdersOnVacationItem_form(forms.ModelForm):
+    class Meta:
+        model = NewOrdersOnVacation_item
+        fields = ['fio', 'dep', 'dur_from', 'dur_to', 'days_count', 'vac_type', 'comm']
+
+    dur_from = forms.DateField(label="Дата начала отпуска" , widget=forms.TextInput(
+        attrs={'placeholder': 'Введите дату', 'type':'date'}))
+
+    dur_to = forms.DateField(label="Дата окончания отпуска" , widget=forms.TextInput(
+        attrs={'placeholder': 'Введите дату', 'type':'date'}))
+
+    def saveFirst(self, order_id):
+        # log = open('log.txt', 'a')
+        # log.write(str(DT.date.today()) + " пользователь " +str(user_) + ' внес запись о заявлении об увольнении : ' + str(letter_next_num_) +  ' от '+ str(self.cleaned_data['lor_date']) + " увольняемый сотрудник: " + str(self.cleaned_data['lor_employee']) + '\n'  )
+        # log.close()
+        new_item = NewOrdersOnVacation.objects.create(
+            bound_order = order_id,
+            fio = self.cleaned_data['fio'],
+            dep = self.cleaned_data['dep'],
+            dur_from = self.cleaned_data['dur_from'],
+            dur_to = self.cleaned_data['dur_to'],
+            days_count = self.cleaned_data['days_count'],
+            vac_type = self.cleaned_data['vac_type'],
+            comm = self.cleaned_data['comm']
+
+        )
+
+        return new_item

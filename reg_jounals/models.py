@@ -153,6 +153,7 @@ class SickRegistry(models.Model):
     def __str__(self):
         reg_num = str(self.sr_number)
         return reg_num
+
 class SickDocument(models.Model):
     sd_reg_number = models.CharField(max_length=256, blank=True, help_text="Введите номер реестра", verbose_name="№ реестра ", default=" ")
     sd_number = models.CharField(max_length=256, help_text="Введите номер б\л", verbose_name="Номер б\л", db_index=True)
@@ -182,3 +183,33 @@ class Departments(models.Model):
     def __str__(self):
         doc_fullname = self.dep_name
         return doc_fullname
+
+class NewOrdersOnVacation(models.Model):
+    order_date = models.DateField(help_text="Введите дату приказа", verbose_name="Дата приказа", db_index=True)
+    order_number = models.CharField(blank = True, max_length=10, help_text="Введите номер приказа", verbose_name="Номер приказа", db_index=True)
+    res_officer = models.CharField(default="database", blank=True, editable=False,  max_length=256, help_text="Сотрудник, который создал приказ ", verbose_name='Ответственный сотрудник')
+    class Meta:
+        ordering = ["id"]
+        verbose_name = 'Приказ на отпуск'
+        verbose_name_plural = 'Приказы на отпуск'
+
+class NewOrdersOnVacation_item(models.Model):
+
+    vac_type_choices = [('Очердной','Очередной'), ('Пенсионный','Пенсионный'), ('Без сохранения ЗП','Без сохранения ЗП')]
+
+    bound_order = models.CharField(blank = True, max_length=10, help_text="Номер связанного приказа", verbose_name="Номер связанного приказа", db_index=True)
+    fio = models.CharField(max_length=256, help_text="ФИО сотрудника", verbose_name="ФИО сотрудника", db_index=True)
+    dep = models.ForeignKey('Departments', on_delete=models.CASCADE, verbose_name="Подразделение ", default="79")
+    dur_from = models.DateField(help_text="Введите дату начала отпуска", verbose_name="Дата начала отпуска", db_index=True)
+    dur_to = models.DateField(help_text="Введите дату окончания отпуска", verbose_name="Дата окончания отпуска", db_index=True)
+    days_count = models.CharField(max_length=5, help_text="Количество дней", verbose_name="Количество дней", db_index=True)
+    vac_type = models.CharField(choices=vac_type_choices, max_length=256, help_text="Вид отпуска", verbose_name="Количество дней", db_index=True)
+    comm = models.CharField(max_length=256, help_text="Комментарий", verbose_name="Комментарий", db_index=True)
+
+    class Meta:
+        ordering = ["id"]
+        verbose_name = 'Сотрудник в приказе на отпуск'
+        verbose_name_plural = 'Сотрудниуи в приказах на отпуск'
+
+        def __str__(self):
+            return self.fio
