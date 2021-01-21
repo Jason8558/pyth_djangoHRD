@@ -195,7 +195,7 @@ class NewOrdersOnVacation(models.Model):
 
 class NewOrdersOnVacation_item(models.Model):
 
-    vac_type_choices = [('Очердной','Очередной'), ('Пенсионный','Пенсионный'), ('Без сохранения ЗП','Без сохранения ЗП')]
+    vac_type_choices = [('Очередной','Очередной'), ('Пенсионный','Пенсионный'), ('Без сохранения ЗП','Без сохранения ЗП')]
 
     bound_order = models.CharField(blank = True, max_length=10, help_text="Номер связанного приказа", verbose_name="Номер связанного приказа", db_index=True)
     fio = models.CharField(max_length=256, help_text="ФИО сотрудника", verbose_name="ФИО сотрудника", db_index=True)
