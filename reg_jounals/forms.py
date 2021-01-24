@@ -22,7 +22,7 @@ class LetterOfResignation_form(forms.ModelForm):
 
     lor_dateOfRes = forms.DateField(label="Дата увольнения", required=False, widget=forms.TextInput(
         attrs={'placeholder': 'Введите дату', 'id': 'hello', 'type':'date'}))
-    lor_additionalData = forms.CharField(label="Примечание")
+    
 
 
 

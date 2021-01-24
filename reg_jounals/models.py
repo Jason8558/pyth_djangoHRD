@@ -30,7 +30,7 @@ class LetterOfResignation(models.Model):
     lor_position = models.CharField(max_length=256, help_text="Введите должность увольняемого сотрудника", verbose_name="Должность")
     lor_departament = models.ForeignKey('Departments', on_delete=models.CASCADE, verbose_name="Подразделение ", default="1")
     lor_dateOfRes = models.DateField(help_text="Введите дату увольнения", verbose_name="Дата увольнения", db_index=True)
-    lor_additionalData = models.CharField(blank=True, default="примечание", max_length=256, help_text="Введите примечание", verbose_name="Примечание")
+    lor_additionalData = models.CharField(blank=True, null=True, default=" ", max_length=256, help_text="Введите примечание", verbose_name="Примечание")
     lor_res_officer = models.CharField(blank=True, editable=False,  max_length=256, help_text="Сотрудник, который внес документ в систему ", verbose_name='Ответственный сотрудник')
 
     class Meta:
@@ -195,7 +195,7 @@ class NewOrdersOnVacation(models.Model):
 
 class NewOrdersOnVacation_item(models.Model):
 
-    vac_type_choices = [('Очередной','Очередной'), ('Пенсионный','Пенсионный'), ('Без сохранения ЗП','Без сохранения ЗП')]
+    vac_type_choices = [('Очередной','Очередной'), ('Пенсионный','Пенсионный'), ('Без сохранения ЗП','Без сохранения ЗП'), ('Учебный','Учебный')]
 
     bound_order = models.CharField(blank = True, max_length=10, help_text="Номер связанного приказа", verbose_name="Номер связанного приказа", db_index=True)
     fio = models.CharField(max_length=256, help_text="ФИО сотрудника", verbose_name="ФИО сотрудника", db_index=True)
@@ -209,7 +209,7 @@ class NewOrdersOnVacation_item(models.Model):
     class Meta:
         ordering = ["id"]
         verbose_name = 'Сотрудник в приказе на отпуск'
-        verbose_name_plural = 'Сотрудниуи в приказах на отпуск'
+        verbose_name_plural = 'Сотрудники в приказах на отпуск'
 
         def __str__(self):
             return self.fio
