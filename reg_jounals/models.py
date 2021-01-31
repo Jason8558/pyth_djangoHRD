@@ -113,7 +113,7 @@ class OrdersOnPersonnel(models.Model):
         return doc_fullname
 
 class LaborContract(models.Model):
-    lc_number = models.CharField(max_length=5, help_text="Введите номер договора", verbose_name="Номер договора", db_index=True)
+    lc_number = models.CharField(max_length=256, help_text="Введите номер договора", verbose_name="Номер договора", db_index=True)
     lc_date = models.DateField(help_text="Введите дату договора", verbose_name="Дата договора", db_index=True)
     lc_emloyer = models.CharField(max_length=256, help_text="Введите ФИО принимаемого сотрудника", verbose_name="ФИО принимаемого сотрудника", db_index=True)
     lc_pos = models.CharField(max_length=256, help_text="Введите должность", verbose_name="Должность", db_index=True, default=' ')
