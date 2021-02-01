@@ -22,7 +22,7 @@ class LetterOfResignation_form(forms.ModelForm):
 
     lor_dateOfRes = forms.DateField(label="Дата увольнения", required=False, widget=forms.TextInput(
         attrs={'placeholder': 'Введите дату', 'id': 'hello', 'type':'date'}))
-    
+
 
 
 
@@ -469,12 +469,12 @@ class NewOrdersOnVacationItem_form(forms.ModelForm):
 
 
     def saveFirst(self, order_id, user_):
-        order = NewOrdersOnVacation.objects.get(id=order_id)
+
         log = open('log.txt', 'a')
-        log.write(str(DT.date.today()) + " пользователь " +str(user_) + ' внес запись в приказ №: ' + str(order.order_number) +  ' от '+ str(order.order_date) + " о сотруднике: " + str(self.cleaned_data['fio']) + '\n'  )
-        log.close()
+        # log.write(str(DT.date.today()) + " пользователь " +str(user_) + ' внес запись в приказ №: ' + str(order.order_number) +  ' от '+ str(order.order_date) + " о сотруднике: " + str(self.cleaned_data['fio']) + '\n'  )
+        # log.close()
         new_item = NewOrdersOnVacation_item.objects.create(
-            bound_order = order_id,
+            bound_order_id = order_id,
             fio = self.cleaned_data['fio'],
             dep = self.cleaned_data['dep'],
             dur_from = self.cleaned_data['dur_from'],

@@ -1,0 +1,43 @@
+{%extends "reg_jounals/index.html" %}
+
+{%block title%}Поиск - {{search_query}}{%endblock%}
+{%block header%} <a class="btn btn-outline-info" href="/journals/orders_on_vacation_new/"> < назад</a> Поиск по запросу "{{search_query}}". Найдено: {{sdocs_count}} {%endblock%}
+{%block content%}
+<table>
+  <thead class="thead-dark">
+  <tr class="tr-header">
+
+    <th scope="col">Приказ</th>
+    <th scope="col">ФИО</th>
+    <th scope="col">Подразделение</th>
+    <th scope="col">Дата начала</th>
+    <th scope="col">Дата окончания</th>
+    <th scope="col">Кол-во дней</th>
+    <th scope="col">Вид</th>
+    <th scope="col">Примечание</th>
+
+
+
+
+  </tr>
+  </thead>
+
+  {%for item in items %}
+
+<tr >
+
+    <td>{{item.bound_order.order_number}} от {{item.bound_order.order_date|date:"d.m.Y"}}</td>
+    <td>{{item.fio}}</td>
+    <td>{{item.dep}}</td>
+    <td>{{item.dur_from|date:"d.m.Y"}}</td>
+    <td>{{item.dur_to|date:"d.m.Y"}}</td>
+    <td>{{item.days_count}}</td>
+    <td>{{item.vac_type}}</td>
+    <td>{{item.comm}}</td>
+
+</tr>
+  {%endfor%}
+
+</table>
+
+{%endblock%}
