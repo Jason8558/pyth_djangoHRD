@@ -38,6 +38,10 @@ class LetterOfResignation(models.Model):
         verbose_name = 'Заявление на увольнение'
         verbose_name_plural = 'Заявления на увольнение'
 
+    def __str__(self):
+        letter_fullname = "Заявление на увольнение" + ' №' + str(self.lor_number) + ' от ' + str(self.lor_date) + ' ' + str(self.lor_employee)
+        return letter_fullname
+
 class LetterOfInvite(models.Model):
     loi_date = models.DateField(help_text="Введите дату поступления заявления", verbose_name="Дата поступления заявления", db_index=True)
     loi_number = models.CharField(default='',max_length=10, help_text="Введите номер документа", verbose_name='Номер документа', db_index=True)
@@ -45,13 +49,17 @@ class LetterOfInvite(models.Model):
     loi_position = models.CharField(max_length=256, help_text="Введите должность принимаемого сотрудника", verbose_name="Должность")
     loi_department = models.ForeignKey('Departments', on_delete=models.CASCADE, verbose_name="Подразделение ", default="1")
     loi_dateOfInv = models.DateField(blank=True, null=True, help_text="Введите дату начала работы", verbose_name="Дата начала работы", db_index=True)
-    loi_additionalData = models.CharField(blank=True, default="примечание", max_length=256, help_text="Введите примечание", verbose_name="Примечание")
+    loi_additionalData = models.CharField(blank=True, default=" ", max_length=256, help_text="Введите примечание", verbose_name="Примечание")
     loi_res_officer = models.CharField(blank=True, editable=False,  max_length=256, help_text="Сотрудник, который внес документ в систему ", verbose_name='Ответственный сотрудник')
 
     class Meta:
         ordering = ["id"]
         verbose_name = 'Заявление на прием'
         verbose_name_plural = 'Заявления на прием'
+
+    def __str__(self):
+        letter_fullname = "Заявление на прием" + ' №' + str(self.loi_number) + ' от ' + str(self.loi_date) + ' ' + str(self.loi_employee)
+        return letter_fullname
 
 class OrdersOnOtherMatters(models.Model):
     oom_number = models.CharField(max_length=5, help_text="Введите номер приказа", verbose_name="Номер приказа", db_index=True)
@@ -63,6 +71,10 @@ class OrdersOnOtherMatters(models.Model):
         ordering = ["id"]
         verbose_name = 'Приказ по другим вопросам'
         verbose_name_plural = 'Приказы по другим вопросам'
+
+    def __str__(self):
+        doc_fullname = "Приказ " + ' №' + str(self.oom_number) + ' от ' + str(self.oom_date)
+        return doc_fullname
 
 class OrdersOnVacation(models.Model):
     oov_number = models.CharField(blank = True, max_length=10, help_text="Введите номер приказа", verbose_name="Номер приказа", db_index=True)
@@ -141,6 +153,16 @@ class EmploymentHistory(models.Model):
     eh_OrderResign = models.CharField(null=True, blank=True, max_length=256, help_text="Введите номер приказа об увольнении", verbose_name="Приказ об увольнении:", db_index=True)
     eh_dateOfResign = models.DateField(null=True, blank=True, help_text="Введите дату увольнения", verbose_name="Дата увольнения", db_index=True)
     eh_res_officer = models.CharField(blank=True, editable=False,  max_length=256, help_text="Сотрудник, который внес документ в систему ", verbose_name='Ответственный сотрудник')
+
+    class Meta:
+        ordering = ["-id"]
+        verbose_name = 'Трудовая книжка'
+        verbose_name_plural = 'Трудовые книжки'
+
+    def __str__(self):
+        doc_fullname = "Трудовая книжка" + ' №' + str(self.eh_number) + '  ' + str(self.eh_employer)
+        return doc_fullname
+
 
 class SickRegistry(models.Model):
     sr_number = models.IntegerField(help_text="Введите номер реестра", verbose_name="Номер реестра", db_index=True)
