@@ -227,7 +227,7 @@ def order_other_matters(request):
 
         else:
             orders = OrdersOnOtherMatters.objects.all().order_by('-id')
-            p_orders = Paginator(orders, 10)
+            p_orders = Paginator(orders, 20)
             page_number = request.GET.get('page', 1)
         page = p_orders.get_page(page_number)
         count = len(orders)
