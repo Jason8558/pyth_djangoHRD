@@ -281,12 +281,13 @@ def del_OrderOnOtherMatters(request, id):
 # Приказы на отпуск -----------------------
 def order_on_vacation(request):
     if request.user.is_authenticated:
-        orders =OrdersOnVacation.objects.all().order_by('-id')
-        p_orders = Paginator(orders, 20)
-        page_number = request.GET.get('page', 1)
-        page = p_orders.get_page(page_number)
-        count = len(orders)
-        return render(request, 'reg_jounals/orders_on_vacation.html', context={'orders':page, 'count':count})
+
+                orders = OrdersOnVacation.objects.all().order_by('-id')
+                p_orders = Paginator(orders, 20)
+                page_number = request.GET.get('page', 1)
+                page = p_orders.get_page(page_number)
+                count = len(orders)
+                return render(request, 'reg_jounals/orders_on_vacation.html', context={'orders':page, 'count':count})
     else:
         return render(request, 'reg_jounals/no_auth.html')
 
@@ -678,13 +679,28 @@ def ItemDel_SickList(request, id):
 
 def new_order_on_vacation(request):
     if request.user.is_authenticated:
+        items = ""
+        orders = []
+        search_query = request.GET.get('vac_search','')
+        sq_dep = request.GET.get('vac_dep_search','')
+        if search_query:
 
-        orders = NewOrdersOnVacation.objects.all().order_by('-id')
-        count = len(orders)
-        p_orders = Paginator(orders, 20)
-        page_number = request.GET.get('page', 1)
-        page = p_orders.get_page(page_number)
-        return render(request, 'reg_jounals/orders_on_vacation_new.html', context={'orders':page, 'count':count})
+            items = NewOrdersOnVacation_item.objects.filter(fio__icontains=search_query)
+            items_count = len(items)
+            return render(request, 'reg_jounals/vac_search.html', context={'orders':orders, 'items':items, 'search_query':search_query, 'items_count':items_count})
+        else:
+            if sq_dep:
+                items = NewOrdersOnVacation_item.objects.filter(dep__dep_name__icontains=sq_dep)
+
+                items_count = len(items)
+                return render(request, 'reg_jounals/vac_search.html', context={'orders':orders, 'items':items, 'search_query':sq_dep, 'items_count':items_count})
+            else:
+                orders = NewOrdersOnVacation.objects.all().order_by('-id')
+                count = len(orders)
+                p_orders = Paginator(orders, 20)
+                page_number = request.GET.get('page', 1)
+                page = p_orders.get_page(page_number)
+                return render(request, 'reg_jounals/orders_on_vacation_new.html', context={'orders':page, 'count':count})
     else:
         return render(request, 'reg_jounals/no_auth.html')
 
@@ -728,25 +744,25 @@ def new_order_on_vacation_addItem(request, order_id):
 def new_order_on_vacation_updItem(request, id):
     if request.user.is_authenticated:
         item = NewOrdersOnVacation_item.objects.get(id__exact=id)
-        order = NewOrdersOnVacation.objects.get(id__exact=item.bound_order)
-        b_order = item.bound_order
+        # order = NewOrdersOnVacation.objects.get(id__exact=item.bound_order)
+        # b_order = item.bound_order
         if request.method == "GET":
             bound_form = NewOrdersOnVacationItem_form(instance=item)
-            return render(request, 'reg_jounals/NewOrderOnVacation_updItem.html', context={'form':bound_form, 'item':item, 'b_order':b_order})
+            return render(request, 'reg_jounals/NewOrderOnVacation_updItem.html', context={'form':bound_form, 'item':item, })
         else:
             item = NewOrdersOnVacation_item.objects.get(id__iexact=id)
             bound_form = NewOrdersOnVacationItem_form(request.POST, instance=item)
             if bound_form.is_valid():
                 user_ = request.user.first_name
                 bound_form.save()
-                loc = '/journals/orders_on_vacation_new/'+str(b_order)+'/create'
+                loc = '/journals/orders_on_vacation_new/'+str(item.bound_order.id)+'/create'
                 return redirect(loc)
 
 def new_order_on_vacation_delItem(request, id):
     if request.user.is_authenticated:
         item = NewOrdersOnVacation_item.objects.get(id__exact=id)
-        order = NewOrdersOnVacation.objects.get(id__exact=item.bound_order)
-        b_order = item.bound_order
-        dest = '/journals/orders_on_vacation_new/' + str(b_order) + '/create'
+
+
+        dest = '/journals/orders_on_vacation_new/' + str(item.bound_order.id) + '/create'
         item.delete()
         return redirect(dest)
