@@ -189,9 +189,12 @@ class NewOrdersOnVacation(models.Model):
     order_number = models.CharField(blank = True, max_length=10, help_text="Введите номер приказа", verbose_name="Номер приказа", db_index=True)
     res_officer = models.CharField(default="database", blank=True, editable=False,  max_length=256, help_text="Сотрудник, который создал приказ ", verbose_name='Ответственный сотрудник')
     class Meta:
-        ordering = ["id"]
+        ordering = ["-id"]
         verbose_name = 'Приказ на отпуск'
-        verbose_name_plural = 'Приказы на отпуск'
+        verbose_name_plural = 'Приказы на отпуск (новые)'
+
+    def __str__(self):
+        return str(self.order_number) + ' от ' + str(self.order_date.strftime("%d.%m.%Y"))
 
 class NewOrdersOnVacation_item(models.Model):
 
@@ -211,5 +214,5 @@ class NewOrdersOnVacation_item(models.Model):
         verbose_name = 'Сотрудник в приказе на отпуск'
         verbose_name_plural = 'Сотрудники в приказах на отпуск'
 
-        def __str__(self):
-            return self.fio
+    def __str__(self):
+        return self.fio
