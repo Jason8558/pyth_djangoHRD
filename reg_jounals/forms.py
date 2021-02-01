@@ -469,10 +469,10 @@ class NewOrdersOnVacationItem_form(forms.ModelForm):
 
 
     def saveFirst(self, order_id, user_):
-
+        order = NewOrdersOnVacation.objects.get(id=order_id)
         log = open('log.txt', 'a')
-        # log.write(str(DT.date.today()) + " пользователь " +str(user_) + ' внес запись в приказ №: ' + str(order.order_number) +  ' от '+ str(order.order_date) + " о сотруднике: " + str(self.cleaned_data['fio']) + '\n'  )
-        # log.close()
+        log.write(str(DT.date.today()) + " пользователь " +str(user_) + ' внес запись в приказ №: ' + str(order.order_number) +  ' от '+ str(order.order_date) + " о сотруднике: " + str(self.cleaned_data['fio']) + '\n'  )
+        log.close()
         new_item = NewOrdersOnVacation_item.objects.create(
             bound_order_id = order_id,
             fio = self.cleaned_data['fio'],
