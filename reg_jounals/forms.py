@@ -434,21 +434,20 @@ class NewOrdersOnVacation_form(forms.ModelForm):
         attrs={'placeholder': 'Введите дату', 'type':'date'}))
 
     def saveFirst(self, user_):
-        orders = NewOrdersOnVacation.objects.all()
+        orders = NewOrdersOnVacation.objects.all().order_by('id')
         orders_count = len(orders)
+        print(orders_count)
         if orders_count == 0:
             order_next_num_ = 1
         else:
             order_prev_num = orders[orders_count - 1].order_number
             cut_symb = (len(str(order_prev_num)) - 6)
             order_next_num_ = int(order_prev_num[:cut_symb]) + 1
-        # log = open('log.txt', 'a')
-        # log.write(str(DT.date.today()) + " пользователь " +str(user_) + ' внес запись о заявлении об увольнении : ' + str(letter_next_num_) +  ' от '+ str(self.cleaned_data['lor_date']) + " увольняемый сотрудник: " + str(self.cleaned_data['lor_employee']) + '\n'  )
-        # log.close()
+
         new_order = NewOrdersOnVacation.objects.create(
-        order_date = self.cleaned_data['order_date'],
-        order_number = str(order_next_num_) + '-К-ОТП' ,
-        res_officer = user_
+            order_date = self.cleaned_data['order_date'],
+            order_number = str(order_next_num_) + '-К-ОТП' ,
+            res_officer = user_
         )
 
         return new_order
