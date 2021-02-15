@@ -148,6 +148,17 @@ box-shadow: 0px 1px 3px 1px black;
   width: 94%
 }
 
+.button_turv {
+background: #0c81ff !important;
+transition: 0.3s !important;
+}
+
+.button_turv:hover {
+  box-shadow: 0px 0px 8px 2px blue;
+  transition: 0.3s;
+}
+
+
 .main_button{
 
   background: #2d3261 !important;
