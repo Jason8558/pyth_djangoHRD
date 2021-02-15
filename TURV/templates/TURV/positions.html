@@ -1,0 +1,46 @@
+{% extends 'TURV\index.html'%}
+
+{%block title%}Должности{% endblock %}
+
+{%block header%}  <a class="btn btn-dark" href=".."> < Назад </a> | Должности.{%endblock%}
+
+{% block body %}
+
+<div class="container positions">
+  <a class="btn btn-success btn-add"  href="{% url 'pos_new'%}"  >+ Новая должность</a>
+
+
+{%if positions%}
+
+<table>
+  <thead class="thead-dark">
+  <tr class="tr-header">
+
+
+
+    <th scope="col">Должность</th>
+
+
+
+
+
+  </tr >
+  </thead>
+
+  {%for pos in positions %}
+
+  <tr  onclick="return location.href = '{% url 'pos_upd' id=pos.id%}' " >
+
+
+    <td>{{pos}}</td>
+
+
+
+  </tr>
+  {%endfor%}
+</table>
+{%else%}
+<h2>Должности не найдены</h2>
+{%endif%}
+</div>
+{%endblock%}

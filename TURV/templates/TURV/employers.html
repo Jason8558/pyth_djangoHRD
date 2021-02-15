@@ -1,0 +1,57 @@
+{% extends 'TURV\index.html'%}
+
+{%block title%}Сотрудники{% endblock %}
+
+{%block header%}  <a class="btn btn-dark" href=".."> < Назад </a> | Сотрудники. Всего: {{count}}.{%endblock%}
+
+{% block body %}
+
+<div class="container">
+  <a class="btn btn-success btn-add"  href="{% url 'emp_new'%}"  >+ Новый сотрудник</a>
+
+
+{%if employers%}
+
+<table>
+  <thead class="thead-dark">
+  <tr class="tr-header">
+
+
+    <th scope="col">ФИО</th>
+    <th scope="col">Должность</th>
+    <th scope="col">Подразделение</th>
+    <th scope="col">Ступень оплаты</th>
+    <th scope="col">Разряд\категория</th>
+    <th scope="col">Сменный персонал</th>
+
+
+
+
+  </tr >
+  </thead>
+
+  {%for emp in employers %}
+
+  <tr  onclick="return location.href = '{% url 'emp_upd' id=emp.id%}' " >
+
+
+    <td>{{emp.fullname}}</td>
+    <td>{{emp.position}}</td>
+    <td>{{emp.department}}</td>
+    <td>{{emp.positionOfPayment}}</td>
+    <td>{{emp.level}}</td>
+    {% if emp.shift_personnel %}
+    <td>✅</td>
+    {%else%}
+    <td>❌</td>
+    {%endif%}
+
+
+  </tr>
+  {%endfor%}
+</table>
+{%else%}
+<h2>Сотрудники не найдены</h2>
+{%endif%}
+</div>
+{%endblock%}

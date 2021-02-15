@@ -1,0 +1,22 @@
+{% extends 'TURV\index.html'%}
+{%load static%}
+{%block title%}Добавить должность{% endblock %}
+
+
+
+{%block header%}Новая должность.{%endblock%}
+
+{% block body %}
+
+<div class="container ">
+
+<form class="new_pos" action="" method="post">
+{% csrf_token %}
+<p>{{pos.name.label}}: {{pos.name}}</p>
+<div class="buttons"><input type="submit" name="" class="btn btn-success" value="Добавить">
+<a href="." class="btn btn-outline-danger">Отмена</a></div>
+
+
+</form>
+</div>
+{%endblock%}

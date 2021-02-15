@@ -1,0 +1,205 @@
+{% extends "TURV\index.html" %}
+{%load static%}
+{%block scripts%}<script src="{% static 'TURV\js\TabelItemAdd.js' %}" charset="utf-8"></script>{%endblock%}
+{%block title%}Заполнение сотрудника{%endblock%}
+
+{%block header%}<a class="btn btn-dark" href="/turv/create/{{b_tabel.id}}">< Назад</a> | <span class="hide" id="id_month">{{month}}</span>Табель за <span  class='field_month'>{{month}}</span> <span id='id_year'>{{year}}</span> г. - <span id="fullname"></span>{%endblock%}
+
+{%block body%}
+<div class="container">
+
+ <ul class="in_tabel_list">
+   {% for emp in in_tabel %}
+   <li>{{emp.employer}}</li>
+   {%endfor%}
+ </ul>
+
+  <div class="t_peoples hide">
+  {{tabel.position}}
+  {{tabel.level}}
+  {{tabel.department}}
+  {{tabel.positionOfPayment}}
+  </div>
+
+{% if tabel.errors%}
+
+<div class="alert alert-danger mt-5" role="alert">
+{{tabel.errors}}
+</div>
+{%endif%}
+
+<div class="nt_body">
+<form class="" action="" method="post">
+  {%csrf_token%}
+
+
+
+  <div class="nt_body_employer">
+    {{tabel.employer.label}}
+    <select class="" id='t_emps' onchange="ReSelectEmp()" name="t_emps">
+      {% for emp in emps%}
+      <option value="{{emp}}">{{emp}}</option>
+      {%endfor%}
+    </select>
+    <a href="" class="btn btn-info btn-sm"> + </a>
+    {{tabel.employer}}
+
+  </div>
+<div class="nt_text_employer">
+  <div>
+  <h5 id="fullname"></h5>
+  <h5 id="position"></h5>
+  <h5 id="level"></h5>
+  <h5 id="payment"></h5>
+  </div>
+
+  <div class="results">
+    <p><span>{{tabel.w_days.label}}</span>{{tabel.w_days}}</p>
+    <p><span>{{tabel.w_hours.label}}</span>{{tabel.w_hours}}</p>
+    <p><span>{{tabel.v_days.label}}</span>{{tabel.v_days}}</p>
+    <p><span><label for="weekends">Выходных (дней)</label></span><input id="weekends" type="text" readonly name="weekends" value=""></p>
+  </div>
+</div>
+<button type="button" onclick="Tabel();" class="btn btn-outline-dark" name="button">Расчитать</button>
+<input type="submit" onclick="Tabel();" class="btn btn-success" name="" value="Расчитать и добавить">
+  <div class="nt_body_times">
+    <span>1</span>
+    <span>2</span>
+    <span>3</span>
+    <span>4</span>
+    <span>5</span>
+    <span>6</span>
+    <span>7</span>
+    <span>8</span>
+    <span>9</span>
+    <span>10</span>
+    <span>11</span>
+    <span>12</span>
+    <span>13</span>
+    <span>14</span>
+    <span>15</span>
+    <span>16</span>
+    <span>17</span>
+    <span>18</span>
+    <span>19</span>
+    <span>20</span>
+    <span>21</span>
+    <span>22</span>
+    <span>23</span>
+    <span>24</span>
+    <span>25</span>
+    <span>26</span>
+    <span>27</span>
+    <span>28</span>
+    <span id="day29">29</span>
+    <span id="day30">30</span>
+    <span id="day31">31</span>
+    {{tabel.type_time1}}
+    {{tabel.type_time2}}
+    {{tabel.type_time3}}
+    {{tabel.type_time4}}
+    {{tabel.type_time5}}
+    {{tabel.type_time6}}
+    {{tabel.type_time7}}
+    {{tabel.type_time8}}
+    {{tabel.type_time9}}
+    {{tabel.type_time10}}
+    {{tabel.type_time11}}
+    {{tabel.type_time12}}
+    {{tabel.type_time13}}
+    {{tabel.type_time14}}
+    {{tabel.type_time15}}
+    {{tabel.type_time16}}
+    {{tabel.type_time17}}
+    {{tabel.type_time18}}
+    {{tabel.type_time19}}
+    {{tabel.type_time20}}
+    {{tabel.type_time21}}
+    {{tabel.type_time22}}
+    {{tabel.type_time23}}
+    {{tabel.type_time24}}
+    {{tabel.type_time25}}
+    {{tabel.type_time26}}
+    {{tabel.type_time27}}
+    {{tabel.type_time28}}
+    {{tabel.type_time29}}
+    {{tabel.type_time30}}
+    {{tabel.type_time31}}
+
+    {{tabel.hours1}}
+    {{tabel.hours2}}
+    {{tabel.hours3}}
+    {{tabel.hours4}}
+    {{tabel.hours5}}
+    {{tabel.hours6}}
+    {{tabel.hours7}}
+    {{tabel.hours8}}
+    {{tabel.hours9}}
+    {{tabel.hours10}}
+    {{tabel.hours11}}
+    {{tabel.hours12}}
+    {{tabel.hours13}}
+    {{tabel.hours14}}
+    {{tabel.hours15}}
+    {{tabel.hours16}}
+    {{tabel.hours17}}
+    {{tabel.hours18}}
+    {{tabel.hours19}}
+    {{tabel.hours20}}
+    {{tabel.hours21}}
+    {{tabel.hours22}}
+    {{tabel.hours23}}
+    {{tabel.hours24}}
+    {{tabel.hours25}}
+    {{tabel.hours26}}
+    {{tabel.hours27}}
+    {{tabel.hours28}}
+    {{tabel.hours29}}
+    {{tabel.hours30}}
+    {{tabel.hours31}}
+  </div>
+
+  <div class="summary_times">
+   <p class="st">{{tabel.sHours1.label}}{{tabel.sHours1}}</p>
+   <p class="st">{{tabel.sHours2.label}}{{tabel.sHours2}}</p>
+   <p class="st">{{tabel.sHours3.label}}{{tabel.sHours3}}</p>
+   <p class="st">{{tabel.sHours4.label}}{{tabel.sHours4}}</p>
+   <p class="st">{{tabel.sHours5.label}}{{tabel.sHours5}}</p>
+   <p class="st">{{tabel.sHours6.label}}{{tabel.sHours6}}</p>
+   <p class="st">{{tabel.sHours7.label}}{{tabel.sHours7}}</p>
+  <!-- {{tabel.sHours8.label}}{{tabel.sHours8}} -->
+   <p class="st">{{tabel.sHours9.label}}{{tabel.sHours9}}</p>
+  <!-- {{tabel.sHours10.label}}{{tabel.sHours10}} -->
+   <p class="st">{{tabel.sHours11.label}}{{tabel.sHours11}}</p>
+   <p class="st">{{tabel.sHours12.label}}{{tabel.sHours12}}</p>
+  <!-- {{tabel.sHours13.label}}{{tabel.sHours13}} -->
+   <p class="st">{{tabel.sHours14.label}}{{tabel.sHours14}}</p>
+   <p class="st">{{tabel.sHours15.label}}{{tabel.sHours15}}</p>
+   <p class="st">{{tabel.sHours16.label}}{{tabel.sHours16}}</p>
+   <p class="st">{{tabel.sHours17.label}}{{tabel.sHours17}}</p>
+   <p class="st">{{tabel.sHours18.label}}{{tabel.sHours18}}</p>
+   <p class="st">{{tabel.sHours19.label}}{{tabel.sHours19}}</p>
+   <p class="st">{{tabel.sHours20.label}}{{tabel.sHours20}}</p>
+   <p class="st">{{tabel.sHours21.label}}{{tabel.sHours21}}</p>
+   <p class="st">{{tabel.sHours22.label}}{{tabel.sHours22}}</p>
+  <!-- {{tabel.sHours23.label}}{{tabel.sHours23}} -->
+    <p class="st">   {{tabel.sHours24.label}}{{tabel.sHours24}}</p>
+    <p class="st">   {{tabel.sHours25.label}}{{tabel.sHours25}}</p>
+  <!-- {{tabel.sHours26.label}}{{tabel.sHours26}} -->
+  <!-- {{tabel.sHours27.label}}{{tabel.sHours27}} -->
+    <p class="st">   {{tabel.sHours28.label}}{{tabel.sHours28}}</p>
+  <!-- {{tabel.sHours29.label}}{{tabel.sHours29}} -->
+  <!-- {{tabel.sHours30.label}}{{tabel.sHours30}}
+  {{tabel.sHours31.label}}{{tabel.sHours31}}
+  {{tabel.sHours32.label}}{{tabel.sHours32}}
+  {{tabel.sHours33.label}}{{tabel.sHours33}}
+  {{tabel.sHours34.label}}{{tabel.sHours34}} -->
+
+  </div>
+
+
+
+</form>
+</div>
+</div>
+{%endblock%}

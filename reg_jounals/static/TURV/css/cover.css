@@ -1,0 +1,45 @@
+.cover h1, h2, h3 {
+  font-size: 2em !important;
+}
+
+@media print {
+  .cover {
+    display: grid !important;
+    grid-template-areas:
+    'doc_dep doc_dep doc_dep'
+    'doc_head doc_head doc_head'
+    'doc_legend doc_legend doc_legend'
+  }
+
+}
+
+.cover_dep {
+  grid-area: doc_dep;
+  text-align: center;
+}
+
+.cover_middle {
+  grid-area: doc_head;
+  text-align: center;
+  /* padding-left: 880px; */
+}
+
+.cover_tables {
+  grid-area: doc_tables;
+}
+
+.cover_head {
+
+}
+
+.b-bottom {
+  border-bottom: 1px solid black;
+}
+
+.cover_number {
+
+}
+
+.cover_period {
+
+}

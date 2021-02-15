@@ -1,0 +1,43 @@
+{% extends 'TURV\index.html'%}
+{%load static%}
+{%block title%}Добавить сотрудника{% endblock %}
+
+{%block scripts%}<script src="{% static 'TURV\js\EmployerAdd.js' %}" charset="utf-8"></script>{%endblock%}
+
+{%block header%}Редактировать информацию о сотруднике - {{name}}{%endblock%}
+
+{% block body %}
+
+<div class="container ">
+
+<form class="new_emp" action="" method="post">
+{% csrf_token %}
+<p class="fio">{{emp.fullname.label}}: {{emp.fullname}}</p>
+<p class="pos">{{emp.position.label}}: {{emp.position}}</p>
+<p class="dep">{{emp.department.label}}:
+<select id="e_deps" onchange="ReSelectDep();" name="e_deps">
+  {% for dep in deps %}
+  <option value="{{dep.id}}">{{dep.name}}</option>
+  {% endfor %}
+</select></p>
+
+ {{emp.department}}
+<p class="lvl">{{emp.level.label}}: {{emp.level}}</p>
+<p class="pop">{{emp.positionOfPayment.label}}: {{emp.positionOfPayment}}</p>
+<p class="shift">{{emp.shift_personnel.label}}: {{emp.shift_personnel}}</p>
+<p class="wtime">{{emp.stand_worktime.label}}: {{emp.stand_worktime}}</p>
+<div class="buttons"><input type="submit" name="" class="btn btn-success" value="Сохранить">
+<a onclick="AreYouSure()" id="btn_ays" class="btn btn-outline-danger">Удалить</a>
+
+<a href=".." id="ue_cancel" class="btn btn-outline-dark">Отмена</a></div>
+
+  <div style="display:none;" id="sure">
+    <p>Вы уверены? <span>Это действие необратимо!</span></p>
+    <a class="btn btn-danger" href="{% url 'emp_del' id=emp_.id%}">Да</a>
+    <a href=".." class="btn btn-outline-dark">Отмена</a></div>
+</div>
+
+
+</form>
+</div>
+{%endblock%}

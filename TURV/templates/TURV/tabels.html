@@ -1,0 +1,52 @@
+{% extends 'TURV\index.html'%}
+
+{%block title%}Табели{% endblock %}
+
+{%block header%}Табели учета рабочего времени. Всего: {{count}}. <a class="btn btn-outline-light" href="{% url 'emp_list'%}">Справочник: СОТРУДНИКИ</a> <a class="btn btn-outline-light" href="{% url 'pos_list'%}">Справочник: ДОЛЖНОСТИ</a> {%if request.user.is_superuser %}<a class="btn btn-outline-light" href="{% url 'unload'%}">Выгрузить</a>{%endif%}{%endblock%}
+
+{% block body %}
+
+<div class="container">
+  <a class="btn btn-success btn-add"  href="{% url 'new_tabel_url' %}"  >+ Новый табель</a>
+
+
+{%if tabels%}
+
+<table>
+  <thead class="thead-dark">
+  <tr class="tr-header">
+
+
+    <th scope="col">Период составления</th>
+    <th scope="col">Подразделение</th>
+    <th scope="col">Табельщик</th>
+
+
+
+
+  </tr >
+  </thead>
+
+  {%for tabel in tabels %}
+
+
+  {% if tabel.del_check %}
+<tr style='background: red !important;' onclick="return location.href = '{% url 'tabel_create_url' id=tabel.id%}' " >
+  {%else%}
+<tr  onclick="return location.href = '{% url 'tabel_create_url' id=tabel.id%}' " >
+  {%endif%}
+
+    <td><span class="field_month">{{tabel.month}}</span> {{tabel.year}}  </td>
+    <td>{{tabel.department}}</td>
+    <td>{{tabel.res_officer}}</td>
+
+
+
+</tr>
+  {%endfor%}
+</table>
+{%else%}
+<h2>Табели не найдены</h2>
+{%endif%}
+</div>
+{%endblock%}

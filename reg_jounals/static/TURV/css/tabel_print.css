@@ -1,0 +1,80 @@
+
+
+
+
+  @media print {
+
+
+* {
+  margin: 0 !important;
+    font-size: 15pt !important;
+  box-shadow: none !important;
+
+}
+
+.cell_ttime {
+  height: 30px;
+}
+
+.cell_hours {
+  height: 30px;
+}
+
+th {
+  color: black;
+  font-size: 12pt;
+}
+
+.cover {
+   page-break-after: always;
+}
+
+table {
+  float: left;
+}
+
+.print-allow {
+  display: block !important;
+}
+
+.print-allow-tc {
+  display: table-cell !important;
+}
+
+
+
+.t_print_emp {
+  width: 338px;
+}
+
+
+
+  @page {
+  	size: A3 landscape;
+zoom: 60%;
+}
+
+
+body {
+    zoom: 45%;
+}
+
+
+
+
+  .print {
+    display: none !important;
+  }
+
+
+
+  .tnumber {
+    padding: 0 6px;
+  }
+
+  .container {
+    max-width: 100% !important;
+  }
+
+
+  }

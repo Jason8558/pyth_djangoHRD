@@ -1,0 +1,306 @@
+{% extends 'TURV\index.html'%}
+{%block title%}{{b_tabel.department}} {{month}} {{year}}{%endblock%}
+{%block header%} <a class="btn btn-dark" href=".."> < Назад </a> | <span id="id_month" class="hide">{{month}}</span> <span id="id_year" class="hide">{{year}}</span> Табель учета рабочего времени <span><b>{{b_tabel.department}}</b></span> за: <b><span class="field_month">{{month}}</span> {{year}} г.</b> Всего человек в табеле: {{count}}.{%endblock%}
+
+{% block body %}
+
+<div class="container tabel_container">
+
+  <div class="print-allow hide cover">
+    <div class="cover_dep">
+  <h3 class="b-bottom">КГУП "Камчатский водоканал"</h3>
+  <p>(наименование организации)</p>
+
+
+  <h3 class="b-bottom" id='c_dep'>{{b_tabel.department}}</h3>
+  <p>(наименование подразделения)</p>
+</div>
+
+<div class="cover_middle">
+<div class="cover_head">
+  <h1>ТАБЕЛЬ</h1>
+  <h2>учета рабочего времени и расчета оплаты труда</h2>
+  <h1>УСЛОВНЫЕ ОБОЗНАЧЕНИЯ</h1>
+  </div>
+
+<!-- <div class="cover_tables">
+  <table class="cover_number">
+    <thead>
+      <tr>
+        <th>Номер документа</th>
+        <th>Дата составления</th>
+      </tr>
+      <tbody>
+        <td> </td>
+        <td> </td>
+      </tbody>
+    </thead>
+  </table>
+
+  <table class="cover_period">
+    <thead>
+      <tr>
+        <th colspan="2">Отчетный период</th>
+
+      </tr>
+
+      <tr>
+        <th>с</th>
+        <th>по</th>
+      </tr>
+
+
+      <tbody>
+        <td> </td>
+        <td> </td>
+      </tbody>
+    </thead>
+  </table>
+
+  </div> -->
+
+</div>
+
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <form class="print" action="" method="post">
+    {%csrf_token%}
+
+
+<div class="hide">
+  {{form.month}}
+  {{form.year}}
+  {{form.department}}
+</div>
+  <label for="del_check">Пометка удаления</label> {{form.del_check}} <input class="btn btn-outline-danger btn-sm" type="submit" name="" value="ПОДТВЕРДИТЬ">
+  </form>
+  {% if form.errors %}
+  {{form.errors}}
+  {%endif%}
+
+  {% if b_tabel.del_check %}
+    <h2 style="color:red; text-decoration: underline;">Табель помечен на удаление, дальнейшая работа не возможна!</h2>
+  {% else %}
+  <a class="btn btn-success btn-add print" href="{% url 'tabel_addItem_url' id=b_tabel.id%}">+ Добавить сотрудника в табель</a>
+  {% endif %}
+
+{% if items %}
+<table class="tabel"  cellpadding="0.5" cellspacing="1">
+  <thead style="display: table-header-group" class="thead-dark">
+  <tr class="tr-header">
+
+    <th class="print-allow-tc" rowspan="2">№ П/П</th>
+    <th class="print-allow-tc" colspan="3">ФИО, долж., разр.</th>
+    <th class="print cell_fullname">ФИО</th>
+    <th class="print" >Должн.</th>
+    <th class="print" >Разряд</th>
+    <th>Ступень</th>
+    <th>1</th>
+    <th>2</th>
+    <th>3</th>
+    <th>4</th>
+    <th>5</th>
+    <th>6</th>
+    <th>7</th>
+    <th>8</th>
+    <th>9</th>
+    <th>10</th>
+    <th>11</th>
+    <th>12</th>
+    <th>13</th>
+    <th>14</th>
+    <th>15</th>
+    <th>16</th>
+    <th>17</th>
+    <th>18</th>
+    <th>19</th>
+    <th>20</th>
+    <th>21</th>
+    <th>22</th>
+    <th>23</th>
+    <th>24</th>
+    <th>25</th>
+    <th>26</th>
+    <th>27</th>
+    <th>28</th>
+    <th class="day29">29</th>
+    <th class="day30">30</th>
+    <th class="day31">31</th>
+    <th>Отр. дней</th>
+    <th>Отр. часов/ЛЧ</th>
+    <th>Сверх.</th>
+    <th>Ночных</th>
+    <th>вых./празд.</th>
+    <th>Дней неявок</th>
+    <th>Из них по причинам</th>
+    <th>Выходных</th>
+
+
+
+
+
+
+
+  </tr>
+  </thead>
+
+  {%for item in items %}
+
+
+
+
+
+    <tr onclick="return location.href = '{% url 'tabel_updItem_url' id=item.id%}' "  class="time_types">
+      <th class="print-allow-tc print-num" rowspan="2"></th>
+      <td  class="print-allow-tc" rowspan="2" colspan="3">{{item.employer.fullname}}, {{item.employer.position}}, {{item.employer.level}}</td>
+
+      <td class="print" rowspan="2">{{item.employer.fullname}}</td>
+      <td class="print" rowspan="2">{{item.employer.position}}</td>
+      <td class="print" rowspan="2">{{item.employer.level}}</td>
+      <td rowspan="2">{{item.employer.positionOfPayment}}</td>
+      <td class="cell_ttime">{{item.type_time1}}</td>
+      <td class="cell_ttime">{{item.type_time2}}</td>
+      <td class="cell_ttime">{{item.type_time3}}</td>
+
+      <td class="cell_ttime">{{item.type_time4}}</td>
+
+      <td class="cell_ttime">{{item.type_time5}}</td>
+      <td class="cell_ttime">{{item.type_time6}}</td>
+      <td class="cell_ttime">{{item.type_time7}}</td>
+      <td class="cell_ttime">{{item.type_time8}}</td>
+      <td class="cell_ttime">{{item.type_time9}}</td>
+      <td class="cell_ttime">{{item.type_time10}}</td>
+      <td class="cell_ttime">{{item.type_time11}}</td>
+      <td class="cell_ttime">{{item.type_time12}}</td>
+      <td class="cell_ttime">{{item.type_time13}}</td>
+      <td class="cell_ttime">{{item.type_time14}}</td>
+      <td class="cell_ttime">{{item.type_time15}}</td>
+      <td class="cell_ttime">{{item.type_time16}}</td>
+      <td class="cell_ttime">{{item.type_time17}}</td>
+      <td class="cell_ttime">{{item.type_time18}}</td>
+      <td class="cell_ttime">{{item.type_time19}}</td>
+      <td class="cell_ttime">{{item.type_time20}}</td>
+      <td class="cell_ttime">{{item.type_time21}}</td>
+      <td class="cell_ttime">{{item.type_time22}}</td>
+      <td class="cell_ttime">{{item.type_time23}}</td>
+      <td class="cell_ttime">{{item.type_time24}}</td>
+      <td class="cell_ttime">{{item.type_time25}}</td>
+      <td class="cell_ttime">{{item.type_time26}}</td>
+      <td class="cell_ttime">{{item.type_time27}}</td>
+      <td class="cell_ttime">{{item.type_time28}}</td>
+      <td class="cell_ttime  day29 ">{{item.type_time29}}</td>
+      <td class="cell_ttime day30 ">{{item.type_time30}}</td>
+      <td class="cell_ttime day31">{{item.type_time31}}</td>
+      <td rowspan="2">{{item.w_days}}</td>
+      {% if item.sHours19 != 0 %}
+      <td rowspan="2">{{item.w_hours}}/{{item.sHours19}}</td>
+      {%else%}
+      <td rowspan="2">{{item.w_hours}}</td>
+        {%endif%}
+
+      {% if item.sHours4 > 0 %}
+      <td rowspan="2">{{item.sHours4|floatformat}}</td>
+      {% else %}
+        <td rowspan="2"></td>
+      {%endif%}
+
+      {%if item.sHours2 %}
+        <td rowspan="2">{{item.sHours2}}</td>
+      {%else%}
+        <td rowspan="2"></td>
+      {%endif%}
+      {%if item.sHours3 %}
+        <td rowspan="2">{{item.sHours3}}</td>
+      {%else%}
+        <td rowspan="2"></td>
+      {%endif%}
+      <td rowspan="2">{{item.v_days}}</td>
+      <td rowspan="2"class="vac_include"></td>
+      <td rowspan="2" class="weekends">{{item.sHours24}}</td>
+
+
+
+
+
+
+
+    </tr>
+    <tr>
+
+        <td class="cell_hours">{{item.hours1}}</td>
+        <td class="cell_hours">{{item.hours2}}</td>
+        <td class="cell_hours">{{item.hours3}}</td>
+
+        <td class="cell_hours">{{item.hours4}}</td>
+        <td class="cell_hours">{{item.hours5}}</td>
+        <td class="cell_hours">{{item.hours6}}</td>
+        <td class="cell_hours">{{item.hours7}}</td>
+      <td class="cell_hours">{{item.hours8}}</td>
+      <td class="cell_hours">{{item.hours9}}</td>
+      <td class="cell_hours">{{item.hours10}}</td>
+      <td class="cell_hours">{{item.hours11}}</td>
+      <td class="cell_hours">{{item.hours12}}</td>
+      <td class="cell_hours">{{item.hours13}}</td>
+      <td class="cell_hours">{{item.hours14}}</td>
+      <td class="cell_hours">{{item.hours15}}</td>
+      <td class="cell_hours">{{item.hours16}}</td>
+      <td class="cell_hours">{{item.hours17}}</td>
+      <td class="cell_hours">{{item.hours18}}</td>
+      <td class="cell_hours">{{item.hours19}}</td>
+      <td class="cell_hours">{{item.hours20}}</td>
+      <td class="cell_hours">{{item.hours21}}</td>
+      <td class="cell_hours">{{item.hours22}}</td>
+      <td class="cell_hours">{{item.hours23}}</td>
+      <td class="cell_hours">{{item.hours24}}</td>
+      <td class="cell_hours">{{item.hours25}}</td>
+      <td class="cell_hours">{{item.hours26}}</td>
+      <td class="cell_hours">{{item.hours27}}</td>
+      <td class="cell_hours">{{item.hours28}}</td>
+      <td class="cell_hours day29">{{item.hours29}}</td>
+      <td class="cell_hours day30">{{item.hours30}}</td>
+      <td class="cell_hours day31">{{item.hours31}}</td>
+
+    </tr>
+
+
+
+
+
+
+
+
+  {%endfor%}
+</table>
+{%else%}
+  {% if b_tabel.del_check%}
+    <h2>Табель помечен на удаление, дальнейшая работа не возможна!</h2>
+  {%else%}
+    <h2>Сотрудников нет</h2>
+  {%endif%}
+{%endif%}
+</div>
+{%endblock%}
