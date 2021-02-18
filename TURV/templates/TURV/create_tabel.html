@@ -113,11 +113,11 @@
   <thead style="display: table-header-group" class="thead-dark">
   <tr class="tr-header">
 
-    <th class="print-allow-tc" rowspan="2">№ П/П</th>
-    <th class="print-allow-tc" colspan="3">ФИО, долж., разр.</th>
-    <th class="print cell_fullname">ФИО</th>
-    <th class="print" >Должн.</th>
-    <th class="print" >Разряд</th>
+    <th class="print-allow-tc " rowspan="2">№ П/П</th>
+    <th class="print-allow-tc " colspan="3">ФИО, долж., разр.</th>
+    <th class="print cell_fullname ">ФИО</th>
+    <th class="print " >Должн.</th>
+    <th class="print " >Разряд</th>
     <th>Ступень</th>
     <th>1</th>
     <th>2</th>
@@ -150,14 +150,14 @@
     <th class="day29">29</th>
     <th class="day30">30</th>
     <th class="day31">31</th>
-    <th>Отр. дней</th>
-    <th>Отр. часов/ЛЧ</th>
-    <th>Сверх.</th>
-    <th>Ночных</th>
-    <th>вых./празд.</th>
-    <th>Дней неявок</th>
-    <th>Из них по причинам</th>
-    <th>Выходных</th>
+    <th >Отр. дней</th>
+    <th >Отр. часов/ЛЧ</th>
+    <th >Сверх.</th>
+    <th >Ночных</th>
+    <th >вых./празд.</th>
+    <th >Дней неявок</th>
+    <th >Из них по причинам</th>
+    <th >Выходных</th>
 
 
 
@@ -175,13 +175,13 @@
 
 
     <tr onclick="return location.href = '{% url 'tabel_updItem_url' id=item.id%}' "  class="time_types">
-      <th class="print-allow-tc print-num" rowspan="2"></th>
-      <td  class="print-allow-tc" rowspan="2" colspan="3">{{item.employer.fullname}}, {{item.employer.position}}, {{item.employer.level}}</td>
+      <th class="print-allow-tc print-num cell_bb" rowspan="2"></th>
+      <td  class="print-allow-tc cell_bb" rowspan="2" colspan="3">{{item.employer.fullname}}, {{item.employer.position}}, {{item.employer.level}}</td>
 
-      <td class="print" rowspan="2">{{item.employer.fullname}}</td>
-      <td class="print" rowspan="2">{{item.employer.position}}</td>
-      <td class="print" rowspan="2">{{item.employer.level}}</td>
-      <td rowspan="2">{{item.employer.positionOfPayment}}</td>
+      <td class="print cell_bb" rowspan="2">{{item.employer.fullname}}</td>
+      <td class="print cell_bb" rowspan="2">{{item.employer.position}}</td>
+      <td class="print cell_bb" rowspan="2">{{item.employer.level}}</td>
+      <td rowspan="2" class="cell_bb">{{item.employer.positionOfPayment}}</td>
       <td class="cell_ttime">{{item.type_time1}}</td>
       <td class="cell_ttime">{{item.type_time2}}</td>
       <td class="cell_ttime">{{item.type_time3}}</td>
@@ -215,32 +215,32 @@
       <td class="cell_ttime  day29 ">{{item.type_time29}}</td>
       <td class="cell_ttime day30 ">{{item.type_time30}}</td>
       <td class="cell_ttime day31">{{item.type_time31}}</td>
-      <td rowspan="2">{{item.w_days}}</td>
+      <td rowspan="2" class="cell_bb">{{item.w_days}}</td>
       {% if item.sHours19 != 0 %}
-      <td rowspan="2">{{item.w_hours}}/{{item.sHours19}}</td>
+      <td rowspan="2" class="cell_bb">{{item.w_hours}}/{{item.sHours19}}</td>
       {%else%}
-      <td rowspan="2">{{item.w_hours}}</td>
+      <td rowspan="2" class="cell_bb">{{item.w_hours}}</td>
         {%endif%}
 
       {% if item.sHours4 > 0 %}
-      <td rowspan="2">{{item.sHours4|floatformat}}</td>
+      <td rowspan="2"class="cell_bb">{{item.sHours4|floatformat}}</td>
       {% else %}
-        <td rowspan="2"></td>
+        <td rowspan="2" class="cell_bb"></td>
       {%endif%}
 
       {%if item.sHours2 %}
-        <td rowspan="2">{{item.sHours2}}</td>
+        <td rowspan="2" class="cell_bb">{{item.sHours2}}</td>
       {%else%}
-        <td rowspan="2"></td>
+        <td rowspan="2" class="cell_bb"></td>
       {%endif%}
       {%if item.sHours3 %}
-        <td rowspan="2">{{item.sHours3}}</td>
+        <td rowspan="2" class="cell_bb">{{item.sHours3}}</td>
       {%else%}
-        <td rowspan="2"></td>
+        <td rowspan="2" class="cell_bb"></td>
       {%endif%}
-      <td rowspan="2">{{item.v_days}}</td>
-      <td rowspan="2"class="vac_include"></td>
-      <td rowspan="2" class="weekends">{{item.sHours24}}</td>
+      <td rowspan="2" class="cell_bb">{{item.v_days}}</td>
+      <td rowspan="2"class="vac_include cell_bb" ></td>
+      <td rowspan="2" class="weekends cell_bb">{{item.sHours24}}</td>
 
 
 
@@ -249,7 +249,7 @@
 
 
     </tr>
-    <tr>
+    <tr  class="cell_bb">
 
         <td class="cell_hours">{{item.hours1}}</td>
         <td class="cell_hours">{{item.hours2}}</td>

@@ -67,13 +67,17 @@ max-width: 1855px !important;
   margin-bottom: 17px;
 }
 
-.navbar {box-shadow: 0px 3px 13px 2px black;}
+.navbar {box-shadow: 0px 3px 13px 2px black;background: #0d6efd !important;}
 
-nav h4 {
+.navbar-brand {
+  width: 100% !important;
+}
+
+nav .logout {
   float: right;
-  width: 100%;
+  /* width: 100%; */
   text-align: right;
-  color: white;
+  /* color: white; */
 }
 
 body {
@@ -258,6 +262,10 @@ margin-top: 25px;
 .cell_ttime {
   width: 100px;
   font-size: 8pt;
+}
+
+.cell_bb {
+  border-bottom: solid black 3px !important;
 }
 
 .cell_fullname {

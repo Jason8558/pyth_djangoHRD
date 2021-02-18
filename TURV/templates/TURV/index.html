@@ -24,31 +24,15 @@
 
 </head>
 <header>
-  <nav class="navbar navbar-expand-lg navbar-dark bg-primary print">
+
+
+<nav class="navbar navbar-light  print">
   <div class="container-fluid">
-    <span class="navbar-brand" href="#">{%block header%}Табели учета рабочего времени{%endblock%}</span>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarNav">
-      <!-- <ul class="navbar-nav">
-        <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="#">Home</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">Features</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">Pricing</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
-        </li>
-      </ul> -->
-    </div>
-    <h4>{{user.first_name}} <a href="{% url 'logout'%}" class="btn btn-outline-danger">Выход</a></h4>
+    <span class="navbar-brand mb-0 h1">{%block header%}Табели учета рабочего времени{%endblock%}  <span class="logout">{{user.first_name}} <a href="{% url 'logout'%}" class="btn btn-outline-danger">Выход</a></span></span>
   </div>
 </nav>
+
+
 </header>
 <body>
   {%block body%}{%endblock%}
