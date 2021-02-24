@@ -112,6 +112,44 @@ thead {
   color: white;
 }
 
+
+.tabel_row_head {
+  display: grid;
+  grid-template-areas:
+  'name pos lvl pof ttimes ttimes wdays whours over night wvac nowork reason vac';
+
+  border: 1px solid black;
+}
+
+
+
+.trh_times {
+  display: grid;
+  grid-template-rows: 1fr;
+  grid-template-columns: repeat(31, 20px);
+}
+
+.tabel_row {
+  display: grid;
+  grid-template-areas:
+  'name pos lvl pof ttimes ttimes wdays whours over night wvac nowork reason vac'
+  'name pos lvl pof hours hours wdays whours over night wvac nowork reason vac';
+  border: 1px solid black;
+}
+
+.tr_types {
+  display: grid;
+  grid-template-rows: 1fr;
+  grid-template-columns: repeat(31, 20px);
+}
+
+.tr_hours {
+  display: grid;
+  grid-template-rows: 1fr;
+  grid-template-columns: repeat(31, 20px);
+}
+
+
 .btn-add {
   width: 100%;
 margin-bottom: 16px;
@@ -259,18 +297,8 @@ margin-top: 25px;
   /* width: 35% !important; */
 }
 
-.cell_ttime {
-  width: 100px;
-  font-size: 8pt;
-}
 
-.cell_bb {
-  border-bottom: solid black 3px !important;
-}
 
-.cell_fullname {
-  width: 260px;
-}
 
 .nt_text_employer {
   width: 100%;
