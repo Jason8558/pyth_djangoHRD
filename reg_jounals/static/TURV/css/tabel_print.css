@@ -74,7 +74,9 @@ table {
 margin-bottom: 50px !important;
 }
 
-
+.fio {
+width: 200px;
+}
 
 .print-allow {
   display: block !important;
