@@ -189,7 +189,7 @@
 
     <tr onclick="return location.href = '{% url 'tabel_updItem_url' id=item.id%}' "  class="time_types">
       <th class="print-allow-tc print-num cell_bb" rowspan="2"></th>
-      <td  class="print-allow-tc cell_bb fio" rowspan="2" colspan="3">{{item.employer.fullname}}, {{item.employer.position|truncatechars:50}}, {{item.employer.level}}</td>
+      <td  class="print-allow-tc cell_bb fio" rowspan="2" colspan="3">{{item.employer.fullname}}, {{item.employer.position|truncatechars:10}}, {{item.employer.level}}</td>
 
       <td class="print cell_bb" rowspan="2">{{item.employer.fullname}}</td>
       <td class="print cell_bb" rowspan="2">{{item.employer.position}}</td>
