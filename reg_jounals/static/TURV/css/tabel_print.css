@@ -74,14 +74,11 @@ table {
 margin-bottom: 50px !important;
 }
 
-table { page-break-after:auto }
-table tr    { page-break-inside:avoid; page-break-after:always; }
-table td    { page-break-inside:avoid; page-break-after:always; }
-table thead { display:table-header-group }
 
-.fio {
+
+/* .fio {
 width: 200px;
-}
+} */
 
 .print-allow {
   display: block !important;
