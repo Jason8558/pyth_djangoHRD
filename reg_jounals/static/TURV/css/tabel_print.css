@@ -75,7 +75,7 @@ margin-bottom: 50px !important;
 }
 
 .fio {
-width: 200px;
+width: max-content;
 }
 
 .print-allow {
