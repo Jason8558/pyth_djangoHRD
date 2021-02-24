@@ -74,10 +74,10 @@ table {
 margin-bottom: 50px !important;
 }
 
-table.report { page-break-after:auto }
-table.report tr    { page-break-inside:avoid; page-break-after:auto }
-table.report td    { page-break-inside:avoid; page-break-after:auto }
-table.report thead { display:table-header-group }
+table { page-break-after:auto }
+table tr    { page-break-inside:avoid; page-break-after:auto }
+table td    { page-break-inside:avoid; page-break-after:auto }
+table thead { display:table-header-group }
 
 .fio {
 width: 200px;
