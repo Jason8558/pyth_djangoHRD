@@ -34,9 +34,47 @@ th {
    page-break-after: always;
 }
 
+.cover img {
+  margin-top: 389px !important;
+    width: 100%;
+}
+
+.cover .colon {
+  display: block;
+width: 100%;
+position: absolute;
+left: 3810px;
+}
+.cover_footer h3 {
+  margin-bottom: 100px !important;
+}
+
+.cover_number {
+  position: absolute;
+  width: 797px;
+  float: right;
+  /* position: fixed; */
+  left: 3396px;
+  /* position: static; */
+  margin-bottom: 221px;
+}
+
+.cover_period {
+position: absolute;
+width: 797px;
+float: right;
+/* position: fixed; */
+left: 2565px;
+/* position: static; */
+margin-bottom: 221px;
+}
+
 table {
   float: left;
+margin-bottom: 50px !important;
 }
+
+
 
 .print-allow {
   display: block !important;

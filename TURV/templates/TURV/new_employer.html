@@ -22,10 +22,10 @@
 </select></p>
 
  {{emp.department}}
-<p class="lvl">{{emp.level.label}}: {{emp.level}}</p>
-<p class="pop">{{emp.positionOfPayment.label}}: {{emp.positionOfPayment}}</p>
-<p class="shift">{{emp.shift_personnel.label}}: {{emp.shift_personnel}}</p>
-<p class="wtime">{{emp.stand_worktime.label}}: {{emp.stand_worktime}}</p>
+
+<p class="pop">{{emp.positionOfPayment.label}}: {{emp.positionOfPayment}} {{emp.level.label}}: {{emp.level}}</p>
+<p class="shift">{{emp.shift_personnel.label}}: {{emp.shift_personnel}} {{emp.stand_worktime.label}}: {{emp.stand_worktime}}</p>
+
 <div class="buttons"><input type="submit" name="" class="btn btn-success" value="Добавить">
 <a href="." class="btn btn-outline-danger">Отмена</a></div>
 

@@ -16,6 +16,7 @@
 .cover_dep {
   grid-area: doc_dep;
   text-align: center;
+      margin-top: 96px !important;
 }
 
 .cover_middle {

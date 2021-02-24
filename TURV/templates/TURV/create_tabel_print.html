@@ -2,19 +2,12 @@
 {%load static%}
 {%block title%}{{b_tabel.department}} {{month}} {{year}}{%endblock%}
 {%block header%} <a class="btn btn-dark" href=".."> < Назад </a> | <span id="id_month" class="hide">{{month}}</span> <span id="id_year" class="hide">{{year}}</span> Табель учета рабочего времени <span><b>{{b_tabel.department}}</b></span> за: <b><span class="field_month">{{month}}</span> {{year}} г.</b> Всего человек в табеле: {{count}}.{%endblock%}
-
+  {%block addstyles%}<link rel="stylesheet" href="{% static 'TURV\css\tabel_print.css'%}">{%endblock%}
 {% block body %}
 
 <div class="container tabel_container">
 
   <div class="print-allow hide cover">
-
-<div class="colon">
-  <p>Унифицированная форма № Т-12</p>
-  <p>Утверждена Постановлением Госкомстата</p>
-  <p>России от 05.01.2004 № 1</p>
-</div>
-
     <div class="cover_dep">
   <h3 class="b-bottom">КГУП "Камчатский водоканал"</h3>
   <p>(наименование организации)</p>
@@ -31,99 +24,14 @@
   <h1>УСЛОВНЫЕ ОБОЗНАЧЕНИЯ</h1>
   </div>
 
-  <table class="cover_number">
-    <thead>
-      <tr>
-        <th>Номер документа</th>
-        <th>Дата составления</th>
-      </tr>
-      <tbody>
-        <td> </td>
-        <td id="cover_today"> </td>
-      </tbody>
-    </thead>
-  </table>
-
-  <table class="cover_period">
-    <thead>
-      <tr>
-        <th colspan="2">Отчетный период</th>
-
-      </tr>
-
-      <tr>
-        <th>с</th>
-        <th>по</th>
-      </tr>
-
-
-      <tbody>
-        <td id="cover_from"> </td>
-        <td id="cover_to"> </td>
-      </tbody>
-    </thead>
-  </table>
-
-<img src="{% static 'TURV\img\legend.jpg'%}" alt="">
-
-<!-- <div class="cover_tables">
-
-
-
-  </div> -->
 
 </div>
 
   </div>
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  <form class="print" action="" method="post">
-    {%csrf_token%}
-
-
-<div class="hide">
-  {{form.month}}
-  {{form.year}}
-  {{form.department}}
-</div>
-  <label for="del_check">Пометка удаления</label> {{form.del_check}} <input class="btn btn-outline-danger btn-sm" type="submit" name="" value="ПОДТВЕРДИТЬ">
-  </form>
-  {% if form.errors %}
-  {{form.errors}}
-  {%endif%}
-
-  {% if b_tabel.del_check %}
-    <h2 style="color:red; text-decoration: underline;">Табель помечен на удаление, дальнейшая работа не возможна!</h2>
-  {% else %}
-  <a class="btn btn-success btn-add print" href="{% url 'tabel_addItem_url' id=b_tabel.id%}">+ Добавить сотрудника в табель</a>
-  {% endif %}
-
-{% if items %}
 <table class="tabel"  cellpadding="0.5" cellspacing="1">
-  <thead style="display: table-header-group" class="thead-dark">
+  <thead  class="thead-dark">
   <tr class="tr-header">
 
     <th class="print-allow-tc " rowspan="2">№ П/П</th>
@@ -187,7 +95,7 @@
 
 
 
-    <tr onclick="return location.href = '{% url 'tabel_updItem_url' id=item.id%}' " style="page-break-inside: avoid;" class="time_types">
+    <tr onclick="return location.href = '{% url 'tabel_updItem_url' id=item.id%}' "  class="time_types ">
       <th class="print-allow-tc print-num cell_bb" rowspan="2"></th>
       <td  class="print-allow-tc cell_bb" rowspan="2" colspan="3">{{item.employer.fullname}}, {{item.employer.position}}, {{item.employer.level}}</td>
 
@@ -262,7 +170,7 @@
 
 
     </tr>
-    <tr style="page-break-inside: avoid;" class="cell_bb">
+    <tr  class="cell_bb last_row">
 
         <td class="cell_hours">{{item.hours1}}</td>
         <td class="cell_hours">{{item.hours2}}</td>
@@ -304,8 +212,6 @@
 
 
 
-
-
   {%endfor%}
 </table>
 {%else%}
@@ -315,11 +221,5 @@
     <h2>Сотрудников нет</h2>
   {%endif%}
 {%endif%}
-
-<div class="cover_footer hide print-allow" >
-<h3>Ответственный за составление табеля ______________________________________________________ __.__.20__ г.</h3>
-<h3>Руководитель структурного подразделения ______________________________________________________ __.__.20__ г.</h3>
-<h3>Сотрудник СУП ______________________________________________________ __.__.20__ г.</h3>
-</div>
 </div>
 {%endblock%}

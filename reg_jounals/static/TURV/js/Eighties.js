@@ -396,5 +396,10 @@ case 28:
 default:
 
 }
+
+$('#cover_from').text("01." + month_ + "." + year_)
+$('#cover_to').text(days_count + "." + month_ + "." + year_)
+$('#cover_today').text(Date.today().toString("dd.MM.yyyy"))
+
 // ---------------------------------------------------------
 })
