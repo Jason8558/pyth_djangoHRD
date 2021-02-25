@@ -20,6 +20,8 @@
     <th scope="col">Период составления</th>
     <th scope="col">Подразделение</th>
     <th scope="col">Табельщик</th>
+    <th scope="col">Проверен СУП</th>
+
 
 
 
@@ -39,6 +41,11 @@
     <td><span class="field_month">{{tabel.month}}</span> {{tabel.year}}  </td>
     <td>{{tabel.department}}</td>
     <td>{{tabel.res_officer}}</td>
+    {%if tabel.sup_check%}
+      <td>✅</td>
+    {%else%}
+      <td>❌</td>
+    {%endif%}
 
 
 

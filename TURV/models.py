@@ -47,6 +47,7 @@ class Tabel(models.Model):
     month = models.CharField(verbose_name='Месяц', db_index=True, max_length=256)
     department = models.ForeignKey('Department', verbose_name=' ', db_index=True, on_delete=models.CASCADE)
     del_check = models.BooleanField(verbose_name='Пометка удаления', default=False, blank=True)
+    sup_check = models.BooleanField(verbose_name='Проверен СУП', default=False, blank=True)
     res_officer = models.CharField(blank=True, editable=False,  max_length=256, help_text="Отвественный за составление табеля", verbose_name='Табельщик')
     class Meta:
         ordering = ['-year']
@@ -163,6 +164,7 @@ class TabelItem(models.Model):
     sHours32 = models.IntegerField(verbose_name='Оплачиваемое отстранение от работы (НО)', null = True, blank=True)
     sHours33 = models.IntegerField(verbose_name='Неоплачиваемое отстранение от работы (НБ)', null = True, blank=True)
     sHours34 = models.IntegerField(verbose_name='Остановка работы про причине невыплаты ЗП (НЗ)', null = True, blank=True)
+    sHours35 = models.IntegerField(verbose_name='Совмещение', null = True, blank=True)
     w_days = models.IntegerField(verbose_name='Дней отработано', default=0, null = True, blank=True)
     w_hours = models.IntegerField(verbose_name='Часов отработано', default=0, null = True, blank=True)
     v_days = models.IntegerField(verbose_name='Дней неявок', default=0, null = True, blank=True)

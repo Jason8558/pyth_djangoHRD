@@ -104,6 +104,7 @@ class TabelItem_form(forms.ModelForm):
             'sHours32',
             'sHours33',
             'sHours34',
+            'sHours35',
             'w_days',
             'w_hours',
             'v_days',
@@ -224,6 +225,7 @@ class TabelItem_form(forms.ModelForm):
             sHours32 = self.cleaned_data['sHours32'],
             sHours33 = self.cleaned_data['sHours33'],
             sHours34 = self.cleaned_data['sHours34'],
+            sHours35 = self.cleaned_data['sHours35'],
             w_days = self.cleaned_data['w_days'],
             w_hours = self.cleaned_data['w_hours'],
             v_days = self.cleaned_data['v_days'],
@@ -238,7 +240,7 @@ class TabelItem_form(forms.ModelForm):
 class Tabel_form(forms.ModelForm):
     class Meta:
         model = Tabel
-        fields = ['year', 'month', 'department', 'del_check']
+        fields = ['year', 'month', 'department', 'del_check', 'sup_check']
 
     # department = forms.CharField(label=' ', widget=forms.Select(
     #     attrs={ 'type':'text'}))
