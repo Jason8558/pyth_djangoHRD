@@ -51,22 +51,23 @@ left: 3810px;
 
 .cover_number {
   position: absolute;
-  width: 797px;
-  float: right;
+  width: 437px;
+  /* float: right; */
   /* position: fixed; */
-  left: 3396px;
+  left: 2709px;
   /* position: static; */
-  margin-bottom: 221px;
+  /* margin-bottom: 221px; */
 }
 
 .cover_period {
 position: absolute;
-width: 797px;
+width: 518px;
 float: right;
 /* position: fixed; */
-left: 2565px;
+left: 2166px;
 /* position: static; */
-margin-bottom: 221px;
+/* margin-bottom: 221px; */
+px; */
 }
 
 table {
