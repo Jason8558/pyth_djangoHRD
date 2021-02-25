@@ -258,7 +258,11 @@
       {%else%}
         <td rowspan="2" class="cell_bb"></td>
         {%endif%}
-      <td rowspan="2" class="cell_bb">{{item.v_days}}</td>
+      {% if item.v_days > 0%}
+        <td rowspan="2" class="cell_bb">{{item.v_days}}</td>
+      {%else%}
+        <td rowspan="2" class="cell_bb"></td>
+      {%endif%}
       <td rowspan="2"class="vac_include cell_bb" ></td>
       <td rowspan="2" class="weekends cell_bb">{{item.sHours24}}</td>
 
