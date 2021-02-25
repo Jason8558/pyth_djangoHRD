@@ -6,9 +6,31 @@
 
 {% block body %}
 
+<form class="" action="{% url 'emp_list'%}" >
+
+  <input type="text" name="t_emp_search" placeholder="Поиск по ФИО..." value="">
+
+
+<label for="t_emp_dep_search">Подразделение: </label>
+  <select class="" name="t_emp_dep_search">
+    <option value="">---</option>
+    {% for dep in deps%}
+      <option value="{{dep.id}}">{{dep}}</option>
+      {% endfor%}
+  </select>
+    <label for="emp_shift">Режим работы: </label>
+    <select class="" name="emp_shift">
+      <option value="">---</option>
+      <option value="1">Сменные</option>
+      <option value="2">Дневные</option>
+    </select>
+
+    <input class="btn btn-dark"type="submit" name="" value="Найти">
+
+</form>
+
 <div class="container">
   <a class="btn btn-success btn-add"  href="{% url 'emp_new'%}"  >+ Новый сотрудник</a>
-
 
 {%if employers%}
 

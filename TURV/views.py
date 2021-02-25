@@ -151,23 +151,67 @@ def tabel_delitem(request, id):
 
 def employers_list(request):
     if request.user.is_authenticated:
+        search_query_emp = request.GET.get('t_emp_search', '')
+        search_query_dep = request.GET.get('t_emp_dep_search', '')
+        search_query_shift = request.GET.get('emp_shift', '')
+        print(search_query_dep)
         user_ = request.user
         u_group = user_.groups.all()
         granted = False
         for group in u_group:
-            if group.name == 'Сотрудник СУП':
+            if (group.name == 'Сотрудник СУП') or (group.name == 'Сотрудник РО'):
                 granted = True
-        if (request.user.is_superuser) or (granted == True):
-            employers = Employers.objects.all()
-        else:
-            deps = Department.objects.all().filter(user=user_.id)
-            allow_departments = []
-            for dep in deps:
-                allow_departments.append(dep.id)
 
-            employers = Employers.objects.all().filter(department_id__in=allow_departments)
+
+        if search_query_shift == '1':
+            if (request.user.is_superuser) or (granted == True):
+                employers = Employers.objects.filter(shift_personnel=True)
+                deps = Department.objects.all()
+            else:
+                deps = Department.objects.all().filter(user=user_.id)
+                allow_departments = []
+                for dep in deps:
+                    allow_departments.append(dep.id)
+                employers = Employers.objects.all().filter(shift_personnel=True)
+        else:
+            if search_query_shift == '2':
+                if (request.user.is_superuser) or (granted == True):
+                    employers = Employers.objects.filter(shift_personnel=False)
+                    deps = Department.objects.all()
+                else:
+                    deps = Department.objects.all().filter(user=user_.id)
+                    allow_departments = []
+                    for dep in deps:
+                        allow_departments.append(dep.id)
+                    employers = Employers.objects.all().filter(shift_personnel=False)
+            else:
+
+                if search_query_emp or search_query_dep:
+                    if (request.user.is_superuser) or (granted == True):
+                        employers = Employers.objects.filter(fullname__icontains=search_query_emp).filter(department_id=search_query_dep)
+                        deps = Department.objects.all()
+                        print(employers)
+                    else:
+                        deps = Department.objects.all().filter(user=user_.id)
+                        allow_departments = []
+                        for dep in deps:
+                            allow_departments.append(dep.id)
+
+                            employers = Employers.objects.all().filter(department_id__in=allow_departments).filter(fullname__icontains=search_query_emp)
+                else:
+                    if (request.user.is_superuser) or (granted == True):
+                        employers = Employers.objects.all()
+                        deps = Department.objects.all()
+                    else:
+                        deps = Department.objects.all().filter(user=user_.id)
+                        allow_departments = []
+                        for dep in deps:
+                            allow_departments.append(dep.id)
+
+                            employers = Employers.objects.all().filter(department_id__in=allow_departments)
+
         count = len(employers)
-        return render(request, 'TURV/employers.html', context={'employers':employers, 'count':count})
+        return render(request, 'TURV/employers.html', context={'employers':employers, 'count':count, 'deps':deps})
 
 def new_employer(request):
     if request.user.is_authenticated:
