@@ -188,7 +188,10 @@ def employers_list(request):
 
                 if search_query_emp or search_query_dep:
                     if (request.user.is_superuser) or (granted == True):
-                        employers = Employers.objects.filter(fullname__icontains=search_query_emp).filter(department_id=search_query_dep)
+                        if search_query_dep == '':
+                            employers = Employers.objects.filter(fullname__icontains=search_query_emp)
+                        else:
+                            employers = Employers.objects.filter(fullname__icontains=search_query_emp).filter(department_id=search_query_dep)
                         deps = Department.objects.all()
                         print(employers)
                     else:
@@ -197,7 +200,10 @@ def employers_list(request):
                         for dep in deps:
                             allow_departments.append(dep.id)
 
-                            employers = Employers.objects.all().filter(department_id__in=allow_departments).filter(fullname__icontains=search_query_emp)
+                        if search_query_dep == '':
+                            employers = Employers.objects.filter(fullname__icontains=search_query_emp)
+                        else:
+                            employers = Employers.objects.filter(fullname__icontains=search_query_emp).filter(department_id=search_query_dep)
                 else:
                     if (request.user.is_superuser) or (granted == True):
                         employers = Employers.objects.all()
