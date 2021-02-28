@@ -67,6 +67,11 @@ max-width: 1855px !important;
   margin-bottom: 17px;
 }
 
+.f_search {
+  margin-top: 21px;
+  margin-left: 25px;
+}
+
 .navbar {box-shadow: 0px 3px 13px 2px black;background: #0d6efd !important;}
 
 .navbar-brand {

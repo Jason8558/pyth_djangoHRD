@@ -10,28 +10,66 @@ import xlwt
 
 def tabels(request):
     if request.user.is_authenticated:
+        sq_period_month = request.GET.get('search_month', '')
+        sq_period_year = request.GET.get('search_year', '')
+        sq_dep = request.GET.get('t_tab_dep_search', '')
         user_ = request.user
         u_group = user_.groups.all()
 
         granted = 0
         for group in u_group:
-            if group.name == 'Сотрудник СУП':
+            if (group.name == 'Сотрудник СУП') or (group.name == 'Сотрудник РО'):
                 granted = 1
-        if (request.user.is_superuser) or (granted == 1):
-            tabels = Tabel.objects.all()
+        if (sq_period_month) and (sq_period_year) and (sq_dep):
+
+            if (request.user.is_superuser) or (granted == 1):
+                deps = Department.objects.all()
+                if (sq_period_month == 'all'):
+                    if (sq_dep == 'none'):
+                        tabels = Tabel.objects.filter(year=sq_period_year)
+                    else:
+                        tabels = Tabel.objects.filter(year=sq_period_year).filter(department_id=sq_dep).filter(department_id=sq_dep)
+                else:
+                    if (sq_dep == 'none'):
+                        tabels = Tabel.objects.filter(year=sq_period_year).filter(month=sq_period_month)
+                    else:
+                        tabels = Tabel.objects.filter(year=sq_period_year).filter(month=sq_period_month).filter(department_id=sq_dep)
+
+            else:
+
+                deps = Department.objects.all().filter(user=user_.id)
+                allow_departments = []
+                for dep in deps:
+                    allow_departments.append(dep.id)
+                if (sq_period_month == 'all'):
+                    if (sq_dep == 'none'):
+                        tabels = Tabel.objects.filter(year=sq_period_year)
+                    else:
+                        tabels = Tabel.objects.filter(year=sq_period_year).filter(department_id=sq_dep).filter(department_id=sq_dep)
+                else:
+                    if (sq_dep == 'none'):
+                        tabels = Tabel.objects.filter(year=sq_period_year).filter(month=sq_period_month)
+                    else:
+                        tabels = Tabel.objects.filter(year=sq_period_year).filter(month=sq_period_month).filter(department_id=sq_dep)
+
         else:
 
-            deps = Department.objects.all().filter(user=user_.id)
-            allow_departments = []
-            for dep in deps:
-                allow_departments.append(dep.id)
+            if (request.user.is_superuser) or (granted == 1):
+                deps = Department.objects.all()
+                tabels = Tabel.objects.all()
+            else:
 
-            tabels = Tabel.objects.all().filter(department_id__in=allow_departments)
+                deps = Department.objects.all().filter(user=user_.id)
+                allow_departments = []
+                for dep in deps:
+                    allow_departments.append(dep.id)
+
+                tabels = Tabel.objects.all().filter(department_id__in=allow_departments)
         p_tabels = Paginator(tabels, 15)
         page_number = request.GET.get('page', 1)
         page = p_tabels.get_page(page_number)
         count = len(tabels)
-        return render(request, 'TURV/tabels.html', context={'tabels':page, 'count':count})
+        return render(request, 'TURV/tabels.html', context={'tabels':page, 'count':count, 'deps':deps})
     else:
         return render(request, 'reg_jounals/no_auth.html')
 

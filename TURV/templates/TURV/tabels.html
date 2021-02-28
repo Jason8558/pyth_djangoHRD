@@ -6,6 +6,36 @@
 
 {% block body %}
 
+<form action="" class="f_search">
+  <p><u>ПОИСК</u></p>
+  <label for="search_month">Месяц:</label>
+  <select class="" name="search_month">
+    <option value="all">Весь год</option>
+    <option value="01">Январь</option>
+    <option value="02">Февраль</option>
+    <option value="03">Март</option>
+    <option value="04">Апрель</option>
+    <option value="05">Май</option>
+    <option value="06">Июнь</option>
+    <option value="07">Июль</option>
+    <option value="08">Август</option>
+    <option value="09">Сентябрь</option>
+    <option value="10">Октябрь</option>
+    <option value="11">Ноябрь</option>
+    <option value="12">Декабрь</option>
+  </select>
+
+<input type="text" placeholder="год..." name="search_year" value="">
+<label for="t_tab_dep_search">Подразделение: </label>
+  <select class="" name="t_tab_dep_search">
+    <option value="none">---</option>
+    {% for dep in deps%}
+      <option value="{{dep.id}}">{{dep}}</option>
+      {% endfor%}
+  </select>
+<input type="submit" name="" class="btn btn-dark" value="Найти">
+</form>
+
 <div class="container">
   <a class="btn btn-success btn-add"  href="{% url 'new_tabel_url' %}"  >+ Новый табель</a>
 

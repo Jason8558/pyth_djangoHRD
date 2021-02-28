@@ -30,6 +30,10 @@ header {
   margin: 0 auto;
 }
 
+.f_search {
+  margin-top: 10px;
+}
+
 .personnel {
   grid-template-rows: repeat(8, 42px) !important;
 }
