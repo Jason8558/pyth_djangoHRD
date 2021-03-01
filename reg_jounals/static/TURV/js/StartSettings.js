@@ -6279,7 +6279,7 @@ switch (tt31) {
   break;
 }
 
-h_work = s1 + s5 + s3 + s6 + s7 + s8 + s19 + s23
+h_work = s1 + s5 + s3 + s6 + s7 + s8 + s23
 
 h_vac = s9 + s10 + s11 + s13 + s14 + s15 + s16 + s17 + s18 + s20 + s21 +  s24 + s25 + s26 + s27 + s28 + s29 + s30 + s31 + s32 + s33 + s34
 
