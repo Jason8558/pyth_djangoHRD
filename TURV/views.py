@@ -69,7 +69,8 @@ def tabels(request):
         page_number = request.GET.get('page', 1)
         page = p_tabels.get_page(page_number)
         count = len(tabels)
-        return render(request, 'TURV/tabels.html', context={'tabels':page, 'count':count, 'deps':deps})
+        print(granted)
+        return render(request, 'TURV/tabels.html', context={'tabels':page, 'count':count, 'deps':deps, 'granted':granted})
     else:
         return render(request, 'reg_jounals/no_auth.html')
 
