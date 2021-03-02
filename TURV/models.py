@@ -21,7 +21,7 @@ class Employers(models.Model):
 
 class Department(models.Model):
     name = models.CharField(verbose_name = 'Название подразделения', db_index=True, max_length=256)
-    user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name = 'Табельщик')
+    user = models.ManyToManyField(User, verbose_name = 'Табельщик')
 
     class Meta:
         ordering = ['name']

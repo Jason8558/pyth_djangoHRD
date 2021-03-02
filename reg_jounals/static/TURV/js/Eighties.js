@@ -4,7 +4,7 @@ $(document).ready(function()
 
 
 
-let vacs = ['ОТ','ОД','У','УД','Р','ОЖ','ДО','Б','Т','ПВ','Г','ПР','В','ОВ','НВ','ЗБ','НН','РП','НП','ВП','НБ','НО','НЗ','ДБ','ОЗ']
+let vacs = ['ОТ','ОД','У','УД','Р','ОЖ','ДО','Б','Т','ПВ','Г','ПР','В','ОВ','НВ','ЗБ','НН','РП','НП','ВП','НБ','НО','НЗ','ДБ','ОЗ', 'К']
 
   types_rows = $('.time_types')
   types_rows_nums = $('.time_types').children('.print-num')
@@ -107,6 +107,7 @@ types_rows_nums[i].textContent = n
   s32 = 0
   s33 = 0
   s34 = 0
+  s6 = 0
   cells = types_rows[i].childNodes
   for (var j = 0; j < cells.length; j++) {
     if (cells[j].className == 'cell_ttime') {
@@ -213,6 +214,10 @@ types_rows_nums[i].textContent = n
           s34 +=1
         break;
 
+        case 'К':
+          s6 +=1
+        break;
+
 
 
 
@@ -230,7 +235,8 @@ types_rows_nums[i].textContent = n
 
 
 
-
+  if (s6 != 0) {
+  vac_include[i].textContent += ' | К ' + s6}
   if (s9 != 0) {
   vac_include[i].textContent += ' | ОТ ' + s9}
   if (s10 != 0) {
