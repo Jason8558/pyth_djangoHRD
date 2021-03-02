@@ -1,7 +1,7 @@
 {%extends "reg_jounals/index.html" %}
 
 {%block title%}Приказы о командировках{%endblock%}
-{%block header%} <a class="btn btn-outline-info" href="../"> < назад</a> Журнал регистрации приказов о командировках. Всего: {{count}}.  {%endblock%}
+{%block header%} <a class="btn btn-dark" href="../"> < назад</a> Журнал регистрации приказов о командировках. Всего: {{count}}.  {%endblock%}
 {%block content%}
 <form action="{% url 'orders_of_BTrip' %}">
   <input type="search" name="bt_search" placeholder="Поиск по ФИО..">

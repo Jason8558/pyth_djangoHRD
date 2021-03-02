@@ -1,7 +1,7 @@
 {%extends "reg_jounals/index.html" %}
 
 {%block title%}Приказы на отпуск{%endblock%}
-{%block header%} <a class="btn btn-outline-info" href="../"> < назад</a> Журнал регистрации приказов на отпуск. Всего: {{count}}.  {%endblock%}
+{%block header%} <a class="btn btn-dark" href="../"> < Назад</a> Журнал регистрации приказов на отпуск. Всего: {{count}}.  {%endblock%}
 {%block content%}
 <form action="{% url 'orders_on_vacation_new' %}">
   <input type="search" name="vac_search" placeholder="Поиск по ФИО..">

@@ -1,7 +1,7 @@
 {%extends "reg_jounals/index.html" %}
 
 {%block title%}Приказы по другим вопросам{%endblock%}
-{%block header%} <a class="btn btn-outline-info" href="../"> < назад</a> Журнал регистрации приказов по другим вопросам. Всего: {{count}}.  {%endblock%}
+{%block header%} <a class="btn btn-dark" href="../"> < Назад</a> Журнал регистрации приказов по другим вопросам. Всего: {{count}}.  {%endblock%}
 {%block content%}
 <form action="{% url 'orders_on_others' %}">
   <input type="date" id="search_date" name="oom_search_from" placeholder="C">

@@ -1,7 +1,7 @@
 {%extends "reg_jounals/index.html" %}
 
 {%block title%}Заявления на прием{%endblock%}
-{%block header%}<a class="btn btn-outline-info" href="../">< назад</a> Журнал регистрации заявлений на прием. Всего: {{count}}.  {%endblock%}
+{%block header%}<a class="btn btn-dark" href="../">< назад</a> Журнал регистрации заявлений на прием. Всего: {{count}}.  {%endblock%}
 {%block content%}
 <form action="{% url 'invite' %}">
   <input type="search" name="loi_search" placeholder="Поиск по ФИО..">

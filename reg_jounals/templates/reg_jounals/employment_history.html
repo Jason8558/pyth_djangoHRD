@@ -1,7 +1,7 @@
 {%extends "reg_jounals/index.html" %}
 
 {%block title%}Трудовые книжки{%endblock%}
-{%block header%} <a class="btn btn-outline-info" href="../"> < назад</a> Журнал учета трудовых книжек. Всего: {{count}}.  {%endblock%}
+{%block header%} <a class="btn btn-dark" href="../"> < назад</a> Журнал учета трудовых книжек. Всего: {{count}}.  {%endblock%}
 {%block content%}
 <form action="{% url 'employment_history' %}">
   <input type="search" name="eh_search" placeholder="Поиск по ФИО...">
