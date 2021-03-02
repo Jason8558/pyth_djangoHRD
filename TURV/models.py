@@ -165,6 +165,7 @@ class TabelItem(models.Model):
     sHours33 = models.IntegerField(verbose_name='Неоплачиваемое отстранение от работы (НБ)', null = True, blank=True)
     sHours34 = models.IntegerField(verbose_name='Остановка работы про причине невыплаты ЗП (НЗ)', null = True, blank=True)
     sHours35 = models.IntegerField(verbose_name='Совмещение', null = True, blank=True)
+    sHours36 = models.IntegerField(verbose_name='Местная командировка', null = True, blank=True)
     w_days = models.IntegerField(verbose_name='Дней отработано', default=0, null = True, blank=True)
     w_hours = models.IntegerField(verbose_name='Часов отработано', default=0, null = True, blank=True)
     v_days = models.IntegerField(verbose_name='Дней неявок', default=0, null = True, blank=True)

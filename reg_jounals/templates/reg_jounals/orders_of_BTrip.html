@@ -5,6 +5,12 @@
 {%block content%}
 <form action="{% url 'orders_of_BTrip' %}">
   <input type="search" name="bt_search" placeholder="Поиск по ФИО..">
+  <select class="" name="bt_search_dep">
+    <option value="">Выберите подразделения для поиска</option>
+    {%for dep in deps%}
+      <option value="{{dep.id}}">{{dep}}</option>
+    {%endfor%}
+  </select>
   <button class="btn btn-sm btn-dark" type="submit" name="" value="Найти">Найти</button>
 </form>
 <a class="btn btn-success btn-lg m-bottom btn-add " href="{%url 'orders_of_BTrip_add_url'%}"> + Добавить</a>

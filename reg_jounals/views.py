@@ -346,18 +346,29 @@ def del_OrderOnVacation(request, id):
 # Приказы о командировках -----------------
 def order_of_BTrip(request):
     if request.user.is_authenticated:
+        deps = Departments.objects.all()
         search_query = request.GET.get('bt_search','')
+        search_query_dep = request.GET.get('bt_search_dep','')
         if search_query:
             orders = OrdersOfBTrip.objects.filter(bt_emloyer__icontains=search_query)
             p_orders = Paginator(orders, 1000)
             page_number = request.GET.get('page', 1)
         else:
-            orders = OrdersOfBTrip.objects.all().order_by('-id')
-            p_orders = Paginator(orders, 20)
-            page_number = request.GET.get('page', 1)
+            if search_query_dep:
+                orders = OrdersOfBTrip.objects.filter(bt_dep_id=search_query_dep)
+                p_orders = Paginator(orders, 1000)
+                page_number = request.GET.get('page', 1)
+            else:
+                orders = OrdersOfBTrip.objects.all().order_by('-id')
+                p_orders = Paginator(orders, 20)
+                page_number = request.GET.get('page', 1)
+
+
+
+
         page = p_orders.get_page(page_number)
         count = len(orders)
-        return render(request, 'reg_jounals/orders_of_BTrip.html', context={'orders':page, 'count':count})
+        return render(request, 'reg_jounals/orders_of_BTrip.html', context={'orders':page, 'count':count, 'deps':deps})
     else:
         return render(request, 'reg_jounals/no_auth.html')
 
