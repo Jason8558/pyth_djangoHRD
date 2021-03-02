@@ -72,7 +72,7 @@ def tabels(request):
         print(granted)
         return render(request, 'TURV/tabels.html', context={'tabels':page, 'count':count, 'deps':deps, 'granted':granted})
     else:
-        return render(request, 'reg_jounals/no_auth.html')
+        return redirect('/accounts/login/')
 
 def tabel_create(request, id):
     if request.user.is_authenticated:
