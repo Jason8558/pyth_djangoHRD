@@ -348,6 +348,7 @@ function Tabel() {
   let s32 = 0 //НБ
   let s33 = 0 //Опл. отр. от р. НО
   let s34 = 0 //Нет ЗП НЗ
+  let s36 = 0 //Местная командировка
 
 //Суммирование дней
   let work = 0 //дни явок
@@ -377,9 +378,14 @@ switch (tt1) {
     work += 1
   break;
 
+  case 'КМ':
+    s36 += parseInt(h1, 10)
+    work += 1
+  break;
+
   case 'К':
     s6 += parseInt(h1, 10)
-    work += 1
+    vac += 1
   break;
 
   case 'ПК':
@@ -569,9 +575,14 @@ switch (tt2) {
     work += 1
   break;
 
+  case 'КМ':
+    s36 += parseInt(h2, 10)
+    work += 1
+  break;
+
   case 'К':
     s6 += parseInt(h2, 10)
-    work += 1
+    vac += 1
   break;
 
   case 'ПК':
@@ -758,9 +769,14 @@ switch (tt3) {
     work += 1
   break;
 
+  case 'КМ':
+    s36 += parseInt(h3, 10)
+    work += 1
+  break;
+
   case 'К':
     s6 += parseInt(h3, 10)
-    work += 1
+    vac += 1
   break;
 
   case 'ПК':
@@ -950,9 +966,14 @@ switch (tt4) {
     work += 1
   break;
 
+  case 'КМ':
+    s36 += parseInt(h4, 10)
+    work += 1
+  break;
+
   case 'К':
     s6 += parseInt(h4, 10)
-    work += 1
+    vac += 1
   break;
 
   case 'ПК':
@@ -1142,9 +1163,14 @@ switch (tt5) {
     work += 1
   break;
 
+  case 'КМ':
+    s36 += parseInt(h5, 10)
+    work += 1
+  break;
+
   case 'К':
     s6 += parseInt(h5, 10)
-    work += 1
+    vac += 1
   break;
 
   case 'ПК':
@@ -1357,9 +1383,14 @@ switch (tt6) {
     work += 1
   break;
 
+  case 'КМ':
+    s36 += parseInt(h6, 10)
+    work += 1
+  break;
+
   case 'К':
     s6 += parseInt(h6, 10)
-    work += 1
+    vac += 1
   break;
 
   case 'ПК':
@@ -1548,9 +1579,14 @@ switch (tt7) {
     work += 1
   break;
 
+  case 'КМ':
+    s36 += parseInt(h7, 10)
+    work += 1
+  break;
+
   case 'К':
     s6 += parseInt(h7, 10)
-    work += 1
+    vac += 1
   break;
 
   case 'ПК':
@@ -1740,10 +1776,16 @@ switch (tt8) {
     work += 1
   break;
 
-  case 'К':
-    s6 += parseInt(h8, 10)
+  case 'КМ':
+    s36 += parseInt(h8, 10)
     work += 1
   break;
+
+  case 'К':
+    s6 += parseInt(h8, 10)
+    vac += 1
+  break;
+
 
   case 'ПК':
     s7 += parseInt(h8, 10)
@@ -1950,10 +1992,16 @@ switch (tt9) {
     work += 1
   break;
 
-  case 'К':
-    s6 += parseInt(h9, 10)
+  case 'КМ':
+    s36 += parseInt(h9, 10)
     work += 1
   break;
+
+  case 'К':
+    s6 += parseInt(h9, 10)
+    vac += 1
+  break;
+
 
   case 'ПК':
     s7 += parseInt(h9, 10)
@@ -2139,10 +2187,16 @@ switch (tt10) {
     work += 1
   break;
 
-  case 'К':
-    s6 += parseInt(h10, 10)
+  case 'КМ':
+    s36 += parseInt(h10, 10)
     work += 1
   break;
+
+  case 'К':
+    s6 += parseInt(h10, 10)
+    vac += 1
+  break;
+
 
   case 'ПК':
     s7 += parseInt(h10, 10)
@@ -2328,10 +2382,16 @@ switch (tt11) {
     work += 1
   break;
 
-  case 'К':
-    s6 += parseInt(h11, 10)
+  case 'КМ':
+    s36 += parseInt(h11, 10)
     work += 1
   break;
+
+  case 'К':
+    s6 += parseInt(h11, 10)
+    vac += 1
+  break;
+
 
   case 'ПК':
     s7 += parseInt(h11, 10)
@@ -2518,10 +2578,16 @@ switch (tt12) {
     work += 1
   break;
 
-  case 'К':
-    s6 += parseInt(h12, 10)
+  case 'КМ':
+    s36 += parseInt(h12, 10)
     work += 1
   break;
+
+  case 'К':
+    s6 += parseInt(h12, 10)
+    vac += 1
+  break;
+
 
   case 'ПК':
     s7 += parseInt(h12, 10)
@@ -2707,10 +2773,16 @@ switch (tt13) {
     work += 1
   break;
 
-  case 'К':
-    s6 += parseInt(h13, 10)
+  case 'КМ':
+    s36 += parseInt(h13, 10)
     work += 1
   break;
+
+  case 'К':
+    s6 += parseInt(h13, 10)
+    vac += 1
+  break;
+
 
   case 'ПК':
     s7 += parseInt(h13, 10)
@@ -2896,10 +2968,16 @@ switch (tt14) {
     work += 1
   break;
 
-  case 'К':
-    s6 += parseInt(h14, 10)
+  case 'КМ':
+    s36 += parseInt(h14, 10)
     work += 1
   break;
+
+  case 'К':
+    s6 += parseInt(h14, 10)
+    vac += 1
+  break;
+
 
   case 'ПК':
     s7 += parseInt(h14, 10)
@@ -3084,10 +3162,16 @@ switch (tt15) {
     work += 1
   break;
 
-  case 'К':
-    s6 += parseInt(h15, 10)
+  case 'КМ':
+    s36 += parseInt(h15, 10)
     work += 1
   break;
+
+  case 'К':
+    s6 += parseInt(h15, 10)
+    vac += 1
+  break;
+
 
   case 'ПК':
     s7 += parseInt(h15, 10)
@@ -3274,10 +3358,16 @@ switch (tt16) {
     work += 1
   break;
 
-  case 'К':
-    s6 += parseInt(h16, 10)
+  case 'КМ':
+    s36 += parseInt(h16, 10)
     work += 1
   break;
+
+  case 'К':
+    s6 += parseInt(h16, 10)
+    vac += 1
+  break;
+
 
   case 'ПК':
     s7 += parseInt(h16, 10)
@@ -3463,10 +3553,16 @@ switch (tt17) {
     work += 1
   break;
 
-  case 'К':
-    s6 += parseInt(h17, 10)
+  case 'КМ':
+    s36 += parseInt(h17, 10)
     work += 1
   break;
+
+  case 'К':
+    s6 += parseInt(h17, 10)
+    vac += 1
+  break;
+
 
   case 'ПК':
     s7 += parseInt(h17, 10)
@@ -3652,10 +3748,16 @@ switch (tt18) {
     work += 1
   break;
 
-  case 'К':
-    s6 += parseInt(h18, 10)
+  case 'КМ':
+    s36 += parseInt(h18, 10)
     work += 1
   break;
+
+  case 'К':
+    s6 += parseInt(h18, 10)
+    vac += 1
+  break;
+
 
   case 'ПК':
     s7 += parseInt(h18, 10)
@@ -3841,10 +3943,16 @@ switch (tt19) {
     work += 1
   break;
 
-  case 'К':
-    s6 += parseInt(h19, 10)
+  case 'КМ':
+    s36 += parseInt(h19, 10)
     work += 1
   break;
+
+  case 'К':
+    s6 += parseInt(h19, 10)
+    vac += 1
+  break;
+
 
   case 'ПК':
     s7 += parseInt(h19, 10)
@@ -4030,10 +4138,16 @@ switch (tt20) {
     work += 1
   break;
 
-  case 'К':
-    s6 += parseInt(h20, 10)
+  case 'КМ':
+    s36 += parseInt(h20, 10)
     work += 1
   break;
+
+  case 'К':
+    s6 += parseInt(h20, 10)
+    vac += 1
+  break;
+
 
   case 'ПК':
     s7 += parseInt(h20, 10)
@@ -4219,10 +4333,16 @@ switch (tt21) {
     work += 1
   break;
 
-  case 'К':
-    s6 += parseInt(h21, 10)
+  case 'КМ':
+    s36 += parseInt(h21, 10)
     work += 1
   break;
+
+  case 'К':
+    s6 += parseInt(h21, 10)
+    vac += 1
+  break;
+
 
   case 'ПК':
     s7 += parseInt(h21, 10)
@@ -4408,10 +4528,16 @@ switch (tt22) {
     work += 1
   break;
 
-  case 'К':
-    s6 += parseInt(h22, 10)
+  case 'КМ':
+    s36 += parseInt(h22, 10)
     work += 1
   break;
+
+  case 'К':
+    s6 += parseInt(h22, 10)
+    vac += 1
+  break;
+
 
   case 'ПК':
     s7 += parseInt(h22, 10)
@@ -4598,10 +4724,16 @@ switch (tt23) {
     work += 1
   break;
 
-  case 'К':
-    s6 += parseInt(h23, 10)
+  case 'КМ':
+    s36 += parseInt(h23, 10)
     work += 1
   break;
+
+  case 'К':
+    s6 += parseInt(h23, 10)
+    vac += 1
+  break;
+
 
   case 'ПК':
     s7 += parseInt(h23, 10)
@@ -4787,10 +4919,16 @@ switch (tt24) {
     work += 1
   break;
 
-  case 'К':
-    s6 += parseInt(h24, 10)
+  case 'КМ':
+    s36 += parseInt(h24, 10)
     work += 1
   break;
+
+  case 'К':
+    s6 += parseInt(h24, 10)
+    vac += 1
+  break;
+
 
   case 'ПК':
     s7 += parseInt(h24, 10)
@@ -4976,10 +5114,16 @@ switch (tt25) {
     work += 1
   break;
 
-  case 'К':
-    s6 += parseInt(h25, 10)
+  case 'КМ':
+    s36 += parseInt(h25, 10)
     work += 1
   break;
+
+  case 'К':
+    s6 += parseInt(h25, 10)
+    vac += 1
+  break;
+
 
   case 'ПК':
     s7 += parseInt(h25, 10)
@@ -5165,10 +5309,16 @@ switch (tt26) {
     work += 1
   break;
 
-  case 'К':
-    s6 += parseInt(h26, 10)
+  case 'КМ':
+    s36 += parseInt(h26, 10)
     work += 1
   break;
+
+  case 'К':
+    s6 += parseInt(h26, 10)
+    vac += 1
+  break;
+
 
   case 'ПК':
     s7 += parseInt(h26, 10)
@@ -5354,10 +5504,16 @@ switch (tt27) {
     work += 1
   break;
 
-  case 'К':
-    s6 += parseInt(h27, 10)
+  case 'КМ':
+    s36 += parseInt(h27, 10)
     work += 1
   break;
+
+  case 'К':
+    s6 += parseInt(h27, 10)
+    vac += 1
+  break;
+
 
   case 'ПК':
     s7 += parseInt(h27, 10)
@@ -5543,10 +5699,16 @@ switch (tt28) {
     work += 1
   break;
 
-  case 'К':
-    s6 += parseInt(h28, 10)
+  case 'КМ':
+    s36 += parseInt(h28, 10)
     work += 1
   break;
+
+  case 'К':
+    s6 += parseInt(h28, 10)
+    vac += 1
+  break;
+
 
   case 'ПК':
     s7 += parseInt(h28, 10)
@@ -5732,10 +5894,16 @@ switch (tt29) {
     work += 1
   break;
 
-  case 'К':
-    s6 += parseInt(h29, 10)
+  case 'КМ':
+    s36 += parseInt(h29, 10)
     work += 1
   break;
+
+  case 'К':
+    s6 += parseInt(h29, 10)
+    vac += 1
+  break;
+
 
   case 'ПК':
     s7 += parseInt(h29, 10)
@@ -5922,10 +6090,16 @@ switch (tt30) {
     work += 1
   break;
 
-  case 'К':
-    s6 += parseInt(h30, 10)
+  case 'КМ':
+    s36 += parseInt(h30, 10)
     work += 1
   break;
+
+  case 'К':
+    s6 += parseInt(h30, 10)
+    vac += 1
+  break;
+
 
   case 'ПК':
     s7 += parseInt(h30, 10)
@@ -6111,10 +6285,16 @@ switch (tt31) {
     work += 1
   break;
 
-  case 'К':
-    s6 += parseInt(h31, 10)
+  case 'КМ':
+    s36 += parseInt(h31, 10)
     work += 1
   break;
+
+  case 'К':
+    s6 += parseInt(h31, 10)
+    vac += 1
+  break;
+
 
   case 'ПК':
     s7 += parseInt(h31, 10)
@@ -6279,7 +6459,7 @@ switch (tt31) {
   break;
 }
 
-h_work = s1 + s5 + s3 + s6 + s7 + s8 + s23
+h_work = s1 + s5 + s3 + s36 + s7 + s8 + s23
 
 h_vac = s9 + s10 + s11 + s13 + s14 + s15 + s16 + s17 + s18 + s20 + s21 +  s24 + s25 + s26 + s27 + s28 + s29 + s30 + s31 + s32 + s33 + s34
 
