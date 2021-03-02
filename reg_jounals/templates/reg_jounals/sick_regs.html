@@ -1,7 +1,7 @@
 {%extends "reg_jounals/index.html" %}
 
 {%block title%}Реестры больничных листов{%endblock%}
-{%block header%} <a class="btn btn-outline-info" href="../"> < назад</a> Реестры больничных листов {%endblock%}
+{%block header%} <a class="btn btn-dark" href="../"> < назад</a> Реестры больничных листов {%endblock%}
 {%block content%}
 <form action="{% url 'sick_regs' %}">
   <input type="search" name="sd_search" placeholder="Поиск по ФИО..">
