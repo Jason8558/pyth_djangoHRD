@@ -109,10 +109,10 @@ types_rows_nums[i].textContent = n
   s34 = 0
   s6 = 0
   cells = types_rows[i].childNodes
+
   for (var j = 0; j < cells.length; j++) {
-    if (cells[j].className == 'cell_ttime') {
-
-
+    // if (cells[j].className == 'cell_ttime') {
+    console.log(cells[j].classList)
       switch (cells[j].innerText) {
         case 'ОТ':
           s9 += 1
@@ -225,7 +225,7 @@ types_rows_nums[i].textContent = n
         default:
 
       }
-    }
+    
 }
 
 
