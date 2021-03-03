@@ -63,9 +63,9 @@
 
 
   {% if tabel.del_check %}
-<tr style='background: red !important;' onclick="return location.href = '{% url 'tabel_create_url' id=tabel.id%}' " >
+<tr style='background: red !important;' onclick="return window.open('{% url 'tabel_create_url' id=tabel.id%}')"</tr>
   {%else%}
-<tr  onclick="return location.href = '{% url 'tabel_create_url' id=tabel.id%}' " >
+<tr  onclick="return window.open('{% url 'tabel_create_url' id=tabel.id%}')" >
   {%endif%}
 
     <td><span class="field_month">{{tabel.month}}</span> {{tabel.year}}  </td>

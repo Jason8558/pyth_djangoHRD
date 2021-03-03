@@ -1,7 +1,7 @@
 {% extends 'TURV/index.html'%}
 {%load static%}
 {%block title%}{{b_tabel.department}} {{month}} {{year}}{%endblock%}
-{%block header%} <a class="btn btn-dark" href=".."> < Назад </a> | <span id="id_month" class="hide">{{month}}</span> <span id="id_year" class="hide">{{year}}</span> Табель учета рабочего времени <span><b>{{b_tabel.department}}</b></span> за: <b><span class="field_month">{{month}}</span> {{year}} г.</b> Всего человек в табеле: {{count}}.{%endblock%}
+{%block header%} <a class="btn btn-danger" onclick="window.close()"> ЗАКРЫТЬ  </a> | <span id="id_month" class="hide">{{month}}</span> <span id="id_year" class="hide">{{year}}</span> Табель учета рабочего времени <span><b>{{b_tabel.department}}</b></span> за: <b><span class="field_month">{{month}}</span> {{year}} г.</b> Всего человек в табеле: {{count}}.{%endblock%}
 
 {% block body %}
 
