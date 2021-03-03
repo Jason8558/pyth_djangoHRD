@@ -166,6 +166,7 @@ class OrdersOnPersonnel_form(forms.ModelForm):
     'op_dep',
     'op_emloyer',
     'op_content',
+    'op_lastcheck',
     'op_selected']
 
     op_date = forms.CharField(label="Дата приказа" , widget=forms.TextInput(
@@ -240,6 +241,7 @@ class UserLoginForm(AuthenticationForm):
             'id': 'hi',
         }
 ))
+
 
 class LetterOfInvite_form(forms.ModelForm):
     class Meta:
