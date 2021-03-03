@@ -4,7 +4,13 @@
 {%block header%}<a class="btn btn-dark" href="../">< назад</a> Журнал регистрации удостоверений. Всего: {{count}}.  {%endblock%}
 {%block content%}
 <form action="{% url 'identity' %}">
-  <input type="search" name="loi_search" placeholder="Поиск по ФИО..">
+  <input type="search" name="ident_search" placeholder="Поиск по ФИО..">
+  <select class="" name="ident_dep_search">
+    <option value="">Выберите подразделения для поиска</option>
+    {%for dep in deps%}
+      <option value="{{dep.id}}">{{dep}}</option>
+    {%endfor%}
+  </select>
   <button class="btn btn-sm btn-dark" type="submit" name="" value="Найти">Найти</button>
 </form>
 <a class="btn btn-success btn-lg m-bottom btn-add" href="{% url 'identity_add_url'%}"> + Добавить</a>

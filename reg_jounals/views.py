@@ -791,12 +791,27 @@ def new_order_on_vacation_delItem(request, id):
 
 def identitys(request):
     if request.user.is_authenticated:
-        ident = Identity.objects.all().order_by('-id')
-        p_ident = Paginator(ident, 20)
-        page_number = request.GET.get('page', 1)
-        page = p_ident.get_page(page_number)
+        deps = Departments.objects.all()
+        search_query = request.GET.get('ident_search','')
+        sq_dep = request.GET.get('ident_dep_search','')
+        if search_query:
+            ident = Identity.objects.all().order_by('-id').filter(employer__icontains=search_query)
+            p_ident = Paginator(ident, 200)
+            page_number = request.GET.get('page', 1)
+            page = p_ident.get_page(page_number)
+        else:
+            if sq_dep:
+                ident = Identity.objects.all().order_by('-id').filter(department_id=sq_dep)
+                p_ident = Paginator(ident, 200)
+                page_number = request.GET.get('page', 1)
+                page = p_ident.get_page(page_number)
+            else:
+                ident = Identity.objects.all().order_by('-id')
+                p_ident = Paginator(ident, 20)
+                page_number = request.GET.get('page', 1)
+                page = p_ident.get_page(page_number)
         count = len(ident)
-        return render(request, 'reg_jounals/identitys.html', context={'idents':page, 'count':count})
+        return render(request, 'reg_jounals/identitys.html', context={'idents':page, 'count':count, 'deps':deps})
     else:
         return render(request, 'reg_jounals/no_auth.html')
 
