@@ -44,7 +44,7 @@
   {%for order in orders%}
 {%if order.op_selected %}
 
-<tr style="background: #f9dd89;" class="t_row" ondblclick="return location.href = '{% url 'orders_on_personnel_upd_url' id=order.id%}' ">
+<tr style="background: #f9dd89;" class="t_row" ondblclick="return window.open('{% url 'orders_on_personnel_upd_url' id=order.id%}' )">
     <td><input type="checkbox" class="for_print" name="forprint" value=""></td>
     <td>{{order.op_date|date:"d.m.Y"}}</td>
     <td>{{order.op_number}}</td>
@@ -56,7 +56,8 @@
 
 </tr>
 {%else%}
-<tr  class="t_row" ondblclick="return location.href = '{% url 'orders_on_personnel_upd_url' id=order.id%}' ">
+  {%if order.op_lastcheck %}
+<tr style="background: darkseagreen;"class="t_row" ondblclick="return window.open('{% url 'orders_on_personnel_upd_url' id=order.id%}' )">
     <td><input type="checkbox" class="for_print" name="forprint" value=""></td>
     <td>{{order.op_date|date:"d.m.Y"}}</td>
     <td>{{order.op_number}}</td>
@@ -64,9 +65,20 @@
     <td>{{order.op_dep}}</td>
     <td>{{order.op_content}}</td>
     <td>{{order.op_res_officer}}</td>
+  {%else%}
+
+    <tr  class="t_row" ondblclick="return window.open('{% url 'orders_on_personnel_upd_url' id=order.id%}' )">
+        <td><input type="checkbox" class="for_print" name="forprint" value=""></td>
+        <td>{{order.op_date|date:"d.m.Y"}}</td>
+        <td>{{order.op_number}}</td>
+        <td>{{order.op_emloyer}}</td>
+        <td>{{order.op_dep}}</td>
+        <td>{{order.op_content}}</td>
+        <td>{{order.op_res_officer}}</td>
 
 
 </tr>
+{%endif%}
 {%endif%}
 
   {%endfor%}

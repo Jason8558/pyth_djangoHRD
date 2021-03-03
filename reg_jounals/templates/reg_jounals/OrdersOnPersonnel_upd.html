@@ -16,11 +16,15 @@
   #id_op_selected {
     width: 9%;
   }
+  #id_op_lastcheck {
+    width: 9%;
+  }
 </style>
 <form class="add_form personnel" action="" method="post">
   {% csrf_token %}
 
   <p>{{form.op_selected.label}}:{{form.op_selected}}</p>
+    <p>{{form.op_lastcheck.label}}:{{form.op_lastcheck}}</p>
   <p>{{form.op_date.label}}:{{form.op_date}}</p>
   <p>{{form.op_emloyer.label}}:{{form.op_emloyer}}</p>
   <p>{{form.op_dep.label}}:{{form.op_dep}}</p>
