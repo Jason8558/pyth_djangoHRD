@@ -100,6 +100,7 @@ table {
 
 .tabel {
   font-size: 8pt !important;
+      table-layout: fixed;
 }
 
 tbody tr:hover {
