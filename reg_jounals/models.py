@@ -113,7 +113,7 @@ class OrdersOnPersonnel(models.Model):
     op_emloyer = models.CharField(max_length=256, help_text="Введите ФИО сотрудника", verbose_name="ФИО сотрудника", db_index=True)
     op_content = models.TextField(help_text="Введите содержание", verbose_name="Содержание приказа")
     op_selected = models.BooleanField(verbose_name="Выделить в списке", default=False)
-    op_lastcheck = models.BooleanField(verbose_name="Последний проверенный", default=False) 
+    op_lastcheck = models.BooleanField(verbose_name="Последний проверенный", default=False)
     op_res_officer = models.CharField(blank=True, editable=False,  max_length=256, help_text="Сотрудник, который внес документ в систему ", verbose_name='Ответственный сотрудник')
 
     class Meta:
@@ -195,6 +195,22 @@ class SickDocument(models.Model):
     def __str__(self):
         doc_name = 'Больничный № ' + str(self.sd_number) + ' в реестре № ' + str(self.sd_reg_number)
         return doc_name
+
+class Identity(models.Model):
+    number = models.IntegerField(blank=True, verbose_name = "Номер удостоверения")
+    date_giving = models.DateField(help_text="Введите дату выдачи удостоверения", verbose_name="Дата выдачи удостоверения", db_index=True)
+    employer = models.CharField(max_length=256, help_text="Введите ФИО сотрудника", verbose_name="Сотрудник", db_index=True)
+    department = models.ForeignKey('Departments',  on_delete=models.CASCADE, verbose_name="Подразделение", default="1")
+    res_officer = models.CharField(default="database", blank=True, editable=False,  max_length=256, help_text="Сотрудник, который занес запись", verbose_name='Ответственный сотрудник')
+    class Meta:
+        ordering = ["-id"]
+        verbose_name = 'Удостоверение'
+        verbose_name_plural = 'Удостоверения'
+
+    def __str__(self):
+        fullname = "Удостоверение № " + str(self.number) + " " + self.employer
+        return fullname
+
 
 class Departments(models.Model):
     dep_name = models.CharField(max_length=256,  help_text="Введите название подразделения", verbose_name="Название подразделения", db_index=True)

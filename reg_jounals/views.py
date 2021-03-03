@@ -786,3 +786,52 @@ def new_order_on_vacation_delItem(request, id):
         dest = '/journals/orders_on_vacation_new/' + str(item.bound_order.id) + '/create'
         item.delete()
         return redirect(dest)
+
+# УДОСТОВЕРЕНИЯ ---------------------------------------------------
+
+def identitys(request):
+    if request.user.is_authenticated:
+        ident = Identity.objects.all().order_by('-id')
+        p_ident = Paginator(ident, 20)
+        page_number = request.GET.get('page', 1)
+        page = p_ident.get_page(page_number)
+        count = len(ident)
+        return render(request, 'reg_jounals/identitys.html', context={'idents':page, 'count':count})
+    else:
+        return render(request, 'reg_jounals/no_auth.html')
+
+def nr_identitys(request):
+    if request.user.is_authenticated:
+        ident_form = Identity_form()
+        if request.method == "POST":
+            ident_form = Identity_form(request.POST)
+            if ident_form.is_valid():
+                user_ = request.user.first_name
+                ident_form.saveFirst(user_)
+                return redirect('/journals/identity')
+    else:
+        return render(request, 'reg_jounals/no_auth.html')
+    return render(request, 'reg_jounals/identity_add.html', context={'form':ident_form})
+
+def upd_identitys(request, id):
+    if request.user.is_authenticated:
+        if request.method == "GET":
+            ident = Identity.objects.get(id__iexact=id)
+            bound_form = Identity_form(instance=ident)
+            return render(request, 'reg_jounals/identity_upd.html', context={'form':bound_form, 'ind':ident})
+        else:
+            ident = Identity.objects.get(id__iexact=id)
+            bound_form = Identity_form(request.POST, instance=ident)
+            if bound_form.is_valid():
+                user_ = request.user.first_name
+                new_obj = bound_form.save()
+                return redirect('/journals/identity')
+
+def del_identitys(request, id):
+    if request.user.is_authenticated:
+        ident = Identity.objects.get(id__exact=id)
+
+
+        dest = '/journals/identity'
+        ident.delete()
+        return redirect(dest)

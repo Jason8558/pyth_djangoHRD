@@ -98,7 +98,7 @@ display: grid;
 
 grid-template-columns: repeat(3, 150px) !important;
 
-grid-template-rows: repeat(4, 100px);
+grid-template-rows: repeat(5, 100px);
 
 grid-gap: 27px;
 }
@@ -156,10 +156,17 @@ box-shadow: 0px 1px 3px 1px black;
   width: 94%
 }
 
-.button_turv {
+#button_turv {
 background: #0c81ff !important;
 transition: 0.3s !important;
 }
+
+#button_ident {
+  background: #d91e40 !important;
+  border: none;
+}
+
+a#button_ident {}
 
 .button_turv:hover {
 box-shadow: 0px 0px 8px 2px blue;

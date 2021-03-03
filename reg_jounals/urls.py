@@ -53,4 +53,8 @@ urlpatterns = [
     path('orders_on_vacation_new/<int:order_id>/addItem', views.new_order_on_vacation_addItem, name='new_order_on_vacation_addItem'),
     path('orders_on_vacation_new/updItem/<int:id>', views.new_order_on_vacation_updItem, name='new_order_on_vacation_updItem'),
     path('orders_on_vacation_new/delItem/<int:id>', views.new_order_on_vacation_delItem, name='new_order_on_vacation_delItem'),
+    path('identity/', views.identitys, name='identity'),
+    path('identity/add', views.nr_identitys, name='identity_add_url'),
+    path('identity/upd/<int:id>', views.upd_identitys, name='identity_upd_url'),
+    path('identity/del/<int:id>', views.del_identitys, name='identity_del_url'),
      ]
