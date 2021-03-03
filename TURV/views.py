@@ -99,7 +99,7 @@ def tabel_create(request, id):
             if bound_form.is_valid():
 
                 bound_form.save()
-                return redirect('/turv/')
+                return render(request, 'TURV/close.html')
 
     else:
         return render(request, 'reg_jounals/no_auth.html')
