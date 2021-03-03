@@ -16,6 +16,9 @@
   border-bottom: solid black 7px !important;
 }
 
+.col_numbers {
+  width: 50px !important;
+}
 
 .cell_ttime {
   height: 30px;
