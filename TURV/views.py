@@ -5,7 +5,8 @@ from .forms import *
 from django.shortcuts import redirect
 from django.core.paginator import Paginator
 import xlwt
-
+from mimetypes import MimeTypes
+import os
 
 
 def tabels(request):
@@ -640,7 +641,21 @@ def unload(request):
 
         name = str(month_)+'_'+str(year_)+'.xls'
         wb.save(name)
-        return redirect('/turv')
+
+        fp = open(name, "rb")
+        response = HttpResponse(fp.read())
+        fp.close();
+
+        file_type = 'application/octet-stream'
+        response['Content-Type'] = file_type
+        response['Content-Length'] = str(os.stat(name).st_size)
+        response['Content-Disposition'] = "attachment; filename=%s" %name
+
+        return response;
+
+
+
+
     else:
         return render(request, 'TURV/unload.html')
 
