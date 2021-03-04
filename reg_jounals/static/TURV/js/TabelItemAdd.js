@@ -17,12 +17,12 @@ function emp_info() {
   if (emp_select[5] == 'False') {
     $('#shift').text('Дневной персонал')
     $('#n_time').text('')
-    $('$n_time_span').css('display','none')
+    $('$#n_time_span').css('display','none')
   }
   else {
     $('#shift').text('Сменный персонал')
     $('#n_time').text(emp_select[6])
-      $('$n_time_span').css('display','block')
+      $('$#n_time_span').css('display','block')
   }
 }
 // ------------------------------------------------------------------------
