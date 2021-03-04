@@ -239,7 +239,7 @@
         {%endif%}
 
       {% if item.sHours4 > 0 %}
-      <td rowspan="2"class="cell_bb">{{item.sHours4|floatformat}}</td>
+      <td rowspan="2"class="cell_bb">{{item.sHours4|floatformat:2}}</td>
       {% else %}
         <td rowspan="2" class="cell_bb"></td>
       {%endif%}
