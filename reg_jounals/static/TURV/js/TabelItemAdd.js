@@ -16,6 +16,7 @@ function emp_info() {
   $('#payment').text('Ступень оплаты: ' + emp_select[3])
   if (emp_select[5] == 'False') {
     $('#shift').text('Дневной персонал')
+    $('#n_time').text('')
   }
   else {
     $('#shift').text('Сменный персонал')
