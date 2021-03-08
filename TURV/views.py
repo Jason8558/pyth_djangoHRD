@@ -16,11 +16,13 @@ def tabels(request):
         sq_dep = request.GET.get('t_tab_dep_search', '')
         user_ = request.user
         u_group = user_.groups.all()
-
+        is_ro = 0
         granted = 0
         for group in u_group:
             if (group.name == 'Сотрудник СУП') or (group.name == 'Сотрудник РО'):
                 granted = 1
+                if (group.name == 'Сотрудник РО'):
+                    is_ro = 1
         if (sq_period_month) and (sq_period_year) and (sq_dep):
 
             if (request.user.is_superuser) or (granted == 1):
@@ -71,7 +73,7 @@ def tabels(request):
         page = p_tabels.get_page(page_number)
         count = len(tabels)
         print(granted)
-        return render(request, 'TURV/tabels.html', context={'tabels':page, 'count':count, 'deps':deps, 'granted':granted})
+        return render(request, 'TURV/tabels.html', context={'tabels':page, 'count':count, 'deps':deps, 'granted':granted, 'ro':is_ro})
     else:
         return redirect('/accounts/login/')
 

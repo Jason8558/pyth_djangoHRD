@@ -51,6 +51,7 @@
     <th scope="col">Подразделение</th>
     <th scope="col">Табельщик</th>
     <th scope="col">Проверен СУП</th>
+    <th scope="col">Проверен РО</th>
 
 
 
@@ -72,6 +73,11 @@
     <td>{{tabel.department}}</td>
     <td>{{tabel.res_officer}}</td>
     {%if tabel.sup_check%}
+      <td>✅</td>
+    {%else%}
+      <td>❌</td>
+    {%endif%}
+    {%if tabel.ro_check%}
       <td>✅</td>
     {%else%}
       <td>❌</td>
