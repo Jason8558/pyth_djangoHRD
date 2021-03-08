@@ -21,8 +21,8 @@ def tabels(request):
         for group in u_group:
             if (group.name == 'Сотрудник СУП') or (group.name == 'Сотрудник РО'):
                 granted = 1
-                if (group.name == 'Сотрудник РО'):
-                    is_ro = 1
+
+
         if (sq_period_month) and (sq_period_year) and (sq_dep):
 
             if (request.user.is_superuser) or (granted == 1):
@@ -81,12 +81,16 @@ def tabel_create(request, id):
     if request.user.is_authenticated:
         u_group = request.user.groups.all()
         granted = 0
+        is_ro = 0
         if request.user.is_superuser:
             granted = 1
         else:
             for group in u_group:
                 if (group.name == 'Сотрудник СУП'):
                     granted = 1
+                if (group.name == 'Сотрудник РО'):
+                    is_ro = 1
+        print(is_ro)
         if request.method == "GET":
             b_tabel = Tabel.objects.get(id=id)
             tabel_form = Tabel_form(instance=b_tabel)
@@ -95,7 +99,7 @@ def tabel_create(request, id):
             t_month = b_tabel.month
             t_year = b_tabel.year
             t_dep = b_tabel.department
-            return render(request, 'TURV/create_tabel.html', context={'form':tabel_form, 'items':items, 'month':t_month, 'year':t_year, 'count':count, 'b_tabel':b_tabel, 'granted':granted})
+            return render(request, 'TURV/create_tabel.html', context={'form':tabel_form, 'items':items, 'month':t_month, 'year':t_year, 'count':count, 'b_tabel':b_tabel, 'granted':granted, 'ro':is_ro})
         else:
             b_tabel = Tabel.objects.get(id=id)
             bound_form = Tabel_form(request.POST, instance=b_tabel)

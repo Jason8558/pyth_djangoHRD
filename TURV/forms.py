@@ -240,7 +240,7 @@ class TabelItem_form(forms.ModelForm):
 class Tabel_form(forms.ModelForm):
     class Meta:
         model = Tabel
-        fields = ['year', 'month', 'department', 'del_check', 'sup_check', 'ro_check']
+        fields = ['year', 'month', 'department', 'del_check', 'sup_check']
 
     # department = forms.CharField(label=' ', widget=forms.Select(
     #     attrs={ 'type':'text'}))

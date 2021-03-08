@@ -109,7 +109,7 @@
   {{form.year}}
   {{form.department}}
 </div>
-  <label for="del_check">Пометка удаления</label> {{form.del_check}} {% if granted == 1%}<label for="sup_check">Проверен СУП</label> {{form.sup_check}}{%endif%} {% if is_ro == 1 or user.is_superuser%}<label for="ro_check">Проверен РО</label> {{form.ro_check}}{%endif%}  <input class="btn btn-outline-danger btn-sm" type="submit"   name="" value="ПОДТВЕРДИТЬ И ЗАКРЫТЬ">
+  <label for="del_check">Пометка удаления</label> {{form.del_check}} {% if granted == 1%}<label for="sup_check">Проверен СУП</label> {{form.sup_check}}{%endif%} <input class="btn btn-outline-danger btn-sm" type="submit"   name="" value="ПОДТВЕРДИТЬ И ЗАКРЫТЬ">
   </form>
   {% if form.errors %}
   {{form.errors}}

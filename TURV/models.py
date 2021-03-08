@@ -48,7 +48,7 @@ class Tabel(models.Model):
     department = models.ForeignKey('Department', verbose_name=' ', db_index=True, on_delete=models.CASCADE)
     del_check = models.BooleanField(verbose_name='Пометка удаления', default=False, blank=True)
     sup_check = models.BooleanField(verbose_name='Проверен СУП', default=False, blank=True)
-    ro_check = models.BooleanField(verbose_name='Проверен РО', default=False, blank=True)
+    # ro_check = models.BooleanField(verbose_name='Проверен РО', default=False, blank=True)
     res_officer = models.CharField(blank=True, editable=False,  max_length=256, help_text="Отвественный за составление табеля", verbose_name='Табельщик')
     class Meta:
         ordering = ['-year']
