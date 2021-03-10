@@ -16,6 +16,10 @@ def index(request):
         for group in u_group:
             if (group.name == 'Табельщик') or (group.name == 'Сотрудник РО') :
                 return redirect('/turv/')
+            if (group.name == 'Сотрудник СУП'):
+                return redirect('/journals/')
+            else:
+                return redirect('/turv/')
 
         return render(request, 'reg_jounals/index.html')
     else: return redirect('/accounts/login/')
