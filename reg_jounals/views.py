@@ -13,12 +13,15 @@ def index(request):
     if request.user.is_authenticated:
         user_ = request.user
         u_group = user_.groups.all()
-        if len(u_group) == 0:
-            return redirect('/turv/')
+        if request.user.is_superuser:
+            return redirect('/journals/')
         else:
-            for group in u_group:
-                if (group.name == 'Табельщик') or (group.name == 'Сотрудник РО') :
-                    return redirect('/turv/')
+            if len(u_group) == 0:
+                return redirect('/turv/')
+            else:
+                for group in u_group:
+                    if (group.name == 'Табельщик') or (group.name == 'Сотрудник РО') :
+                        return redirect('/turv/')
 
         return render(request, 'reg_jounals/index.html')
     else: return redirect('/accounts/login/')
