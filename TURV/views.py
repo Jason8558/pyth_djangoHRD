@@ -68,7 +68,7 @@ def tabels(request):
                     allow_departments.append(dep.id)
 
                 tabels = Tabel.objects.all().filter(department_id__in=allow_departments)
-        p_tabels = Paginator(tabels, 15)
+        p_tabels = Paginator(tabels, 100)
         page_number = request.GET.get('page', 1)
         page = p_tabels.get_page(page_number)
         count = len(tabels)
