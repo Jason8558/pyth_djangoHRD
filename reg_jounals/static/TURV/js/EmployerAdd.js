@@ -10,11 +10,17 @@ dep_val = $('#id_department option:selected').text()
   }).prop('selected', true);
 }
 
-
+if ($('#id_shift_personnel').prop('checked') == false) {
   $('#id_stand_worktime').css('background', 'lightgray')
 
-console.log($('#id_stand_worktime').prop('readonly'))
-$('#id_stand_worktime').prop('readonly', true)
+
+  $('#id_stand_worktime').prop('readonly', true)}
+else {
+  $('#id_stand_worktime').css('background', 'white')
+
+
+  $('#id_stand_worktime').prop('readonly', false)
+}
 
 $('#id_shift_personnel').change(function () {
   if ($('#id_stand_worktime').prop('readonly') == true ) {
