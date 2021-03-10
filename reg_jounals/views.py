@@ -13,13 +13,15 @@ def index(request):
     if request.user.is_authenticated:
         user_ = request.user
         u_group = user_.groups.all()
-        for group in u_group:
-            if (group.name == 'Табельщик') or (group.name == 'Сотрудник РО') :
-                return redirect('/turv/')
-            if (group.name == 'Сотрудник СУП'):
-                return redirect('/journals/')
-            else:
-                return redirect('/turv/')
+        if len(u_group) == 0:
+            return redirect('/turv/')
+        else:
+            for group in u_group:
+                if (group.name == 'Табельщик') or (group.name == 'Сотрудник РО') :
+                    return redirect('/turv/')
+
+        return render(request, 'reg_jounals/index.html')
+    else: return redirect('/accounts/login/')
 
         return render(request, 'reg_jounals/index.html')
     else: return redirect('/accounts/login/')
