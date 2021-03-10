@@ -23,9 +23,6 @@ def index(request):
         return render(request, 'reg_jounals/index.html')
     else: return redirect('/accounts/login/')
 
-        return render(request, 'reg_jounals/index.html')
-    else: return redirect('/accounts/login/')
-
 
 
 def logfile(request):
