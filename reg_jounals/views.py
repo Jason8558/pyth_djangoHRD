@@ -13,8 +13,7 @@ def index(request):
     if request.user.is_authenticated:
         user_ = request.user
         u_group = user_.groups.all()
-
-        if (len(u_group) == 0 and NOT request.user.is_superuser):
+        if len(u_group) == 0:
             return redirect('/turv/')
         else:
             for group in u_group:
