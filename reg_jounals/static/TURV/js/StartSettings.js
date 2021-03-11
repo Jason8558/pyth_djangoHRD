@@ -8,6 +8,10 @@ $(document).ready(function(){
 // ----------------------------------------------------------------------------
 
 
+
+
+
+
 // УБИРАЕТ ПУСТЫЕ ПОЛЯ ИТОГОВ ВРЕМНИ ИЗ ОКНА ЗАПОЛНЕНИЯ(ОБНОВЛЕНИЯ) СОТРУДНИКА
 
 sum_fields = $('.summary_times').children('.st')
@@ -184,6 +188,35 @@ function ReSelectDep() {
 // }
 
 function Tabel() {
+
+// ВЫДАЕТ ОШИБКУ, ЕСЛИ ВМЕСТО 8 "В"
+checkfields = $('.dig_hours')
+errors = 0
+for (var field of checkfields) {
+  if (field.value == 'В' || field.value == 'в') {
+    field.style.background = 'red'
+    errors = 1
+  }
+  else if (field.style.background == 'red') {
+
+      field.style.background = 'white'
+      errors = 0
+    }
+  }
+  if (errors == 1) {
+    $('.errors').text("Ошибка заполнения! Проверьте поля, выделенные красным.")
+  $('.errors').css('display','block')
+  $('.errors').css('position','absolute')
+  $('.tItem_submit').prop('type','button')
+}
+
+  else {
+      $('.errors').text("")
+      $('.errors').css('display','none')
+      $('.tItem_submit').prop('type','submit')
+
+
+    }
 
 
 

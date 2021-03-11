@@ -9,7 +9,7 @@
   <body>
 
         {% if form.errors %}
-          <p>Your username and password didn't match. Please try again.</p>
+
         {% endif %}
 
         {% if next %}
@@ -40,7 +40,11 @@
     <input class="login-btn" type="submit" value="ВОЙТИ" />
     <input type="hidden" name="next" value="{{ next }}" />
     </form>
-    <div class="fError">{{form.errors}}</div>
+    <div class="alert alert-danger" role="alert">
+    {% for err in form.errors%}
+    <p>{{err}}</p>
+    {%endfor%}
+  </div>
   </div>
 
 

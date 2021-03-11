@@ -6,6 +6,9 @@
 {%block header%}<a class="btn btn-dark" href="/turv/create/{{b_tabel.id}}">< Назад</a> | <span class="hide" id="id_month">{{month}}</span>Табель за <span  class='field_month'>{{month}}</span> <span id='id_year'>{{year}}</span> г. - <span class="fullname"></span>{%endblock%}
 
 {%block body%}
+<div class="alert alert-danger errors" role="alert">
+
+</div>
 <div id="tabel_item" class="container tabel_item">
 
  <ul class="in_tabel_list hide">
@@ -175,7 +178,7 @@
   <div class="tabel_buttons">
     <button type="button" onclick="Tabel();" class="btn btn-outline-dark" name="button">Пересчитать</button>
 
-    <input type="submit" onclick="Tabel();"  class="btn btn-success" name="" value="Пересчитать и сохранить">
+    <input type="button" onclick="Tabel();"  class="btn btn-success tItem_submit" name="" value="Пересчитать и сохранить">
     <a  class="btn btn-outline-danger" href="{% url 'tabel_delItem_url' id=item.id%}">Удалить из текущего табеля</a>
   </div>
 </div>
