@@ -88,13 +88,13 @@ def upd_OutBoundDocument(request, id):
             if bound_form.is_valid():
                 user_ = request.user.first_name
                 new_obj = bound_form.save()
-                return redirect('/journals/outbound_docs/')
+                return redirect('/outbound_docs/')
 
 def del_OutBoundDocument(request, id):
     if request.user.is_authenticated:
         document = OutBoundDocument.objects.get(id__iexact=id)
         document.delete()
-        return redirect('/journals/outbound_docs/')
+        return redirect('/outbound_docs/')
 
 # Заявления на увольнения -----------------------
 def letter_of_resignation(request):
@@ -151,13 +151,13 @@ def upd_LetterOfResignation(request, id):
             if bound_form.is_valid():
                 user_ = request.user.first_name
                 new_obj = bound_form.save()
-                return redirect('/journals/letters_of_resignation')
+                return redirect('/letters_of_resignation')
 
 def del_LetterOfResignation(request, id):
     if request.user.is_authenticated:
         letter = LetterOfResignation.objects.get(id__iexact=id)
         letter.delete()
-        return redirect('/journals/letters_of_resignation')
+        return redirect('/letters_of_resignation')
 
 # Заявления на прием ------------------------------
 def letter_of_invite(request):
@@ -192,7 +192,7 @@ def upd_LetterOfInvite(request, id):
             if bound_form.is_valid():
                 user_ = request.user.first_name
                 new_obj = bound_form.save()
-                return redirect('/journals/letters_of_invite')
+                return redirect('/letters_of_invite')
 
 def nr_LetterOfInvite(request):
     if request.user.is_authenticated:
@@ -219,7 +219,7 @@ def del_LetterOfInvite(request, id):
     if request.user.is_authenticated:
         letter = LetterOfInvite.objects.get(id__iexact=id)
         letter.delete()
-        return redirect('/journals/letters_of_invite')
+        return redirect('/letters_of_invite')
 
 # Приказы по другим вопросам -----------------------
 def order_other_matters(request):
@@ -276,13 +276,13 @@ def upd_OrderOnOtherMatters(request, id):
             if bound_form.is_valid():
                 user_ = request.user.first_name
                 new_obj = bound_form.save()
-                return redirect('/journals/orders_on_others')
+                return redirect('/orders_on_others')
 
 def del_OrderOnOtherMatters(request, id):
     if request.user.is_authenticated:
         order = OrdersOnOtherMatters.objects.get(id__iexact=id)
         order.delete()
-        return redirect('/journals/orders_on_others')
+        return redirect('/orders_on_others')
 
 # Приказы на отпуск -----------------------
 def order_on_vacation(request):
@@ -335,13 +335,13 @@ def upd_OrderOnVacation(request, id):
             if bound_form.is_valid():
                 user_ = request.user.first_name
                 new_obj = bound_form.save()
-                return redirect('/journals/orders_on_vacation')
+                return redirect('/orders_on_vacation')
 
 def del_OrderOnVacation(request, id):
     if request.user.is_authenticated:
         order = OrdersOnVacation.objects.get(id__iexact=id)
         order.delete()
-        return redirect('/journals/orders_on_vacation')
+        return redirect('/orders_on_vacation')
 
 # Приказы о командировках -----------------
 def order_of_BTrip(request):
@@ -408,7 +408,7 @@ def upd_OrderOfBTrip(request, id):
             if bound_form.is_valid():
                 user_ = request.user.first_name
                 new_obj = bound_form.save()
-                return redirect('/journals/orders_of_BTrip')
+                return redirect('/orders_of_BTrip')
 
 
             else:
@@ -419,7 +419,7 @@ def del_OrderOfBTrip(request, id):
     if request.user.is_authenticated:
         order = OrdersOfBTrip.objects.get(id__iexact=id)
         order.delete()
-        return redirect('/journals/orders_of_BTrip')
+        return redirect('/orders_of_BTrip')
 
 # Приказы по личному составу ----------------
 def order_on_personnel(request):
@@ -483,13 +483,13 @@ def upd_OrderOnPersonnel(request, id):
             if bound_form.is_valid():
                 user_ = request.user.first_name
                 new_obj = bound_form.save()
-                return redirect('/journals/orders_on_personnel')
+                return redirect('/orders_on_personnel')
 
 def del_OrderOnPersonnel(request, id):
     if request.user.is_authenticated:
         order = OrdersOnPersonnel.objects.get(id__iexact=id)
         order.delete()
-        return redirect('/journals/orders_on_personnel')
+        return redirect('/orders_on_personnel')
 
 # Трудовые договоры ---------------------------
 def LaborContracts(request):
@@ -545,13 +545,13 @@ def upd_LaborContract(request, id):
             if bound_form.is_valid():
                 user_ = request.user.first_name
                 new_obj = bound_form.save()
-                return redirect('/journals/laborContracts')
+                return redirect('/laborContracts')
 
 def del_LaborContract(request, id):
     if request.user.is_authenticated:
         order = LaborContract.objects.get(id__iexact=id)
         order.delete()
-        return redirect('/journals/laborContracts')
+        return redirect('/laborContracts')
 
 # Трудовые книжки -------------------------------
 def employment_history(request):
@@ -598,13 +598,13 @@ def upd_EmploymentHistory(request, id):
             if bound_form.is_valid():
                 user_ = request.user.first_name
                 new_obj = bound_form.save()
-                return redirect('/journals/employment_history')
+                return redirect('/employment_history')
 
 def del_EmploymentHistory(request, id):
     if request.user.is_authenticated:
         history = EmploymentHistory.objects.get(id__iexact=id)
         history.delete()
-        return redirect('/journals/employment_history')
+        return redirect('/employment_history')
 
 def print_EmploymentHistory(request, id):
     if request.user.is_authenticated:
@@ -654,7 +654,7 @@ def add_SickRegistry(request):
 
     else:
         return render(request, 'reg_jounals/no_auth.html')
-    return redirect('/journals/sick_regs')
+    return redirect('/sick_regs')
 
 def add_SickDocument(request, sr_number_):
     if request.user.is_authenticated:
@@ -664,7 +664,7 @@ def add_SickDocument(request, sr_number_):
             if doc_form.is_valid():
                 user_ = request.user.first_name
                 doc_form.saveFirst(user_, sr_number_)
-                loc = '/journals/sick_reg/'+str(sr_number_)+'/create/'
+                loc = '/sick_reg/'+str(sr_number_)+'/create/'
                 return redirect(loc)
     else:
         return render(request, 'reg_jounals/no_auth.html')
@@ -684,14 +684,14 @@ def upd_SickDocument(request, id):
             if bound_form.is_valid():
                 user_ = request.user.first_name
                 bound_form.save()
-                loc = '/journals/sick_reg/'+str(b_reg)+'/create/'
+                loc = '/sick_reg/'+str(b_reg)+'/create/'
                 return redirect(loc)
 
 def ItemDel_SickList(request, id):
     if request.user.is_authenticated:
         item = SickDocument.objects.get(id__iexact=id)
         num = item.sd_reg_number
-        dest = '/journals/sick_reg/' + str(num) + '/create/'
+        dest = '/sick_reg/' + str(num) + '/create/'
         item.delete()
         return redirect(dest)
 
@@ -732,7 +732,7 @@ def nr_new_order_on_vacation(request):
             if order_form.is_valid():
                 user_ = request.user.first_name
                 order_form.saveFirst(user_)
-                return redirect('/journals/orders_on_vacation_new')
+                return redirect('/orders_on_vacation_new')
     else:
         return render(request, 'reg_jounals/no_auth.html')
     return render(request, 'reg_jounals/OrdersOnVacation_new_add.html', context={'form':order_form})
@@ -755,7 +755,7 @@ def new_order_on_vacation_addItem(request, order_id):
                 user_ = request.user.first_name
                 print(order_id)
                 item_form.saveFirst(order_id, user_)
-                loc = '/journals/orders_on_vacation_new/'+str(order_id)+'/create'
+                loc = '/orders_on_vacation_new/'+str(order_id)+'/create'
                 return redirect(loc)
     else:
         return render(request, 'reg_jounals/no_auth.html')
@@ -775,7 +775,7 @@ def new_order_on_vacation_updItem(request, id):
             if bound_form.is_valid():
                 user_ = request.user.first_name
                 bound_form.save()
-                loc = '/journals/orders_on_vacation_new/'+str(item.bound_order.id)+'/create'
+                loc = '/orders_on_vacation_new/'+str(item.bound_order.id)+'/create'
                 return redirect(loc)
 
 def new_order_on_vacation_delItem(request, id):
@@ -783,7 +783,7 @@ def new_order_on_vacation_delItem(request, id):
         item = NewOrdersOnVacation_item.objects.get(id__exact=id)
 
 
-        dest = '/journals/orders_on_vacation_new/' + str(item.bound_order.id) + '/create'
+        dest = '/orders_on_vacation_new/' + str(item.bound_order.id) + '/create'
         item.delete()
         return redirect(dest)
 
@@ -823,7 +823,7 @@ def nr_identitys(request):
             if ident_form.is_valid():
                 user_ = request.user.first_name
                 ident_form.saveFirst(user_)
-                return redirect('/journals/identity')
+                return redirect('/identity')
     else:
         return render(request, 'reg_jounals/no_auth.html')
     return render(request, 'reg_jounals/identity_add.html', context={'form':ident_form})
@@ -840,13 +840,13 @@ def upd_identitys(request, id):
             if bound_form.is_valid():
                 user_ = request.user.first_name
                 new_obj = bound_form.save()
-                return redirect('/journals/identity')
+                return redirect('/identity')
 
 def del_identitys(request, id):
     if request.user.is_authenticated:
         ident = Identity.objects.get(id__exact=id)
 
 
-        dest = '/journals/identity'
+        dest = '/identity'
         ident.delete()
         return redirect(dest)

@@ -2,7 +2,7 @@
 
 {%block title%}Табели{% endblock %}
 
-{%block header%} {% if granted == 1 or user.is_superuser%}<a href="/journals" class="btn btn-dark"> < Назад </a>{%endif%} Табели учета рабочего времени. Всего: {{count}}. <a class="btn btn-outline-light" href="{% url 'emp_list'%}">Справочник: СОТРУДНИКИ</a> <a class="btn btn-outline-light" href="{% url 'pos_list'%}">Справочник: ДОЛЖНОСТИ</a> {%if request.user.is_superuser %}<a class="btn btn-outline-light for-ones" href="{% url 'unload'%}">Выгрузить для 1С</a>{%endif%}{%endblock%}
+{%block header%} {% if granted == 1 or user.is_superuser%}<a href="/" class="btn btn-dark"> < Назад </a>{%endif%} Табели учета рабочего времени. Всего: {{count}}. <a class="btn btn-outline-light" href="{% url 'emp_list'%}">Справочник: СОТРУДНИКИ</a> <a class="btn btn-outline-light" href="{% url 'pos_list'%}">Справочник: ДОЛЖНОСТИ</a> {%if request.user.is_superuser %}<a class="btn btn-outline-light for-ones" href="{% url 'unload'%}">Выгрузить для 1С</a>{%endif%}{%endblock%}
 
 {% block body %}
 
