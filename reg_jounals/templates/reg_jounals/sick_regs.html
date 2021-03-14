@@ -5,8 +5,14 @@
 {%block content%}
 <form action="{% url 'sick_regs' %}">
   <input type="search" name="sd_search" placeholder="Поиск по ФИО..">
-  <button class="btn btn-sm btn-dark" type="submit" name="" value="Найти">Найти</button>
-  <input type="search" name="sd_dep_search" placeholder="Поиск по подразделению">
+
+  <select class="" name="sd_dep_search">
+    <option value="">Выберите подразделения для поиска</option>
+    {%for dep in deps%}
+      <option value="{{dep.id}}">{{dep}}</option>
+    {%endfor%}
+  </select>
+
   <button class="btn btn-sm btn-dark" type="submit" name="" value="Найти">Найти</button>
 </form>
 <a class="btn btn-success btn-lg m-bottom btn-add " href="{% url 'sick_reg_add_url' %}"> + Добавить</a>
