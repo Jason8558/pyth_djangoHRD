@@ -616,23 +616,24 @@ def sick_regs(request):
     if request.user.is_authenticated:
         sick_docs = ""
         regs = ""
+        deps = Departments.objects.all()
         search_query = request.GET.get('sd_search','')
         sq_dep = request.GET.get('sd_dep_search','')
         if search_query:
             sick_docs = SickDocument.objects.filter(sd_emp__icontains=search_query)
             sdocs_count = len(sick_docs)
-            return render(request, 'reg_jounals/sick_search.html', context={'sick_docs':sick_docs, 'search_query':search_query, 'sdocs_count':sdocs_count})
+            return render(request, 'reg_jounals/sick_search.html', context={'sick_docs':sick_docs, 'search_query':search_query, 'sdocs_count':sdocs_count, 'deps':deps})
         else:
             if sq_dep:
-                sick_docs = SickDocument.objects.filter(sd_dep__dep_name__icontains=sq_dep)
+                sick_docs = SickDocument.objects.filter(sd_dep=sq_dep)
                 sdocs_count = len(sick_docs)
-                return render(request, 'reg_jounals/sick_search.html', context={'sick_docs':sick_docs, 'search_query':sq_dep, 'sdocs_count':sdocs_count})
+                return render(request, 'reg_jounals/sick_search.html', context={'sick_docs':sick_docs, 'search_query':sq_dep, 'sdocs_count':sdocs_count, 'deps':deps})
             else:
                 regs = SickRegistry.objects.all().order_by('-id')
                 p_regs = Paginator(regs, 10)
                 page_number = request.GET.get('page', 1)
                 page = p_regs.get_page(page_number)
-                return render(request, 'reg_jounals/sick_regs.html', context={'regs':page})
+                return render(request, 'reg_jounals/sick_regs.html', context={'regs':page, 'deps':deps})
     else:
         return render(request, 'reg_jounals/no_auth.html')
 
