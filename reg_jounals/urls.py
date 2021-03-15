@@ -48,6 +48,7 @@ urlpatterns = [
     path('sick_reg/ItemUpd/<int:id>', views.upd_SickDocument, name='sick_reg_updDoc_url'),
     path('sick_reg/Itemdel/<int:id>', views.ItemDel_SickList, name='sick_reg_delDoc_url'),
     path('orders_on_vacation_new/', views.new_order_on_vacation, name='orders_on_vacation_new'),
+    path('orders_on_vacation_new/del/<int:id>', views.new_order_on_vacation_del, name='orders_on_vacation_new_del'),
     path('orders_on_vacation_new/add', views.nr_new_order_on_vacation, name='orders_on_vacation_new_add_url'),
     path('orders_on_vacation_new/<int:id>/create', views.create_new_order_on_vacation, name='orders_on_vacation_new_create_url'),
     path('orders_on_vacation_new/<int:order_id>/addItem', views.new_order_on_vacation_addItem, name='new_order_on_vacation_addItem'),
