@@ -20,20 +20,95 @@
   <script src="{% static 'js/op_print.js'%}"></script>
   <!-- <script src="{% static 'js/date.js'%}"></script> -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
-  <title>{%block title%}Журналы регистрации СУП{%endblock%}</title>
+  <title>{%block title%}КДО{%endblock%}</title>
 </head>
 <body onload="TextDisabled()">
   <header>
     <nav class="navbar navbar-light ">
 
 
-    <span class="navbar-brand mb-0 h1">{%block header%}Журналы регистрации внутренней документации СУП {%endblock%}</span><span style="text-align: right; float: right;font-size: 14pt;">  {{ user.first_name }} {% if request.user.is_superuser%}  <a style="color:white;" href="{% url 'logfile' %}">| Лог |</a> <a style="color:white;" href="/admin/">Войти в админ-панель</a><span id="version"> v1.2.3 </span>{%endif%} {% if request.user.groups.all.0.name == 'Редактирование справочников' %} <a style="color:white;" href="/admin">| Подразделения</a> {% endif %}<a class="btn btn-outline-danger" style="margin-left: 17px;" href="{% url 'logout'%}">выйти</a></span>
+    <span class="navbar-brand mb-0 h1">{%block header%}Система КДО и табельного учета{%endblock%}</span><span style="text-align: right; float: right;font-size: 14pt;">  {{ user.first_name }} {% if request.user.is_superuser%}  <a style="color:white;" href="{% url 'logfile' %}">| Лог |</a> <a style="color:white;" href="/admin/">Войти в админ-панель</a><span id="version"> v1.2.3 </span>{%endif%} {% if request.user.groups.all.0.name == 'Редактирование справочников' %} <a style="color:white;" href="/admin">| Подразделения</a> {% endif %}<a class="btn btn-outline-danger" style="margin-left: 17px;" href="{% url 'logout'%}">выйти</a></span>
 
     </div>
   </header>
 
 <div class="container">
     {%block content%}
+    <h1 style="text-align: right;">Добро пожаловать, {{user_io}} </h1>
+    <div class="recent">
+      <h3 style="text-align: center;">Недавние документы:</h3>
+
+        <div class="r_oov">
+        <h4><u>Приказы на отпуск (К-ОТП):</u></h4>
+        {% for oov in r_oov%}
+        <p><a href="/orders_on_vacation_new/{{oov.id}}/create">{{oov.order_number}} от {{oov.order_date|date:"d.m.Y"}} {{oov.res_officer}}</a></p>
+        {%endfor%}
+        </div>
+
+        <div class="r_oom">
+        <h4><u>Приказы по другим вопросам (К):</u></h4>
+        {% for oom in r_oom%}
+        <p><a href="/orders_on_others/{{oom.id}}/edit">{{oom.oom_number}} от {{oom.oom_date|date:"d.m.Y"}} {{oom.oom_res_officer}}</a></p>
+        {%endfor%}
+        </div>
+
+        <div class="r_obd">
+        <h4><u>Исходящие:</u></h4>
+        {% for obd in r_obd%}
+        <p><a href="/outbound_docs/{{obd.id}}/edit">{{obd.doc_number}} от {{obd.doc_date|date:"d.m.Y"}} {{obd.doc_res_officer}}</a></p>
+        {%endfor%}
+        </div>
+
+        <div class="r_obt">
+        <h4><u>Командировки (П):</u></h4>
+        {% for obt in r_obt%}
+        <p><a href="/orders_of_BTrip/{{obt.id}}/upd">{{obt.bt_number}} от {{obt.bt_date|date:"d.m.Y"}} {{obt.bt_res_officer}}</a></p>
+        {%endfor%}
+        </div>
+
+        <div class="r_oop">
+        <h4><u>Личный состав (ЛС):</u></h4>
+        {% for oop in r_oop%}
+        <p><a href="/orders_on_personnel/{{oop.id}}/upd">{{oop.op_number}} от {{oop.op_date|date:"d.m.Y"}} {{oop.op_res_officer}}</a></p>
+        {%endfor%}
+        </div>
+
+        <div class="r_lc">
+        <h4><u>Трудовые договоры:</u></h4>
+        {% for lc in r_lc%}
+        <p><a href="/laborContracts/{{lc.id}}/upd">{{lc.lc_number}} от {{lc.lc_date|date:"d.m.Y"}} {{lc.lc_res_officer}}</a></p>
+        {%endfor%}
+        </div>
+
+        <div class="r_lor">
+        <h4><u>Заявления на увольнение:</u></h4>
+        {% for lor in r_lor%}
+        <p><a href="/letters_of_resignation/{{lor.id}}/edit">{{lor.lor_employee}} от {{lor.lor_date|date:"d.m.Y"}} {{lor.lor_res_officer}}</a></p>
+        {%endfor%}
+        </div>
+
+        <div class="r_loi">
+        <h4><u>Заявления на прием:</u></h4>
+        {% for loi in r_loi%}
+        <p><a href="/letters_of_invite/{{loi.id}}/edit">{{loi.loi_employee}} от {{loi.loi_date|date:"d.m.Y"}} работает с: {{loi.loi_dateOfInv|date:"d.m.Y"}} {{loi.loi_res_officer}}</a></p>
+        {%endfor%}
+        </div>
+
+        <div class="r_eh">
+        <h4><u>Трудовые книжки:</u></h4>
+        {% for eh in r_eh%}
+        <p><a href="/employment_history/{{eh.id}}/upd">{{eh.eh_number}} {{eh.eh_employer}} работает с: {{eh.eh_dateOfInv|date:"d.m.Y"}} {{eh.eh_res_officer}}</a></p>
+        {%endfor%}
+        </div>
+
+        <div class="r_sr">
+        <h4><u>Реестры б/л:</u></h4>
+        {% for sr in r_sr%}
+        <p><a href="/sick_reg/{{sr.sr_number}}/create/">{{sr.sr_number}} {{sr.sr_res_officer}}</a></p>
+        {%endfor%}
+        </div>
+
+    </div>
 
     <div class="container_grid">
       <a href="{% url 'orders_on_vacation' %}" class="btn btn-info main_button" >Приказы на отпуск (старые c 1 по 13К-ОТП)</a>
@@ -47,8 +122,8 @@
       <a href="{%url 'invite'%}" class="btn btn-info main_button">Заявления на прием</a>
       <a href="{%url 'employment_history'%}" class="btn btn-info main_button">Трудовые книжки</a>
       <a href="{%url 'sick_regs'%}" class="btn btn-info main_button">Реестры больничных листов</a>
-<a href="{%url 'identity'%}" id="button_ident" class="btn btn-info main_button">Удостоверения</a>
-        <a href="{%url 'tabels_url'%}" id="button_turv" class="btn btn-info  ">Табели учета рабочего времени</a>
+<a href="{%url 'identity'%}" class="btn btn-info main_button">Удостоверения</a>
+        <a href="{%url 'tabels_url'%}"  class="btn btn-info  main_button">Табели учета рабочего времени</a>
 
     </div>
     {%endblock%}
