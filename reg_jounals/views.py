@@ -26,7 +26,7 @@ def index(request):
         r_loi = LetterOfInvite.objects.all().order_by('-id')[:3]
         r_eh = EmploymentHistory.objects.all().order_by('-id')[:3]
         r_sr = SickRegistry.objects.all().order_by('-id')[:3]
-        user_io = str(request.user.first_name.split(' ')[0]) + " " + str(request.user.first_name.split(' ')[1])
+        user_io = str(request.user.first_name.split(' ')[1]) + " " + str(request.user.first_name.split(' ')[2])
         return render(request, 'reg_jounals/index.html', context={'r_sr':r_sr,'r_eh':r_eh,'r_loi':r_loi,'user_io':user_io,'r_lor':r_lor, 'r_oov':r_oov, 'r_oom':r_oom, 'r_obd':r_obd, 'r_obt':r_obt, 'r_oop':r_oop, 'r_lc':r_lc})
     else: return redirect('/accounts/login/')
 
