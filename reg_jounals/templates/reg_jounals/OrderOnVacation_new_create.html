@@ -1,7 +1,7 @@
 {%extends "reg_jounals/index.html" %}
 
 {%block title%}Приказ № {%endblock%}
-{%block header%} <a class="btn btn-outline-info" href="/orders_on_vacation_new/"> < назад</a> Приказ на отпуск № {{order.order_number}} от {{order.order_date}}. Людей в приказе: {{count}}  {%endblock%}
+{%block header%} <a class="btn btn-outline-info" href="/orders_on_vacation_new/"> < назад</a> Приказ на отпуск № {{order.order_number}} от {{order.order_date}}. Людей в приказе: {{count}} <a href="{% url 'orders_on_vacation_new_del' id=order.id%}">Удалить приказ</a>  {%endblock%}
 {%block content%}
 
 

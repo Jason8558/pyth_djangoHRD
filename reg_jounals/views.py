@@ -788,6 +788,14 @@ def new_order_on_vacation_delItem(request, id):
         item.delete()
         return redirect(dest)
 
+def new_order_on_vacation_del(request, id):
+    if request.user.is_authenticated:
+        order = NewOrdersOnVacation.objects.get(id=id)
+        items = NewOrdersOnVacation_item.objects.filter(bound_order=id)
+        order.delete()
+        items.delete()
+        return redirect('/orders_on_vacation_new/')
+
 # УДОСТОВЕРЕНИЯ ---------------------------------------------------
 
 def identitys(request):
