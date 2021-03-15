@@ -58,7 +58,7 @@
         <div class="r_obd">
         <h4><u>Исходящие:</u></h4>
         {% for obd in r_obd%}
-        <p><a href="/outbound_docs/{{obd.id}}/edit">{{obd.doc_number}} от {{obd.doc_date|date:"d.m.Y"}} {{obd.doc_res_officer}}</a></p>
+        <p><a href="/outbound_docs/{{obd.id}}/edit">{{obd.doc_type}} {{obd.doc_number}} от {{obd.doc_date|date:"d.m.Y"}} {{obd.doc_res_officer}}</a></p>
         {%endfor%}
         </div>
 
