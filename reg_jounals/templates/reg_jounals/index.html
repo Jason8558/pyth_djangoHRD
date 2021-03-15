@@ -93,7 +93,7 @@
         <div class="r_loi">
         <h4><u>Заявления на прием:</u></h4>
         {% for loi in r_loi%}
-        <p><a href="/letters_of_invite/{{loi.id}}/edit">{{loi.loi_employee}} от {{loi.loi_date|date:"d.m.Y"}} работает с: {{loi.loi_dateOfInv|date:"d.m.Y"}} {{loi.loi_res_officer}}</a></p>
+        <p><a href="/letters_of_invite/{{loi.id}}/edit">{{loi.loi_employee}} от {{loi.loi_date|date:"d.m.Y"}} {% if loi.loi_dateOfInv %} работает с: {{loi.loi_dateOfInv|date:"d.m.Y"}} {%endif%} {{loi.loi_res_officer}}</a></p>
         {%endfor%}
         </div>
 
