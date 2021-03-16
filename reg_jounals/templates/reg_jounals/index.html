@@ -113,6 +113,18 @@
 
     </div>
 
+    <div class="recent_my">
+      <h3 style="text-align: center;">Мои недавние документы:</h3>
+
+      {% for oov in r_my_oov%}
+      <p><a href="/orders_on_vacation_new/{{oov.id}}/create">{{oov.order_number}} от {{oov.order_date|date:"d.m.Y"}} {{oov.res_officer}}</a></p>
+      {%endfor%}
+      {% for oom in r_my_oom%}
+      <p><a href="/orders_on_others/{{oom.id}}/edit">{{oom.oom_number}} от {{oom.oom_date|date:"d.m.Y"}} {{oom.oom_res_officer}}</a></p>
+      {%endfor%}
+
+    </div>
+
     <div class="container_grid">
       <a href="{% url 'orders_on_vacation' %}" class="btn btn-info main_button" >Приказы на отпуск (старые c 1 по 13К-ОТП)</a>
       <a href="{% url 'orders_on_vacation_new' %}" class="btn btn-info main_button" >Приказы на отпуск</a>

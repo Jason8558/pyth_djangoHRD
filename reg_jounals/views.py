@@ -17,7 +17,9 @@ def index(request):
             if (group.name == 'Табельщик') or (group.name == 'Сотрудник РО') :
                 return redirect('/turv/')
         r_oov = NewOrdersOnVacation.objects.all().order_by('-id')[:3]
+        r_my_oov = NewOrdersOnVacation.objects.filter(res_officer=user_.first_name)[:3]
         r_oom = OrdersOnOtherMatters.objects.all().order_by('-id')[:3]
+        r_my_oom = OrdersOnOtherMatters.objects.filter(oom_res_officer=user_.first_name)[:3]
         r_obd = OutBoundDocument.objects.all().order_by('-id')[:3]
         r_obt = OrdersOfBTrip.objects.all().order_by('-id')[:3]
         r_oop = OrdersOnPersonnel.objects.all().order_by('-id')[:3]
@@ -27,7 +29,19 @@ def index(request):
         r_eh = EmploymentHistory.objects.all().order_by('-id')[:3]
         r_sr = SickRegistry.objects.all().order_by('-id')[:3]
         user_io = str(request.user.first_name.split(' ')[1]) + " " + str(request.user.first_name.split(' ')[2])
-        return render(request, 'reg_jounals/index.html', context={'r_sr':r_sr,'r_eh':r_eh,'r_loi':r_loi,'user_io':user_io,'r_lor':r_lor, 'r_oov':r_oov, 'r_oom':r_oom, 'r_obd':r_obd, 'r_obt':r_obt, 'r_oop':r_oop, 'r_lc':r_lc})
+        return render(request, 'reg_jounals/index.html', context={'r_sr':r_sr,
+        'r_eh':r_eh,
+        'r_loi':r_loi,
+        'user_io':user_io,
+        'r_lor':r_lor,
+         'r_oov':r_oov,
+         'r_my_oov':r_my_oov,
+          'r_oom':r_oom,
+          'r_my_oom':r_my_oom,
+           'r_obd':r_obd,
+            'r_obt':r_obt,
+             'r_oop':r_oop,
+              'r_lc':r_lc})
     else: return redirect('/accounts/login/')
 
 

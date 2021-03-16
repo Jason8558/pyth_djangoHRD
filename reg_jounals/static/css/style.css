@@ -108,7 +108,7 @@ height: 149px;}
   /* float: left; */
   overflow-x: hidden !important;
   /* border: 1px solid; */
-  height: 879px;
+  height: 419px;
   background: white;
   box-shadow: 7px 0px 11px -4px #977390;
   overflow: scroll;
@@ -118,6 +118,16 @@ height: 149px;}
 
 .recent p {
   margin-bottom: 3px;
+}
+
+.recent_my {
+  background: white;
+  position: absolute;
+  height: 419px;
+  bottom: 18px;
+  width: 32%;
+  left: 0;
+  overflow-y: scroll;
 }
 
 .container {
