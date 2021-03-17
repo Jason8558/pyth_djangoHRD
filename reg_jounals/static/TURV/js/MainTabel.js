@@ -350,7 +350,8 @@ for (var field of checkfields) {
   let s1 = 0 //явки
   let s2 = 0 //ночные
   let s3 = 0 //РВ
-  let s4 = 0 //сверхурочка
+  if ($('#manover').prop('checked') == false){
+  let s4 = 0} //сверхурочка
   let s5 = 0 //Вахтовый метод
   let s6 = 0 //командировка
   let s7 = 0 //ПК
@@ -6499,14 +6500,15 @@ h_vac = s9 + s10 + s11 + s13 + s14 + s15 + s16 + s17 + s18 + s20 + s21 +  s24 + 
 weekends = s24/8
 
 
-
-s4 = h_work - parseFloat($('#n_time').text()) - s3
+if ($('#manover').prop('checked') == false){
+s4 = h_work - parseFloat($('#n_time').text()) - s3}
 
 $('#weekends').val(weekends)
 $('#id_sHours1').val(s1)
 $('#id_sHours2').val(s2)
 $('#id_sHours3').val(s3)
-$('#id_sHours4').val(s4)
+if ($('#manover').prop('checked') == false){
+$('#id_sHours4').val(s4)}
 $('#id_sHours5').val(s5)
 $('#id_sHours6').val(s6)
 $('#id_sHours7').val(s7)
