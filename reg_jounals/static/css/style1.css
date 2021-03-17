@@ -116,18 +116,19 @@ height: 149px;}
   scroll-snap-type: none;
 }
 
-.recent p {
+.recent p, .recent_my p {
   margin-bottom: 3px;
 }
 
 .recent_my {
-  background: white;
-  position: absolute;
-  height: 419px;
-  bottom: 18px;
-  width: 32%;
-  left: 0;
-  overflow-y: scroll;
+background: white;
+  padding: 16px;
+position: absolute;
+height: 419px;
+bottom: 18px;
+width: 32%;
+left: 0;
+overflow-y: scroll;
 }
 
 .container {
