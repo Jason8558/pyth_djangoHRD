@@ -2,7 +2,7 @@
 <html  lang="en">
 <head>
   {%load static%}
-  <link rel="stylesheet" href="{% static 'css/style.css'%}">
+  <link rel="stylesheet" href="{% static 'css/style1.css'%}">
   <link rel="stylesheet" href="{% static 'css/VacList.css'%}">
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -27,7 +27,7 @@
     <nav class="navbar navbar-light ">
 
 
-    <span class="navbar-brand mb-0 h1">{%block header%}Система КДО и табельного учета{%endblock%}</span><span style="text-align: right; float: right;font-size: 14pt;">  {{ user.first_name }} {% if request.user.is_superuser%}  <a style="color:white;" href="{% url 'logfile' %}">| Лог |</a> <a style="color:white;" href="/admin/">Войти в админ-панель</a><span id="version"> v1.2.3 </span>{%endif%} {% if request.user.groups.all.0.name == 'Редактирование справочников' %} <a style="color:white;" href="/admin">| Подразделения</a> {% endif %}<a class="btn btn-outline-danger" style="margin-left: 17px;" href="{% url 'logout'%}">выйти</a></span>
+    <span class="navbar-brand mb-0 h1">{%block header%}Система КДО и табельного учета{%endblock%}</span><span style="text-align: right; float: right;font-size: 14pt;">  {{ user.first_name }} {% if request.user.is_superuser%}  <a style="color:black;" href="{% url 'logfile' %}">| Лог |</a> <a style="color:black;" href="/admin/">Войти в админ-панель</a><span id="version"> v1.2.3 </span>{%endif%} {% if request.user.groups.all.0.name == 'Редактирование справочников' %} <a style="color:black;" href="/admin">| Подразделения</a> {% endif %}<a class="btn btn-outline-danger" style="margin-left: 17px;" href="{% url 'logout'%}">выйти</a></span>
 
     </div>
   </header>
@@ -37,7 +37,8 @@
     <h1 style="text-align: center;
     margin-top: 46px;
     font-size: 27pt;
-    margin-left: 266px;">Добро пожаловать, {{user_io}} </h1>
+    margin-left: 266px;
+    border-bottom: 1px solid black;">Добро пожаловать, {{user_io}} </h1>
     <div class="recent">
       <h3 style="text-align: center;">Недавние документы:</h3>
 
@@ -121,6 +122,30 @@
       {%endfor%}
       {% for oom in r_my_oom%}
       <p><a href="/orders_on_others/{{oom.id}}/edit">{{oom.oom_number}} от {{oom.oom_date|date:"d.m.Y"}} {{oom.oom_res_officer}}</a></p>
+      {%endfor%}
+      {% for obd in r_my_obd%}
+      <p><a href="/outbound_docs/{{obd.id}}/edit">{{obd.doc_type}} {{obd.doc_number}} от {{obd.doc_date|date:"d.m.Y"}} {{obd.doc_res_officer}}</a></p>
+      {%endfor%}
+      {% for obt in r_my_obt%}
+      <p><a href="/orders_of_BTrip/{{obt.id}}/upd">{{obt.bt_number}} от {{obt.bt_date|date:"d.m.Y"}} {{obt.bt_res_officer}}</a></p>
+      {%endfor%}
+      {% for oop in r_my_oop%}
+      <p><a href="/orders_on_personnel/{{oop.id}}/upd">{{oop.op_number}} от {{oop.op_date|date:"d.m.Y"}} {{oop.op_res_officer}}</a></p>
+      {%endfor%}
+      {% for lc in r_my_lc%}
+      <p><a href="/laborContracts/{{lc.id}}/upd">Трудовой договор {{lc.lc_number}} от {{lc.lc_date|date:"d.m.Y"}} {{lc.lc_res_officer}}</a></p>
+      {%endfor%}
+      {% for lor in r_my_lor%}
+      <p><a href="/letters_of_resignation/{{lor.id}}/edit">Заявление на увольнение {{lor.lor_employee}} от {{lor.lor_date|date:"d.m.Y"}} {{lor.lor_res_officer}}</a></p>
+      {%endfor%}
+      {% for loi in r_my_loi%}
+      <p><a href="/letters_of_invite/{{loi.id}}/edit">Заявление на прием {{loi.loi_employee}} от {{loi.loi_date|date:"d.m.Y"}} {% if loi.loi_dateOfInv %} работает с: {{loi.loi_dateOfInv|date:"d.m.Y"}} {%endif%} {{loi.loi_res_officer}}</a></p>
+      {%endfor%}
+      {% for eh in r_my_eh%}
+      <p><a href="/employment_history/{{eh.id}}/upd">Трудовая книжка {{eh.eh_number}} {{eh.eh_employer}} работает с: {{eh.eh_dateOfInv|date:"d.m.Y"}} {{eh.eh_res_officer}}</a></p>
+      {%endfor%}
+      {% for sr in r_my_sr%}
+      <p><a href="/sick_reg/{{sr.sr_number}}/create/">Реестр б\л {{sr.sr_number}} {{sr.sr_res_officer}}</a></p>
       {%endfor%}
 
     </div>

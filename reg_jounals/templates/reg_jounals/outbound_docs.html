@@ -1,7 +1,7 @@
 {%extends "reg_jounals/index.html" %}
 
 {%block title%}Исходящие документы{%endblock%}
-{%block header%}  <a class="btn btn-outline-info" href="../"> < назад</a> Журнал регистрации исходящих документов. Всего: {{count}}. {%endblock%}
+{%block header%}  <a class="btn btn-dark" href="../"> < назад</a> Журнал регистрации исходящих документов. Всего: {{count}}. {%endblock%}
 {%block content%}
 <form action="{% url 'outbound' %}">
   <span>Поиск по периоду:</span>
