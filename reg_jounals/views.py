@@ -6,7 +6,7 @@ from django.shortcuts import redirect
 from django.core.paginator import Paginator
 import datetime as DT
 from itertools import groupby
-
+from django.contrib.auth.models import *
 
 
 
@@ -271,20 +271,37 @@ def del_LetterOfInvite(request, id):
 # Приказы по другим вопросам -----------------------
 def order_other_matters(request):
     if request.user.is_authenticated:
+        group = Group.objects.get(name__icontains='Сотрудник СУП')
+        users = group.user_set.all()
+        for user in users:
+            print(user.first_name)
+
+        res_users = User.objects.all()
         date_from = request.GET.get('oom_search_from','')
         date_to = request.GET.get('oom_search_to', '')
-        if date_from and date_to:
-            orders = OrdersOnOtherMatters.objects.filter(oom_date__range=(date_from, date_to)).order_by('oom_date')
+        res_seacrh = request.GET.get('oom_search_res','')
+        if date_from and date_to and res_seacrh:
+            orders = OrdersOnOtherMatters.objects.filter(oom_date__range=(date_from, date_to)).filter(oom_res_officer__icontains=res_seacrh).order_by('oom_date')
             p_orders = Paginator(orders, 1000)
             page_number = request.GET.get('page', 1)
 
         else:
-            orders = OrdersOnOtherMatters.objects.all().order_by('-id')
-            p_orders = Paginator(orders, 20)
-            page_number = request.GET.get('page', 1)
+            if res_seacrh:
+                orders = OrdersOnOtherMatters.objects.filter(oom_res_officer__icontains=res_seacrh).order_by('oom_date')
+                p_orders = Paginator(orders, 1000)
+                page_number = request.GET.get('page', 1)
+            else:
+                if date_from and date_to:
+                    orders = OrdersOnOtherMatters.objects.filter(oom_date__range=(date_from, date_to)).order_by('oom_date')
+                    p_orders = Paginator(orders, 1000)
+                    page_number = request.GET.get('page', 1)
+                else:
+                    orders = OrdersOnOtherMatters.objects.all().order_by('-id')
+                    p_orders = Paginator(orders, 20)
+                    page_number = request.GET.get('page', 1)
         page = p_orders.get_page(page_number)
         count = len(orders)
-        return render(request, 'reg_jounals/orders_on_others.html', context={'orders':page, 'count':count})
+        return render(request, 'reg_jounals/orders_on_others.html', context={'orders':page, 'count':count, 'res_users':users})
     else:
         return render(request, 'reg_jounals/no_auth.html')
 
