@@ -287,7 +287,7 @@ def order_other_matters(request):
 
         else:
             if res_seacrh:
-                orders = OrdersOnOtherMatters.objects.filter(oom_res_officer__icontains=res_seacrh).order_by('oom_date')
+                orders = OrdersOnOtherMatters.objects.filter(oom_res_officer__icontains=res_seacrh).order_by('-id')
                 p_orders = Paginator(orders, 1000)
                 page_number = request.GET.get('page', 1)
             else:
