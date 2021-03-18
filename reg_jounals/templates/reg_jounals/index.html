@@ -2,7 +2,7 @@
 <html  lang="en">
 <head>
   {%load static%}
-  <link rel="stylesheet" href="{% static 'css/style1.css'%}">
+  <link rel="stylesheet" href="{% static 'css/style2.css'%}">
   <link rel="stylesheet" href="{% static 'css/VacList.css'%}">
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -37,8 +37,9 @@
     <h1 style="text-align: center;
     margin-top: 46px;
     font-size: 27pt;
-    margin-left: 266px;
+
     border-bottom: 1px solid black;">Добро пожаловать, {{user_io}} </h1>
+    <div class="recents">
     <div class="recent">
       <h3 style="text-align: center;">Недавние документы:</h3>
 
@@ -149,7 +150,7 @@
       {%endfor%}
 
     </div>
-
+</div>
     <div class="container_grid">
       <a href="{% url 'orders_on_vacation' %}" class="btn btn-info main_button" >Приказы на отпуск (старые c 1 по 13К-ОТП)</a>
       <a href="{% url 'orders_on_vacation_new' %}" class="btn btn-info main_button" >Приказы на отпуск</a>

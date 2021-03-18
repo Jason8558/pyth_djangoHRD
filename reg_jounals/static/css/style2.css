@@ -91,26 +91,26 @@ height: 149px;}
 
 
 .container_grid {
-  /* width: 50%; */
-  position: absolute;
+
   float: right;
-  padding: 0 25px;
-  left: 814px;
-  top: 199px;
-  /* margin: auto; */
+
   display: grid;
   grid-template-columns: repeat(1, 499px) !important;
   grid-template-rows: repeat(13, 45px);
   grid-gap: 5px;
 }
+.recents {
+float: left;
+width: 400px;
+}
 
 .recent {
-  width: 32%;
-  position: absolute;
+  width: 400px;
+  /* position: absolute; */
   left: 15px;
   border: 4px solid #977390;
   top: 92px;
-  /* float: left; */
+  float: left;
   overflow-x: hidden !important;
   /* border: 1px solid; */
   height: 377px;
@@ -119,6 +119,7 @@ height: 149px;}
   /* box-shadow: 0px 0px 9px -3px #977390; */
   overflow: scroll;
   padding: 16px;
+  margin-right: 0;
   scroll-snap-type: none;
 }
 
@@ -134,11 +135,14 @@ height: 149px;}
 .recent_my {
 background: white;
 padding: 16px;
-position: absolute;
-height: 419px;
+/* position: absolute; */
+height: 329px;
 bottom: 18px;
+margin-right: 0;
+float: left;
 left: 15px;
-width: 32%;
+margin-top: 26px;
+width: 400px;
 /* left: 0; */
 border: 4px solid #977390;
 overflow-y: scroll;
