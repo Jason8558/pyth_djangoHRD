@@ -46,6 +46,7 @@ let vacs = ['ОТ','ОД','У','УД','Р','ОЖ','ДО','Б','Т','ПВ','Г','
   let s32 = 0 //НБ
   let s33 = 0 //Опл. отр. от р. НО
   let s34 = 0 //Нет ЗП НЗ
+  let s37 = 0 //ОЗ
 
 
 // Убрать NONE
@@ -107,6 +108,7 @@ types_rows_nums[i].textContent = n
   s32 = 0
   s33 = 0
   s34 = 0
+  s37 = 0
   s6 = 0
   cells = types_rows[i].childNodes
 
@@ -214,6 +216,10 @@ types_rows_nums[i].textContent = n
           s34 +=1
         break;
 
+        case 'ОЗ':
+          s37 +=1
+        break;
+
         case 'К':
           s6 +=1
         break;
@@ -225,7 +231,7 @@ types_rows_nums[i].textContent = n
         default:
 
       }
-    
+
 }
 
 
@@ -281,6 +287,8 @@ types_rows_nums[i].textContent = n
   vac_include[i].textContent +=  ' | НО ' + s33}
   if (s34 != 0) {
   vac_include[i].textContent +=  ' | ОЗ ' + s34}
+  if (s37 != 0) {
+  vac_include[i].textContent +=  ' | ОЗ ' + s37}
 
 
 weekends[i].textContent =  parseInt(weekends[i].innerText, 10)/8

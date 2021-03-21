@@ -105,6 +105,7 @@ class TabelItem_form(forms.ModelForm):
             'sHours33',
             'sHours34',
             'sHours35',
+            'sHours37',
             'w_days',
             'w_hours',
             'v_days',
@@ -142,7 +143,7 @@ class TabelItem_form(forms.ModelForm):
         hours29 = forms.CharField(required=False, widget=forms.TextInput(attrs={'placeholder': 'Ч', 'class': 'dig_hours', 'type':'text'}))
         hours30 = forms.CharField(required=False, widget=forms.TextInput(attrs={'placeholder': 'Ч', 'class': 'dig_hours', 'type':'text'}))
         hours31 = forms.CharField(required=False, widget=forms.TextInput(attrs={'placeholder': 'Ч', 'class': 'dig_hours', 'type':'text'}))
-    
+
 
 
 

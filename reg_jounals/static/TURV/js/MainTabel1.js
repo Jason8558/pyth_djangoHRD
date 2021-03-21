@@ -383,6 +383,7 @@ for (var field of checkfields) {
   let s33 = 0 //Опл. отр. от р. НО
   let s34 = 0 //Нет ЗП НЗ
   let s36 = 0 //Местная командировка
+  let s37 = 0 //ОЗ
 
 //Суммирование дней
   let work = 0 //дни явок
@@ -560,6 +561,11 @@ switch (tt1) {
 
   case 'НЗ':
     s34 += parseInt(h1, 10)
+    vac += 1
+  break;
+
+  case 'ОЗ':
+    s37 += parseInt(h1, 10)
     vac += 1
   break;
 
@@ -760,6 +766,11 @@ switch (tt2) {
     vac += 1
   break;
 
+  case 'ОЗ':
+    s37 += parseInt(h2, 10)
+    vac += 1
+  break;
+
   case 'Я/ЛЧ':
     h2_ = h2.split('/')
     s1 += parseInt(h2_[0], 10)
@@ -951,6 +962,11 @@ switch (tt3) {
 
   case 'НЗ':
     s34 += parseInt(h3, 10)
+    vac += 1
+  break;
+
+  case 'ОЗ':
+    s37 += parseInt(h3, 10)
     vac += 1
   break;
 
@@ -1148,6 +1164,11 @@ switch (tt4) {
 
   case 'НЗ':
     s34 += parseInt(h4, 10)
+    vac += 1
+  break;
+
+  case 'ОЗ':
+    s37 += parseInt(h4, 10)
     vac += 1
   break;
 
@@ -1371,6 +1392,11 @@ switch (tt5) {
 
   break;
 
+  case 'ОЗ':
+    s37 += parseInt(h5, 10)
+    vac += 1
+  break;
+
   case 'Я/ЛЧ':
     h5_ = h5.split('/')
 
@@ -1564,6 +1590,11 @@ switch (tt6) {
 
   case 'НЗ':
     s34 += parseInt(h6, 10)
+    vac += 1
+  break;
+
+  case 'ОЗ':
+    s37 += parseInt(h6, 10)
     vac += 1
   break;
 
@@ -1761,6 +1792,11 @@ switch (tt7) {
 
   case 'НЗ':
     s34 += parseInt(h7, 10)
+    vac += 1
+  break;
+
+  case 'ОЗ':
+    s37 += parseInt(h7, 10)
     vac += 1
   break;
 
@@ -1983,6 +2019,11 @@ switch (tt8) {
     vac += 1
   break;
 
+  case 'ОЗ':
+    s37 += parseInt(h8, 10)
+    vac += 1
+  break;
+
   case 'Я/ЛЧ':
     h8_ = h8.split('/')
     s1 += parseInt(h8_[0], 10)
@@ -2175,6 +2216,11 @@ switch (tt9) {
 
   case 'НЗ':
     s34 += parseInt(h9, 10)
+    vac += 1
+  break;
+
+  case 'ОЗ':
+    s37 += parseInt(h9, 10)
     vac += 1
   break;
 
@@ -2373,6 +2419,11 @@ switch (tt10) {
     vac += 1
   break;
 
+  case 'ОЗ':
+    s37 += parseInt(h10, 10)
+    vac += 1
+  break;
+
   case 'Я/ЛЧ':
     h10_ = h10.split('/')
     s1 += parseInt(h10_[0], 10)
@@ -2565,6 +2616,11 @@ switch (tt11) {
 
   case 'НЗ':
     s34 += parseInt(h11, 10)
+    vac += 1
+  break;
+
+  case 'ОЗ':
+    s37 += parseInt(h11, 10)
     vac += 1
   break;
 
@@ -2764,6 +2820,11 @@ switch (tt12) {
     vac += 1
   break;
 
+  case 'ОЗ':
+    s37 += parseInt(h12, 10)
+    vac += 1
+  break;
+
   case 'Я/ЛЧ':
     h12_ = h12.split('/')
     s1 += parseInt(h12_[0], 10)
@@ -2959,6 +3020,11 @@ switch (tt13) {
     vac += 1
   break;
 
+  case 'ОЗ':
+    s37 += parseInt(h13, 10)
+    vac += 1
+  break;
+
   case 'Я/ЛЧ':
     h13_ = h13.split('/')
     s1 += parseInt(h13_[0], 10)
@@ -3150,6 +3216,11 @@ switch (tt14) {
 
   case 'НЗ':
     s34 += parseInt(h14, 10)
+    vac += 1
+  break;
+
+  case 'ОЗ':
+    s37 += parseInt(h14, 10)
     vac += 1
   break;
 
@@ -3348,11 +3419,16 @@ switch (tt15) {
     vac += 1
   break;
 
+  case 'ОЗ':
+    s37 += parseInt(h15, 10)
+    vac += 1
+  break;
+
   case 'Я/ЛЧ':
     h15_ = h15.split('/')
     s1 += parseInt(h15_[0], 10)
     s19 += parseInt(h15_[1], 10)
-    console.log(h15_[2])
+
     work += 1
   break;
 
@@ -3541,6 +3617,11 @@ switch (tt16) {
 
   case 'НЗ':
     s34 += parseInt(h16, 10)
+    vac += 1
+  break;
+
+  case 'ОЗ':
+    s37 += parseInt(h16, 10)
     vac += 1
   break;
 
@@ -3739,6 +3820,11 @@ switch (tt17) {
     vac += 1
   break;
 
+  case 'ОЗ':
+    s37 += parseInt(h17, 10)
+    vac += 1
+  break;
+
   case 'Я/ЛЧ':
     h17_ = h17.split('/')
     s1 += parseInt(h17_[0], 10)
@@ -3931,6 +4017,11 @@ switch (tt18) {
 
   case 'НЗ':
     s34 += parseInt(h18, 10)
+    vac += 1
+  break;
+
+  case 'ОЗ':
+    s37 += parseInt(h18, 10)
     vac += 1
   break;
 
@@ -4129,6 +4220,11 @@ switch (tt19) {
     vac += 1
   break;
 
+  case 'ОЗ':
+    s37 += parseInt(h19, 10)
+    vac += 1
+  break;
+
   case 'Я/ЛЧ':
     h19_ = h19.split('/')
     s1 += parseInt(h19_[0], 10)
@@ -4321,6 +4417,11 @@ switch (tt20) {
 
   case 'НЗ':
     s34 += parseInt(h20, 10)
+    vac += 1
+  break;
+
+  case 'ОЗ':
+    s37 += parseInt(h20, 10)
     vac += 1
   break;
 
@@ -4519,6 +4620,11 @@ switch (tt21) {
     vac += 1
   break;
 
+  case 'ОЗ':
+    s37 += parseInt(h21, 10)
+    vac += 1
+  break;
+
   case 'Я/ЛЧ':
     h21_ = h21.split('/')
     s1 += parseInt(h21_[0], 10)
@@ -4714,11 +4820,16 @@ switch (tt22) {
     vac += 1
   break;
 
+  case 'ОЗ':
+    s37 += parseInt(h22, 10)
+    vac += 1
+  break;
+
   case 'Я/ЛЧ':
     h22_ = h22.split('/')
     s1 += parseInt(h22_[0], 10)
     s19 += parseInt(h22_[1], 10)
-    console.log(h22_[1])
+
     work += 1
   break;
 
@@ -4907,6 +5018,11 @@ switch (tt23) {
 
   case 'НЗ':
     s34 += parseInt(h23, 10)
+    vac += 1
+  break;
+
+  case 'ОЗ':
+    s37 += parseInt(h23, 10)
     vac += 1
   break;
 
@@ -5105,6 +5221,11 @@ switch (tt24) {
     vac += 1
   break;
 
+  case 'ОЗ':
+    s37 += parseInt(h24, 10)
+    vac += 1
+  break;
+
   case 'Я/ЛЧ':
     h24_ = h24.split('/')
     s1 += parseInt(h24_[0], 10)
@@ -5297,6 +5418,11 @@ switch (tt25) {
 
   case 'НЗ':
     s34 += parseInt(h25, 10)
+    vac += 1
+  break;
+
+  case 'ОЗ':
+    s37 += parseInt(h25, 10)
     vac += 1
   break;
 
@@ -5495,6 +5621,11 @@ switch (tt26) {
     vac += 1
   break;
 
+  case 'ОЗ':
+    s37 += parseInt(h26, 10)
+    vac += 1
+  break;
+
   case 'Я/ЛЧ':
     h26_ = h26.split('/')
     s1 += parseInt(h26_[0], 10)
@@ -5687,6 +5818,11 @@ switch (tt27) {
 
   case 'НЗ':
     s34 += parseInt(h27, 10)
+    vac += 1
+  break;
+
+  case 'ОЗ':
+    s37 += parseInt(h27, 10)
     vac += 1
   break;
 
@@ -5885,6 +6021,11 @@ switch (tt28) {
     vac += 1
   break;
 
+  case 'ОЗ':
+    s37 += parseInt(h28, 10)
+    vac += 1
+  break;
+
   case 'Я/ЛЧ':
     h28_ = h28.split('/')
     s1 += parseInt(h28_[0], 10)
@@ -6080,11 +6221,16 @@ switch (tt29) {
     vac += 1
   break;
 
+  case 'ОЗ':
+    s37 += parseInt(h29, 10)
+    vac += 1
+  break;
+
   case 'Я/ЛЧ':
     h29_ = h29.split('/')
     s1 += parseInt(h29_[0], 10)
     s19 += parseInt(h29_[1], 10)
-    console.log(h29_[2])
+
     work += 1
   break;
 
@@ -6273,6 +6419,11 @@ switch (tt30) {
 
   case 'НЗ':
     s34 += parseInt(h30, 10)
+    vac += 1
+  break;
+
+  case 'ОЗ':
+    s37 += parseInt(h30, 10)
     vac += 1
   break;
 
@@ -6471,6 +6622,11 @@ switch (tt31) {
     vac += 1
   break;
 
+  case 'ОЗ':
+    s37 += parseInt(h31, 10)
+    vac += 1
+  break;
+
   case 'Я/ЛЧ':
     h31_ = h31.split('/')
     s1 += parseInt(h31_[0], 10)
@@ -6539,6 +6695,7 @@ $('#id_sHours31').val(s31)
 $('#id_sHours32').val(s32)
 $('#id_sHours33').val(s33)
 $('#id_sHours34').val(s34)
+$('#id_sHours37').val(s37)
 $('#id_w_days').val(work)
 $('#id_w_hours').val(h_work)
 $('#id_v_days').val(vac)
