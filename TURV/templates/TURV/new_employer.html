@@ -12,19 +12,22 @@
 
 <form class="new_emp" action="" method="post">
 {% csrf_token %}
-<p class="fio">{{emp.fullname.label}}: {{emp.fullname}}</p>
-<p class="pos">{{emp.position.label}}: {{emp.position}}</p>
-<p class="dep">{{emp.department.label}}:
+<p class="fio">{{emp.fullname.label}}: {{emp.fullname}}
+<p>{{emp.position.label}}: {{emp.position}}</p>
+<p>{{emp.department.label}}:
 <select id="e_deps" onchange="ReSelectDep();" name="e_deps">
   {% for dep in deps %}
   <option value="{{dep.id}}">{{dep.name}}</option>
   {% endfor %}
 </select></p>
 
- {{emp.department}}
 
-<p class="pop">{{emp.positionOfPayment.label}}: {{emp.positionOfPayment}} {{emp.level.label}}: {{emp.level}}</p>
-<p class="shift">{{emp.shift_personnel.label}}: {{emp.shift_personnel}} {{emp.stand_worktime.label}}: {{emp.stand_worktime}}</p>
+
+ {{emp.department}}
+<p>{{emp.level.label}}: {{emp.level}}</p>
+<p>{{emp.positionOfPayment.label}}: {{emp.positionOfPayment}}</p>
+<p>{{emp.shift_personnel.label}}: {{emp.shift_personnel}}</p>
+<p> {{emp.stand_worktime.label}}: {{emp.stand_worktime}}</p>
 
 <div class="buttons"><input type="submit" name="" class="btn btn-success" value="Добавить">
 <a href="." class="btn btn-outline-danger">Отмена</a></div>

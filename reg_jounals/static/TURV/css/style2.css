@@ -1,3 +1,17 @@
+input[type=text], input[type=number], select {
+  background: #f9f9f9;
+  border-radius: 11px;
+  border: 3px solid #5a9dff;
+}
+
+
+
+input[type=text]:focus, input[type=number]:focus, select:focus {
+outline: none;
+box-shadow: 0px 0px 4px 1px #0d6efd;
+transition: 0.3s;
+}
+
 .btn-outline-danger {
     color: #dc3545;
     border-color: #dc3545;
@@ -60,13 +74,14 @@ display: none;
 }
 
 .new_tabel {
-
-grid-template-rows: repeat(8, 36px) !important;
-grid-template-columns: repeat(1, 100%);
-grid-gap: 10px !important;
-
-width: 33% !important;
-margin: 0 auto;
+grid-template-rows: repeat(8, 36px) !important;
+grid-template-columns: repeat(1, 100%);
+grid-gap: 10px !important;
+width: 33% !important;
+margin: 0 auto;
+background: white;
+border-radius: 15px;
+border: 6px solid #5a9dff;
 }
 
 
@@ -80,11 +95,22 @@ max-width: 1855px !important;
 }
 
 .f_search {
-  margin-top: 21px;
-  margin-left: 25px;
+  /* margin-top: 21px; */
+  /* margin-left: 25px; */
+  width: 682px;
+  margin: 7px auto;
+  background: #ffffff;
+  padding: 6px;
+  border-radius: 17px;
+  border: 3px solid #000000;
 }
 
-.navbar {box-shadow: 0px 3px 13px 2px black;background: #0d6efd !important;}
+.f_search p {
+  border-bottom: 1px solid black;
+  text-align: center;
+}
+
+.navbar {box-shadow: 0px 3px 13px 2px black;/* background: #0d6efd !important; */width: 1691px;margin: 10px auto;border-radius: 17px;border: 3px solid #0d6efd;}
 
 .navbar-brand {
   width: 100% !important;
@@ -329,7 +355,7 @@ grid-gap: 4px;
 
 .nt_text_employer .results {
   /* margin-left: 101px; */
-  width: 36%;
+  width: 40%;
   float: left;
 }
 
@@ -357,12 +383,13 @@ grid-gap: 4px;
 'buttons buttons'; */
 grid-template-columns: 1fr;
 grid-template-rows: repeat(5, 50px);
-width: 580px;
+width: 499px;
 margin: 0 auto;
-background: #5a9dff;
+background: white;
+border: 6px solid #5a9dff;
 padding: 2%;
 /* grid-gap: 3px; */
-row-gap: 31px;
+row-gap: 5px;
 border-radius: 4px;
 box-shadow: 0px 0px 4px 1px black;
 }
@@ -394,10 +421,7 @@ grid-gap: 4px;
   grid-area: pop;
 }
 
-.new_emp .lvl {
-  grid-area: level;
 
-}
 
 .new_emp .lvl input {width: 60px;}
 
@@ -416,7 +440,9 @@ grid-gap: 4px;
 margin-right: 10px;
 }
 
-
+.new_emp .lvl input {
+  width: 90px;
+}
 
 .new_emp input {
 
