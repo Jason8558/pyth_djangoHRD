@@ -29,14 +29,14 @@ def tabels(request):
                 deps = Department.objects.all()
                 if (sq_period_month == 'all'):
                     if (sq_dep == 'none'):
-                        tabels = Tabel.objects.filter(year=sq_period_year)
+                        tabels = Tabel.objects.filter(year=sq_period_year).order_by('-id')
                     else:
-                        tabels = Tabel.objects.filter(year=sq_period_year).filter(department_id=sq_dep).filter(department_id=sq_dep)
+                        tabels = Tabel.objects.filter(year=sq_period_year).filter(department_id=sq_dep).filter(department_id=sq_dep).order_by('-id')
                 else:
                     if (sq_dep == 'none'):
-                        tabels = Tabel.objects.filter(year=sq_period_year).filter(month=sq_period_month)
+                        tabels = Tabel.objects.filter(year=sq_period_year).filter(month=sq_period_month).order_by('-id')
                     else:
-                        tabels = Tabel.objects.filter(year=sq_period_year).filter(month=sq_period_month).filter(department_id=sq_dep)
+                        tabels = Tabel.objects.filter(year=sq_period_year).filter(month=sq_period_month).filter(department_id=sq_dep).order_by('-id')
 
             else:
 
@@ -46,20 +46,20 @@ def tabels(request):
                     allow_departments.append(dep.id)
                 if (sq_period_month == 'all'):
                     if (sq_dep == 'none'):
-                        tabels = Tabel.objects.filter(year=sq_period_year)
+                        tabels = Tabel.objects.filter(year=sq_period_year).order_by('-id')
                     else:
-                        tabels = Tabel.objects.filter(year=sq_period_year).filter(department_id=sq_dep).filter(department_id=sq_dep)
+                        tabels = Tabel.objects.filter(year=sq_period_year).filter(department_id=sq_dep).filter(department_id=sq_dep).order_by('-id')
                 else:
                     if (sq_dep == 'none'):
-                        tabels = Tabel.objects.filter(year=sq_period_year).filter(month=sq_period_month)
+                        tabels = Tabel.objects.filter(year=sq_period_year).filter(month=sq_period_month).order_by('-id')
                     else:
-                        tabels = Tabel.objects.filter(year=sq_period_year).filter(month=sq_period_month).filter(department_id=sq_dep)
+                        tabels = Tabel.objects.filter(year=sq_period_year).filter(month=sq_period_month).filter(department_id=sq_dep).order_by('-id')
 
         else:
 
             if (request.user.is_superuser) or (granted == 1):
                 deps = Department.objects.all()
-                tabels = Tabel.objects.all()
+                tabels = Tabel.objects.all().order_by('-id')
             else:
 
                 deps = Department.objects.all().filter(user=user_.id)
@@ -67,7 +67,7 @@ def tabels(request):
                 for dep in deps:
                     allow_departments.append(dep.id)
 
-                tabels = Tabel.objects.all().filter(department_id__in=allow_departments)
+                tabels = Tabel.objects.all().filter(department_id__in=allow_departments).order_by('-id')
         p_tabels = Paginator(tabels, 100)
         page_number = request.GET.get('page', 1)
         page = p_tabels.get_page(page_number)
