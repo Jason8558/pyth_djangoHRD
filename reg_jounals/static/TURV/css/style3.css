@@ -97,7 +97,7 @@ max-width: 1855px !important;
 .f_search {
   /* margin-top: 21px; */
   /* margin-left: 25px; */
-  width: 682px;
+  width: 831px;
   margin: 7px auto;
   background: #ffffff;
   padding: 6px;
@@ -383,7 +383,7 @@ grid-gap: 4px;
 'buttons buttons'; */
 grid-template-columns: 1fr;
 grid-template-rows: repeat(5, 50px);
-width: 499px;
+width: 699px;
 margin: 0 auto;
 background: white;
 border: 6px solid #5a9dff;
