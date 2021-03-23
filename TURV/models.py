@@ -8,7 +8,7 @@ class Employers(models.Model):
     stand_worktime = models.FloatField(verbose_name='Норма часов', default=0)
     department = models.ForeignKey('Department', verbose_name='Подразделение', on_delete=models.CASCADE)
     level = models.CharField(verbose_name='Разряд/категория', max_length=256)
-    positionOfPayment = models.CharField(verbose_name='Ступень оплаты', max_length=2)
+    positionOfPayment = models.CharField(verbose_name='Ступень оплаты', max_length=3)
 
     class Meta:
         ordering = ['fullname']
