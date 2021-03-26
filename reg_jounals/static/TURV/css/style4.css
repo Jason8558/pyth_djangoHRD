@@ -18,6 +18,17 @@ input[type=text]:focus, input[type=number]:focus, select:focus {
     vertical-align: baseline;
 }
 
+.sup_check {
+margin-bottom: 7px;
+height: 47px;
+}
+
+.sup_check a, .sup_check h4 {
+width: max-content;
+float: left;
+margin-left: 30px;
+}
+
 .errors {
   position: absolute;
 width: max-content;

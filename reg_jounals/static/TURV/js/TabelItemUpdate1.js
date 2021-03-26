@@ -16,10 +16,12 @@ function emp_info() {
   $("#id_position option:contains(" + emp_s[1] + ")").prop('selected', true);
   if (emp_s[5] == 'False') {
     $('#shift').text('Дневной персонал')
+    $('#n_time_span').css('display','none')
   }
   else {
     $('#shift').text('Сменный персонал')
     $('#n_time').text(emp_s[6])
+
   }
 }
 
