@@ -187,6 +187,33 @@ def tabel_upditem(request, id):
     else:
         return render(request, 'reg_jounals/no_auth.html')
 
+def tabel_sup_check(request, id):
+    if request.user.is_authenticated:
+            tabel = Tabel.objects.get(id=id)
+            if tabel.sup_check == False:
+                tabel.sup_check = True
+            else:
+                tabel.sup_check = False
+            tabel.save()
+    return redirect('/turv/create/' + str(id))
+
+def tabel_del_check(request, id):
+    if request.user.is_authenticated:
+            tabel = Tabel.objects.get(id=id)
+            if tabel.del_check == False:
+                tabel.del_check = True
+            else:
+                tabel.del_check = False
+            tabel.save()
+    return redirect('/turv/create/' + str(id))
+
+# def tabel_sup_uncheck(request, id):
+#         if request.user.is_authenticated:
+#                 tabel = Tabel.objects.get(id=id)
+#                 tabel.sup_check = False
+#                 tabel.save()
+#         return redirect('/turv/create/' + str(id))
+
 def tabel_delitem(request, id):
     if request.user.is_authenticated:
         item = TabelItem.objects.get(id__iexact=id)
