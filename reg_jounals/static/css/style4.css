@@ -312,8 +312,10 @@ a#button_ident {}
     color: black;
   }
   table tr:hover {
-    background: #785589 ;
-    color: white;
+    color: #a600f7;
+    /* color: white; */
+    text-decoration: underline;
+    font-weight: bold;
   }
 
   table tr:focus  {
