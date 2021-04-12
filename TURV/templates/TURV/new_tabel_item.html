@@ -9,6 +9,22 @@
 <div class="alert alert-danger errors" role="alert">
 
 </div>
+
+<div class="indep">
+
+<ul>
+  {% for emp in emps %}
+  <li class="indep_pos">{{emp.fullname}}|{{emp.position}}|{{emp.level}}|{{emp.positionOfPayment}}|<span class="posid" style="color:white">{{emp.id}}</span></li>
+  {%endfor%}
+</ul>
+</div>
+
+<div class=" hide intabel">
+
+  {% for item in in_tabel %}
+  <li class="intabel_pos">{{item.employer.fullname}}|{{item.employer.id}}</li>
+  {%endfor%}
+</div>
 <div id="tabel_item" class="container tabel_item">
 
  <!-- <ul class="in_tabel_list">
@@ -16,7 +32,7 @@
    <li>{{emp.employer}}</li>
    {%endfor%}
  </ul> -->
-<div class="in_tabel_list">
+<!-- <div class="in_tabel_list">
 <table>
   <thead>
     <tr>
@@ -37,7 +53,7 @@
     {%endfor%}
   </tbody>
 </table>
-</div>
+</div> -->
 
   <div class="t_peoples hide">
 
