@@ -33,6 +33,26 @@ var query = String(document.location.href).split('/');
 emp_info()
 
 
+// Отметка о том, что сотрудник добавлен в табель
+
+intabels = $('.intabel_pos')
+indeps = $('.indep_pos')
+spans = $('.posid')
+for (var sp of spans) {
+  console.log(sp.innerText);
+}
+
+//
+for (var i = 0; i < indeps.length; i++) {
+      for (var intabel of intabels) {
+        if (intabel.innerText.split('|')[1] == indeps[i].innerText.split('|')[4]) {
+
+          indeps[i].innerHTML = '(✅) ' + indeps[i].innerHTML
+          spans[i].style.color = 'white'
+        }
+
+      }
+  }
 
 
 month_  = $('#id_month').text()
