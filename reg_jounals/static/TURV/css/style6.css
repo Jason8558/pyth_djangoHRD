@@ -65,8 +65,7 @@ display: none;
   margin-top: 11px;
   border: solid 1px black;
   height: 845px;
-  float: left;
-  margin-left: 87px !important;
+  margin-left: 489px !important;
   background: white;
   padding-top: 24px;
   margin-bottom: 15px;
@@ -249,6 +248,8 @@ box-shadow: 0px 0px 8px 0px #000000cc;
   height: 806px;
   overflow-y: scroll;
   background: white;
+  width: 402px;
+  display: block;
 }
 
 .indep ul {
