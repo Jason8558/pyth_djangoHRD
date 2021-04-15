@@ -13,6 +13,7 @@ from django.contrib.auth.models import *
 def index(request):
 
     if request.user.is_authenticated:
+
         user_ = request.user
         u_group = user_.groups.all()
         for group in u_group:

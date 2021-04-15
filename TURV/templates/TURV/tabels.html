@@ -86,9 +86,17 @@ function Supchecked() {
   </select>
   <label for="tab_supcheck">Только проверенные:</label>
   <input type="checkbox" onclick="Supchecked();" id="supcheck" name="tab_supcheck" value="0">
+  {% if granted == 1 or user.is_superuser%}
+  <select class=""  name="tab_user">
+    <option value="">Поиск по табельщику</option>
+      {%for u in tab_users %}
+      <option value="{{u.first_name}}">{{u.first_name}}</option>
+      {%endfor%}
+  </select>
+{%endif%}
 <input type="submit" name="" class="btn btn-dark" value="Найти">
 
-<p style="border-bottom: none;" ><a class="btn btn-outline-danger" href="/turv">Сбросить поиск</a></p>
+<a class="btn btn-outline-danger" href="/turv">Сбросить поиск</a>
 </form>
 
 <div class="container">

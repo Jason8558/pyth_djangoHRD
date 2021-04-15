@@ -142,7 +142,7 @@ max-width: 1855px !important;
 .f_search {
   /* margin-top: 21px; */
   /* margin-left: 25px; */
-  width: 831px;
+  width: max-content;
   margin: 7px auto;
   background: #ffffff;
   padding: 6px;
