@@ -14,15 +14,15 @@
       </li>
       <li>Информация <span class='angle-down'>v</span>
       <ul class="info">
-        <li><a target="_blank" href="https://docs.google.com/document/d/1Z439AZgEkRSZErC1wrBpQE9ajGD-OPZIZOkNI08mPSg/edit?usp=sharing">Инструкция пользователя</a></li>
+        <li><a target="_blank" href="https://docs.google.com/document/d/1Z439AZgEkRSZErC1wrBpQE9ajGD-OPZIZOkNI08mPSg/edit?usp=sharing"> > Инструкция пользователя</a></li>
 
       </ul>
       </li>
 
       <li>Сервис <span class='angle-down'>v</span>
       <ul class="service">
-          {%if request.user.is_superuser %} <li><a  href="{% url 'unload'%}">Выгрузить для 1С</a></li>
-                                              <li><a href="#">Удалить помеченные на удаление</a></li>
+          {%if request.user.is_superuser %} <li><a  href="{% url 'unload'%}"> > Выгрузить для 1С</a></li>
+                                              <li><a href="{% url 'del_tabel_url'%}"> > Удалить помеченные на удаление</a></li>
           {%endif%}
 
       </ul>
@@ -30,8 +30,8 @@
 
       <li>Вид <span class='angle-down'>v</span>
       <ul class="view">
-      <li> <a  href="?search_month={{month_}}&search_year={{year_}}&t_tab_dep_search=none">Показать только за текущий месяц</a></li>
-      <li><a  href="?search_month={{month_}}&search_year={{year_}}&t_tab_dep_search=none&tab_supcheck=1">Показать проверенные за текущий месяц</a></li>
+      <li> <a  href="?search_month={{month_}}&search_year={{year_}}&t_tab_dep_search=none"> > Показать только за текущий месяц</a></li>
+      <li><a  href="?search_month={{month_}}&search_year={{year_}}&t_tab_dep_search=none&tab_supcheck=1"> > Показать проверенные за текущий месяц</a></li>
 
       </ul>
       </li>
@@ -99,7 +99,7 @@ function Supchecked() {
 <a class="btn btn-outline-danger" href="/turv">Сбросить поиск</a>
 </form>
 
-<div class="container">
+<div class="container main">
   <a class="btn btn-success btn-add"  href="{% url 'new_tabel_url' %}"  >+ Новый табель</a>
 
 

@@ -9,6 +9,7 @@ import xlwt
 from mimetypes import MimeTypes
 import os
 import datetime
+from itertools import groupby
 from django.contrib.auth.models import *
 
 def tabels(request):
@@ -106,6 +107,8 @@ def tabels(request):
 
 def tabel_create(request, id):
     if request.user.is_authenticated:
+        sq_employer = request.GET.get('its_employer','')
+        sq_position = request.GET.get('its_position','')
         u_group = request.user.groups.all()
         granted = 0
         is_ro = 0
@@ -119,9 +122,22 @@ def tabel_create(request, id):
                     is_ro = 1
         print(is_ro)
         if request.method == "GET":
+
             b_tabel = Tabel.objects.get(id=id)
+            items = TabelItem.objects.filter(bound_tabel=id).order_by('employer__position__name').values('employer__position__name')
+            positions = []
+            for item in list(items):
+                positions.append(item['employer__position__name'])
+            positions = [el for el, _ in groupby(positions)]
+            print(positions)
             tabel_form = Tabel_form(instance=b_tabel)
-            items = TabelItem.objects.filter(bound_tabel=id).order_by('employer')
+            if sq_employer:
+                items = TabelItem.objects.filter(bound_tabel=id).filter(employer__fullname__icontains=sq_employer).order_by('employer')
+            else:
+                if sq_position:
+                    items = TabelItem.objects.filter(bound_tabel=id).filter(employer__position__name=sq_position).order_by('employer')
+                else:
+                    items = TabelItem.objects.filter(bound_tabel=id).order_by('employer')
             hours = items.aggregate(sum_of_hours=Sum("w_hours"), sum_of_lhours=Sum("sHours19"), sum_of_days=Sum("w_days"),  s_over=Sum('sHours4'), s_night=Sum("sHours2"), s_vacwork=Sum("sHours3"),     s_vac=Sum("v_days"), s_weekends=Sum("sHours24")/8)
             s_hours = hours['sum_of_hours']
             s_lhours = hours['sum_of_lhours']
@@ -136,7 +152,7 @@ def tabel_create(request, id):
             t_month = b_tabel.month
             t_year = b_tabel.year
             t_dep = b_tabel.department
-            return render(request, 'TURV/create_tabel.html', context={
+            return render(request, 'TURV/create_tabel.html', context={'positions':positions,
             's_hours':s_hours,
 's_lhours':s_lhours,
 's_days':s_days,
@@ -182,6 +198,18 @@ def new_tabel(request):
             return render(request, 'TURV/new_tabel.html', context={'form':tabel_form, 'deps':deps})
     else:
         return render(request, 'reg_jounals/no_auth.html')
+
+def del_tabel(request):
+    if request.user.is_authenticated:
+        for_delete = Tabel.objects.filter(del_check = True)
+        for tabel in for_delete:
+            print(tabel)
+            items_for_delete = TabelItem.objects.filter(bound_tabel=tabel.id)
+            for item in items_for_delete:
+                print(item)
+                item.delete()
+            tabel.delete()
+    return redirect('/turv')
 
 def tabel_additem(request, id):
     if request.user.is_authenticated:
