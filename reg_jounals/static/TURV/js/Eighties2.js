@@ -2,7 +2,7 @@ $(document).ready(function()
 
 {
 
-
+DrawDays()
 
 let vacs = ['ОТ','ОД','У','УД','Р','ОЖ','ДО','Б','Т','ПВ','Г','ПР','В','ОВ','НВ','ЗБ','НН','РП','НП','ВП','НБ','НО','НЗ','ДБ','ОЗ', 'К']
 
@@ -299,7 +299,7 @@ weekends[i].textContent =  parseInt(weekends[i].innerText, 10)/8
 // --------------------------------------------------------------------
 
 //ПЕРЕВОД НОМЕРА МЕСЯЦА В НУЖНЫЙ ФОРМАТ ДЛЯ ПОДСЧЕТА КОЛ-ВА ДНЕЙ
-
+function DrawDays() {
 month_  = $('#id_month').text()
 year_ = $('#id_year').text()
 let rMonth = 0
@@ -368,14 +368,16 @@ let days30 = $('.day30')
 let days31 = $('.day31')
 
 
-
+console.log(days_count);
 
 switch (days_count) {
 
 case 28:
+
   for (var i = 0; i < days29.length; i++) {
     days29[i].style.display = 'None'
   }
+
 
   for (var i = 0; i < days30.length; i++) {
     days30[i].style.display = 'None'
@@ -384,6 +386,7 @@ case 28:
   for (var i = 0; i < days31.length; i++) {
     days31[i].style.display = 'None'
   }
+
 
   case 29:
 
@@ -394,6 +397,7 @@ case 28:
     for (var i = 0; i < days31.length; i++) {
       days31[i].style.display = 'None'
     }
+
 
   case 30:
 
@@ -406,11 +410,14 @@ case 28:
 
 
 
+
+
+
   break;
 default:
 
 }
-
+}
 $('#cover_from').text("01." + month_ + "." + year_)
 $('#cover_to').text(days_count + "." + month_ + "." + year_)
 $('#cover_today').text(Date.today().toString("dd.MM.yyyy"))

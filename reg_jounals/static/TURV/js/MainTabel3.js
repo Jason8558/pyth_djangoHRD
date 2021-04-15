@@ -6659,6 +6659,10 @@ weekends = s24/8
 if ($('#manover').prop('checked') == false){
 s4 = h_work - parseFloat($('#n_time').text()) - s3}
 
+if (s4 < 0) {
+  s4 = 0
+}
+
 $('#weekends').val(weekends)
 $('#id_sHours1').val(s1)
 $('#id_sHours2').val(s2)

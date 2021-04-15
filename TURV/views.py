@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponse
+from django.db.models import Sum, F, Case, When
 from .models import *
 from .forms import *
 from django.shortcuts import redirect
@@ -7,6 +8,7 @@ from django.core.paginator import Paginator
 import xlwt
 from mimetypes import MimeTypes
 import os
+import datetime
 
 
 def tabels(request):
@@ -14,6 +16,8 @@ def tabels(request):
         sq_period_month = request.GET.get('search_month', '')
         sq_period_year = request.GET.get('search_year', '')
         sq_dep = request.GET.get('t_tab_dep_search', '')
+        sq_check = request.GET.get('tab_supcheck','')
+
         user_ = request.user
         u_group = user_.groups.all()
         is_ro = 0
@@ -22,58 +26,73 @@ def tabels(request):
             if (group.name == 'Сотрудник СУП') or (group.name == 'Сотрудник РО'):
                 granted = 1
 
-
-        if (sq_period_month) and (sq_period_year) and (sq_dep):
+        if (sq_period_month) and (sq_period_year) and (sq_check):
 
             if (request.user.is_superuser) or (granted == 1):
                 deps = Department.objects.all()
-                if (sq_period_month == 'all'):
-                    if (sq_dep == 'none'):
-                        tabels = Tabel.objects.filter(year=sq_period_year).order_by('-id')
-                    else:
-                        tabels = Tabel.objects.filter(year=sq_period_year).filter(department_id=sq_dep).filter(department_id=sq_dep).order_by('-id')
-                else:
-                    if (sq_dep == 'none'):
-                        tabels = Tabel.objects.filter(year=sq_period_year).filter(month=sq_period_month).order_by('-id')
-                    else:
-                        tabels = Tabel.objects.filter(year=sq_period_year).filter(month=sq_period_month).filter(department_id=sq_dep).order_by('-id')
-
-            else:
-
-                deps = Department.objects.all().filter(user=user_.id)
-                allow_departments = []
-                for dep in deps:
-                    allow_departments.append(dep.id)
-                if (sq_period_month == 'all'):
-                    if (sq_dep == 'none'):
-                        tabels = Tabel.objects.filter(year=sq_period_year).order_by('-id')
-                    else:
-                        tabels = Tabel.objects.filter(year=sq_period_year).filter(department_id=sq_dep).filter(department_id=sq_dep).order_by('-id')
-                else:
-                    if (sq_dep == 'none'):
-                        tabels = Tabel.objects.filter(year=sq_period_year).filter(month=sq_period_month).order_by('-id')
-                    else:
-                        tabels = Tabel.objects.filter(year=sq_period_year).filter(month=sq_period_month).filter(department_id=sq_dep).order_by('-id')
-
+                tabels = Tabel.objects.filter(year=sq_period_year).filter(month=sq_period_month).filter(sup_check=1).order_by('-id')
         else:
 
-            if (request.user.is_superuser) or (granted == 1):
-                deps = Department.objects.all()
-                tabels = Tabel.objects.all().order_by('-id')
+
+
+            if (sq_period_month) and (sq_period_year) and (sq_dep):
+
+                if (request.user.is_superuser) or (granted == 1):
+                    deps = Department.objects.all()
+                    if (sq_period_month == 'all'):
+                        if (sq_dep == 'none'):
+                            tabels = Tabel.objects.filter(year=sq_period_year).order_by('-id')
+                        else:
+                            tabels = Tabel.objects.filter(year=sq_period_year).filter(department_id=sq_dep).filter(department_id=sq_dep).order_by('-id')
+                    else:
+                        if (sq_dep == 'none'):
+                            tabels = Tabel.objects.filter(year=sq_period_year).filter(month=sq_period_month).order_by('-id')
+                        else:
+                            tabels = Tabel.objects.filter(year=sq_period_year).filter(month=sq_period_month).filter(department_id=sq_dep).order_by('-id')
+
+                else:
+
+                    deps = Department.objects.all().filter(user=user_.id)
+                    allow_departments = []
+                    for dep in deps:
+                        allow_departments.append(dep.id)
+                    if (sq_period_month == 'all'):
+                        if (sq_dep == 'none'):
+                            tabels = Tabel.objects.filter(year=sq_period_year).order_by('-id')
+                        else:
+                            tabels = Tabel.objects.filter(year=sq_period_year).filter(department_id=sq_dep).filter(department_id=sq_dep).order_by('-id')
+                    else:
+                        if (sq_dep == 'none'):
+                            tabels = Tabel.objects.filter(year=sq_period_year).filter(month=sq_period_month).order_by('-id')
+                        else:
+                            tabels = Tabel.objects.filter(year=sq_period_year).filter(month=sq_period_month).filter(department_id=sq_dep).order_by('-id')
+
             else:
 
-                deps = Department.objects.all().filter(user=user_.id)
-                allow_departments = []
-                for dep in deps:
-                    allow_departments.append(dep.id)
 
-                tabels = Tabel.objects.all().filter(department_id__in=allow_departments).order_by('-id')
+                if (request.user.is_superuser) or (granted == 1):
+                    deps = Department.objects.all()
+                    tabels = Tabel.objects.all().order_by('-id')
+                else:
+
+                    deps = Department.objects.all().filter(user=user_.id)
+                    allow_departments = []
+                    for dep in deps:
+                        allow_departments.append(dep.id)
+
+                    tabels = Tabel.objects.all().filter(department_id__in=allow_departments).order_by('-id')
         p_tabels = Paginator(tabels, 100)
         page_number = request.GET.get('page', 1)
         page = p_tabels.get_page(page_number)
         count = len(tabels)
-        print(granted)
-        return render(request, 'TURV/tabels.html', context={'tabels':page, 'count':count, 'deps':deps, 'granted':granted, 'ro':is_ro})
+        now = datetime.datetime.now()
+        if len(str(now.month)) == 1:
+            month_ = str(0) + str(now.month)
+        else:
+            month_ = now.month_
+        year_ = now.year
+
+        return render(request, 'TURV/tabels.html', context={'tabels':page, 'count':count, 'deps':deps, 'granted':granted, 'ro':is_ro, 'month_':month_, "year_":year_})
     else:
         return redirect('/accounts/login/')
 
@@ -95,11 +114,30 @@ def tabel_create(request, id):
             b_tabel = Tabel.objects.get(id=id)
             tabel_form = Tabel_form(instance=b_tabel)
             items = TabelItem.objects.filter(bound_tabel=id).order_by('employer')
+            hours = items.aggregate(sum_of_hours=Sum("w_hours"), sum_of_lhours=Sum("sHours19"), sum_of_days=Sum("w_days"),  s_over=Sum('sHours4'), s_night=Sum("sHours2"), s_vacwork=Sum("sHours3"),     s_vac=Sum("v_days"), s_weekends=Sum("sHours24")/8)
+            s_hours = hours['sum_of_hours']
+            s_lhours = hours['sum_of_lhours']
+            s_days = hours['sum_of_days']
+            s_over = hours['s_over']
+            s_night = hours['s_night']
+            s_vacwork = hours['s_vacwork']
+            s_vac = hours['s_vac']
+            s_weekends = hours['s_weekends']
+
             count = len(items)
             t_month = b_tabel.month
             t_year = b_tabel.year
             t_dep = b_tabel.department
-            return render(request, 'TURV/create_tabel.html', context={'form':tabel_form, 'items':items, 'month':t_month, 'year':t_year, 'count':count, 'b_tabel':b_tabel, 'granted':granted, 'ro':is_ro})
+            return render(request, 'TURV/create_tabel.html', context={
+            's_hours':s_hours,
+'s_lhours':s_lhours,
+'s_days':s_days,
+'s_over':s_over,
+'s_night':s_night,
+'s_vacwork':s_vacwork,
+'s_vac':s_vac,
+'s_weekends':s_weekends,
+            'hours':hours,'form':tabel_form, 'items':items, 'month':t_month, 'year':t_year, 'count':count, 'b_tabel':b_tabel, 'granted':granted, 'ro':is_ro})
         else:
             b_tabel = Tabel.objects.get(id=id)
             bound_form = Tabel_form(request.POST, instance=b_tabel)
@@ -344,7 +382,6 @@ def upd_employer(request, id):
     else:
         return render(request, 'reg_jounals/no_auth.html')
 
-
 def del_employer(request, id):
     if request.user.is_authenticated:
         emp = Employers.objects.get(id=id)
@@ -392,7 +429,6 @@ def upd_position(request, id):
     else:
         return render(request, 'reg_jounals/no_auth.html')
 
-
 def unload(request):
 
     month_ = request.GET.get('uload_month','')
@@ -404,7 +440,7 @@ def unload(request):
         deps = Department.objects.all().order_by('id')
 
         for dep in deps:
-            items = TabelItem.objects.filter(employer__department_id=dep.id).filter(month=month_).filter(year=year_)
+            items = TabelItem.objects.filter(employer__department_id=dep.id).filter(month=month_).filter(year=year_).order_by('employer')
             if items:
                 ws = wb.add_sheet(dep.name)
 
@@ -695,6 +731,22 @@ def unload(request):
         return render(request, 'TURV/unload.html')
 
 
+# def tabel_copy(request):
+#     if request.user.is_authenticated:
+#         tabel = Tabel.objects.get(id=22)
+#         old_tabel = tabel.id
+#         tabel.id = None
+#         tabel.month = '04'
+#         tabel.save()
+#         new_tabel = Tabel.objects.latest('id')
+#         print(old_tabel)
+#         items = TabelItem.objects.filter(bound_tabel=old_tabel)
+#         for item in items:
+#             item.id = None
+#             item.bound_tabel = new_tabel.id
+#             item.save()
+#
+#     return redirect('/turv/')
 
 
 
