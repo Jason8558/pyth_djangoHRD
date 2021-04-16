@@ -18,16 +18,16 @@
 
       </ul>
       </li>
-
+{%if request.user.is_superuser %}
       <li>Сервис <span class='angle-down'>v</span>
       <ul class="service">
-          {%if request.user.is_superuser %} <li><a  href="{% url 'unload'%}"> > Выгрузить для 1С</a></li>
+           <li><a  href="{% url 'unload'%}"> > Выгрузить для 1С</a></li>
                                               <li><a href="{% url 'del_tabel_url'%}"> > Удалить помеченные на удаление</a></li>
-          {%endif%}
+
 
       </ul>
       </li>
-
+  {%endif%}
       <li>Вид <span class='angle-down'>v</span>
       <ul class="view">
       <li> <a  href="?this_month=1"> > Показать только за текущий месяц</a></li>

@@ -12,6 +12,20 @@ import datetime
 from itertools import groupby
 from django.contrib.auth.models import *
 
+def access_check(request):
+    # Проверка на права пользователя
+    user_ = request.user
+    u_group = user_.groups.all()
+
+    granted = False
+    for group in u_group:
+        if (group.name == 'Сотрудник СУП') or (group.name == 'Сотрудник РО'):
+            granted = True
+
+    if request.user.is_superuser:
+        granted = True
+    return granted
+
 def tabels(request):
  #Проверка на аутентификацию
     if request.user.is_authenticated:
@@ -25,7 +39,6 @@ def tabels(request):
         sq_user = request.GET.get('tab_user','')
         sq_this_month = request.GET.get('this_month','')
         sq_check_this_month = request.GET.get('chk_this_month','')
-        print(sq_this_month)
         user_ = request.user
         u_group = user_.groups.all()
         is_ro = 0
@@ -42,12 +55,12 @@ def tabels(request):
         # Проверка на права пользователя
         for group in u_group:
             if (group.name == 'Сотрудник СУП') or (group.name == 'Сотрудник РО'):
-                granted = 1
+                granted = True
 
         if request.user.is_superuser:
-            granted = 1
+            granted = True
 
-        if (granted == 0):
+        if (granted == False):
             # если пользователь только с правами на определенные подразделения, собираем их тут:
             deps = Department.objects.all().filter(user=user_.id)
             allow_departments = []
@@ -284,13 +297,6 @@ def tabel_del_check(request, id):
             tabel.save()
     return redirect('/turv/create/' + str(id))
 
-# def tabel_sup_uncheck(request, id):
-#         if request.user.is_authenticated:
-#                 tabel = Tabel.objects.get(id=id)
-#                 tabel.sup_check = False
-#                 tabel.save()
-#         return redirect('/turv/create/' + str(id))
-
 def tabel_delitem(request, id):
     if request.user.is_authenticated:
         item = TabelItem.objects.get(id__iexact=id)
@@ -301,70 +307,69 @@ def tabel_delitem(request, id):
 
 def employers_list(request):
     if request.user.is_authenticated:
-        search_query_emp = request.GET.get('t_emp_search', '')
-        search_query_dep = request.GET.get('t_emp_dep_search', '')
-        search_query_shift = request.GET.get('emp_shift', '')
-        print(search_query_dep)
+        # Проверка пользователя и прав
         user_ = request.user
-        u_group = user_.groups.all()
-        granted = False
-        for group in u_group:
-            if (group.name == 'Сотрудник СУП') or (group.name == 'Сотрудник РО'):
-                granted = True
+        granted = access_check(request)
 
+        # Переменные
+        sq_emp = request.GET.get('emp', '')
+        sq_dep = request.GET.get('emp_dep', '')
+        sq_shift = request.GET.get('emp_shift', '')
 
-        if search_query_shift == '1':
-            if (request.user.is_superuser) or (granted == True):
-                employers = Employers.objects.filter(shift_personnel=True)
-                deps = Department.objects.all()
+        if (granted == False):
+            deps = Department.objects.all().filter(user=user_.id)
+            allow_departments = []
+            for dep in deps:
+                allow_departments.append(dep.id)
+            # Алгоритм поиска
+            if (sq_emp):
+                employers = Employers.objects.all().filter(department_id__in=allow_departments).filter(fullname__icontains=sq_emp)
             else:
-                deps = Department.objects.all().filter(user=user_.id)
-                allow_departments = []
-                for dep in deps:
-                    allow_departments.append(dep.id)
-                employers = Employers.objects.all().filter(shift_personnel=True)
+                if (sq_dep) and (sq_shift):
+                    if (sq_shift == 1):
+                        employers = Employers.objects.all().filter(department_id=sq_dep).filter(shift_personnel=True)
+                    else:
+
+                        employers = Employers.objects.all().filter(department_id=sq_dep).filter(shift_personnel=False)
+                else:
+                    if (sq_dep):
+                        employers = Employers.objects.all().filter(department_id=sq_dep)
+                    else:
+                        if (sq_shift == '1'):
+                                employers = Employers.objects.all().filter(department_id__in=allow_departments).filter(shift_personnel=True)
+                        else:
+                            if (sq_shift == '2'):
+                                employers = Employers.objects.all().filter(department_id__in=allow_departments).filter(shift_personnel=False)
+                            else:
+                                employers = Employers.objects.all().filter(department_id__in=allow_departments)
+
         else:
-            if search_query_shift == '2':
-                if (request.user.is_superuser) or (granted == True):
-                    employers = Employers.objects.filter(shift_personnel=False)
-                    deps = Department.objects.all()
-                else:
-                    deps = Department.objects.all().filter(user=user_.id)
-                    allow_departments = []
-                    for dep in deps:
-                        allow_departments.append(dep.id)
-                    employers = Employers.objects.all().filter(shift_personnel=False)
+            deps = Department.objects.all()
+            # Алгоритм поиска
+            if (sq_emp):
+                employers = Employers.objects.all().filter(fullname__icontains=sq_emp)
             else:
-
-                if search_query_emp or search_query_dep:
-                    if (request.user.is_superuser) or (granted == True):
-                        if search_query_dep == '':
-                            employers = Employers.objects.filter(fullname__icontains=search_query_emp)
-                        else:
-                            employers = Employers.objects.filter(fullname__icontains=search_query_emp).filter(department_id=search_query_dep)
-                        deps = Department.objects.all()
-                        print(employers)
+                if (sq_dep) and (sq_shift):
+                    if (sq_shift == 1):
+                        employers = Employers.objects.all().filter(department_id=sq_dep).filter(shift_personnel=True)
                     else:
-                        deps = Department.objects.all().filter(user=user_.id)
-                        allow_departments = []
-                        for dep in deps:
-                            allow_departments.append(dep.id)
 
-                        if search_query_dep == '':
-                            employers = Employers.objects.filter(fullname__icontains=search_query_emp)
-                        else:
-                            employers = Employers.objects.filter(fullname__icontains=search_query_emp).filter(department_id=search_query_dep)
+                        employers = Employers.objects.all().filter(department_id=sq_dep).filter(shift_personnel=False)
                 else:
-                    if (request.user.is_superuser) or (granted == True):
-                        employers = Employers.objects.all()
-                        deps = Department.objects.all()
+                    if (sq_dep):
+                        employers = Employers.objects.all().filter(department_id=sq_dep)
                     else:
-                        deps = Department.objects.all().filter(user=user_.id)
-                        allow_departments = []
-                        for dep in deps:
-                            allow_departments.append(dep.id)
+                        if (sq_shift == '1'):
+                                employers = Employers.objects.all().filter(shift_personnel=True)
+                        else:
+                            if (sq_shift == '2'):
+                                employers = Employers.objects.all().filter(shift_personnel=False)
+                            else:
+                                employers = Employers.objects.all()
 
-                            employers = Employers.objects.all().filter(department_id__in=allow_departments)
+
+
+
 
         count = len(employers)
         return render(request, 'TURV/employers.html', context={'employers':employers, 'count':count, 'deps':deps})
@@ -768,26 +773,6 @@ def unload(request):
 
     else:
         return render(request, 'TURV/unload.html')
-
-
-# def tabel_copy(request):
-#     if request.user.is_authenticated:
-#         tabel = Tabel.objects.get(id=22)
-#         old_tabel = tabel.id
-#         tabel.id = None
-#         tabel.month = '04'
-#         tabel.save()
-#         new_tabel = Tabel.objects.latest('id')
-#         print(old_tabel)
-#         items = TabelItem.objects.filter(bound_tabel=old_tabel)
-#         for item in items:
-#             item.id = None
-#             item.bound_tabel = new_tabel.id
-#             item.save()
-#
-#     return redirect('/turv/')
-
-
 
 def upd_norma_test(request):
     emps = list(Employers.objects.filter(department_id=2))
