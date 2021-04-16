@@ -30,9 +30,10 @@
 
       <li>Вид <span class='angle-down'>v</span>
       <ul class="view">
-      <li> <a  href="?search_month={{month_}}&search_year={{year_}}&t_tab_dep_search=none"> > Показать только за текущий месяц</a></li>
-      <li><a  href="?search_month={{month_}}&search_year={{year_}}&t_tab_dep_search=none&tab_supcheck=1"> > Показать проверенные за текущий месяц</a></li>
-
+      <li> <a  href="?this_month=1"> > Показать только за текущий месяц</a></li>
+      {% if granted == 1%}
+      <li><a  href="?chk_this_month=1"> > Показать проверенные за текущий месяц</a></li>
+      {%endif%}
       </ul>
       </li>
     </ul>
@@ -61,7 +62,7 @@ function Supchecked() {
   <p>ПОИСК</p>
   <label for="search_month">Месяц:</label>
   <select class="" name="search_month">
-    <option value="all">Весь год</option>
+    <option value="">Весь год</option>
     <option value="01">Январь</option>
     <option value="02">Февраль</option>
     <option value="03">Март</option>
@@ -84,9 +85,8 @@ function Supchecked() {
       <option value="{{dep.id}}">{{dep}}</option>
       {% endfor%}
   </select>
-  <label for="tab_supcheck">Только проверенные:</label>
-  <input type="checkbox" onclick="Supchecked();" id="supcheck" name="tab_supcheck" value="0">
-  {% if granted == 1 or user.is_superuser%}
+
+  {% if granted == 1%}
   <select class=""  name="tab_user">
     <option value="">Поиск по табельщику</option>
       {%for u in tab_users %}
