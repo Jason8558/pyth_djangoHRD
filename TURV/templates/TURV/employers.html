@@ -6,13 +6,13 @@
 
 {% block body %}
 
-<form style="margin-top: 20px; padding-left:30px;" action="{% url 'emp_list'%}" >
+<form  class="f_search"  action="{% url 'emp_list'%}" >
 <p><u>ПОИСК: </u></p>
-  <input type="text" name="t_emp_search" placeholder="Поиск по ФИО..." value="">
+  <input type="text" name="emp" placeholder="Поиск по ФИО..." value="">
 
 
-<label for="t_emp_dep_search">Подразделение: </label>
-  <select class="" name="t_emp_dep_search">
+<label for="emp_dep_search">Подразделение: </label>
+  <select class="" name="emp_dep">
     <option value="">---</option>
     {% for dep in deps%}
       <option value="{{dep.id}}">{{dep}}</option>

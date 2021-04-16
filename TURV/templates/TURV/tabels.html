@@ -14,25 +14,26 @@
       </li>
       <li>Информация <span class='angle-down'>v</span>
       <ul class="info">
-        <li><a target="_blank" href="https://docs.google.com/document/d/1Z439AZgEkRSZErC1wrBpQE9ajGD-OPZIZOkNI08mPSg/edit?usp=sharing">Инструкция пользователя</a></li>
+        <li><a target="_blank" href="https://docs.google.com/document/d/1Z439AZgEkRSZErC1wrBpQE9ajGD-OPZIZOkNI08mPSg/edit?usp=sharing"> > Инструкция пользователя</a></li>
 
       </ul>
       </li>
-
+{%if request.user.is_superuser %}
       <li>Сервис <span class='angle-down'>v</span>
       <ul class="service">
-          {%if request.user.is_superuser %} <li><a  href="{% url 'unload'%}">Выгрузить для 1С</a></li>
-                                              <li><a href="#">Удалить помеченные на удаление</a></li>
-          {%endif%}
+           <li><a  href="{% url 'unload'%}"> > Выгрузить для 1С</a></li>
+                                              <li><a href="{% url 'del_tabel_url'%}"> > Удалить помеченные на удаление</a></li>
+
 
       </ul>
       </li>
-
-      <!-- <li>Вид <span class='angle-down'>v</span>
+  {%endif%}
+      <li>Вид <span class='angle-down'>v</span>
       <ul class="view">
-      <li> <a  href="?search_month={{month_}}&search_year={{year_}}&t_tab_dep_search=none">Показать только за текущий месяц</a></li>
-      <li><a  href="?search_month={{month_}}&search_year={{year_}}&t_tab_dep_search=none&tab_supcheck=1">Показать проверенные за текущий месяц</a></li>
-
+      <li> <a  href="?this_month=1"> > Показать только за текущий месяц</a></li>
+      {% if granted == 1%}
+      <li><a  href="?chk_this_month=1"> > Показать проверенные за текущий месяц</a></li>
+      {%endif%}
       </ul>
       </li> -->
     </ul>
@@ -61,7 +62,7 @@ function Supchecked() {
   <p>ПОИСК</p>
   <label for="search_month">Месяц:</label>
   <select class="" name="search_month">
-    <option value="all">Весь год</option>
+    <option value="">Весь год</option>
     <option value="01">Январь</option>
     <option value="02">Февраль</option>
     <option value="03">Март</option>
@@ -84,14 +85,21 @@ function Supchecked() {
       <option value="{{dep.id}}">{{dep}}</option>
       {% endfor%}
   </select>
-  <label for="tab_supcheck">Только проверенные:</label>
-  <input type="checkbox" onclick="Supchecked();" id="supcheck" name="tab_supcheck" value="0">
+
+  {% if granted == 1%}
+  <select class=""  name="tab_user">
+    <option value="">Поиск по табельщику</option>
+      {%for u in tab_users %}
+      <option value="{{u.first_name}}">{{u.first_name}}</option>
+      {%endfor%}
+  </select>
+{%endif%}
 <input type="submit" name="" class="btn btn-dark" value="Найти">
 
-<p style="border-bottom: none;" ><a class="btn btn-outline-danger" href="/turv">Сбросить поиск</a></p>
+<a class="btn btn-outline-danger" href="/turv">Сбросить поиск</a>
 </form>
 
-<div class="container">
+<div class="container main">
   <a class="btn btn-success btn-add"  href="{% url 'new_tabel_url' %}"  >+ Новый табель</a>
 
 

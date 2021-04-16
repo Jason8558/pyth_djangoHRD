@@ -9,82 +9,42 @@ import xlwt
 from mimetypes import MimeTypes
 import os
 import datetime
+from itertools import groupby
+from django.contrib.auth.models import *
 
+def access_check(request):
+    # Проверка на права пользователя
+    user_ = request.user
+    u_group = user_.groups.all()
+
+    granted = False
+    for group in u_group:
+        if (group.name == 'Сотрудник СУП') or (group.name == 'Сотрудник РО'):
+            granted = True
+
+    if request.user.is_superuser:
+        granted = True
+    return granted
 
 def tabels(request):
+ #Проверка на аутентификацию
     if request.user.is_authenticated:
+        # Переменные
+        group = Group.objects.get(name__icontains='Табельщик')
+        tab_users = group.user_set.all()
         sq_period_month = request.GET.get('search_month', '')
         sq_period_year = request.GET.get('search_year', '')
         sq_dep = request.GET.get('t_tab_dep_search', '')
         sq_check = request.GET.get('tab_supcheck','')
-
+        sq_user = request.GET.get('tab_user','')
+        sq_this_month = request.GET.get('this_month','')
+        sq_check_this_month = request.GET.get('chk_this_month','')
         user_ = request.user
         u_group = user_.groups.all()
         is_ro = 0
         granted = 0
-        for group in u_group:
-            if (group.name == 'Сотрудник СУП') or (group.name == 'Сотрудник РО'):
-                granted = 1
 
-        if (sq_period_month) and (sq_period_year) and (sq_check):
-
-            if (request.user.is_superuser) or (granted == 1):
-                deps = Department.objects.all()
-                tabels = Tabel.objects.filter(year=sq_period_year).filter(month=sq_period_month).filter(sup_check=1).order_by('-id')
-        else:
-
-
-
-            if (sq_period_month) and (sq_period_year) and (sq_dep):
-
-                if (request.user.is_superuser) or (granted == 1):
-                    deps = Department.objects.all()
-                    if (sq_period_month == 'all'):
-                        if (sq_dep == 'none'):
-                            tabels = Tabel.objects.filter(year=sq_period_year).order_by('-id')
-                        else:
-                            tabels = Tabel.objects.filter(year=sq_period_year).filter(department_id=sq_dep).filter(department_id=sq_dep).order_by('-id')
-                    else:
-                        if (sq_dep == 'none'):
-                            tabels = Tabel.objects.filter(year=sq_period_year).filter(month=sq_period_month).order_by('-id')
-                        else:
-                            tabels = Tabel.objects.filter(year=sq_period_year).filter(month=sq_period_month).filter(department_id=sq_dep).order_by('-id')
-
-                else:
-
-                    deps = Department.objects.all().filter(user=user_.id)
-                    allow_departments = []
-                    for dep in deps:
-                        allow_departments.append(dep.id)
-                    if (sq_period_month == 'all'):
-                        if (sq_dep == 'none'):
-                            tabels = Tabel.objects.filter(year=sq_period_year).order_by('-id')
-                        else:
-                            tabels = Tabel.objects.filter(year=sq_period_year).filter(department_id=sq_dep).filter(department_id=sq_dep).order_by('-id')
-                    else:
-                        if (sq_dep == 'none'):
-                            tabels = Tabel.objects.filter(year=sq_period_year).filter(month=sq_period_month).order_by('-id')
-                        else:
-                            tabels = Tabel.objects.filter(year=sq_period_year).filter(month=sq_period_month).filter(department_id=sq_dep).order_by('-id')
-
-            else:
-
-
-                if (request.user.is_superuser) or (granted == 1):
-                    deps = Department.objects.all()
-                    tabels = Tabel.objects.all().order_by('-id')
-                else:
-
-                    deps = Department.objects.all().filter(user=user_.id)
-                    allow_departments = []
-                    for dep in deps:
-                        allow_departments.append(dep.id)
-
-                    tabels = Tabel.objects.all().filter(department_id__in=allow_departments).order_by('-id')
-        p_tabels = Paginator(tabels, 100)
-        page_number = request.GET.get('page', 1)
-        page = p_tabels.get_page(page_number)
-        count = len(tabels)
+        # Определение текущего месяца и года
         now = datetime.datetime.now()
         if len(str(now.month)) == 1:
             month_ = str(0) + str(now.month)
@@ -92,12 +52,79 @@ def tabels(request):
             month_ = now.month_
         year_ = now.year
 
-        return render(request, 'TURV/tabels.html', context={'tabels':page, 'count':count, 'deps':deps, 'granted':granted, 'ro':is_ro, 'month_':month_, "year_":year_})
+        # Проверка на права пользователя
+        for group in u_group:
+            if (group.name == 'Сотрудник СУП') or (group.name == 'Сотрудник РО'):
+                granted = True
+
+        if request.user.is_superuser:
+            granted = True
+
+        if (granted == False):
+            # если пользователь только с правами на определенные подразделения, собираем их тут:
+            deps = Department.objects.all().filter(user=user_.id)
+            allow_departments = []
+            for dep in deps:
+                allow_departments.append(dep.id)
+            print(allow_departments)
+
+            # Алгоритм поиска
+            if (sq_period_month) and (sq_period_year):
+                tabels = Tabel.objects.all().filter(department_id__in=allow_departments).filter(year=sq_period_year).filter(month=sq_period_month)
+            else:
+                if (sq_period_month):
+                    tabels = Tabel.objects.all().filter(department_id__in=allow_departments).filter(month=sq_period_month)
+                else:
+                    if (sq_period_year):
+                        tabels = Tabel.objects.all().filter(department_id__in=allow_departments).filter(year=sq_period_year)
+                    else:
+                        if (sq_this_month):
+                            tabels = Tabel.objects.all().filter(department_id__in=allow_departments).filter(year=year_).filter(month=month_)
+                        else:
+                            tabels = Tabel.objects.all().filter(department_id__in=allow_departments).order_by('-id')
+
+
+        else:
+            # если у пользователя полные права, то выдаем все
+            deps = Department.objects.all()
+            # Алгоритм поиска
+            if (sq_period_month) and (sq_period_year) and (sq_dep):
+                tabels = Tabel.objects.all().filter(year=sq_period_year).filter(month=sq_period_month).filter(department_id=sq_dep)
+            else:
+                if (sq_period_month):
+                    tabels = Tabel.objects.all().filter(month=sq_period_month)
+                else:
+                    if (sq_period_year):
+                        tabels = Tabel.objects.all().filter(year=sq_period_year)
+                    else:
+                        if (sq_dep):
+                            tabels = Tabel.objects.all().filter(department_id=sq_dep)
+                        else:
+                            if (sq_this_month):
+                                tabels = Tabel.objects.all().filter(year=year_).filter(month=month_)
+                            else:
+                                if (sq_check_this_month):
+                                    tabels = Tabel.objects.all().filter(year=year_).filter(month=month_).filter(sup_check= True)
+                                else:
+                                    tabels = Tabel.objects.all().order_by('-id')
+
+
+
+        p_tabels = Paginator(tabels, 100)
+        page_number = request.GET.get('page', 1)
+        page = p_tabels.get_page(page_number)
+        count = len(tabels)
+
+
+
+        return render(request, 'TURV/tabels.html', context={'tab_users':tab_users, 'tabels':page, 'count':count, 'deps':deps, 'granted':granted, 'ro':is_ro, 'month_':month_, "year_":year_})
     else:
         return redirect('/accounts/login/')
 
 def tabel_create(request, id):
     if request.user.is_authenticated:
+        sq_employer = request.GET.get('its_employer','')
+        sq_position = request.GET.get('its_position','')
         u_group = request.user.groups.all()
         granted = 0
         is_ro = 0
@@ -111,9 +138,22 @@ def tabel_create(request, id):
                     is_ro = 1
         print(is_ro)
         if request.method == "GET":
+
             b_tabel = Tabel.objects.get(id=id)
+            items = TabelItem.objects.filter(bound_tabel=id).order_by('employer__position__name').values('employer__position__name')
+            positions = []
+            for item in list(items):
+                positions.append(item['employer__position__name'])
+            positions = [el for el, _ in groupby(positions)]
+            print(positions)
             tabel_form = Tabel_form(instance=b_tabel)
-            items = TabelItem.objects.filter(bound_tabel=id).order_by('employer')
+            if sq_employer:
+                items = TabelItem.objects.filter(bound_tabel=id).filter(employer__fullname__icontains=sq_employer).order_by('employer')
+            else:
+                if sq_position:
+                    items = TabelItem.objects.filter(bound_tabel=id).filter(employer__position__name=sq_position).order_by('employer')
+                else:
+                    items = TabelItem.objects.filter(bound_tabel=id).order_by('employer')
             hours = items.aggregate(sum_of_hours=Sum("w_hours"), sum_of_lhours=Sum("sHours19"), sum_of_days=Sum("w_days"),  s_over=Sum('sHours4'), s_night=Sum("sHours2"), s_vacwork=Sum("sHours3"),     s_vac=Sum("v_days"), s_weekends=Sum("sHours24")/8)
             s_hours = hours['sum_of_hours']
             s_lhours = hours['sum_of_lhours']
@@ -128,7 +168,7 @@ def tabel_create(request, id):
             t_month = b_tabel.month
             t_year = b_tabel.year
             t_dep = b_tabel.department
-            return render(request, 'TURV/create_tabel.html', context={
+            return render(request, 'TURV/create_tabel.html', context={'positions':positions,
             's_hours':s_hours,
 's_lhours':s_lhours,
 's_days':s_days,
@@ -174,6 +214,18 @@ def new_tabel(request):
             return render(request, 'TURV/new_tabel.html', context={'form':tabel_form, 'deps':deps})
     else:
         return render(request, 'reg_jounals/no_auth.html')
+
+def del_tabel(request):
+    if request.user.is_authenticated:
+        for_delete = Tabel.objects.filter(del_check = True)
+        for tabel in for_delete:
+            print(tabel)
+            items_for_delete = TabelItem.objects.filter(bound_tabel=tabel.id)
+            for item in items_for_delete:
+                print(item)
+                item.delete()
+            tabel.delete()
+    return redirect('/turv')
 
 def tabel_additem(request, id):
     if request.user.is_authenticated:
@@ -245,13 +297,6 @@ def tabel_del_check(request, id):
             tabel.save()
     return redirect('/turv/create/' + str(id))
 
-# def tabel_sup_uncheck(request, id):
-#         if request.user.is_authenticated:
-#                 tabel = Tabel.objects.get(id=id)
-#                 tabel.sup_check = False
-#                 tabel.save()
-#         return redirect('/turv/create/' + str(id))
-
 def tabel_delitem(request, id):
     if request.user.is_authenticated:
         item = TabelItem.objects.get(id__iexact=id)
@@ -262,70 +307,69 @@ def tabel_delitem(request, id):
 
 def employers_list(request):
     if request.user.is_authenticated:
-        search_query_emp = request.GET.get('t_emp_search', '')
-        search_query_dep = request.GET.get('t_emp_dep_search', '')
-        search_query_shift = request.GET.get('emp_shift', '')
-        print(search_query_dep)
+        # Проверка пользователя и прав
         user_ = request.user
-        u_group = user_.groups.all()
-        granted = False
-        for group in u_group:
-            if (group.name == 'Сотрудник СУП') or (group.name == 'Сотрудник РО'):
-                granted = True
+        granted = access_check(request)
 
+        # Переменные
+        sq_emp = request.GET.get('emp', '')
+        sq_dep = request.GET.get('emp_dep', '')
+        sq_shift = request.GET.get('emp_shift', '')
 
-        if search_query_shift == '1':
-            if (request.user.is_superuser) or (granted == True):
-                employers = Employers.objects.filter(shift_personnel=True)
-                deps = Department.objects.all()
+        if (granted == False):
+            deps = Department.objects.all().filter(user=user_.id)
+            allow_departments = []
+            for dep in deps:
+                allow_departments.append(dep.id)
+            # Алгоритм поиска
+            if (sq_emp):
+                employers = Employers.objects.all().filter(department_id__in=allow_departments).filter(fullname__icontains=sq_emp)
             else:
-                deps = Department.objects.all().filter(user=user_.id)
-                allow_departments = []
-                for dep in deps:
-                    allow_departments.append(dep.id)
-                employers = Employers.objects.all().filter(shift_personnel=True)
+                if (sq_dep) and (sq_shift):
+                    if (sq_shift == 1):
+                        employers = Employers.objects.all().filter(department_id=sq_dep).filter(shift_personnel=True)
+                    else:
+
+                        employers = Employers.objects.all().filter(department_id=sq_dep).filter(shift_personnel=False)
+                else:
+                    if (sq_dep):
+                        employers = Employers.objects.all().filter(department_id=sq_dep)
+                    else:
+                        if (sq_shift == '1'):
+                                employers = Employers.objects.all().filter(department_id__in=allow_departments).filter(shift_personnel=True)
+                        else:
+                            if (sq_shift == '2'):
+                                employers = Employers.objects.all().filter(department_id__in=allow_departments).filter(shift_personnel=False)
+                            else:
+                                employers = Employers.objects.all().filter(department_id__in=allow_departments)
+
         else:
-            if search_query_shift == '2':
-                if (request.user.is_superuser) or (granted == True):
-                    employers = Employers.objects.filter(shift_personnel=False)
-                    deps = Department.objects.all()
-                else:
-                    deps = Department.objects.all().filter(user=user_.id)
-                    allow_departments = []
-                    for dep in deps:
-                        allow_departments.append(dep.id)
-                    employers = Employers.objects.all().filter(shift_personnel=False)
+            deps = Department.objects.all()
+            # Алгоритм поиска
+            if (sq_emp):
+                employers = Employers.objects.all().filter(fullname__icontains=sq_emp)
             else:
-
-                if search_query_emp or search_query_dep:
-                    if (request.user.is_superuser) or (granted == True):
-                        if search_query_dep == '':
-                            employers = Employers.objects.filter(fullname__icontains=search_query_emp)
-                        else:
-                            employers = Employers.objects.filter(fullname__icontains=search_query_emp).filter(department_id=search_query_dep)
-                        deps = Department.objects.all()
-                        print(employers)
+                if (sq_dep) and (sq_shift):
+                    if (sq_shift == 1):
+                        employers = Employers.objects.all().filter(department_id=sq_dep).filter(shift_personnel=True)
                     else:
-                        deps = Department.objects.all().filter(user=user_.id)
-                        allow_departments = []
-                        for dep in deps:
-                            allow_departments.append(dep.id)
 
-                        if search_query_dep == '':
-                            employers = Employers.objects.filter(fullname__icontains=search_query_emp)
-                        else:
-                            employers = Employers.objects.filter(fullname__icontains=search_query_emp).filter(department_id=search_query_dep)
+                        employers = Employers.objects.all().filter(department_id=sq_dep).filter(shift_personnel=False)
                 else:
-                    if (request.user.is_superuser) or (granted == True):
-                        employers = Employers.objects.all()
-                        deps = Department.objects.all()
+                    if (sq_dep):
+                        employers = Employers.objects.all().filter(department_id=sq_dep)
                     else:
-                        deps = Department.objects.all().filter(user=user_.id)
-                        allow_departments = []
-                        for dep in deps:
-                            allow_departments.append(dep.id)
+                        if (sq_shift == '1'):
+                                employers = Employers.objects.all().filter(shift_personnel=True)
+                        else:
+                            if (sq_shift == '2'):
+                                employers = Employers.objects.all().filter(shift_personnel=False)
+                            else:
+                                employers = Employers.objects.all()
 
-                            employers = Employers.objects.all().filter(department_id__in=allow_departments)
+
+
+
 
         count = len(employers)
         return render(request, 'TURV/employers.html', context={'employers':employers, 'count':count, 'deps':deps})
@@ -729,26 +773,6 @@ def unload(request):
 
     else:
         return render(request, 'TURV/unload.html')
-
-
-# def tabel_copy(request):
-#     if request.user.is_authenticated:
-#         tabel = Tabel.objects.get(id=22)
-#         old_tabel = tabel.id
-#         tabel.id = None
-#         tabel.month = '04'
-#         tabel.save()
-#         new_tabel = Tabel.objects.latest('id')
-#         print(old_tabel)
-#         items = TabelItem.objects.filter(bound_tabel=old_tabel)
-#         for item in items:
-#             item.id = None
-#             item.bound_tabel = new_tabel.id
-#             item.save()
-#
-#     return redirect('/turv/')
-
-
 
 def upd_norma_test(request):
     emps = list(Employers.objects.filter(department_id=2))

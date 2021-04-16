@@ -15,6 +15,22 @@
 
 {% block body %}
 
+<form action="" class="f_search intabel print">
+  <p>ПОИСК</p>
+  <input type="text" name="its_employer"  placeholder="поиск по ФИО" value="">
+  <select class="" name="its_position">
+    <option value="">Поиск по должности</option>
+    {% for pos in positions%}
+    <option value="{{pos}}">{{pos}}</option>
+    {%endfor%}
+  </select>
+<input type="submit" name="" class="btn btn-dark" value="Найти">
+
+
+
+<a class="btn btn-outline-danger" href="/turv/create/{{b_tabel.id}}">Сбросить поиск</a>
+</form>
+
 <div class="container tabel_container">
 
   <div class="print-allow hide cover">
@@ -113,12 +129,12 @@
 <div class="sup_check print">
   {% if b_tabel.sup_check %}
     {% if granted == 1%}
-    <a class="btn btn-warning" href="{% url 'checked' id=b_tabel.id%}">Отменить проверку</a>
+    <a class="btn btn-danger" href="{% url 'checked' id=b_tabel.id%}">Отменить проверку</a>
     {%endif%}
     <h4 style="color: green;">✅ Проверен СУП</h4>
   {%else%}
     {% if granted == 1%}
-    <a class="btn btn-warning" href="{% url 'checked' id=b_tabel.id%}">Отметить как проверенный</a>
+    <a class="btn btn-success" href="{% url 'checked' id=b_tabel.id%}">Отметить как проверенный</a>
     {%endif%}
 {%endif%}
 </div>

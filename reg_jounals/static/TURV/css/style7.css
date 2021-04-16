@@ -51,10 +51,21 @@ display: none;
 background: white;
 }
 
-.menu li ul li a {
-text-decoration: none;
-color: black;
+.menu li ul li  {
+padding: 6px;
+font-size: 14pt;
+border-bottom: 1px solid;
 }
+
+.menu li ul li:hover  {
+background: #0d6efd;
+transition: 0.3s;
+/* color: white !important; */
+}
+
+.menu li ul li a {text-decoration: none;color: black;}
+
+.menu li ul li a:hover {color: white;}
 
 .sup_check a, .sup_check h4 {
 width: max-content;
@@ -82,9 +93,11 @@ display: none;
 
 .for-ones:hover {transition: 0.3s;background: white !important;}
 
-
-.container {margin-top: 71px;
+.main {
+  margin-top: 24px !important;
 }
+
+.container {margin-top: 27px;}
 
  .positions {
   width: 50% !important;
@@ -131,9 +144,7 @@ display: none;
 
 
 
-.tabel_container {
-max-width: 1855px !important;
-}
+.tabel_container {max-width: 1855px !important;margin-top: 1px !important;}
 
 .tabel_container form {
   margin-bottom: 17px;
@@ -142,7 +153,7 @@ max-width: 1855px !important;
 .f_search {
   /* margin-top: 21px; */
   /* margin-left: 25px; */
-  width: 831px;
+  width: max-content;
   margin: 7px auto;
   background: #ffffff;
   padding: 6px;
@@ -278,11 +289,13 @@ box-shadow: 0px 0px 8px 0px #000000cc;
 
 .indep {
   float: left;
-  height: 806px;
+  height: 844px;
   overflow-y: scroll;
   background: white;
-  width: 402px;
+  width: max-content;
+  border-radius: 9px;
   display: block;
+  border: 5px solid #0d6efd;
 }
 
 .indep ul {
@@ -320,6 +333,7 @@ box-shadow: 0px 0px 8px 0px #000000cc;
 height: 40px;
 box-shadow: 0px 0px 2px 0px #2b7df7;
 transition: 0.25s;
+font-weight: bold;
 }
 
 
