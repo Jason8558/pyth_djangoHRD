@@ -9,6 +9,15 @@
 <div class="alert alert-danger errors" role="alert">
 
 </div>
+<div class=" hide intabel">
+
+  {% for item in in_tabel %}
+  <li class="intabel_pos">{{item.employer.fullname}}|{{item.employer.id}}</li>
+  {%endfor%}
+</div>
+<div class="container titem">
+
+
 
 <div class="indep">
 
@@ -19,13 +28,8 @@
 </ul>
 </div>
 
-<div class=" hide intabel">
 
-  {% for item in in_tabel %}
-  <li class="intabel_pos">{{item.employer.fullname}}|{{item.employer.id}}</li>
-  {%endfor%}
-</div>
-<div id="tabel_item" class="container tabel_item">
+<div id="tabel_item" class="tabel_item">
 
  <!-- <ul class="in_tabel_list">
    {% for emp in in_tabel %}
@@ -262,6 +266,7 @@
 
 
 </form>
+</div>
 </div>
 </div>
 {%endblock%}
