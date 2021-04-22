@@ -140,8 +140,8 @@ display: none;
   color: blue;
 }
 
-.print-allow {
-  display: none;
+.for-print{
+  display: none !important;
 }
 
 .print-allow-tc {
@@ -543,4 +543,8 @@ margin-right: 10px;
   font-weight: bold;
   color: red;
 
+}
+
+.fio-screen, .pos-screen {
+width: 102px;
 }

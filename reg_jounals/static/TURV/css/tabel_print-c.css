@@ -7,8 +7,9 @@
 
 * {
   margin: 0 !important;
-    font-size: 15pt !important;
+    font-size: 30pt !important;
   box-shadow: none !important;
+  font-weight: bolder !important;
 
 }
 
@@ -102,7 +103,7 @@ width: 200px;
 
   @page {
   	size: A3 landscape;
-zoom: 60%;
+
 }
 
 

@@ -10,7 +10,7 @@ let vacs = ['ОТ','ОД','У','УД','Р','ОЖ','ДО','Б','Т','ПВ','Г','
   types_rows_nums = $('.time_types').children('.print-num')
   types = $('.cell_ttime')
   hours = $('.cell_hours')
-  vac_include = $('.vac_include')
+  vac_include = $('.vac-include')
   weekends = $('.weekends')
   let s1 = 0 //явки
   let s2 = 0 //ночные
@@ -114,7 +114,7 @@ types_rows_nums[i].textContent = n
 
   for (var j = 0; j < cells.length; j++) {
     // if (cells[j].className == 'cell_ttime') {
-    console.log(cells[j].classList)
+
       switch (cells[j].innerText) {
         case 'ОТ':
           s9 += 1
@@ -368,7 +368,7 @@ let days30 = $('.day30')
 let days31 = $('.day31')
 
 
-console.log(days_count);
+
 
 switch (days_count) {
 

@@ -1,132 +1,104 @@
 {% extends 'TURV/index.html'%}
 {%load static%}
 {%block title%}{{b_tabel.department}} {{month}} {{year}}{%endblock%}
-{%block header%} <a class="btn btn-danger" onclick="window.close()"> ЗАКРЫТЬ  </a> |
-<span id="id_month" class="hide">{{month}}</span>
- <span id="id_year" class="hide">{{year}}</span>
-  Табель учета рабочего времени
-  <span><b>{{b_tabel.department}}</b></span>
-  за: <b><span class="field_month">{{month}}</span> {{year}} г.</b>
-  Всего человек в табеле: {{count}} {%if b_tabel.del_check == 0%}|
-  <a class="btn btn-outline-danger" href="{% url 'delcheck' id=b_tabel.id%}">Пометить на удаление</a>{%endif%}
-  {%if b_tabel.del_check == 1 and granted == 1%}|
-  <a class="btn btn-outline-danger" href="{% url 'delcheck' id=b_tabel.id%}">Снять пометку удаления</a>{%endif%}
-  {%endblock%}
+
+{%block header%}
+<a class="btn btn-danger" onclick="window.close()"> ЗАКРЫТЬ  </a> |
+<span id="id_month" class="not-print">{{month}}</span>
+<span id="id_year" class="not-print">{{year}}</span>
+Табель учета рабочего времени
+<span><b>{{b_tabel.department}}</b></span>
+за: <b><span class="field_month">{{month}}</span> {{year}} г.</b>
+Всего человек в табеле: {{count}} {%if b_tabel.del_check == 0%}|
+<a class="btn btn-outline-danger" href="{% url 'delcheck' id=b_tabel.id%}">Пометить на удаление</a>{%endif%}
+{%if b_tabel.del_check == 1 and granted == 1%}|
+<a class="btn btn-outline-danger" href="{% url 'delcheck' id=b_tabel.id%}">Снять пометку удаления</a>{%endif%}
+{%endblock%}
+
+
 
 {% block body %}
-
-<form action="" class="f_search intabel print">
-  <p>ПОИСК</p>
-  <input type="text" name="its_employer"  placeholder="поиск по ФИО" value="">
-  <select class="" name="its_position">
-    <option value="">Поиск по должности</option>
-    {% for pos in positions%}
-    <option value="{{pos}}">{{pos}}</option>
-    {%endfor%}
-  </select>
+<link rel="stylesheet" href="{% static 'TURV\css\tabel_print1.css'%}">
+<form action="" class="f_search intabel not-print">
+<p>ПОИСК</p>
+<input type="text" name="its_employer"  placeholder="поиск по ФИО" value="">
+<select class="" name="its_position">
+<option value="">Поиск по должности</option>
+{% for pos in positions%}
+<option value="{{pos}}">{{pos}}</option>
+{%endfor%}
+</select>
 <input type="submit" name="" class="btn btn-dark" value="Найти">
-
-
-
 <a class="btn btn-outline-danger" href="/turv/create/{{b_tabel.id}}">Сбросить поиск</a>
 </form>
 
-<div class="container tabel_container">
-
-  <div class="print-allow hide cover">
-
-<div class="colon">
-  <p>Унифицированная форма № Т-12</p>
-  <p>Утверждена Постановлением Госкомстата</p>
-  <p>России от 05.01.2004 № 1</p>
+<div class="alert alert-danger not-print " >
+<p>ВНИМАНИЕ! ИЗМЕНИЛИСЬ НАСТРОЙКИ ПЕЧАТИ! В БРАУЗЕРЕ FIREFOX МАСШТАБ: 85, CHROME: 100. Вопросы по т. 2035</p>
 </div>
 
-    <div class="cover_dep">
-  <h3 class="b-bottom">КГУП "Камчатский водоканал"</h3>
-  <p>(наименование организации)</p>
+
+<div class="container tabel_container">
+
+<div class="for-print not-screen cover">
+
+<div class="colon">
+<p>Унифицированная форма № Т-12</p>
+<p>Утверждена Постановлением Госкомстата</p>
+<p>России от 05.01.2004 № 1</p>
+</div>
+
+<div class="cover_dep">
+<h3 class="b-bottom">КГУП "Камчатский водоканал"</h3>
+<p>(наименование организации)</p>
 
 
-  <h3 class="b-bottom" id='c_dep'>{{b_tabel.department}}</h3>
-  <p>(наименование подразделения)</p>
+<h3 class="b-bottom" id='c_dep'>{{b_tabel.department}}</h3>
+<p>(наименование подразделения)</p>
 </div>
 
 <div class="cover_middle">
 <div class="cover_head">
-  <h1>ТАБЕЛЬ</h1>
-  <h2>учета рабочего времени и расчета оплаты труда</h2>
-  <h1>УСЛОВНЫЕ ОБОЗНАЧЕНИЯ</h1>
-  </div>
-
-  <table class="cover_period">
-    <thead>
-      <tr>
-        <th colspan="2">Отчетный период</th>
-
-      </tr>
-
-      <tr>
-        <th>с</th>
-        <th>по</th>
-      </tr>
-
-
-      <tbody>
-        <td id="cover_from"> </td>
-        <td id="cover_to"> </td>
-      </tbody>
-    </thead>
-  </table>
-  <table class="cover_number">
-    <thead>
-      <tr>
-        <th>Номер документа</th>
-        <th>Дата составления</th>
-      </tr>
-      <tbody>
-        <td> </td>
-        <td id="cover_today"> </td>
-      </tbody>
-    </thead>
-  </table>
-
-
-<img src="{% static 'TURV\img\legend.jpg'%}" alt="">
-
-<!-- <div class="cover_tables">
-
-
-
-  </div> -->
-
+<h2>ТАБЕЛЬ</h2>
+<h3>учета рабочего времени и расчета оплаты труда</h3>
+<h2>УСЛОВНЫЕ ОБОЗНАЧЕНИЯ</h2>
 </div>
 
-  </div>
+<div class="cover-tables">
+<table class="cover_period">
+<thead>
+<tr>
+<th colspan="2">Отчетный период</th>
 
+</tr>
 
+<tr>
+<th>с</th>
+<th>по</th>
+</tr>
+<tbody>
+<td id="cover_from"> </td>
+<td id="cover_to"> </td>
+</tbody>
+</thead>
+</table>
+<table class="cover_number">
+<thead>
+<tr>
+<th>Номер документа</th>
+<th>Дата составления</th>
+</tr>
+<tbody>
+<td> </td>
+<td id="cover_today"> </td>
+</tbody>
+</thead>
+</table>
+</div>
+<img src="{% static 'TURV\img\legend.jpg'%}" alt="">
+</div>
+</div>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div class="sup_check print">
+<div class="sup_check not-print">
   {% if b_tabel.sup_check %}
     {% if granted == 1%}
     <a class="btn btn-danger" href="{% url 'checked' id=b_tabel.id%}">Отменить проверку</a>
@@ -145,62 +117,61 @@
   {% if b_tabel.del_check %}
     <h2 style="color:red; text-decoration: underline;">Табель помечен на удаление, дальнейшая работа не возможна!</h2>
   {% else %}
-  <a class="btn btn-success btn-add print" href="{% url 'tabel_addItem_url' id=b_tabel.id%}">+ Добавить сотрудника в табель</a>
+  <a class="btn btn-success btn-add not-print" href="{% url 'tabel_addItem_url' id=b_tabel.id%}">+ Добавить сотрудника в табель</a>
   {% endif %}
 
 {% if items %}
 <table class="tabel"  cellpadding="0.5" cellspacing="1">
-  <col class="col_numbers" style="width: 130px;">
-  <col style="width: 200px;">
+
   <thead style="display: table-header-group" class="thead-dark">
   <tr class="tr-header">
 
-    <th class="print-allow-tc " rowspan="2">№ П/П</th>
-    <th class="print-allow-tc " colspan="3">ФИО, долж., разр.</th>
-    <th class="print cell_fullname ">ФИО</th>
-    <th class="print " >Должн.</th>
-    <th class="print " >Раз.</th>
-    <th>Ступ.</th>
-    <th>1</th>
-    <th>2</th>
-    <th>3</th>
-    <th>4</th>
-    <th>5</th>
-    <th>6</th>
-    <th>7</th>
-    <th>8</th>
-    <th>9</th>
-    <th>10</th>
-    <th>11</th>
-    <th>12</th>
-    <th>13</th>
-    <th>14</th>
-    <th>15</th>
-    <th>16</th>
-    <th>17</th>
-    <th>18</th>
-    <th>19</th>
-    <th>20</th>
-    <th>21</th>
-    <th>22</th>
-    <th>23</th>
-    <th>24</th>
-    <th>25</th>
-    <th>26</th>
-    <th>27</th>
-    <th>28</th>
-    <th class="day29">29</th>
-    <th class="day30">30</th>
-    <th class="day31">31</th>
-    <th >Отр.дн.</th>
-    <th >Час./ЛЧ</th>
-    <th >Св-е.</th>
-    <th >Ноч.</th>
-    <th >вых./празд.</th>
-    <th >Сов-е.</th>
-    <th >Неявк.</th>
-    <th >Из них</th>
-    <th >Вых.</th>
+    <th class=" num " rowspan="2">№</th>
+    <th class="for-print  fio " colspan="3">ФИО, долж., разр.</th>
+    <th class="not-print fio-screen ">ФИО</th>
+    <th class="not-print pos-screen" >Должн.</th>
+    <th class="not-print " >Раз.</th>
+    <th class="thin-itogo">Ст.</th>
+    <th class="head-hours">1</th>
+    <th class="head-hours">2</th>
+    <th class="head-hours">3</th>
+    <th class="head-hours">4</th>
+    <th class="head-hours">5</th>
+    <th class="head-hours">6</th>
+    <th class="head-hours">7</th>
+    <th class="head-hours">8</th>
+    <th class="head-hours">9</th>
+    <th class="head-hours">10</th>
+    <th class="head-hours">11</th>
+    <th class="head-hours">12</th>
+    <th class="head-hours">13</th>
+    <th class="head-hours">14</th>
+    <th class="head-hours">15</th>
+    <th class="head-hours">16</th>
+    <th class="head-hours">17</th>
+    <th class="head-hours">18</th>
+    <th class="head-hours">19</th>
+    <th class="head-hours">20</th>
+    <th class="head-hours">21</th>
+    <th class="head-hours">22</th>
+    <th class="head-hours">23</th>
+    <th class="head-hours">24</th>
+    <th class="head-hours">25</th>
+    <th class="head-hours">26</th>
+    <th class="head-hours">27</th>
+    <th class="head-hours">28</th>
+    <th class="day29 head-hours">29</th>
+    <th class="day30 head-hours">30</th>
+    <th class="day31 head-hours">31</th>
+    <th class="thin-itogo">Дни.</th>
+    <th class="wide-itogs">Час./ЛЧ</th>
+    <th class="wide-itogs">Св.</th>
+    <th class="thin-itogo">НЧ</th>
+    <th class="thin-itogo">в./пр.</th>
+    <th class="thin-itogo">Сов.</th>
+    <th class="thin-itogo">Нея.</th>
+    <th class="include">Из них</th>
+    <th class="thin-itogo" >Вых.</th>
 
 
 
@@ -218,12 +189,12 @@
 
 
     <tr onclick="return location.href = '{% url 'tabel_updItem_url' id=item.id%}' "  class="time_types">
-      <th class="print-allow-tc print-num cell_bb" rowspan="2"></th>
-      <td  class="print-allow-tc cell_bb fio" rowspan="2" colspan="3">{{item.employer.fullname}}, {{item.employer.position|truncatechars:10}}, {{item.employer.level}}</td>
+      <th class="print-num cell_bb" rowspan="2"></th>
+      <td  class="for-print cell_bb fio" rowspan="2" colspan="3">{{item.employer.fullname}}, {{item.employer.position|truncatechars:10}}, {{item.employer.level}}</td>
 
-      <td class="print cell_bb" rowspan="2">{{item.employer.fullname}}</td>
-      <td class="print cell_bb" rowspan="2">{{item.employer.position}}</td>
-      <td class="print cell_bb" rowspan="2">{{item.employer.level}}</td>
+      <td class="not-print cell_bb" rowspan="2">{{item.employer.fullname}}</td>
+      <td class="not-print cell_bb" rowspan="2">{{item.employer.position}}</td>
+      <td class="not-print cell_bb" rowspan="2">{{item.employer.level}}</td>
       <td rowspan="2" class="cell_bb">{{item.employer.positionOfPayment}}</td>
       <td class="cell_ttime">{{item.type_time1}}</td>
       <td class="cell_ttime">{{item.type_time2}}</td>
@@ -260,13 +231,13 @@
       <td class="cell_ttime day31">{{item.type_time31}}</td>
       <td rowspan="2" class="cell_bb">{{item.w_days}}</td>
       {% if item.sHours19 != 0 %}
-      <td rowspan="2" class="cell_bb">{{item.w_hours}}/{{item.sHours19}}</td>
+      <td rowspan="2" class="cell_bb wide-itogs">{{item.w_hours}}/{{item.sHours19}}</td>
       {%else%}
-      <td rowspan="2" class="cell_bb">{{item.w_hours}}</td>
+      <td rowspan="2" class="cell_bb wide-itogs">{{item.w_hours}}</td>
         {%endif%}
 
       {% if item.sHours4 > 0 %}
-      <td rowspan="2"class="cell_bb">{{item.sHours4|floatformat:2}}</td>
+      <td rowspan="2"class="cell_bb wide-itogs">{{item.sHours4|floatformat:2}}</td>
       {% else %}
         <td rowspan="2" class="cell_bb"></td>
       {%endif%}
@@ -292,7 +263,7 @@
       {%else%}
         <td rowspan="2" class="cell_bb"></td>
       {%endif%}
-      <td rowspan="2"class="vac_include cell_bb" ></td>
+      <td rowspan="2"class="vac-include cell_bb" ></td>
       <td rowspan="2" class="weekends cell_bb">{{item.sHours24}}</td>
 
 
@@ -349,7 +320,7 @@
   {%endfor%}
   <tr style="font-weight: bold;">
 
-    <td class="print-allow"></td>
+    <td class="for-print"></td>
     <td colspan="4">ИТОГО</td>
     <td></td>
     <td></td>
@@ -404,7 +375,7 @@
   {%endif%}
 {%endif%}
 
-<div class="cover_footer hide print-allow" >
+<div class="cover_footer for-print" >
 <h3>Ответственный за составление табеля _______________________________________ __.__.20__ г.</h3>
 <h3>Руководитель структурного подразделения ______________________________________________________ __.__.20__ г.</h3>
 <h3>Специалист СУП ______________________________________________________ __.__.20__ г.</h3>
