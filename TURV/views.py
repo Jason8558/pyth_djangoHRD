@@ -91,26 +91,32 @@ def tabels(request):
             if (sq_period_month) and (sq_period_year) and (sq_dep):
                 tabels = Tabel.objects.all().filter(year=sq_period_year).filter(month=sq_period_month).filter(department_id=sq_dep)
             else:
-                if (sq_period_month):
-                    tabels = Tabel.objects.all().filter(month=sq_period_month)
+                if (sq_period_year) and (sq_dep):
+                    tabels = Tabel.objects.all().filter(year=sq_period_year).filter(department_id=sq_dep)
                 else:
-                    if (sq_period_year):
-                        tabels = Tabel.objects.all().filter(year=sq_period_year)
+                    if (sq_period_month):
+                        tabels = Tabel.objects.all().filter(month=sq_period_month)
                     else:
-                        if (sq_dep):
-                            tabels = Tabel.objects.all().filter(department_id=sq_dep)
+                        if (sq_period_year):
+                            tabels = Tabel.objects.all().filter(year=sq_period_year)
                         else:
-                            if (sq_this_month):
-                                tabels = Tabel.objects.all().filter(year=year_).filter(month=month_)
+                            if (sq_dep):
+                                tabels = Tabel.objects.all().filter(department_id=sq_dep)
                             else:
-                                if (sq_check_this_month):
-                                    tabels = Tabel.objects.all().filter(year=year_).filter(month=month_).filter(sup_check= True)
+                                if (sq_this_month):
+                                    tabels = Tabel.objects.all().filter(year=year_).filter(month=month_)
                                 else:
-                                    tabels = Tabel.objects.all().order_by('-id')
+                                    if (sq_check_this_month):
+                                        tabels = Tabel.objects.all().filter(year=year_).filter(month=month_).filter(sup_check= True)
+                                    else:
+                                        if (sq_user):
+                                            tabels = Tabel.objects.all().filter(res_officer=sq_user).order_by('-month')
+                                        else:
+                                            tabels = Tabel.objects.all().order_by('-id')
 
 
 
-        p_tabels = Paginator(tabels, 100)
+        p_tabels = Paginator(tabels, 20)
         page_number = request.GET.get('page', 1)
         page = p_tabels.get_page(page_number)
         count = len(tabels)

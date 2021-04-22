@@ -80,7 +80,7 @@ function Supchecked() {
 <input type="text" placeholder="год..." name="search_year" value="">
 <label for="t_tab_dep_search">Подразделение: </label>
   <select class="" name="t_tab_dep_search">
-    <option value="none">---</option>
+    <option value="">---</option>
     {% for dep in deps%}
       <option value="{{dep.id}}">{{dep}}</option>
       {% endfor%}
@@ -147,6 +147,37 @@ function Supchecked() {
 </tr>
   {%endfor%}
 </table>
+<nav  class="paginator" aria-label="Page navigation example">
+  <ul class="pagination">
+    <li class="page-item">
+      <a class="page-link" href="#" aria-label="Previous">
+<span aria-hidden="true">&laquo;</span>
+      </a>
+    </li>
+{% for p in tabels.paginator.page_range %}
+  {% if tabels.number == p%}
+   <li class="page-item active"><a class="page-link" href="?page={{p}}">{{ p }}</a></li>
+   {%else%}
+        <li class="page-item"><a class="page-link" href="?page={{p}}">{{ p }}</a></li>
+    {%endif%}
+  {% endfor %}
+
+{%if tabels.has_next%}
+    <li class="page-item">
+      <a class="page-link" href='?page={{letters.next_page_number}}' aria-label="Next">
+<span aria-hidden="true">&raquo;</span>
+      </a>
+    </li>
+  {%else%}
+  <li class="page-item disabled">
+    <a class="page-link" href='#' aria-disabled='true' aria-label="Next">
+      <span aria-hidden="true">&raquo;</span>
+    </a>
+  </li>
+  {%endif%}
+  </ul>
+</nav>
+
 {%else%}
 <h2>Табели не найдены</h2>
 {%endif%}
