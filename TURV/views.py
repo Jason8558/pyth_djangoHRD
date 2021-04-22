@@ -286,15 +286,11 @@ def tabel_upditem(request, id):
 def tabel_sup_check(request, id):
     if request.user.is_authenticated:
             tabel = Tabel.objects.get(id=id)
-            log = open('log.txt', 'a')
             if tabel.sup_check == False:
                 tabel.sup_check = True
-                log.write(str(DT.date.today()) + " пользователь " + request.user.first_name + " проверил табель " + str(tabel.department) + ' за ' + str(tabel.year) + '.' + str(tabel.month) + '\n'  )
             else:
                 tabel.sup_check = False
-                log.write(str(DT.date.today()) + " пользователь " + request.user.first_name + " снял пометку о проверке табеля " + str(tabel.department) + ' за ' + str(tabel.year) + '.' + str(tabel.month) + '\n'  )
             tabel.save()
-            log.close()
     return redirect('/turv/create/' + str(id))
 
 def tabel_del_check(request, id):

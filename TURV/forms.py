@@ -159,7 +159,6 @@ class TabelItem_form(forms.ModelForm):
 
 
 
-
             new_item = TabelItem.objects.create(
 
             bound_tabel = bound_tabel,
@@ -283,9 +282,6 @@ class Tabel_form(forms.ModelForm):
     #     attrs={ 'type':'text'}))
 
     def saveFirst(self, user_):
-        log = open('log.txt', 'a')
-        log.write(str(DT.date.today()) + " пользователь " +str(user_) + " создал табель " + str(self.cleaned_data['department']) + " за " + str(self.cleaned_data['year']) + '.' + str(self.cleaned_data['month'] ))
-        log.close()
         new_tabel = Tabel.objects.create(
             year = self.cleaned_data['year'],
             month = self.cleaned_data['month'],
