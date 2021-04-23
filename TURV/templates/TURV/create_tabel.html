@@ -18,7 +18,7 @@
 
 
 {% block body %}
-<link rel="stylesheet" href="{% static 'TURV\css\tabel_print1.css'%}">
+<link rel="stylesheet" href="{% static 'TURV\css\tabel_print2.css'%}">
 <form action="" class="f_search intabel not-print">
 <p>ПОИСК</p>
 <input type="text" name="its_employer"  placeholder="поиск по ФИО" value="">
@@ -33,7 +33,7 @@
 </form>
 
 <div class="alert alert-danger not-print " >
-<p>ВНИМАНИЕ! ИЗМЕНИЛИСЬ НАСТРОЙКИ ПЕЧАТИ! В БРАУЗЕРЕ FIREFOX МАСШТАБ: 85, CHROME: 100. Вопросы по т. 2035</p>
+<p><b>ВНИМАНИЕ! ИЗМЕНИЛИСЬ НАСТРОЙКИ ПЕЧАТИ! В БРАУЗЕРЕ FIREFOX МАСШТАБ: 85, CHROME: 100. ПОЛЯ ВЕЗДЕ: По умолчанию. Вопросы по т. 2035</b></p>
 </div>
 
 
@@ -273,7 +273,7 @@
 
 
     </tr>
-    <tr style="page-break-inside: none;" class="cell_bb">
+
 
         <td class="cell_hours">{{item.hours1}}</td>
         <td class="cell_hours">{{item.hours2}}</td>
@@ -322,7 +322,7 @@
 
     <td class="for-print"></td>
     <td colspan="3">ИТОГО</td>
-    
+
     <td></td>
     <td></td>
     <td></td>
@@ -377,7 +377,7 @@
   {%endif%}
 {%endif%}
 
-<div class="cover_footer for-print" >
+<div class="cover-footer for-print" >
 <h3>Ответственный за составление табеля _______________________________________ __.__.20__ г.</h3>
 <h3>Руководитель структурного подразделения ______________________________________________________ __.__.20__ г.</h3>
 <h3>Специалист СУП ______________________________________________________ __.__.20__ г.</h3>

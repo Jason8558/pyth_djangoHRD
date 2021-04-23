@@ -47,6 +47,10 @@ nav {
   width: 100%
 }
 
+.cover-footer {
+  display: block !important;
+}
+
 table  .for-print {
   display: table-cell !important;
 }
