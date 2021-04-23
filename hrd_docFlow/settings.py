@@ -11,6 +11,8 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 """
 import os
 from pathlib import Path
+import ldap
+from django_auth_ldap.config import *
 
 os.sep = "/"
 os.path.sep = "/"
@@ -29,6 +31,81 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
+# Baseline LDAP configuration.
+AUTH_LDAP_SERVER_URI = "ldap://172.16.8.10"
+AUTH_LDAP_AUTHORIZE_ALL_USERS = True
+AUTH_LDAP_PERMIT_EMPTY_PASSWORD = True
+
+# Логин пользователя от чьего имени будут выполнятся запросы к LDAP (кроме авторизации)
+#AUTH_LDAP_BIND_DN = "cn=bot_hrd_ldap_auth,dc=pvk,dc=local"
+AUTH_LDAP_BIND_DN = "PVK\\bot_hrd_ldap_auth"
+AUTH_LDAP_BIND_PASSWORD = "8542c90c498256cb5965e203107c1319"
+
+# Настройка будет пытаться найти пользователя в созданной нами OU Django и стандартной папке Users,
+# сопоставляя введенный login пользователя с аттрибутами sAMAccountName
+AUTH_LDAP_USER_SEARCH = LDAPSearchUnion(
+        LDAPSearch("dc=pvk,dc=local", ldap.SCOPE_SUBTREE, "(sAMAccountName=%(user)s)"),
+        LDAPSearch("dc=pvk,dc=local", ldap.SCOPE_SUBTREE, "(sAMAccountName=%(user)s)"),
+)
+
+# Set up the basic group parameters.
+AUTH_LDAP_GROUP_SEARCH = LDAPSearch("dc=pvk,dc=local",
+    ldap.SCOPE_SUBTREE, "(objectClass=group)"
+)
+AUTH_LDAP_GROUP_TYPE = GroupOfNamesType(name_attr="cn")
+
+# Simple group restrictions
+# AUTH_LDAP_REQUIRE_GROUP - если определено DN для этой настройки, то требуется присутсвие пользователя в этой группе
+# в противном случае пользовталю будет отказано в аутентификации
+# таким образом указываем, что для того чтобы пользователь был аутентифицирован он обязан находится в группе "active"
+# AUTH_LDAP_REQUIRE_GROUP = "dc=pvk,dc=local"
+
+# AUTH_LDAP_DENY_GROUP - если определено DN для этой настройки, то в случае члентсва пользователя в этой группе
+# ему будет отказано в аутентификации
+# AUTH_LDAP_DENY_GROUP = "cn=disabled,ou=Groups,ou=Django,dc=company,dc=ru"
+
+# Populate the Django user from the LDAP directory.
+# Указываем как переносить данные из AD в стандартный профиль пользователя Django
+AUTH_LDAP_USER_ATTR_MAP = {
+    "username": "sAMAccountName",
+    "first_name": "cn",
+    "email": "mail"
+}
+# Указываем как переносить данные из AD в расширенный профиль пользователя Django
+AUTH_LDAP_PROFILE_ATTR_MAP = {
+    "employee_number": "employeeNumber"
+}
+
+# Указываем привязку стандартных флагов is_active, is_staff и is_superuser к членству в группах AD
+# Флаг is_active при использовании django_remote_auth_ldap сам по себе не оказывает вляния на разрешение аутнтификации
+# поэтому для создания обычного поведения Django также определяме настройку AUTH_LDAP_REQUIRE_GROUP (см.выше)
+AUTH_LDAP_USER_FLAGS_BY_GROUP = {
+    "is_active": "dc=pvk,dc=local",
+    "is_staff": "ou=core,dc=pvk,dc=local",
+    # "is_superuser": "cn=superuser,ou=Groups,ou=Django,dc=company,dc=ru"
+}
+
+# Указываем привязку флагов расширенного профиля к членству в группах AD
+# AUTH_LDAP_PROFILE_FLAGS_BY_GROUP = {
+#     "is_awesome": "cn=awesome,ou=Groups,ou=Django,dc=company,dc=ru",
+# }
+
+# This is the default, but I like to be explicit.
+AUTH_LDAP_ALWAYS_UPDATE_USER = False
+
+# Use LDAP group membership to calculate group permissions.
+# AUTH_LDAP_FIND_GROUP_PERMS = True
+
+# Cache group memberships for an hour to minimize LDAP traffic
+AUTH_LDAP_CACHE_GROUPS = True
+AUTH_LDAP_GROUP_CACHE_TIMEOUT = 3600
+
+
+AUTHENTICATION_BACKENDS = (
+    # 'django_remote_auth_ldap.backend.RemoteUserLDAPBackend',
+    'django.contrib.auth.backends.ModelBackend',
+     'django_auth_ldap.backend.LDAPBackend',
+)
 
 # Application definition
 
@@ -50,6 +127,7 @@ MIDDLEWARE = [
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
+    'django.contrib.auth.middleware.RemoteUserMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     ]
@@ -79,24 +157,24 @@ WSGI_APPLICATION = 'hrd_docFlow.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
-        }
-
 # DATABASES = {
 #     'default': {
-#         'ENGINE': 'django.db.backends.mysql',
-#         'NAME': 'hrd_docflow',
-#         'USER': 'hrd_user',
-#         'PASSWORD': 'hrdpassword',
-#         # 'HOST': '172.16.23.38',
-#         'HOST': 'localhost',   # Or an IP Address that your DB is hosted on
-#         'PORT': '3306',
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite3',
 #     }
-# }
+#         }
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'hrd_docflow',
+        'USER': 'hrd_user',
+        'PASSWORD': 'hrdpassword',
+        # 'HOST': '172.16.23.38',
+        'HOST': 'localhost',   # Or an IP Address that your DB is hosted on
+        'PORT': '3306',
+    }
+}
 
 
 
@@ -126,7 +204,7 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 # Redirect to home URL after login (Default redirects to /accounts/profile/)
-LOGIN_REDIRECT_URL = '/journals'
+LOGIN_REDIRECT_URL = '/'
 
 
 # Internationalization
