@@ -128,3 +128,4 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+hrd_docFlow/settings.py
