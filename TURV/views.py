@@ -88,7 +88,9 @@ def tabels(request):
             # если у пользователя полные права, то выдаем все
             deps = Department.objects.all()
             # Алгоритм поиска
+            pag = 1000
             if (sq_period_month) and (sq_period_year) and (sq_dep):
+
                 tabels = Tabel.objects.all().filter(year=sq_period_year).filter(month=sq_period_month).filter(department_id=sq_dep)
             else:
                 if (sq_period_year) and (sq_dep):
@@ -112,11 +114,12 @@ def tabels(request):
                                         if (sq_user):
                                             tabels = Tabel.objects.all().filter(res_officer=sq_user).order_by('-month')
                                         else:
+                                            pag = 20
                                             tabels = Tabel.objects.all().order_by('-id')
 
 
 
-        p_tabels = Paginator(tabels, 20)
+        p_tabels = Paginator(tabels, pag)
         page_number = request.GET.get('page', 1)
         page = p_tabels.get_page(page_number)
         count = len(tabels)
