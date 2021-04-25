@@ -119,7 +119,7 @@ def tabels(request):
 
 
 
-        p_tabels = Paginator(tabels, pag)
+        p_tabels = Paginator(tabels, 20)
         page_number = request.GET.get('page', 1)
         page = p_tabels.get_page(page_number)
         count = len(tabels)
