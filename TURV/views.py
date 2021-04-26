@@ -497,9 +497,15 @@ def unload(request):
         deps = Department.objects.all().order_by('id')
 
         for dep in deps:
+            dn = str(dep.name).replace(' ','_')
+            dn = dn.replace('-','')
+            dn = dn.replace('(','')
+            dn = dn.replace(')','')
+
+
             items = TabelItem.objects.filter(employer__department_id=dep.id).filter(month=month_).filter(year=year_).order_by('employer')
             if items:
-                ws = wb.add_sheet(dep.name)
+                ws = wb.add_sheet(dn)
 
 
 
