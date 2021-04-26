@@ -69,6 +69,7 @@ def tabels(request):
             print(allow_departments)
 
             # Алгоритм поиска
+            pag = 1000
             if (sq_period_month) and (sq_period_year):
                 tabels = Tabel.objects.all().filter(department_id__in=allow_departments).filter(year=sq_period_year).filter(month=sq_period_month)
             else:
@@ -81,6 +82,7 @@ def tabels(request):
                         if (sq_this_month):
                             tabels = Tabel.objects.all().filter(department_id__in=allow_departments).filter(year=year_).filter(month=month_)
                         else:
+                            pag = 20
                             tabels = Tabel.objects.all().filter(department_id__in=allow_departments).order_by('-id')
 
 
@@ -119,7 +121,7 @@ def tabels(request):
 
 
 
-        p_tabels = Paginator(tabels, 20)
+        p_tabels = Paginator(tabels, pag)
         page_number = request.GET.get('page', 1)
         page = p_tabels.get_page(page_number)
         count = len(tabels)
