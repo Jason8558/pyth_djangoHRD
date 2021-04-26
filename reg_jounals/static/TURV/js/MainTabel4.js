@@ -384,6 +384,7 @@ for (var field of checkfields) {
   let s34 = 0 //Нет ЗП НЗ
   let s36 = 0 //Местная командировка
   let s37 = 0 //ОЗ
+  let s38 = 0 //НОД (нерабочие оплачиваемые дни)
 
 //Суммирование дней
   let work = 0 //дни явок
@@ -567,6 +568,11 @@ switch (tt1) {
   case 'ОЗ':
     s37 += parseInt(h1, 10)
     vac += 1
+  break;
+
+  case 'НОД':
+    s38 += parseInt(h1, 10)
+    work += 1
   break;
 
   case 'Я/ЛЧ':
@@ -771,6 +777,12 @@ switch (tt2) {
     vac += 1
   break;
 
+  case 'НОД':
+    s38 += parseInt(h2, 10)
+    work += 1
+  break;
+
+
   case 'Я/ЛЧ':
     h2_ = h2.split('/')
     s1 += parseInt(h2_[0], 10)
@@ -969,6 +981,12 @@ switch (tt3) {
     s37 += parseInt(h3, 10)
     vac += 1
   break;
+
+  case 'НОД':
+    s38 += parseInt(h3, 10)
+    work += 1
+  break;
+
 
   case 'Я/ЛЧ':
     h3_ = h3.split('/')
@@ -1171,6 +1189,12 @@ switch (tt4) {
     s37 += parseInt(h4, 10)
     vac += 1
   break;
+
+  case 'НОД':
+    s38 += parseInt(h4, 10)
+    work += 1
+  break;
+
 
   case 'Я/ЛЧ':
     h4_ = h4.split('/')
@@ -1397,6 +1421,12 @@ switch (tt5) {
     vac += 1
   break;
 
+  case 'НОД':
+    s38 += parseInt(h5, 10)
+    work += 1
+  break;
+
+
   case 'Я/ЛЧ':
     h5_ = h5.split('/')
 
@@ -1597,6 +1627,12 @@ switch (tt6) {
     s37 += parseInt(h6, 10)
     vac += 1
   break;
+
+  case 'НОД':
+    s38 += parseInt(h6, 10)
+    work += 1
+  break;
+
 
   case 'Я/ЛЧ':
     h6_ = h6.split('/')
@@ -1799,6 +1835,12 @@ switch (tt7) {
     s37 += parseInt(h7, 10)
     vac += 1
   break;
+
+  case 'НОД':
+    s38 += parseInt(h7, 10)
+    work += 1
+  break;
+
 
   case 'Я/ЛЧ':
     h7_ = h7.split('/')
@@ -2024,6 +2066,12 @@ switch (tt8) {
     vac += 1
   break;
 
+  case 'НОД':
+    s38 += parseInt(h8, 10)
+    work += 1
+  break;
+
+
   case 'Я/ЛЧ':
     h8_ = h8.split('/')
     s1 += parseInt(h8_[0], 10)
@@ -2223,6 +2271,12 @@ switch (tt9) {
     s37 += parseInt(h9, 10)
     vac += 1
   break;
+
+  case 'НОД':
+    s38 += parseInt(h9, 10)
+    work += 1
+  break;
+
 
   case 'Я/ЛЧ':
     h9_ = h9.split('/')
@@ -2424,6 +2478,12 @@ switch (tt10) {
     vac += 1
   break;
 
+  case 'НОД':
+    s38 += parseInt(h10, 10)
+    work += 1
+  break;
+
+
   case 'Я/ЛЧ':
     h10_ = h10.split('/')
     s1 += parseInt(h10_[0], 10)
@@ -2623,6 +2683,12 @@ switch (tt11) {
     s37 += parseInt(h11, 10)
     vac += 1
   break;
+
+  case 'НОД':
+    s38 += parseInt(h11, 10)
+    work += 1
+  break;
+
 
   case 'Я/ЛЧ':
     h11_ = h11.split('/')
@@ -2825,6 +2891,12 @@ switch (tt12) {
     vac += 1
   break;
 
+  case 'НОД':
+    s38 += parseInt(h12, 10)
+    work += 1
+  break;
+
+
   case 'Я/ЛЧ':
     h12_ = h12.split('/')
     s1 += parseInt(h12_[0], 10)
@@ -3025,6 +3097,12 @@ switch (tt13) {
     vac += 1
   break;
 
+  case 'НОД':
+    s38 += parseInt(h13, 10)
+    work += 1
+  break;
+
+
   case 'Я/ЛЧ':
     h13_ = h13.split('/')
     s1 += parseInt(h13_[0], 10)
@@ -3223,6 +3301,12 @@ switch (tt14) {
     s37 += parseInt(h14, 10)
     vac += 1
   break;
+
+  case 'НОД':
+    s38 += parseInt(h14, 10)
+    work += 1
+  break;
+
 
   case 'Я/ЛЧ':
     h14_ = h14.split('/')
@@ -3423,6 +3507,12 @@ switch (tt15) {
     s37 += parseInt(h15, 10)
     vac += 1
   break;
+
+  case 'НОД':
+    s38 += parseInt(h15, 10)
+    work += 1
+  break;
+
 
   case 'Я/ЛЧ':
     h15_ = h15.split('/')
@@ -3625,6 +3715,12 @@ switch (tt16) {
     vac += 1
   break;
 
+  case 'НОД':
+    s38 += parseInt(h16, 10)
+    work += 1
+  break;
+
+
   case 'Я/ЛЧ':
     h16_ = h16.split('/')
     s1 += parseInt(h16_[0], 10)
@@ -3824,6 +3920,12 @@ switch (tt17) {
     s37 += parseInt(h17, 10)
     vac += 1
   break;
+
+  case 'НОД':
+    s38 += parseInt(h17, 10)
+    work += 1
+  break;
+
 
   case 'Я/ЛЧ':
     h17_ = h17.split('/')
@@ -4025,6 +4127,12 @@ switch (tt18) {
     vac += 1
   break;
 
+  case 'НОД':
+    s38 += parseInt(h18, 10)
+    work += 1
+  break;
+
+
   case 'Я/ЛЧ':
     h18_ = h18.split('/')
     s1 += parseInt(h18_[0], 10)
@@ -4224,6 +4332,12 @@ switch (tt19) {
     s37 += parseInt(h19, 10)
     vac += 1
   break;
+
+  case 'НОД':
+    s38 += parseInt(h19, 10)
+    work += 1
+  break;
+
 
   case 'Я/ЛЧ':
     h19_ = h19.split('/')
@@ -4425,6 +4539,12 @@ switch (tt20) {
     vac += 1
   break;
 
+  case 'НОД':
+    s38 += parseInt(h20, 10)
+    work += 1
+  break;
+
+
   case 'Я/ЛЧ':
     h20_ = h20.split('/')
     s1 += parseInt(h20_[0], 10)
@@ -4625,6 +4745,12 @@ switch (tt21) {
     vac += 1
   break;
 
+  case 'НОД':
+    s38 += parseInt(h21, 10)
+    work += 1
+  break;
+
+
   case 'Я/ЛЧ':
     h21_ = h21.split('/')
     s1 += parseInt(h21_[0], 10)
@@ -4824,6 +4950,12 @@ switch (tt22) {
     s37 += parseInt(h22, 10)
     vac += 1
   break;
+
+  case 'НОД':
+    s38 += parseInt(h22, 10)
+    work += 1
+  break;
+
 
   case 'Я/ЛЧ':
     h22_ = h22.split('/')
@@ -5026,6 +5158,12 @@ switch (tt23) {
     vac += 1
   break;
 
+  case 'НОД':
+    s38 += parseInt(h23, 10)
+    work += 1
+  break;
+
+
   case 'Я/ЛЧ':
     h23_ = h23.split('/')
     s1 += parseInt(h23_[0], 10)
@@ -5225,6 +5363,12 @@ switch (tt24) {
     s37 += parseInt(h24, 10)
     vac += 1
   break;
+
+  case 'НОД':
+    s38 += parseInt(h24, 10)
+    work += 1
+  break;
+
 
   case 'Я/ЛЧ':
     h24_ = h24.split('/')
@@ -5426,6 +5570,12 @@ switch (tt25) {
     vac += 1
   break;
 
+  case 'НОД':
+    s38 += parseInt(h25, 10)
+    work += 1
+  break;
+
+
   case 'Я/ЛЧ':
     h25_ = h25.split('/')
     s1 += parseInt(h25_[0], 10)
@@ -5625,6 +5775,12 @@ switch (tt26) {
     s37 += parseInt(h26, 10)
     vac += 1
   break;
+
+  case 'НОД':
+    s38 += parseInt(h26, 10)
+    work += 1
+  break;
+
 
   case 'Я/ЛЧ':
     h26_ = h26.split('/')
@@ -5826,6 +5982,12 @@ switch (tt27) {
     vac += 1
   break;
 
+  case 'НОД':
+    s38 += parseInt(h27, 10)
+    work += 1
+  break;
+
+
   case 'Я/ЛЧ':
     h27_ = h27.split('/')
     s1 += parseInt(h27_[0], 10)
@@ -6026,6 +6188,12 @@ switch (tt28) {
     vac += 1
   break;
 
+  case 'НОД':
+    s38 += parseInt(h29, 10)
+    work += 1
+  break;
+
+
   case 'Я/ЛЧ':
     h28_ = h28.split('/')
     s1 += parseInt(h28_[0], 10)
@@ -6225,6 +6393,12 @@ switch (tt29) {
     s37 += parseInt(h29, 10)
     vac += 1
   break;
+
+  case 'НОД':
+    s38 += parseInt(h29, 10)
+    work += 1
+  break;
+
 
   case 'Я/ЛЧ':
     h29_ = h29.split('/')
@@ -6427,6 +6601,12 @@ switch (tt30) {
     vac += 1
   break;
 
+  case 'НОД':
+    s38 += parseInt(h30, 10)
+    work += 1
+  break;
+
+
   case 'Я/ЛЧ':
     h30_ = h30.split('/')
     s1 += parseInt(h30_[0], 10)
@@ -6627,6 +6807,12 @@ switch (tt31) {
     vac += 1
   break;
 
+  case 'НОД':
+    s38 += parseInt(h31, 10)
+    work += 1
+  break;
+
+
   case 'Я/ЛЧ':
     h31_ = h31.split('/')
     s1 += parseInt(h31_[0], 10)
@@ -6649,7 +6835,7 @@ switch (tt31) {
   break;
 }
 
-h_work = s1 + s5 + s3 + s36 + s7 + s8 + s23
+h_work = s1 + s5 + s3 + s36 + s7 + s8 + s23 + s38
 
 h_vac = s9 + s10 + s11 + s13 + s14 + s15 + s16 + s17 + s18 + s20 + s21 +  s24 + s25 + s26 + s27 + s28 + s29 + s30 + s31 + s32 + s33 + s34 + s37
 
@@ -6700,6 +6886,7 @@ $('#id_sHours32').val(s32)
 $('#id_sHours33').val(s33)
 $('#id_sHours34').val(s34)
 $('#id_sHours37').val(s37)
+$('#id_sHours38').val(s38)
 $('#id_w_days').val(work)
 $('#id_w_hours').val(h_work)
 $('#id_v_days').val(vac)
