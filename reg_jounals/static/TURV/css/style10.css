@@ -221,7 +221,7 @@ tbody tr:hover {
 
 tbody, td, tfoot, th, thead, tr {
   border: 1px solid black !important;
-  height: 21px;
+  height: 12px;
 }
 
 thead {
