@@ -1469,7 +1469,7 @@ switch (tt5) {
       s38 += parseInt(h5, 10)
     }
     work += 1
-    console.log(s19);
+  
   break;
 
 
