@@ -2772,7 +2772,7 @@ switch (tt11) {
       s19 += parseInt(h_split[1], 10)
     }
     else {
-      s38 += parseInt(h1, 10)
+      s38 += parseInt(h11, 10)
     }
     work += 1
   break;
