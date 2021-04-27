@@ -18,7 +18,7 @@ sum_fields = $('.summary_times').children('.st')
 for (var i = 0; i < sum_fields.length; i++) {
   sum_puts = sum_fields[i].childNodes
   for (var j = 0; j < sum_puts.length; j++) {
-    console.log()
+
     if (sum_puts[j].tagName == 'INPUT') {
       if (sum_puts[j].value == 0) {
         sum_fields[i].style.display = 'none'
@@ -571,8 +571,18 @@ switch (tt1) {
   break;
 
   case 'НОД':
-    s38 += parseInt(h1, 10)
+    h_split = h1.split('/')
+
+    if (h_split.length > 0) {
+      s38 += parseInt(h_split[0], 10)
+      s19 += parseInt(h_split[1], 10)
+
+    }
+    else {
+      s38 += parseInt(h1, 10)
+    }
     work += 1
+    console.log(s19);
   break;
 
   case 'Я/ЛЧ':
@@ -778,8 +788,17 @@ switch (tt2) {
   break;
 
   case 'НОД':
-    s38 += parseInt(h2, 10)
+    h_split = h2.split('/')
+
+    if (h_split.length > 0) {
+      s38 += parseInt(h_split[0], 10)
+      s19 += parseInt(h_split[1], 10)
+    }
+    else {
+      s38 += parseInt(h2, 10)
+    }
     work += 1
+    console.log(s19);
   break;
 
 
@@ -983,8 +1002,17 @@ switch (tt3) {
   break;
 
   case 'НОД':
-    s38 += parseInt(h3, 10)
+    h_split = h3.split('/')
+
+    if (h_split.length > 0) {
+      s38 += parseInt(h_split[0], 10)
+      s19 += parseInt(h_split[1], 10)
+    }
+    else {
+      s38 += parseInt(h3, 10)
+    }
     work += 1
+    console.log(s19);
   break;
 
 
@@ -1191,8 +1219,17 @@ switch (tt4) {
   break;
 
   case 'НОД':
-    s38 += parseInt(h4, 10)
+    h_split = h4.split('/')
+
+    if (h_split.length > 0) {
+      s38 += parseInt(h_split[0], 10)
+      s19 += parseInt(h_split[1], 10)
+    }
+    else {
+      s38 += parseInt(h4, 10)
+    }
     work += 1
+    console.log(s19);
   break;
 
 
@@ -1422,8 +1459,17 @@ switch (tt5) {
   break;
 
   case 'НОД':
-    s38 += parseInt(h5, 10)
+    h_split = h5.split('/')
+
+    if (h_split.length > 0) {
+      s38 += parseInt(h_split[0], 10)
+      s19 += parseInt(h_split[1], 10)
+    }
+    else {
+      s38 += parseInt(h5, 10)
+    }
     work += 1
+
   break;
 
 
@@ -1629,8 +1675,17 @@ switch (tt6) {
   break;
 
   case 'НОД':
-    s38 += parseInt(h6, 10)
+    h_split = h6.split('/')
+
+    if (h_split.length > 0) {
+      s38 += parseInt(h_split[0], 10)
+      s19 += parseInt(h_split[1], 10)
+    }
+    else {
+      s38 += parseInt(h6, 10)
+    }
     work += 1
+    console.log(s19);
   break;
 
 
@@ -1837,8 +1892,17 @@ switch (tt7) {
   break;
 
   case 'НОД':
-    s38 += parseInt(h7, 10)
+    h_split = h7.split('/')
+
+    if (h_split.length > 0) {
+      s38 += parseInt(h_split[0], 10)
+      s19 += parseInt(h_split[1], 10)
+    }
+    else {
+      s38 += parseInt(h7, 10)
+    }
     work += 1
+    console.log(s19);
   break;
 
 
@@ -2067,8 +2131,17 @@ switch (tt8) {
   break;
 
   case 'НОД':
-    s38 += parseInt(h8, 10)
+    h_split = h8.split('/')
+
+    if (h_split.length > 0) {
+      s38 += parseInt(h_split[0], 10)
+      s19 += parseInt(h_split[1], 10)
+    }
+    else {
+      s38 += parseInt(h8, 10)
+    }
     work += 1
+    console.log(s19);
   break;
 
 
@@ -2273,8 +2346,17 @@ switch (tt9) {
   break;
 
   case 'НОД':
-    s38 += parseInt(h9, 10)
+    h_split = h9.split('/')
+
+    if (h_split.length > 0) {
+      s38 += parseInt(h_split[0], 10)
+      s19 += parseInt(h_split[1], 10)
+    }
+    else {
+      s38 += parseInt(h9, 10)
+    }
     work += 1
+    console.log(s19);
   break;
 
 
@@ -2479,8 +2561,17 @@ switch (tt10) {
   break;
 
   case 'НОД':
-    s38 += parseInt(h10, 10)
+    h_split = h10.split('/')
+
+    if (h_split.length > 0) {
+      s38 += parseInt(h_split[0], 10)
+      s19 += parseInt(h_split[1], 10)
+    }
+    else {
+      s38 += parseInt(h10, 10)
+    }
     work += 1
+    console.log(s19);
   break;
 
 
@@ -2685,8 +2776,16 @@ switch (tt11) {
   break;
 
   case 'НОД':
-    s38 += parseInt(h11, 10)
+    h_split = h11.split('/')
+    if (h_split.length > 0) {
+      s38 += parseInt(h_split[0], 10)
+      s19 += parseInt(h_split[1], 10)
+    }
+    else {
+      s38 += parseInt(h11, 10)
+    }
     work += 1
+    console.log(s19);
   break;
 
 
@@ -2709,7 +2808,8 @@ switch (tt11) {
     s3 += parseInt(h11_[0], 10)
     s2 += parseInt(h11_[1], 10)
     work += 1
-    console.log(s3 + ' ' + s2)
+
+
   break;
 }
 
@@ -2892,8 +2992,16 @@ switch (tt12) {
   break;
 
   case 'НОД':
-    s38 += parseInt(h12, 10)
+    h_split = h12.split('/')
+    if (h_split.length > 0) {
+      s38 += parseInt(h_split[0], 10)
+      s19 += parseInt(h_split[1], 10)
+    }
+    else {
+      s38 += parseInt(h12, 10)
+    }
     work += 1
+    console.log(s19);
   break;
 
 
@@ -3098,10 +3206,17 @@ switch (tt13) {
   break;
 
   case 'НОД':
-    s38 += parseInt(h13, 10)
+    h_split = h13.split('/')
+    if (h_split.length > 0) {
+      s38 += parseInt(h_split[0], 10)
+      s19 += parseInt(h_split[1], 10)
+    }
+    else {
+      s38 += parseInt(h13, 10)
+    }
     work += 1
+    console.log(s19);
   break;
-
 
   case 'Я/ЛЧ':
     h13_ = h13.split('/')
@@ -3303,10 +3418,17 @@ switch (tt14) {
   break;
 
   case 'НОД':
-    s38 += parseInt(h14, 10)
+    h_split = h14.split('/')
+    if (h_split.length > 0) {
+      s38 += parseInt(h_split[0], 10)
+      s19 += parseInt(h_split[1], 10)
+    }
+    else {
+      s38 += parseInt(h14, 10)
+    }
     work += 1
+    console.log(s19);
   break;
-
 
   case 'Я/ЛЧ':
     h14_ = h14.split('/')
@@ -3509,8 +3631,16 @@ switch (tt15) {
   break;
 
   case 'НОД':
-    s38 += parseInt(h15, 10)
+    h_split = h15.split('/')
+    if (h_split.length > 0) {
+      s38 += parseInt(h_split[0], 10)
+      s19 += parseInt(h_split[1], 10)
+    }
+    else {
+      s38 += parseInt(h15, 10)
+    }
     work += 1
+    console.log(s19);
   break;
 
 
@@ -3716,8 +3846,16 @@ switch (tt16) {
   break;
 
   case 'НОД':
-    s38 += parseInt(h16, 10)
+    h_split = h16.split('/')
+    if (h_split.length > 0) {
+      s38 += parseInt(h_split[0], 10)
+      s19 += parseInt(h_split[1], 10)
+    }
+    else {
+      s38 += parseInt(h16, 10)
+    }
     work += 1
+    console.log(s19);
   break;
 
 
@@ -3922,8 +4060,16 @@ switch (tt17) {
   break;
 
   case 'НОД':
-    s38 += parseInt(h17, 10)
+    h_split = h17.split('/')
+    if (h_split.length > 0) {
+      s38 += parseInt(h_split[0], 10)
+      s19 += parseInt(h_split[1], 10)
+    }
+    else {
+      s38 += parseInt(h17, 10)
+    }
     work += 1
+    console.log(s19);
   break;
 
 
@@ -4128,10 +4274,17 @@ switch (tt18) {
   break;
 
   case 'НОД':
-    s38 += parseInt(h18, 10)
+    h_split = h18.split('/')
+    if (h_split.length > 0) {
+      s38 += parseInt(h_split[0], 10)
+      s19 += parseInt(h_split[1], 10)
+    }
+    else {
+      s38 += parseInt(h18, 10)
+    }
     work += 1
+    console.log(s19);
   break;
-
 
   case 'Я/ЛЧ':
     h18_ = h18.split('/')
@@ -4334,10 +4487,17 @@ switch (tt19) {
   break;
 
   case 'НОД':
-    s38 += parseInt(h19, 10)
+    h_split = h19.split('/')
+    if (h_split.length > 0) {
+      s38 += parseInt(h_split[0], 10)
+      s19 += parseInt(h_split[1], 10)
+    }
+    else {
+      s38 += parseInt(h19, 10)
+    }
     work += 1
+    console.log(s19);
   break;
-
 
   case 'Я/ЛЧ':
     h19_ = h19.split('/')
@@ -4540,10 +4700,17 @@ switch (tt20) {
   break;
 
   case 'НОД':
-    s38 += parseInt(h20, 10)
+    h_split = h20.split('/')
+    if (h_split.length > 0) {
+      s38 += parseInt(h_split[0], 10)
+      s19 += parseInt(h_split[1], 10)
+    }
+    else {
+      s38 += parseInt(h20, 10)
+    }
     work += 1
+    console.log(s19);
   break;
-
 
   case 'Я/ЛЧ':
     h20_ = h20.split('/')
@@ -4746,8 +4913,16 @@ switch (tt21) {
   break;
 
   case 'НОД':
-    s38 += parseInt(h21, 10)
+    h_split = h21.split('/')
+    if (h_split.length > 0) {
+      s38 += parseInt(h_split[0], 10)
+      s19 += parseInt(h_split[1], 10)
+    }
+    else {
+      s38 += parseInt(h21, 10)
+    }
     work += 1
+    console.log(s19);
   break;
 
 
@@ -4952,8 +5127,16 @@ switch (tt22) {
   break;
 
   case 'НОД':
-    s38 += parseInt(h22, 10)
+    h_split = h22.split('/')
+    if (h_split.length > 0) {
+      s38 += parseInt(h_split[0], 10)
+      s19 += parseInt(h_split[1], 10)
+    }
+    else {
+      s38 += parseInt(h22, 10)
+    }
     work += 1
+    console.log(s19);
   break;
 
 
@@ -5159,8 +5342,16 @@ switch (tt23) {
   break;
 
   case 'НОД':
-    s38 += parseInt(h23, 10)
+    h_split = h23.split('/')
+    if (h_split.length > 0) {
+      s38 += parseInt(h_split[0], 10)
+      s19 += parseInt(h_split[1], 10)
+    }
+    else {
+      s38 += parseInt(h23, 10)
+    }
     work += 1
+    console.log(s19);
   break;
 
 
@@ -5365,10 +5556,17 @@ switch (tt24) {
   break;
 
   case 'НОД':
-    s38 += parseInt(h24, 10)
+    h_split = h24.split('/')
+    if (h_split.length > 0) {
+      s38 += parseInt(h_split[0], 10)
+      s19 += parseInt(h_split[1], 10)
+    }
+    else {
+      s38 += parseInt(h24, 10)
+    }
     work += 1
+    console.log(s19);
   break;
-
 
   case 'Я/ЛЧ':
     h24_ = h24.split('/')
@@ -5571,8 +5769,16 @@ switch (tt25) {
   break;
 
   case 'НОД':
-    s38 += parseInt(h25, 10)
+    h_split = h25.split('/')
+    if (h_split.length > 0) {
+      s38 += parseInt(h_split[0], 10)
+      s19 += parseInt(h_split[1], 10)
+    }
+    else {
+      s38 += parseInt(h25, 10)
+    }
     work += 1
+    console.log(s19);
   break;
 
 
@@ -5777,8 +5983,16 @@ switch (tt26) {
   break;
 
   case 'НОД':
-    s38 += parseInt(h26, 10)
+    h_split = h26.split('/')
+    if (h_split.length > 0) {
+      s38 += parseInt(h_split[0], 10)
+      s19 += parseInt(h_split[1], 10)
+    }
+    else {
+      s38 += parseInt(h26, 10)
+    }
     work += 1
+    console.log(s19);
   break;
 
 
@@ -5983,8 +6197,16 @@ switch (tt27) {
   break;
 
   case 'НОД':
-    s38 += parseInt(h27, 10)
+    h_split = h27.split('/')
+    if (h_split.length > 0) {
+      s38 += parseInt(h_split[0], 10)
+      s19 += parseInt(h_split[1], 10)
+    }
+    else {
+      s38 += parseInt(h27, 10)
+    }
     work += 1
+    console.log(s19);
   break;
 
 
@@ -6189,8 +6411,16 @@ switch (tt28) {
   break;
 
   case 'НОД':
-    s38 += parseInt(h29, 10)
+    h_split = h28.split('/')
+    if (h_split.length > 0) {
+      s38 += parseInt(h_split[0], 10)
+      s19 += parseInt(h_split[1], 10)
+    }
+    else {
+      s38 += parseInt(h28, 10)
+    }
     work += 1
+    console.log(s19);
   break;
 
 
@@ -6395,10 +6625,17 @@ switch (tt29) {
   break;
 
   case 'НОД':
-    s38 += parseInt(h29, 10)
+    h_split = h29.split('/')
+    if (h_split.length > 0) {
+      s38 += parseInt(h_split[0], 10)
+      s19 += parseInt(h_split[1], 10)
+    }
+    else {
+      s38 += parseInt(h29, 10)
+    }
     work += 1
+    console.log(s19);
   break;
-
 
   case 'Я/ЛЧ':
     h29_ = h29.split('/')
@@ -6602,8 +6839,16 @@ switch (tt30) {
   break;
 
   case 'НОД':
-    s38 += parseInt(h30, 10)
+    h_split = h30.split('/')
+    if (h_split.length > 0) {
+      s38 += parseInt(h_split[0], 10)
+      s19 += parseInt(h_split[1], 10)
+    }
+    else {
+      s38 += parseInt(h30, 10)
+    }
     work += 1
+    console.log(s19);
   break;
 
 
@@ -6808,8 +7053,16 @@ switch (tt31) {
   break;
 
   case 'НОД':
-    s38 += parseInt(h31, 10)
+    h31_ = h31.split('/')
+    if (h_split.length > 0) {
+      s38 += parseInt(h31_[0], 10)
+      s19 += parseInt(h31_[1], 10)
+    }
+    else {
+      s38 += parseInt(h31, 10)
+    }
     work += 1
+    console.log(s19);
   break;
 
 
@@ -6891,6 +7144,8 @@ $('#id_w_days').val(work)
 $('#id_w_hours').val(h_work)
 $('#id_v_days').val(vac)
 $('#id_v_hours').val(h_vac)
+
+console.log(s19);
 
 sum_fields = $('.summary_times').children('.st')
 container = $('#tabel_item')
