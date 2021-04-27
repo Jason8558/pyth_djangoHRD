@@ -576,6 +576,7 @@ switch (tt1) {
     if (h_split.length > 0) {
       s38 += parseInt(h_split[0], 10)
       s19 += parseInt(h_split[1], 10)
+
     }
     else {
       s38 += parseInt(h1, 10)
@@ -7112,6 +7113,8 @@ $('#id_w_days').val(work)
 $('#id_w_hours').val(h_work)
 $('#id_v_days').val(vac)
 $('#id_v_hours').val(h_vac)
+
+console.log(s19);
 
 sum_fields = $('.summary_times').children('.st')
 container = $('#tabel_item')
