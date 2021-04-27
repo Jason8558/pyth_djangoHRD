@@ -7053,10 +7053,10 @@ switch (tt31) {
   break;
 
   case 'НОД':
-    h_split = h31.split('/')
+    h31_ = h31.split('/')
     if (h_split.length > 0) {
-      s38 += parseInt(h_split[0], 10)
-      s19 += parseInt(h_split[1], 10)
+      s38 += parseInt(h31_[0], 10)
+      s19 += parseInt(h31_[1], 10)
     }
     else {
       s38 += parseInt(h31, 10)
