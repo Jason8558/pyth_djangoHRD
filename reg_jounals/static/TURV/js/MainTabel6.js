@@ -582,6 +582,7 @@ switch (tt1) {
       s38 += parseInt(h1, 10)
     }
     work += 1
+    console.log(s19);
   break;
 
   case 'Я/ЛЧ':
@@ -797,6 +798,7 @@ switch (tt2) {
       s38 += parseInt(h2, 10)
     }
     work += 1
+    console.log(s19);
   break;
 
 
@@ -1010,6 +1012,7 @@ switch (tt3) {
       s38 += parseInt(h3, 10)
     }
     work += 1
+    console.log(s19);
   break;
 
 
@@ -1226,6 +1229,7 @@ switch (tt4) {
       s38 += parseInt(h4, 10)
     }
     work += 1
+    console.log(s19);
   break;
 
 
@@ -1465,6 +1469,7 @@ switch (tt5) {
       s38 += parseInt(h5, 10)
     }
     work += 1
+    console.log(s19);
   break;
 
 
@@ -1680,6 +1685,7 @@ switch (tt6) {
       s38 += parseInt(h6, 10)
     }
     work += 1
+    console.log(s19);
   break;
 
 
@@ -1896,6 +1902,7 @@ switch (tt7) {
       s38 += parseInt(h7, 10)
     }
     work += 1
+    console.log(s19);
   break;
 
 
@@ -2134,6 +2141,7 @@ switch (tt8) {
       s38 += parseInt(h8, 10)
     }
     work += 1
+    console.log(s19);
   break;
 
 
@@ -2348,6 +2356,7 @@ switch (tt9) {
       s38 += parseInt(h9, 10)
     }
     work += 1
+    console.log(s19);
   break;
 
 
@@ -2562,6 +2571,7 @@ switch (tt10) {
       s38 += parseInt(h10, 10)
     }
     work += 1
+    console.log(s19);
   break;
 
 
@@ -2775,6 +2785,7 @@ switch (tt11) {
       s38 += parseInt(h11, 10)
     }
     work += 1
+    console.log(s19);
   break;
 
 
@@ -2990,6 +3001,7 @@ switch (tt12) {
       s38 += parseInt(h12, 10)
     }
     work += 1
+    console.log(s19);
   break;
 
 
@@ -3203,6 +3215,7 @@ switch (tt13) {
       s38 += parseInt(h13, 10)
     }
     work += 1
+    console.log(s19);
   break;
 
   case 'Я/ЛЧ':
@@ -3414,6 +3427,7 @@ switch (tt14) {
       s38 += parseInt(h14, 10)
     }
     work += 1
+    console.log(s19);
   break;
 
   case 'Я/ЛЧ':
@@ -3626,6 +3640,7 @@ switch (tt15) {
       s38 += parseInt(h15, 10)
     }
     work += 1
+    console.log(s19);
   break;
 
 
@@ -3840,6 +3855,7 @@ switch (tt16) {
       s38 += parseInt(h16, 10)
     }
     work += 1
+    console.log(s19);
   break;
 
 
@@ -4053,6 +4069,7 @@ switch (tt17) {
       s38 += parseInt(h17, 10)
     }
     work += 1
+    console.log(s19);
   break;
 
 
@@ -4266,6 +4283,7 @@ switch (tt18) {
       s38 += parseInt(h18, 10)
     }
     work += 1
+    console.log(s19);
   break;
 
   case 'Я/ЛЧ':
@@ -4478,6 +4496,7 @@ switch (tt19) {
       s38 += parseInt(h19, 10)
     }
     work += 1
+    console.log(s19);
   break;
 
   case 'Я/ЛЧ':
@@ -4690,6 +4709,7 @@ switch (tt20) {
       s38 += parseInt(h20, 10)
     }
     work += 1
+    console.log(s19);
   break;
 
   case 'Я/ЛЧ':
@@ -4902,6 +4922,7 @@ switch (tt21) {
       s38 += parseInt(h21, 10)
     }
     work += 1
+    console.log(s19);
   break;
 
 
@@ -5115,6 +5136,7 @@ switch (tt22) {
       s38 += parseInt(h22, 10)
     }
     work += 1
+    console.log(s19);
   break;
 
 
@@ -5329,6 +5351,7 @@ switch (tt23) {
       s38 += parseInt(h23, 10)
     }
     work += 1
+    console.log(s19);
   break;
 
 
@@ -5542,6 +5565,7 @@ switch (tt24) {
       s38 += parseInt(h24, 10)
     }
     work += 1
+    console.log(s19);
   break;
 
   case 'Я/ЛЧ':
@@ -5754,6 +5778,7 @@ switch (tt25) {
       s38 += parseInt(h25, 10)
     }
     work += 1
+    console.log(s19);
   break;
 
 
@@ -5967,6 +5992,7 @@ switch (tt26) {
       s38 += parseInt(h26, 10)
     }
     work += 1
+    console.log(s19);
   break;
 
 
@@ -6180,6 +6206,7 @@ switch (tt27) {
       s38 += parseInt(h27, 10)
     }
     work += 1
+    console.log(s19);
   break;
 
 
@@ -6393,6 +6420,7 @@ switch (tt28) {
       s38 += parseInt(h28, 10)
     }
     work += 1
+    console.log(s19);
   break;
 
 
@@ -6606,6 +6634,7 @@ switch (tt29) {
       s38 += parseInt(h29, 10)
     }
     work += 1
+    console.log(s19);
   break;
 
   case 'Я/ЛЧ':
@@ -6819,6 +6848,7 @@ switch (tt30) {
       s38 += parseInt(h30, 10)
     }
     work += 1
+    console.log(s19);
   break;
 
 
@@ -7032,6 +7062,7 @@ switch (tt31) {
       s38 += parseInt(h31, 10)
     }
     work += 1
+    console.log(s19);
   break;
 
 
