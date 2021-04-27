@@ -2766,7 +2766,7 @@ switch (tt11) {
   break;
 
   case 'НОД':
-    h_split = h1.split('/')
+    h_split = h11.split('/')
     if (h_split.length > 0) {
       s38 += parseInt(h_split[0], 10)
       s19 += parseInt(h_split[1], 10)
