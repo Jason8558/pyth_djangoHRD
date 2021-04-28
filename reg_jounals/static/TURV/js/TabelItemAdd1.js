@@ -25,6 +25,8 @@ function emp_info() {
       $('#n_time_span').css('display','block')
   }
 }
+
+
 // ------------------------------------------------------------------------
 $(document).ready(function(){
 
