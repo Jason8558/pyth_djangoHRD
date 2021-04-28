@@ -15,7 +15,9 @@
 <a class="btn btn-outline-danger" href="{% url 'delcheck' id=b_tabel.id%}">Снять пометку удаления</a>{%endif%}
 {%endblock%}
 
-
+{%block scripts%}
+  <script src="{% static 'TURV\js\Eighties3.js' %}" charset="utf-8"></script>
+  {%endblock%}
 
 {% block body %}
 <link rel="stylesheet" href="{% static 'TURV\css\tabel_print2.css'%}">
