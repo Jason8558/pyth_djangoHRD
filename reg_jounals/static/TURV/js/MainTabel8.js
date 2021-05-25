@@ -347,7 +347,7 @@ for (var field of checkfields) {
   $('#id_type_time31').val(tt31)
   h31 = $('#id_hours31').val()
 
-function SumHours() {
+
 
 
 //Суммирование часов
@@ -555,12 +555,12 @@ switch (tt1) {
   break;
 
   case 'НО':
-    s32 += parseInt(h1, 10)
+    s33 += parseInt(h1, 10)
     vac += 1
   break;
 
   case 'НБ':
-    s33 += parseInt(h1, 10)
+    s32 += parseInt(h1, 10)
     vac += 1
   break;
 
@@ -772,12 +772,12 @@ switch (tt2) {
   break;
 
   case 'НО':
-    s32 += parseInt(h2, 10)
+    s33 += parseInt(h2, 10)
     vac += 1
   break;
 
   case 'НБ':
-    s33 += parseInt(h2, 10)
+    s32 += parseInt(h2, 10)
     vac += 1
   break;
 
@@ -986,12 +986,12 @@ switch (tt3) {
   break;
 
   case 'НО':
-    s32 += parseInt(h3, 10)
+    s33 += parseInt(h3, 10)
     vac += 1
   break;
 
   case 'НБ':
-    s33 += parseInt(h3, 10)
+    s32 += parseInt(h3, 10)
     vac += 1
   break;
 
@@ -1203,12 +1203,12 @@ switch (tt4) {
   break;
 
   case 'НО':
-    s32 += parseInt(h4, 10)
+    s33 += parseInt(h4, 10)
     vac += 1
   break;
 
   case 'НБ':
-    s33 += parseInt(h4, 10)
+    s32 += parseInt(h4, 10)
     vac += 1
   break;
 
@@ -1440,13 +1440,13 @@ switch (tt5) {
   break;
 
   case 'НО':
-    s32 += parseInt(h5, 10)
+    s33 += parseInt(h5, 10)
     vac += 1
 
   break;
 
   case 'НБ':
-    s33 += parseInt(h5, 10)
+    s32 += parseInt(h5, 10)
     vac += 1
 
   break;
@@ -1659,12 +1659,12 @@ switch (tt6) {
   break;
 
   case 'НО':
-    s32 += parseInt(h6, 10)
+    s33 += parseInt(h6, 10)
     vac += 1
   break;
 
   case 'НБ':
-    s33 += parseInt(h6, 10)
+    s32 += parseInt(h6, 10)
     vac += 1
   break;
 
@@ -1875,12 +1875,12 @@ switch (tt7) {
   break;
 
   case 'НО':
-    s32 += parseInt(h7, 10)
+    s33 += parseInt(h7, 10)
     vac += 1
   break;
 
   case 'НБ':
-    s33 += parseInt(h7, 10)
+    s32 += parseInt(h7, 10)
     vac += 1
   break;
 
@@ -2114,13 +2114,13 @@ switch (tt8) {
   break;
 
   case 'НО':
-    s32 += parseInt(h8, 10)
+    s33 += parseInt(h8, 10)
     vac += 1
 
   break;
 
   case 'НБ':
-    s33 += parseInt(h8, 10)
+    s32 += parseInt(h8, 10)
     vac += 1
     break;
 
@@ -2330,12 +2330,12 @@ switch (tt9) {
   break;
 
   case 'НО':
-    s32 += parseInt(h9, 10)
+    s33 += parseInt(h9, 10)
     vac += 1
   break;
 
   case 'НБ':
-    s33 += parseInt(h9, 10)
+    s32 += parseInt(h9, 10)
     vac += 1
   break;
 
@@ -2545,12 +2545,12 @@ switch (tt10) {
   break;
 
   case 'НО':
-    s32 += parseInt(h10, 10)
+    s33 += parseInt(h10, 10)
     vac += 1
   break;
 
   case 'НБ':
-    s33 += parseInt(h10, 10)
+    s32 += parseInt(h10, 10)
     vac += 1
   break;
 
@@ -2760,12 +2760,12 @@ switch (tt11) {
   break;
 
   case 'НО':
-    s32 += parseInt(h11, 10)
+    s33 += parseInt(h11, 10)
     vac += 1
   break;
 
   case 'НБ':
-    s33 += parseInt(h11, 10)
+    s32 += parseInt(h11, 10)
     vac += 1
   break;
 
@@ -2976,12 +2976,12 @@ switch (tt12) {
   break;
 
   case 'НО':
-    s32 += parseInt(h12, 10)
+    s33 += parseInt(h12, 10)
     vac += 1
   break;
 
   case 'НБ':
-    s33 += parseInt(h12, 10)
+    s32 += parseInt(h12, 10)
     vac += 1
   break;
 
@@ -3190,12 +3190,12 @@ switch (tt13) {
   break;
 
   case 'НО':
-    s32 += parseInt(h13, 10)
+    s33 += parseInt(h13, 10)
     vac += 1
   break;
 
   case 'НБ':
-    s33 += parseInt(h13, 10)
+    s32 += parseInt(h13, 10)
     vac += 1
   break;
 
@@ -3402,12 +3402,12 @@ switch (tt14) {
   break;
 
   case 'НО':
-    s32 += parseInt(h14, 10)
+    s33 += parseInt(h14, 10)
     vac += 1
   break;
 
   case 'НБ':
-    s33 += parseInt(h14, 10)
+    s32 += parseInt(h14, 10)
     vac += 1
   break;
 
@@ -3615,12 +3615,12 @@ switch (tt15) {
   break;
 
   case 'НО':
-    s32 += parseInt(h15, 10)
+    s33 += parseInt(h15, 10)
     vac += 1
   break;
 
   case 'НБ':
-    s33 += parseInt(h15, 10)
+    s32 += parseInt(h15, 10)
     vac += 1
   break;
 
@@ -3830,12 +3830,12 @@ switch (tt16) {
   break;
 
   case 'НО':
-    s32 += parseInt(h16, 10)
+    s33 += parseInt(h16, 10)
     vac += 1
   break;
 
   case 'НБ':
-    s33 += parseInt(h16, 10)
+    s32 += parseInt(h16, 10)
     vac += 1
   break;
 
@@ -4044,12 +4044,12 @@ switch (tt17) {
   break;
 
   case 'НО':
-    s32 += parseInt(h17, 10)
+    s33 += parseInt(h17, 10)
     vac += 1
   break;
 
   case 'НБ':
-    s33 += parseInt(h17, 10)
+    s32 += parseInt(h17, 10)
     vac += 1
   break;
 
@@ -4258,12 +4258,12 @@ switch (tt18) {
   break;
 
   case 'НО':
-    s32 += parseInt(h18, 10)
+    s33 += parseInt(h18, 10)
     vac += 1
   break;
 
   case 'НБ':
-    s33 += parseInt(h18, 10)
+    s32 += parseInt(h18, 10)
     vac += 1
   break;
 
@@ -4471,12 +4471,12 @@ switch (tt19) {
   break;
 
   case 'НО':
-    s32 += parseInt(h19, 10)
+    s33 += parseInt(h19, 10)
     vac += 1
   break;
 
   case 'НБ':
-    s33 += parseInt(h19, 10)
+    s32 += parseInt(h19, 10)
     vac += 1
   break;
 
@@ -4684,12 +4684,12 @@ switch (tt20) {
   break;
 
   case 'НО':
-    s32 += parseInt(h20, 10)
+    s33 += parseInt(h20, 10)
     vac += 1
   break;
 
   case 'НБ':
-    s33 += parseInt(h20, 10)
+    s32 += parseInt(h20, 10)
     vac += 1
   break;
 
@@ -4897,12 +4897,12 @@ switch (tt21) {
   break;
 
   case 'НО':
-    s32 += parseInt(h21, 10)
+    s33 += parseInt(h21, 10)
     vac += 1
   break;
 
   case 'НБ':
-    s33 += parseInt(h21, 10)
+    s32 += parseInt(h21, 10)
     vac += 1
   break;
 
@@ -5111,12 +5111,12 @@ switch (tt22) {
   break;
 
   case 'НО':
-    s32 += parseInt(h22, 10)
+    s33 += parseInt(h22, 10)
     vac += 1
   break;
 
   case 'НБ':
-    s33 += parseInt(h22, 10)
+    s32 += parseInt(h22, 10)
     vac += 1
   break;
 
@@ -5326,12 +5326,12 @@ switch (tt23) {
   break;
 
   case 'НО':
-    s32 += parseInt(h23, 10)
+    s33 += parseInt(h23, 10)
     vac += 1
   break;
 
   case 'НБ':
-    s33 += parseInt(h23, 10)
+    s32 += parseInt(h23, 10)
     vac += 1
   break;
 
@@ -5540,12 +5540,12 @@ switch (tt24) {
   break;
 
   case 'НО':
-    s32 += parseInt(h24, 10)
+    s33 += parseInt(h24, 10)
     vac += 1
   break;
 
   case 'НБ':
-    s33 += parseInt(h24, 10)
+    s32 += parseInt(h24, 10)
     vac += 1
   break;
 
@@ -5753,12 +5753,12 @@ switch (tt25) {
   break;
 
   case 'НО':
-    s32 += parseInt(h25, 10)
+    s33 += parseInt(h25, 10)
     vac += 1
   break;
 
   case 'НБ':
-    s33 += parseInt(h25, 10)
+    s32 += parseInt(h25, 10)
     vac += 1
   break;
 
@@ -5967,12 +5967,12 @@ switch (tt26) {
   break;
 
   case 'НО':
-    s32 += parseInt(h26, 10)
+    s33 += parseInt(h26, 10)
     vac += 1
   break;
 
   case 'НБ':
-    s33 += parseInt(h26, 10)
+    s32 += parseInt(h26, 10)
     vac += 1
   break;
 
@@ -6181,12 +6181,12 @@ switch (tt27) {
   break;
 
   case 'НО':
-    s32 += parseInt(h27, 10)
+    s33 += parseInt(h27, 10)
     vac += 1
   break;
 
   case 'НБ':
-    s33 += parseInt(h27, 10)
+    s32 += parseInt(h27, 10)
     vac += 1
   break;
 
@@ -6395,12 +6395,12 @@ switch (tt28) {
   break;
 
   case 'НО':
-    s32 += parseInt(h28, 10)
+    s33 += parseInt(h28, 10)
     vac += 1
   break;
 
   case 'НБ':
-    s33 += parseInt(h28, 10)
+    s32 += parseInt(h28, 10)
     vac += 1
   break;
 
@@ -6609,12 +6609,12 @@ switch (tt29) {
   break;
 
   case 'НО':
-    s32 += parseInt(h29, 10)
+    s33 += parseInt(h29, 10)
     vac += 1
   break;
 
   case 'НБ':
-    s33 += parseInt(h29, 10)
+    s32 += parseInt(h29, 10)
     vac += 1
   break;
 
@@ -6823,12 +6823,12 @@ switch (tt30) {
   break;
 
   case 'НО':
-    s32 += parseInt(h30, 10)
+    s33 += parseInt(h30, 10)
     vac += 1
   break;
 
   case 'НБ':
-    s33 += parseInt(h30, 10)
+    s32 += parseInt(h30, 10)
     vac += 1
   break;
 
@@ -7037,12 +7037,12 @@ switch (tt31) {
   break;
 
   case 'НО':
-    s32 += parseInt(h31, 10)
+    s33 += parseInt(h31, 10)
     vac += 1
   break;
 
   case 'НБ':
-    s33 += parseInt(h31, 10)
+    s32 += parseInt(h31, 10)
     vac += 1
   break;
 
@@ -7150,7 +7150,7 @@ $('#id_v_days').val(vac)
 $('#id_v_hours').val(h_vac)
 
 console.log(s19);
-}
+
 sum_fields = $('.summary_times').children('.st')
 container = $('#tabel_item')
 
