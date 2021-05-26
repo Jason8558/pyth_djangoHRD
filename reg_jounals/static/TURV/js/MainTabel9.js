@@ -575,17 +575,19 @@ switch (tt1) {
   break;
 
   case 'НОД':
+  if (h1.length > 2) {
     h_split = h1.split('/')
-    console.log(h_split);
-    if (h_split.length > 0) {
+
+
       s38 += parseInt(h_split[0], 10)
       s19 += parseInt(h_split[1], 10)
 
-    }
+
+    work += 1 }
     else {
       s38 += parseInt(h1, 10)
+      work += 1
     }
-    work += 1
     console.log(s19);
   break;
 
@@ -792,19 +794,21 @@ switch (tt2) {
   break;
 
   case 'НОД':
+  if (h2.length > 2) {
     h_split = h2.split('/')
 
-    if (h_split.length > 0) {
+
       s38 += parseInt(h_split[0], 10)
       s19 += parseInt(h_split[1], 10)
-    }
+
+
+    work += 1 }
     else {
       s38 += parseInt(h2, 10)
+      work += 1
     }
-    work += 1
     console.log(s19);
   break;
-
 
   case 'Я/ЛЧ':
     h2_ = h2.split('/')
@@ -1006,16 +1010,19 @@ switch (tt3) {
   break;
 
   case 'НОД':
+  if (h3.length > 2) {
     h_split = h3.split('/')
 
-    if (h_split.length > 0) {
+
       s38 += parseInt(h_split[0], 10)
       s19 += parseInt(h_split[1], 10)
-    }
+
+
+    work += 1 }
     else {
       s38 += parseInt(h3, 10)
+      work += 1
     }
-    work += 1
     console.log(s19);
   break;
 
@@ -1223,16 +1230,19 @@ switch (tt4) {
   break;
 
   case 'НОД':
+  if (h4.length > 2) {
     h_split = h4.split('/')
 
-    if (h_split.length > 0) {
+
       s38 += parseInt(h_split[0], 10)
       s19 += parseInt(h_split[1], 10)
-    }
+
+
+    work += 1 }
     else {
       s38 += parseInt(h4, 10)
+      work += 1
     }
-    work += 1
     console.log(s19);
   break;
 
@@ -1463,17 +1473,20 @@ switch (tt5) {
   break;
 
   case 'НОД':
+  if (h5.length > 2) {
     h_split = h5.split('/')
 
-    if (h_split.length > 0) {
+
       s38 += parseInt(h_split[0], 10)
       s19 += parseInt(h_split[1], 10)
-    }
+
+
+    work += 1 }
     else {
       s38 += parseInt(h5, 10)
+      work += 1
     }
-    work += 1
-
+    console.log(s19);
   break;
 
 
@@ -1679,16 +1692,19 @@ switch (tt6) {
   break;
 
   case 'НОД':
+  if (h6.length > 2) {
     h_split = h6.split('/')
 
-    if (h_split.length > 0) {
+
       s38 += parseInt(h_split[0], 10)
       s19 += parseInt(h_split[1], 10)
-    }
+
+
+    work += 1 }
     else {
       s38 += parseInt(h6, 10)
+      work += 1
     }
-    work += 1
     console.log(s19);
   break;
 
@@ -1896,16 +1912,19 @@ switch (tt7) {
   break;
 
   case 'НОД':
+  if (h7.length > 2) {
     h_split = h7.split('/')
 
-    if (h_split.length > 0) {
+
       s38 += parseInt(h_split[0], 10)
       s19 += parseInt(h_split[1], 10)
-    }
+
+
+    work += 1 }
     else {
       s38 += parseInt(h7, 10)
+      work += 1
     }
-    work += 1
     console.log(s19);
   break;
 
@@ -2135,16 +2154,19 @@ switch (tt8) {
   break;
 
   case 'НОД':
+  if (h8.length > 2) {
     h_split = h8.split('/')
 
-    if (h_split.length > 0) {
+
       s38 += parseInt(h_split[0], 10)
       s19 += parseInt(h_split[1], 10)
-    }
+
+
+    work += 1 }
     else {
       s38 += parseInt(h8, 10)
+      work += 1
     }
-    work += 1
     console.log(s19);
   break;
 
@@ -2350,16 +2372,19 @@ switch (tt9) {
   break;
 
   case 'НОД':
+  if (h9.length > 2) {
     h_split = h9.split('/')
 
-    if (h_split.length > 0) {
+
       s38 += parseInt(h_split[0], 10)
       s19 += parseInt(h_split[1], 10)
-    }
+
+
+    work += 1 }
     else {
       s38 += parseInt(h9, 10)
+      work += 1
     }
-    work += 1
     console.log(s19);
   break;
 
@@ -2565,16 +2590,19 @@ switch (tt10) {
   break;
 
   case 'НОД':
+  if (h10.length > 2) {
     h_split = h10.split('/')
 
-    if (h_split.length > 0) {
+
       s38 += parseInt(h_split[0], 10)
       s19 += parseInt(h_split[1], 10)
-    }
+
+
+    work += 1 }
     else {
       s38 += parseInt(h10, 10)
+      work += 1
     }
-    work += 1
     console.log(s19);
   break;
 
@@ -2780,15 +2808,19 @@ switch (tt11) {
   break;
 
   case 'НОД':
+  if (h11.length > 2) {
     h_split = h11.split('/')
-    if (h_split.length > 0) {
+
+
       s38 += parseInt(h_split[0], 10)
       s19 += parseInt(h_split[1], 10)
-    }
+
+
+    work += 1 }
     else {
       s38 += parseInt(h11, 10)
+      work += 1
     }
-    work += 1
     console.log(s19);
   break;
 
@@ -2996,15 +3028,19 @@ switch (tt12) {
   break;
 
   case 'НОД':
+  if (h12.length > 2) {
     h_split = h12.split('/')
-    if (h_split.length > 0) {
+
+
       s38 += parseInt(h_split[0], 10)
       s19 += parseInt(h_split[1], 10)
-    }
+
+
+    work += 1 }
     else {
       s38 += parseInt(h12, 10)
+      work += 1
     }
-    work += 1
     console.log(s19);
   break;
 
@@ -3210,15 +3246,19 @@ switch (tt13) {
   break;
 
   case 'НОД':
+  if (h13.length > 2) {
     h_split = h13.split('/')
-    if (h_split.length > 0) {
+
+
       s38 += parseInt(h_split[0], 10)
       s19 += parseInt(h_split[1], 10)
-    }
+
+
+    work += 1 }
     else {
       s38 += parseInt(h13, 10)
+      work += 1
     }
-    work += 1
     console.log(s19);
   break;
 
@@ -3422,15 +3462,19 @@ switch (tt14) {
   break;
 
   case 'НОД':
+  if (h14.length > 2) {
     h_split = h14.split('/')
-    if (h_split.length > 0) {
+
+
       s38 += parseInt(h_split[0], 10)
       s19 += parseInt(h_split[1], 10)
-    }
+
+
+    work += 1 }
     else {
       s38 += parseInt(h14, 10)
+      work += 1
     }
-    work += 1
     console.log(s19);
   break;
 
@@ -3635,15 +3679,19 @@ switch (tt15) {
   break;
 
   case 'НОД':
+  if (h15.length > 2) {
     h_split = h15.split('/')
-    if (h_split.length > 0) {
+
+
       s38 += parseInt(h_split[0], 10)
       s19 += parseInt(h_split[1], 10)
-    }
+
+
+    work += 1 }
     else {
       s38 += parseInt(h15, 10)
+      work += 1
     }
-    work += 1
     console.log(s19);
   break;
 
@@ -3850,15 +3898,19 @@ switch (tt16) {
   break;
 
   case 'НОД':
+  if (h16.length > 2) {
     h_split = h16.split('/')
-    if (h_split.length > 0) {
+
+
       s38 += parseInt(h_split[0], 10)
       s19 += parseInt(h_split[1], 10)
-    }
+
+
+    work += 1 }
     else {
       s38 += parseInt(h16, 10)
+      work += 1
     }
-    work += 1
     console.log(s19);
   break;
 
@@ -4064,15 +4116,19 @@ switch (tt17) {
   break;
 
   case 'НОД':
+  if (h17.length > 2) {
     h_split = h17.split('/')
-    if (h_split.length > 0) {
+
+
       s38 += parseInt(h_split[0], 10)
       s19 += parseInt(h_split[1], 10)
-    }
+
+
+    work += 1 }
     else {
       s38 += parseInt(h17, 10)
+      work += 1
     }
-    work += 1
     console.log(s19);
   break;
 
@@ -4278,15 +4334,19 @@ switch (tt18) {
   break;
 
   case 'НОД':
+  if (h18.length > 2) {
     h_split = h18.split('/')
-    if (h_split.length > 0) {
+
+
       s38 += parseInt(h_split[0], 10)
       s19 += parseInt(h_split[1], 10)
-    }
+
+
+    work += 1 }
     else {
       s38 += parseInt(h18, 10)
+      work += 1
     }
-    work += 1
     console.log(s19);
   break;
 
@@ -4491,15 +4551,19 @@ switch (tt19) {
   break;
 
   case 'НОД':
+  if (h19.length > 2) {
     h_split = h19.split('/')
-    if (h_split.length > 0) {
+
+
       s38 += parseInt(h_split[0], 10)
       s19 += parseInt(h_split[1], 10)
-    }
+
+
+    work += 1 }
     else {
       s38 += parseInt(h19, 10)
+      work += 1
     }
-    work += 1
     console.log(s19);
   break;
 
@@ -4704,15 +4768,19 @@ switch (tt20) {
   break;
 
   case 'НОД':
+  if (h20.length > 2) {
     h_split = h20.split('/')
-    if (h_split.length > 0) {
+
+
       s38 += parseInt(h_split[0], 10)
       s19 += parseInt(h_split[1], 10)
-    }
+
+
+    work += 1 }
     else {
       s38 += parseInt(h20, 10)
+      work += 1
     }
-    work += 1
     console.log(s19);
   break;
 
@@ -4917,15 +4985,19 @@ switch (tt21) {
   break;
 
   case 'НОД':
+  if (h21.length > 2) {
     h_split = h21.split('/')
-    if (h_split.length > 0) {
+
+
       s38 += parseInt(h_split[0], 10)
       s19 += parseInt(h_split[1], 10)
-    }
+
+
+    work += 1 }
     else {
       s38 += parseInt(h21, 10)
+      work += 1
     }
-    work += 1
     console.log(s19);
   break;
 
@@ -5131,15 +5203,19 @@ switch (tt22) {
   break;
 
   case 'НОД':
+  if (h22.length > 2) {
     h_split = h22.split('/')
-    if (h_split.length > 0) {
+
+
       s38 += parseInt(h_split[0], 10)
       s19 += parseInt(h_split[1], 10)
-    }
+
+
+    work += 1 }
     else {
       s38 += parseInt(h22, 10)
+      work += 1
     }
-    work += 1
     console.log(s19);
   break;
 
@@ -5346,15 +5422,19 @@ switch (tt23) {
   break;
 
   case 'НОД':
+  if (h23.length > 2) {
     h_split = h23.split('/')
-    if (h_split.length > 0) {
+
+
       s38 += parseInt(h_split[0], 10)
       s19 += parseInt(h_split[1], 10)
-    }
+
+
+    work += 1 }
     else {
       s38 += parseInt(h23, 10)
+      work += 1
     }
-    work += 1
     console.log(s19);
   break;
 
@@ -5560,15 +5640,19 @@ switch (tt24) {
   break;
 
   case 'НОД':
+  if (h24.length > 2) {
     h_split = h24.split('/')
-    if (h_split.length > 0) {
+
+
       s38 += parseInt(h_split[0], 10)
       s19 += parseInt(h_split[1], 10)
-    }
+
+
+    work += 1 }
     else {
       s38 += parseInt(h24, 10)
+      work += 1
     }
-    work += 1
     console.log(s19);
   break;
 
@@ -5773,15 +5857,19 @@ switch (tt25) {
   break;
 
   case 'НОД':
+  if (h25.length > 2) {
     h_split = h25.split('/')
-    if (h_split.length > 0) {
+
+
       s38 += parseInt(h_split[0], 10)
       s19 += parseInt(h_split[1], 10)
-    }
+
+
+    work += 1 }
     else {
       s38 += parseInt(h25, 10)
+      work += 1
     }
-    work += 1
     console.log(s19);
   break;
 
@@ -5987,15 +6075,19 @@ switch (tt26) {
   break;
 
   case 'НОД':
+  if (h26.length > 2) {
     h_split = h26.split('/')
-    if (h_split.length > 0) {
+
+
       s38 += parseInt(h_split[0], 10)
       s19 += parseInt(h_split[1], 10)
-    }
+
+
+    work += 1 }
     else {
       s38 += parseInt(h26, 10)
+      work += 1
     }
-    work += 1
     console.log(s19);
   break;
 
@@ -6201,15 +6293,19 @@ switch (tt27) {
   break;
 
   case 'НОД':
+  if (h27.length > 2) {
     h_split = h27.split('/')
-    if (h_split.length > 0) {
+
+
       s38 += parseInt(h_split[0], 10)
       s19 += parseInt(h_split[1], 10)
-    }
+
+
+    work += 1 }
     else {
       s38 += parseInt(h27, 10)
+      work += 1
     }
-    work += 1
     console.log(s19);
   break;
 
@@ -6415,15 +6511,19 @@ switch (tt28) {
   break;
 
   case 'НОД':
+  if (h28.length > 2) {
     h_split = h28.split('/')
-    if (h_split.length > 0) {
+
+
       s38 += parseInt(h_split[0], 10)
       s19 += parseInt(h_split[1], 10)
-    }
+
+
+    work += 1 }
     else {
       s38 += parseInt(h28, 10)
+      work += 1
     }
-    work += 1
     console.log(s19);
   break;
 
@@ -6629,15 +6729,19 @@ switch (tt29) {
   break;
 
   case 'НОД':
+  if (h29.length > 2) {
     h_split = h29.split('/')
-    if (h_split.length > 0) {
+
+
       s38 += parseInt(h_split[0], 10)
       s19 += parseInt(h_split[1], 10)
-    }
+
+
+    work += 1 }
     else {
       s38 += parseInt(h29, 10)
+      work += 1
     }
-    work += 1
     console.log(s19);
   break;
 
@@ -6843,15 +6947,19 @@ switch (tt30) {
   break;
 
   case 'НОД':
+  if (h30.length > 2) {
     h_split = h30.split('/')
-    if (h_split.length > 0) {
+
+
       s38 += parseInt(h_split[0], 10)
       s19 += parseInt(h_split[1], 10)
-    }
+
+
+    work += 1 }
     else {
       s38 += parseInt(h30, 10)
+      work += 1
     }
-    work += 1
     console.log(s19);
   break;
 
@@ -7057,15 +7165,19 @@ switch (tt31) {
   break;
 
   case 'НОД':
-    h31_ = h31.split('/')
-    if (h_split.length > 0) {
-      s38 += parseInt(h31_[0], 10)
-      s19 += parseInt(h31_[1], 10)
-    }
+  if (h31.length > 2) {
+    h_split = h31.split('/')
+
+
+      s38 += parseInt(h_split[0], 10)
+      s19 += parseInt(h_split[1], 10)
+
+
+    work += 1 }
     else {
       s38 += parseInt(h31, 10)
+      work += 1
     }
-    work += 1
     console.log(s19);
   break;
 
@@ -7126,7 +7238,12 @@ $('#id_sHours15').val(s15)
 $('#id_sHours16').val(s16)
 $('#id_sHours17').val(s17)
 $('#id_sHours18').val(s18)
-$('#id_sHours19').val(s19)
+
+
+
+
+    $('#id_sHours19').val(s19)
+
 $('#id_sHours20').val(s20)
 $('#id_sHours21').val(s21)
 $('#id_sHours22').val(s22)
