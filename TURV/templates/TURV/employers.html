@@ -54,6 +54,23 @@
 
   {%for emp in employers %}
 
+  {% if emp.fired %}
+  <tr style="text-decoration: line-through" onclick="return location.href = '{% url 'emp_upd' id=emp.id%}' " >
+
+
+    <td>{{emp.fullname}}</td>
+    <td>{{emp.position}}</td>
+    <td>{{emp.department}}</td>
+    <td>{{emp.positionOfPayment}}</td>
+    <td>{{emp.level}}</td>
+    {% if emp.shift_personnel %}
+    <td>✅</td>
+    {%else%}
+    <td>❌</td>
+    {%endif%}
+
+  {%else%}
+
   <tr  onclick="return location.href = '{% url 'emp_upd' id=emp.id%}' " >
 
 
@@ -68,6 +85,7 @@
     <td>❌</td>
     {%endif%}
 
+{%endif%}
 
   </tr>
   {%endfor%}

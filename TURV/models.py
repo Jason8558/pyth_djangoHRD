@@ -5,6 +5,7 @@ class Employers(models.Model):
     fullname = models.CharField(verbose_name = 'ФИО сотрудника', db_index=True, max_length=256)
     position = models.ForeignKey('Position', verbose_name='Должность', db_index=True, on_delete=models.CASCADE)
     shift_personnel = models.BooleanField(verbose_name='Сменный персонал', default=False)
+    fired = models.BooleanField(verbose_name='Сотрудник уволен', default=False)
     stand_worktime = models.FloatField(verbose_name='Норма часов', default=0)
     department = models.ForeignKey('Department', verbose_name='Подразделение', on_delete=models.CASCADE)
     level = models.CharField(verbose_name='Разряд/категория', max_length=256)
