@@ -108,36 +108,36 @@ function col_days() {
       form.days_count.value = Math.ceil(vac_days)+1; }
           }
 
-  function duration() {
-    let form = document.forms[0];
-    var s_date1 = form.dur_from.value;
-    var year1 = s_date1.slice(0,4);
-    var mount1 = s_date1.slice(6,7);
-    var day1 = s_date1.slice(8,10);
-    var f_date1 = year1 + "," + mount1 + "," + day1;
-    let s_date = new Date(f_date1);
-    let days = form.days_count.value;
-    days = days-1;
-    var newDate = new Date(s_date.getTime() + (days * 24 * 60 * 60 * 1000) );
-
-
-
-    year = newDate.getFullYear();
-    month = newDate.getMonth();
-    month = month + 1;
-    month = padNum(month)
-
-    day = newDate.getDate();
-    day = padNum(day);
-
-    function padNum(num) {
-    return num.toString().padStart(2,0);
-  };
-
-    form.dur_to.value = year + "-" + month + "-" + day
-
-
-
-
-
-  }
+  // function duration() {
+  //   let form = document.forms[0];
+  //   var s_date1 = form.dur_from.value;
+  //   var year1 = s_date1.slice(0,4);
+  //   var mount1 = s_date1.slice(6,7);
+  //   var day1 = s_date1.slice(8,10);
+  //   var f_date1 = year1 + "," + mount1 + "," + day1;
+  //   let s_date = new Date(f_date1);
+  //   let days = form.days_count.value;
+  //   days = days-1;
+  //   var newDate = new Date(s_date.getTime() + (days * 24 * 60 * 60 * 1000) );
+  //
+  //
+  //
+  //   year = newDate.getFullYear();
+  //   month = newDate.getMonth();
+  //   month = month + 1;
+  //   month = padNum(month)
+  //
+  //   day = newDate.getDate();
+  //   day = padNum(day);
+  //
+  //   function padNum(num) {
+  //   return num.toString().padStart(2,0);
+  // };
+  //
+  //   form.dur_to.value = year + "-" + month + "-" + day
+  //
+  //
+  //
+  //
+  //
+  // }

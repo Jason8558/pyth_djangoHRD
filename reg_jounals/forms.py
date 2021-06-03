@@ -466,7 +466,7 @@ class NewOrdersOnVacationItem_form(forms.ModelForm):
     attrs={'onchange':'duration()', 'type':'text'}))
 
     dur_to = forms.DateField(label="Дата окончания отпуска" , widget=forms.TextInput(
-        attrs={'placeholder': 'Введите дату', 'type':'date', 'onchange':'col_days()'}))
+        attrs={'placeholder': 'Введите дату', 'type':'date', 'onchange':'vac_calc()'}))
 
 
     def saveFirst(self, order_id, user_):
