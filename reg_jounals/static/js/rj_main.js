@@ -10,6 +10,9 @@ dcount = (( Date.parse(date_to_new) - Date.parse(date_from_new)) / 24 / 60 / 60 
 
 $('#id_days_count').val(dcount)
 
+
+$('#id_days_count2').val(dcount - 1)
+
 }
 
 function duration() {
@@ -18,12 +21,43 @@ function duration() {
 
   days = $('#id_days_count').val()
 
-  date_to = Date.parse(date_from_new).addDays(parseInt(days, 10) - 1)
+  days2 = $('#id_days_count2').val()
+console.log(days2);
+if (days) {
+  date_to = Date.parse(date_from_new).addDays(parseInt(days, 10) - 1)}
+else {
+    date_to = Date.parse(date_from_new).addDays(parseInt(days2, 10))
+}
+
+  
 
   $('#id_dur_to').val(date_to.toString('yyyy-MM-dd'))
 
 
 }
+
+function open_vac_calc() {
+  $('#calc-container').css('display','block')
+}
+
+function close_vac_calc() {
+  $('#calc-container').css('display','none')
+}
+
+function select_calc_mode_subtr() {
+  if ($('#subtr').css('display') == 'none') {
+    $('#subtr').css('display', 'block')
+    $('#dur').css('display','none')
+  }
+}
+
+function select_calc_mode_dur() {
+  if ($('#dur').css('display') == 'none') {
+    $('#dur').css('display', 'block')
+    $('#subtr').css('display','none')
+  }
+}
+
 
 function OpenSureDialog() {
   document.getElementById('sure_btn').style.display = "none";

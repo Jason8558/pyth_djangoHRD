@@ -31,10 +31,33 @@
     <span class="navbar-brand mb-0 h1">{%block header%}Система КДО и табельного учета{%endblock%}</span><span style="text-align: right; float: right;font-size: 14pt;">  {{ user.first_name }} {% if request.user.is_superuser%}  <a style="color:black;" href="{% url 'logfile' %}">| Лог |</a> <a style="color:black;" href="/admin/">Войти в админ-панель</a><span id="version"> v1.2.3 </span>{%endif%} {% if request.user.groups.all.0.name == 'Редактирование справочников' %} <a style="color:black;" href="/admin">| Подразделения</a> {% endif %}<a class="btn btn-outline-danger" style="margin-left: 17px;" href="{% url 'logout'%}">выйти</a></span>
 
     </div>
+
   </header>
+
+
 
 <div class="container">
     {%block content%}
+    <div class='sub-navbar'>
+    <button class="btn btn-dark" onclick="open_vac_calc()" type="button" name="">Калькулятор дат</button>
+
+    </div>
+
+  <div id='calc-container' class="date-calc-container">
+    <div class="date-calc-nav">
+
+      <button class="btn btn-danger" onclick="close_vac_calc()" type="button" name="">Закрыть</button>
+    </div>
+    <div id="subtr" class="date-calc-div date-calc-subtr">
+      <label for="d-calc-first">Начальная дата: </label> <input type="date" id="id_dur_from" name="d-calc-first" value="">
+      <label for="d-calc-first">Конечная дата: </label> <input type="date" id="id_dur_to" onchange="vac_calc()" name="d-calc-last" value="">
+      <label for="d-calc-dur-count">Кол-во дней:  </label>  <input style="text-align: center;" type="number" id='id_days_count2' onchange="duration()" name="d-calc-dur-count" value="">
+    </div>
+
+
+
+  </div>
+
     <h1 style="text-align: center;
     margin-top: 46px;
     font-size: 27pt;
