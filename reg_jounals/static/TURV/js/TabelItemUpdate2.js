@@ -258,8 +258,6 @@ for (var i = 1; i < (days_count+1); i++) {
       break;
 
       case '19':
-      $('#id_type_time19').val("В")
-      $('#id_hours19').val("8")
       $('#id_type_time19').css('background','lightgreen')
       $('#id_hours19').css('background','lightgreen')
       break;

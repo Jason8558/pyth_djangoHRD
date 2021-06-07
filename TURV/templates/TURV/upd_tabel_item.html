@@ -1,6 +1,6 @@
 {% extends "TURV/index.html" %}
 {%load static%}
-{%block scripts%}<script src="{% static 'TURV\js\TabelItemUpdate1.js' %}" charset="utf-8"></script>{%endblock%}
+{%block scripts%}<script src="{% static 'TURV\js\TabelItemUpdate2.js' %}" charset="utf-8"></script>{%endblock%}
 {%block title%}{{item.employer.fullname}}{%endblock%}
 
 {%block header%}<a class="btn btn-dark" href="/turv/create/{{b_tabel.id}}">< Назад</a> | <span class="hide" id="id_month">{{month}}</span>Табель за <span  class='field_month'>{{month}}</span> <span id='id_year'>{{year}}</span> г. - <span class="fullname"></span>{%endblock%}
