@@ -340,7 +340,7 @@ a#button_ident {}
 
   table .tr-header
   {
-    background: #977390 ;
+    background: #977390 !important;
 
   }
 
@@ -353,6 +353,10 @@ a#button_ident {}
     background: #977390;
     color: black;
   }
+  table tr:nth-child(even) {
+    background: lightgray;
+  }
+
   table tr:hover {
     color: #a600f7;
     /* color: white; */
