@@ -584,7 +584,7 @@ def unload(request):
 
                 for item in items:
                     current_tabel = Tabel.objects.get(id=item.bound_tabel)
-                    if current_tabel.del_check == False:
+                    if current_tabel.del_check == False and current_tabel.sup_check == True :
                         ws.write(i,0, item.employer.fullname)
                         ws.write(i,1, item.employer.position.name)
 
