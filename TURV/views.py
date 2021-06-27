@@ -507,273 +507,277 @@ def unload(request):
 
             items = TabelItem.objects.filter(employer__department_id=dep.id).filter(month=month_).filter(year=year_).order_by('employer')
             if items:
-                ws = wb.add_sheet(dn)
+                ct = items[0].bound_tabel
+                print(ct)
+                current_tabel = Tabel.objects.get(id=ct)
+                if items and current_tabel.sup_check == True:
+                    ws = wb.add_sheet(dn)
 
 
 
-                i = 1
-                ws.write(0,0,'fio_vod')
-                ws.write(0,1,'dolgn')
-                ws.write(0,2,'t1')
-                ws.write(0,3,'t2')
-                ws.write(0,4,'t3')
-                ws.write(0,5,'t4')
-                ws.write(0,6,'t5')
-                ws.write(0,7,'t6')
-                ws.write(0,8,'t7')
-                ws.write(0,9,'t8')
-                ws.write(0,10,'t9')
-                ws.write(0,11,'t10')
-                ws.write(0,12,'t11')
-                ws.write(0,13,'t12')
-                ws.write(0,14,'t13')
-                ws.write(0,15,'t14')
-                ws.write(0,16,'t15')
-                ws.write(0,17,'t16')
-                ws.write(0,18,'t17')
-                ws.write(0,19,'t18')
-                ws.write(0,20,'t19')
-                ws.write(0,21,'t20')
-                ws.write(0,22,'t21')
-                ws.write(0,23,'t22')
-                ws.write(0,24,'t23')
-                ws.write(0,25,'t24')
-                ws.write(0,26,'t25')
-                ws.write(0,27,'t26')
-                ws.write(0,28,'t27')
-                ws.write(0,29,'t28')
-                ws.write(0,30,'t29')
-                ws.write(0,31,'t30')
-                ws.write(0,32,'t31')
-                ws.write(0,33,'pr1')
-                ws.write(0,34,'pr2')
-                ws.write(0,35,'pr3')
-                ws.write(0,36,'pr4')
-                ws.write(0,37,'pr5')
-                ws.write(0,38,'pr6')
-                ws.write(0,39,'pr7')
-                ws.write(0,40,'pr8')
-                ws.write(0,41,'pr9')
-                ws.write(0,42,'pr10')
-                ws.write(0,43,'pr11')
-                ws.write(0,44,'pr12')
-                ws.write(0,45,'pr13')
-                ws.write(0,46,'pr14')
-                ws.write(0,47,'pr15')
-                ws.write(0,48,'pr16')
-                ws.write(0,49,'pr17')
-                ws.write(0,50,'pr18')
-                ws.write(0,51,'pr19')
-                ws.write(0,52,'pr20')
-                ws.write(0,53,'pr21')
-                ws.write(0,54,'pr22')
-                ws.write(0,55,'pr23')
-                ws.write(0,56,'pr24')
-                ws.write(0,57,'pr25')
-                ws.write(0,58,'pr26')
-                ws.write(0,59,'pr27')
-                ws.write(0,60,'pr28')
-                ws.write(0,61,'pr29')
-                ws.write(0,62,'pr30')
-                ws.write(0,63,'pr31')
+                    i = 1
+                    ws.write(0,0,'fio_vod')
+                    ws.write(0,1,'dolgn')
+                    ws.write(0,2,'t1')
+                    ws.write(0,3,'t2')
+                    ws.write(0,4,'t3')
+                    ws.write(0,5,'t4')
+                    ws.write(0,6,'t5')
+                    ws.write(0,7,'t6')
+                    ws.write(0,8,'t7')
+                    ws.write(0,9,'t8')
+                    ws.write(0,10,'t9')
+                    ws.write(0,11,'t10')
+                    ws.write(0,12,'t11')
+                    ws.write(0,13,'t12')
+                    ws.write(0,14,'t13')
+                    ws.write(0,15,'t14')
+                    ws.write(0,16,'t15')
+                    ws.write(0,17,'t16')
+                    ws.write(0,18,'t17')
+                    ws.write(0,19,'t18')
+                    ws.write(0,20,'t19')
+                    ws.write(0,21,'t20')
+                    ws.write(0,22,'t21')
+                    ws.write(0,23,'t22')
+                    ws.write(0,24,'t23')
+                    ws.write(0,25,'t24')
+                    ws.write(0,26,'t25')
+                    ws.write(0,27,'t26')
+                    ws.write(0,28,'t27')
+                    ws.write(0,29,'t28')
+                    ws.write(0,30,'t29')
+                    ws.write(0,31,'t30')
+                    ws.write(0,32,'t31')
+                    ws.write(0,33,'pr1')
+                    ws.write(0,34,'pr2')
+                    ws.write(0,35,'pr3')
+                    ws.write(0,36,'pr4')
+                    ws.write(0,37,'pr5')
+                    ws.write(0,38,'pr6')
+                    ws.write(0,39,'pr7')
+                    ws.write(0,40,'pr8')
+                    ws.write(0,41,'pr9')
+                    ws.write(0,42,'pr10')
+                    ws.write(0,43,'pr11')
+                    ws.write(0,44,'pr12')
+                    ws.write(0,45,'pr13')
+                    ws.write(0,46,'pr14')
+                    ws.write(0,47,'pr15')
+                    ws.write(0,48,'pr16')
+                    ws.write(0,49,'pr17')
+                    ws.write(0,50,'pr18')
+                    ws.write(0,51,'pr19')
+                    ws.write(0,52,'pr20')
+                    ws.write(0,53,'pr21')
+                    ws.write(0,54,'pr22')
+                    ws.write(0,55,'pr23')
+                    ws.write(0,56,'pr24')
+                    ws.write(0,57,'pr25')
+                    ws.write(0,58,'pr26')
+                    ws.write(0,59,'pr27')
+                    ws.write(0,60,'pr28')
+                    ws.write(0,61,'pr29')
+                    ws.write(0,62,'pr30')
+                    ws.write(0,63,'pr31')
 
 
 
 
 
 
-                for item in items:
-                    current_tabel = Tabel.objects.get(id=item.bound_tabel)
-                    if current_tabel.del_check == False and current_tabel.sup_check == True :
-                        ws.write(i,0, item.employer.fullname)
-                        ws.write(i,1, item.employer.position.name)
+                    for item in items:
 
-                        if item.type_time1 == 'В':
-                            ws.write(i,2,'В')
-                        else:
-                            ws.write(i,2,item.hours1)
+                        if current_tabel.del_check == False:
+                            ws.write(i,0, item.employer.fullname)
+                            ws.write(i,1, item.employer.position.name)
 
-                        if item.type_time2 == 'В':
-                            ws.write(i,3,'В')
-                        else:
-                            ws.write(i,3,item.hours2)
+                            if item.type_time1 == 'В':
+                                ws.write(i,2,'В')
+                            else:
+                                ws.write(i,2,item.hours1)
 
-                        if item.type_time3 == 'В':
-                            ws.write(i,4,'В')
-                        else:
-                            ws.write(i,4,item.hours3)
+                            if item.type_time2 == 'В':
+                                ws.write(i,3,'В')
+                            else:
+                                ws.write(i,3,item.hours2)
 
-                        if item.type_time4 == 'В':
-                            ws.write(i,5,'В')
-                        else:
-                            ws.write(i,5,item.hours4)
+                            if item.type_time3 == 'В':
+                                ws.write(i,4,'В')
+                            else:
+                                ws.write(i,4,item.hours3)
 
-                        if item.type_time5 == 'В':
-                            ws.write(i,6,'В')
-                        else:
-                            ws.write(i,6,item.hours5)
+                            if item.type_time4 == 'В':
+                                ws.write(i,5,'В')
+                            else:
+                                ws.write(i,5,item.hours4)
 
-                        if item.type_time6 == 'В':
-                            ws.write(i,7,'В')
-                        else:
-                            ws.write(i,7,item.hours6)
+                            if item.type_time5 == 'В':
+                                ws.write(i,6,'В')
+                            else:
+                                ws.write(i,6,item.hours5)
 
-                        if item.type_time7 == 'В':
-                            ws.write(i,8,'В')
-                        else:
-                            ws.write(i,8,item.hours7)
+                            if item.type_time6 == 'В':
+                                ws.write(i,7,'В')
+                            else:
+                                ws.write(i,7,item.hours6)
 
-                        if item.type_time8 == 'В':
-                            ws.write(i,9,'В')
-                        else:
-                            ws.write(i,9,item.hours8)
+                            if item.type_time7 == 'В':
+                                ws.write(i,8,'В')
+                            else:
+                                ws.write(i,8,item.hours7)
 
-                        if item.type_time9 == 'В':
-                            ws.write(i,10,'В')
-                        else:
-                            ws.write(i,10,item.hours9)
+                            if item.type_time8 == 'В':
+                                ws.write(i,9,'В')
+                            else:
+                                ws.write(i,9,item.hours8)
 
-                        if item.type_time10 == 'В':
-                            ws.write(i,11,'В')
-                        else:
-                            ws.write(i,11,item.hours10)
+                            if item.type_time9 == 'В':
+                                ws.write(i,10,'В')
+                            else:
+                                ws.write(i,10,item.hours9)
 
-                        if item.type_time11 == 'В':
-                            ws.write(i,12,'В')
-                        else:
-                            ws.write(i,12,item.hours11)
+                            if item.type_time10 == 'В':
+                                ws.write(i,11,'В')
+                            else:
+                                ws.write(i,11,item.hours10)
 
-                        if item.type_time12 == 'В':
-                            ws.write(i,13,'В')
-                        else:
-                            ws.write(i,13,item.hours12)
+                            if item.type_time11 == 'В':
+                                ws.write(i,12,'В')
+                            else:
+                                ws.write(i,12,item.hours11)
 
-                        if item.type_time13 == 'В':
-                            ws.write(i,14,'В')
-                        else:
-                            ws.write(i,14,item.hours13)
+                            if item.type_time12 == 'В':
+                                ws.write(i,13,'В')
+                            else:
+                                ws.write(i,13,item.hours12)
 
-                        if item.type_time14 == 'В':
-                            ws.write(i,15,'В')
-                        else:
-                            ws.write(i,15,item.hours14)
+                            if item.type_time13 == 'В':
+                                ws.write(i,14,'В')
+                            else:
+                                ws.write(i,14,item.hours13)
 
-                        if item.type_time15 == 'В':
-                            ws.write(i,16,'В')
-                        else:
-                            ws.write(i,16,item.hours15)
+                            if item.type_time14 == 'В':
+                                ws.write(i,15,'В')
+                            else:
+                                ws.write(i,15,item.hours14)
 
-                        if item.type_time16 == 'В':
-                            ws.write(i,17,'В')
-                        else:
-                            ws.write(i,17,item.hours16)
+                            if item.type_time15 == 'В':
+                                ws.write(i,16,'В')
+                            else:
+                                ws.write(i,16,item.hours15)
 
-                        if item.type_time17 == 'В':
-                            ws.write(i,18,'В')
-                        else:
-                            ws.write(i,18,item.hours17)
+                            if item.type_time16 == 'В':
+                                ws.write(i,17,'В')
+                            else:
+                                ws.write(i,17,item.hours16)
 
-                        if item.type_time18 == 'В':
-                            ws.write(i,19,'В')
-                        else:
-                            ws.write(i,19,item.hours18)
+                            if item.type_time17 == 'В':
+                                ws.write(i,18,'В')
+                            else:
+                                ws.write(i,18,item.hours17)
 
-                        if item.type_time19 == 'В':
-                            ws.write(i,20,'В')
-                        else:
-                            ws.write(i,20,item.hours19)
+                            if item.type_time18 == 'В':
+                                ws.write(i,19,'В')
+                            else:
+                                ws.write(i,19,item.hours18)
 
-                        if item.type_time20 == 'В':
-                            ws.write(i,21,'В')
-                        else:
-                            ws.write(i,21,item.hours20)
+                            if item.type_time19 == 'В':
+                                ws.write(i,20,'В')
+                            else:
+                                ws.write(i,20,item.hours19)
 
-                        if item.type_time21 == 'В':
-                            ws.write(i,22,'В')
-                        else:
-                            ws.write(i,22,item.hours21)
+                            if item.type_time20 == 'В':
+                                ws.write(i,21,'В')
+                            else:
+                                ws.write(i,21,item.hours20)
 
-                        if item.type_time22 == 'В':
-                            ws.write(i,23,'В')
-                        else:
-                            ws.write(i,23,item.hours22)
+                            if item.type_time21 == 'В':
+                                ws.write(i,22,'В')
+                            else:
+                                ws.write(i,22,item.hours21)
 
-                        if item.type_time23 == 'В':
-                            ws.write(i,24,'В')
-                        else:
-                            ws.write(i,24,item.hours23)
+                            if item.type_time22 == 'В':
+                                ws.write(i,23,'В')
+                            else:
+                                ws.write(i,23,item.hours22)
 
-                        if item.type_time24 == 'В':
-                            ws.write(i,25,'В')
-                        else:
-                            ws.write(i,25,item.hours24)
+                            if item.type_time23 == 'В':
+                                ws.write(i,24,'В')
+                            else:
+                                ws.write(i,24,item.hours23)
 
-                        if item.type_time25 == 'В':
-                            ws.write(i,26,'В')
-                        else:
-                            ws.write(i,26,item.hours25)
+                            if item.type_time24 == 'В':
+                                ws.write(i,25,'В')
+                            else:
+                                ws.write(i,25,item.hours24)
 
-                        if item.type_time26 == 'В':
-                            ws.write(i,27,'В')
-                        else:
-                            ws.write(i,27,item.hours26)
+                            if item.type_time25 == 'В':
+                                ws.write(i,26,'В')
+                            else:
+                                ws.write(i,26,item.hours25)
 
-                        if item.type_time27 == 'В':
-                            ws.write(i,28,'В')
-                        else:
-                            ws.write(i,28,item.hours27)
+                            if item.type_time26 == 'В':
+                                ws.write(i,27,'В')
+                            else:
+                                ws.write(i,27,item.hours26)
 
-                        if item.type_time28 == 'В':
-                            ws.write(i,29,'В')
-                        else:
-                            ws.write(i,29,item.hours28)
+                            if item.type_time27 == 'В':
+                                ws.write(i,28,'В')
+                            else:
+                                ws.write(i,28,item.hours27)
 
-                        if item.type_time29 == 'В':
-                            ws.write(i,30,'В')
-                        else:
-                            ws.write(i,30,item.hours29)
+                            if item.type_time28 == 'В':
+                                ws.write(i,29,'В')
+                            else:
+                                ws.write(i,29,item.hours28)
 
-                        if item.type_time30 == 'В':
-                            ws.write(i,31,'В')
-                        else:
-                            ws.write(i,31,item.hours30)
+                            if item.type_time29 == 'В':
+                                ws.write(i,30,'В')
+                            else:
+                                ws.write(i,30,item.hours29)
 
-                        if item.type_time31 == 'В':
-                            ws.write(i,32,'В')
-                        else:
-                            ws.write(i,32,item.hours31)
-                        ws.write(i,33,item.type_time1)
-                        ws.write(i,34,item.type_time2)
-                        ws.write(i,35,item.type_time3)
-                        ws.write(i,36,item.type_time4)
-                        ws.write(i,37,item.type_time5)
-                        ws.write(i,38,item.type_time6)
-                        ws.write(i,39,item.type_time7)
-                        ws.write(i,40,item.type_time8)
-                        ws.write(i,41,item.type_time9)
-                        ws.write(i,42,item.type_time10)
-                        ws.write(i,43,item.type_time11)
-                        ws.write(i,44,item.type_time12)
-                        ws.write(i,45,item.type_time13)
-                        ws.write(i,46,item.type_time14)
-                        ws.write(i,47,item.type_time15)
-                        ws.write(i,48,item.type_time16)
-                        ws.write(i,49,item.type_time17)
-                        ws.write(i,50,item.type_time18)
-                        ws.write(i,51,item.type_time19)
-                        ws.write(i,52,item.type_time20)
-                        ws.write(i,53,item.type_time21)
-                        ws.write(i,54,item.type_time22)
-                        ws.write(i,55,item.type_time23)
-                        ws.write(i,56,item.type_time24)
-                        ws.write(i,57,item.type_time25)
-                        ws.write(i,58,item.type_time26)
-                        ws.write(i,59,item.type_time27)
-                        ws.write(i,60,item.type_time28)
-                        ws.write(i,61,item.type_time29)
-                        ws.write(i,62,item.type_time30)
-                        ws.write(i,63,item.type_time31)
-                        i = i+1
+                            if item.type_time30 == 'В':
+                                ws.write(i,31,'В')
+                            else:
+                                ws.write(i,31,item.hours30)
+
+                            if item.type_time31 == 'В':
+                                ws.write(i,32,'В')
+                            else:
+                                ws.write(i,32,item.hours31)
+                            ws.write(i,33,item.type_time1)
+                            ws.write(i,34,item.type_time2)
+                            ws.write(i,35,item.type_time3)
+                            ws.write(i,36,item.type_time4)
+                            ws.write(i,37,item.type_time5)
+                            ws.write(i,38,item.type_time6)
+                            ws.write(i,39,item.type_time7)
+                            ws.write(i,40,item.type_time8)
+                            ws.write(i,41,item.type_time9)
+                            ws.write(i,42,item.type_time10)
+                            ws.write(i,43,item.type_time11)
+                            ws.write(i,44,item.type_time12)
+                            ws.write(i,45,item.type_time13)
+                            ws.write(i,46,item.type_time14)
+                            ws.write(i,47,item.type_time15)
+                            ws.write(i,48,item.type_time16)
+                            ws.write(i,49,item.type_time17)
+                            ws.write(i,50,item.type_time18)
+                            ws.write(i,51,item.type_time19)
+                            ws.write(i,52,item.type_time20)
+                            ws.write(i,53,item.type_time21)
+                            ws.write(i,54,item.type_time22)
+                            ws.write(i,55,item.type_time23)
+                            ws.write(i,56,item.type_time24)
+                            ws.write(i,57,item.type_time25)
+                            ws.write(i,58,item.type_time26)
+                            ws.write(i,59,item.type_time27)
+                            ws.write(i,60,item.type_time28)
+                            ws.write(i,61,item.type_time29)
+                            ws.write(i,62,item.type_time30)
+                            ws.write(i,63,item.type_time31)
+                            i = i+1
 
         name = str(month_)+'_'+str(year_)+'.xls'
         wb.save(name)
