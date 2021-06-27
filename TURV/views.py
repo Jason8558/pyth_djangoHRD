@@ -506,8 +506,7 @@ def unload(request):
 
 
             items = TabelItem.objects.filter(employer__department_id=dep.id).filter(month=month_).filter(year=year_).order_by('employer')
-            current_tabel = Tabel.objects.get(id=item[0].bound_tabel)
-            if items and current_tabel.sup_check == True:
+            if items:
                 ws = wb.add_sheet(dn)
 
 
@@ -584,8 +583,8 @@ def unload(request):
 
 
                 for item in items:
-
-                    if current_tabel.del_check == False
+                    current_tabel = Tabel.objects.get(id=item.bound_tabel)
+                    if current_tabel.del_check == False and current_tabel.sup_check == True :
                         ws.write(i,0, item.employer.fullname)
                         ws.write(i,1, item.employer.position.name)
 
