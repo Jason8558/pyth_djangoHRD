@@ -510,7 +510,7 @@ def unload(request):
                 ct = items[0].bound_tabel
                 print(ct)
                 current_tabel = Tabel.objects.get(id=ct)
-                if items and current_tabel.sup_check == True:
+                if items and current_tabel.sup_check == True and current_tabel.unloaded == False:
                     ws = wb.add_sheet(dn)
 
 
@@ -580,7 +580,7 @@ def unload(request):
                     ws.write(0,61,'pr29')
                     ws.write(0,62,'pr30')
                     ws.write(0,63,'pr31')
-
+                    current_tabel.unloaded = True
 
 
 
@@ -778,7 +778,7 @@ def unload(request):
                             ws.write(i,62,item.type_time30)
                             ws.write(i,63,item.type_time31)
                             i = i+1
-
+                    current_tabel.save()
         name = str(month_)+'_'+str(year_)+'.xls'
         wb.save(name)
 
