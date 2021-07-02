@@ -156,6 +156,15 @@ height: 149px;}
   grid-template-rows: repeat(13, 45px);
   grid-gap: 5px;
 }
+
+.container_grid  a img {
+  height: 100%;
+  /* position: relative; */
+  /* left: -99%; */
+  /* margin: 0 auto; */
+  float: left;
+}
+
 .recents {
 float: left;
 width: 400px;
@@ -284,6 +293,10 @@ a#button_ident {}
 border-color: none !important;
 border: none !important;
 box-shadow: inset 0px 0px 5px 0px #977390 !important;
+}
+
+.old_vac {
+  font-size: 15pt !important;
 }
 
 .main_button:hover {
