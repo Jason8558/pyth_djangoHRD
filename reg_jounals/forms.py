@@ -59,7 +59,7 @@ class OrdersOnOtherMatters_form(forms.ModelForm):
     'oom_content']
 
     oom_date = forms.CharField(label="Дата приказа" , widget=forms.TextInput(
-        attrs={'placeholder': 'Введите дату', 'id': '', 'type':'date'}))
+        attrs={'placeholder': 'Введите дату', 'id': 'doc_date', 'type':'date'}))
     oom_content = forms.CharField(label="Содержание", widget=forms.Textarea)
 
     def saveFirst(self, user_):
@@ -204,7 +204,7 @@ class OutBoundDocument_form(forms.ModelForm):
     'doc_additionalData']
 
     doc_date = forms.CharField(label="Дата документа" , widget=forms.TextInput(
-        attrs={'placeholder': 'Введите дату', 'id': '', 'type':'date'}))
+        attrs={'placeholder': 'Введите дату', 'type':'date'}))
 
     def saveFirst(self, user_):
         docs = OutBoundDocument.objects.all()

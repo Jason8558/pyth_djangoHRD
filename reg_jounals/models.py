@@ -237,7 +237,7 @@ class NewOrdersOnVacation(models.Model):
 
 class NewOrdersOnVacation_item(models.Model):
 
-    vac_type_choices = [('Очередной','Очередной'), ('Пенсионный','Пенсионный'), ('Без сохранения ЗП','Без сохранения ЗП'), ('Учебный','Учебный')]
+    vac_type_choices = [('Очередной','Очередной'), ('Пенсионный','Пенсионный'), ('Без сохранения ЗП','Без сохранения ЗП'), ('Учебный','Учебный'), ('Донор','Донор'), ('С сохр. ЗП', 'С сохр. ЗП')]
 
     bound_order = models.ForeignKey('NewOrdersOnVacation', on_delete=models.CASCADE, verbose_name="Приказ ")
     fio = models.CharField(max_length=256, help_text="ФИО сотрудника", verbose_name="ФИО сотрудника", db_index=True)

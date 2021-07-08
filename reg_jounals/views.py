@@ -68,8 +68,6 @@ def index(request):
                 'r_my_lc':r_my_lc})
     else: return redirect('/accounts/login/')
 
-
-
 def logfile(request):
     if request.user.is_authenticated:
         logfile = open('log.txt')
@@ -767,6 +765,7 @@ def new_order_on_vacation(request):
     if request.user.is_authenticated:
         items = ""
         orders = []
+        deps = Departments.objects.all()
         search_query = request.GET.get('vac_search','')
         sq_dep = request.GET.get('vac_dep_search','')
         if search_query:
@@ -776,17 +775,18 @@ def new_order_on_vacation(request):
             return render(request, 'reg_jounals/vac_search.html', context={'orders':orders, 'items':items, 'search_query':search_query, 'items_count':items_count})
         else:
             if sq_dep:
-                items = NewOrdersOnVacation_item.objects.filter(dep__dep_name__icontains=sq_dep)
+                dep = Departments.objects.get(id=sq_dep)
+                items = NewOrdersOnVacation_item.objects.filter(dep=sq_dep).order_by('-bound_order__order_date')
 
                 items_count = len(items)
-                return render(request, 'reg_jounals/vac_search.html', context={'orders':orders, 'items':items, 'search_query':sq_dep, 'items_count':items_count})
+                return render(request, 'reg_jounals/vac_search.html', context={'orders':orders, 'items':items, 'search_query':dep.dep_name, 'items_count':items_count})
             else:
                 orders = NewOrdersOnVacation.objects.all().order_by('-id')
                 count = len(orders)
                 p_orders = Paginator(orders, 20)
                 page_number = request.GET.get('page', 1)
                 page = p_orders.get_page(page_number)
-                return render(request, 'reg_jounals/orders_on_vacation_new.html', context={'orders':page, 'count':count})
+                return render(request, 'reg_jounals/orders_on_vacation_new.html', context={'orders':page, 'count':count, 'deps':deps})
     else:
         return render(request, 'reg_jounals/no_auth.html')
 

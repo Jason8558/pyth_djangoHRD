@@ -5,8 +5,12 @@
 {%block content%}
 <form action="{% url 'orders_on_vacation_new' %}">
   <input type="search" name="vac_search" placeholder="Поиск по ФИО..">
-  <button class="btn btn-sm btn-dark" type="submit" name="" value="Найти">Найти</button>
-  <input type="search" name="vac_dep_search" placeholder="Поиск по подразделению">
+  <select class="" name="vac_dep_search">
+    {% for dep in deps%}
+      <option value="{{dep.id}}">{{dep.dep_name}}</option>
+    {%endfor%}
+  </select>
+
   <button class="btn btn-sm btn-dark" type="submit" name="" value="Найти">Найти</button>
 </form>
 <a class="btn btn-success btn-lg m-bottom btn-add " href="{% url 'orders_on_vacation_new_add_url'%}" > + Добавить</a>

@@ -3,7 +3,6 @@
 {%block title%}Приказы по другим вопросам{%endblock%}
 {%block header%} <a class="btn btn-dark" href="../"> < Назад</a> Журнал регистрации приказов по другим вопросам. Всего: {{count}}.  {%endblock%}
 {%block content%}
-
 <div id="frame_" class="frame">
   <iframe id="iframe" src="" width="" height=""></iframe>
   <button type="button" class="btn btn-success" onclick="send_submit()" name="button">Сохранить</button>
@@ -42,10 +41,10 @@
 
 <tr  id="{{order.id}}" onclick="open_for_upd({{order.id}})">
 
-    <td id="date">{{order.oom_date|date:"d.m.Y"}}</td>
-    <td id="number">{{order.oom_number}}</td>
-    <td id="content">{{order.oom_content}}</td>
-    <td id="res_officer">{{order.oom_res_officer}}</td>
+    <td>{{order.oom_date|date:"d.m.Y"}}</td>
+    <td>{{order.oom_number}}</td>
+    <td>{{order.oom_content}}</td>
+    <td>{{order.oom_res_officer}}</td>
 
 </tr>
   {%endfor%}

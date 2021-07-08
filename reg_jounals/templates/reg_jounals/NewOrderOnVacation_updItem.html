@@ -6,6 +6,11 @@
 {%block header%}{{item.fio}} в приказе {{order.order_number}}{% endblock %}
 
 {%block content%}
+<script type="text/javascript">
+  $(document).ready(function() {
+    $('header').css('display','none')
+    $('body').css('background', 'white !important') })
+</script>
 {% if form.errors%}
 
 <div class="alert alert-danger mt-5" role="alert">
@@ -25,11 +30,8 @@
 
 
 
-<input class="btn btn-success" onclick="" type="submit" value="Сохранить" />
-
-
-  <!-- <input type="button" onclick="CreateList();" class="btn btn-success" name="" value="Сформировать реестр"> -->
-  <a class="btn btn-outline-danger" href="/orders_on_vacation_new/{{item.bound_order.id}}/create">Отмена</a>
+<!-- <input class="btn btn-success" onclick="" type="submit" value="Сохранить" />
+  <a class="btn btn-outline-danger" href="/orders_on_vacation_new/{{item.bound_order.id}}/create">Отмена</a> -->
 </form>
 
 {%endblock%}

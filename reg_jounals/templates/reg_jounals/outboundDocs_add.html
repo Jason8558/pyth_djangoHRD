@@ -4,6 +4,11 @@
 {%block header%}Добавить запись - Исходящий документ{% endblock %}
 
 {%block content%}
+<script type="text/javascript">
+  $(document).ready(function() {
+    $('header').css('display','none')
+    $('body').css('background', 'white !important') })
+</script>
 {% if form.errors%}
 
 <div class="alert alert-danger mt-5" role="alert">
@@ -12,13 +17,13 @@
 {%endif%}
 <form class="add_form" action="" method="post">
   {% csrf_token %}
-  <h5>Номер документа: {{next_num}}</h5>
+  <h5>Номер документа: <span id="next_num">{{next_num}}</span></h5>
   {% for field in form %}
   <p>{{field.label}}{{ field }}</p>
   {% endfor%}
 
-  <input class="btn btn-success" type="submit" value="Добавить" />
-  <a class="btn btn-outline-danger" href=".">Отмена</a>
+  <!-- <input class="btn btn-success" type="submit" value="Добавить" />
+  <a class="btn btn-outline-danger" href=".">Отмена</a> -->
 </form>
 
 {%endblock%}

@@ -8,6 +8,11 @@
   <a class="btn btn-outline-danger" style="width: 332px;" href="{% url 'orders_on_vacation_new_del' id=order.id%}">Да</a>
 
 </div>
+<div id="frame_" class="frame vacantion">
+  <iframe id="iframe" src="" width="" height=""></iframe>
+  <button type="button" class="btn btn-success" onclick="send_submit()" name="button">Сохранить</button>
+  <button type="button" onclick="close_frame()"class="btn btn-outline-danger" name="button">Отмена</button>
+</div>
 
 
 {% if items %}
@@ -33,22 +38,24 @@
 
   {%for item in items %}
 
-<tr onclick="return location.href = '{% url 'new_order_on_vacation_updItem' id=item.id%}' ">
+<!-- <tr id="{{item.id}}" onclick="return location.href = '{% url 'new_order_on_vacation_updItem' id=item.id%}' "> -->
+<tr id="{{item.id}}" onclick="open_for_upd({{item.id}})">
 
 
-    <td class="tnumber">{{item.fio}}</td>
-    <td>{{item.dep}}</td>
-    <td>{{item.dur_from|date:"d.m.Y"}}</td>
-    <td>{{item.dur_to|date:"d.m.Y"}}</td>
-    <td>{{item.days_count}}</td>
-    <td>{{item.vac_type}}</td>
-    <td>{{item.comm}}</td>
-    <td><a class="btn btn-sm btn-danger btn-delete"href="{% url 'new_order_on_vacation_delItem' id=item.id%}">Удалить</a></td>
+    <td id="name">{{item.fio}}</td>
+    <td id="dep">{{item.dep}}</td>
+    <td id="from">{{item.dur_from|date:"d.m.Y"}}</td>
+    <td id="to">{{item.dur_to|date:"d.m.Y"}}</td>
+    <td id="days">{{item.days_count}}</td>
+    <td id="type">{{item.vac_type}}</td>
+    <td id="comm">{{item.comm}}</td>
+    <td ><a class="btn btn-sm btn-danger btn-delete"href="{% url 'new_order_on_vacation_delItem' id=item.id%}">Удалить</a></td>
 </tr>
   {%endfor%}
 
 </table>
 
 {%endif%}
-<a class="btn btn-success btn-lg m-bottom btn-sm btn-add print" href="{% url 'new_order_on_vacation_addItem' order_id=order.id %}"> + Добавить сотрудника в приказ</a>
+<!-- <a class="btn btn-success btn-lg m-bottom btn-sm btn-add print" href="{% url 'new_order_on_vacation_addItem' order_id=order.id %}"> + Добавить сотрудника в приказ</a> -->
+<button type="button" class="btn btn-success btn-sm m-bottom btn-add " onclick="open_frame_new()" > + Добавить</button>
 {%endblock%}
