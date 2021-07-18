@@ -118,20 +118,20 @@ class OrdersOfBTrip_form(forms.ModelForm):
         model = OrdersOfBTrip
         fields = [
     'bt_date',
+    'bt_emloyer',
     'bt_place',
     'bt_dep',
     'bt_dur_from',
-    'bt_dur_to',
-    'bt_emloyer'
+    'bt_dur_to'
     ]
 
     bt_date = forms.CharField(label="Дата приказа" , widget=forms.TextInput(
-        attrs={'placeholder': 'Введите дату', 'id': '', 'type':'date'}))
+        attrs={'placeholder': 'Введите дату', 'type':'date'}))
     bt_dur_from = forms.CharField(label="Дата начала командировки" , widget=forms.TextInput(
-        attrs={'placeholder': 'Введите дату', 'id': '', 'type':'date'}))
+        attrs={'placeholder': 'Введите дату', 'type':'date'}))
 
     bt_dur_to = forms.CharField(label="Дата завершения командировки" , widget=forms.TextInput(
-        attrs={'placeholder': 'Введите дату', 'id': '', 'type':'date'}))
+        attrs={'placeholder': 'Введите дату', 'type':'date'}))
 
     def saveFirst(self, user_):
         orders = OrdersOfBTrip.objects.all()
@@ -170,7 +170,7 @@ class OrdersOnPersonnel_form(forms.ModelForm):
     'op_selected']
 
     op_date = forms.CharField(label="Дата приказа" , widget=forms.TextInput(
-        attrs={'placeholder': 'Введите дату', 'id': '', 'type':'date'}))
+        attrs={'placeholder': 'Введите дату',  'type':'date'}))
 
     def saveFirst(self, user_):
         orders = OrdersOnPersonnel.objects.all().order_by('id')

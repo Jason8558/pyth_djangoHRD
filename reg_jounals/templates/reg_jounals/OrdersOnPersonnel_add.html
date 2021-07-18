@@ -5,6 +5,11 @@
 
 
 {%block content%}
+<script type="text/javascript">
+  $(document).ready(function() {
+    $('header').css('display','none')
+    $('body').css('background', 'white !important') })
+</script>
 {% if form.errors%}
 
 
@@ -24,7 +29,7 @@
 </style>
 <form class="add_form personnel" action="" method="post">
   {% csrf_token %}
-  <h5>Номер приказа {{next_num}}ЛС</h5>
+  <h5>Номер приказа <span id='next_num'>{{next_num}}ЛС</span></h5>
 
   <p>{{form.op_selected.label}}:{{form.op_selected}} {{form.op_lastcheck.label}}:{{form.op_lastcheck}}</p>
 
@@ -33,10 +38,10 @@
   <p>{{form.op_dep.label}}:{{form.op_dep}}</p>
   <p>{{form.op_content.label}}:{{form.op_content}}</p>
 
-<div class="buttons">
+<!-- <div class="buttons">
   <input class="btn btn-success" style="" type="submit" value="Добавить" />
   <a class="btn btn-outline-danger" href=".">Отмена</a>
-  </div>
+  </div> -->
 </form>
 
 {%endblock%}

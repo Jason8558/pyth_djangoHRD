@@ -5,6 +5,11 @@
 {%block header%}Изменить запись - Приказ №{{order.op_number}}{% endblock %}
 
 {%block content%}
+<script type="text/javascript">
+  $(document).ready(function() {
+    $('header').css('display','none')
+    $('body').css('background', 'white !important') })
+</script>
 {% if form.errors%}
 
 
@@ -30,7 +35,7 @@
   <p>{{form.op_dep.label}}:{{form.op_dep}}</p>
   <p>{{form.op_content.label}}:{{form.op_content}}</p>
 
-<div class="buttons">
+<!-- <div class="buttons">
   <input class="btn btn-success" type="submit" value="Сохранить" />
   <a id="sure_btn" onclick="OpenSureDialog()" class="btn btn-outline-danger">Удалить</a>
   <div id="sure" style="display: none;" class="yousure">
@@ -39,7 +44,7 @@
 
   </div>
     <a class="btn btn-outline-info" onclick="window.close()" href="#">Закрыть</a>
-  </div>
+  </div> -->
 
 </form>
 

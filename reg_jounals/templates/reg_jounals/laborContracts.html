@@ -3,11 +3,17 @@
 {%block title%}Трудовые договоры{%endblock%}
 {%block header%} <a class="btn btn-dark" href="../"> < назад</a> Журнал регистрации трудовых договоров. Всего: {{count}}.  {%endblock%}
 {%block content%}
+<div id="frame_" class="frame">
+  <iframe id="iframe" src="" width="" height=""></iframe>
+  <button type="button" class="btn btn-success" onclick="send_submit()" name="button">Сохранить</button>
+  <button type="button" onclick="close_frame()"class="btn btn-outline-danger" name="button">Отмена</button>
+</div>
 <form action="{% url 'labor_contracts' %}">
   <input type="search" name="lc_search" placeholder="Поиск по подразделению..">
   <button class="btn btn-sm btn-dark" type="submit" name="" value="Найти">Найти</button>
 </form>
-<a class="btn btn-success btn-lg m-bottom btn-add " href="{%url 'labor_contracts_add_url'%}"> + Добавить</a>
+<button class="btn btn-success btn-lg m-bottom btn-add " type="button" name="button" onclick="open_frame_new()"> + Добавить</button>
+<!-- <a class="btn btn-success btn-lg m-bottom btn-add " href="{%url 'labor_contracts_add_url'%}"> + Добавить</a> -->
 {% if orders %}
 <table>
   <thead class="thead-dark">
@@ -29,12 +35,12 @@
 
 <tr onclick="return location.href = '{% url 'labor_contracts_upd_url' id=order.id%}' ">
 
-    <td>{{order.lc_date|date:"d.m.Y"}}</td>
-    <td>{{order.lc_number}}</td>
-    <td>{{order.lc_emloyer}}</td>
-    <td>{{order.lc_dep}}</td>
-    <td>{{order.lc_dateOfInv}}</td>
-    <td>{{order.lc_res_officer}}</td>
+    <td id="date">{{order.lc_date|date:"d.m.Y"}}</td>
+    <td id="number">{{order.lc_number}}</td>
+    <td id="emloyer">{{order.lc_emloyer}}</td>
+    <td id="dep">{{order.lc_dep}}</td>
+    <td id="dateInv">{{order.lc_dateOfInv}}</td>
+    <td id="res_officer">{{order.lc_res_officer}}</td>
 
 
 </tr>

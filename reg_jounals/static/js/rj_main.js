@@ -85,7 +85,7 @@ function check_act() {
   if ($('#iframe').attr('src').split('/')[2]== 'add' || $('#iframe').attr('src').split('/')[3]== 'addItem')  {
     return 'add'
   }
-  if ($('#iframe').attr('src').split('/')[3]== 'edit' || $('#iframe').attr('src').split('/')[2]== 'updItem' )  {
+  if ($('#iframe').attr('src').split('/')[3]== 'edit' || $('#iframe').attr('src').split('/')[3]== 'upd' || $('#iframe').attr('src').split('/')[2]== 'updItem' )  {
 
     return 'upd'
   }
@@ -105,6 +105,18 @@ function open_frame_new() {
 
     case 'outbound_docs':
       src = "/outbound_docs/add"
+      break;
+
+    case 'orders_of_BTrip':
+      src = "/orders_of_BTrip/add"
+      break;
+
+    case 'orders_on_personnel':
+      src = "/orders_on_personnel/add"
+      break;
+
+    case 'laborContracts':
+      src = "/laborContracts/add"
       break;
     default:
 
@@ -130,6 +142,15 @@ switch (check_doctype()) {
   case 'outbound_docs':
     request = "/outbound_docs/" + id + "/edit"
     break;
+
+    case 'orders_of_BTrip':
+      request = "/orders_of_BTrip/" + id + "/upd"
+      break;
+
+    case 'orders_on_personnel':
+      request = "/orders_on_personnel/" + id + "/upd"
+      break;
+
   default:
 
 }
@@ -149,6 +170,7 @@ function close_frame() {
 function send_submit() {
   // $('#iframe').contents().find('form').submit()
   res_officer = $('#uname').text()
+  next_num = $('#iframe').contents().find("#next_num").text()
     switch (check_doctype()) {
       case 'orders_on_others':
       next_num = $('#iframe').contents().find("#next_num").text()
@@ -165,7 +187,7 @@ function send_submit() {
         $("#" + id).find('#date').text(date)
         $("#" + id).find('#content').text(content)
       }
-        break;
+      break;
 
       case 'orders_on_vacation_new':
 
@@ -194,7 +216,7 @@ function send_submit() {
                   default:
 
                 }
-        break;
+      break;
 
       case 'outbound_docs':
         type = $('#iframe').contents().find("#id_doc_type").val()
@@ -206,7 +228,73 @@ function send_submit() {
               case 'add':
                     $('tbody').prepend("<tr><td>" + date + "</td><td>" + next_num + "</td><td>" + type + "</td><td>"+ dest +"</td><td>" + content + "</td><td>" + res_officer + "</td></tr>")
                 break;
-              default:
+              case 'upd':
+
+              id = $('#iframe').attr('src').split('/')[2]
+              $("#" + id).find('#date').text(date)
+                $("#" + id).find('#type').text(type)
+                $("#" + id).find('#dest').text(dest)
+              $("#" + id).find('#content').text(content)
+              break;}
+
+      break;
+
+      case 'orders_of_BTrip':
+
+          next_id = $('tbody').find('tr').attr('id')
+          next_id = parseInt(next_id, 10) + 1
+
+          date = Date.parse($('#iframe').contents().find("#id_bt_date").val()).toString('dd.MM.yyyy')
+          fio = $('#iframe').contents().find("#id_bt_emloyer").val()
+          place = $('#iframe').contents().find("#id_bt_place").val()
+          dep = $('#iframe').contents().find("#id_bt_dep option:selected").text()
+
+            switch (check_act()) {
+              case 'add':
+                    $('tbody').prepend("<tr id="+ next_id + " onclick='open_for_upd("+ next_id +")'><td>" + date + "</td><td>" + next_num + "</td><td>" + place + "</td><td>"+ fio +"</td><td>" + dep + "</td><td>" + res_officer + "</td></tr>")
+                break;
+            case 'upd':
+
+                  id = $('#iframe').attr('src').split('/')[2]
+                  $("#" + id).find('#date').text(date)
+                  $("#" + id).find('#place').text(place)
+                  $("#" + id).find('#employer').text(fio)
+                  $("#" + id).find('#dep').text(dep)
+
+                  break;
+
+
+
+
+
+
+
+
+            }
+      break;
+
+      case 'orders_on_personnel':
+          next_id = $('tbody').find('tr').attr('id')
+          next_id = parseInt(next_id, 10) + 1
+          date = Date.parse($('#iframe').contents().find("#id_op_date").val()).toString('dd.MM.yyyy')
+          fio = $('#iframe').contents().find("#id_op_emloyer").val()
+          dep = $('#iframe').contents().find("#id_op_dep option:selected").text()
+          content =  $('#iframe').contents().find("#id_op_content").val()
+              switch (check_act()) {
+                case 'add':
+                      $('tbody').prepend("<tr id="+ next_id + " ondblclick='open_for_upd("+ next_id +")' class='t_row'><td><input type='checkbox' class='for_print' name='forprint' value=''></td><td>" + date + "</td><td>" + next_num + "</td><td>" + fio + "</td><td>"+ dep +"</td><td>" + content + "</td><td>" + res_officer + "</td></tr>")
+                  break;
+                case 'upd':
+                    // console.log($('#iframe').attr('src').split('/'));
+                    id = $('#iframe').attr('src').split('/')[2]
+                    $("#" + id).find('#date').text(date)
+                    $("#" + id).find('#emloyer').text(fio)
+                    $("#" + id).find('#dep').text(dep)
+                    $("#" + id).find('#content').text(content)
+
+                  break;
+                  }
+      break;
 
             }
 
@@ -215,9 +303,9 @@ function send_submit() {
 
 
 
-      default:
+
 
     }
 
-  }
+
 //   close_frame()

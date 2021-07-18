@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 from .models import *
 from .forms import *
 from django.shortcuts import redirect
@@ -458,6 +458,12 @@ def nr_OrderOfBTrip(request):
     else:
         return render(request, 'reg_jounals/no_auth.html')
     return render(request, 'reg_jounals/OrdersOfBTrip_add.html', context={'form':order_form, 'depts':depts, 'next_num':order_next_num_})
+
+def get_ordersBtrip(request):
+    if request.user.is_authenticated:
+        orders = OrdersOfBTrip.objects.values('id', 'bt_date', 'bt_place', 'bt_number', 'bt_emloyer', 'bt_res_officer', 'bt_dep__dep_name')
+        orders = list(orders)
+        return JsonResponse(orders, safe=False)
 
 def upd_OrderOfBTrip(request, id):
     if request.user.is_authenticated:

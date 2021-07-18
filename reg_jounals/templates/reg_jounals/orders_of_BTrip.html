@@ -3,6 +3,11 @@
 {%block title%}Приказы о командировках{%endblock%}
 {%block header%} <a class="btn btn-dark" href="../"> < назад</a> Журнал регистрации приказов о командировках. Всего: {{count}}.  {%endblock%}
 {%block content%}
+<div id="frame_" class="frame">
+  <iframe id="iframe" src="" width="" height=""></iframe>
+  <button type="button" class="btn btn-success" onclick="send_submit()" name="button">Сохранить</button>
+  <button type="button" onclick="close_frame()"class="btn btn-outline-danger" name="button">Отмена</button>
+</div>
 <form action="{% url 'orders_of_BTrip' %}">
   <input type="search" name="bt_search" placeholder="Поиск по ФИО..">
   <select class="" name="bt_search_dep">
@@ -13,7 +18,7 @@
   </select>
   <button class="btn btn-sm btn-dark" type="submit" name="" value="Найти">Найти</button>
 </form>
-<a class="btn btn-success btn-lg m-bottom btn-add " href="{%url 'orders_of_BTrip_add_url'%}"> + Добавить</a>
+<button class="btn btn-success btn-lg m-bottom btn-add " type="button" name="button" onclick="open_frame_new()"> + Добавить</button>
 {% if orders %}
 <table>
   <thead class="thead-dark">
@@ -32,14 +37,15 @@
 
   {%for order in orders%}
 
-<tr onclick="return location.href = '{% url 'orders_of_BTrip_upd_url' id=order.id%}' ">
+<!-- <tr onclick="return location.href = '{% url 'orders_of_BTrip_upd_url' id=order.id%}' "> -->
+<tr id="{{order.id}}" onclick="open_for_upd({{order.id}})">
 
-    <td>{{order.bt_date|date:"d.m.Y"}}</td>
-    <td>{{order.bt_number}}</td>
-    <td>{{order.bt_place}}</td>
-    <td>{{order.bt_emloyer}}</td>
-    <td>{{order.bt_dep}}</td>
-    <td>{{order.bt_res_officer}}</td>
+    <td id="date">{{order.bt_date|date:"d.m.Y"}}</td>
+    <td id="number">{{order.bt_number}}</td>
+    <td id="place">{{order.bt_place}}</td>
+    <td id="employer">{{order.bt_emloyer}}</td>
+    <td id="dep">{{order.bt_dep}}</td>
+    <td id="res_officer">{{order.bt_res_officer}}</td>
 
 </tr>
   {%endfor%}

@@ -24,6 +24,7 @@ urlpatterns = [
     path('orders_on_vacation/add', views.nr_OrderOnVacation, name='orders_on_vacation_add_url'),
     path('orders_on_vacation/<int:id>/upd', views.upd_OrderOnVacation, name='orders_on_vacation_upd_url'),
     path('orders_on_vacation/<int:id>/del', views.del_OrderOnVacation, name='orders_on_vacation_del_url'),
+    path('orders_of_BTrip/get', views.get_ordersBtrip, name='get_Btrip'),
     path('orders_of_BTrip/', views.order_of_BTrip, name='orders_of_BTrip'),
     path('orders_of_BTrip/add', views.nr_OrderOfBTrip, name='orders_of_BTrip_add_url'),
     path('orders_of_BTrip/<int:id>/upd', views.upd_OrderOfBTrip, name='orders_of_BTrip_upd_url'),
