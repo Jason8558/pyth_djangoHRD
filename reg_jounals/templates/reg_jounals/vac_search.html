@@ -24,7 +24,7 @@
 
   {%for item in items %}
 
-<tr >
+<tr onclick="return location.href = '{% url 'orders_on_vacation_new_create_url' id=item.bound_order_id%}' "">
 
     <td>{{item.bound_order.order_number}} от {{item.bound_order.order_date|date:"d.m.Y"}}</td>
     <td>{{item.fio}}</td>
