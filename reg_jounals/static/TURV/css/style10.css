@@ -219,6 +219,8 @@ tbody tr:hover {
       cursor: pointer;
 }
 
+
+
 tbody, td, tfoot, th, thead, tr {
   border: 1px solid black !important;
   height: 21px;

@@ -17,11 +17,11 @@ class LetterOfResignation_form(forms.ModelForm):
 
 
     lor_date = forms.CharField(label="Дата подачи заявления" , widget=forms.TextInput(
-        attrs={'placeholder': 'Введите дату', 'id': 'hello', 'type':'date'}))
+        attrs={'placeholder': 'Введите дату',  'type':'date'}))
     lor_employee = forms.CharField(label="Увольняемый сотрудник")
 
     lor_dateOfRes = forms.DateField(label="Дата увольнения", required=False, widget=forms.TextInput(
-        attrs={'placeholder': 'Введите дату', 'id': 'hello', 'type':'date'}))
+        attrs={'placeholder': 'Введите дату',  'type':'date'}))
 
 
 
@@ -254,9 +254,9 @@ class LetterOfInvite_form(forms.ModelForm):
     'loi_additionalData']
 
     loi_date = forms.CharField(label="Дата документа" , widget=forms.TextInput(
-        attrs={'placeholder': 'Введите дату', 'id': '', 'type':'date'}))
+        attrs={'placeholder': 'Введите дату',  'type':'date'}))
     loi_dateOfInv = forms.DateField(label="Дата приема" , required=False, widget=forms.TextInput(
-        attrs={'placeholder': 'Введите дату', 'id': '', 'type':'date'}))
+        attrs={'placeholder': 'Введите дату',  'type':'date'}))
 
 
 
@@ -297,9 +297,9 @@ class LaborContract_form(forms.ModelForm):
     'lc_workCond']
 
     lc_date = forms.CharField(label="Дата договора" , widget=forms.TextInput(
-        attrs={'placeholder': 'Введите дату', 'id': '', 'type':'date'}))
+        attrs={'placeholder': 'Введите дату', 'type':'date'}))
     lc_dateOfInv = forms.CharField(label="Дата приема на работу" , widget=forms.TextInput(
-        attrs={'placeholder': 'Введите дату', 'id': '', 'type':'date'}))
+        attrs={'placeholder': 'Введите дату', 'type':'date'}))
 
     def saveFirst(self, user_, year_):
         orders = LaborContract.objects.all()

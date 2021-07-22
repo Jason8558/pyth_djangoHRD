@@ -3,11 +3,17 @@
 {%block title%}Заявления на увольнение{%endblock%}
 {%block header%}<a class="btn btn-dark" href="../"> < назад</a> Журнал регистрации заявлений на увольнение. Всего: {{count}}.  {%endblock%}
 {%block content%}
+<div id="frame_" class="frame">
+  <iframe id="iframe" src="" width="" height=""></iframe>
+  <button type="button" class="btn btn-success" onclick="send_submit()" name="button">Сохранить</button>
+  <button type="button" onclick="close_frame()"class="btn btn-outline-danger" name="button">Отмена</button>
+</div>
 <form action="{% url 'resignation' %}">
   <input type="search" name="lor_search" placeholder="Поиск по ФИО..">
   <button class="btn btn-sm btn-dark" type="submit" name="" value="Найти">Найти</button>
 </form>
-<a class="btn btn-success btn-lg m-bottom  btn-add" href="{%url 'letter_resignation_add_url' %}"> + Добавить</a>
+<!-- <a class="btn btn-success btn-lg m-bottom  btn-add" href="{%url 'letter_resignation_add_url' %}"> + Добавить</a> -->
+<button class="btn btn-success btn-lg m-bottom btn-add " type="button" name="button" onclick="open_frame_new()"> + Добавить</button>
 {% if letters %}
 <table>
   <thead class="thead-dark">
@@ -26,16 +32,16 @@
 
   {%for let in letters.object_list%}
 
- <tr onclick="return location.href = '{% url 'letter_resignation_upd_url' id=let.id%}' ">
+ <tr id="{{let.id}}" onclick="open_for_upd({{let.id}})">
 
-    <td>{{let.lor_number}}</td>
-    <td>{{let.lor_date|date:"d.m.Y"}}</td>
-    <td>{{let.lor_employee}}</td>
-    <td>{{let.lor_position}}</td>
-    <td>{{let.lor_departament}}</td>
-    <td>{{let.lor_dateOfRes|date:"d.m.Y"}}</td>
-    <td>{{let.lor_additionalData}}</td>
-    <td>{{let.lor_res_officer}}</td>
+    <td id="number">{{let.lor_number}}</td>
+    <td id="date">{{let.lor_date|date:"d.m.Y"}}</td>
+    <td id="emloyer">{{let.lor_employee}}</td>
+    <td id="pos">{{let.lor_position}}</td>
+    <td id="dep">{{let.lor_departament}}</td>
+    <td id="dateRes">{{let.lor_dateOfRes|date:"d.m.Y"}}</td>
+    <td id="content">{{let.lor_additionalData}}</td>
+    <td id="res_officer">{{let.lor_res_officer}}</td>
 
 </tr>
   {%endfor%}

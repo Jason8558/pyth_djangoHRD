@@ -565,16 +565,17 @@ def LaborContracts(request):
     if request.user.is_authenticated:
         search_query = request.GET.get('lc_search','')
         if search_query:
-            contracts = LaborContract.objects.filter(lc_dep__dep_name__icontains=search_query)
+            contracts = LaborContract.objects.filter(lc_dep_id=search_query).order_by('-id')
             p_orders = Paginator(contracts, 1000)
             page_number = request.GET.get('page', 1)
         else:
             contracts = LaborContract.objects.all().order_by('-id')
-            p_orders = Paginator(contracts, 10)
+            p_orders = Paginator(contracts, 20)
             page_number = request.GET.get('page', 1)
+        deps = Departments.objects.all()
         page = p_orders.get_page(page_number)
         count = len(contracts)
-        return render(request, 'reg_jounals/laborContracts.html', context={'orders':page, 'count':count})
+        return render(request, 'reg_jounals/laborContracts.html', context={'orders':page, 'count':count, 'deps':deps})
     else:
         return render(request, 'reg_jounals/no_auth.html')
 

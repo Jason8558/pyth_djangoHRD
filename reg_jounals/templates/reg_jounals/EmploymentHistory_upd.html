@@ -6,6 +6,11 @@
 {%block header%}Трудовая книжка №{{history.eh_number}} - {{history.eh_employer}}{% endblock %}
 
 {%block content%}
+<script type="text/javascript">
+  $(document).ready(function() {
+    $('header').css('display','none')
+    $('body').css('background', 'white !important') })
+</script>
 {% if form.errors%}
 
 <div class="alert alert-danger mt-5" role="alert">
@@ -19,14 +24,14 @@
     <p>{{field.label}}{{ field }}</p>
     {% endfor%}
 
-  <input class="btn btn-success" type="submit" value="Сохранить" />
+  <!-- <input class="btn btn-success" type="submit" value="Сохранить" />
   <a class="btn btn-outline-info" href="..">Отмена</a>
   <a id="sure_btn" class="btn btn-outline-danger" onclick="OpenSureDialog()">Удалить</a>
   <div id="sure" style="display: none;" class="yousure">
     <p>Вы уверены? <span style="color: red;"><b>ЭТО ДЕЙСТВИЕ НЕОБРАТИМО</b></span></p>
     <a class="btn btn-outline-danger" href="{% url 'employment_history_del_url' id=history.id%}">Да</a>
 
-  </div>
+  </div> -->
 
 
 </form>

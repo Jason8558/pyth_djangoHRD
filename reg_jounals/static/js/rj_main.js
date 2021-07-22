@@ -66,16 +66,7 @@ function OpenSureDialog() {
 function check_doctype() {
   loc = document.location.href.split('/')[3]
   return loc
-  // switch (loc) {
-  //   case 'orders_on_others' :
-  //       return 'orders_on_others'
-  //     break;
-  //     case 'orders_on_vacation_new' :
-  //         return 'orders_on_vacation_new'
-  //       break;
-  //   default:
-  //
-  // }
+
 
   }
 
@@ -118,11 +109,26 @@ function open_frame_new() {
     case 'laborContracts':
       src = "/laborContracts/add"
       break;
+
+    case 'letters_of_resignation':
+      src = "/letters_of_resignation/add"
+      break;
+
+    case 'letters_of_invite':
+      src = "/letters_of_invite/add"
+      break;
+
+    case 'employment_history':
+      src = "/employment_history/add"
+      break;
     default:
 
   }
 
   $('#frame_').css('display','block')
+  setTimeout(function(){
+    $('#frame_').css('opacity','initial');
+  }, 300);
 
   $('#iframe').attr('src', src)
 console.log(check_act());
@@ -151,6 +157,22 @@ switch (check_doctype()) {
       request = "/orders_on_personnel/" + id + "/upd"
       break;
 
+    case 'laborContracts':
+      request = "/laborContracts/" + id + "/upd"
+      break;
+
+    case 'letters_of_resignation':
+      request = "/letters_of_resignation/" + id + "/edit"
+      break;
+
+    case 'letters_of_invite':
+      request = "/letters_of_invite/"+ id + "/edit"
+      break;
+
+    case 'employment_history':
+      request = "/employment_history/"+ id + "/upd"
+      break;
+
   default:
 
 }
@@ -164,10 +186,17 @@ switch (check_doctype()) {
 }
 
 function close_frame() {
-  $('#frame_').css('display','none')
+$('#frame_').css('opacity','0');
+  setTimeout(function(){
+    $('#frame_').css('display','none')
+  }, 300);
+
+
 }
 
 function send_submit() {
+  next_id = $('tbody').find('tr').attr('id')
+  next_id = parseInt(next_id, 10) + 1
   // $('#iframe').contents().find('form').submit()
   res_officer = $('#uname').text()
   next_num = $('#iframe').contents().find("#next_num").text()
@@ -241,8 +270,7 @@ function send_submit() {
 
       case 'orders_of_BTrip':
 
-          next_id = $('tbody').find('tr').attr('id')
-          next_id = parseInt(next_id, 10) + 1
+
 
           date = Date.parse($('#iframe').contents().find("#id_bt_date").val()).toString('dd.MM.yyyy')
           fio = $('#iframe').contents().find("#id_bt_emloyer").val()
@@ -296,9 +324,92 @@ function send_submit() {
                   }
       break;
 
+      case 'laborContracts':
+          date = Date.parse($('#iframe').contents().find("#id_lc_date").val()).toString('dd.MM.yyyy')
+          dateInv = Date.parse($('#iframe').contents().find("#id_lc_dateOfInv").val()).toString('dd.MM.yyyy')
+          fio = $('#iframe').contents().find("#id_lc_emloyer").val()
+          pos = $('#iframe').contents().find("#id_lc_pos").val()
+          dep = $('#iframe').contents().find("#id_lc_dep option:selected").text()
+          thisyear = Date.today().toString("yy")
+
+              switch (check_act()) {
+                case 'add':
+                      $('tbody').prepend("<tr id="+ next_id + " onclick='open_for_upd("+ next_id +")'><td>" + date + "</td><td>" + next_num + "(" + thisyear + ")" + "</td><td>" + fio + "</td><td>"+ dep +"</td><td>" + dateInv + "</td><td>" + res_officer + "</td></tr>")
+                  break;
+              case 'upd':
+                    console.log($('#iframe').attr('src').split('/')[2]);
+                    id = $('#iframe').attr('src').split('/')[2]
+                    $("#" + id).find('#date').text(date)
+                    $("#" + id).find('#emloyer').text(fio)
+                    $("#" + id).find('#dep').text(dep)
+                    $("#" + id).find('#dateInv').text(dateInv)
+
+                    break;
+
+
+            }
+      break;
+
+      case 'letters_of_resignation':
+          date = Date.parse($('#iframe').contents().find("#id_lor_date").val()).toString('dd.MM.yyyy')
+          fio = $('#iframe').contents().find("#id_lor_employee").val()
+          pos = $('#iframe').contents().find("#id_lor_position").val()
+          dep =  $('#iframe').contents().find("#id_lor_departament option:selected").text()
+          if ($('#iframe').contents().find("#id_lor_dateOfRes").val()) {
+            dateofres = Date.parse($('#iframe').contents().find("#id_lor_dateOfRes").val()).toString('dd.MM.yyyy')
+          }
+            else {
+              dateofres = ""
+            }
+          content = $('#iframe').contents().find("#id_lor_additionalData").val()
+              switch (check_act()) {
+                case 'add':
+                      $('tbody').prepend("<tr id="+ next_id + " onclick='open_for_upd("+ next_id +")'><td>" + next_num + "</td><td>" + date +  "</td><td>" + fio + "</td><td>"+ pos +"</td><td>" + dep + "</td><td>" + dateofres + "</td><td>" + content +"</td><td>"+ res_officer +"</td></tr>")
+                  break;
+              case 'upd':
+                    console.log($('#iframe').attr('src').split('/'));
+                    id = $('#iframe').attr('src').split('/')[2]
+                    $("#" + id).find('#date').text(date)
+                    $("#" + id).find('#emloyer').text(fio)
+                    $("#" + id).find('#dep').text(dep)
+                    $("#" + id).find('#dateRes').text(dateofres)
+                    $("#" + id).find('#content').text(content)
+
+                    break;
+
+
             }
 
 
+      break;
+
+      case 'letters_of_invite':
+          date = Date.parse($('#iframe').contents().find("#id_loi_date").val()).toString('dd.MM.yyyy')
+          fio = $('#iframe').contents().find("#id_loi_employee").val()
+          pos = $('#iframe').contents().find("#id_loi_position").val()
+          dep =  $('#iframe').contents().find("#id_loi_department option:selected").text()
+          if ($('#iframe').contents().find("#id_loi_dateOfInv").val()) {
+            dateofinv = Date.parse($('#iframe').contents().find("#id_loi_dateOfInv").val()).toString('dd.MM.yyyy')
+          }
+            else {
+              dateofinv = ""
+            }
+            switch (check_act()) {
+              case 'add':
+                    $('tbody').prepend("<tr id="+ next_id + " onclick='open_for_upd("+ next_id +")'><td>" + next_num + "</td><td>" + date +  "</td><td>" + fio + "</td><td>"+ pos +"</td><td>" + dep + "</td><td>" + dateofinv + "</td><td>"+ res_officer +"</td></tr>")
+                break;
+            case 'upd':
+                  console.log($('#iframe').attr('src').split('/'));
+                  id = $('#iframe').attr('src').split('/')[2]
+                  $("#" + id).find('#date').text(date)
+                  $("#" + id).find('#emloyer').text(fio)
+                  $("#" + id).find('#dep').text(dep)
+                  $("#" + id).find('#dateofinv').text(dateofinv)
+                  $("#" + id).find('#pos').text(pos)
+
+                  break;            }
+
+      break;
 
 
 
@@ -306,6 +417,6 @@ function send_submit() {
 
 
     }
-
+}
 
 //   close_frame()

@@ -9,7 +9,13 @@
   <button type="button" onclick="close_frame()"class="btn btn-outline-danger" name="button">Отмена</button>
 </div>
 <form action="{% url 'labor_contracts' %}">
-  <input type="search" name="lc_search" placeholder="Поиск по подразделению..">
+
+  <select class="" name="lc_search">
+      <option value="">Поиск по подразделению</option>
+    {% for dep in deps%}
+        <option value="{{dep.id}}">{{dep.dep_name}}</option>
+    {% endfor%}
+  </select>
   <button class="btn btn-sm btn-dark" type="submit" name="" value="Найти">Найти</button>
 </form>
 <button class="btn btn-success btn-lg m-bottom btn-add " type="button" name="button" onclick="open_frame_new()"> + Добавить</button>
@@ -33,13 +39,15 @@
 
   {%for order in orders%}
 
-<tr onclick="return location.href = '{% url 'labor_contracts_upd_url' id=order.id%}' ">
+<!-- <tr onclick="return location.href = '{% url 'labor_contracts_upd_url' id=order.id%}' "> -->
+<tr id="{{order.id}}" onclick="open_for_upd({{order.id}})">
+
 
     <td id="date">{{order.lc_date|date:"d.m.Y"}}</td>
     <td id="number">{{order.lc_number}}</td>
     <td id="emloyer">{{order.lc_emloyer}}</td>
     <td id="dep">{{order.lc_dep}}</td>
-    <td id="dateInv">{{order.lc_dateOfInv}}</td>
+    <td id="dateInv">{{order.lc_dateOfInv|date:"d.m.Y"}}</td>
     <td id="res_officer">{{order.lc_res_officer}}</td>
 
 

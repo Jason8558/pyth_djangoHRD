@@ -165,13 +165,20 @@ width: 70%;
 
 
 .container_grid {
-/* float: right; */
-display: grid;
-grid-template-columns: repeat(1, 100%) !important;
-grid-template-rows: repeat(13, 45px);
-grid-gap: 5px;
-margin: 0 auto;
-width: 50%;
+
+/* float: right; */
+
+display: grid;
+
+grid-template-columns: repeat(1, 100%) !important;
+
+grid-template-rows: repeat(13, 45px);
+
+grid-gap: 5px;
+
+margin: 0 auto;
+
+width: 50%;
 }
 
 .container_grid  a img {
@@ -183,9 +190,12 @@ width: 70%;
 }
 
 .recents {
-float: left;
-display: none;
-width: 400px;
+
+float: left;
+
+display: none;
+
+width: 400px;
 }
 
 .recent {
@@ -480,11 +490,15 @@ box-shadow: 0px 0px 11px -2px black;
   width: 550px;
   border: 6px solid #977390;
   border-radius: 16px;
+  opacity: 0;
+  transition: 0.3s;
 }
 
 .vacantion {
-  height: 736px;
-  top: 15vh;
+  
+height: 736px;
+  
+top: 15vh;
 }
 
 .frame iframe {

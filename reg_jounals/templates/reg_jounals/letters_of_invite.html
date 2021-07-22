@@ -3,11 +3,17 @@
 {%block title%}Заявления на прием{%endblock%}
 {%block header%}<a class="btn btn-dark" href="../">< назад</a> Журнал регистрации заявлений на прием. Всего: {{count}}.  {%endblock%}
 {%block content%}
+<div id="frame_" class="frame">
+  <iframe id="iframe" src="" width="" height=""></iframe>
+  <button type="button" class="btn btn-success" onclick="send_submit()" name="button">Сохранить</button>
+  <button type="button" onclick="close_frame()"class="btn btn-outline-danger" name="button">Отмена</button>
+</div>
 <form action="{% url 'invite' %}">
   <input type="search" name="loi_search" placeholder="Поиск по ФИО..">
   <button class="btn btn-sm btn-dark" type="submit" name="" value="Найти">Найти</button>
 </form>
-<a class="btn btn-success btn-lg m-bottom btn-add" href="{% url 'invite_add' %}"> + Добавить</a>
+<!-- <a class="btn btn-success btn-lg m-bottom btn-add" href="{% url 'invite_add' %}"> + Добавить</a> -->
+<button class="btn btn-success btn-lg m-bottom btn-add " type="button" name="button" onclick="open_frame_new()"> + Добавить</button>
 {% if letters %}
 <table>
   <thead class="thead-dark">
@@ -26,15 +32,15 @@
 
   {%for let in letters%}
 
-  <tr onclick="return location.href = '{% url 'invite_upd_url' id=let.id%}' ">
+  <tr id="{{let.id}}" onclick="open_for_upd({{let.id}})">
 
-    <td>{{let.id}}</td>
-    <td>{{let.loi_date|date:"d.m.Y"}}</td>
-    <td>{{let.loi_employee}}</td>
-    <td>{{let.loi_position}}</td>
-    <td>{{let.loi_department}}</td>
-    <td>{{let.loi_dateOfInv|date:"d.m.Y"}}</td>
-    <td>{{let.loi_res_officer}}</td>
+    <td id="number">{{let.loi_number}}</td>
+    <td id="date">{{let.loi_date|date:"d.m.Y"}}</td>
+    <td id="emloyer">{{let.loi_employee}}</td>
+    <td id="pos">{{let.loi_position}}</td>
+    <td id="dep">{{let.loi_department}}</td>
+    <td id="dateofinv">{{let.loi_dateOfInv|date:"d.m.Y"}}</td>
+    <td id="res_officer">{{let.loi_res_officer}}</td>
 
 </tr>
   {%endfor%}

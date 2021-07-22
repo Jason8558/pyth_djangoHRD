@@ -3,11 +3,17 @@
 {%block title%}Трудовые книжки{%endblock%}
 {%block header%} <a class="btn btn-dark" href="../"> < назад</a> Журнал учета трудовых книжек. Всего: {{count}}.  {%endblock%}
 {%block content%}
+<div id="frame_" class="frame">
+  <iframe id="iframe" src="" width="" height=""></iframe>
+  <button type="button" class="btn btn-success" onclick="send_submit()" name="button">Сохранить</button>
+  <button type="button" onclick="close_frame()"class="btn btn-outline-danger" name="button">Отмена</button>
+</div>
 <form action="{% url 'employment_history' %}">
   <input type="search" name="eh_search" placeholder="Поиск по ФИО...">
   <button class="btn btn-sm btn-dark" type="submit" name="" value="Найти">Найти</button>
 </form>
-<a class="btn btn-success btn-lg m-bottom btn-add " href="{%url 'employment_history_add_url'%}"> + Добавить</a>
+<!-- <a class="btn btn-success btn-lg m-bottom btn-add " href="{%url 'employment_history_add_url'%}"> + Добавить</a> -->
+<button class="btn btn-success btn-lg m-bottom btn-add " type="button" name="button" onclick="open_frame_new()"> + Добавить</button>
 {% if histories %}
 <table>
   <thead class="thead-dark">
@@ -30,17 +36,17 @@
 
   {%for history in histories %}
 
-<tr onclick="return location.href = '{% url 'employment_history_upd_url' id=history.id%}' ">
+<tr id={{history.id}} onclick="open_for_upd({{history.id}}) ">
 
-    <td>{{history.eh_number}}</td>
-    <td>{{history.eh_dateOfInv|date:"d.m.Y"}}</td>
-    <td>{{history.eh_employer}}</td>
-    <td>{{history.eh_dep}}</td>
-    <td>{{history.eh_pos}}</td>
-    <td>{{history.eh_OrderInv}}</td>
-    <td>{{history.eh_dateOfResign|date:"d.m.Y"}}</td>
-    <td>{{history.eh_OrderResign}}</td>
-    <td>{{history.eh_res_officer}}</td>
+    <td id="number">{{history.eh_number}}</td>
+    <td id="dateofinv">{{history.eh_dateOfInv|date:"d.m.Y"}}</td>
+    <td id="fio">{{history.eh_employer}}</td>
+    <td id="dep">{{history.eh_dep}}</td>
+    <td id="pos">{{history.eh_pos}}</td>
+    <td id="orderinv">{{history.eh_OrderInv}}</td>
+    <td id="dateofresign">{{history.eh_dateOfResign|date:"d.m.Y"}}</td>
+    <td id="orderres">{{history.eh_OrderResign}}</td>
+    <td id="res_officer">{{history.eh_res_officer}}</td>
 
 
 </tr>
