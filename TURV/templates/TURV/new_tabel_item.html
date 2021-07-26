@@ -84,7 +84,7 @@
 
   <div class="nt_body_employer">
     <h4>Выберите сотрудника из списка: (фио, должность, разряд): </h4>
-    <select class="" id='t_emps' onchange="ReSelectEmp()" name="t_emps">
+    <select class="chosen-select" id='t_emps' onchange="ReSelectEmp()" name="t_emps">
       {% for emp in emps%}
         {% if emp.fired %}
         {%else%}

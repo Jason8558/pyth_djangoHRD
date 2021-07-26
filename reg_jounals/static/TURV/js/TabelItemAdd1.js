@@ -27,7 +27,7 @@ function emp_info() {
 }
 // ------------------------------------------------------------------------
 $(document).ready(function(){
-
+$(".chosen-select").chosen()
 var query = String(document.location.href).split('/');
 
 emp_info()

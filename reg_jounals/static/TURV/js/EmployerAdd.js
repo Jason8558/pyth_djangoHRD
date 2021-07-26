@@ -1,6 +1,7 @@
 
 $(document).ready(function(){
 
+
 query = document.location.href.split('/')
 if (query[5] == 'upd') {
 dep_val = $('#id_department option:selected').text()
