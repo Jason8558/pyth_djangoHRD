@@ -15,12 +15,12 @@ function emp_info() {
   $('#level').text('Разряд/категория ст.учета: ' + emp_select[2])
   $('#payment').text('Ступень оплаты: ' + emp_select[3])
   if (emp_select[5] == 'False') {
-    $('#shift').text('Дневной персонал')
+    $('#shift').html('<img src="/static/TURV/img/sun2.png">Дневной персонал')
     $('#n_time').text('')
     $('#n_time_span').css('display','none')
   }
   else {
-    $('#shift').text('Сменный персонал')
+    $('#shift').html('<img src="/static/TURV/img/shift.png">Сменный персонал')
     $('#n_time').text(emp_select[6])
       $('#n_time_span').css('display','block')
   }
@@ -29,6 +29,7 @@ function emp_info() {
 $(document).ready(function(){
 $(".chosen-select").chosen()
 var query = String(document.location.href).split('/');
+console.log($('#t_emps').find('option').text());
 
 emp_info()
 
@@ -36,17 +37,20 @@ emp_info()
 // Отметка о том, что сотрудник добавлен в табель
 
 intabels = $('.intabel_pos')
-indeps = $('.indep_pos')
+// indeps = $('.indep_pos')
+indeps = $('#t_emps').find('option')
+console.log(indeps[1].getAttribute('id'));
 spans = $('.posid')
 for (var sp of spans) {
-  
-}
 
+}
+// .innerText.split('|')[4]
 //
 for (var i = 0; i < indeps.length; i++) {
       for (var intabel of intabels) {
-        if (intabel.innerText.split('|')[1] == indeps[i].innerText.split('|')[4]) {
-
+        if (intabel.innerText.split('|')[1] == indeps[i]) {
+          console.log(indeps[i]);
+          $('#t_emps').find('#' + intabel.innerText.split('|')[1]).css('background', 'green')
           // indeps[i].innerHTML = '(✅) ' + indeps[i].innerHTML
           indeps[i].style.background = "lightgreen"
           spans[i].style.color = 'white'

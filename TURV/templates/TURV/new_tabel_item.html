@@ -88,7 +88,7 @@
       {% for emp in emps%}
         {% if emp.fired %}
         {%else%}
-      <option value="{{emp.id}}">{{emp.fullname}}, {{emp.position}}, {{emp.level}}, {% if emp.shift_personnel %} Смен. {% else %} Днев. {%endif%}</option>
+      <option id="{{emp.id}}" value="{{emp.id}}">{{emp.fullname}}, {{emp.position}}, {{emp.level}}, {% if emp.shift_personnel %} Смен. {% else %} Днев. {%endif%}</option>
       {%endif%}
       {%endfor%}
     </select>

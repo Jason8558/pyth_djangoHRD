@@ -140,6 +140,11 @@ display: none;
   color: blue;
 }
 
+#shift img {
+width: 55px;
+margin-right: 14px;
+}
+
 .for-print{
   display: none !important;
 }
@@ -553,4 +558,24 @@ margin-right: 10px;
 
 .fio-screen, .pos-screen {
 width: 102px;
+}
+
+#t_emps_chosen {
+font-size: 17px;
+font-weight: bold;
+/* background: #005eff; */
+}
+#t_emps_chosen .chosen-single {
+background: #005eff;
+height: 39px;
+padding: 6px;
+color: black;
+}
+
+#t_emps_chosen .chosen-results  li:hover {
+background: #005eff;
+}
+
+#t_emps_chosen .chosen-results  .highlighted {
+background: #005eff;
 }
