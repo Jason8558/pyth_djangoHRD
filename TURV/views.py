@@ -539,8 +539,8 @@ def unload(request):
                 ct = items[0].bound_tabel
                 print(ct)
                 current_tabel = Tabel.objects.get(id=ct)
-                # if items and current_tabel.sup_check == True and current_tabel.unloaded == False:
-                if items and current_tabel.sup_check == True:
+                if items and current_tabel.sup_check == True and current_tabel.unloaded == False:
+                # if items and current_tabel.sup_check == True:
                     ws = wb.add_sheet(dn)
 
 
