@@ -12,6 +12,34 @@ import datetime
 from itertools import groupby
 from django.contrib.auth.models import *
 
+def transliterate(name):
+   """
+   Автор: LarsKort
+   Дата: 16/07/2011; 1:05 GMT-4;
+   Не претендую на "хорошесть" словарика. В моем случае и такой пойдет,
+   вы всегда сможете добавить свои символы и даже слова. Только
+   это нужно делать в обоих списках, иначе будет ошибка.
+   """
+   # Слоаврь с заменами
+   slovar = {'а':'a','б':'b','в':'v','г':'g','д':'d','е':'e','ё':'e',
+      'ж':'zh','з':'z','и':'i','й':'i','к':'k','л':'l','м':'m','н':'n',
+      'о':'o','п':'p','р':'r','с':'s','т':'t','у':'u','ф':'f','х':'h',
+      'ц':'c','ч':'cz','ш':'sh','щ':'scz','ъ':'','ы':'y','ь':'','э':'e',
+      'ю':'u','я':'ja', 'А':'A','Б':'B','В':'V','Г':'G','Д':'D','Е':'E','Ё':'E',
+      'Ж':'ZH','З':'Z','И':'I','Й':'I','К':'K','Л':'L','М':'M','Н':'N',
+      'О':'O','П':'P','Р':'R','С':'S','Т':'T','У':'U','Ф':'F','Х':'H',
+      'Ц':'C','Ч':'CZ','Ш':'SH','Щ':'SCH','Ъ':'','Ы':'y','Ь':'','Э':'E',
+      'Ю':'U','Я':'YA',',':'','?':'',' ':'_','~':'','!':'','@':'','#':'',
+      '$':'','%':'','^':'','&':'','*':'','(':'',')':'','-':'','=':'','+':'',
+      ':':'',';':'','<':'','>':'','\'':'','"':'','\\':'','/':'','№':'',
+      '[':'',']':'','{':'','}':'','ґ':'','ї':'', 'є':'','Ґ':'g','Ї':'i',
+      'Є':'e', '—':''}
+
+   # Циклически заменяем все буквы в строке
+   for key in slovar:
+      name = name.replace(key, slovar[key])
+   return name
+
 def access_check(request):
     # Проверка на права пользователя
     user_ = request.user
@@ -503,6 +531,7 @@ def unload(request):
             dn = dn.replace('-','')
             dn = dn.replace('(','')
             dn = dn.replace(')','')
+            dn = transliterate(dn)
 
 
             items = TabelItem.objects.filter(employer__department_id=dep.id).filter(month=month_).filter(year=year_).order_by('employer')
@@ -510,7 +539,8 @@ def unload(request):
                 ct = items[0].bound_tabel
                 print(ct)
                 current_tabel = Tabel.objects.get(id=ct)
-                if items and current_tabel.sup_check == True and current_tabel.unloaded == False:
+                # if items and current_tabel.sup_check == True and current_tabel.unloaded == False:
+                if items and current_tabel.sup_check == True:
                     ws = wb.add_sheet(dn)
 
 
