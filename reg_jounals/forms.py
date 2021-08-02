@@ -332,17 +332,17 @@ class EmploymentHistory_form(forms.ModelForm):
         fields = [
             'eh_number',
             'eh_dateOfInv',
+            'eh_OrderInv',
             'eh_employer',
             'eh_pos',
             'eh_dep',
-            'eh_OrderInv',
-            'eh_OrderResign',
-            'eh_dateOfResign']
+            'eh_dateOfResign',
+            'eh_OrderResign']
 
     eh_dateOfInv = forms.CharField(label="Дата приема на работу" , widget=forms.TextInput(
-        attrs={'placeholder': 'Введите дату', 'id': '', 'type':'date'}))
+        attrs={'placeholder': 'Введите дату', 'type':'date'}))
     eh_dateOfResign = forms.DateField(label="Дата увольнения" , required=False,  widget=forms.TextInput(
-        attrs={'placeholder': 'Введите дату', 'id': '', 'type':'date'}))
+        attrs={'placeholder': 'Введите дату', 'type':'date'}))
 
 
 
@@ -402,9 +402,9 @@ class SickDocument_form(forms.ModelForm):
     'sd_comm']
 
     sd_dur_from = forms.DateField(label="Дата начала болезни" ,  widget=forms.TextInput(
-        attrs={'id': '', 'type':'date'}))
+        attrs={'type':'date'}))
     sd_dur_to = forms.DateField(label="Дата окончания болезни" ,  widget=forms.TextInput(
-        attrs={'id': '', 'type':'date'}))
+        attrs={'type':'date'}))
 
 
 
@@ -492,7 +492,7 @@ class Identity_form(forms.ModelForm):
     class Meta:
         model = Identity
         fields = [
-        'number',
+        # 'number',
     'date_giving',
     'employer',
     'department']

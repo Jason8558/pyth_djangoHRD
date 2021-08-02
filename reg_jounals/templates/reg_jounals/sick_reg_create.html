@@ -46,7 +46,11 @@ body {
 
 </style>
 
-
+<div id="frame_" class="frame vacantion">
+  <iframe id="iframe" src="" width="" height=""></iframe>
+  <button type="button" class="btn btn-success" onclick="send_submit()" name="button">Сохранить</button>
+  <button type="button" onclick="close_frame()"class="btn btn-outline-danger" name="button">Отмена</button>
+</div>
 
 <a class=" btn btn-sm btn-warning print" onclick="javascript:window.print();" style="margin-top: 5px;" href="">Печать реестра</a>
 <!-- <a class=" btn btn-sm btn-danger print"  style="margin-top: 5px;" href="">Удалить реестр</a> -->
@@ -72,15 +76,15 @@ body {
 
   {%for pos in positions %}
 
-<tr onclick="return location.href = '{% url 'sick_reg_updDoc_url' id=pos.id%}' ">
+<tr id="{{pos.id}}" onclick="open_for_upd({{pos.id}})">
 
-    <td class="tnumber">{{pos.sd_number}}</td>
-    <td>{{pos.sd_emp}}</td>
-    <td>{{pos.sd_pos}}</td>
-    <td>{{pos.sd_dep}}</td>
-    <td>{{pos.sd_dur_from|date:"d.m.Y"}}</td>
-    <td>{{pos.sd_dur_to|date:"d.m.Y"}}</td>
-    <td>{{pos.sd_comm}}</td>
+    <td id="number" class="tnumber">{{pos.sd_number}}</td>
+    <td id="fio">{{pos.sd_emp}}</td>
+    <td id="pos">{{pos.sd_pos}}</td>
+    <td id="dep">{{pos.sd_dep}}</td>
+    <td id="from">{{pos.sd_dur_from|date:"d.m.Y"}}</td>
+    <td id="to">{{pos.sd_dur_to|date:"d.m.Y"}}</td>
+    <td id="comm">{{pos.sd_comm}}</td>
     <td class="print"><a class="btn btn-sm btn-danger btn-delete"href="{% url 'sick_reg_delDoc_url' id=pos.id%}">Удалить</a></td>
 </tr>
   {%endfor%}
@@ -88,5 +92,6 @@ body {
 </table>
 
 {%endif%}
-<a class="btn btn-success btn-lg m-bottom btn-sm btn-add print" href="{%url 'sick_reg_addItem_url' sr_number_=rnum%}"> + Добавить больничный лист в реестр</a>
+<button type="button" class="btn btn-success btn-sm m-bottom btn-add print " onclick="open_frame_new()" > + Добавить больничный лист в реестр</button>
+<!-- <a class="btn btn-success btn-lg m-bottom btn-sm btn-add print" href="{%url 'sick_reg_addItem_url' sr_number_=rnum%}"> + Добавить больничный лист в реестр</a> -->
 {%endblock%}

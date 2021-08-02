@@ -3,6 +3,11 @@
 {%block title%}Удостоверения{%endblock%}
 {%block header%}<a class="btn btn-dark" href="../">< назад</a> Журнал регистрации удостоверений. Всего: {{count}}.  {%endblock%}
 {%block content%}
+<div id="frame_" class="frame idents">
+  <iframe id="iframe" class="iidents" src="" width="" height=""></iframe>
+  <button type="button" class="btn btn-success" onclick="send_submit()" name="button">Сохранить</button>
+  <button type="button" onclick="close_frame()"class="btn btn-outline-danger" name="button">Отмена</button>
+</div>
 <form action="{% url 'identity' %}">
   <input type="search" name="ident_search" placeholder="Поиск по ФИО..">
   <select class="" name="ident_dep_search">
@@ -13,7 +18,8 @@
   </select>
   <button class="btn btn-sm btn-dark" type="submit" name="" value="Найти">Найти</button>
 </form>
-<a class="btn btn-success btn-lg m-bottom btn-add" href="{% url 'identity_add_url'%}"> + Добавить</a>
+<button class="btn btn-success btn-lg m-bottom btn-add " type="button" name="button" onclick="open_frame_new()"> + Добавить</button>
+<!-- <a class="btn btn-success btn-lg m-bottom btn-add" href="{% url 'identity_add_url'%}"> + Добавить</a> -->
 {% if idents %}
 <table>
   <thead class="thead-dark">
@@ -31,13 +37,13 @@
 
   {%for ident in idents%}
 
-  <tr onclick="return location.href = '{% url 'identity_upd_url' id=ident.id%}' ">
+<tr id="{{ident.id}}" onclick="open_for_upd({{ident.id}})">
 
-    <td>{{ident.number}}</td>
-    <td>{{ident.date_giving|date:"d.m.Y"}}</td>
-    <td>{{ident.employer}}</td>
-    <td>{{ident.department}}</td>
-    <td>{{ident.res_officer}}</td>
+    <td id="number">{{ident.number}}</td>
+    <td id="date">{{ident.date_giving|date:"d.m.Y"}}</td>
+    <td id="fio">{{ident.employer}}</td>
+    <td id="dep">{{ident.department}}</td>
+    <td id="res_officer">{{ident.res_officer}}</td>
 
 </tr>
   {%endfor%}

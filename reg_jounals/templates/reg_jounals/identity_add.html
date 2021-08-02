@@ -10,15 +10,19 @@
 {{form.errors}}
 </div>
 {%endif%}
+<script type="text/javascript">
+  $(document).ready(function() {
+    $('header').css('display','none')
+    $('body').css('background', 'white !important') })
+</script>
 <form class="add_form" action="" method="post">
   {% csrf_token %}
-
+  <h5>Номер удостоверения: <span id="next_num">{{next_num}}</span></h5>
   {% for field in form %}
   <p>{{field.label}}{{ field }}</p>
   {% endfor%}
 
-  <input class="btn btn-success" type="submit" value="Добавить" />
-  <a class="btn btn-outline-danger" href=".">Отмена</a>
+
 </form>
 
 {%endblock%}

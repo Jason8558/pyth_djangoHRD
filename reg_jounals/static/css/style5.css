@@ -134,7 +134,7 @@ font-size: 20pt;
 
 .sick_list {
   grid-template-rows: none;
-  grid-gap: 15px;
+  grid-gap: none;
 }
 
 .add_sk_item {
@@ -494,10 +494,18 @@ box-shadow: 0px 0px 11px -2px black;
   transition: 0.3s;
 }
 
+.idents {
+height: 354px;
+}
+
+.iidents {
+  height: 85% !important;
+}
+
 .vacantion {
-  
+
 height: 736px;
-  
+
 top: 15vh;
 }
 

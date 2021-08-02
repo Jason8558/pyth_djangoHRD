@@ -899,6 +899,7 @@ def identitys(request):
 def nr_identitys(request):
     if request.user.is_authenticated:
         ident_form = Identity_form()
+        next_num = int(Identity.objects.latest('id').number) + 1
         if request.method == "POST":
             ident_form = Identity_form(request.POST)
             if ident_form.is_valid():
@@ -907,7 +908,7 @@ def nr_identitys(request):
                 return redirect('/identity')
     else:
         return render(request, 'reg_jounals/no_auth.html')
-    return render(request, 'reg_jounals/identity_add.html', context={'form':ident_form})
+    return render(request, 'reg_jounals/identity_add.html', context={'form':ident_form, 'next_num':next_num})
 
 def upd_identitys(request, id):
     if request.user.is_authenticated:
