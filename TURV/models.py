@@ -172,9 +172,11 @@ class TabelItem(models.Model):
     sHours37 = models.IntegerField(verbose_name='Пенсионный', null = True, blank=True)
     sHours38 = models.IntegerField(verbose_name='Нерабочие оплачиваемые дни', null = True, blank=True)
     w_days = models.IntegerField(verbose_name='Дней отработано', default=0, null = True, blank=True)
-    w_hours = models.IntegerField(verbose_name='Часов отработано', default=0, null = True, blank=True)
+    # w_hours = models.IntegerField(verbose_name='Часов отработано', default=0, null = True, blank=True)
+    w_hours = models.FloatField(verbose_name='Часов отработано', default=0, null = True, blank=True)
     v_days = models.IntegerField(verbose_name='Дней неявок', default=0, null = True, blank=True)
-    v_hours = models.IntegerField(verbose_name='Часов неявок', default=0, null = True, blank=True)
+    # v_hours = models.IntegerField(verbose_name='Часов неявок', default=0, null = True, blank=True)
+    v_hours = models.FloatField(verbose_name='Часов неявок', default=0, null = True, blank=True)
 
     class Meta:
         ordering = ['-year']
