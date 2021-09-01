@@ -233,9 +233,9 @@
       <td class="cell_ttime day31">{{item.type_time31}}</td>
       <td rowspan="2" class="cell_bb">{{item.w_days}}</td>
       {% if item.sHours19 != 0 %}
-      <td rowspan="2" class="cell_bb wide-itogs">{{item.w_hours}}/{{item.sHours19}}</td>
+      <td rowspan="2" class="cell_bb wide-itogs">{{item.w_hours|floatformat:-2}}/{{item.sHours19}}</td>
       {%else%}
-      <td rowspan="2" class="cell_bb wide-itogs">{{item.w_hours}}</td>
+      <td rowspan="2" class="cell_bb wide-itogs">{{item.w_hours|floatformat:-2}}</td>
         {%endif%}
 
       {% if item.sHours4 > 0 %}

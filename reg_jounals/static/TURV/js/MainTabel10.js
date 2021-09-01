@@ -399,178 +399,178 @@ for (var field of checkfields) {
 
 switch (tt1) {
   case 'Я':
-    s1 += parseInt(h1, 10)
+    s1 += parseFloat(h1)
     work += 1
   break;
 
   case 'Н':
-    s2 += parseInt(h1, 10)
+    s2 += parseFloat(h1)
     work += 1
   break;
 
   case 'РВ':
-    s3 += parseInt(h1, 10)
+    s3 += parseFloat(h1)
     work += 1
   break;
 
   case 'ВМ':
-    s5 += parseInt(h1, 10)
+    s5 += parseFloat(h1)
     work += 1
   break;
 
   case 'КМ':
-    s36 += parseInt(h1, 10)
+    s36 += parseFloat(h1)
     work += 1
   break;
 
   case 'К':
-    s6 += parseInt(h1, 10)
+    s6 += parseFloat(h1)
     vac += 1
   break;
 
   case 'ПК':
-    s7 += parseInt(h1, 10)
+    s7 += parseFloat(h1)
     work += 1
   break;
 
   case 'ПМ':
-    s8 += parseInt(h1, 10)
+    s8 += parseFloat(h1)
     work += 1
   break;
 
   case 'ОТ':
-    s9 += parseInt(h1, 10)
+    s9 += parseFloat(h1)
     vac += 1
   break;
 
   case 'ОД':
-    s10 += parseInt(h1, 10)
+    s10 += parseFloat(h1)
     vac += 1
   break;
 
   case 'У':
-    s11 += parseInt(h1, 10)
+    s11 += parseFloat(h1)
     vac += 1
   break;
 
   case 'УВ':
-    s12 += parseInt(h1, 10)
+    s12 += parseFloat(h1)
     work += 1
   break;
 
   case 'УД':
-    s13 += parseInt(h1, 10)
+    s13 += parseFloat(h1)
     vac += 1
   break;
 
   case 'Р':
-    s14 += parseInt(h1, 10)
+    s14 += parseFloat(h1)
     vac += 1
   break;
 
   case 'ОЖ':
-    s15 += parseInt(h1, 10)
+    s15 += parseFloat(h1)
     vac += 1
   break;
 
   case 'ДО':
-    s16 += parseInt(h1, 10)
+    s16 += parseFloat(h1)
     vac += 1
   break;
 
   case 'Б':
-    s17 += parseInt(h1, 10)
+    s17 += parseFloat(h1)
     vac += 1
   break;
 
   case 'Т':
-    s18 += parseInt(h1, 10)
+    s18 += parseFloat(h1)
     vac += 1
   break;
 
   case 'ЛЧ':
-    s19 += parseInt(h1, 10)
+    s19 += parseFloat(h1)
     work += 1
   break;
 
   case 'ПВ':
-    s20 += parseInt(h1, 10)
+    s20 += parseFloat(h1)
     vac += 1
   break;
 
   case 'Г':
-    s21 += parseInt(h1, 10)
+    s21 += parseFloat(h1)
     vac += 1
   break;
 
   case 'ПР':
-    s22 += parseInt(h1, 10)
+    s22 += parseFloat(h1)
     vac += 1
   break;
 
   case 'НС':
-    s23 += parseInt(h1, 10)
+    s23 += parseFloat(h1)
     work += 1
   break;
 
   case 'В':
-    s24 += parseInt(h1, 10)
+    s24 += parseFloat(h1)
 
 
   break;
 
   case 'ОВ':
-    s25 += parseInt(h1, 10)
+    s25 += parseFloat(h1)
     vac += 1
   break;
 
   case 'НВ':
-    s26 += parseInt(h1, 10)
+    s26 += parseFloat(h1)
     vac += 1
   break;
 
   case 'ЗБ':
-    s27 += parseInt(h1, 10)
+    s27 += parseFloat(h1)
     vac += 1
   break;
 
   case 'НН':
-    s28 += parseInt(h1, 10)
+    s28 += parseFloat(h1)
     vac += 1
   break;
 
   case 'РП':
-    s29 += parseInt(h1, 10)
+    s29 += parseFloat(h1)
     vac += 1
   break;
 
   case 'НП':
-    s30 += parseInt(h1, 10)
+    s30 += parseFloat(h1)
     vac += 1
   break;
 
   case 'ВП':
-    s31 += parseInt(h1, 10)
+    s31 += parseFloat(h1)
     vac += 1
   break;
 
   case 'НО':
-    s33 += parseInt(h1, 10)
+    s33 += parseFloat(h1)
     vac += 1
   break;
 
   case 'НБ':
-    s32 += parseInt(h1, 10)
+    s32 += parseFloat(h1)
     vac += 1
   break;
 
   case 'НЗ':
-    s34 += parseInt(h1, 10)
+    s34 += parseFloat(h1)
     vac += 1
   break;
 
   case 'ОЗ':
-    s37 += parseInt(h1, 10)
+    s37 += parseFloat(h1)
     vac += 1
   break;
 
@@ -579,13 +579,13 @@ switch (tt1) {
     h_split = h1.split('/')
 
 
-      s38 += parseInt(h_split[0], 10)
-      s19 += parseInt(h_split[1], 10)
+      s38 += parseFloat(h_split[0])
+      s19 += parseFloat(h_split[1])
 
 
     work += 1 }
     else {
-      s38 += parseInt(h1, 10)
+      s38 += parseFloat(h1)
       work += 1
     }
     console.log(s19);
@@ -594,202 +594,202 @@ switch (tt1) {
   case 'Я/ЛЧ':
     h1_ = h1.split('/')
 
-    s1 += parseInt(h1_[0], 10)
-    s19 += parseInt(h1_[1], 10)
+    s1 += parseFloat(h1_[0])
+    s19 += parseFloat(h1_[1])
     work += 1
   break;
 
   case 'Я/Н':
     h1_ = h1.split('/')
 
-    s1 += parseInt(h1_[0], 10)
-    s2 += parseInt(h1_[1], 10)
+    s1 += parseFloat(h1_[0])
+    s2 += parseFloat(h1_[1])
     work += 1
   break;
 
   case 'РВ/Н':
     h1_ = h1.split('/')
 
-    s3 += parseInt(h1_[0], 10)
-    s2 += parseInt(h1_[1], 10)
+    s3 += parseFloat(h1_[0])
+    s2 += parseFloat(h1_[1])
     work += 1
   break;
 }
 
 switch (tt2) {
   case 'Я':
-    s1 += parseInt(h2, 10)
+    s1 += parseFloat(h2)
     work += 1
   break;
 
   case 'Н':
-    s2 += parseInt(h2, 10)
+    s2 += parseFloat(h2)
     work += 1
   break;
 
   case 'РВ':
-    s3 += parseInt(h2, 10)
+    s3 += parseFloat(h2)
     work += 1
   break;
 
   case 'ВМ':
-    s5 += parseInt(h2, 10)
+    s5 += parseFloat(h2)
     work += 1
   break;
 
   case 'КМ':
-    s36 += parseInt(h2, 10)
+    s36 += parseFloat(h2)
     work += 1
   break;
 
   case 'К':
-    s6 += parseInt(h2, 10)
+    s6 += parseFloat(h2)
     vac += 1
   break;
 
   case 'ПК':
-    s7 += parseInt(h2, 10)
+    s7 += parseFloat(h2)
     work += 1
   break;
 
   case 'ПМ':
-    s8 += parseInt(h2, 10)
+    s8 += parseFloat(h2)
     work += 1
   break;
 
   case 'ОТ':
-    s9 += parseInt(h2, 10)
+    s9 += parseFloat(h2)
     vac += 1
   break;
 
   case 'ОД':
-    s10 += parseInt(h2, 10)
+    s10 += parseFloat(h2)
     vac += 1
   break;
 
   case 'У':
-    s11 += parseInt(h2, 10)
+    s11 += parseFloat(h2)
     vac += 1
   break;
 
   case 'УВ':
-    s12 += parseInt(h2, 10)
+    s12 += parseFloat(h2)
     work += 1
   break;
 
   case 'УД':
-    s13 += parseInt(h2, 10)
+    s13 += parseFloat(h2)
     vac += 1
   break;
 
   case 'Р':
-    s14 += parseInt(h2, 10)
+    s14 += parseFloat(h2)
     vac += 1
   break;
 
   case 'ОЖ':
-    s15 += parseInt(h2, 10)
+    s15 += parseFloat(h2)
     vac += 1
   break;
 
   case 'ДО':
-    s16 += parseInt(h2, 10)
+    s16 += parseFloat(h2)
     vac += 1
   break;
 
   case 'Б':
-    s17 += parseInt(h2, 10)
+    s17 += parseFloat(h2)
     vac += 1
   break;
 
   case 'Т':
-    s18 += parseInt(h2, 10)
+    s18 += parseFloat(h2)
     vac += 1
   break;
 
   case 'ЛЧ':
-    s19 += parseInt(h2, 10)
+    s19 += parseFloat(h2)
     vac += 1
   break;
 
   case 'ПВ':
-    s20 += parseInt(h2, 10)
+    s20 += parseFloat(h2)
     vac += 1
   break;
 
   case 'Г':
-    s21 += parseInt(h2, 10)
+    s21 += parseFloat(h2)
     vac += 1
   break;
 
   case 'ПР':
-    s22 += parseInt(h2, 10)
+    s22 += parseFloat(h2)
     vac += 1
   break;
 
   case 'НС':
-    s23 += parseInt(h2, 10)
+    s23 += parseFloat(h2)
     work += 1
   break;
 
   case 'В':
-    s24 += parseInt(h2, 10)
+    s24 += parseFloat(h2)
 
 
   break;
 
   case 'ОВ':
-    s25 += parseInt(h2, 10)
+    s25 += parseFloat(h2)
     vac += 1
   break;
 
   case 'НВ':
-    s26 += parseInt(h2, 10)
+    s26 += parseFloat(h2)
     vac += 1
   break;
 
   case 'ЗБ':
-    s27 += parseInt(h2, 10)
+    s27 += parseFloat(h2)
     vac += 1
   break;
 
   case 'НН':
-    s28 += parseInt(h2, 10)
+    s28 += parseFloat(h2)
     vac += 1
   break;
 
   case 'РП':
-    s29 += parseInt(h2, 10)
+    s29 += parseFloat(h2)
     vac += 1
   break;
 
   case 'НП':
-    s30 += parseInt(h2, 10)
+    s30 += parseFloat(h2)
     vac += 1
   break;
 
   case 'ВП':
-    s34 += parseInt(h2, 10)
+    s34 += parseFloat(h2)
     vac += 1
   break;
 
   case 'НО':
-    s33 += parseInt(h2, 10)
+    s33 += parseFloat(h2)
     vac += 1
   break;
 
   case 'НБ':
-    s32 += parseInt(h2, 10)
+    s32 += parseFloat(h2)
     vac += 1
   break;
 
   case 'НЗ':
-    s34 += parseInt(h2, 10)
+    s34 += parseFloat(h2)
     vac += 1
   break;
 
   case 'ОЗ':
-    s37 += parseInt(h2, 10)
+    s37 += parseFloat(h2)
     vac += 1
   break;
 
@@ -798,13 +798,13 @@ switch (tt2) {
     h_split = h2.split('/')
 
 
-      s38 += parseInt(h_split[0], 10)
-      s19 += parseInt(h_split[1], 10)
+      s38 += parseFloat(h_split[0])
+      s19 += parseFloat(h_split[1])
 
 
     work += 1 }
     else {
-      s38 += parseInt(h2, 10)
+      s38 += parseFloat(h2)
       work += 1
     }
     console.log(s19);
@@ -812,200 +812,200 @@ switch (tt2) {
 
   case 'Я/ЛЧ':
     h2_ = h2.split('/')
-    s1 += parseInt(h2_[0], 10)
-    s19 += parseInt(h2_[1], 10)
+    s1 += parseFloat(h2_[0])
+    s19 += parseFloat(h2_[1])
     work += 1
   break;
 
   case 'Я/Н':
     h2_ = h2.split('/')
-    s1 += parseInt(h2_[0], 10)
-    s2 += parseInt(h2_[1], 10)
+    s1 += parseFloat(h2_[0])
+    s2 += parseFloat(h2_[1])
     work += 1
   break;
 
   case 'РВ/Н':
     h2_ = h2.split('/')
-    s3 += parseInt(h2_[0], 10)
-    s2 += parseInt(h2_[1], 10)
+    s3 += parseFloat(h2_[0])
+    s2 += parseFloat(h2_[1])
     work += 1
   break;
 }
 
 switch (tt3) {
   case 'Я':
-    s1 += parseInt(h3, 10)
+    s1 += parseFloat(h3)
     work += 1
   break;
 
   case 'Н':
-    s2 += parseInt(h3, 10)
+    s2 += parseFloat(h3)
     work += 1
   break;
 
   case 'РВ':
-    s3 += parseInt(h3, 10)
+    s3 += parseFloat(h3)
     work += 1
   break;
 
   case 'ВМ':
-    s5 += parseInt(h3, 10)
+    s5 += parseFloat(h3)
     work += 1
   break;
 
   case 'КМ':
-    s36 += parseInt(h3, 10)
+    s36 += parseFloat(h3)
     work += 1
   break;
 
   case 'К':
-    s6 += parseInt(h3, 10)
+    s6 += parseFloat(h3)
     vac += 1
   break;
 
   case 'ПК':
-    s7 += parseInt(h3, 10)
+    s7 += parseFloat(h3)
     work += 1
   break;
 
   case 'ПМ':
-    s8 += parseInt(h3, 10)
+    s8 += parseFloat(h3)
     work += 1
   break;
 
   case 'ОТ':
-    s9 += parseInt(h3, 10)
+    s9 += parseFloat(h3)
     vac += 1
   break;
 
   case 'ОД':
-    s10 += parseInt(h3, 10)
+    s10 += parseFloat(h3)
     vac += 1
   break;
 
   case 'У':
-    s11 += parseInt(h3, 10)
+    s11 += parseFloat(h3)
     vac += 1
   break;
 
   case 'УВ':
-    s12 += parseInt(h3, 10)
+    s12 += parseFloat(h3)
     work += 1
   break;
 
   case 'УД':
-    s13 += parseInt(h3, 10)
+    s13 += parseFloat(h3)
     vac += 1
   break;
 
   case 'Р':
-    s14 += parseInt(h3, 10)
+    s14 += parseFloat(h3)
     vac += 1
   break;
 
   case 'ОЖ':
-    s15 += parseInt(h3, 10)
+    s15 += parseFloat(h3)
     vac += 1
   break;
 
   case 'ДО':
-    s16 += parseInt(h3, 10)
+    s16 += parseFloat(h3)
     vac += 1
   break;
 
   case 'Б':
-    s17 += parseInt(h3, 10)
+    s17 += parseFloat(h3)
     vac += 1
   break;
 
   case 'Т':
-    s18 += parseInt(h3, 10)
+    s18 += parseFloat(h3)
     vac += 1
   break;
 
   case 'ЛЧ':
-    s19 += parseInt(h3, 10)
+    s19 += parseFloat(h3)
     vac += 1
   break;
 
   case 'ПВ':
-    s20 += parseInt(h3, 10)
+    s20 += parseFloat(h3)
     vac += 1
   break;
 
   case 'Г':
-    s21 += parseInt(h3, 10)
+    s21 += parseFloat(h3)
     vac += 1
   break;
 
   case 'ПР':
-    s22 += parseInt(h3, 10)
+    s22 += parseFloat(h3)
     vac += 1
   break;
 
   case 'НС':
-    s23 += parseInt(h3, 10)
+    s23 += parseFloat(h3)
     work += 1
   break;
 
   case 'В':
-    s24 += parseInt(h3, 10)
+    s24 += parseFloat(h3)
 
 
   break;
 
   case 'ОВ':
-    s25 += parseInt(h3, 10)
+    s25 += parseFloat(h3)
     vac += 1
   break;
 
   case 'НВ':
-    s26 += parseInt(h3, 10)
+    s26 += parseFloat(h3)
     vac += 1
   break;
 
   case 'ЗБ':
-    s27 += parseInt(h3, 10)
+    s27 += parseFloat(h3)
     vac += 1
   break;
 
   case 'НН':
-    s28 += parseInt(h3, 10)
+    s28 += parseFloat(h3)
     vac += 1
   break;
 
   case 'РП':
-    s29 += parseInt(h3, 10)
+    s29 += parseFloat(h3)
     vac += 1
   break;
 
   case 'НП':
-    s30 += parseInt(h3, 10)
+    s30 += parseFloat(h3)
     vac += 1
   break;
 
   case 'ВП':
-    s34 += parseInt(h3, 10)
+    s34 += parseFloat(h3)
     vac += 1
   break;
 
   case 'НО':
-    s33 += parseInt(h3, 10)
+    s33 += parseFloat(h3)
     vac += 1
   break;
 
   case 'НБ':
-    s32 += parseInt(h3, 10)
+    s32 += parseFloat(h3)
     vac += 1
   break;
 
   case 'НЗ':
-    s34 += parseInt(h3, 10)
+    s34 += parseFloat(h3)
     vac += 1
   break;
 
   case 'ОЗ':
-    s37 += parseInt(h3, 10)
+    s37 += parseFloat(h3)
     vac += 1
   break;
 
@@ -1014,13 +1014,13 @@ switch (tt3) {
     h_split = h3.split('/')
 
 
-      s38 += parseInt(h_split[0], 10)
-      s19 += parseInt(h_split[1], 10)
+      s38 += parseFloat(h_split[0])
+      s19 += parseFloat(h_split[1])
 
 
     work += 1 }
     else {
-      s38 += parseInt(h3, 10)
+      s38 += parseFloat(h3)
       work += 1
     }
     console.log(s19);
@@ -1030,202 +1030,202 @@ switch (tt3) {
   case 'Я/ЛЧ':
     h3_ = h3.split('/')
 
-    s1 += parseInt(h3_[0], 10)
-    s19 += parseInt(h3_[1], 10)
+    s1 += parseFloat(h3_[0])
+    s19 += parseFloat(h3_[1])
     work += 1
   break;
 
   case 'Я/Н':
     h3_ = h3.split('/')
 
-    s1 += parseInt(h3_[0], 10)
-    s2 += parseInt(h3_[1], 10)
+    s1 += parseFloat(h3_[0])
+    s2 += parseFloat(h3_[1])
     work += 1
   break;
 
   case 'РВ/Н':
     h3_ = h3.split('/')
 
-    s3 += parseInt(h3_[0], 10)
-    s2 += parseInt(h3_[1], 10)
+    s3 += parseFloat(h3_[0])
+    s2 += parseFloat(h3_[1])
     work += 1
   break;
 }
 
 switch (tt4) {
   case 'Я':
-    s1 += parseInt(h4, 10)
+    s1 += parseFloat(h4)
     work += 1
   break;
 
   case 'Н':
-    s2 += parseInt(h4, 10)
+    s2 += parseFloat(h4)
     work += 1
   break;
 
   case 'РВ':
-    s3 += parseInt(h4, 10)
+    s3 += parseFloat(h4)
     work += 1
   break;
 
   case 'ВМ':
-    s5 += parseInt(h4, 10)
+    s5 += parseFloat(h4)
     work += 1
   break;
 
   case 'КМ':
-    s36 += parseInt(h4, 10)
+    s36 += parseFloat(h4)
     work += 1
   break;
 
   case 'К':
-    s6 += parseInt(h4, 10)
+    s6 += parseFloat(h4)
     vac += 1
   break;
 
   case 'ПК':
-    s7 += parseInt(h4, 10)
+    s7 += parseFloat(h4)
     work += 1
   break;
 
   case 'ПМ':
-    s8 += parseInt(h4, 10)
+    s8 += parseFloat(h4)
     work += 1
   break;
 
   case 'ОТ':
-    s9 += parseInt(h4, 10)
+    s9 += parseFloat(h4)
     vac += 1
   break;
 
   case 'ОД':
-    s10 += parseInt(h4, 10)
+    s10 += parseFloat(h4)
     vac += 1
   break;
 
   case 'У':
-    s11 += parseInt(h4, 10)
+    s11 += parseFloat(h4)
     vac += 1
   break;
 
   case 'УВ':
-    s12 += parseInt(h4, 10)
+    s12 += parseFloat(h4)
     work += 1
   break;
 
   case 'УД':
-    s13 += parseInt(h4, 10)
+    s13 += parseFloat(h4)
     vac += 1
   break;
 
   case 'Р':
-    s14 += parseInt(h4, 10)
+    s14 += parseFloat(h4)
     vac += 1
   break;
 
   case 'ОЖ':
-    s15 += parseInt(h4, 10)
+    s15 += parseFloat(h4)
     vac += 1
   break;
 
   case 'ДО':
-    s16 += parseInt(h4, 10)
+    s16 += parseFloat(h4)
     vac += 1
   break;
 
   case 'Б':
-    s17 += parseInt(h4, 10)
+    s17 += parseFloat(h4)
     vac += 1
   break;
 
   case 'Т':
-    s18 += parseInt(h4, 10)
+    s18 += parseFloat(h4)
     vac += 1
   break;
 
   case 'ЛЧ':
-    s19 += parseInt(h4, 10)
+    s19 += parseFloat(h4)
     vac += 1
   break;
 
   case 'ПВ':
-    s20 += parseInt(h4, 10)
+    s20 += parseFloat(h4)
     vac += 1
   break;
 
   case 'Г':
-    s21 += parseInt(h4, 10)
+    s21 += parseFloat(h4)
     vac += 1
   break;
 
   case 'ПР':
-    s22 += parseInt(h4, 10)
+    s22 += parseFloat(h4)
     vac += 1
   break;
 
   case 'НС':
-    s23 += parseInt(h4, 10)
+    s23 += parseFloat(h4)
     work += 1
   break;
 
   case 'В':
-    s24 += parseInt(h4, 10)
+    s24 += parseFloat(h4)
 
 
   break;
 
   case 'ОВ':
-    s25 += parseInt(h4, 10)
+    s25 += parseFloat(h4)
     vac += 1
   break;
 
   case 'НВ':
-    s26 += parseInt(h4, 10)
+    s26 += parseFloat(h4)
     vac += 1
   break;
 
   case 'ЗБ':
-    s27 += parseInt(h4, 10)
+    s27 += parseFloat(h4)
     vac += 1
   break;
 
   case 'НН':
-    s28 += parseInt(h4, 10)
+    s28 += parseFloat(h4)
     vac += 1
   break;
 
   case 'РП':
-    s29 += parseInt(h4, 10)
+    s29 += parseFloat(h4)
     vac += 1
   break;
 
   case 'НП':
-    s30 += parseInt(h4, 10)
+    s30 += parseFloat(h4)
     vac += 1
   break;
 
   case 'ВП':
-    s34 += parseInt(h4, 10)
+    s34 += parseFloat(h4)
     vac += 1
   break;
 
   case 'НО':
-    s33 += parseInt(h4, 10)
+    s33 += parseFloat(h4)
     vac += 1
   break;
 
   case 'НБ':
-    s32 += parseInt(h4, 10)
+    s32 += parseFloat(h4)
     vac += 1
   break;
 
   case 'НЗ':
-    s34 += parseInt(h4, 10)
+    s34 += parseFloat(h4)
     vac += 1
   break;
 
   case 'ОЗ':
-    s37 += parseInt(h4, 10)
+    s37 += parseFloat(h4)
     vac += 1
   break;
 
@@ -1234,13 +1234,13 @@ switch (tt4) {
     h_split = h4.split('/')
 
 
-      s38 += parseInt(h_split[0], 10)
-      s19 += parseInt(h_split[1], 10)
+      s38 += parseFloat(h_split[0])
+      s19 += parseFloat(h_split[1])
 
 
     work += 1 }
     else {
-      s38 += parseInt(h4, 10)
+      s38 += parseFloat(h4)
       work += 1
     }
     console.log(s19);
@@ -1250,225 +1250,225 @@ switch (tt4) {
   case 'Я/ЛЧ':
     h4_ = h4.split('/')
 
-    s1 += parseInt(h4_[0], 10)
-    s19 += parseInt(h4_[1], 10)
+    s1 += parseFloat(h4_[0])
+    s19 += parseFloat(h4_[1])
     work += 1
   break;
 
   case 'Я/Н':
     h4_ = h4.split('/')
 
-    s1 += parseInt(h4_[0], 10)
-    s2 += parseInt(h4_[1], 10)
+    s1 += parseFloat(h4_[0])
+    s2 += parseFloat(h4_[1])
     work += 1
   break;
 
   case 'РВ/Н':
     h4_ = h4.split('/')
 
-    s3 += parseInt(h4_[0], 10)
-    s2 += parseInt(h4_[1], 10)
+    s3 += parseFloat(h4_[0])
+    s2 += parseFloat(h4_[1])
     work += 1
   break;
 }
 
 switch (tt5) {
   case 'Я':
-    s1 += parseInt(h5, 10)
+    s1 += parseFloat(h5)
     work += 1
   break;
 
   case 'Н':
-    s2 += parseInt(h5, 10)
+    s2 += parseFloat(h5)
     work += 1
   break;
 
   case 'РВ':
-    s3 += parseInt(h5, 10)
+    s3 += parseFloat(h5)
     work += 1
   break;
 
   case 'ВМ':
-    s5 += parseInt(h5, 10)
+    s5 += parseFloat(h5)
     work += 1
   break;
 
   case 'КМ':
-    s36 += parseInt(h5, 10)
+    s36 += parseFloat(h5)
     work += 1
   break;
 
   case 'К':
-    s6 += parseInt(h5, 10)
+    s6 += parseFloat(h5)
     vac += 1
   break;
 
   case 'ПК':
-    s7 += parseInt(h5, 10)
+    s7 += parseFloat(h5)
     work += 1
   break;
 
   case 'ПМ':
-    s8 += parseInt(h5, 10)
+    s8 += parseFloat(h5)
     work += 1
   break;
 
   case 'ОТ':
-    s9 += parseInt(h5, 10)
+    s9 += parseFloat(h5)
     vac += 1
 
   break;
 
   case 'ОД':
-    s10 += parseInt(h5, 10)
+    s10 += parseFloat(h5)
     vac += 1
 
   break;
 
   case 'У':
-    s11 += parseInt(h5, 10)
+    s11 += parseFloat(h5)
     vac += 1
 
   break;
 
   case 'УВ':
-    s12 += parseInt(h5, 10)
+    s12 += parseFloat(h5)
     work += 1
   break;
 
   case 'УД':
-    s13 += parseInt(h5, 10)
+    s13 += parseFloat(h5)
     vac += 1
 
   break;
 
   case 'Р':
-    s14 += parseInt(h5, 10)
+    s14 += parseFloat(h5)
     vac += 1
 
   break;
 
   case 'ОЖ':
-    s15 += parseInt(h5, 10)
+    s15 += parseFloat(h5)
     vac += 1
 
   break;
 
   case 'ДО':
-    s16 += parseInt(h5, 10)
+    s16 += parseFloat(h5)
     vac += 1
 
   break;
 
   case 'Б':
-    s17 += parseInt(h5, 10)
+    s17 += parseFloat(h5)
     vac += 1
 
   break;
 
   case 'Т':
-    s18 += parseInt(h5, 10)
+    s18 += parseFloat(h5)
     vac += 1
 
   break;
 
   case 'ЛЧ':
-    s19 += parseInt(h5, 10)
+    s19 += parseFloat(h5)
     vac += 1
 
   break;
 
   case 'ПВ':
-    s20 += parseInt(h5, 10)
+    s20 += parseFloat(h5)
     vac += 1
 
   break;
 
   case 'Г':
-    s21 += parseInt(h5, 10)
+    s21 += parseFloat(h5)
     vac += 1
 
   break;
 
   case 'ПР':
-    s22 += parseInt(h5, 10)
+    s22 += parseFloat(h5)
     vac += 1
 
   break;
 
   case 'НС':
-    s23 += parseInt(h5, 10)
+    s23 += parseFloat(h5)
     work += 1
   break;
 
   case 'В':
-    s24 += parseInt(h5, 10)
+    s24 += parseFloat(h5)
 
 
   break;
 
   case 'ОВ':
-    s25 += parseInt(h5, 10)
+    s25 += parseFloat(h5)
     vac += 1
 
   break;
 
   case 'НВ':
-    s26 += parseInt(h5, 10)
+    s26 += parseFloat(h5)
     vac += 1
 
   break;
 
   case 'ЗБ':
-    s27 += parseInt(h5, 10)
+    s27 += parseFloat(h5)
     vac += 1
 
   break;
 
   case 'НН':
-    s28 += parseInt(h5, 10)
+    s28 += parseFloat(h5)
     vac += 1
 
   break;
 
   case 'РП':
-    s29 += parseInt(h5, 10)
+    s29 += parseFloat(h5)
     vac += 1
 
   break;
 
   case 'НП':
-    s30 += parseInt(h5, 10)
+    s30 += parseFloat(h5)
     vac += 1
 
   break;
 
   case 'ВП':
-    s34 += parseInt(h5, 10)
+    s34 += parseFloat(h5)
     vac += 1
 
   break;
 
   case 'НО':
-    s33 += parseInt(h5, 10)
+    s33 += parseFloat(h5)
     vac += 1
 
   break;
 
   case 'НБ':
-    s32 += parseInt(h5, 10)
+    s32 += parseFloat(h5)
     vac += 1
 
   break;
 
   case 'НЗ':
-    s34 += parseInt(h5, 10)
+    s34 += parseFloat(h5)
     vac += 1
 
   break;
 
   case 'ОЗ':
-    s37 += parseInt(h5, 10)
+    s37 += parseFloat(h5)
     vac += 1
   break;
 
@@ -1477,13 +1477,13 @@ switch (tt5) {
     h_split = h5.split('/')
 
 
-      s38 += parseInt(h_split[0], 10)
-      s19 += parseInt(h_split[1], 10)
+      s38 += parseFloat(h_split[0])
+      s19 += parseFloat(h_split[1])
 
 
     work += 1 }
     else {
-      s38 += parseInt(h5, 10)
+      s38 += parseFloat(h5)
       work += 1
     }
     console.log(s19);
@@ -1493,201 +1493,201 @@ switch (tt5) {
   case 'Я/ЛЧ':
     h5_ = h5.split('/')
 
-    s1 += parseInt(h5_[0], 10)
-    s19 += parseInt(h5_[1], 10)
+    s1 += parseFloat(h5_[0])
+    s19 += parseFloat(h5_[1])
     work += 1
   break;
 
   case 'Я/Н':
     h5_ = h5.split('/')
 
-    s1 += parseInt(h5_[0], 10)
-    s2 += parseInt(h5_[1], 10)
+    s1 += parseFloat(h5_[0])
+    s2 += parseFloat(h5_[1])
     work += 1
   break;
 
   case 'РВ/Н':
     h5_ = h5.split('/')
 
-    s3 += parseInt(h5_[0], 10)
-    s2 += parseInt(h5_[1], 10)
+    s3 += parseFloat(h5_[0])
+    s2 += parseFloat(h5_[1])
     work += 1
   break;
 }
 
 switch (tt6) {
   case 'Я':
-    s1 += parseInt(h6, 10)
+    s1 += parseFloat(h6)
     work += 1
   break;
 
   case 'Н':
-    s2 += parseInt(h6, 10)
+    s2 += parseFloat(h6)
     work += 1
   break;
 
   case 'РВ':
-    s3 += parseInt(h6, 10)
+    s3 += parseFloat(h6)
     work += 1
   break;
 
   case 'ВМ':
-    s5 += parseInt(h6, 10)
+    s5 += parseFloat(h6)
     work += 1
   break;
 
   case 'КМ':
-    s36 += parseInt(h6, 10)
+    s36 += parseFloat(h6)
     work += 1
   break;
 
   case 'К':
-    s6 += parseInt(h6, 10)
+    s6 += parseFloat(h6)
     vac += 1
   break;
 
   case 'ПК':
-    s7 += parseInt(h6, 10)
+    s7 += parseFloat(h6)
     work += 1
   break;
 
   case 'ПМ':
-    s8 += parseInt(h6, 10)
+    s8 += parseFloat(h6)
     work += 1
   break;
 
   case 'ОТ':
-    s9 += parseInt(h6, 10)
+    s9 += parseFloat(h6)
     vac += 1
   break;
 
   case 'ОД':
-    s10 += parseInt(h6, 10)
+    s10 += parseFloat(h6)
     vac += 1
   break;
 
   case 'У':
-    s11 += parseInt(h6, 10)
+    s11 += parseFloat(h6)
     vac += 1
   break;
 
   case 'УВ':
-    s12 += parseInt(h6, 10)
+    s12 += parseFloat(h6)
     work += 1
   break;
 
   case 'УД':
-    s13 += parseInt(h6, 10)
+    s13 += parseFloat(h6)
     vac += 1
   break;
 
   case 'Р':
-    s14 += parseInt(h6, 10)
+    s14 += parseFloat(h6)
     vac += 1
   break;
 
   case 'ОЖ':
-    s15 += parseInt(h6, 10)
+    s15 += parseFloat(h6)
     vac += 1
   break;
 
   case 'ДО':
-    s16 += parseInt(h6, 10)
+    s16 += parseFloat(h6)
     vac += 1
   break;
 
   case 'Б':
-    s17 += parseInt(h6, 10)
+    s17 += parseFloat(h6)
     vac += 1
   break;
 
   case 'Т':
-    s18 += parseInt(h6, 10)
+    s18 += parseFloat(h6)
     vac += 1
   break;
 
   case 'ЛЧ':
-    s19 += parseInt(h6, 10)
+    s19 += parseFloat(h6)
     vac += 1
   break;
 
   case 'ПВ':
-    s20 += parseInt(h6, 10)
+    s20 += parseFloat(h6)
     vac += 1
   break;
 
   case 'Г':
-    s21 += parseInt(h6, 10)
+    s21 += parseFloat(h6)
     vac += 1
   break;
 
   case 'ПР':
-    s22 += parseInt(h6, 10)
+    s22 += parseFloat(h6)
     vac += 1
   break;
 
   case 'НС':
-    s23 += parseInt(h6, 10)
+    s23 += parseFloat(h6)
     work += 1
   break;
 
   case 'В':
-    s24 += parseInt(h6, 10)
+    s24 += parseFloat(h6)
 
   break;
 
   case 'ОВ':
-    s25 += parseInt(h6, 10)
+    s25 += parseFloat(h6)
     vac += 1
   break;
 
   case 'НВ':
-    s26 += parseInt(h6, 10)
+    s26 += parseFloat(h6)
     vac += 1
   break;
 
   case 'ЗБ':
-    s27 += parseInt(h6, 10)
+    s27 += parseFloat(h6)
     vac += 1
   break;
 
   case 'НН':
-    s28 += parseInt(h6, 10)
+    s28 += parseFloat(h6)
     vac += 1
   break;
 
   case 'РП':
-    s29 += parseInt(h6, 10)
+    s29 += parseFloat(h6)
     vac += 1
   break;
 
   case 'НП':
-    s30 += parseInt(h6, 10)
+    s30 += parseFloat(h6)
     vac += 1
   break;
 
   case 'ВП':
-    s34 += parseInt(h6, 10)
+    s34 += parseFloat(h6)
     vac += 1
   break;
 
   case 'НО':
-    s33 += parseInt(h6, 10)
+    s33 += parseFloat(h6)
     vac += 1
   break;
 
   case 'НБ':
-    s32 += parseInt(h6, 10)
+    s32 += parseFloat(h6)
     vac += 1
   break;
 
   case 'НЗ':
-    s34 += parseInt(h6, 10)
+    s34 += parseFloat(h6)
     vac += 1
   break;
 
   case 'ОЗ':
-    s37 += parseInt(h6, 10)
+    s37 += parseFloat(h6)
     vac += 1
   break;
 
@@ -1696,13 +1696,13 @@ switch (tt6) {
     h_split = h6.split('/')
 
 
-      s38 += parseInt(h_split[0], 10)
-      s19 += parseInt(h_split[1], 10)
+      s38 += parseFloat(h_split[0])
+      s19 += parseFloat(h_split[1])
 
 
     work += 1 }
     else {
-      s38 += parseInt(h6, 10)
+      s38 += parseFloat(h6)
       work += 1
     }
     console.log(s19);
@@ -1712,202 +1712,202 @@ switch (tt6) {
   case 'Я/ЛЧ':
     h6_ = h6.split('/')
 
-    s1 += parseInt(h6_[0], 10)
-    s19 += parseInt(h6_[1], 10)
+    s1 += parseFloat(h6_[0])
+    s19 += parseFloat(h6_[1])
     work += 1
   break;
 
   case 'Я/Н':
     h6_ = h6.split('/')
 
-    s1 += parseInt(h6_[0], 10)
-    s2 += parseInt(h6_[1], 10)
+    s1 += parseFloat(h6_[0])
+    s2 += parseFloat(h6_[1])
     work += 1
   break;
 
   case 'РВ/Н':
     h6_ = h6.split('/')
 
-    s3 += parseInt(h6_[0], 10)
-    s2 += parseInt(h6_[1], 10)
+    s3 += parseFloat(h6_[0])
+    s2 += parseFloat(h6_[1])
     work += 1
   break;
 }
 
 switch (tt7) {
   case 'Я':
-    s1 += parseInt(h7, 10)
+    s1 += parseFloat(h7)
     work += 1
   break;
 
   case 'Н':
-    s2 += parseInt(h7, 10)
+    s2 += parseFloat(h7)
     work += 1
   break;
 
   case 'РВ':
-    s3 += parseInt(h7, 10)
+    s3 += parseFloat(h7)
     work += 1
   break;
 
   case 'ВМ':
-    s5 += parseInt(h7, 10)
+    s5 += parseFloat(h7)
     work += 1
   break;
 
   case 'КМ':
-    s36 += parseInt(h7, 10)
+    s36 += parseFloat(h7)
     work += 1
   break;
 
   case 'К':
-    s6 += parseInt(h7, 10)
+    s6 += parseFloat(h7)
     vac += 1
   break;
 
   case 'ПК':
-    s7 += parseInt(h7, 10)
+    s7 += parseFloat(h7)
     work += 1
   break;
 
   case 'ПМ':
-    s8 += parseInt(h7, 10)
+    s8 += parseFloat(h7)
     work += 1
   break;
 
   case 'ОТ':
-    s9 += parseInt(h7, 10)
+    s9 += parseFloat(h7)
     vac += 1
   break;
 
   case 'ОД':
-    s10 += parseInt(h7, 10)
+    s10 += parseFloat(h7)
     vac += 1
   break;
 
   case 'У':
-    s11 += parseInt(h7, 10)
+    s11 += parseFloat(h7)
     vac += 1
   break;
 
   case 'УВ':
-    s12 += parseInt(h7, 10)
+    s12 += parseFloat(h7)
     work += 1
   break;
 
   case 'УД':
-    s13 += parseInt(h7, 10)
+    s13 += parseFloat(h7)
     vac += 1
   break;
 
   case 'Р':
-    s14 += parseInt(h7, 10)
+    s14 += parseFloat(h7)
     vac += 1
   break;
 
   case 'ОЖ':
-    s15 += parseInt(h7, 10)
+    s15 += parseFloat(h7)
     vac += 1
   break;
 
   case 'ДО':
-    s16 += parseInt(h7, 10)
+    s16 += parseFloat(h7)
     vac += 1
   break;
 
   case 'Б':
-    s17 += parseInt(h7, 10)
+    s17 += parseFloat(h7)
     vac += 1
   break;
 
   case 'Т':
-    s18 += parseInt(h7, 10)
+    s18 += parseFloat(h7)
     vac += 1
   break;
 
   case 'ЛЧ':
-    s19 += parseInt(h7, 10)
+    s19 += parseFloat(h7)
     vac += 1
   break;
 
   case 'ПВ':
-    s20 += parseInt(h7, 10)
+    s20 += parseFloat(h7)
     vac += 1
   break;
 
   case 'Г':
-    s21 += parseInt(h7, 10)
+    s21 += parseFloat(h7)
     vac += 1
   break;
 
   case 'ПР':
-    s22 += parseInt(h7, 10)
+    s22 += parseFloat(h7)
     vac += 1
   break;
 
   case 'НС':
-    s23 += parseInt(h7, 10)
+    s23 += parseFloat(h7)
     work += 1
   break;
 
   case 'В':
-    s24 += parseInt(h7, 10)
+    s24 += parseFloat(h7)
 
   break;
 
   case 'ОВ':
-    s25 += parseInt(h7, 10)
+    s25 += parseFloat(h7)
     vac += 1
   break;
 
   case 'НВ':
-    s26 += parseInt(h7, 10)
+    s26 += parseFloat(h7)
     vac += 1
   break;
 
   case 'ЗБ':
-    s27 += parseInt(h7, 10)
+    s27 += parseFloat(h7)
     vac += 1
   break;
 
   case 'НН':
-    s28 += parseInt(h7, 10)
+    s28 += parseFloat(h7)
     vac += 1
   break;
 
   case 'РП':
-    s29 += parseInt(h7, 10)
+    s29 += parseFloat(h7)
     vac += 1
   break;
 
   case 'НП':
-    s30 += parseInt(h7, 10)
+    s30 += parseFloat(h7)
     vac += 1
   break;
 
   case 'ВП':
-    s34 += parseInt(h7, 10)
+    s34 += parseFloat(h7)
     vac += 1
   break;
 
   case 'НО':
-    s33 += parseInt(h7, 10)
+    s33 += parseFloat(h7)
     vac += 1
   break;
 
   case 'НБ':
-    s32 += parseInt(h7, 10)
+    s32 += parseFloat(h7)
     vac += 1
   break;
 
 
   case 'НЗ':
-    s34 += parseInt(h7, 10)
+    s34 += parseFloat(h7)
     vac += 1
   break;
 
   case 'ОЗ':
-    s37 += parseInt(h7, 10)
+    s37 += parseFloat(h7)
     vac += 1
   break;
 
@@ -1916,13 +1916,13 @@ switch (tt7) {
     h_split = h7.split('/')
 
 
-      s38 += parseInt(h_split[0], 10)
-      s19 += parseInt(h_split[1], 10)
+      s38 += parseFloat(h_split[0])
+      s19 += parseFloat(h_split[1])
 
 
     work += 1 }
     else {
-      s38 += parseInt(h7, 10)
+      s38 += parseFloat(h7)
       work += 1
     }
     console.log(s19);
@@ -1931,24 +1931,24 @@ switch (tt7) {
 
   case 'Я/ЛЧ':
     h7_ = h7.split('/')
-    s1 += parseInt(h7_[0], 10)
-    s19 += parseInt(h7_[1], 10)
+    s1 += parseFloat(h7_[0])
+    s19 += parseFloat(h7_[1])
     work += 1
 
   break;
 
   case 'Я/Н':
     h7_ = h7.split('/')
-    s1 += parseInt(h7_[0], 10)
-    s2 += parseInt(h7_[1], 10)
+    s1 += parseFloat(h7_[0])
+    s2 += parseFloat(h7_[1])
     work += 1
 
   break;
 
   case 'РВ/Н':
     h7_ = h7.split('/')
-    s3 += parseInt(h7_[0], 10)
-    s2 += parseInt(h7_[1], 10)
+    s3 += parseFloat(h7_[0])
+    s2 += parseFloat(h7_[1])
     work += 1
 
   break;
@@ -1956,200 +1956,200 @@ switch (tt7) {
 
 switch (tt8) {
   case 'Я':
-    s1 += parseInt(h8, 10)
+    s1 += parseFloat(h8)
     work += 1
   break;
 
   case 'Н':
-    s2 += parseInt(h8, 10)
+    s2 += parseFloat(h8)
     work += 1
   break;
 
   case 'РВ':
-    s3 += parseInt(h8, 10)
+    s3 += parseFloat(h8)
     work += 1
   break;
 
   case 'ВМ':
-    s5 += parseInt(h8, 10)
+    s5 += parseFloat(h8)
     work += 1
   break;
 
   case 'КМ':
-    s36 += parseInt(h8, 10)
+    s36 += parseFloat(h8)
     work += 1
   break;
 
   case 'К':
-    s6 += parseInt(h8, 10)
+    s6 += parseFloat(h8)
     vac += 1
   break;
 
 
   case 'ПК':
-    s7 += parseInt(h8, 10)
+    s7 += parseFloat(h8)
     work += 1
   break;
 
   case 'ПМ':
-    s8 += parseInt(h8, 10)
+    s8 += parseFloat(h8)
     work += 1
   break;
 
   case 'ОТ':
-    s9 += parseInt(h8, 10)
+    s9 += parseFloat(h8)
     vac += 1
 
   break;
 
   case 'ОД':
-    s10 += parseInt(h8, 10)
+    s10 += parseFloat(h8)
     vac += 1
 
   break;
 
   case 'У':
-    s11 += parseInt(h8, 10)
+    s11 += parseFloat(h8)
     vac += 1
 
   break;
 
   case 'УВ':
-    s12 += parseInt(h8, 10)
+    s12 += parseFloat(h8)
     work += 1
   break;
 
   case 'УД':
-    s13 += parseInt(h8, 10)
+    s13 += parseFloat(h8)
     vac += 1
 
   break;
 
   case 'Р':
-    s14 += parseInt(h8, 10)
+    s14 += parseFloat(h8)
     vac += 1
 
   break;
 
   case 'ОЖ':
-    s15 += parseInt(h8, 10)
+    s15 += parseFloat(h8)
 
     vac += 1
   break;
 
   case 'ДО':
-    s16 += parseInt(h8, 10)
+    s16 += parseFloat(h8)
     vac += 1
 
   break;
 
   case 'Б':
-    s17 += parseInt(h8, 10)
+    s17 += parseFloat(h8)
     vac += 1
 
   break;
 
   case 'Т':
-    s18 += parseInt(h8, 10)
+    s18 += parseFloat(h8)
     vac += 1
 
   break;
 
   case 'ЛЧ':
-    s19 += parseInt(h8, 10)
+    s19 += parseFloat(h8)
     vac += 1
 
   break;
 
   case 'ПВ':
-    s20 += parseInt(h8, 10)
+    s20 += parseFloat(h8)
     vac += 1
 
   break;
 
   case 'Г':
-    s21 += parseInt(h8, 10)
+    s21 += parseFloat(h8)
     vac += 1
 
   break;
 
   case 'ПР':
-    s22 += parseInt(h8, 10)
+    s22 += parseFloat(h8)
     vac += 1
 
   break;
 
   case 'НС':
-    s23 += parseInt(h8, 10)
+    s23 += parseFloat(h8)
     work += 1
   break;
 
   case 'В':
-    s24 += parseInt(h8, 10)
+    s24 += parseFloat(h8)
 
 
   break;
 
   case 'ОВ':
-    s25 += parseInt(h8, 10)
+    s25 += parseFloat(h8)
     vac += 1
 
   break;
 
   case 'НВ':
-    s26 += parseInt(h8, 10)
+    s26 += parseFloat(h8)
     vac += 1
 
   break;
 
   case 'ЗБ':
-    s27 += parseInt(h8, 10)
+    s27 += parseFloat(h8)
     vac += 1
 
   break;
 
   case 'НН':
-    s28 += parseInt(h8, 10)
+    s28 += parseFloat(h8)
     vac += 1
 
   break;
 
   case 'РП':
-    s29 += parseInt(h8, 10)
+    s29 += parseFloat(h8)
     vac += 1
 
   break;
 
   case 'НП':
-    s30 += parseInt(h8, 10)
+    s30 += parseFloat(h8)
     vac += 1
 
   break;
 
   case 'ВП':
-    s34 += parseInt(h8, 10)
+    s34 += parseFloat(h8)
     vac += 1
 
   break;
 
   case 'НО':
-    s33 += parseInt(h8, 10)
+    s33 += parseFloat(h8)
     vac += 1
 
   break;
 
   case 'НБ':
-    s32 += parseInt(h8, 10)
+    s32 += parseFloat(h8)
     vac += 1
     break;
 
   case 'НЗ':
-    s34 += parseInt(h8, 10)
+    s34 += parseFloat(h8)
     vac += 1
   break;
 
   case 'ОЗ':
-    s37 += parseInt(h8, 10)
+    s37 += parseFloat(h8)
     vac += 1
   break;
 
@@ -2158,13 +2158,13 @@ switch (tt8) {
     h_split = h8.split('/')
 
 
-      s38 += parseInt(h_split[0], 10)
-      s19 += parseInt(h_split[1], 10)
+      s38 += parseFloat(h_split[0])
+      s19 += parseFloat(h_split[1])
 
 
     work += 1 }
     else {
-      s38 += parseInt(h8, 10)
+      s38 += parseFloat(h8)
       work += 1
     }
     console.log(s19);
@@ -2173,201 +2173,201 @@ switch (tt8) {
 
   case 'Я/ЛЧ':
     h8_ = h8.split('/')
-    s1 += parseInt(h8_[0], 10)
-    s19 += parseInt(h8_[1], 10)
+    s1 += parseFloat(h8_[0])
+    s19 += parseFloat(h8_[1])
     work += 1
   break;
 
   case 'Я/Н':
     h8_ = h8.split('/')
-    s1 += parseInt(h8_[0], 10)
-    s2 += parseInt(h8_[1], 10)
+    s1 += parseFloat(h8_[0])
+    s2 += parseFloat(h8_[1])
     work += 1
   break;
 
   case 'РВ/Н':
     h8_ = h8.split('/')
-    s3 += parseInt(h8_[0], 10)
-    s2 += parseInt(h8_[1], 10)
+    s3 += parseFloat(h8_[0])
+    s2 += parseFloat(h8_[1])
     work += 1
   break;
 }
 
 switch (tt9) {
   case 'Я':
-    s1 += parseInt(h9, 10)
+    s1 += parseFloat(h9)
     work += 1
   break;
 
   case 'Н':
-    s2 += parseInt(h9, 10)
+    s2 += parseFloat(h9)
     work += 1
   break;
 
   case 'РВ':
-    s3 += parseInt(h9, 10)
+    s3 += parseFloat(h9)
     work += 1
   break;
 
   case 'ВМ':
-    s5 += parseInt(h9, 10)
+    s5 += parseFloat(h9)
     work += 1
   break;
 
   case 'КМ':
-    s36 += parseInt(h9, 10)
+    s36 += parseFloat(h9)
     work += 1
   break;
 
   case 'К':
-    s6 += parseInt(h9, 10)
+    s6 += parseFloat(h9)
     vac += 1
   break;
 
 
   case 'ПК':
-    s7 += parseInt(h9, 10)
+    s7 += parseFloat(h9)
     work += 1
   break;
 
   case 'ПМ':
-    s8 += parseInt(h9, 10)
+    s8 += parseFloat(h9)
     work += 1
   break;
 
   case 'ОТ':
-    s9 += parseInt(h9, 10)
+    s9 += parseFloat(h9)
     vac += 1
   break;
 
   case 'ОД':
-    s10 += parseInt(h9, 10)
+    s10 += parseFloat(h9)
     vac += 1
   break;
 
   case 'У':
-    s11 += parseInt(h9, 10)
+    s11 += parseFloat(h9)
     vac += 1
   break;
 
   case 'УВ':
-    s12 += parseInt(h9, 10)
+    s12 += parseFloat(h9)
     work += 1
   break;
 
   case 'УД':
-    s13 += parseInt(h9, 10)
+    s13 += parseFloat(h9)
     vac += 1
   break;
 
   case 'Р':
-    s14 += parseInt(h9, 10)
+    s14 += parseFloat(h9)
     vac += 1
   break;
 
   case 'ОЖ':
-    s15 += parseInt(h9, 10)
+    s15 += parseFloat(h9)
     vac += 1
   break;
 
   case 'ДО':
-    s16 += parseInt(h9, 10)
+    s16 += parseFloat(h9)
     vac += 1
   break;
 
   case 'Б':
-    s17 += parseInt(h9, 10)
+    s17 += parseFloat(h9)
     vac += 1
   break;
 
   case 'Т':
-    s18 += parseInt(h9, 10)
+    s18 += parseFloat(h9)
     vac += 1
   break;
 
   case 'ЛЧ':
-    s19 += parseInt(h9, 10)
+    s19 += parseFloat(h9)
     vac += 1
   break;
 
   case 'ПВ':
-    s20 += parseInt(h9, 10)
+    s20 += parseFloat(h9)
     vac += 1
   break;
 
   case 'Г':
-    s21 += parseInt(h9, 10)
+    s21 += parseFloat(h9)
     vac += 1
   break;
 
   case 'ПР':
-    s22 += parseInt(h9, 10)
+    s22 += parseFloat(h9)
     vac += 1
   break;
 
   case 'НС':
-    s23 += parseInt(h9, 10)
+    s23 += parseFloat(h9)
     work += 1
   break;
 
   case 'В':
-    s24 += parseInt(h9, 10)
+    s24 += parseFloat(h9)
 
 
   break;
 
   case 'ОВ':
-    s25 += parseInt(h9, 10)
+    s25 += parseFloat(h9)
     vac += 1
   break;
 
   case 'НВ':
-    s26 += parseInt(h9, 10)
+    s26 += parseFloat(h9)
     vac += 1
   break;
 
   case 'ЗБ':
-    s27 += parseInt(h9, 10)
+    s27 += parseFloat(h9)
     vac += 1
   break;
 
   case 'НН':
-    s28 += parseInt(h9, 10)
+    s28 += parseFloat(h9)
     vac += 1
   break;
 
   case 'РП':
-    s29 += parseInt(h9, 10)
+    s29 += parseFloat(h9)
     vac += 1
   break;
 
   case 'НП':
-    s30 += parseInt(h9, 10)
+    s30 += parseFloat(h9)
     vac += 1
   break;
 
   case 'ВП':
-    s34 += parseInt(h9, 10)
+    s34 += parseFloat(h9)
     vac += 1
   break;
 
   case 'НО':
-    s33 += parseInt(h9, 10)
+    s33 += parseFloat(h9)
     vac += 1
   break;
 
   case 'НБ':
-    s32 += parseInt(h9, 10)
+    s32 += parseFloat(h9)
     vac += 1
   break;
 
   case 'НЗ':
-    s34 += parseInt(h9, 10)
+    s34 += parseFloat(h9)
     vac += 1
   break;
 
   case 'ОЗ':
-    s37 += parseInt(h9, 10)
+    s37 += parseFloat(h9)
     vac += 1
   break;
 
@@ -2376,13 +2376,13 @@ switch (tt9) {
     h_split = h9.split('/')
 
 
-      s38 += parseInt(h_split[0], 10)
-      s19 += parseInt(h_split[1], 10)
+      s38 += parseFloat(h_split[0])
+      s19 += parseFloat(h_split[1])
 
 
     work += 1 }
     else {
-      s38 += parseInt(h9, 10)
+      s38 += parseFloat(h9)
       work += 1
     }
     console.log(s19);
@@ -2391,201 +2391,201 @@ switch (tt9) {
 
   case 'Я/ЛЧ':
     h9_ = h9.split('/')
-    s1 += parseInt(h9_[0], 10)
-    s19 += parseInt(h9_[1], 10)
+    s1 += parseFloat(h9_[0])
+    s19 += parseFloat(h9_[1])
     work += 1
   break;
 
   case 'Я/Н':
     h9_ = h9.split('/')
-    s1 += parseInt(h9_[0], 10)
-    s2 += parseInt(h9_[1], 10)
+    s1 += parseFloat(h9_[0])
+    s2 += parseFloat(h9_[1])
     work += 1
   break;
 
   case 'РВ/Н':
     h9_ = h9.split('/')
-    s3 += parseInt(h9_[0], 10)
-    s2 += parseInt(h9_[1], 10)
+    s3 += parseFloat(h9_[0])
+    s2 += parseFloat(h9_[1])
     work += 1
   break;
 }
 
 switch (tt10) {
   case 'Я':
-    s1 += parseInt(h10, 10)
+    s1 += parseFloat(h10)
     work += 1
   break;
 
   case 'Н':
-    s2 += parseInt(h10, 10)
+    s2 += parseFloat(h10)
     work += 1
   break;
 
   case 'РВ':
-    s3 += parseInt(h10, 10)
+    s3 += parseFloat(h10)
     work += 1
   break;
 
   case 'ВМ':
-    s5 += parseInt(h10, 10)
+    s5 += parseFloat(h10)
     work += 1
   break;
 
   case 'КМ':
-    s36 += parseInt(h10, 10)
+    s36 += parseFloat(h10)
     work += 1
   break;
 
   case 'К':
-    s6 += parseInt(h10, 10)
+    s6 += parseFloat(h10)
     vac += 1
   break;
 
 
   case 'ПК':
-    s7 += parseInt(h10, 10)
+    s7 += parseFloat(h10)
     work += 1
   break;
 
   case 'ПМ':
-    s8 += parseInt(h10, 10)
+    s8 += parseFloat(h10)
     work += 1
   break;
 
   case 'ОТ':
-    s9 += parseInt(h10, 10)
+    s9 += parseFloat(h10)
     vac += 1
   break;
 
   case 'ОД':
-    s10 += parseInt(h10, 10)
+    s10 += parseFloat(h10)
     vac += 1
   break;
 
   case 'У':
-    s11 += parseInt(h10, 10)
+    s11 += parseFloat(h10)
     vac += 1
   break;
 
   case 'УВ':
-    s12 += parseInt(h10, 10)
+    s12 += parseFloat(h10)
     work += 1
   break;
 
   case 'УД':
-    s13 += parseInt(h10, 10)
+    s13 += parseFloat(h10)
     vac += 1
   break;
 
   case 'Р':
-    s14 += parseInt(h10, 10)
+    s14 += parseFloat(h10)
     vac += 1
   break;
 
   case 'ОЖ':
-    s15 += parseInt(h10, 10)
+    s15 += parseFloat(h10)
     vac += 1
   break;
 
   case 'ДО':
-    s16 += parseInt(h10, 10)
+    s16 += parseFloat(h10)
     vac += 1
   break;
 
   case 'Б':
-    s17 += parseInt(h10, 10)
+    s17 += parseFloat(h10)
     vac += 1
   break;
 
   case 'Т':
-    s18 += parseInt(h10, 10)
+    s18 += parseFloat(h10)
     vac += 1
   break;
 
   case 'ЛЧ':
-    s19 += parseInt(h10, 10)
+    s19 += parseFloat(h10)
     vac += 1
   break;
 
   case 'ПВ':
-    s20 += parseInt(h10, 10)
+    s20 += parseFloat(h10)
     vac += 1
   break;
 
   case 'Г':
-    s21 += parseInt(h10, 10)
+    s21 += parseFloat(h10)
     vac += 1
   break;
 
   case 'ПР':
-    s22 += parseInt(h10, 10)
+    s22 += parseFloat(h10)
     vac += 1
   break;
 
   case 'НС':
-    s23 += parseInt(h10, 10)
+    s23 += parseFloat(h10)
     work += 1
   break;
 
   case 'В':
-    s24 += parseInt(h10, 10)
+    s24 += parseFloat(h10)
 
 
   break;
 
   case 'ОВ':
-    s25 += parseInt(h10, 10)
+    s25 += parseFloat(h10)
     vac += 1
   break;
 
   case 'НВ':
-    s26 += parseInt(h10, 10)
+    s26 += parseFloat(h10)
     vac += 1
   break;
 
   case 'ЗБ':
-    s27 += parseInt(h10, 10)
+    s27 += parseFloat(h10)
     vac += 1
   break;
 
   case 'НН':
-    s28 += parseInt(h10, 10)
+    s28 += parseFloat(h10)
     vac += 1
   break;
 
   case 'РП':
-    s29 += parseInt(h10, 10)
+    s29 += parseFloat(h10)
     vac += 1
   break;
 
   case 'НП':
-    s30 += parseInt(h10, 10)
+    s30 += parseFloat(h10)
     vac += 1
   break;
 
   case 'ВП':
-    s31 += parseInt(h10, 10)
+    s31 += parseFloat(h10)
     vac += 1
   break;
 
   case 'НО':
-    s33 += parseInt(h10, 10)
+    s33 += parseFloat(h10)
     vac += 1
   break;
 
   case 'НБ':
-    s32 += parseInt(h10, 10)
+    s32 += parseFloat(h10)
     vac += 1
   break;
 
   case 'НЗ':
-    s34 += parseInt(h10, 10)
+    s34 += parseFloat(h10)
     vac += 1
   break;
 
   case 'ОЗ':
-    s37 += parseInt(h10, 10)
+    s37 += parseFloat(h10)
     vac += 1
   break;
 
@@ -2594,13 +2594,13 @@ switch (tt10) {
     h_split = h10.split('/')
 
 
-      s38 += parseInt(h_split[0], 10)
-      s19 += parseInt(h_split[1], 10)
+      s38 += parseFloat(h_split[0])
+      s19 += parseFloat(h_split[1])
 
 
     work += 1 }
     else {
-      s38 += parseInt(h10, 10)
+      s38 += parseFloat(h10)
       work += 1
     }
     console.log(s19);
@@ -2609,201 +2609,201 @@ switch (tt10) {
 
   case 'Я/ЛЧ':
     h10_ = h10.split('/')
-    s1 += parseInt(h10_[0], 10)
-    s19 += parseInt(h10_[1], 10)
+    s1 += parseFloat(h10_[0])
+    s19 += parseFloat(h10_[1])
     work += 1
   break;
 
   case 'Я/Н':
     h10_ = h10.split('/')
-    s1 += parseInt(h10_[0], 10)
-    s2 += parseInt(h10_[1], 10)
+    s1 += parseFloat(h10_[0])
+    s2 += parseFloat(h10_[1])
     work += 1
   break;
 
   case 'РВ/Н':
     h10_ = h10.split('/')
-    s3 += parseInt(h10_[0], 10)
-    s2 += parseInt(h10_[1], 10)
+    s3 += parseFloat(h10_[0])
+    s2 += parseFloat(h10_[1])
     work += 1
   break;
 }
 
 switch (tt11) {
   case 'Я':
-    s1 += parseInt(h11, 10)
+    s1 += parseFloat(h11)
     work += 1
   break;
 
   case 'Н':
-    s2 += parseInt(h11, 10)
+    s2 += parseFloat(h11)
     work += 1
   break;
 
   case 'РВ':
-    s3 += parseInt(h11, 10)
+    s3 += parseFloat(h11)
     work += 1
   break;
 
   case 'ВМ':
-    s5 += parseInt(h11, 10)
+    s5 += parseFloat(h11)
     work += 1
   break;
 
   case 'КМ':
-    s36 += parseInt(h11, 10)
+    s36 += parseFloat(h11)
     work += 1
   break;
 
   case 'К':
-    s6 += parseInt(h11, 10)
+    s6 += parseFloat(h11)
     vac += 1
   break;
 
 
   case 'ПК':
-    s7 += parseInt(h11, 10)
+    s7 += parseFloat(h11)
     work += 1
   break;
 
   case 'ПМ':
-    s8 += parseInt(h11, 10)
+    s8 += parseFloat(h11)
     work += 1
   break;
 
   case 'ОТ':
-    s9 += parseInt(h11, 10)
+    s9 += parseFloat(h11)
     vac += 1
   break;
 
   case 'ОД':
-    s10 += parseInt(h11, 10)
+    s10 += parseFloat(h11)
     vac += 1
   break;
 
   case 'У':
-    s11 += parseInt(h11, 10)
+    s11 += parseFloat(h11)
     vac += 1
   break;
 
   case 'УВ':
-    s12 += parseInt(h11, 10)
+    s12 += parseFloat(h11)
     work += 1
   break;
 
   case 'УД':
-    s13 += parseInt(h11, 10)
+    s13 += parseFloat(h11)
     vac += 1
   break;
 
   case 'Р':
-    s14 += parseInt(h11, 10)
+    s14 += parseFloat(h11)
     vac += 1
   break;
 
   case 'ОЖ':
-    s15 += parseInt(h11, 10)
+    s15 += parseFloat(h11)
     vac += 1
   break;
 
   case 'ДО':
-    s16 += parseInt(h11, 10)
+    s16 += parseFloat(h11)
     vac += 1
   break;
 
   case 'Б':
-    s17 += parseInt(h11, 10)
+    s17 += parseFloat(h11)
     vac += 1
   break;
 
   case 'Т':
-    s18 += parseInt(h11, 10)
+    s18 += parseFloat(h11)
     vac += 1
   break;
 
   case 'ЛЧ':
-    s19 += parseInt(h11, 10)
+    s19 += parseFloat(h11)
     vac += 1
   break;
 
   case 'ПВ':
-    s20 += parseInt(h11, 10)
+    s20 += parseFloat(h11)
     vac += 1
   break;
 
   case 'Г':
-    s21 += parseInt(h11, 10)
+    s21 += parseFloat(h11)
     vac += 1
   break;
 
   case 'ПР':
-    s22 += parseInt(h11, 10)
+    s22 += parseFloat(h11)
     vac += 1
   break;
 
   case 'НС':
-    s23 += parseInt(h11, 10)
+    s23 += parseFloat(h11)
     work += 1
   break;
 
   case 'В':
-    s24 += parseInt(h11, 10)
+    s24 += parseFloat(h11)
 
 
   break;
 
   case 'ОВ':
-    s25 += parseInt(h11, 10)
+    s25 += parseFloat(h11)
     vac += 1
   break;
 
   case 'НВ':
-    s26 += parseInt(h11, 10)
+    s26 += parseFloat(h11)
     vac += 1
   break;
 
   case 'ЗБ':
-    s27 += parseInt(h11, 10)
+    s27 += parseFloat(h11)
     vac += 1
   break;
 
   case 'НН':
-    s28 += parseInt(h11, 10)
+    s28 += parseFloat(h11)
     vac += 1
   break;
 
   case 'РП':
-    s29 += parseInt(h11, 10)
+    s29 += parseFloat(h11)
     vac += 1
   break;
 
   case 'НП':
-    s30 += parseInt(h11, 10)
+    s30 += parseFloat(h11)
     vac += 1
   break;
 
   case 'ВП':
-    s31 += parseInt(h11, 10)
+    s31 += parseFloat(h11)
     vac += 1
   break;
 
   case 'НО':
-    s33 += parseInt(h11, 10)
+    s33 += parseFloat(h11)
     vac += 1
   break;
 
   case 'НБ':
-    s32 += parseInt(h11, 10)
+    s32 += parseFloat(h11)
     vac += 1
   break;
 
   case 'НЗ':
-    s34 += parseInt(h11, 10)
+    s34 += parseFloat(h11)
     vac += 1
   break;
 
   case 'ОЗ':
-    s37 += parseInt(h11, 10)
+    s37 += parseFloat(h11)
     vac += 1
   break;
 
@@ -2812,13 +2812,13 @@ switch (tt11) {
     h_split = h11.split('/')
 
 
-      s38 += parseInt(h_split[0], 10)
-      s19 += parseInt(h_split[1], 10)
+      s38 += parseFloat(h_split[0])
+      s19 += parseFloat(h_split[1])
 
 
     work += 1 }
     else {
-      s38 += parseInt(h11, 10)
+      s38 += parseFloat(h11)
       work += 1
     }
     console.log(s19);
@@ -2827,22 +2827,22 @@ switch (tt11) {
 
   case 'Я/ЛЧ':
     h11_ = h11.split('/')
-    s1 += parseInt(h11_[0], 10)
-    s19 += parseInt(h11_[1], 10)
+    s1 += parseFloat(h11_[0])
+    s19 += parseFloat(h11_[1])
     work += 1
   break;
 
   case 'Я/Н':
     h11_ = h11.split('/')
-    s1 += parseInt(h11_[0], 10)
-    s2 += parseInt(h11_[1], 10)
+    s1 += parseFloat(h11_[0])
+    s2 += parseFloat(h11_[1])
     work += 1
   break;
 
   case 'РВ/Н':
     h11_ = h11.split('/')
-    s3 += parseInt(h11_[0], 10)
-    s2 += parseInt(h11_[1], 10)
+    s3 += parseFloat(h11_[0])
+    s2 += parseFloat(h11_[1])
     work += 1
 
 
@@ -2851,179 +2851,179 @@ switch (tt11) {
 
 switch (tt12) {
   case 'Я':
-    s1 += parseInt(h12, 10)
+    s1 += parseFloat(h12)
     work += 1
   break;
 
   case 'Н':
-    s2 += parseInt(h12, 10)
+    s2 += parseFloat(h12)
     work += 1
   break;
 
   case 'РВ':
-    s3 += parseInt(h12, 10)
+    s3 += parseFloat(h12)
     work += 1
   break;
 
   case 'ВМ':
-    s5 += parseInt(h12, 10)
+    s5 += parseFloat(h12)
     work += 1
   break;
 
   case 'КМ':
-    s36 += parseInt(h12, 10)
+    s36 += parseFloat(h12)
     work += 1
   break;
 
   case 'К':
-    s6 += parseInt(h12, 10)
+    s6 += parseFloat(h12)
     vac += 1
   break;
 
 
   case 'ПК':
-    s7 += parseInt(h12, 10)
+    s7 += parseFloat(h12)
     work += 1
   break;
 
   case 'ПМ':
-    s8 += parseInt(h12, 10)
+    s8 += parseFloat(h12)
     work += 1
   break;
 
   case 'ОТ':
-    s9 += parseInt(h12, 10)
+    s9 += parseFloat(h12)
     vac += 1
   break;
 
   case 'ОД':
-    s10 += parseInt(h12, 10)
+    s10 += parseFloat(h12)
     vac += 1
   break;
 
   case 'У':
-    s11 += parseInt(h12, 10)
+    s11 += parseFloat(h12)
     vac += 1
   break;
 
   case 'УВ':
-    s12 += parseInt(h12, 10)
+    s12 += parseFloat(h12)
     work += 1
   break;
 
   case 'УД':
-    s13 += parseInt(h12, 10)
+    s13 += parseFloat(h12)
     vac += 1
   break;
 
   case 'Р':
-    s14 += parseInt(h12, 10)
+    s14 += parseFloat(h12)
     vac += 1
   break;
 
   case 'ОЖ':
-    s15 += parseInt(h12, 10)
+    s15 += parseFloat(h12)
     vac += 1
   break;
 
   case 'ДО':
-    s16 += parseInt(h12, 10)
+    s16 += parseFloat(h12)
     vac += 1
   break;
 
   case 'Б':
-    s17 += parseInt(h12, 10)
+    s17 += parseFloat(h12)
     vac += 1
   break;
 
   case 'Т':
-    s18 += parseInt(h12, 10)
+    s18 += parseFloat(h12)
     vac += 1
   break;
 
   case 'ЛЧ':
-    s19 += parseInt(h12, 10)
+    s19 += parseFloat(h12)
     vac += 1
   break;
 
   case 'ПВ':
-    s20 += parseInt(h12, 10)
+    s20 += parseFloat(h12)
     vac += 1
   break;
 
   case 'Г':
-    s21 += parseInt(h12, 10)
+    s21 += parseFloat(h12)
     vac += 1
   break;
 
   case 'ПР':
-    s22 += parseInt(h12, 10)
+    s22 += parseFloat(h12)
     vac += 1
   break;
 
   case 'НС':
-    s23 += parseInt(h12, 10)
+    s23 += parseFloat(h12)
     work += 1
   break;
 
   case 'В':
-    s24 += parseInt(h12, 10)
+    s24 += parseFloat(h12)
 
 
   break;
 
   case 'ОВ':
-    s25 += parseInt(h12, 10)
+    s25 += parseFloat(h12)
     vac += 1
   break;
 
   case 'НВ':
-    s26 += parseInt(h12, 10)
+    s26 += parseFloat(h12)
     vac += 1
   break;
 
   case 'ЗБ':
-    s27 += parseInt(h12, 10)
+    s27 += parseFloat(h12)
     vac += 1
   break;
 
   case 'НН':
-    s28 += parseInt(h12, 10)
+    s28 += parseFloat(h12)
     vac += 1
   break;
 
   case 'РП':
-    s29 += parseInt(h12, 10)
+    s29 += parseFloat(h12)
     vac += 1
   break;
 
   case 'НП':
-    s30 += parseInt(h12, 10)
+    s30 += parseFloat(h12)
     vac += 1
   break;
 
   case 'ВП':
-    s31 += parseInt(h12, 10)
+    s31 += parseFloat(h12)
     vac += 1
   break;
 
   case 'НО':
-    s33 += parseInt(h12, 10)
+    s33 += parseFloat(h12)
     vac += 1
   break;
 
   case 'НБ':
-    s32 += parseInt(h12, 10)
+    s32 += parseFloat(h12)
     vac += 1
   break;
 
   case 'НЗ':
-    s34 += parseInt(h12, 10)
+    s34 += parseFloat(h12)
     vac += 1
   break;
 
   case 'ОЗ':
-    s37 += parseInt(h12, 10)
+    s37 += parseFloat(h12)
     vac += 1
   break;
 
@@ -3032,13 +3032,13 @@ switch (tt12) {
     h_split = h12.split('/')
 
 
-      s38 += parseInt(h_split[0], 10)
-      s19 += parseInt(h_split[1], 10)
+      s38 += parseFloat(h_split[0])
+      s19 += parseFloat(h_split[1])
 
 
     work += 1 }
     else {
-      s38 += parseInt(h12, 10)
+      s38 += parseFloat(h12)
       work += 1
     }
     console.log(s19);
@@ -3047,201 +3047,201 @@ switch (tt12) {
 
   case 'Я/ЛЧ':
     h12_ = h12.split('/')
-    s1 += parseInt(h12_[0], 10)
-    s19 += parseInt(h12_[1], 10)
+    s1 += parseFloat(h12_[0])
+    s19 += parseFloat(h12_[1])
     work += 1
   break;
 
   case 'Я/Н':
     h12_ = h12.split('/')
-    s1 += parseInt(h12_[0], 10)
-    s2 += parseInt(h12_[1], 10)
+    s1 += parseFloat(h12_[0])
+    s2 += parseFloat(h12_[1])
     work += 1
   break;
 
   case 'РВ/Н':
     h12_ = h12.split('/')
-    s3 += parseInt(h12_[0], 10)
-    s2 += parseInt(h12_[1], 10)
+    s3 += parseFloat(h12_[0])
+    s2 += parseFloat(h12_[1])
     work += 1
   break;
 }
 
 switch (tt13) {
   case 'Я':
-    s1 += parseInt(h13, 10)
+    s1 += parseFloat(h13)
     work += 1
   break;
 
   case 'Н':
-    s2 += parseInt(h13, 10)
+    s2 += parseFloat(h13)
     work += 1
   break;
 
   case 'РВ':
-    s3 += parseInt(h13, 10)
+    s3 += parseFloat(h13)
     work += 1
   break;
 
   case 'ВМ':
-    s5 += parseInt(h13, 10)
+    s5 += parseFloat(h13)
     work += 1
   break;
 
   case 'КМ':
-    s36 += parseInt(h13, 10)
+    s36 += parseFloat(h13)
     work += 1
   break;
 
   case 'К':
-    s6 += parseInt(h13, 10)
+    s6 += parseFloat(h13)
     vac += 1
   break;
 
 
   case 'ПК':
-    s7 += parseInt(h13, 10)
+    s7 += parseFloat(h13)
     work += 1
   break;
 
   case 'ПМ':
-    s8 += parseInt(h13, 10)
+    s8 += parseFloat(h13)
     work += 1
   break;
 
   case 'ОТ':
-    s9 += parseInt(h13, 10)
+    s9 += parseFloat(h13)
     vac += 1
   break;
 
   case 'ОД':
-    s10 += parseInt(h13, 10)
+    s10 += parseFloat(h13)
     vac += 1
   break;
 
   case 'У':
-    s11 += parseInt(h13, 10)
+    s11 += parseFloat(h13)
     vac += 1
   break;
 
   case 'УВ':
-    s12 += parseInt(h13, 10)
+    s12 += parseFloat(h13)
     work += 1
   break;
 
   case 'УД':
-    s13 += parseInt(h13, 10)
+    s13 += parseFloat(h13)
     vac += 1
   break;
 
   case 'Р':
-    s14 += parseInt(h13, 10)
+    s14 += parseFloat(h13)
     vac += 1
   break;
 
   case 'ОЖ':
-    s15 += parseInt(h13, 10)
+    s15 += parseFloat(h13)
     vac += 1
   break;
 
   case 'ДО':
-    s16 += parseInt(h13, 10)
+    s16 += parseFloat(h13)
     vac += 1
   break;
 
   case 'Б':
-    s17 += parseInt(h13, 10)
+    s17 += parseFloat(h13)
     vac += 1
   break;
 
   case 'Т':
-    s18 += parseInt(h13, 10)
+    s18 += parseFloat(h13)
     vac += 1
   break;
 
   case 'ЛЧ':
-    s19 += parseInt(h13, 10)
+    s19 += parseFloat(h13)
     vac += 1
   break;
 
   case 'ПВ':
-    s20 += parseInt(h13, 10)
+    s20 += parseFloat(h13)
     vac += 1
   break;
 
   case 'Г':
-    s21 += parseInt(h13, 10)
+    s21 += parseFloat(h13)
     vac += 1
   break;
 
   case 'ПР':
-    s22 += parseInt(h13, 10)
+    s22 += parseFloat(h13)
     vac += 1
   break;
 
   case 'НС':
-    s23 += parseInt(h13, 10)
+    s23 += parseFloat(h13)
     work += 1
   break;
 
   case 'В':
-    s24 += parseInt(h13, 10)
+    s24 += parseFloat(h13)
 
 
   break;
 
   case 'ОВ':
-    s25 += parseInt(h13, 10)
+    s25 += parseFloat(h13)
     vac += 1
   break;
 
   case 'НВ':
-    s26 += parseInt(h13, 10)
+    s26 += parseFloat(h13)
     vac += 1
   break;
 
   case 'ЗБ':
-    s27 += parseInt(h13, 10)
+    s27 += parseFloat(h13)
     vac += 1
   break;
 
   case 'НН':
-    s28 += parseInt(h13, 10)
+    s28 += parseFloat(h13)
     vac += 1
   break;
 
   case 'РП':
-    s29 += parseInt(h13, 10)
+    s29 += parseFloat(h13)
     vac += 1
   break;
 
   case 'НП':
-    s30 += parseInt(h13, 10)
+    s30 += parseFloat(h13)
     vac += 1
   break;
 
   case 'ВП':
-    s31 += parseInt(h13, 10)
+    s31 += parseFloat(h13)
     vac += 1
   break;
 
   case 'НО':
-    s33 += parseInt(h13, 10)
+    s33 += parseFloat(h13)
     vac += 1
   break;
 
   case 'НБ':
-    s32 += parseInt(h13, 10)
+    s32 += parseFloat(h13)
     vac += 1
   break;
 
   case 'НЗ':
-    s34 += parseInt(h13, 10)
+    s34 += parseFloat(h13)
     vac += 1
   break;
 
   case 'ОЗ':
-    s37 += parseInt(h13, 10)
+    s37 += parseFloat(h13)
     vac += 1
   break;
 
@@ -3250,13 +3250,13 @@ switch (tt13) {
     h_split = h13.split('/')
 
 
-      s38 += parseInt(h_split[0], 10)
-      s19 += parseInt(h_split[1], 10)
+      s38 += parseFloat(h_split[0])
+      s19 += parseFloat(h_split[1])
 
 
     work += 1 }
     else {
-      s38 += parseInt(h13, 10)
+      s38 += parseFloat(h13)
       work += 1
     }
     console.log(s19);
@@ -3264,200 +3264,200 @@ switch (tt13) {
 
   case 'Я/ЛЧ':
     h13_ = h13.split('/')
-    s1 += parseInt(h13_[0], 10)
-    s19 += parseInt(h13_[1], 10)
+    s1 += parseFloat(h13_[0])
+    s19 += parseFloat(h13_[1])
     work += 1
   break;
 
   case 'Я/Н':
     h13_ = h13.split('/')
-    s1 += parseInt(h13_[0], 10)
-    s2 += parseInt(h13_[1], 10)
+    s1 += parseFloat(h13_[0])
+    s2 += parseFloat(h13_[1])
     work += 1
   break;
 
   case 'РВ/Н':
     h13_ = h13.split('/')
-    s3 += parseInt(h13_[0], 10)
-    s2 += parseInt(h13_[1], 10)
+    s3 += parseFloat(h13_[0])
+    s2 += parseFloat(h13_[1])
     work += 1
   break;
 }
 
 switch (tt14) {
   case 'Я':
-    s1 += parseInt(h14, 10)
+    s1 += parseFloat(h14)
     work += 1
   break;
 
   case 'Н':
-    s2 += parseInt(h14, 10)
+    s2 += parseFloat(h14)
     work += 1
   break;
 
   case 'РВ':
-    s3 += parseInt(h14, 10)
+    s3 += parseFloat(h14)
     work += 1
   break;
 
   case 'ВМ':
-    s5 += parseInt(h14, 10)
+    s5 += parseFloat(h14)
     work += 1
   break;
 
   case 'КМ':
-    s36 += parseInt(h14, 10)
+    s36 += parseFloat(h14)
     work += 1
   break;
 
   case 'К':
-    s6 += parseInt(h14, 10)
+    s6 += parseFloat(h14)
     vac += 1
   break;
 
 
   case 'ПК':
-    s7 += parseInt(h14, 10)
+    s7 += parseFloat(h14)
     work += 1
   break;
 
   case 'ПМ':
-    s8 += parseInt(h14, 10)
+    s8 += parseFloat(h14)
     work += 1
   break;
 
   case 'ОТ':
-    s9 += parseInt(h14, 10)
+    s9 += parseFloat(h14)
     vac += 1
   break;
 
   case 'ОД':
-    s10 += parseInt(h14, 10)
+    s10 += parseFloat(h14)
     vac += 1
   break;
 
   case 'У':
-    s11 += parseInt(h14, 10)
+    s11 += parseFloat(h14)
     vac += 1
   break;
 
   case 'УВ':
-    s12 += parseInt(h14, 10)
+    s12 += parseFloat(h14)
     work += 1
   break;
 
   case 'УД':
-    s13 += parseInt(h14, 10)
+    s13 += parseFloat(h14)
     vac += 1
   break;
 
   case 'Р':
-    s14 += parseInt(h14, 10)
+    s14 += parseFloat(h14)
     vac += 1
   break;
 
   case 'ОЖ':
-    s15 += parseInt(h14, 10)
+    s15 += parseFloat(h14)
     vac += 1
   break;
 
   case 'ДО':
-    s16 += parseInt(h14, 10)
+    s16 += parseFloat(h14)
     vac += 1
   break;
 
   case 'Б':
-    s17 += parseInt(h14, 10)
+    s17 += parseFloat(h14)
     vac += 1
   break;
 
   case 'Т':
-    s18 += parseInt(h14, 10)
+    s18 += parseFloat(h14)
     vac += 1
   break;
 
   case 'ЛЧ':
-    s19 += parseInt(h14, 10)
+    s19 += parseFloat(h14)
     vac += 1
   break;
 
   case 'ПВ':
-    s20 += parseInt(h14, 10)
+    s20 += parseFloat(h14)
     vac += 1
   break;
 
   case 'Г':
-    s21 += parseInt(h14, 10)
+    s21 += parseFloat(h14)
     vac += 1
   break;
 
   case 'ПР':
-    s22 += parseInt(h14, 10)
+    s22 += parseFloat(h14)
     vac += 1
   break;
 
   case 'НС':
-    s23 += parseInt(h14, 10)
+    s23 += parseFloat(h14)
     work += 1
   break;
 
   case 'В':
-    s24 += parseInt(h14, 10)
+    s24 += parseFloat(h14)
 
   break;
 
   case 'ОВ':
-    s25 += parseInt(h14, 10)
+    s25 += parseFloat(h14)
     vac += 1
   break;
 
   case 'НВ':
-    s26 += parseInt(h14, 10)
+    s26 += parseFloat(h14)
     vac += 1
   break;
 
   case 'ЗБ':
-    s27 += parseInt(h14, 10)
+    s27 += parseFloat(h14)
     vac += 1
   break;
 
   case 'НН':
-    s28 += parseInt(h14, 10)
+    s28 += parseFloat(h14)
     vac += 1
   break;
 
   case 'РП':
-    s29 += parseInt(h14, 10)
+    s29 += parseFloat(h14)
     vac += 1
   break;
 
   case 'НП':
-    s30 += parseInt(h14, 10)
+    s30 += parseFloat(h14)
     vac += 1
   break;
 
   case 'ВП':
-    s31 += parseInt(h14, 10)
+    s31 += parseFloat(h14)
     vac += 1
   break;
 
   case 'НО':
-    s33 += parseInt(h14, 10)
+    s33 += parseFloat(h14)
     vac += 1
   break;
 
   case 'НБ':
-    s32 += parseInt(h14, 10)
+    s32 += parseFloat(h14)
     vac += 1
   break;
 
   case 'НЗ':
-    s34 += parseInt(h14, 10)
+    s34 += parseFloat(h14)
     vac += 1
   break;
 
   case 'ОЗ':
-    s37 += parseInt(h14, 10)
+    s37 += parseFloat(h14)
     vac += 1
   break;
 
@@ -3466,13 +3466,13 @@ switch (tt14) {
     h_split = h14.split('/')
 
 
-      s38 += parseInt(h_split[0], 10)
-      s19 += parseInt(h_split[1], 10)
+      s38 += parseFloat(h_split[0])
+      s19 += parseFloat(h_split[1])
 
 
     work += 1 }
     else {
-      s38 += parseInt(h14, 10)
+      s38 += parseFloat(h14)
       work += 1
     }
     console.log(s19);
@@ -3480,201 +3480,201 @@ switch (tt14) {
 
   case 'Я/ЛЧ':
     h14_ = h14.split('/')
-    s1 += parseInt(h14_[0], 10)
-    s19 += parseInt(h14_[1], 10)
+    s1 += parseFloat(h14_[0])
+    s19 += parseFloat(h14_[1])
     work += 1
   break;
 
   case 'Я/Н':
     h14_ = h14.split('/')
-    s1 += parseInt(h14_[0], 10)
-    s2 += parseInt(h14_[1], 10)
+    s1 += parseFloat(h14_[0])
+    s2 += parseFloat(h14_[1])
     work += 1
   break;
 
   case 'РВ/Н':
     h14_ = h14.split('/')
-    s3 += parseInt(h14_[0], 10)
-    s2 += parseInt(h14_[1], 10)
+    s3 += parseFloat(h14_[0])
+    s2 += parseFloat(h14_[1])
     work += 1
   break;
 }
 
 switch (tt15) {
   case 'Я':
-    s1 += parseInt(h15, 10)
+    s1 += parseFloat(h15)
     work += 1
   break;
 
   case 'Н':
-    s2 += parseInt(h15, 10)
+    s2 += parseFloat(h15)
     work += 1
   break;
 
   case 'РВ':
-    s3 += parseInt(h15, 10)
+    s3 += parseFloat(h15)
     work += 1
   break;
 
   case 'ВМ':
-    s5 += parseInt(h15, 10)
+    s5 += parseFloat(h15)
     work += 1
   break;
 
   case 'КМ':
-    s36 += parseInt(h15, 10)
+    s36 += parseFloat(h15)
     work += 1
   break;
 
   case 'К':
-    s6 += parseInt(h15, 10)
+    s6 += parseFloat(h15)
     vac += 1
   break;
 
 
   case 'ПК':
-    s7 += parseInt(h15, 10)
+    s7 += parseFloat(h15)
     work += 1
   break;
 
   case 'ПМ':
-    s8 += parseInt(h15, 10)
+    s8 += parseFloat(h15)
     work += 1
   break;
 
   case 'ОТ':
-    s9 += parseInt(h15, 10)
+    s9 += parseFloat(h15)
     vac += 1
   break;
 
   case 'ОД':
-    s10 += parseInt(h15, 10)
+    s10 += parseFloat(h15)
     vac += 1
   break;
 
   case 'У':
-    s11 += parseInt(h15, 10)
+    s11 += parseFloat(h15)
     vac += 1
   break;
 
   case 'УВ':
-    s12 += parseInt(h15, 10)
+    s12 += parseFloat(h15)
     work += 1
   break;
 
   case 'УД':
-    s13 += parseInt(h15, 10)
+    s13 += parseFloat(h15)
     vac += 1
   break;
 
   case 'Р':
-    s14 += parseInt(h15, 10)
+    s14 += parseFloat(h15)
     vac += 1
   break;
 
   case 'ОЖ':
-    s15 += parseInt(h15, 10)
+    s15 += parseFloat(h15)
     vac += 1
   break;
 
   case 'ДО':
-    s16 += parseInt(h15, 10)
+    s16 += parseFloat(h15)
     vac += 1
   break;
 
   case 'Б':
-    s17 += parseInt(h15, 10)
+    s17 += parseFloat(h15)
     vac += 1
   break;
 
   case 'Т':
-    s18 += parseInt(h15, 10)
+    s18 += parseFloat(h15)
     vac += 1
   break;
 
   case 'ЛЧ':
-    s19 += parseInt(h15, 10)
+    s19 += parseFloat(h15)
     vac += 1
   break;
 
   case 'ПВ':
-    s20 += parseInt(h15, 10)
+    s20 += parseFloat(h15)
     vac += 1
   break;
 
   case 'Г':
-    s21 += parseInt(h15, 10)
+    s21 += parseFloat(h15)
     vac += 1
   break;
 
   case 'ПР':
-    s22 += parseInt(h15, 10)
+    s22 += parseFloat(h15)
     vac += 1
   break;
 
   case 'НС':
-    s23 += parseInt(h15, 10)
+    s23 += parseFloat(h15)
     work += 1
   break;
 
   case 'В':
-    s24 += parseInt(h15, 10)
+    s24 += parseFloat(h15)
 
 
   break;
 
   case 'ОВ':
-    s25 += parseInt(h15, 10)
+    s25 += parseFloat(h15)
     vac += 1
   break;
 
   case 'НВ':
-    s26 += parseInt(h15, 10)
+    s26 += parseFloat(h15)
     vac += 1
   break;
 
   case 'ЗБ':
-    s27 += parseInt(h15, 10)
+    s27 += parseFloat(h15)
     vac += 1
   break;
 
   case 'НН':
-    s28 += parseInt(h15, 10)
+    s28 += parseFloat(h15)
     vac += 1
   break;
 
   case 'РП':
-    s29 += parseInt(h15, 10)
+    s29 += parseFloat(h15)
     vac += 1
   break;
 
   case 'НП':
-    s30 += parseInt(h15, 10)
+    s30 += parseFloat(h15)
     vac += 1
   break;
 
   case 'ВП':
-    s31 += parseInt(h15, 10)
+    s31 += parseFloat(h15)
     vac += 1
   break;
 
   case 'НО':
-    s33 += parseInt(h15, 10)
+    s33 += parseFloat(h15)
     vac += 1
   break;
 
   case 'НБ':
-    s32 += parseInt(h15, 10)
+    s32 += parseFloat(h15)
     vac += 1
   break;
 
   case 'НЗ':
-    s34 += parseInt(h15, 10)
+    s34 += parseFloat(h15)
     vac += 1
   break;
 
   case 'ОЗ':
-    s37 += parseInt(h15, 10)
+    s37 += parseFloat(h15)
     vac += 1
   break;
 
@@ -3683,13 +3683,13 @@ switch (tt15) {
     h_split = h15.split('/')
 
 
-      s38 += parseInt(h_split[0], 10)
-      s19 += parseInt(h_split[1], 10)
+      s38 += parseFloat(h_split[0])
+      s19 += parseFloat(h_split[1])
 
 
     work += 1 }
     else {
-      s38 += parseInt(h15, 10)
+      s38 += parseFloat(h15)
       work += 1
     }
     console.log(s19);
@@ -3698,202 +3698,202 @@ switch (tt15) {
 
   case 'Я/ЛЧ':
     h15_ = h15.split('/')
-    s1 += parseInt(h15_[0], 10)
-    s19 += parseInt(h15_[1], 10)
+    s1 += parseFloat(h15_[0])
+    s19 += parseFloat(h15_[1])
 
     work += 1
   break;
 
   case 'Я/Н':
     h15_ = h15.split('/')
-    s1 += parseInt(h15_[0], 10)
-    s2 += parseInt(h15_[1], 10)
+    s1 += parseFloat(h15_[0])
+    s2 += parseFloat(h15_[1])
     work += 1
   break;
 
   case 'РВ/Н':
     h15_ = h15.split('/')
-    s3 += parseInt(h15_[0], 10)
-    s2 += parseInt(h15_[1], 10)
+    s3 += parseFloat(h15_[0])
+    s2 += parseFloat(h15_[1])
     work += 1
   break;
 }
 
 switch (tt16) {
   case 'Я':
-    s1 += parseInt(h16, 10)
+    s1 += parseFloat(h16)
     work += 1
   break;
 
   case 'Н':
-    s2 += parseInt(h16, 10)
+    s2 += parseFloat(h16)
     work += 1
   break;
 
   case 'РВ':
-    s3 += parseInt(h16, 10)
+    s3 += parseFloat(h16)
     work += 1
   break;
 
   case 'ВМ':
-    s5 += parseInt(h16, 10)
+    s5 += parseFloat(h16)
     work += 1
   break;
 
   case 'КМ':
-    s36 += parseInt(h16, 10)
+    s36 += parseFloat(h16)
     work += 1
   break;
 
   case 'К':
-    s6 += parseInt(h16, 10)
+    s6 += parseFloat(h16)
     vac += 1
   break;
 
 
   case 'ПК':
-    s7 += parseInt(h16, 10)
+    s7 += parseFloat(h16)
     work += 1
   break;
 
   case 'ПМ':
-    s8 += parseInt(h16, 10)
+    s8 += parseFloat(h16)
     work += 1
   break;
 
   case 'ОТ':
-    s9 += parseInt(h16, 10)
+    s9 += parseFloat(h16)
     vac += 1
   break;
 
   case 'ОД':
-    s10 += parseInt(h16, 10)
+    s10 += parseFloat(h16)
     vac += 1
   break;
 
   case 'У':
-    s11 += parseInt(h16, 10)
+    s11 += parseFloat(h16)
     vac += 1
   break;
 
   case 'УВ':
-    s12 += parseInt(h16, 10)
+    s12 += parseFloat(h16)
     work += 1
   break;
 
   case 'УД':
-    s13 += parseInt(h16, 10)
+    s13 += parseFloat(h16)
     vac += 1
   break;
 
   case 'Р':
-    s14 += parseInt(h16, 10)
+    s14 += parseFloat(h16)
     vac += 1
   break;
 
   case 'ОЖ':
-    s15 += parseInt(h16, 10)
+    s15 += parseFloat(h16)
     vac += 1
   break;
 
   case 'ДО':
-    s16 += parseInt(h16, 10)
+    s16 += parseFloat(h16)
     vac += 1
   break;
 
   case 'Б':
-    s17 += parseInt(h16, 10)
+    s17 += parseFloat(h16)
     vac += 1
   break;
 
   case 'Т':
-    s18 += parseInt(h16, 10)
+    s18 += parseFloat(h16)
     vac += 1
   break;
 
   case 'ЛЧ':
-    s19 += parseInt(h16, 10)
+    s19 += parseFloat(h16)
     vac += 1
   break;
 
   case 'ПВ':
-    s20 += parseInt(h16, 10)
+    s20 += parseFloat(h16)
     vac += 1
   break;
 
   case 'Г':
-    s21 += parseInt(h16, 10)
+    s21 += parseFloat(h16)
     vac += 1
   break;
 
   case 'ПР':
-    s22 += parseInt(h16, 10)
+    s22 += parseFloat(h16)
     vac += 1
   break;
 
   case 'НС':
-    s23 += parseInt(h16, 10)
+    s23 += parseFloat(h16)
     work += 1
   break;
 
   case 'В':
-    s24 += parseInt(h16, 10)
+    s24 += parseFloat(h16)
 
 
   break;
 
   case 'ОВ':
-    s25 += parseInt(h16, 10)
+    s25 += parseFloat(h16)
     vac += 1
   break;
 
   case 'НВ':
-    s26 += parseInt(h16, 10)
+    s26 += parseFloat(h16)
     vac += 1
   break;
 
   case 'ЗБ':
-    s27 += parseInt(h16, 10)
+    s27 += parseFloat(h16)
     vac += 1
   break;
 
   case 'НН':
-    s28 += parseInt(h16, 10)
+    s28 += parseFloat(h16)
     vac += 1
   break;
 
   case 'РП':
-    s29 += parseInt(h16, 10)
+    s29 += parseFloat(h16)
     vac += 1
   break;
 
   case 'НП':
-    s30 += parseInt(h16, 10)
+    s30 += parseFloat(h16)
     vac += 1
   break;
 
   case 'ВП':
-    s31 += parseInt(h16, 10)
+    s31 += parseFloat(h16)
     vac += 1
   break;
 
   case 'НО':
-    s33 += parseInt(h16, 10)
+    s33 += parseFloat(h16)
     vac += 1
   break;
 
   case 'НБ':
-    s32 += parseInt(h16, 10)
+    s32 += parseFloat(h16)
     vac += 1
   break;
 
   case 'НЗ':
-    s34 += parseInt(h16, 10)
+    s34 += parseFloat(h16)
     vac += 1
   break;
 
   case 'ОЗ':
-    s37 += parseInt(h16, 10)
+    s37 += parseFloat(h16)
     vac += 1
   break;
 
@@ -3902,13 +3902,13 @@ switch (tt16) {
     h_split = h16.split('/')
 
 
-      s38 += parseInt(h_split[0], 10)
-      s19 += parseInt(h_split[1], 10)
+      s38 += parseFloat(h_split[0])
+      s19 += parseFloat(h_split[1])
 
 
     work += 1 }
     else {
-      s38 += parseInt(h16, 10)
+      s38 += parseFloat(h16)
       work += 1
     }
     console.log(s19);
@@ -3917,201 +3917,201 @@ switch (tt16) {
 
   case 'Я/ЛЧ':
     h16_ = h16.split('/')
-    s1 += parseInt(h16_[0], 10)
-    s19 += parseInt(h16_[1], 10)
+    s1 += parseFloat(h16_[0])
+    s19 += parseFloat(h16_[1])
     work += 1
   break;
 
   case 'Я/Н':
     h16_ = h16.split('/')
-    s1 += parseInt(h16_[0], 10)
-    s2 += parseInt(h16_[1], 10)
+    s1 += parseFloat(h16_[0])
+    s2 += parseFloat(h16_[1])
     work += 1
   break;
 
   case 'РВ/Н':
     h16_ = h16.split('/')
-    s3 += parseInt(h16_[0], 10)
-    s2 += parseInt(h16_[1], 10)
+    s3 += parseFloat(h16_[0])
+    s2 += parseFloat(h16_[1])
     work += 1
   break;
 }
 
 switch (tt17) {
   case 'Я':
-    s1 += parseInt(h17, 10)
+    s1 += parseFloat(h17)
     work += 1
   break;
 
   case 'Н':
-    s2 += parseInt(h17, 10)
+    s2 += parseFloat(h17)
     work += 1
   break;
 
   case 'РВ':
-    s3 += parseInt(h17, 10)
+    s3 += parseFloat(h17)
     work += 1
   break;
 
   case 'ВМ':
-    s5 += parseInt(h17, 10)
+    s5 += parseFloat(h17)
     work += 1
   break;
 
   case 'КМ':
-    s36 += parseInt(h17, 10)
+    s36 += parseFloat(h17)
     work += 1
   break;
 
   case 'К':
-    s6 += parseInt(h17, 10)
+    s6 += parseFloat(h17)
     vac += 1
   break;
 
 
   case 'ПК':
-    s7 += parseInt(h17, 10)
+    s7 += parseFloat(h17)
     work += 1
   break;
 
   case 'ПМ':
-    s8 += parseInt(h17, 10)
+    s8 += parseFloat(h17)
     work += 1
   break;
 
   case 'ОТ':
-    s9 += parseInt(h17, 10)
+    s9 += parseFloat(h17)
     vac += 1
   break;
 
   case 'ОД':
-    s10 += parseInt(h17, 10)
+    s10 += parseFloat(h17)
     vac += 1
   break;
 
   case 'У':
-    s11 += parseInt(h17, 10)
+    s11 += parseFloat(h17)
     vac += 1
   break;
 
   case 'УВ':
-    s12 += parseInt(h17, 10)
+    s12 += parseFloat(h17)
     work += 1
   break;
 
   case 'УД':
-    s13 += parseInt(h17, 10)
+    s13 += parseFloat(h17)
     vac += 1
   break;
 
   case 'Р':
-    s14 += parseInt(h17, 10)
+    s14 += parseFloat(h17)
     vac += 1
   break;
 
   case 'ОЖ':
-    s15 += parseInt(h17, 10)
+    s15 += parseFloat(h17)
     vac += 1
   break;
 
   case 'ДО':
-    s16 += parseInt(h17, 10)
+    s16 += parseFloat(h17)
     vac += 1
   break;
 
   case 'Б':
-    s17 += parseInt(h17, 10)
+    s17 += parseFloat(h17)
     vac += 1
   break;
 
   case 'Т':
-    s18 += parseInt(h17, 10)
+    s18 += parseFloat(h17)
     vac += 1
   break;
 
   case 'ЛЧ':
-    s19 += parseInt(h17, 10)
+    s19 += parseFloat(h17)
     vac += 1
   break;
 
   case 'ПВ':
-    s20 += parseInt(h17, 10)
+    s20 += parseFloat(h17)
     vac += 1
   break;
 
   case 'Г':
-    s21 += parseInt(h17, 10)
+    s21 += parseFloat(h17)
     vac += 1
   break;
 
   case 'ПР':
-    s22 += parseInt(h17, 10)
+    s22 += parseFloat(h17)
     vac += 1
   break;
 
   case 'НС':
-    s23 += parseInt(h17, 10)
+    s23 += parseFloat(h17)
     work += 1
   break;
 
   case 'В':
-    s24 += parseInt(h17, 10)
+    s24 += parseFloat(h17)
 
 
   break;
 
   case 'ОВ':
-    s25 += parseInt(h17, 10)
+    s25 += parseFloat(h17)
     vac += 1
   break;
 
   case 'НВ':
-    s26 += parseInt(h17, 10)
+    s26 += parseFloat(h17)
     vac += 1
   break;
 
   case 'ЗБ':
-    s27 += parseInt(h17, 10)
+    s27 += parseFloat(h17)
     vac += 1
   break;
 
   case 'НН':
-    s28 += parseInt(h17, 10)
+    s28 += parseFloat(h17)
     vac += 1
   break;
 
   case 'РП':
-    s29 += parseInt(h17, 10)
+    s29 += parseFloat(h17)
     vac += 1
   break;
 
   case 'НП':
-    s30 += parseInt(h17, 10)
+    s30 += parseFloat(h17)
     vac += 1
   break;
 
   case 'ВП':
-    s31 += parseInt(h17, 10)
+    s31 += parseFloat(h17)
     vac += 1
   break;
 
   case 'НО':
-    s33 += parseInt(h17, 10)
+    s33 += parseFloat(h17)
     vac += 1
   break;
 
   case 'НБ':
-    s32 += parseInt(h17, 10)
+    s32 += parseFloat(h17)
     vac += 1
   break;
 
   case 'НЗ':
-    s34 += parseInt(h17, 10)
+    s34 += parseFloat(h17)
     vac += 1
   break;
 
   case 'ОЗ':
-    s37 += parseInt(h17, 10)
+    s37 += parseFloat(h17)
     vac += 1
   break;
 
@@ -4120,13 +4120,13 @@ switch (tt17) {
     h_split = h17.split('/')
 
 
-      s38 += parseInt(h_split[0], 10)
-      s19 += parseInt(h_split[1], 10)
+      s38 += parseFloat(h_split[0])
+      s19 += parseFloat(h_split[1])
 
 
     work += 1 }
     else {
-      s38 += parseInt(h17, 10)
+      s38 += parseFloat(h17)
       work += 1
     }
     console.log(s19);
@@ -4135,201 +4135,201 @@ switch (tt17) {
 
   case 'Я/ЛЧ':
     h17_ = h17.split('/')
-    s1 += parseInt(h17_[0], 10)
-    s19 += parseInt(h17_[1], 10)
+    s1 += parseFloat(h17_[0])
+    s19 += parseFloat(h17_[1])
     work += 1
   break;
 
   case 'Я/Н':
     h17_ = h17.split('/')
-    s1 += parseInt(h17_[0], 10)
-    s2 += parseInt(h17_[1], 10)
+    s1 += parseFloat(h17_[0])
+    s2 += parseFloat(h17_[1])
     work += 1
   break;
 
   case 'РВ/Н':
     h17_ = h17.split('/')
-    s3 += parseInt(h17_[0], 10)
-    s2 += parseInt(h17_[1], 10)
+    s3 += parseFloat(h17_[0])
+    s2 += parseFloat(h17_[1])
     work += 1
   break;
 }
 
 switch (tt18) {
   case 'Я':
-    s1 += parseInt(h18, 10)
+    s1 += parseFloat(h18)
     work += 1
   break;
 
   case 'Н':
-    s2 += parseInt(h18, 10)
+    s2 += parseFloat(h18)
     work += 1
   break;
 
   case 'РВ':
-    s3 += parseInt(h18, 10)
+    s3 += parseFloat(h18)
     work += 1
   break;
 
   case 'ВМ':
-    s5 += parseInt(h18, 10)
+    s5 += parseFloat(h18)
     work += 1
   break;
 
   case 'КМ':
-    s36 += parseInt(h18, 10)
+    s36 += parseFloat(h18)
     work += 1
   break;
 
   case 'К':
-    s6 += parseInt(h18, 10)
+    s6 += parseFloat(h18)
     vac += 1
   break;
 
 
   case 'ПК':
-    s7 += parseInt(h18, 10)
+    s7 += parseFloat(h18)
     work += 1
   break;
 
   case 'ПМ':
-    s8 += parseInt(h18, 10)
+    s8 += parseFloat(h18)
     work += 1
   break;
 
   case 'ОТ':
-    s9 += parseInt(h18, 10)
+    s9 += parseFloat(h18)
     vac += 1
   break;
 
   case 'ОД':
-    s10 += parseInt(h18, 10)
+    s10 += parseFloat(h18)
     vac += 1
   break;
 
   case 'У':
-    s11 += parseInt(h18, 10)
+    s11 += parseFloat(h18)
     vac += 1
   break;
 
   case 'УВ':
-    s12 += parseInt(h18, 10)
+    s12 += parseFloat(h18)
     work += 1
   break;
 
   case 'УД':
-    s13 += parseInt(h18, 10)
+    s13 += parseFloat(h18)
     vac += 1
   break;
 
   case 'Р':
-    s14 += parseInt(h18, 10)
+    s14 += parseFloat(h18)
     vac += 1
   break;
 
   case 'ОЖ':
-    s15 += parseInt(h18, 10)
+    s15 += parseFloat(h18)
     vac += 1
   break;
 
   case 'ДО':
-    s16 += parseInt(h18, 10)
+    s16 += parseFloat(h18)
     vac += 1
   break;
 
   case 'Б':
-    s17 += parseInt(h18, 10)
+    s17 += parseFloat(h18)
     vac += 1
   break;
 
   case 'Т':
-    s18 += parseInt(h18, 10)
+    s18 += parseFloat(h18)
     vac += 1
   break;
 
   case 'ЛЧ':
-    s19 += parseInt(h18, 10)
+    s19 += parseFloat(h18)
     vac += 1
   break;
 
   case 'ПВ':
-    s20 += parseInt(h18, 10)
+    s20 += parseFloat(h18)
     vac += 1
   break;
 
   case 'Г':
-    s21 += parseInt(h18, 10)
+    s21 += parseFloat(h18)
     vac += 1
   break;
 
   case 'ПР':
-    s22 += parseInt(h18, 10)
+    s22 += parseFloat(h18)
     vac += 1
   break;
 
   case 'НС':
-    s23 += parseInt(h18, 10)
+    s23 += parseFloat(h18)
     work += 1
   break;
 
   case 'В':
-    s24 += parseInt(h18, 10)
+    s24 += parseFloat(h18)
 
 
   break;
 
   case 'ОВ':
-    s25 += parseInt(h18, 10)
+    s25 += parseFloat(h18)
     vac += 1
   break;
 
   case 'НВ':
-    s26 += parseInt(h18, 10)
+    s26 += parseFloat(h18)
     vac += 1
   break;
 
   case 'ЗБ':
-    s27 += parseInt(h18, 10)
+    s27 += parseFloat(h18)
     vac += 1
   break;
 
   case 'НН':
-    s28 += parseInt(h18, 10)
+    s28 += parseFloat(h18)
     vac += 1
   break;
 
   case 'РП':
-    s29 += parseInt(h18, 10)
+    s29 += parseFloat(h18)
     vac += 1
   break;
 
   case 'НП':
-    s30 += parseInt(h18, 10)
+    s30 += parseFloat(h18)
     vac += 1
   break;
 
   case 'ВП':
-    s31 += parseInt(h18, 10)
+    s31 += parseFloat(h18)
     vac += 1
   break;
 
   case 'НО':
-    s33 += parseInt(h18, 10)
+    s33 += parseFloat(h18)
     vac += 1
   break;
 
   case 'НБ':
-    s32 += parseInt(h18, 10)
+    s32 += parseFloat(h18)
     vac += 1
   break;
 
   case 'НЗ':
-    s34 += parseInt(h18, 10)
+    s34 += parseFloat(h18)
     vac += 1
   break;
 
   case 'ОЗ':
-    s37 += parseInt(h18, 10)
+    s37 += parseFloat(h18)
     vac += 1
   break;
 
@@ -4338,13 +4338,13 @@ switch (tt18) {
     h_split = h18.split('/')
 
 
-      s38 += parseInt(h_split[0], 10)
-      s19 += parseInt(h_split[1], 10)
+      s38 += parseFloat(h_split[0])
+      s19 += parseFloat(h_split[1])
 
 
     work += 1 }
     else {
-      s38 += parseInt(h18, 10)
+      s38 += parseFloat(h18)
       work += 1
     }
     console.log(s19);
@@ -4352,201 +4352,201 @@ switch (tt18) {
 
   case 'Я/ЛЧ':
     h18_ = h18.split('/')
-    s1 += parseInt(h18_[0], 10)
-    s19 += parseInt(h18_[1], 10)
+    s1 += parseFloat(h18_[0])
+    s19 += parseFloat(h18_[1])
     work += 1
   break;
 
   case 'Я/Н':
     h18_ = h18.split('/')
-    s1 += parseInt(h18_[0], 10)
-    s2 += parseInt(h18_[1], 10)
+    s1 += parseFloat(h18_[0])
+    s2 += parseFloat(h18_[1])
     work += 1
   break;
 
   case 'РВ/Н':
     h18_ = h18.split('/')
-    s3 += parseInt(h18_[0], 10)
-    s2 += parseInt(h18_[1], 10)
+    s3 += parseFloat(h18_[0])
+    s2 += parseFloat(h18_[1])
     work += 1
   break;
 }
 
 switch (tt19) {
   case 'Я':
-    s1 += parseInt(h19, 10)
+    s1 += parseFloat(h19)
     work += 1
   break;
 
   case 'Н':
-    s2 += parseInt(h19, 10)
+    s2 += parseFloat(h19)
     work += 1
   break;
 
   case 'РВ':
-    s3 += parseInt(h19, 10)
+    s3 += parseFloat(h19)
     work += 1
   break;
 
   case 'ВМ':
-    s5 += parseInt(h19, 10)
+    s5 += parseFloat(h19)
     work += 1
   break;
 
   case 'КМ':
-    s36 += parseInt(h19, 10)
+    s36 += parseFloat(h19)
     work += 1
   break;
 
   case 'К':
-    s6 += parseInt(h19, 10)
+    s6 += parseFloat(h19)
     vac += 1
   break;
 
 
   case 'ПК':
-    s7 += parseInt(h19, 10)
+    s7 += parseFloat(h19)
     work += 1
   break;
 
   case 'ПМ':
-    s8 += parseInt(h19, 10)
+    s8 += parseFloat(h19)
     work += 1
   break;
 
   case 'ОТ':
-    s9 += parseInt(h19, 10)
+    s9 += parseFloat(h19)
     vac += 1
   break;
 
   case 'ОД':
-    s10 += parseInt(h19, 10)
+    s10 += parseFloat(h19)
     vac += 1
   break;
 
   case 'У':
-    s11 += parseInt(h19, 10)
+    s11 += parseFloat(h19)
     vac += 1
   break;
 
   case 'УВ':
-    s12 += parseInt(h19, 10)
+    s12 += parseFloat(h19)
     work += 1
   break;
 
   case 'УД':
-    s13 += parseInt(h19, 10)
+    s13 += parseFloat(h19)
     vac += 1
   break;
 
   case 'Р':
-    s14 += parseInt(h19, 10)
+    s14 += parseFloat(h19)
     vac += 1
   break;
 
   case 'ОЖ':
-    s15 += parseInt(h19, 10)
+    s15 += parseFloat(h19)
     vac += 1
   break;
 
   case 'ДО':
-    s16 += parseInt(h19, 10)
+    s16 += parseFloat(h19)
     vac += 1
   break;
 
   case 'Б':
-    s17 += parseInt(h19, 10)
+    s17 += parseFloat(h19)
     vac += 1
   break;
 
   case 'Т':
-    s18 += parseInt(h19, 10)
+    s18 += parseFloat(h19)
     vac += 1
   break;
 
   case 'ЛЧ':
-    s19 += parseInt(h19, 10)
+    s19 += parseFloat(h19)
     vac += 1
   break;
 
   case 'ПВ':
-    s20 += parseInt(h19, 10)
+    s20 += parseFloat(h19)
     vac += 1
   break;
 
   case 'Г':
-    s21 += parseInt(h19, 10)
+    s21 += parseFloat(h19)
     vac += 1
   break;
 
   case 'ПР':
-    s22 += parseInt(h19, 10)
+    s22 += parseFloat(h19)
     vac += 1
   break;
 
   case 'НС':
-    s23 += parseInt(h19, 10)
+    s23 += parseFloat(h19)
     work += 1
   break;
 
   case 'В':
-    s24 += parseInt(h19, 10)
+    s24 += parseFloat(h19)
 
 
   break;
 
   case 'ОВ':
-    s25 += parseInt(h19, 10)
+    s25 += parseFloat(h19)
     vac += 1
   break;
 
   case 'НВ':
-    s26 += parseInt(h19, 10)
+    s26 += parseFloat(h19)
     vac += 1
   break;
 
   case 'ЗБ':
-    s27 += parseInt(h19, 10)
+    s27 += parseFloat(h19)
     vac += 1
   break;
 
   case 'НН':
-    s28 += parseInt(h19, 10)
+    s28 += parseFloat(h19)
     vac += 1
   break;
 
   case 'РП':
-    s29 += parseInt(h19, 10)
+    s29 += parseFloat(h19)
     vac += 1
   break;
 
   case 'НП':
-    s30 += parseInt(h19, 10)
+    s30 += parseFloat(h19)
     vac += 1
   break;
 
   case 'ВП':
-    s31 += parseInt(h19, 10)
+    s31 += parseFloat(h19)
     vac += 1
   break;
 
   case 'НО':
-    s33 += parseInt(h19, 10)
+    s33 += parseFloat(h19)
     vac += 1
   break;
 
   case 'НБ':
-    s32 += parseInt(h19, 10)
+    s32 += parseFloat(h19)
     vac += 1
   break;
 
   case 'НЗ':
-    s34 += parseInt(h19, 10)
+    s34 += parseFloat(h19)
     vac += 1
   break;
 
   case 'ОЗ':
-    s37 += parseInt(h19, 10)
+    s37 += parseFloat(h19)
     vac += 1
   break;
 
@@ -4555,13 +4555,13 @@ switch (tt19) {
     h_split = h19.split('/')
 
 
-      s38 += parseInt(h_split[0], 10)
-      s19 += parseInt(h_split[1], 10)
+      s38 += parseFloat(h_split[0])
+      s19 += parseFloat(h_split[1])
 
 
     work += 1 }
     else {
-      s38 += parseInt(h19, 10)
+      s38 += parseFloat(h19)
       work += 1
     }
     console.log(s19);
@@ -4569,201 +4569,201 @@ switch (tt19) {
 
   case 'Я/ЛЧ':
     h19_ = h19.split('/')
-    s1 += parseInt(h19_[0], 10)
-    s19 += parseInt(h19_[1], 10)
+    s1 += parseFloat(h19_[0])
+    s19 += parseFloat(h19_[1])
     work += 1
   break;
 
   case 'Я/Н':
     h19_ = h19.split('/')
-    s1 += parseInt(h19_[0], 10)
-    s2 += parseInt(h19_[1], 10)
+    s1 += parseFloat(h19_[0])
+    s2 += parseFloat(h19_[1])
     work += 1
   break;
 
   case 'РВ/Н':
     h19_ = h19.split('/')
-    s3 += parseInt(h19_[0], 10)
-    s2 += parseInt(h19_[1], 10)
+    s3 += parseFloat(h19_[0])
+    s2 += parseFloat(h19_[1])
     work += 1
   break;
 }
 
 switch (tt20) {
   case 'Я':
-    s1 += parseInt(h20, 10)
+    s1 += parseFloat(h20)
     work += 1
   break;
 
   case 'Н':
-    s2 += parseInt(h20, 10)
+    s2 += parseFloat(h20)
     work += 1
   break;
 
   case 'РВ':
-    s3 += parseInt(h20, 10)
+    s3 += parseFloat(h20)
     work += 1
   break;
 
   case 'ВМ':
-    s5 += parseInt(h20, 10)
+    s5 += parseFloat(h20)
     work += 1
   break;
 
   case 'КМ':
-    s36 += parseInt(h20, 10)
+    s36 += parseFloat(h20)
     work += 1
   break;
 
   case 'К':
-    s6 += parseInt(h20, 10)
+    s6 += parseFloat(h20)
     vac += 1
   break;
 
 
   case 'ПК':
-    s7 += parseInt(h20, 10)
+    s7 += parseFloat(h20)
     work += 1
   break;
 
   case 'ПМ':
-    s8 += parseInt(h20, 10)
+    s8 += parseFloat(h20)
     work += 1
   break;
 
   case 'ОТ':
-    s9 += parseInt(h20, 10)
+    s9 += parseFloat(h20)
     vac += 1
   break;
 
   case 'ОД':
-    s10 += parseInt(h20, 10)
+    s10 += parseFloat(h20)
     vac += 1
   break;
 
   case 'У':
-    s11 += parseInt(h20, 10)
+    s11 += parseFloat(h20)
     vac += 1
   break;
 
   case 'УВ':
-    s12 += parseInt(h20, 10)
+    s12 += parseFloat(h20)
     work += 1
   break;
 
   case 'УД':
-    s13 += parseInt(h20, 10)
+    s13 += parseFloat(h20)
     vac += 1
   break;
 
   case 'Р':
-    s14 += parseInt(h20, 10)
+    s14 += parseFloat(h20)
     vac += 1
   break;
 
   case 'ОЖ':
-    s15 += parseInt(h20, 10)
+    s15 += parseFloat(h20)
     vac += 1
   break;
 
   case 'ДО':
-    s16 += parseInt(h20, 10)
+    s16 += parseFloat(h20)
     vac += 1
   break;
 
   case 'Б':
-    s17 += parseInt(h20, 10)
+    s17 += parseFloat(h20)
     vac += 1
   break;
 
   case 'Т':
-    s18 += parseInt(h20, 10)
+    s18 += parseFloat(h20)
     vac += 1
   break;
 
   case 'ЛЧ':
-    s19 += parseInt(h20, 10)
+    s19 += parseFloat(h20)
     vac += 1
   break;
 
   case 'ПВ':
-    s20 += parseInt(h20, 10)
+    s20 += parseFloat(h20)
     vac += 1
   break;
 
   case 'Г':
-    s21 += parseInt(h20, 10)
+    s21 += parseFloat(h20)
     vac += 1
   break;
 
   case 'ПР':
-    s22 += parseInt(h20, 10)
+    s22 += parseFloat(h20)
     vac += 1
   break;
 
   case 'НС':
-    s23 += parseInt(h20, 10)
+    s23 += parseFloat(h20)
     work += 1
   break;
 
   case 'В':
-    s24 += parseInt(h20, 10)
+    s24 += parseFloat(h20)
 
 
   break;
 
   case 'ОВ':
-    s25 += parseInt(h20, 10)
+    s25 += parseFloat(h20)
     vac += 1
   break;
 
   case 'НВ':
-    s26 += parseInt(h20, 10)
+    s26 += parseFloat(h20)
     vac += 1
   break;
 
   case 'ЗБ':
-    s27 += parseInt(h20, 10)
+    s27 += parseFloat(h20)
     vac += 1
   break;
 
   case 'НН':
-    s28 += parseInt(h20, 10)
+    s28 += parseFloat(h20)
     vac += 1
   break;
 
   case 'РП':
-    s29 += parseInt(h20, 10)
+    s29 += parseFloat(h20)
     vac += 1
   break;
 
   case 'НП':
-    s30 += parseInt(h20, 10)
+    s30 += parseFloat(h20)
     vac += 1
   break;
 
   case 'ВП':
-    s31 += parseInt(h20, 10)
+    s31 += parseFloat(h20)
     vac += 1
   break;
 
   case 'НО':
-    s33 += parseInt(h20, 10)
+    s33 += parseFloat(h20)
     vac += 1
   break;
 
   case 'НБ':
-    s32 += parseInt(h20, 10)
+    s32 += parseFloat(h20)
     vac += 1
   break;
 
   case 'НЗ':
-    s34 += parseInt(h20, 10)
+    s34 += parseFloat(h20)
     vac += 1
   break;
 
   case 'ОЗ':
-    s37 += parseInt(h20, 10)
+    s37 += parseFloat(h20)
     vac += 1
   break;
 
@@ -4772,13 +4772,13 @@ switch (tt20) {
     h_split = h20.split('/')
 
 
-      s38 += parseInt(h_split[0], 10)
-      s19 += parseInt(h_split[1], 10)
+      s38 += parseFloat(h_split[0])
+      s19 += parseFloat(h_split[1])
 
 
     work += 1 }
     else {
-      s38 += parseInt(h20, 10)
+      s38 += parseFloat(h20)
       work += 1
     }
     console.log(s19);
@@ -4786,201 +4786,201 @@ switch (tt20) {
 
   case 'Я/ЛЧ':
     h20_ = h20.split('/')
-    s1 += parseInt(h20_[0], 10)
-    s19 += parseInt(h20_[1], 10)
+    s1 += parseFloat(h20_[0])
+    s19 += parseFloat(h20_[1])
     work += 1
   break;
 
   case 'Я/Н':
     h20_ = h20.split('/')
-    s1 += parseInt(h20_[0], 10)
-    s2 += parseInt(h20_[1], 10)
+    s1 += parseFloat(h20_[0])
+    s2 += parseFloat(h20_[1])
     work += 1
   break;
 
   case 'РВ/Н':
     h20_ = h20.split('/')
-    s3 += parseInt(h20_[0], 10)
-    s2 += parseInt(h20_[1], 10)
+    s3 += parseFloat(h20_[0])
+    s2 += parseFloat(h20_[1])
     work += 1
   break;
 }
 
 switch (tt21) {
   case 'Я':
-    s1 += parseInt(h21, 10)
+    s1 += parseFloat(h21)
     work += 1
   break;
 
   case 'Н':
-    s2 += parseInt(h21, 10)
+    s2 += parseFloat(h21)
     work += 1
   break;
 
   case 'РВ':
-    s3 += parseInt(h21, 10)
+    s3 += parseFloat(h21)
     work += 1
   break;
 
   case 'ВМ':
-    s5 += parseInt(h21, 10)
+    s5 += parseFloat(h21)
     work += 1
   break;
 
   case 'КМ':
-    s36 += parseInt(h21, 10)
+    s36 += parseFloat(h21)
     work += 1
   break;
 
   case 'К':
-    s6 += parseInt(h21, 10)
+    s6 += parseFloat(h21)
     vac += 1
   break;
 
 
   case 'ПК':
-    s7 += parseInt(h21, 10)
+    s7 += parseFloat(h21)
     work += 1
   break;
 
   case 'ПМ':
-    s8 += parseInt(h21, 10)
+    s8 += parseFloat(h21)
     work += 1
   break;
 
   case 'ОТ':
-    s9 += parseInt(h21, 10)
+    s9 += parseFloat(h21)
     vac += 1
   break;
 
   case 'ОД':
-    s10 += parseInt(h21, 10)
+    s10 += parseFloat(h21)
     vac += 1
   break;
 
   case 'У':
-    s11 += parseInt(h21, 10)
+    s11 += parseFloat(h21)
     vac += 1
   break;
 
   case 'УВ':
-    s12 += parseInt(h21, 10)
+    s12 += parseFloat(h21)
     work += 1
   break;
 
   case 'УД':
-    s13 += parseInt(h21, 10)
+    s13 += parseFloat(h21)
     vac += 1
   break;
 
   case 'Р':
-    s14 += parseInt(h21, 10)
+    s14 += parseFloat(h21)
     vac += 1
   break;
 
   case 'ОЖ':
-    s15 += parseInt(h21, 10)
+    s15 += parseFloat(h21)
     vac += 1
   break;
 
   case 'ДО':
-    s16 += parseInt(h21, 10)
+    s16 += parseFloat(h21)
     vac += 1
   break;
 
   case 'Б':
-    s17 += parseInt(h21, 10)
+    s17 += parseFloat(h21)
     vac += 1
   break;
 
   case 'Т':
-    s18 += parseInt(h21, 10)
+    s18 += parseFloat(h21)
     vac += 1
   break;
 
   case 'ЛЧ':
-    s19 += parseInt(h21, 10)
+    s19 += parseFloat(h21)
     vac += 1
   break;
 
   case 'ПВ':
-    s20 += parseInt(h21, 10)
+    s20 += parseFloat(h21)
     vac += 1
   break;
 
   case 'Г':
-    s21 += parseInt(h21, 10)
+    s21 += parseFloat(h21)
     vac += 1
   break;
 
   case 'ПР':
-    s22 += parseInt(h21, 10)
+    s22 += parseFloat(h21)
     vac += 1
   break;
 
   case 'НС':
-    s23 += parseInt(h21, 10)
+    s23 += parseFloat(h21)
     work += 1
   break;
 
   case 'В':
-    s24 += parseInt(h21, 10)
+    s24 += parseFloat(h21)
 
 
   break;
 
   case 'ОВ':
-    s25 += parseInt(h21, 10)
+    s25 += parseFloat(h21)
     vac += 1
   break;
 
   case 'НВ':
-    s26 += parseInt(h21, 10)
+    s26 += parseFloat(h21)
     vac += 1
   break;
 
   case 'ЗБ':
-    s27 += parseInt(h21, 10)
+    s27 += parseFloat(h21)
     vac += 1
   break;
 
   case 'НН':
-    s28 += parseInt(h21, 10)
+    s28 += parseFloat(h21)
     vac += 1
   break;
 
   case 'РП':
-    s29 += parseInt(h21, 10)
+    s29 += parseFloat(h21)
     vac += 1
   break;
 
   case 'НП':
-    s30 += parseInt(h21, 10)
+    s30 += parseFloat(h21)
     vac += 1
   break;
 
   case 'ВП':
-    s31 += parseInt(h21, 10)
+    s31 += parseFloat(h21)
     vac += 1
   break;
 
   case 'НО':
-    s33 += parseInt(h21, 10)
+    s33 += parseFloat(h21)
     vac += 1
   break;
 
   case 'НБ':
-    s32 += parseInt(h21, 10)
+    s32 += parseFloat(h21)
     vac += 1
   break;
 
   case 'НЗ':
-    s34 += parseInt(h21, 10)
+    s34 += parseFloat(h21)
     vac += 1
   break;
 
   case 'ОЗ':
-    s37 += parseInt(h21, 10)
+    s37 += parseFloat(h21)
     vac += 1
   break;
 
@@ -4989,13 +4989,13 @@ switch (tt21) {
     h_split = h21.split('/')
 
 
-      s38 += parseInt(h_split[0], 10)
-      s19 += parseInt(h_split[1], 10)
+      s38 += parseFloat(h_split[0])
+      s19 += parseFloat(h_split[1])
 
 
     work += 1 }
     else {
-      s38 += parseInt(h21, 10)
+      s38 += parseFloat(h21)
       work += 1
     }
     console.log(s19);
@@ -5004,201 +5004,201 @@ switch (tt21) {
 
   case 'Я/ЛЧ':
     h21_ = h21.split('/')
-    s1 += parseInt(h21_[0], 10)
-    s19 += parseInt(h21_[1], 10)
+    s1 += parseFloat(h21_[0])
+    s19 += parseFloat(h21_[1])
     work += 1
   break;
 
   case 'Я/Н':
     h21_ = h21.split('/')
-    s1 += parseInt(h21_[0], 10)
-    s2 += parseInt(h21_[1], 10)
+    s1 += parseFloat(h21_[0])
+    s2 += parseFloat(h21_[1])
     work += 1
   break;
 
   case 'РВ/Н':
     h21_ = h21.split('/')
-    s3 += parseInt(h21_[0], 10)
-    s2 += parseInt(h21_[1], 10)
+    s3 += parseFloat(h21_[0])
+    s2 += parseFloat(h21_[1])
     work += 1
   break;
 }
 
 switch (tt22) {
   case 'Я':
-    s1 += parseInt(h22, 10)
+    s1 += parseFloat(h22)
     work += 1
   break;
 
   case 'Н':
-    s2 += parseInt(h22, 10)
+    s2 += parseFloat(h22)
     work += 1
   break;
 
   case 'РВ':
-    s3 += parseInt(h22, 10)
+    s3 += parseFloat(h22)
     work += 1
   break;
 
   case 'ВМ':
-    s5 += parseInt(h22, 10)
+    s5 += parseFloat(h22)
     work += 1
   break;
 
   case 'КМ':
-    s36 += parseInt(h22, 10)
+    s36 += parseFloat(h22)
     work += 1
   break;
 
   case 'К':
-    s6 += parseInt(h22, 10)
+    s6 += parseFloat(h22)
     vac += 1
   break;
 
 
   case 'ПК':
-    s7 += parseInt(h22, 10)
+    s7 += parseFloat(h22)
     work += 1
   break;
 
   case 'ПМ':
-    s8 += parseInt(h22, 10)
+    s8 += parseFloat(h22)
     work += 1
   break;
 
   case 'ОТ':
-    s9 += parseInt(h22, 10)
+    s9 += parseFloat(h22)
     vac += 1
   break;
 
   case 'ОД':
-    s10 += parseInt(h22, 10)
+    s10 += parseFloat(h22)
     vac += 1
   break;
 
   case 'У':
-    s11 += parseInt(h22, 10)
+    s11 += parseFloat(h22)
     vac += 1
   break;
 
   case 'УВ':
-    s12 += parseInt(h22, 10)
+    s12 += parseFloat(h22)
     work += 1
   break;
 
   case 'УД':
-    s13 += parseInt(h22, 10)
+    s13 += parseFloat(h22)
     vac += 1
   break;
 
   case 'Р':
-    s14 += parseInt(h22, 10)
+    s14 += parseFloat(h22)
     vac += 1
   break;
 
   case 'ОЖ':
-    s15 += parseInt(h22, 10)
+    s15 += parseFloat(h22)
     vac += 1
   break;
 
   case 'ДО':
-    s16 += parseInt(h22, 10)
+    s16 += parseFloat(h22)
     vac += 1
   break;
 
   case 'Б':
-    s17 += parseInt(h22, 10)
+    s17 += parseFloat(h22)
     vac += 1
   break;
 
   case 'Т':
-    s18 += parseInt(h22, 10)
+    s18 += parseFloat(h22)
     vac += 1
   break;
 
   case 'ЛЧ':
-    s19 += parseInt(h22, 10)
+    s19 += parseFloat(h22)
     vac += 1
   break;
 
   case 'ПВ':
-    s20 += parseInt(h22, 10)
+    s20 += parseFloat(h22)
     vac += 1
   break;
 
   case 'Г':
-    s21 += parseInt(h22, 10)
+    s21 += parseFloat(h22)
     vac += 1
   break;
 
   case 'ПР':
-    s22 += parseInt(h22, 10)
+    s22 += parseFloat(h22)
     vac += 1
   break;
 
   case 'НС':
-    s23 += parseInt(h22, 10)
+    s23 += parseFloat(h22)
     work += 1
   break;
 
   case 'В':
-    s24 += parseInt(h22, 10)
+    s24 += parseFloat(h22)
 
 
   break;
 
   case 'ОВ':
-    s25 += parseInt(h22, 10)
+    s25 += parseFloat(h22)
     vac += 1
   break;
 
   case 'НВ':
-    s26 += parseInt(h22, 10)
+    s26 += parseFloat(h22)
     vac += 1
   break;
 
   case 'ЗБ':
-    s27 += parseInt(h22, 10)
+    s27 += parseFloat(h22)
     vac += 1
   break;
 
   case 'НН':
-    s28 += parseInt(h22, 10)
+    s28 += parseFloat(h22)
     vac += 1
   break;
 
   case 'РП':
-    s29 += parseInt(h22, 10)
+    s29 += parseFloat(h22)
     vac += 1
   break;
 
   case 'НП':
-    s30 += parseInt(h22, 10)
+    s30 += parseFloat(h22)
     vac += 1
   break;
 
   case 'ВП':
-    s31 += parseInt(h22, 10)
+    s31 += parseFloat(h22)
     vac += 1
   break;
 
   case 'НО':
-    s33 += parseInt(h22, 10)
+    s33 += parseFloat(h22)
     vac += 1
   break;
 
   case 'НБ':
-    s32 += parseInt(h22, 10)
+    s32 += parseFloat(h22)
     vac += 1
   break;
 
   case 'НЗ':
-    s34 += parseInt(h22, 10)
+    s34 += parseFloat(h22)
     vac += 1
   break;
 
   case 'ОЗ':
-    s37 += parseInt(h22, 10)
+    s37 += parseFloat(h22)
     vac += 1
   break;
 
@@ -5207,13 +5207,13 @@ switch (tt22) {
     h_split = h22.split('/')
 
 
-      s38 += parseInt(h_split[0], 10)
-      s19 += parseInt(h_split[1], 10)
+      s38 += parseFloat(h_split[0])
+      s19 += parseFloat(h_split[1])
 
 
     work += 1 }
     else {
-      s38 += parseInt(h22, 10)
+      s38 += parseFloat(h22)
       work += 1
     }
     console.log(s19);
@@ -5222,202 +5222,202 @@ switch (tt22) {
 
   case 'Я/ЛЧ':
     h22_ = h22.split('/')
-    s1 += parseInt(h22_[0], 10)
-    s19 += parseInt(h22_[1], 10)
+    s1 += parseFloat(h22_[0])
+    s19 += parseFloat(h22_[1])
 
     work += 1
   break;
 
   case 'Я/Н':
     h22_ = h22.split('/')
-    s1 += parseInt(h22_[0], 10)
-    s2 += parseInt(h22_[1], 10)
+    s1 += parseFloat(h22_[0])
+    s2 += parseFloat(h22_[1])
     work += 1
   break;
 
   case 'РВ/Н':
     h22_ = h22.split('/')
-    s3 += parseInt(h22_[0], 10)
-    s2 += parseInt(h22_[1], 10)
+    s3 += parseFloat(h22_[0])
+    s2 += parseFloat(h22_[1])
     work += 1
   break;
 }
 
 switch (tt23) {
   case 'Я':
-    s1 += parseInt(h23, 10)
+    s1 += parseFloat(h23)
     work += 1
   break;
 
   case 'Н':
-    s2 += parseInt(h23, 10)
+    s2 += parseFloat(h23)
     work += 1
   break;
 
   case 'РВ':
-    s3 += parseInt(h23, 10)
+    s3 += parseFloat(h23)
     work += 1
   break;
 
   case 'ВМ':
-    s5 += parseInt(h23, 10)
+    s5 += parseFloat(h23)
     work += 1
   break;
 
   case 'КМ':
-    s36 += parseInt(h23, 10)
+    s36 += parseFloat(h23)
     work += 1
   break;
 
   case 'К':
-    s6 += parseInt(h23, 10)
+    s6 += parseFloat(h23)
     vac += 1
   break;
 
 
   case 'ПК':
-    s7 += parseInt(h23, 10)
+    s7 += parseFloat(h23)
     work += 1
   break;
 
   case 'ПМ':
-    s8 += parseInt(h23, 10)
+    s8 += parseFloat(h23)
     work += 1
   break;
 
   case 'ОТ':
-    s9 += parseInt(h23, 10)
+    s9 += parseFloat(h23)
     vac += 1
   break;
 
   case 'ОД':
-    s10 += parseInt(h23, 10)
+    s10 += parseFloat(h23)
     vac += 1
   break;
 
   case 'У':
-    s11 += parseInt(h23, 10)
+    s11 += parseFloat(h23)
     vac += 1
   break;
 
   case 'УВ':
-    s12 += parseInt(h23, 10)
+    s12 += parseFloat(h23)
     work += 1
   break;
 
   case 'УД':
-    s13 += parseInt(h23, 10)
+    s13 += parseFloat(h23)
     vac += 1
   break;
 
   case 'Р':
-    s14 += parseInt(h23, 10)
+    s14 += parseFloat(h23)
     vac += 1
   break;
 
   case 'ОЖ':
-    s15 += parseInt(h23, 10)
+    s15 += parseFloat(h23)
     vac += 1
   break;
 
   case 'ДО':
-    s16 += parseInt(h23, 10)
+    s16 += parseFloat(h23)
     vac += 1
   break;
 
   case 'Б':
-    s17 += parseInt(h23, 10)
+    s17 += parseFloat(h23)
     vac += 1
   break;
 
   case 'Т':
-    s18 += parseInt(h23, 10)
+    s18 += parseFloat(h23)
     vac += 1
   break;
 
   case 'ЛЧ':
-    s19 += parseInt(h23, 10)
+    s19 += parseFloat(h23)
     vac += 1
   break;
 
   case 'ПВ':
-    s20 += parseInt(h23, 10)
+    s20 += parseFloat(h23)
     vac += 1
   break;
 
   case 'Г':
-    s21 += parseInt(h23, 10)
+    s21 += parseFloat(h23)
     vac += 1
   break;
 
   case 'ПР':
-    s22 += parseInt(h23, 10)
+    s22 += parseFloat(h23)
     vac += 1
   break;
 
   case 'НС':
-    s23 += parseInt(h23, 10)
+    s23 += parseFloat(h23)
     work += 1
   break;
 
   case 'В':
-    s24 += parseInt(h23, 10)
+    s24 += parseFloat(h23)
 
 
   break;
 
   case 'ОВ':
-    s25 += parseInt(h23, 10)
+    s25 += parseFloat(h23)
     vac += 1
   break;
 
   case 'НВ':
-    s26 += parseInt(h23, 10)
+    s26 += parseFloat(h23)
     vac += 1
   break;
 
   case 'ЗБ':
-    s27 += parseInt(h23, 10)
+    s27 += parseFloat(h23)
     vac += 1
   break;
 
   case 'НН':
-    s28 += parseInt(h23, 10)
+    s28 += parseFloat(h23)
     vac += 1
   break;
 
   case 'РП':
-    s29 += parseInt(h23, 10)
+    s29 += parseFloat(h23)
     vac += 1
   break;
 
   case 'НП':
-    s30 += parseInt(h23, 10)
+    s30 += parseFloat(h23)
     vac += 1
   break;
 
   case 'ВП':
-    s31 += parseInt(h23, 10)
+    s31 += parseFloat(h23)
     vac += 1
   break;
 
   case 'НО':
-    s33 += parseInt(h23, 10)
+    s33 += parseFloat(h23)
     vac += 1
   break;
 
   case 'НБ':
-    s32 += parseInt(h23, 10)
+    s32 += parseFloat(h23)
     vac += 1
   break;
 
   case 'НЗ':
-    s34 += parseInt(h23, 10)
+    s34 += parseFloat(h23)
     vac += 1
   break;
 
   case 'ОЗ':
-    s37 += parseInt(h23, 10)
+    s37 += parseFloat(h23)
     vac += 1
   break;
 
@@ -5426,13 +5426,13 @@ switch (tt23) {
     h_split = h23.split('/')
 
 
-      s38 += parseInt(h_split[0], 10)
-      s19 += parseInt(h_split[1], 10)
+      s38 += parseFloat(h_split[0])
+      s19 += parseFloat(h_split[1])
 
 
     work += 1 }
     else {
-      s38 += parseInt(h23, 10)
+      s38 += parseFloat(h23)
       work += 1
     }
     console.log(s19);
@@ -5441,201 +5441,201 @@ switch (tt23) {
 
   case 'Я/ЛЧ':
     h23_ = h23.split('/')
-    s1 += parseInt(h23_[0], 10)
-    s19 += parseInt(h23_[1], 10)
+    s1 += parseFloat(h23_[0])
+    s19 += parseFloat(h23_[1])
     work += 1
   break;
 
   case 'Я/Н':
     h23_ = h23.split('/')
-    s1 += parseInt(h23_[0], 10)
-    s2 += parseInt(h23_[1], 10)
+    s1 += parseFloat(h23_[0])
+    s2 += parseFloat(h23_[1])
     work += 1
   break;
 
   case 'РВ/Н':
     h23_ = h23.split('/')
-    s3 += parseInt(h23_[0], 10)
-    s2 += parseInt(h23_[1], 10)
+    s3 += parseFloat(h23_[0])
+    s2 += parseFloat(h23_[1])
     work += 1
   break;
 }
 
 switch (tt24) {
   case 'Я':
-    s1 += parseInt(h24, 10)
+    s1 += parseFloat(h24)
     work += 1
   break;
 
   case 'Н':
-    s2 += parseInt(h24, 10)
+    s2 += parseFloat(h24)
     work += 1
   break;
 
   case 'РВ':
-    s3 += parseInt(h24, 10)
+    s3 += parseFloat(h24)
     work += 1
   break;
 
   case 'ВМ':
-    s5 += parseInt(h24, 10)
+    s5 += parseFloat(h24)
     work += 1
   break;
 
   case 'КМ':
-    s36 += parseInt(h24, 10)
+    s36 += parseFloat(h24)
     work += 1
   break;
 
   case 'К':
-    s6 += parseInt(h24, 10)
+    s6 += parseFloat(h24)
     vac += 1
   break;
 
 
   case 'ПК':
-    s7 += parseInt(h24, 10)
+    s7 += parseFloat(h24)
     work += 1
   break;
 
   case 'ПМ':
-    s8 += parseInt(h24, 10)
+    s8 += parseFloat(h24)
     work += 1
   break;
 
   case 'ОТ':
-    s9 += parseInt(h24, 10)
+    s9 += parseFloat(h24)
     vac += 1
   break;
 
   case 'ОД':
-    s10 += parseInt(h24, 10)
+    s10 += parseFloat(h24)
     vac += 1
   break;
 
   case 'У':
-    s11 += parseInt(h24, 10)
+    s11 += parseFloat(h24)
     vac += 1
   break;
 
   case 'УВ':
-    s12 += parseInt(h24, 10)
+    s12 += parseFloat(h24)
     work += 1
   break;
 
   case 'УД':
-    s13 += parseInt(h24, 10)
+    s13 += parseFloat(h24)
     vac += 1
   break;
 
   case 'Р':
-    s14 += parseInt(h24, 10)
+    s14 += parseFloat(h24)
     vac += 1
   break;
 
   case 'ОЖ':
-    s15 += parseInt(h24, 10)
+    s15 += parseFloat(h24)
     vac += 1
   break;
 
   case 'ДО':
-    s16 += parseInt(h24, 10)
+    s16 += parseFloat(h24)
     vac += 1
   break;
 
   case 'Б':
-    s17 += parseInt(h24, 10)
+    s17 += parseFloat(h24)
     vac += 1
   break;
 
   case 'Т':
-    s18 += parseInt(h24, 10)
+    s18 += parseFloat(h24)
     vac += 1
   break;
 
   case 'ЛЧ':
-    s19 += parseInt(h24, 10)
+    s19 += parseFloat(h24)
     vac += 1
   break;
 
   case 'ПВ':
-    s20 += parseInt(h24, 10)
+    s20 += parseFloat(h24)
     vac += 1
   break;
 
   case 'Г':
-    s21 += parseInt(h24, 10)
+    s21 += parseFloat(h24)
     vac += 1
   break;
 
   case 'ПР':
-    s22 += parseInt(h24, 10)
+    s22 += parseFloat(h24)
     vac += 1
   break;
 
   case 'НС':
-    s23 += parseInt(h24, 10)
+    s23 += parseFloat(h24)
     work += 1
   break;
 
   case 'В':
-    s24 += parseInt(h24, 10)
+    s24 += parseFloat(h24)
 
 
   break;
 
   case 'ОВ':
-    s25 += parseInt(h24, 10)
+    s25 += parseFloat(h24)
     vac += 1
   break;
 
   case 'НВ':
-    s26 += parseInt(h24, 10)
+    s26 += parseFloat(h24)
     vac += 1
   break;
 
   case 'ЗБ':
-    s27 += parseInt(h24, 10)
+    s27 += parseFloat(h24)
     vac += 1
   break;
 
   case 'НН':
-    s28 += parseInt(h24, 10)
+    s28 += parseFloat(h24)
     vac += 1
   break;
 
   case 'РП':
-    s29 += parseInt(h24, 10)
+    s29 += parseFloat(h24)
     vac += 1
   break;
 
   case 'НП':
-    s30 += parseInt(h24, 10)
+    s30 += parseFloat(h24)
     vac += 1
   break;
 
   case 'ВП':
-    s31 += parseInt(h24, 10)
+    s31 += parseFloat(h24)
     vac += 1
   break;
 
   case 'НО':
-    s33 += parseInt(h24, 10)
+    s33 += parseFloat(h24)
     vac += 1
   break;
 
   case 'НБ':
-    s32 += parseInt(h24, 10)
+    s32 += parseFloat(h24)
     vac += 1
   break;
 
   case 'НЗ':
-    s34 += parseInt(h24, 10)
+    s34 += parseFloat(h24)
     vac += 1
   break;
 
   case 'ОЗ':
-    s37 += parseInt(h24, 10)
+    s37 += parseFloat(h24)
     vac += 1
   break;
 
@@ -5644,13 +5644,13 @@ switch (tt24) {
     h_split = h24.split('/')
 
 
-      s38 += parseInt(h_split[0], 10)
-      s19 += parseInt(h_split[1], 10)
+      s38 += parseFloat(h_split[0])
+      s19 += parseFloat(h_split[1])
 
 
     work += 1 }
     else {
-      s38 += parseInt(h24, 10)
+      s38 += parseFloat(h24)
       work += 1
     }
     console.log(s19);
@@ -5658,201 +5658,201 @@ switch (tt24) {
 
   case 'Я/ЛЧ':
     h24_ = h24.split('/')
-    s1 += parseInt(h24_[0], 10)
-    s19 += parseInt(h24_[1], 10)
+    s1 += parseFloat(h24_[0])
+    s19 += parseFloat(h24_[1])
     work += 1
   break;
 
   case 'Я/Н':
     h24_ = h24.split('/')
-    s1 += parseInt(h24_[0], 10)
-    s2 += parseInt(h24_[1], 10)
+    s1 += parseFloat(h24_[0])
+    s2 += parseFloat(h24_[1])
     work += 1
   break;
 
   case 'РВ/Н':
     h24_ = h24.split('/')
-    s3 += parseInt(h24_[0], 10)
-    s2 += parseInt(h24_[1], 10)
+    s3 += parseFloat(h24_[0])
+    s2 += parseFloat(h24_[1])
     work += 1
   break;
 }
 
 switch (tt25) {
   case 'Я':
-    s1 += parseInt(h25, 10)
+    s1 += parseFloat(h25)
     work += 1
   break;
 
   case 'Н':
-    s2 += parseInt(h25, 10)
+    s2 += parseFloat(h25)
     work += 1
   break;
 
   case 'РВ':
-    s3 += parseInt(h25, 10)
+    s3 += parseFloat(h25)
     work += 1
   break;
 
   case 'ВМ':
-    s5 += parseInt(h25, 10)
+    s5 += parseFloat(h25)
     work += 1
   break;
 
   case 'КМ':
-    s36 += parseInt(h25, 10)
+    s36 += parseFloat(h25)
     work += 1
   break;
 
   case 'К':
-    s6 += parseInt(h25, 10)
+    s6 += parseFloat(h25)
     vac += 1
   break;
 
 
   case 'ПК':
-    s7 += parseInt(h25, 10)
+    s7 += parseFloat(h25)
     work += 1
   break;
 
   case 'ПМ':
-    s8 += parseInt(h25, 10)
+    s8 += parseFloat(h25)
     work += 1
   break;
 
   case 'ОТ':
-    s9 += parseInt(h25, 10)
+    s9 += parseFloat(h25)
     vac += 1
   break;
 
   case 'ОД':
-    s10 += parseInt(h25, 10)
+    s10 += parseFloat(h25)
     vac += 1
   break;
 
   case 'У':
-    s11 += parseInt(h25, 10)
+    s11 += parseFloat(h25)
     vac += 1
   break;
 
   case 'УВ':
-    s12 += parseInt(h25, 10)
+    s12 += parseFloat(h25)
     work += 1
   break;
 
   case 'УД':
-    s13 += parseInt(h25, 10)
+    s13 += parseFloat(h25)
     vac += 1
   break;
 
   case 'Р':
-    s14 += parseInt(h25, 10)
+    s14 += parseFloat(h25)
     vac += 1
   break;
 
   case 'ОЖ':
-    s15 += parseInt(h25, 10)
+    s15 += parseFloat(h25)
     vac += 1
   break;
 
   case 'ДО':
-    s16 += parseInt(h25, 10)
+    s16 += parseFloat(h25)
     vac += 1
   break;
 
   case 'Б':
-    s17 += parseInt(h25, 10)
+    s17 += parseFloat(h25)
     vac += 1
   break;
 
   case 'Т':
-    s18 += parseInt(h25, 10)
+    s18 += parseFloat(h25)
     vac += 1
   break;
 
   case 'ЛЧ':
-    s19 += parseInt(h25, 10)
+    s19 += parseFloat(h25)
     vac += 1
   break;
 
   case 'ПВ':
-    s20 += parseInt(h25, 10)
+    s20 += parseFloat(h25)
     vac += 1
   break;
 
   case 'Г':
-    s21 += parseInt(h25, 10)
+    s21 += parseFloat(h25)
     vac += 1
   break;
 
   case 'ПР':
-    s22 += parseInt(h25, 10)
+    s22 += parseFloat(h25)
     vac += 1
   break;
 
   case 'НС':
-    s23 += parseInt(h25, 10)
+    s23 += parseFloat(h25)
     work += 1
   break;
 
   case 'В':
-    s24 += parseInt(h25, 10)
+    s24 += parseFloat(h25)
 
 
   break;
 
   case 'ОВ':
-    s25 += parseInt(h25, 10)
+    s25 += parseFloat(h25)
     vac += 1
   break;
 
   case 'НВ':
-    s26 += parseInt(h25, 10)
+    s26 += parseFloat(h25)
     vac += 1
   break;
 
   case 'ЗБ':
-    s27 += parseInt(h25, 10)
+    s27 += parseFloat(h25)
     vac += 1
   break;
 
   case 'НН':
-    s28 += parseInt(h25, 10)
+    s28 += parseFloat(h25)
     vac += 1
   break;
 
   case 'РП':
-    s29 += parseInt(h25, 10)
+    s29 += parseFloat(h25)
     vac += 1
   break;
 
   case 'НП':
-    s30 += parseInt(h25, 10)
+    s30 += parseFloat(h25)
     vac += 1
   break;
 
   case 'ВП':
-    s31 += parseInt(h25, 10)
+    s31 += parseFloat(h25)
     vac += 1
   break;
 
   case 'НО':
-    s33 += parseInt(h25, 10)
+    s33 += parseFloat(h25)
     vac += 1
   break;
 
   case 'НБ':
-    s32 += parseInt(h25, 10)
+    s32 += parseFloat(h25)
     vac += 1
   break;
 
   case 'НЗ':
-    s34 += parseInt(h25, 10)
+    s34 += parseFloat(h25)
     vac += 1
   break;
 
   case 'ОЗ':
-    s37 += parseInt(h25, 10)
+    s37 += parseFloat(h25)
     vac += 1
   break;
 
@@ -5861,13 +5861,13 @@ switch (tt25) {
     h_split = h25.split('/')
 
 
-      s38 += parseInt(h_split[0], 10)
-      s19 += parseInt(h_split[1], 10)
+      s38 += parseFloat(h_split[0])
+      s19 += parseFloat(h_split[1])
 
 
     work += 1 }
     else {
-      s38 += parseInt(h25, 10)
+      s38 += parseFloat(h25)
       work += 1
     }
     console.log(s19);
@@ -5876,201 +5876,201 @@ switch (tt25) {
 
   case 'Я/ЛЧ':
     h25_ = h25.split('/')
-    s1 += parseInt(h25_[0], 10)
-    s19 += parseInt(h25_[1], 10)
+    s1 += parseFloat(h25_[0])
+    s19 += parseFloat(h25_[1])
     work += 1
   break;
 
   case 'Я/Н':
     h25_ = h25.split('/')
-    s1 += parseInt(h25_[0], 10)
-    s2 += parseInt(h25_[1], 10)
+    s1 += parseFloat(h25_[0])
+    s2 += parseFloat(h25_[1])
     work += 1
   break;
 
   case 'РВ/Н':
     h25_ = h25.split('/')
-    s3 += parseInt(h25_[0], 10)
-    s2 += parseInt(h25_[1], 10)
+    s3 += parseFloat(h25_[0])
+    s2 += parseFloat(h25_[1])
     work += 1
   break;
 }
 
 switch (tt26) {
   case 'Я':
-    s1 += parseInt(h26, 10)
+    s1 += parseFloat(h26)
     work += 1
   break;
 
   case 'Н':
-    s2 += parseInt(h26, 10)
+    s2 += parseFloat(h26)
     work += 1
   break;
 
   case 'РВ':
-    s3 += parseInt(h26, 10)
+    s3 += parseFloat(h26)
     work += 1
   break;
 
   case 'ВМ':
-    s5 += parseInt(h26, 10)
+    s5 += parseFloat(h26)
     work += 1
   break;
 
   case 'КМ':
-    s36 += parseInt(h26, 10)
+    s36 += parseFloat(h26)
     work += 1
   break;
 
   case 'К':
-    s6 += parseInt(h26, 10)
+    s6 += parseFloat(h26)
     vac += 1
   break;
 
 
   case 'ПК':
-    s7 += parseInt(h26, 10)
+    s7 += parseFloat(h26)
     work += 1
   break;
 
   case 'ПМ':
-    s8 += parseInt(h26, 10)
+    s8 += parseFloat(h26)
     work += 1
   break;
 
   case 'ОТ':
-    s9 += parseInt(h26, 10)
+    s9 += parseFloat(h26)
     vac += 1
   break;
 
   case 'ОД':
-    s10 += parseInt(h26, 10)
+    s10 += parseFloat(h26)
     vac += 1
   break;
 
   case 'У':
-    s11 += parseInt(h26, 10)
+    s11 += parseFloat(h26)
     vac += 1
   break;
 
   case 'УВ':
-    s12 += parseInt(h26, 10)
+    s12 += parseFloat(h26)
     work += 1
   break;
 
   case 'УД':
-    s13 += parseInt(h26, 10)
+    s13 += parseFloat(h26)
     vac += 1
   break;
 
   case 'Р':
-    s14 += parseInt(h26, 10)
+    s14 += parseFloat(h26)
     vac += 1
   break;
 
   case 'ОЖ':
-    s15 += parseInt(h26, 10)
+    s15 += parseFloat(h26)
     vac += 1
   break;
 
   case 'ДО':
-    s16 += parseInt(h26, 10)
+    s16 += parseFloat(h26)
     vac += 1
   break;
 
   case 'Б':
-    s17 += parseInt(h26, 10)
+    s17 += parseFloat(h26)
     vac += 1
   break;
 
   case 'Т':
-    s18 += parseInt(h26, 10)
+    s18 += parseFloat(h26)
     vac += 1
   break;
 
   case 'ЛЧ':
-    s19 += parseInt(h26, 10)
+    s19 += parseFloat(h26)
     vac += 1
   break;
 
   case 'ПВ':
-    s20 += parseInt(h26, 10)
+    s20 += parseFloat(h26)
     vac += 1
   break;
 
   case 'Г':
-    s21 += parseInt(h26, 10)
+    s21 += parseFloat(h26)
     vac += 1
   break;
 
   case 'ПР':
-    s22 += parseInt(h26, 10)
+    s22 += parseFloat(h26)
     vac += 1
   break;
 
   case 'НС':
-    s23 += parseInt(h26, 10)
+    s23 += parseFloat(h26)
     work += 1
   break;
 
   case 'В':
-    s24 += parseInt(h26, 10)
+    s24 += parseFloat(h26)
 
 
   break;
 
   case 'ОВ':
-    s25 += parseInt(h26, 10)
+    s25 += parseFloat(h26)
     vac += 1
   break;
 
   case 'НВ':
-    s26 += parseInt(h26, 10)
+    s26 += parseFloat(h26)
     vac += 1
   break;
 
   case 'ЗБ':
-    s27 += parseInt(h26, 10)
+    s27 += parseFloat(h26)
     vac += 1
   break;
 
   case 'НН':
-    s28 += parseInt(h26, 10)
+    s28 += parseFloat(h26)
     vac += 1
   break;
 
   case 'РП':
-    s29 += parseInt(h26, 10)
+    s29 += parseFloat(h26)
     vac += 1
   break;
 
   case 'НП':
-    s30 += parseInt(h26, 10)
+    s30 += parseFloat(h26)
     vac += 1
   break;
 
   case 'ВП':
-    s31 += parseInt(h26, 10)
+    s31 += parseFloat(h26)
     vac += 1
   break;
 
   case 'НО':
-    s33 += parseInt(h26, 10)
+    s33 += parseFloat(h26)
     vac += 1
   break;
 
   case 'НБ':
-    s32 += parseInt(h26, 10)
+    s32 += parseFloat(h26)
     vac += 1
   break;
 
   case 'НЗ':
-    s34 += parseInt(h26, 10)
+    s34 += parseFloat(h26)
     vac += 1
   break;
 
   case 'ОЗ':
-    s37 += parseInt(h26, 10)
+    s37 += parseFloat(h26)
     vac += 1
   break;
 
@@ -6079,13 +6079,13 @@ switch (tt26) {
     h_split = h26.split('/')
 
 
-      s38 += parseInt(h_split[0], 10)
-      s19 += parseInt(h_split[1], 10)
+      s38 += parseFloat(h_split[0])
+      s19 += parseFloat(h_split[1])
 
 
     work += 1 }
     else {
-      s38 += parseInt(h26, 10)
+      s38 += parseFloat(h26)
       work += 1
     }
     console.log(s19);
@@ -6094,201 +6094,201 @@ switch (tt26) {
 
   case 'Я/ЛЧ':
     h26_ = h26.split('/')
-    s1 += parseInt(h26_[0], 10)
-    s19 += parseInt(h26_[1], 10)
+    s1 += parseFloat(h26_[0])
+    s19 += parseFloat(h26_[1])
     work += 1
   break;
 
   case 'Я/Н':
     h26_ = h26.split('/')
-    s1 += parseInt(h26_[0], 10)
-    s2 += parseInt(h26_[1], 10)
+    s1 += parseFloat(h26_[0])
+    s2 += parseFloat(h26_[1])
     work += 1
   break;
 
   case 'РВ/Н':
     h26_ = h26.split('/')
-    s3 += parseInt(h26_[0], 10)
-    s2 += parseInt(h26_[1], 10)
+    s3 += parseFloat(h26_[0])
+    s2 += parseFloat(h26_[1])
     work += 1
   break;
 }
 
 switch (tt27) {
   case 'Я':
-    s1 += parseInt(h27, 10)
+    s1 += parseFloat(h27)
     work += 1
   break;
 
   case 'Н':
-    s2 += parseInt(h27, 10)
+    s2 += parseFloat(h27)
     work += 1
   break;
 
   case 'РВ':
-    s3 += parseInt(h27, 10)
+    s3 += parseFloat(h27)
     work += 1
   break;
 
   case 'ВМ':
-    s5 += parseInt(h27, 10)
+    s5 += parseFloat(h27)
     work += 1
   break;
 
   case 'КМ':
-    s36 += parseInt(h27, 10)
+    s36 += parseFloat(h27)
     work += 1
   break;
 
   case 'К':
-    s6 += parseInt(h27, 10)
+    s6 += parseFloat(h27)
     vac += 1
   break;
 
 
   case 'ПК':
-    s7 += parseInt(h27, 10)
+    s7 += parseFloat(h27)
     work += 1
   break;
 
   case 'ПМ':
-    s8 += parseInt(h27, 10)
+    s8 += parseFloat(h27)
     work += 1
   break;
 
   case 'ОТ':
-    s9 += parseInt(h27, 10)
+    s9 += parseFloat(h27)
     vac += 1
   break;
 
   case 'ОД':
-    s10 += parseInt(h27, 10)
+    s10 += parseFloat(h27)
     vac += 1
   break;
 
   case 'У':
-    s11 += parseInt(h27, 10)
+    s11 += parseFloat(h27)
     vac += 1
   break;
 
   case 'УВ':
-    s12 += parseInt(h27, 10)
+    s12 += parseFloat(h27)
     work += 1
   break;
 
   case 'УД':
-    s13 += parseInt(h27, 10)
+    s13 += parseFloat(h27)
     vac += 1
   break;
 
   case 'Р':
-    s14 += parseInt(h27, 10)
+    s14 += parseFloat(h27)
     vac += 1
   break;
 
   case 'ОЖ':
-    s15 += parseInt(h27, 10)
+    s15 += parseFloat(h27)
     vac += 1
   break;
 
   case 'ДО':
-    s16 += parseInt(h27, 10)
+    s16 += parseFloat(h27)
     vac += 1
   break;
 
   case 'Б':
-    s17 += parseInt(h27, 10)
+    s17 += parseFloat(h27)
     vac += 1
   break;
 
   case 'Т':
-    s18 += parseInt(h27, 10)
+    s18 += parseFloat(h27)
     vac += 1
   break;
 
   case 'ЛЧ':
-    s19 += parseInt(h27, 10)
+    s19 += parseFloat(h27)
     vac += 1
   break;
 
   case 'ПВ':
-    s20 += parseInt(h27, 10)
+    s20 += parseFloat(h27)
     vac += 1
   break;
 
   case 'Г':
-    s21 += parseInt(h27, 10)
+    s21 += parseFloat(h27)
     vac += 1
   break;
 
   case 'ПР':
-    s22 += parseInt(h27, 10)
+    s22 += parseFloat(h27)
     vac += 1
   break;
 
   case 'НС':
-    s23 += parseInt(h27, 10)
+    s23 += parseFloat(h27)
     work += 1
   break;
 
   case 'В':
-    s24 += parseInt(h27, 10)
+    s24 += parseFloat(h27)
 
 
   break;
 
   case 'ОВ':
-    s25 += parseInt(h27, 10)
+    s25 += parseFloat(h27)
     vac += 1
   break;
 
   case 'НВ':
-    s26 += parseInt(h27, 10)
+    s26 += parseFloat(h27)
     vac += 1
   break;
 
   case 'ЗБ':
-    s27 += parseInt(h27, 10)
+    s27 += parseFloat(h27)
     vac += 1
   break;
 
   case 'НН':
-    s28 += parseInt(h27, 10)
+    s28 += parseFloat(h27)
     vac += 1
   break;
 
   case 'РП':
-    s29 += parseInt(h27, 10)
+    s29 += parseFloat(h27)
     vac += 1
   break;
 
   case 'НП':
-    s30 += parseInt(h27, 10)
+    s30 += parseFloat(h27)
     vac += 1
   break;
 
   case 'ВП':
-    s31 += parseInt(h27, 10)
+    s31 += parseFloat(h27)
     vac += 1
   break;
 
   case 'НО':
-    s33 += parseInt(h27, 10)
+    s33 += parseFloat(h27)
     vac += 1
   break;
 
   case 'НБ':
-    s32 += parseInt(h27, 10)
+    s32 += parseFloat(h27)
     vac += 1
   break;
 
   case 'НЗ':
-    s34 += parseInt(h27, 10)
+    s34 += parseFloat(h27)
     vac += 1
   break;
 
   case 'ОЗ':
-    s37 += parseInt(h27, 10)
+    s37 += parseFloat(h27)
     vac += 1
   break;
 
@@ -6297,13 +6297,13 @@ switch (tt27) {
     h_split = h27.split('/')
 
 
-      s38 += parseInt(h_split[0], 10)
-      s19 += parseInt(h_split[1], 10)
+      s38 += parseFloat(h_split[0])
+      s19 += parseFloat(h_split[1])
 
 
     work += 1 }
     else {
-      s38 += parseInt(h27, 10)
+      s38 += parseFloat(h27)
       work += 1
     }
     console.log(s19);
@@ -6312,201 +6312,201 @@ switch (tt27) {
 
   case 'Я/ЛЧ':
     h27_ = h27.split('/')
-    s1 += parseInt(h27_[0], 10)
-    s19 += parseInt(h27_[1], 10)
+    s1 += parseFloat(h27_[0])
+    s19 += parseFloat(h27_[1])
     work += 1
   break;
 
   case 'Я/Н':
     h27_ = h27.split('/')
-    s1 += parseInt(h27_[0], 10)
-    s2 += parseInt(h27_[1], 10)
+    s1 += parseFloat(h27_[0])
+    s2 += parseFloat(h27_[1])
     work += 1
   break;
 
   case 'РВ/Н':
     h27_ = h27.split('/')
-    s3 += parseInt(h27_[0], 10)
-    s2 += parseInt(h27_[1], 10)
+    s3 += parseFloat(h27_[0])
+    s2 += parseFloat(h27_[1])
     work += 1
   break;
 }
 
 switch (tt28) {
   case 'Я':
-    s1 += parseInt(h28, 10)
+    s1 += parseFloat(h28)
     work += 1
   break;
 
   case 'Н':
-    s2 += parseInt(h28, 10)
+    s2 += parseFloat(h28)
     work += 1
   break;
 
   case 'РВ':
-    s3 += parseInt(h28, 10)
+    s3 += parseFloat(h28)
     work += 1
   break;
 
   case 'ВМ':
-    s5 += parseInt(h28, 10)
+    s5 += parseFloat(h28)
     work += 1
   break;
 
   case 'КМ':
-    s36 += parseInt(h28, 10)
+    s36 += parseFloat(h28)
     work += 1
   break;
 
   case 'К':
-    s6 += parseInt(h28, 10)
+    s6 += parseFloat(h28)
     vac += 1
   break;
 
 
   case 'ПК':
-    s7 += parseInt(h28, 10)
+    s7 += parseFloat(h28)
     work += 1
   break;
 
   case 'ПМ':
-    s8 += parseInt(h28, 10)
+    s8 += parseFloat(h28)
     work += 1
   break;
 
   case 'ОТ':
-    s9 += parseInt(h28, 10)
+    s9 += parseFloat(h28)
     vac += 1
   break;
 
   case 'ОД':
-    s10 += parseInt(h28, 10)
+    s10 += parseFloat(h28)
     vac += 1
   break;
 
   case 'У':
-    s11 += parseInt(h28, 10)
+    s11 += parseFloat(h28)
     vac += 1
   break;
 
   case 'УВ':
-    s12 += parseInt(h28, 10)
+    s12 += parseFloat(h28)
     work += 1
   break;
 
   case 'УД':
-    s13 += parseInt(h28, 10)
+    s13 += parseFloat(h28)
     vac += 1
   break;
 
   case 'Р':
-    s14 += parseInt(h28, 10)
+    s14 += parseFloat(h28)
     vac += 1
   break;
 
   case 'ОЖ':
-    s15 += parseInt(h28, 10)
+    s15 += parseFloat(h28)
     vac += 1
   break;
 
   case 'ДО':
-    s16 += parseInt(h28, 10)
+    s16 += parseFloat(h28)
     vac += 1
   break;
 
   case 'Б':
-    s17 += parseInt(h28, 10)
+    s17 += parseFloat(h28)
     vac += 1
   break;
 
   case 'Т':
-    s18 += parseInt(h28, 10)
+    s18 += parseFloat(h28)
     vac += 1
   break;
 
   case 'ЛЧ':
-    s19 += parseInt(h28, 10)
+    s19 += parseFloat(h28)
     vac += 1
   break;
 
   case 'ПВ':
-    s20 += parseInt(h28, 10)
+    s20 += parseFloat(h28)
     vac += 1
   break;
 
   case 'Г':
-    s21 += parseInt(h28, 10)
+    s21 += parseFloat(h28)
     vac += 1
   break;
 
   case 'ПР':
-    s22 += parseInt(h28, 10)
+    s22 += parseFloat(h28)
     vac += 1
   break;
 
   case 'НС':
-    s23 += parseInt(h28, 10)
+    s23 += parseFloat(h28)
     work += 1
   break;
 
   case 'В':
-    s24 += parseInt(h28, 10)
+    s24 += parseFloat(h28)
 
 
   break;
 
   case 'ОВ':
-    s25 += parseInt(h28, 10)
+    s25 += parseFloat(h28)
     vac += 1
   break;
 
   case 'НВ':
-    s26 += parseInt(h28, 10)
+    s26 += parseFloat(h28)
     vac += 1
   break;
 
   case 'ЗБ':
-    s27 += parseInt(h28, 10)
+    s27 += parseFloat(h28)
     vac += 1
   break;
 
   case 'НН':
-    s28 += parseInt(h28, 10)
+    s28 += parseFloat(h28)
     vac += 1
   break;
 
   case 'РП':
-    s29 += parseInt(h28, 10)
+    s29 += parseFloat(h28)
     vac += 1
   break;
 
   case 'НП':
-    s30 += parseInt(h28, 10)
+    s30 += parseFloat(h28)
     vac += 1
   break;
 
   case 'ВП':
-    s31 += parseInt(h28, 10)
+    s31 += parseFloat(h28)
     vac += 1
   break;
 
   case 'НО':
-    s33 += parseInt(h28, 10)
+    s33 += parseFloat(h28)
     vac += 1
   break;
 
   case 'НБ':
-    s32 += parseInt(h28, 10)
+    s32 += parseFloat(h28)
     vac += 1
   break;
 
   case 'НЗ':
-    s34 += parseInt(h28, 10)
+    s34 += parseFloat(h28)
     vac += 1
   break;
 
   case 'ОЗ':
-    s37 += parseInt(h28, 10)
+    s37 += parseFloat(h28)
     vac += 1
   break;
 
@@ -6515,13 +6515,13 @@ switch (tt28) {
     h_split = h28.split('/')
 
 
-      s38 += parseInt(h_split[0], 10)
-      s19 += parseInt(h_split[1], 10)
+      s38 += parseFloat(h_split[0])
+      s19 += parseFloat(h_split[1])
 
 
     work += 1 }
     else {
-      s38 += parseInt(h28, 10)
+      s38 += parseFloat(h28)
       work += 1
     }
     console.log(s19);
@@ -6530,201 +6530,201 @@ switch (tt28) {
 
   case 'Я/ЛЧ':
     h28_ = h28.split('/')
-    s1 += parseInt(h28_[0], 10)
-    s19 += parseInt(h28_[1], 10)
+    s1 += parseFloat(h28_[0])
+    s19 += parseFloat(h28_[1])
     work += 1
   break;
 
   case 'Я/Н':
     h28_ = h28.split('/')
-    s1 += parseInt(h28_[0], 10)
-    s2 += parseInt(h28_[1], 10)
+    s1 += parseFloat(h28_[0])
+    s2 += parseFloat(h28_[1])
     work += 1
   break;
 
   case 'РВ/Н':
     h28_ = h28.split('/')
-    s3 += parseInt(h28_[0], 10)
-    s2 += parseInt(h28_[1], 10)
+    s3 += parseFloat(h28_[0])
+    s2 += parseFloat(h28_[1])
     work += 1
   break;
 }
 
 switch (tt29) {
   case 'Я':
-    s1 += parseInt(h29, 10)
+    s1 += parseFloat(h29)
     work += 1
   break;
 
   case 'Н':
-    s2 += parseInt(h29, 10)
+    s2 += parseFloat(h29)
     work += 1
   break;
 
   case 'РВ':
-    s3 += parseInt(h29, 10)
+    s3 += parseFloat(h29)
     work += 1
   break;
 
   case 'ВМ':
-    s5 += parseInt(h29, 10)
+    s5 += parseFloat(h29)
     work += 1
   break;
 
   case 'КМ':
-    s36 += parseInt(h29, 10)
+    s36 += parseFloat(h29)
     work += 1
   break;
 
   case 'К':
-    s6 += parseInt(h29, 10)
+    s6 += parseFloat(h29)
     vac += 1
   break;
 
 
   case 'ПК':
-    s7 += parseInt(h29, 10)
+    s7 += parseFloat(h29)
     work += 1
   break;
 
   case 'ПМ':
-    s8 += parseInt(h29, 10)
+    s8 += parseFloat(h29)
     work += 1
   break;
 
   case 'ОТ':
-    s9 += parseInt(h29, 10)
+    s9 += parseFloat(h29)
     vac += 1
   break;
 
   case 'ОД':
-    s10 += parseInt(h29, 10)
+    s10 += parseFloat(h29)
     vac += 1
   break;
 
   case 'У':
-    s11 += parseInt(h29, 10)
+    s11 += parseFloat(h29)
     vac += 1
   break;
 
   case 'УВ':
-    s12 += parseInt(h29, 10)
+    s12 += parseFloat(h29)
     work += 1
   break;
 
   case 'УД':
-    s13 += parseInt(h29, 10)
+    s13 += parseFloat(h29)
     vac += 1
   break;
 
   case 'Р':
-    s14 += parseInt(h29, 10)
+    s14 += parseFloat(h29)
     vac += 1
   break;
 
   case 'ОЖ':
-    s15 += parseInt(h29, 10)
+    s15 += parseFloat(h29)
     vac += 1
   break;
 
   case 'ДО':
-    s16 += parseInt(h29, 10)
+    s16 += parseFloat(h29)
     vac += 1
   break;
 
   case 'Б':
-    s17 += parseInt(h29, 10)
+    s17 += parseFloat(h29)
     vac += 1
   break;
 
   case 'Т':
-    s18 += parseInt(h29, 10)
+    s18 += parseFloat(h29)
     vac += 1
   break;
 
   case 'ЛЧ':
-    s19 += parseInt(h29, 10)
+    s19 += parseFloat(h29)
     vac += 1
   break;
 
   case 'ПВ':
-    s20 += parseInt(h29, 10)
+    s20 += parseFloat(h29)
     vac += 1
   break;
 
   case 'Г':
-    s21 += parseInt(h29, 10)
+    s21 += parseFloat(h29)
     vac += 1
   break;
 
   case 'ПР':
-    s22 += parseInt(h29, 10)
+    s22 += parseFloat(h29)
     vac += 1
   break;
 
   case 'НС':
-    s23 += parseInt(h29, 10)
+    s23 += parseFloat(h29)
     work += 1
   break;
 
   case 'В':
-    s24 += parseInt(h29, 10)
+    s24 += parseFloat(h29)
 
 
   break;
 
   case 'ОВ':
-    s25 += parseInt(h29, 10)
+    s25 += parseFloat(h29)
     vac += 1
   break;
 
   case 'НВ':
-    s26 += parseInt(h29, 10)
+    s26 += parseFloat(h29)
     vac += 1
   break;
 
   case 'ЗБ':
-    s27 += parseInt(h29, 10)
+    s27 += parseFloat(h29)
     vac += 1
   break;
 
   case 'НН':
-    s28 += parseInt(h29, 10)
+    s28 += parseFloat(h29)
     vac += 1
   break;
 
   case 'РП':
-    s29 += parseInt(h29, 10)
+    s29 += parseFloat(h29)
     vac += 1
   break;
 
   case 'НП':
-    s30 += parseInt(h29, 10)
+    s30 += parseFloat(h29)
     vac += 1
   break;
 
   case 'ВП':
-    s31 += parseInt(h29, 10)
+    s31 += parseFloat(h29)
     vac += 1
   break;
 
   case 'НО':
-    s33 += parseInt(h29, 10)
+    s33 += parseFloat(h29)
     vac += 1
   break;
 
   case 'НБ':
-    s32 += parseInt(h29, 10)
+    s32 += parseFloat(h29)
     vac += 1
   break;
 
   case 'НЗ':
-    s34 += parseInt(h29, 10)
+    s34 += parseFloat(h29)
     vac += 1
   break;
 
   case 'ОЗ':
-    s37 += parseInt(h29, 10)
+    s37 += parseFloat(h29)
     vac += 1
   break;
 
@@ -6733,13 +6733,13 @@ switch (tt29) {
     h_split = h29.split('/')
 
 
-      s38 += parseInt(h_split[0], 10)
-      s19 += parseInt(h_split[1], 10)
+      s38 += parseFloat(h_split[0])
+      s19 += parseFloat(h_split[1])
 
 
     work += 1 }
     else {
-      s38 += parseInt(h29, 10)
+      s38 += parseFloat(h29)
       work += 1
     }
     console.log(s19);
@@ -6747,202 +6747,202 @@ switch (tt29) {
 
   case 'Я/ЛЧ':
     h29_ = h29.split('/')
-    s1 += parseInt(h29_[0], 10)
-    s19 += parseInt(h29_[1], 10)
+    s1 += parseFloat(h29_[0])
+    s19 += parseFloat(h29_[1])
 
     work += 1
   break;
 
   case 'Я/Н':
     h29_ = h29.split('/')
-    s1 += parseInt(h29_[0], 10)
-    s2 += parseInt(h29_[1], 10)
+    s1 += parseFloat(h29_[0])
+    s2 += parseFloat(h29_[1])
     work += 1
   break;
 
   case 'РВ/Н':
     h29_ = h29.split('/')
-    s3 += parseInt(h29_[0], 10)
-    s2 += parseInt(h29_[1], 10)
+    s3 += parseFloat(h29_[0])
+    s2 += parseFloat(h29_[1])
     work += 1
   break;
 }
 
 switch (tt30) {
   case 'Я':
-    s1 += parseInt(h30, 10)
+    s1 += parseFloat(h30)
     work += 1
   break;
 
   case 'Н':
-    s2 += parseInt(h30, 10)
+    s2 += parseFloat(h30)
     work += 1
   break;
 
   case 'РВ':
-    s3 += parseInt(h30, 10)
+    s3 += parseFloat(h30)
     work += 1
   break;
 
   case 'ВМ':
-    s5 += parseInt(h30, 10)
+    s5 += parseFloat(h30)
     work += 1
   break;
 
   case 'КМ':
-    s36 += parseInt(h30, 10)
+    s36 += parseFloat(h30)
     work += 1
   break;
 
   case 'К':
-    s6 += parseInt(h30, 10)
+    s6 += parseFloat(h30)
     vac += 1
   break;
 
 
   case 'ПК':
-    s7 += parseInt(h30, 10)
+    s7 += parseFloat(h30)
     work += 1
   break;
 
   case 'ПМ':
-    s8 += parseInt(h30, 10)
+    s8 += parseFloat(h30)
     work += 1
   break;
 
   case 'ОТ':
-    s9 += parseInt(h30, 10)
+    s9 += parseFloat(h30)
     vac += 1
   break;
 
   case 'ОД':
-    s10 += parseInt(h30, 10)
+    s10 += parseFloat(h30)
     vac += 1
   break;
 
   case 'У':
-    s11 += parseInt(h30, 10)
+    s11 += parseFloat(h30)
     vac += 1
   break;
 
   case 'УВ':
-    s12 += parseInt(h30, 10)
+    s12 += parseFloat(h30)
     work += 1
   break;
 
   case 'УД':
-    s13 += parseInt(h30, 10)
+    s13 += parseFloat(h30)
     vac += 1
   break;
 
   case 'Р':
-    s14 += parseInt(h30, 10)
+    s14 += parseFloat(h30)
     vac += 1
   break;
 
   case 'ОЖ':
-    s15 += parseInt(h30, 10)
+    s15 += parseFloat(h30)
     vac += 1
   break;
 
   case 'ДО':
-    s16 += parseInt(h30, 10)
+    s16 += parseFloat(h30)
     vac += 1
   break;
 
   case 'Б':
-    s17 += parseInt(h30, 10)
+    s17 += parseFloat(h30)
     vac += 1
   break;
 
   case 'Т':
-    s18 += parseInt(h30, 10)
+    s18 += parseFloat(h30)
     vac += 1
   break;
 
   case 'ЛЧ':
-    s19 += parseInt(h30, 10)
+    s19 += parseFloat(h30)
     vac += 1
   break;
 
   case 'ПВ':
-    s20 += parseInt(h30, 10)
+    s20 += parseFloat(h30)
     vac += 1
   break;
 
   case 'Г':
-    s21 += parseInt(h30, 10)
+    s21 += parseFloat(h30)
     vac += 1
   break;
 
   case 'ПР':
-    s22 += parseInt(h30, 10)
+    s22 += parseFloat(h30)
     vac += 1
   break;
 
   case 'НС':
-    s23 += parseInt(h30, 10)
+    s23 += parseFloat(h30)
     work += 1
   break;
 
   case 'В':
-    s24 += parseInt(h30, 10)
+    s24 += parseFloat(h30)
 
 
   break;
 
   case 'ОВ':
-    s25 += parseInt(h30, 10)
+    s25 += parseFloat(h30)
     vac += 1
   break;
 
   case 'НВ':
-    s26 += parseInt(h30, 10)
+    s26 += parseFloat(h30)
     vac += 1
   break;
 
   case 'ЗБ':
-    s27 += parseInt(h30, 10)
+    s27 += parseFloat(h30)
     vac += 1
   break;
 
   case 'НН':
-    s28 += parseInt(h30, 10)
+    s28 += parseFloat(h30)
     vac += 1
   break;
 
   case 'РП':
-    s29 += parseInt(h30, 10)
+    s29 += parseFloat(h30)
     vac += 1
   break;
 
   case 'НП':
-    s30 += parseInt(h30, 10)
+    s30 += parseFloat(h30)
     vac += 1
   break;
 
   case 'ВП':
-    s31 += parseInt(h30, 10)
+    s31 += parseFloat(h30)
     vac += 1
   break;
 
   case 'НО':
-    s33 += parseInt(h30, 10)
+    s33 += parseFloat(h30)
     vac += 1
   break;
 
   case 'НБ':
-    s32 += parseInt(h30, 10)
+    s32 += parseFloat(h30)
     vac += 1
   break;
 
   case 'НЗ':
-    s34 += parseInt(h30, 10)
+    s34 += parseFloat(h30)
     vac += 1
   break;
 
   case 'ОЗ':
-    s37 += parseInt(h30, 10)
+    s37 += parseFloat(h30)
     vac += 1
   break;
 
@@ -6951,13 +6951,13 @@ switch (tt30) {
     h_split = h30.split('/')
 
 
-      s38 += parseInt(h_split[0], 10)
-      s19 += parseInt(h_split[1], 10)
+      s38 += parseFloat(h_split[0])
+      s19 += parseFloat(h_split[1])
 
 
     work += 1 }
     else {
-      s38 += parseInt(h30, 10)
+      s38 += parseFloat(h30)
       work += 1
     }
     console.log(s19);
@@ -6966,201 +6966,201 @@ switch (tt30) {
 
   case 'Я/ЛЧ':
     h30_ = h30.split('/')
-    s1 += parseInt(h30_[0], 10)
-    s19 += parseInt(h30_[1], 10)
+    s1 += parseFloat(h30_[0])
+    s19 += parseFloat(h30_[1])
     work += 1
   break;
 
   case 'Я/Н':
     h30_ = h30.split('/')
-    s1 += parseInt(h30_[0], 10)
-    s2 += parseInt(h30_[1], 10)
+    s1 += parseFloat(h30_[0])
+    s2 += parseFloat(h30_[1])
     work += 1
   break;
 
   case 'РВ/Н':
     h30_ = h30.split('/')
-    s3 += parseInt(h30_[0], 10)
-    s2 += parseInt(h30_[1], 10)
+    s3 += parseFloat(h30_[0])
+    s2 += parseFloat(h30_[1])
     work += 1
   break;
 }
 
 switch (tt31) {
   case 'Я':
-    s1 += parseInt(h31, 10)
+    s1 += parseFloat(h31)
     work += 1
   break;
 
   case 'Н':
-    s2 += parseInt(h31, 10)
+    s2 += parseFloat(h31)
     work += 1
   break;
 
   case 'РВ':
-    s3 += parseInt(h31, 10)
+    s3 += parseFloat(h31)
     work += 1
   break;
 
   case 'ВМ':
-    s5 += parseInt(h31, 10)
+    s5 += parseFloat(h31)
     work += 1
   break;
 
   case 'КМ':
-    s36 += parseInt(h31, 10)
+    s36 += parseFloat(h31)
     work += 1
   break;
 
   case 'К':
-    s6 += parseInt(h31, 10)
+    s6 += parseFloat(h31)
     vac += 1
   break;
 
 
   case 'ПК':
-    s7 += parseInt(h31, 10)
+    s7 += parseFloat(h31)
     work += 1
   break;
 
   case 'ПМ':
-    s8 += parseInt(h31, 10)
+    s8 += parseFloat(h31)
     work += 1
   break;
 
   case 'ОТ':
-    s9 += parseInt(h31, 10)
+    s9 += parseFloat(h31)
     vac += 1
   break;
 
   case 'ОД':
-    s10 += parseInt(h31, 10)
+    s10 += parseFloat(h31)
     vac += 1
   break;
 
   case 'У':
-    s11 += parseInt(h31, 10)
+    s11 += parseFloat(h31)
     vac += 1
   break;
 
   case 'УВ':
-    s12 += parseInt(h31, 10)
+    s12 += parseFloat(h31)
     work += 1
   break;
 
   case 'УД':
-    s13 += parseInt(h31, 10)
+    s13 += parseFloat(h31)
     vac += 1
   break;
 
   case 'Р':
-    s14 += parseInt(h31, 10)
+    s14 += parseFloat(h31)
     vac += 1
   break;
 
   case 'ОЖ':
-    s15 += parseInt(h31, 10)
+    s15 += parseFloat(h31)
     vac += 1
   break;
 
   case 'ДО':
-    s16 += parseInt(h31, 10)
+    s16 += parseFloat(h31)
     vac += 1
   break;
 
   case 'Б':
-    s17 += parseInt(h31, 10)
+    s17 += parseFloat(h31)
     vac += 1
   break;
 
   case 'Т':
-    s18 += parseInt(h31, 10)
+    s18 += parseFloat(h31)
     vac += 1
   break;
 
   case 'ЛЧ':
-    s19 += parseInt(h31, 10)
+    s19 += parseFloat(h31)
     vac += 1
   break;
 
   case 'ПВ':
-    s20 += parseInt(h31, 10)
+    s20 += parseFloat(h31)
     vac += 1
   break;
 
   case 'Г':
-    s21 += parseInt(h31, 10)
+    s21 += parseFloat(h31)
     vac += 1
   break;
 
   case 'ПР':
-    s22 += parseInt(h31, 10)
+    s22 += parseFloat(h31)
     vac += 1
   break;
 
   case 'НС':
-    s23 += parseInt(h31, 10)
+    s23 += parseFloat(h31)
     work += 1
   break;
 
   case 'В':
-    s24 += parseInt(h31, 10)
+    s24 += parseFloat(h31)
 
 
   break;
 
   case 'ОВ':
-    s25 += parseInt(h31, 10)
+    s25 += parseFloat(h31)
     vac += 1
   break;
 
   case 'НВ':
-    s26 += parseInt(h31, 10)
+    s26 += parseFloat(h31)
     vac += 1
   break;
 
   case 'ЗБ':
-    s27 += parseInt(h31, 10)
+    s27 += parseFloat(h31)
     vac += 1
   break;
 
   case 'НН':
-    s28 += parseInt(h31, 10)
+    s28 += parseFloat(h31)
     vac += 1
   break;
 
   case 'РП':
-    s29 += parseInt(h31, 10)
+    s29 += parseFloat(h31)
     vac += 1
   break;
 
   case 'НП':
-    s30 += parseInt(h31, 10)
+    s30 += parseFloat(h31)
     vac += 1
   break;
 
   case 'ВП':
-    s31 += parseInt(h31, 10)
+    s31 += parseFloat(h31)
     vac += 1
   break;
 
   case 'НО':
-    s33 += parseInt(h31, 10)
+    s33 += parseFloat(h31)
     vac += 1
   break;
 
   case 'НБ':
-    s32 += parseInt(h31, 10)
+    s32 += parseFloat(h31)
     vac += 1
   break;
 
   case 'НЗ':
-    s34 += parseInt(h31, 10)
+    s34 += parseFloat(h31)
     vac += 1
   break;
 
   case 'ОЗ':
-    s37 += parseInt(h31, 10)
+    s37 += parseFloat(h31)
     vac += 1
   break;
 
@@ -7169,13 +7169,13 @@ switch (tt31) {
     h_split = h31.split('/')
 
 
-      s38 += parseInt(h_split[0], 10)
-      s19 += parseInt(h_split[1], 10)
+      s38 += parseFloat(h_split[0])
+      s19 += parseFloat(h_split[1])
 
 
     work += 1 }
     else {
-      s38 += parseInt(h31, 10)
+      s38 += parseFloat(h31)
       work += 1
     }
     console.log(s19);
@@ -7184,28 +7184,28 @@ switch (tt31) {
 
   case 'Я/ЛЧ':
     h31_ = h31.split('/')
-    s1 += parseInt(h31_[0], 10)
-    s19 += parseInt(h31_[1], 10)
+    s1 += parseFloat(h31_[0])
+    s19 += parseFloat(h31_[1])
     work += 1
   break;
 
   case 'Я/Н':
     h31_ = h31.split('/')
-    s1 += parseInt(h31_[0], 10)
-    s2 += parseInt(h31_[1], 10)
+    s1 += parseFloat(h31_[0])
+    s2 += parseFloat(h31_[1])
     work += 1
   break;
 
   case 'РВ/Н':
     h31_ = h31.split('/')
-    s3 += parseInt(h31_[0], 10)
-    s2 += parseInt(h31_[1], 10)
+    s3 += parseFloat(h31_[0])
+    s2 += parseFloat(h31_[1])
     work += 1
   break;
 }
 
 h_work = s1 + s5 + s3 + s36 + s7 + s8 + s23 + s38
-
+console.log(h_work);
 h_vac = s9 + s10 + s11 + s13 + s14 + s15 + s16 + s17 + s18 + s20 + s21 +  s24 + s25 + s26 + s27 + s28 + s29 + s30 + s31 + s32 + s33 + s34 + s37
 
 weekends = s24/8
