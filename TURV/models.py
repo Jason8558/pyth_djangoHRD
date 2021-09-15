@@ -44,7 +44,7 @@ class Position(models.Model):
         return self.name
 
 class Tabel(models.Model):
-    year = models.CharField(verbose_name='Год', db_index=True, max_length=256)
+    year = models.CharField(verbose_name='Год', db_index=True, max_length=4)
     month = models.CharField(verbose_name='Месяц', db_index=True, max_length=256)
     department = models.ForeignKey('Department', verbose_name=' ', db_index=True, on_delete=models.CASCADE)
     del_check = models.BooleanField(verbose_name='Пометка удаления', default=False, blank=True)
