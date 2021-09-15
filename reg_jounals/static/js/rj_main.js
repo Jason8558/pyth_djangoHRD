@@ -246,7 +246,14 @@ function send_submit() {
         comm = $('#iframe').contents().find("#id_comm").val()
                 switch (check_act()) {
                   case 'add':
-                        $('tbody').prepend("<tr><td>" + name + "</td><td>" + dep + "</td><td>" + from + "</td><td>"+ to +"</td><td>" + days + "</td><td>" + type + "</td><td>" + comm + "</td><td></td></tr>")
+                        if ($('.container').is('table')) {
+                          $('tbody').prepend("<tr><td>" + name + "</td><td>" + dep + "</td><td>" + from + "</td><td>"+ to +"</td><td>" + days + "</td><td>" + type + "</td><td>" + comm + "</td><td></td></tr>")
+                        }
+                        else {
+                          $('#btn-add').before('<table><thead class="thead-dark"><thead class="thead-dark"><tr class="tr-header"><th scope="col">ФИО</th><th scope="col">Подразделение</th><th scope="col">Дата начала</th><th scope="col">Дата окончания</th><th scope="col">Дней отпуска</th><th scope="col">Вид отпуска</th><th scope="col">Примечание</th><th scope="col"></th></tr></thead><tbody></tbody></table>')
+                          $('tbody').prepend("<tr><td>" + name + "</td><td>" + dep + "</td><td>" + from + "</td><td>"+ to +"</td><td>" + days + "</td><td>" + type + "</td><td>" + comm + "</td><td></td></tr>")
+                        }
+
                     break;
                   case 'upd':
                       // console.log($('#iframe').attr('src').split('/'));
