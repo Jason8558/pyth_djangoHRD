@@ -800,6 +800,12 @@ def new_order_on_vacation(request):
 def nr_new_order_on_vacation(request):
     if request.user.is_authenticated:
         order_form = NewOrdersOnVacation_form()
+        last_order = NewOrdersOnVacation.objects.latest('id')
+        last_order_num = last_order.order_number
+        print('last num - ' + last_order_num[:3])
+        order_next_num_ = int(last_order_num[:3]) + 1
+        next_num = str(order_next_num_) + '-К-ОТП'
+
         if request.method == "POST":
             order_form = NewOrdersOnVacation_form(request.POST)
             if order_form.is_valid():
@@ -808,7 +814,7 @@ def nr_new_order_on_vacation(request):
                 return redirect('/orders_on_vacation_new')
     else:
         return render(request, 'reg_jounals/no_auth.html')
-    return render(request, 'reg_jounals/OrdersOnVacation_new_add.html', context={'form':order_form})
+    return render(request, 'reg_jounals/OrdersOnVacation_new_add.html', context={'form':order_form, 'next_num':next_num})
 
 def create_new_order_on_vacation(request, id):
     if request.user.is_authenticated:

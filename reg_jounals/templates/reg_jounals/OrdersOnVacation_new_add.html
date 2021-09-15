@@ -1,15 +1,23 @@
 {% extends "reg_jounals/index.html" %}
 
 {%block title%}Добавить запись{% endblock %}
-{%block header%}Добавить сотрудника в приказ{% endblock %}
+{%block header%}Добавить приказ{% endblock %}
 
 {%block content%}
+<script type="text/javascript">
+  $(document).ready(function() {
+    $('header').css('display','none')
+    $('body').css('background', 'white !important') })
+</script>
 {% if form.errors%}
+</div>
+
 
 <div class="alert alert-danger mt-5" role="alert">
 {{form.errors}}
 </div>
 {%endif%}
+<span id="next_num">{{next_num}}</span>
 <form class="add_form" action="" method="post">
   {% csrf_token %}
 
@@ -18,8 +26,10 @@
   <p>{{field.label}}{{ field }}</p>
   {% endfor%}
 
-  <input class="btn btn-success" type="submit" value="Добавить" />
-  <a class="btn btn-outline-danger" href=".">Отмена</a>
+
+
+  <!-- <input class="btn btn-success" type="submit" value="Добавить" />
+  <a class="btn btn-outline-danger" href=".">Отмена</a> -->
 </form>
 
 {%endblock%}

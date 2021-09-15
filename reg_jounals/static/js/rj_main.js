@@ -64,8 +64,18 @@ function OpenSureDialog() {
 }
 
 function check_doctype() {
+
   loc = document.location.href.split('/')[3]
-  return loc
+  console.log(loc + " " + document.location.href.split('/').length );
+  if (loc == 'orders_on_vacation_new' && document.location.href.split('/').length == 5) {
+
+      return 'orders_on_vacation_new_add'
+
+  }
+  else {
+    return loc
+  }
+
 
 
   }
@@ -92,6 +102,10 @@ function open_frame_new() {
       break;
     case 'orders_on_vacation_new':
       src = "/orders_on_vacation_new/" + document.location.href.split('/')[4] + "/addItem"
+      break;
+
+    case 'orders_on_vacation_new_add':
+      src = "/orders_on_vacation_new/add"
       break;
 
     case 'outbound_docs':
