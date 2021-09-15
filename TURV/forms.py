@@ -281,7 +281,7 @@ class Tabel_form(forms.ModelForm):
         model = Tabel
         fields = ['year', 'month', 'department', 'del_check', 'sup_check']
 
-    year = forms.CharField(widget=forms.NumberInput(attrs={'maxlength':'4'}))
+    year = forms.CharField(label="Год (ТОЛЬКО 4 ЦИФРЫ!)", widget=forms.NumberInput(attrs={'maxlength':'4'}))
     def saveFirst(self, user_):
         log = open('log.txt', 'a')
         log.write(str(DT.date.today()) + " пользователь " +str(user_) + " создал табель " + str(self.cleaned_data['department']) + " за " + str(self.cleaned_data['year']) + '.' + str(self.cleaned_data['month'] ))
