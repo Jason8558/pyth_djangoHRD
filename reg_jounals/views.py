@@ -800,11 +800,14 @@ def new_order_on_vacation(request):
 def nr_new_order_on_vacation(request):
     if request.user.is_authenticated:
         order_form = NewOrdersOnVacation_form()
+
+        # Нумерация ----------------------------------------
         last_order = NewOrdersOnVacation.objects.latest('id')
         last_order_num = last_order.order_number
-        print('last num - ' + last_order_num[:3])
-        order_next_num_ = int(last_order_num[:3]) + 1
-        next_num = str(order_next_num_) + '-К-ОТП'
+        cut_symb = (len(str(last_order_num)) - 6)
+        next_num = int(last_order_num[:cut_symb]) + 1
+        next_num = str(next_num) + '-К-ОТП'
+        # --------------------------------------------------
 
         if request.method == "POST":
             order_form = NewOrdersOnVacation_form(request.POST)
