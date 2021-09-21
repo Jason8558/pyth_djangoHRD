@@ -268,7 +268,13 @@ function send_submit() {
         date = Date.parse($('#iframe').contents().find("#id_order_date").val()).toString('dd.MM.yyyy')
 
         if (check_act() == 'add') {
-            $('tbody').prepend("<tr><td>" + date + "</td><td>" + next_num + "</td><td>"+ res_officer +"</td></tr>") }
+            onclick_string = ''
+            onclick_string = "'/orders_on_vacation_new/" + next_id + "/create'>"
+            console.log(onclick_string);
+            $('tbody').prepend('<tr id="' + next_id + '"' + 'onclick = return location.href=' + onclick_string + '<td>' + date + '</td><td>' + next_num + '</td><td>' + res_officer + '</td></tr>')
+          }
+
+
 
       break;
 
