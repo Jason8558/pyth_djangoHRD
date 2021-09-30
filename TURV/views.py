@@ -49,7 +49,7 @@ def tabels(request):
         if len(str(now.month)) == 1:
             month_ = str(0) + str(now.month)
         else:
-            month_ = now.month_
+            month_ = now.month
         year_ = now.year
 
         # Проверка на права пользователя
