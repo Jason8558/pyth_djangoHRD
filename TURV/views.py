@@ -83,7 +83,7 @@ def tabels(request):
                             tabels = Tabel.objects.all().filter(department_id__in=allow_departments).filter(year=year_).filter(month=month_)
                         else:
                             pag = 20
-                            tabels = Tabel.objects.all().filter(department_id__in=allow_departments).order_by('-id')
+                            tabels = Tabel.objects.all().filter(department_id__in=allow_departments).order_by('-month')
 
 
         else:
@@ -117,7 +117,7 @@ def tabels(request):
                                             tabels = Tabel.objects.all().filter(res_officer=sq_user).order_by('-month')
                                         else:
                                             pag = 20
-                                            tabels = Tabel.objects.all().order_by('-id')
+                                            tabels = Tabel.objects.all().order_by('-month')
 
 
 
