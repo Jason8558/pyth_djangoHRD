@@ -82,7 +82,7 @@ def tabels(request):
                         if (sq_this_month):
                             tabels = Tabel.objects.all().filter(department_id__in=allow_departments).filter(year=year_).filter(month=month_)
                         else:
-                            pag = 20
+                            pag = 40
                             tabels = Tabel.objects.all().filter(department_id__in=allow_departments).order_by('-month')
 
 
@@ -116,7 +116,7 @@ def tabels(request):
                                         if (sq_user):
                                             tabels = Tabel.objects.all().filter(res_officer=sq_user).order_by('-month')
                                         else:
-                                            pag = 20
+                                            pag = 40
                                             tabels = Tabel.objects.all().order_by('-month')
 
 
