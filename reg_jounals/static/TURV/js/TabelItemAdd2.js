@@ -40,12 +40,12 @@ intabels = $('.intabel_pos')
 // indeps = $('.indep_pos')
 indeps = $('#t_emps').find('option')
 console.log(indeps[1].getAttribute('id'));
+
 spans = $('.posid')
 for (var sp of spans) {
 
 }
-// .innerText.split('|')[4]
-//
+
 for (var i = 0; i < indeps.length; i++) {
       for (var intabel of intabels) {
         if (intabel.innerText.split('|')[1] == indeps[i]) {
@@ -53,6 +53,7 @@ for (var i = 0; i < indeps.length; i++) {
           $('#t_emps').find('#' + intabel.innerText.split('|')[1]).css('background', 'green')
           // indeps[i].innerHTML = '(✅) ' + indeps[i].innerHTML
           indeps[i].style.background = "lightgreen"
+
           spans[i].style.color = 'white'
         }
 

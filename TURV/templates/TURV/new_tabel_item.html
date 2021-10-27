@@ -25,7 +25,7 @@
   {% for emp in emps %}
   {% if emp.fired%}
   {%else%}
-  <li class="indep_pos">{{emp.fullname}}|{{emp.position}}|{{emp.level}}|{{emp.positionOfPayment}}|<span class="posid" style="color:white">{{emp.id}}</span></li>
+  <li id={{emp.id}}>{{emp.fullname}}|{{emp.position}}|{{emp.level}}|{{emp.positionOfPayment}}|<span class="posid" style="color:white">{{emp.id}}</span></li>
   {%endif%}
   {%endfor%}
 </ul>
