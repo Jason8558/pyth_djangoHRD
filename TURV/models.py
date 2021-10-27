@@ -44,7 +44,7 @@ class Position(models.Model):
         return self.name
 
 class Tabel(models.Model):
-    year = models.CharField(verbose_name='Год', db_index=True, max_length=256)
+    year = models.CharField(verbose_name='Год', db_index=True, max_length=4)
     month = models.CharField(verbose_name='Месяц', db_index=True, max_length=256)
     department = models.ForeignKey('Department', verbose_name=' ', db_index=True, on_delete=models.CASCADE)
     del_check = models.BooleanField(verbose_name='Пометка удаления', default=False, blank=True)
@@ -133,7 +133,7 @@ class TabelItem(models.Model):
     hours31 = models.CharField(max_length=4, verbose_name='Часы31', null = True, blank=True)
 
 #Итоги видов времени
-    sHours1 = models.IntegerField(verbose_name='Явки (Я)', help_text='Явки', null = True, blank=True)
+    sHours1 = models.FloatField(verbose_name='Явки (Я)', help_text='Явки', null = True, blank=True)
     sHours2 = models.IntegerField(verbose_name='Ночные (Н)', null = True, blank=True)
     sHours3 = models.IntegerField(verbose_name='Работа в выходные и празд. (РВ)', null = True, blank=True)
     sHours4 = models.FloatField(verbose_name='Сверхурочные (С)', null = True, blank=True)
@@ -172,9 +172,11 @@ class TabelItem(models.Model):
     sHours37 = models.IntegerField(verbose_name='Пенсионный', null = True, blank=True)
     sHours38 = models.IntegerField(verbose_name='Нерабочие оплачиваемые дни', null = True, blank=True)
     w_days = models.IntegerField(verbose_name='Дней отработано', default=0, null = True, blank=True)
-    w_hours = models.IntegerField(verbose_name='Часов отработано', default=0, null = True, blank=True)
+    # w_hours = models.IntegerField(verbose_name='Часов отработано', default=0, null = True, blank=True)
+    w_hours = models.FloatField(verbose_name='Часов отработано', default=0, null = True, blank=True)
     v_days = models.IntegerField(verbose_name='Дней неявок', default=0, null = True, blank=True)
-    v_hours = models.IntegerField(verbose_name='Часов неявок', default=0, null = True, blank=True)
+    # v_hours = models.IntegerField(verbose_name='Часов неявок', default=0, null = True, blank=True)
+    v_hours = models.FloatField(verbose_name='Часов неявок', default=0, null = True, blank=True)
 
     class Meta:
         ordering = ['-year']

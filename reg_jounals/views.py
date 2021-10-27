@@ -296,7 +296,7 @@ def order_other_matters(request):
                     page_number = request.GET.get('page', 1)
                 else:
                     orders = OrdersOnOtherMatters.objects.all().order_by('-id')
-                    p_orders = Paginator(orders, 20)
+                    p_orders = Paginator(orders, 40)
                     page_number = request.GET.get('page', 1)
         page = p_orders.get_page(page_number)
         count = len(orders)
@@ -690,12 +690,12 @@ def sick_regs(request):
         search_query = request.GET.get('sd_search','')
         sq_dep = request.GET.get('sd_dep_search','')
         if search_query:
-            sick_docs = SickDocument.objects.filter(sd_emp__icontains=search_query)
+            sick_docs = SickDocument.objects.filter(sd_emp__icontains=search_query).order_by('-id')
             sdocs_count = len(sick_docs)
             return render(request, 'reg_jounals/sick_search.html', context={'sick_docs':sick_docs, 'search_query':search_query, 'sdocs_count':sdocs_count, 'deps':deps})
         else:
             if sq_dep:
-                sick_docs = SickDocument.objects.filter(sd_dep=sq_dep)
+                sick_docs = SickDocument.objects.filter(sd_dep=sq_dep).order_by('-id')
                 sdocs_count = len(sick_docs)
                 return render(request, 'reg_jounals/sick_search.html', context={'sick_docs':sick_docs, 'search_query':sq_dep, 'sdocs_count':sdocs_count, 'deps':deps})
             else:

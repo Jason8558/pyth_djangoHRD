@@ -10,9 +10,9 @@
 <span><b>{{b_tabel.department}}</b></span>
 за: <b><span class="field_month">{{month}}</span> {{year}} г.</b>
 Всего человек в табеле: {{count}} {%if b_tabel.del_check == 0%}|
-<a class="btn btn-outline-danger" href="{% url 'delcheck' id=b_tabel.id%}">Пометить на удаление</a>{%endif%}
+<!-- <a class="btn btn-outline-danger" href="{% url 'delcheck' id=b_tabel.id%}">Пометить на удаление</a>{%endif%}
 {%if b_tabel.del_check == 1 and granted == 1%}|
-<a class="btn btn-outline-danger" href="{% url 'delcheck' id=b_tabel.id%}">Снять пометку удаления</a>{%endif%}
+<a class="btn btn-outline-danger" href="{% url 'delcheck' id=b_tabel.id%}">Снять пометку удаления</a>{%endif%} -->
 {%endblock%}
 
 {%block scripts%}
@@ -106,7 +106,7 @@
     <a class="btn btn-danger" href="{% url 'checked' id=b_tabel.id%}">Отменить проверку</a>
     {%endif%}
     <h4 style="color: green;">✅ Проверен СУП</h4>
-  {%else%}
+    {%else%}
     {% if granted == 1%}
     <a class="btn btn-success" href="{% url 'checked' id=b_tabel.id%}">Отметить как проверенный</a>
     {%endif%}
@@ -116,8 +116,8 @@
   {{form.errors}}
   {%endif%}
 
-  {% if b_tabel.del_check %}
-    <h2 style="color:red; text-decoration: underline;">Табель помечен на удаление, дальнейшая работа не возможна!</h2>
+  {% if b_tabel.sup_check %}
+    <h2 style="color:green; text-decoration: underline;" class="not-print">Табель проверен, внесение изменений невозможно</h2>
   {% else %}
   <a class="btn btn-success btn-add not-print" href="{% url 'tabel_addItem_url' id=b_tabel.id%}">+ Добавить сотрудника в табель</a>
   {% endif %}
@@ -189,8 +189,11 @@
 
 
 
-
-    <tr onclick="return location.href = '{% url 'tabel_updItem_url' id=item.id%}' "  class="time_types">
+    {% if b_tabel.sup_check %}
+    <tr class="time_types">
+    {%else%}
+      <tr onclick="return location.href = '{% url 'tabel_updItem_url' id=item.id%}' "  class="time_types">
+    {%endif%}
       <th class="print-num cell_bb" rowspan="2"></th>
       <td  class="for-print cell_bb fio" rowspan="2" colspan="3">{{item.employer.fullname}}, {{item.employer.position|truncatechars:10}}, {{item.employer.level}}</td>
 
@@ -233,9 +236,9 @@
       <td class="cell_ttime day31">{{item.type_time31}}</td>
       <td rowspan="2" class="cell_bb">{{item.w_days}}</td>
       {% if item.sHours19 != 0 %}
-      <td rowspan="2" class="cell_bb wide-itogs">{{item.w_hours}}/{{item.sHours19}}</td>
+      <td rowspan="2" class="cell_bb wide-itogs">{{item.w_hours|floatformat:-2}}/{{item.sHours19}}</td>
       {%else%}
-      <td rowspan="2" class="cell_bb wide-itogs">{{item.w_hours}}</td>
+      <td rowspan="2" class="cell_bb wide-itogs">{{item.w_hours|floatformat:-2}}</td>
         {%endif%}
 
       {% if item.sHours4 > 0 %}
