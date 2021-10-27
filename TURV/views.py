@@ -145,7 +145,7 @@ def tabels(request):
                                             tabels = Tabel.objects.all().filter(res_officer=sq_user).order_by('-month')
                                         else:
                                             pag = 40
-                                            tabels = Tabel.objects.all().order_by('-month')
+                                            tabels = Tabel.objects.all().order_by('-year', '-month')
 
 
 
