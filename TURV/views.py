@@ -59,7 +59,7 @@ def tabels(request):
     if request.user.is_authenticated:
         # Переменные
         group = Group.objects.get(name__icontains='Табельщик')
-        tab_users = group.user_set.all()
+        tab_users = group.user_set.all().order_by('first_name')
         sq_period_month = request.GET.get('search_month', '')
         sq_period_year = request.GET.get('search_year', '')
         sq_dep = request.GET.get('t_tab_dep_search', '')
@@ -116,7 +116,7 @@ def tabels(request):
 
         else:
             # если у пользователя полные права, то выдаем все
-            deps = Department.objects.all()
+            deps = Department.objects.all().order_by('name')
             # Алгоритм поиска
             pag = 1000
             if (sq_period_month) and (sq_period_year) and (sq_dep):
