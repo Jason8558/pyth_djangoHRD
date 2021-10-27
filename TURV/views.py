@@ -136,7 +136,7 @@ def tabels(request):
                                 tabels = Tabel.objects.all().filter(department_id=sq_dep)
                             else:
                                 if (sq_this_month):
-                                    tabels = Tabel.objects.all().filter(year=year_).filter(month=month_)
+                                    tabels = Tabel.objects.all().filter(year=year_).filter(month=month_).order_by('dep_id')
                                 else:
                                     if (sq_check_this_month):
                                         tabels = Tabel.objects.all().filter(year=year_).filter(month=month_).filter(sup_check= True)
