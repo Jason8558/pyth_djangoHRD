@@ -36,28 +36,18 @@ emp_info()
 
 // Отметка о том, что сотрудник добавлен в табель
 
-intabels = $('.intabel_pos')
-// indeps = $('.indep_pos')
-indeps = $('#t_emps').find('option')
-console.log(indeps[1].getAttribute('id'));
+intabels = $('.intabel').find('li')
+indeps = $('.indep').find('li')
 
-spans = $('.posid')
-for (var sp of spans) {
 
-}
 
 for (var i = 0; i < indeps.length; i++) {
-      for (var intabel of intabels) {
-        if (intabel.innerText.split('|')[1] == indeps[i]) {
-          console.log(indeps[i]);
-          $('#t_emps').find('#' + intabel.innerText.split('|')[1]).css('background', 'green')
-          // indeps[i].innerHTML = '(✅) ' + indeps[i].innerHTML
-          indeps[i].style.background = "lightgreen"
-
-          spans[i].style.color = 'white'
-        }
-
-      }
+ for (var intabel of intabels) {
+   if (indeps[i].id == intabel.id) {
+     console.log(indeps[i].id + " yes");
+     $('.indep').find('#' + intabel.id).css('background', 'lightgreen')
+   }
+ }
   }
 
 
