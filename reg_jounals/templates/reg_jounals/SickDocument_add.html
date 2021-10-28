@@ -8,8 +8,12 @@
 {%block content%}
 {% if form.errors%}
 
-<div class="alert alert-danger mt-5" role="alert">
-{{form.errors}}
+<div class="alert alert-danger mt-5 form_error" role="alert">
+  <ul>
+  {{errs}}
+  </ul>
+
+
 </div>
 {%endif%}
 <script type="text/javascript">

@@ -573,8 +573,16 @@ $(location).attr('href',url);}, 250)
 
     }
     // Делаем сабмит, закрываем форму -----------
-    $('#iframe').contents().find('form').submit()
-      close_frame()
+    setTimeout(function(){
+    if ($('#iframe').contents().find('.form_error')) {
+      console.log($('#iframe').contents().find('.form_error').html());
+    }
+    else {
+      $('#iframe').contents().find('form').submit()
+        close_frame()
+    }
+  }, 400)
+
     // ------------------------------------------
 }
 // =========================================================================================================

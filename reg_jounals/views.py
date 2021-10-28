@@ -730,6 +730,7 @@ def add_SickRegistry(request):
 def add_SickDocument(request, sr_number_):
     if request.user.is_authenticated:
         doc_form = SickDocument_form()
+        errs = doc_form.errors.as_data()
         if request.method == "POST":
             doc_form = SickDocument_form(request.POST)
             if doc_form.is_valid():
@@ -737,9 +738,18 @@ def add_SickDocument(request, sr_number_):
                 doc_form.saveFirst(user_, sr_number_)
                 loc = '/sick_reg/'+str(sr_number_)+'/create/'
                 return redirect(loc)
+            else:
+                errs = doc_form.errors.as_data()
+                print(str(errs['sd_number'][0]))
+
+                if errs['sd_number']:
+                    dual_num = request.POST.get('sd_number','')
+                    find_doc = SickDocument.objects.get(sd_number=dual_num)
+                    print('yes')
+                    errs = "Больничный лист c таким номером существует в реестре № " + str(find_doc.sd_reg_number) + " сотрудник: " + str(find_doc.sd_emp) 
     else:
         return render(request, 'reg_jounals/no_auth.html')
-    return render(request, 'reg_jounals/SickDocument_add.html', context={'form':doc_form, 'reg_num':sr_number_})
+    return render(request, 'reg_jounals/SickDocument_add.html', context={'form':doc_form, 'reg_num':sr_number_, 'errs':errs})
 
 def upd_SickDocument(request, id):
     if request.user.is_authenticated:

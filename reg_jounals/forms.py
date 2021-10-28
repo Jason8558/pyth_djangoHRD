@@ -1,4 +1,5 @@
 from django import forms
+from django.core.exceptions import NON_FIELD_ERRORS
 from .models import *
 from django.contrib.auth.forms import AuthenticationForm
 import datetime as DT
@@ -388,9 +389,16 @@ class SickRegistry_form(forms.ModelForm):
             return new_registry
 
 class SickDocument_form(forms.ModelForm):
-    class Meta:
-        model = SickDocument
 
+    class Meta:
+
+
+        model = SickDocument
+        error_messages = {
+            NON_FIELD_ERRORS: {
+            'unique_together': "Больничный лист с таким номером существует!",
+            }
+                }
         fields = [
 
     'sd_number',

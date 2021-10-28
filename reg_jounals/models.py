@@ -179,7 +179,7 @@ class SickRegistry(models.Model):
 
 class SickDocument(models.Model):
     sd_reg_number = models.CharField(max_length=256, blank=True, help_text="Введите номер реестра", verbose_name="№ реестра ", default=" ")
-    sd_number = models.CharField(max_length=256, help_text="Введите номер б\л", verbose_name="Номер б\л", db_index=True)
+    sd_number = models.CharField(max_length=256, help_text="Введите номер б\л", verbose_name="Номер б\л", unique=True, db_index=True)
     sd_emp = models.CharField(max_length=256, help_text="Введите ФИО сотрудника", verbose_name="ФИО", db_index=True)
     sd_pos = models.CharField(max_length=256, help_text="Введите должность", verbose_name="Должность", db_index=True)
     sd_dep = models.ForeignKey('Departments',  on_delete=models.CASCADE, verbose_name="Подразделение ", default="1")
