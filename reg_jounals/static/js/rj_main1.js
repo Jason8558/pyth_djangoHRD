@@ -285,24 +285,28 @@ $(location).attr('href',url);}, 250)
 
         name = $('#iframe').contents().find("#id_fio").val()
         dep = $('#iframe').contents().find("#id_dep option:selected").text()
-        from = Date.parse($('#iframe').contents().find("#id_dur_from").val()).toString('dd.MM.yyyy')
-        to = Date.parse($('#iframe').contents().find("#id_dur_to").val()).toString('dd.MM.yyyy')
+        from = $('#iframe').contents().find("#id_dur_from").val().split("-")
+        from = from[2] + "." + from[1] + "." + from[0]
+        to = $('#iframe').contents().find("#id_dur_to").val().split("-")
+        to = to[2] + "." + to[1] + "." + to[0]
         days = $('#iframe').contents().find("#id_days_count").val()
         type = $('#iframe').contents().find("#id_vac_type option:selected").val()
         comm = $('#iframe').contents().find("#id_comm").val()
+
                 switch (check_act()) {
+
                   case 'add':
-                        if ($('.container').is('table')) {
+                        if ($('table').is('.vac_table')) {
                           $('tbody').prepend("<tr><td>" + name + "</td><td>" + dep + "</td><td>" + from + "</td><td>"+ to +"</td><td>" + days + "</td><td>" + type + "</td><td>" + comm + "</td><td></td></tr>")
                         }
                         else {
-                          $('#btn-add').before('<table><thead class="thead-dark"><thead class="thead-dark"><tr class="tr-header"><th scope="col">ФИО</th><th scope="col">Подразделение</th><th scope="col">Дата начала</th><th scope="col">Дата окончания</th><th scope="col">Дней отпуска</th><th scope="col">Вид отпуска</th><th scope="col">Примечание</th><th scope="col"></th></tr></thead><tbody></tbody></table>')
+                          $('#btn-add').before('<table class="vac_table"><thead class="thead-dark"><thead class="thead-dark"><tr class="tr-header"><th scope="col">ФИО</th><th scope="col">Подразделение</th><th scope="col">Дата начала</th><th scope="col">Дата окончания</th><th scope="col">Дней отпуска</th><th scope="col">Вид отпуска</th><th scope="col">Примечание</th><th scope="col"></th></tr></thead><tbody></tbody></table>')
                           $('tbody').prepend("<tr><td>" + name + "</td><td>" + dep + "</td><td>" + from + "</td><td>"+ to +"</td><td>" + days + "</td><td>" + type + "</td><td>" + comm + "</td><td></td></tr>")
                         }
 
                     break;
                   case 'upd':
-                      // console.log($('#iframe').attr('src').split('/'));
+                      console.log(from);
                       id = $('#iframe').attr('src').split('/')[3]
                       $("#" + id).find('#name').text(name)
                       $("#" + id).find('#dep').text(dep)
@@ -573,15 +577,9 @@ $(location).attr('href',url);}, 250)
 
     }
     // Делаем сабмит, закрываем форму -----------
-    setTimeout(function(){
-    if ($('#iframe').contents().find('.form_error')) {
-      console.log($('#iframe').contents().find('.form_error').html());
-    }
-    else {
+
       $('#iframe').contents().find('form').submit()
         close_frame()
-    }
-  }, 400)
 
     // ------------------------------------------
 }
