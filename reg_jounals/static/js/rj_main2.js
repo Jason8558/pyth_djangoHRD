@@ -249,7 +249,8 @@ function send_submit() {
     switch (check_doctype()) {
       case 'orders_on_others':
       next_num = $('#iframe').contents().find("#next_num").text()
-      date = Date.parse($('#iframe').contents().find("#doc_date").val()).toString('dd.MM.yyyy')
+      date = $('#iframe').contents().find("#doc_date").val().split("-")
+      date = date[2] + "." + date[1] + "." + date[0]
 
       content = $('#iframe').contents().find("#id_oom_content").val()
 
@@ -265,7 +266,8 @@ function send_submit() {
       break;
 
       case 'orders_on_vacation_new_add':
-        date = Date.parse($('#iframe').contents().find("#id_order_date").val()).toString('dd.MM.yyyy')
+        date = $('#iframe').contents().find("#id_order_date").val().split("-")
+        date = date[2] + "." + date[1] + "." + date[0]
 
         if (check_act() == 'add') {
           onclick_string = ''
@@ -323,7 +325,8 @@ $(location).attr('href',url);}, 250)
 
       case 'outbound_docs':
         type = $('#iframe').contents().find("#id_doc_type").val()
-        date = Date.parse($('#iframe').contents().find("#id_doc_date").val()).toString('dd.MM.yyyy')
+        date = $('#iframe').contents().find("#id_doc_date").val().split("-")
+        date = date[2] + "." + date[1] + "." + date[0]
         dest = $('#iframe').contents().find("#id_doc_dest").val()
         content = $('#iframe').contents().find("#id_doc_additionalData").val()
         next_num = $('#iframe').contents().find("#next_num").text()
@@ -346,7 +349,8 @@ $(location).attr('href',url);}, 250)
 
 
 
-          date = Date.parse($('#iframe').contents().find("#id_bt_date").val()).toString('dd.MM.yyyy')
+          date = $('#iframe').contents().find("#id_bt_date").val().split("-")
+          date = date[2] + "." + date[1] + "." + date[0]
           fio = $('#iframe').contents().find("#id_bt_emloyer").val()
           place = $('#iframe').contents().find("#id_bt_place").val()
           dep = $('#iframe').contents().find("#id_bt_dep option:selected").text()
@@ -378,7 +382,8 @@ $(location).attr('href',url);}, 250)
       case 'orders_on_personnel':
           next_id = $('tbody').find('tr').attr('id')
           next_id = parseInt(next_id, 10) + 1
-          date = Date.parse($('#iframe').contents().find("#id_op_date").val()).toString('dd.MM.yyyy')
+          date = $('#iframe').contents().find("#id_op_date").val().split("-")
+          date = date[2] + "." + date[1] + "." + date[0]
           fio = $('#iframe').contents().find("#id_op_emloyer").val()
           dep = $('#iframe').contents().find("#id_op_dep option:selected").text()
           content =  $('#iframe').contents().find("#id_op_content").val()
@@ -399,8 +404,10 @@ $(location).attr('href',url);}, 250)
       break;
 
       case 'laborContracts':
-          date = Date.parse($('#iframe').contents().find("#id_lc_date").val()).toString('dd.MM.yyyy')
-          dateInv = Date.parse($('#iframe').contents().find("#id_lc_dateOfInv").val()).toString('dd.MM.yyyy')
+          date = $('#iframe').contents().find("#id_lc_date").val().split("-")
+          date = date[2] + "." + date[1] + "." + date[0]
+          dateInv = $('#iframe').contents().find("#id_lc_dateOfInv").val().split("-")
+          dateinv = dateinv[2] + "." + dateinv[1] + "." + dateinv[0]
           fio = $('#iframe').contents().find("#id_lc_emloyer").val()
           pos = $('#iframe').contents().find("#id_lc_pos").val()
           dep = $('#iframe').contents().find("#id_lc_dep option:selected").text()
@@ -425,12 +432,14 @@ $(location).attr('href',url);}, 250)
       break;
 
       case 'letters_of_resignation':
-          date = Date.parse($('#iframe').contents().find("#id_lor_date").val()).toString('dd.MM.yyyy')
+          date = $('#iframe').contents().find("#id_lor_date").val().split("-")
+          date = date[2] + "." + date[1] + "." + date[0]
           fio = $('#iframe').contents().find("#id_lor_employee").val()
           pos = $('#iframe').contents().find("#id_lor_position").val()
           dep =  $('#iframe').contents().find("#id_lor_departament option:selected").text()
           if ($('#iframe').contents().find("#id_lor_dateOfRes").val()) {
-            dateofres = Date.parse($('#iframe').contents().find("#id_lor_dateOfRes").val()).toString('dd.MM.yyyy')
+            dateofres = $('#iframe').contents().find("#id_lor_dateOfRes").val().split("-")
+            dateofres = dateofres[2] + "." + dateofres[1] + "." + dateofres[0]
           }
             else {
               dateofres = ""
@@ -458,12 +467,14 @@ $(location).attr('href',url);}, 250)
       break;
 
       case 'letters_of_invite':
-          date = Date.parse($('#iframe').contents().find("#id_loi_date").val()).toString('dd.MM.yyyy')
+          date = $('#iframe').contents().find("#id_loi_date").val().split("-")
+          date = date[2] + "." + date[1] + "." + date[0]
           fio = $('#iframe').contents().find("#id_loi_employee").val()
           pos = $('#iframe').contents().find("#id_loi_position").val()
           dep =  $('#iframe').contents().find("#id_loi_department option:selected").text()
           if ($('#iframe').contents().find("#id_loi_dateOfInv").val()) {
-            dateofinv = Date.parse($('#iframe').contents().find("#id_loi_dateOfInv").val()).toString('dd.MM.yyyy')
+            dateofinv = $('#iframe').contents().find("#id_loi_dateOfInv").val().split("-")
+            dateofinv = dateofinv[2] + "." + dateofinv[1] + "." + dateofinv[0]
           }
             else {
               dateofinv = ""
@@ -487,9 +498,11 @@ $(location).attr('href',url);}, 250)
 
       case 'employment_history':
           number = $('#iframe').contents().find("#id_eh_number").val()
-          dateofinv = Date.parse($('#iframe').contents().find("#id_eh_dateOfInv").val()).toString('dd.MM.yyyy')
+          dateofinv = $('#iframe').contents().find("#id_eh_dateOfInv").val().split("-")
+          dateofinv = dateofinv[2] + "." + dateofinv[1] + "." + dateofinv[0]
           if ($('#iframe').contents().find("#id_eh_dateOfResign").val()) {
-            dateofres = Date.parse($('#iframe').contents().find("#id_eh_dateOfResign").val()).toString('dd.MM.yyyy')
+            dateofres = $('#iframe').contents().find("#id_eh_dateOfResign").val().split("-")
+            dateofres = dateofres[2] + "." + dateofres[1] + "." + dateofres[0]
           }
           else {
             dateofres = ""
@@ -523,9 +536,11 @@ $(location).attr('href',url);}, 250)
           fio = $('#iframe').contents().find("#id_sd_emp").val()
           pos = $('#iframe').contents().find("#id_sd_pos").val()
           dep = $('#iframe').contents().find("#id_sd_dep option:selected").text()
-          from = Date.parse($('#iframe').contents().find("#id_sd_dur_from").val()).toString('dd.MM.yyyy')
+          from = $('#iframe').contents().find("#id_sd_dur_from").val().split("-")
+          from = from[2] + "." + from[1] + "." + from[0]
           if ($('#iframe').contents().find("#id_sd_dur_to").val()) {
-            to = Date.parse($('#iframe').contents().find("#id_sd_dur_to").val()).toString('dd.MM.yyyy')
+            to = $('#iframe').contents().find("#id_sd_dur_to").val().split("-")
+            to = to[2] + "." + to[1] + "." + to[0]
           }
           else {
             to = ""
@@ -534,7 +549,16 @@ $(location).attr('href',url);}, 250)
 
           switch (check_act()) {
             case 'add':
-                  $('tbody').prepend("<tr id="+ next_id + " onclick='open_for_upd("+ next_id +")'><td>" + number + "</td><td>" + fio +  "</td><td>" + pos + "</td><td>"+ dep +"</td><td>" + from + "</td><td>" + to + "</td><td>"+  comm + "</td><td></td></tr>")
+            setTimeout(function(){
+            if ($('#iframe').contents().find('div').is('#form_error')) {
+              console.log('есть ошибки!');
+            }
+            else {
+
+                    $('tbody').prepend("<tr id="+ next_id + " onclick='open_for_upd("+ next_id +")'><td>" + number + "</td><td>" + fio +  "</td><td>" + pos + "</td><td>"+ dep +"</td><td>" + from + "</td><td>" + to + "</td><td>"+  comm + "</td><td></td></tr>")
+            }
+            }, 500)
+
               break;
           case 'upd':
                 console.log($('#iframe').attr('src').split('/'));
@@ -552,7 +576,8 @@ $(location).attr('href',url);}, 250)
       break;
 
       case 'identity':
-          date = Date.parse($('#iframe').contents().find("#id_date_giving").val()).toString('dd.MM.yyyy')
+          date = $('#iframe').contents().find("#id_date_giving").val().split("-")
+          date = date[2] + "." + date[1] + "." + date[0]
           fio = $('#iframe').contents().find("#id_employer").val()
           dep = $('#iframe').contents().find("#id_department option:selected").text()
           switch (check_act()) {
@@ -577,9 +602,18 @@ $(location).attr('href',url);}, 250)
 
     }
     // Делаем сабмит, закрываем форму -----------
+$('#iframe').contents().find('form').submit()
+setTimeout(function(){
+if ($('#iframe').contents().find('div').is('#form_error')) {
+  console.log('есть ошибки!');
+}
+else {
 
-      $('#iframe').contents().find('form').submit()
-        close_frame()
+    close_frame()
+}
+}, 500)
+
+
 
     // ------------------------------------------
 }
