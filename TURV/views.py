@@ -330,16 +330,6 @@ def tabel_sup_check(request, id):
             log.close()
     return redirect('/turv/create/' + str(id))
 
-def tabel_del_check(request, id):
-    if request.user.is_authenticated:
-            tabel = Tabel.objects.get(id=id)
-            if tabel.del_check == False:
-                tabel.del_check = True
-            else:
-                tabel.del_check = False
-            tabel.save()
-    return redirect('/turv/create/' + str(id))
-
 def tabel_delitem(request, id):
     if request.user.is_authenticated:
         item = TabelItem.objects.get(id__iexact=id)
@@ -519,12 +509,13 @@ def upd_position(request, id):
 def unload(request):
 
     month_ = request.GET.get('uload_month','')
-
+    deps = Department.objects.all().order_by('id')
     year_ = request.GET.get('uload_year','')
     if month_ and year_:
+        print(request.GET.get('uload_dep2',''))
         wb = xlwt.Workbook()
 
-        deps = Department.objects.all().order_by('id')
+
 
         for dep in deps:
             dn = str(dep.name).replace(' ','_')
@@ -827,7 +818,7 @@ def unload(request):
 
 
     else:
-        return render(request, 'TURV/unload.html')
+        return render(request, 'TURV/unload.html', context={"deps":deps})
 
 def upd_norma_test(request):
     emps = list(Employers.objects.filter(department_id=2))

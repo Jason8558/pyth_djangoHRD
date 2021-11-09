@@ -21,7 +21,14 @@
     <option value="11">Ноябрь</option>
     <option value="12">Декабрь</option>
   </select>
-<input type="text" name="uload_year" value="">
+<input type="text" name="uload_year" value="" required>
+
+<select class="" id="u_dep" name="uload_dep" multiple >
+  <option value="">Все подразделения</option>
+  {% for dep in deps%}
+  <option value="{{dep.id}}">{{dep.name}}</option>
+  {%endfor%}
+</select>
 
 <input type="submit" name="" value="Выгрузить">
 
