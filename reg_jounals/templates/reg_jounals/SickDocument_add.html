@@ -23,8 +23,12 @@
 </script>
 <form class="add_form sick_list" action="" method="post">
   {% csrf_token %}
+
+
+
   <p>Номер реестра: {{reg_num}}</p>
-  <p>{{form.sd_number.label}}{{form.sd_number}}</p>
+
+  <p>{{form.sd_number.label}}{{form.sd_number}}  <a class="btn btn-warning btn-sm" type="button" style="margin-top: 7px;" onclick="check_SickDoc()" > Проверить номер </a></p>
   <p>{{form.sd_emp.label}}{{form.sd_emp}}</p>
   <p>{{form.sd_pos.label}}{{form.sd_pos}}</p>
   <p>{{form.sd_dep.label}}{{form.sd_dep}}</p>
