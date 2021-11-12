@@ -618,3 +618,12 @@ else {
     // ------------------------------------------
 }
 // =========================================================================================================
+
+//Проверка больничного листа ------------------------------------------------
+function check_SickDoc() {
+      // query_url = 'sick_reg/checkdoc/' + $('#iframe').contents().find('#id_sd_number').val()
+      query_url = '/sick_reg/checkdoc/' + $('#id_sd_number').val()
+      $.getJSON(query_url,  (data) => {
+        alert(data)
+      })
+}

@@ -746,7 +746,7 @@ def add_SickDocument(request, sr_number_):
                     dual_num = request.POST.get('sd_number','')
                     find_doc = SickDocument.objects.get(sd_number=dual_num)
                     print('yes')
-                    errs = "Больничный лист c таким номером существует в реестре № " + str(find_doc.sd_reg_number) + " сотрудник: " + str(find_doc.sd_emp) 
+                    errs = "Больничный лист c таким номером существует в реестре № " + str(find_doc.sd_reg_number) + " сотрудник: " + str(find_doc.sd_emp)
     else:
         return render(request, 'reg_jounals/no_auth.html')
     return render(request, 'reg_jounals/SickDocument_add.html', context={'form':doc_form, 'reg_num':sr_number_, 'errs':errs})
@@ -776,6 +776,15 @@ def ItemDel_SickList(request, id):
         item.delete()
         return redirect(dest)
 
+def check_SickDocument(request, num):
+    if request.user.is_authenticated:
+        sdoc = SickDocument.objects.filter(sd_number__exact=num)
+        print(sdoc)
+        if sdoc:
+            message = "Болничный лист с таким номером уже занесен в реестр № " + str(sdoc[0].sd_reg_number) + ". Сотрудник: " + str(sdoc[0].sd_emp)
+        else:
+            message = "Б\Л с таким номером не заносился в систему"
+        return JsonResponse(message, safe=False)
 # Приказы на отпуск новые ----------------------------
 
 def new_order_on_vacation(request):
