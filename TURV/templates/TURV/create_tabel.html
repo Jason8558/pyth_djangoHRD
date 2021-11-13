@@ -4,23 +4,23 @@
 
 {%block header%}
 <a class="btn btn-danger" onclick="window.close()"> ЗАКРЫТЬ  </a> |
-<span id="id_month" class="not-print">{{month}}</span>
-<span id="id_year" class="not-print">{{year}}</span>
+<span id="id_month" class="not-print" style="display:none">{{month}}</span>
+<span id="id_year" class="not-print" style="display:none">{{year}}</span>
 Табель учета рабочего времени
 <span><b>{{b_tabel.department}}</b></span>
 за: <b><span class="field_month">{{month}}</span> {{year}} г.</b>
-Всего человек в табеле: {{count}} {%if b_tabel.del_check == 0%}|
-<!-- <a class="btn btn-outline-danger" href="{% url 'delcheck' id=b_tabel.id%}">Пометить на удаление</a>{%endif%}
-{%if b_tabel.del_check == 1 and granted == 1%}|
-<a class="btn btn-outline-danger" href="{% url 'delcheck' id=b_tabel.id%}">Снять пометку удаления</a>{%endif%} -->
+Всего сотрудников в табеле: {{count}} <input type="button" name="" onclick="print()" value="печать">
+
 {%endblock%}
 
 {%block scripts%}
   <script src="{% static 'TURV\js\Eighties5.js' %}" charset="utf-8"></script>
+  <script src="{% static 'TURV\js\printtabel.js' %}" charset="utf-8"></script>
+    <link rel="stylesheet" href="{% static 'TURV\css\printwarning.css'%}">
   {%endblock%}
 
 {% block body %}
-<link rel="stylesheet" href="{% static 'TURV\css\tabel_print2.css'%}">
+<!-- <link rel="stylesheet" href="{% static 'TURV\css\tabel_print2.css'%}"> -->
 <form action="" class="f_search intabel not-print">
 <p>ПОИСК</p>
 <input type="text" name="its_employer"  placeholder="поиск по ФИО" value="">
@@ -123,9 +123,75 @@
   {% endif %}
 
 {% if items %}
-<table class="tabel" style="display: none" cellpadding="0.5" cellspacing="1">
+
+<div class="headcopy not-print" style="display:none">
+  <table style=" font-size: 8pt !important">
+
 
   <thead style="display: table-header-group" class="thead-dark">
+  <tr class="tr-header">
+
+    <th  rowspan="2">№</th>
+    <th colspan="3" style="display:none;">ФИО, долж., разр.</th>
+    <th >ФИО</th>
+    <th >Должн.</th>
+    <th  >Раз.</th>
+    <th >Ст.</th>
+    <th>1</th>
+    <th >2</th>
+    <th>3</th>
+    <th >4</th>
+    <th >5</th>
+    <th >6</th>
+    <th >7</th>
+    <th >8</th>
+    <th >9</th>
+    <th >10</th>
+    <th >11</th>
+    <th >12</th>
+    <th >13</th>
+    <th>14</th>
+    <th >15</th>
+    <th >16</th>
+    <th >17</th>
+    <th >18</th>
+    <th >19</th>
+    <th >20</th>
+    <th >21</th>
+    <th >22</th>
+    <th >23</th>
+    <th >24</th>
+    <th >25</th>
+    <th >26</th>
+    <th >27</th>
+    <th >28</th>
+    <th class="day29 ">29</th>
+    <th class="day30">30</th>
+    <th class="day31 ">31</th>
+    <th >Дни.</th>
+    <th>Час./ЛЧ</th>
+    <th >Св.</th>
+    <th >НЧ</th>
+    <th >в./пр.</th>
+    <th >Сов.</th>
+    <th >Нея.</th>
+    <th >Из них</th>
+    <th  >Вых.</th>
+
+
+
+
+
+
+
+  </tr>
+  </thead>
+  </table>
+</div>
+
+<table id="t_tabel" class="tabel" style="display: none" cellpadding="0.5" cellspacing="1">
+
+  <thead style="display: table-header-group" class="thead-dark" id="tabel_head">
   <tr class="tr-header">
 
     <th class=" num " rowspan="2">№</th>
@@ -190,9 +256,9 @@
 
 
     {% if b_tabel.sup_check %}
-    <tr class="time_types">
+    <tr id="{{item.id}}" onmouseleave="row_highlight_off({{item.id}})" onmouseover="row_highlight({{item.id}})" class="time_types">
     {%else%}
-      <tr onclick="return location.href = '{% url 'tabel_updItem_url' id=item.id%}' "  class="time_types">
+      <tr id="{{item.id}}"  onmouseleave="row_highlight_off({{item.id}})" onclick="return location.href = '{% url 'tabel_updItem_url' id=item.id%}' "  onmouseover="row_highlight({{item.id}})" class="time_types">
     {%endif%}
       <th class="print-num cell_bb" rowspan="2"></th>
       <td  class="for-print cell_bb fio" rowspan="2" colspan="3">{{item.employer.fullname}}, {{item.employer.position|truncatechars:10}}, {{item.employer.level}}</td>
@@ -278,6 +344,8 @@
 
 
     </tr>
+
+<tr id="{{item.id}}_1">
 
 
         <td class="cell_hours">{{item.hours1}}</td>
@@ -383,9 +451,12 @@
 {%endif%}
 
 <div class="cover-footer for-print" >
-<h3>Ответственный за составление табеля _______________________________________________________________________ __.__.20__ г.</h3>
-<h3>Руководитель структурного подразделения __________________________________________________________ __.__.20__ г.</h3>
-<h3>Специалист СУП __________________________________________________________________________ __.__.20__ г.</h3>
+<h3>Ответственный за составление табеля ________________________________________________________________________________________ __.__.20__ г.</h3>
+<h3>Руководитель структурного подразделения ________________________________________________________________________________________ __.__.20__ г..</h3>
+<h3>Специалист СУП ________________________________________________________________________________________ __.__.20__ г..</h3>
 </div>
+</div>
+<div style="display:none" class="print_warning">
+  <h1 style="color:red;">ПРОЦЕДУРА ПЕЧАТИ ИЗМЕНЕНА! ЧТОБЫ РАСПЕЧАТАТЬ ТАБЕЛЬ НАЖМИТЕ КНОПКУ "ПЕЧАТЬ" В ВЕРХНЕЙ ЧАСТИ ЭКРАНА!</h1>
 </div>
 {%endblock%}

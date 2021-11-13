@@ -94,7 +94,7 @@ def tabels(request):
             allow_departments = []
             for dep in deps:
                 allow_departments.append(dep.id)
-            print(allow_departments)
+
 
             # Алгоритм поиска
             pag = 1000
@@ -295,12 +295,12 @@ def tabel_upditem(request, id):
     if request.user.is_authenticated:
         if request.method == "GET":
             item = TabelItem.objects.get(id=id)
-            b_tabel = Tabel.objects.get(id=item.bound_tabel)
+
             bound_form = TabelItem_form(instance=item)
-            year = b_tabel.year
-            month = b_tabel.month
-            department = b_tabel.department
-            return render(request, 'TURV/upd_tabel_item.html', context={'tabel':bound_form, 'item':item, 'b_tabel':b_tabel, 'year':year, 'month':month})
+            year = item.bound_tabel.year
+            month = item.bound_tabel.month
+            department = item.bound_tabel.department
+            return render(request, 'TURV/upd_tabel_item.html', context={'tabel':bound_form, 'item':item, 'b_tabel':item.bound_tabel.id, 'year':year, 'month':month})
 
         else:
             item = TabelItem.objects.get(id=id)
@@ -309,7 +309,7 @@ def tabel_upditem(request, id):
 
 
                 tabelItem_form.save()
-                loc = '/turv/create/'+str(item.bound_tabel)
+                loc = '/turv/create/'+str(item.bound_tabel.id)
                 return redirect(loc)
             else:
                 print(tabelItem_form.errors)
@@ -333,7 +333,7 @@ def tabel_sup_check(request, id):
 def tabel_delitem(request, id):
     if request.user.is_authenticated:
         item = TabelItem.objects.get(id__iexact=id)
-        num = item.bound_tabel
+        num = item.bound_tabel.id
         dest = '/turv/create/' + str(num)
         item.delete()
         return redirect(dest)
@@ -507,15 +507,22 @@ def upd_position(request, id):
         return render(request, 'reg_jounals/no_auth.html')
 
 def unload(request):
-
+    udeps = request.GET.get('udeps','')
+    notulonl =  request.GET.get('nounload_only','')
     month_ = request.GET.get('uload_month','')
-    deps = Department.objects.all().order_by('id')
+    print(notulonl)
+    if udeps:
+        udeps_l = []
+        udeps = udeps.split(',')
+        for dep in udeps:
+            udeps_l.append(dep)
+        deps = Department.objects.filter(id__in=udeps_l)
+    else:
+        deps = Department.objects.all().order_by('id')
     year_ = request.GET.get('uload_year','')
     if month_ and year_:
-        print(request.GET.get('uload_dep2',''))
+
         wb = xlwt.Workbook()
-
-
 
         for dep in deps:
             dn = str(dep.name).replace(' ','_')
@@ -524,14 +531,16 @@ def unload(request):
             dn = dn.replace(')','')
             dn = transliterate(dn)
 
+            if notulonl == "1":
+                items = TabelItem.objects.filter(employer__department_id=dep.id).filter(month=month_).filter(year=year_).filter(bound_tabel__unloaded=False).filter(employer__shift_personnel=True).order_by('employer')
+            else:
+                items = TabelItem.objects.filter(employer__department_id=dep.id).filter(month=month_).filter(year=year_).filter(employer__shift_personnel=True).order_by('employer')
 
-            items = TabelItem.objects.filter(employer__department_id=dep.id).filter(month=month_).filter(year=year_).order_by('employer')
+
             if items:
-                ct = items[0].bound_tabel
-                print(ct)
+                ct = items[0].bound_tabel.id
                 current_tabel = Tabel.objects.get(id=ct)
-                if items and current_tabel.sup_check == True and current_tabel.unloaded == False:
-                # if items and current_tabel.sup_check == True:
+                if items and current_tabel.sup_check == True:
                     ws = wb.add_sheet(dn)
 
 

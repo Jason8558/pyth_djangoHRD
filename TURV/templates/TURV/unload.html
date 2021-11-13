@@ -1,12 +1,13 @@
 {% extends 'TURV/index.html'%}
-
+{%load static%}
 {%block title%}Выгрузить{% endblock %}
-
+{%block scripts%}<script src="{% static 'TURV\js\unload.js' %}" charset="utf-8"></script>{%endblock%}
 {%block header%}Выгрузить{%endblock%}
 
 {% block body %}
 
-<form action="{% url 'unload'%}">
+<form id="unload_form" action="{% url 'unload'%}">
+<label for="u_month">Месяц</label>
   <select class=""  id="u_month" name="uload_month">
     <option value="01">Январь</option>
     <option value="02">Февраль</option>
@@ -21,17 +22,22 @@
     <option value="11">Ноябрь</option>
     <option value="12">Декабрь</option>
   </select>
+
+ <label for="uload_year">Год</label>
 <input type="text" name="uload_year" value="" required>
 
+
+<label for="uload_dep">Подразделение для выгрузки</label>
 <select class="" id="u_dep" name="uload_dep" multiple >
   <option value="">Все подразделения</option>
   {% for dep in deps%}
   <option value="{{dep.id}}">{{dep.name}}</option>
   {%endfor%}
 </select>
+<input type="text" id="udeps_hide" name="udeps" style="display:none" value="">
 
-<input type="submit" name="" value="Выгрузить">
-
+<input type="submit" name="" class="btn btn-success btn-add" onclick="write_deps()" value="Выгрузить">
+<p><input type="checkbox" name="nounload_only" value="1" checked> <label for="nounload_only"> только невыгруженные</label></p>
 </form>
 
 {%endblock%}

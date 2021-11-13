@@ -61,7 +61,7 @@ class Tabel(models.Model):
         return str(self.department) + str(self.month) + str(self.year)
 
 class TabelItem(models.Model):
-    bound_tabel = models.CharField(max_length=256, db_index=True, default='None', verbose_name='Связанный табель')
+    bound_tabel = models.ForeignKey('Tabel', verbose_name='Св. табель', db_index=True, on_delete=models.CASCADE)
     employer = models.ForeignKey('Employers', verbose_name='Сотрудник', db_index=True, on_delete=models.CASCADE)
     year = models.CharField(verbose_name='Год', db_index=True, max_length=256)
     month = models.CharField(verbose_name='Месяц', db_index=True, max_length=256)

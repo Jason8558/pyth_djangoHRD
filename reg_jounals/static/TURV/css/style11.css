@@ -205,6 +205,11 @@ body {
   background: #e0edff !important;
 }
 
+.headcopy {
+  position: fixed;
+  top: 0;
+}
+
 table {
   width: 100%;
       text-align: center;
@@ -578,4 +583,23 @@ background: #005eff;
 
 #t_emps_chosen .chosen-results  .highlighted {
 background: #005eff;
+}
+
+#u_dep {
+  height: 500px;
+}
+
+#unload_form {
+  display: grid;
+    width: 29%;
+    grid-gap: 12px;
+    margin: auto;
+}
+
+#print_button {
+  font-size: 20pt;
+  background: #51dfff !important;
+  border: none;
+  border-radius: 8px;
+  box-shadow: 0px 0px 5px 1px black !important;
 }

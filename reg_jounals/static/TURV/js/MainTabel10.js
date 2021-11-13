@@ -7291,3 +7291,36 @@ for (var i = 0; i < sum_fields.length; i++) {
 
 }
 }
+
+function set_head() {
+  tablew = $('#t_tabel').css('width')
+  tableh = $('#t_tabel thead').css('height')
+  headcells = $('.headcopy table th')
+  tablecells = $('#tabel_head th')
+  $('.headcopy').css('width', tablew )
+  $('#tabel_head').css('height', tableh )
+  for (var i = 0; i < tablecells.length; i++) {
+    headcells[i].style.width = window.getComputedStyle(tablecells[i]).width
+  }
+}
+
+$(window).on('scroll', function () {
+  head = $("#t_tabel thead")
+  pos = head[0].getBoundingClientRect().y
+  if (pos < -203) {
+      $('.headcopy').css('display', 'block')
+      set_head()
+  }
+  else {
+    $('.headcopy').css('display', 'none')
+  }
+})
+
+function row_highlight(r_id) {
+  $('#' + r_id + "_1").css('background', '#c7faff')
+}
+
+function row_highlight_off(r_id) {
+  $('#' + r_id + "_1").css('background', 'white')
+
+}

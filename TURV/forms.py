@@ -163,7 +163,7 @@ class TabelItem_form(forms.ModelForm):
 
             new_item = TabelItem.objects.create(
 
-            bound_tabel = bound_tabel,
+            bound_tabel_id = b_tabel.id,
             employer = emp,
             year = year_,
             month = month,

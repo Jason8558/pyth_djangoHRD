@@ -1,9 +1,14 @@
 @media print {
+  #print_button {
+    display: none !important;
+  }
+}
 
 * {
   background: white !important;
   box-shadow: none !important;
-  font-size: 12px;
+  font-size: 10px;
+  border-collapse: collapse;
 }
 
 th {
@@ -37,8 +42,8 @@ nav {
 }
 
 .cover .cover-tables table{
-width: 366px;
-float: right;
+width: 366px !important;
+float: right !important;
 margin-bottom: 0;
 margin-right: 47px;
 }
@@ -51,6 +56,10 @@ nav {
   display: block !important;
 }
 
+.cover-footer h3 {
+  font-size: 14pt !important;
+}
+
 table  .for-print {
   display: table-cell !important;
 }
@@ -61,7 +70,7 @@ table  .for-print {
 
 .fio {
   text-align: left;
-  width: 246px !important;
+  width: 236px !important;
 }
 
 .thin-itogo {
@@ -101,7 +110,5 @@ td {
 @page {
   size: A3 landscape;
 
-
-}
 
 }
