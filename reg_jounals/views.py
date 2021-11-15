@@ -19,54 +19,14 @@ def index(request):
         for group in u_group:
             if (group.name == 'Табельщик') or (group.name == 'Сотрудник РО') :
                 return redirect('/turv/')
-        r_oov = NewOrdersOnVacation.objects.all().order_by('-id')[:3]
-        r_my_oov = NewOrdersOnVacation.objects.filter(res_officer=user_.first_name)[:3]
-        r_oom = OrdersOnOtherMatters.objects.all().order_by('-id')[:3]
-        r_my_oom = OrdersOnOtherMatters.objects.filter(oom_res_officer=user_.first_name).order_by('-id')[:3]
-        r_obd = OutBoundDocument.objects.all().order_by('-id')[:3]
-        r_my_obd = OutBoundDocument.objects.filter(doc_res_officer=user_.first_name).order_by('-id')[:3]
-        r_obt = OrdersOfBTrip.objects.all().order_by('-id')[:3]
-        r_my_obt = OrdersOfBTrip.objects.filter(bt_res_officer=user_.first_name).order_by('-id')[:3]
-        r_oop = OrdersOnPersonnel.objects.all().order_by('-id')[:3]
-        r_my_oop = OrdersOnPersonnel.objects.filter(op_res_officer=user_.first_name).order_by('-id')[:3]
-        r_lc = LaborContract.objects.all().order_by('-id')[:3]
-        r_my_lc = LaborContract.objects.filter(lc_res_officer=user_.first_name).order_by('-id')[:3]
-        r_lor = LetterOfResignation.objects.all().order_by('-id')[:3]
-        r_my_lor = LetterOfResignation.objects.filter(lor_res_officer=user_.first_name).order_by('-id')[:3]
-        r_loi = LetterOfInvite.objects.all().order_by('-id')[:3]
-        r_my_loi = LetterOfInvite.objects.filter(loi_res_officer=user_.first_name).order_by('-id')[:3]
-        r_eh = EmploymentHistory.objects.all().order_by('-id')[:3]
-        r_my_eh = EmploymentHistory.objects.all().filter(eh_res_officer=user_.first_name).order_by('-id')[:3]
-        r_sr = SickRegistry.objects.all().order_by('-id')[:3]
-        r_my_sr = SickRegistry.objects.all().filter(sr_res_officer=user_.first_name).order_by('-id')[:3]
         user_io = request.user.first_name.split(' ')
         if len(user_io) < 3:
             user_io = str(user_io[0])
         else:
             user_io = str(user_io[1]) + " " +str(user_io[2])
-        return render(request, 'reg_jounals/index.html', context={
-                'r_sr':r_sr,
-                'r_my_sr':r_my_sr,
-                'r_eh':r_eh,
-                'r_my_eh':r_my_eh,
-                'r_loi':r_loi,
-                'r_my_loi':r_my_loi,
-                'user_io':user_io,
-                'r_lor':r_lor,
-                'r_my_lor':r_my_lor,
-                'r_oov':r_oov,
-                'r_my_oov':r_my_oov,
-                'r_oom':r_oom,
-                'r_my_oom':r_my_oom,
-                'r_obd':r_obd,
-                'r_my_obd':r_my_obd,
-                'r_obt':r_obt,
-                'r_my_obt':r_my_obt,
-                'r_oop':r_oop,
-                'r_my_oop':r_my_oop,
-                'r_lc':r_lc,
-                'r_my_lc':r_my_lc})
-    else: return redirect('/accounts/login/')
+        return render(request, 'reg_jounals/index.html', context={'user_io':user_io})
+    else:
+        return redirect('/accounts/login/')
 
 def logfile(request):
     if request.user.is_authenticated:

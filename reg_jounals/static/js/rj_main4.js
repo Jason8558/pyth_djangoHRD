@@ -407,7 +407,7 @@ $(location).attr('href',url);}, 250)
           date = $('#iframe').contents().find("#id_lc_date").val().split("-")
           date = date[2] + "." + date[1] + "." + date[0]
           dateInv = $('#iframe').contents().find("#id_lc_dateOfInv").val().split("-")
-          dateinv = dateinv[2] + "." + dateinv[1] + "." + dateinv[0]
+          dateInv = dateInv[2] + "." + dateInv[1] + "." + dateInv[0]
           fio = $('#iframe').contents().find("#id_lc_emloyer").val()
           pos = $('#iframe').contents().find("#id_lc_pos").val()
           dep = $('#iframe').contents().find("#id_lc_dep option:selected").text()
