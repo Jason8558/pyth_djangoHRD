@@ -25,7 +25,7 @@
       <li>Сервис <span class='angle-down'>v</span>
       <ul class="service">
            <li><a  href="{% url 'unload'%}"> > Выгрузить для 1С</a></li>
-                                              
+
 
 
       </ul>
@@ -115,7 +115,9 @@ function Supchecked() {
 
     <th scope="col">Период составления</th>
     <th scope="col">Подразделение</th>
+    {% if granted == 1 or user.is_superuser%}
     <th scope="col">Табельщик</th>
+    {%endif%}
     <th scope="col">Проверен СУП</th>
       {% if granted == 1 or user.is_superuser%}
       <th scope="col"> Загружен в 1С </th>
@@ -140,7 +142,9 @@ function Supchecked() {
 
     <td><span class="field_month">{{tabel.month}}</span> {{tabel.year}}  </td>
     <td>{{tabel.department}}</td>
+    {% if granted == 1 or user.is_superuser%}
     <td>{{tabel.res_officer}}</td>
+    {%endif%}
     {%if tabel.sup_check%}
       <td>✅</td>
     {%else%}

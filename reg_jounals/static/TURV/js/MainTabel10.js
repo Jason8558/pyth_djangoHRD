@@ -1,5 +1,7 @@
 $(document).ready(function(){
 
+
+
 // ВЫВОДИТ КОЛ-ВО ВЫХОДНЫХ ДНЕЙ В ЗАПОЛНЕНИИ(ОБНОВЛЕНИИ) СОТРУДНИКА
 
   weekends = $('#id_sHours24').val()/8
@@ -7323,4 +7325,8 @@ function row_highlight(r_id) {
 function row_highlight_off(r_id) {
   $('#' + r_id + "_1").css('background', 'white')
 
+}
+
+function message() {
+  
 }

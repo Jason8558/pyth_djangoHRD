@@ -175,7 +175,6 @@ def tabel_create(request, id):
                     granted = 1
                 if (group.name == 'Сотрудник РО'):
                     is_ro = 1
-        print(is_ro)
         if request.method == "GET":
 
             b_tabel = Tabel.objects.get(id=id)
@@ -184,7 +183,6 @@ def tabel_create(request, id):
             for item in list(items):
                 positions.append(item['employer__position__name'])
             positions = [el for el, _ in groupby(positions)]
-            print(positions)
             tabel_form = Tabel_form(instance=b_tabel)
             if sq_employer:
                 items = TabelItem.objects.filter(bound_tabel=id).filter(employer__fullname__icontains=sq_employer).order_by('employer')

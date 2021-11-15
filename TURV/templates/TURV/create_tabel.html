@@ -6,21 +6,43 @@
 <a class="btn btn-danger" onclick="window.close()"> ЗАКРЫТЬ  </a> |
 <span id="id_month" class="not-print" style="display:none">{{month}}</span>
 <span id="id_year" class="not-print" style="display:none">{{year}}</span>
+
 Табель учета рабочего времени
 <span><b>{{b_tabel.department}}</b></span>
 за: <b><span class="field_month">{{month}}</span> {{year}} г.</b>
-Всего сотрудников в табеле: {{count}} <input type="button" name="" onclick="print()" value="печать">
+Всего сотрудников в табеле: {{count}}
 
 {%endblock%}
 
 {%block scripts%}
   <script src="{% static 'TURV\js\Eighties5.js' %}" charset="utf-8"></script>
   <script src="{% static 'TURV\js\printtabel.js' %}" charset="utf-8"></script>
+  <script src="{% static 'TURV\js\cookie.js' %}" charset="utf-8"></script>
     <link rel="stylesheet" href="{% static 'TURV\css\printwarning.css'%}">
   {%endblock%}
 
 {% block body %}
+<script type="text/javascript">
+  $(document).ready(function(){
+    if ($.cookie('msg') == null)  {
+      alert("Изменился способ печати табеля! Теперь для того, чтобы распечатать табель - нажмите кнопку 'Печать' в верхней части окна, после чего в открывшемся окне нажмите голубую кнопку 'Печать' в верхем левом углу")
+      $.cookie('msg', 'yes')
+      $('#tabel_message').css('display', 'block')
+    }
+    else {
+
+    }
+  })
+  function close_message() {
+    $('#tabel_message').css('display', 'none')
+  }
+</script>
 <!-- <link rel="stylesheet" href="{% static 'TURV\css\tabel_print2.css'%}"> -->
+<div style="width: 70%; margin: 0 auto; display: none;" id="tabel_message" class="alert alert-danger">
+<h4>ВНИМАНИЕ! Изменился способ печати табеля! Теперь для того, чтобы распечатать табель - нажмите кнопку 'Печать' в верхней части окна, после чего в открывшемся окне нажмите голубую кнопку 'Печать' в верхем левом углу</h4>
+<button class="btn btn-success w-100" type="button" onclick="close_message()" name="button"> ОК </button>
+</div>
+
 <form action="" class="f_search intabel not-print">
 <p>ПОИСК</p>
 <input type="text" name="its_employer"  placeholder="поиск по ФИО" value="">
@@ -39,7 +61,7 @@
 </div> -->
 
 
-<div class="container tabel_container">
+<div  class="container tabel_container">
 
 <div class="for-print not-screen cover">
 
@@ -111,6 +133,7 @@
     <a class="btn btn-success" href="{% url 'checked' id=b_tabel.id%}">Отметить как проверенный</a>
     {%endif%}
 {%endif%}
+<input class="btn btn-warning"  style="margin-left: 6px;" type="button" name="" onclick="print()" value="ПЕЧАТЬ">
 </div>
   {% if form.errors %}
   {{form.errors}}
