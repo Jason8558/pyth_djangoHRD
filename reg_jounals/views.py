@@ -7,6 +7,7 @@ from django.core.paginator import Paginator
 import datetime as DT
 from itertools import groupby
 from django.contrib.auth.models import *
+from TURV.models import Employers as TEmps, Department as TDepts
 
 
 
@@ -524,6 +525,7 @@ def del_OrderOnPersonnel(request, id):
 def LaborContracts(request):
     if request.user.is_authenticated:
         search_query = request.GET.get('lc_search','')
+
         if search_query:
             contracts = LaborContract.objects.filter(lc_dep_id=search_query).order_by('-id')
             p_orders = Paginator(contracts, 1000)
@@ -541,6 +543,7 @@ def LaborContracts(request):
 
 def nr_LaborContract(request):
     if request.user.is_authenticated:
+        tdeps = TDepts.objects.all()
         order_form = LaborContract_form()
         depts = Departments.objects.all()
         orders = LaborContract.objects.all()
@@ -561,7 +564,7 @@ def nr_LaborContract(request):
                 return redirect('../laborContracts/')
     else:
         return render(request, 'reg_jounals/no_auth.html')
-    return render(request, 'reg_jounals/LaborContract_add.html', context={'form':order_form, 'depts':depts, 'next_num':order_next_num_, 'year_':year_})
+    return render(request, 'reg_jounals/LaborContract_add.html', context={'form':order_form, 'depts':depts, 'next_num':order_next_num_, 'year_':year_, 'tdeps':tdeps})
 
 def upd_LaborContract(request, id):
     if request.user.is_authenticated:

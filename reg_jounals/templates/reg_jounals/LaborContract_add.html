@@ -20,7 +20,20 @@
   <h5>Номер договора: <span id="next_num">{{next_num}}</span>({{year_}})</h5>
   {% for field in form %}
   <p>{{field.label}}{{ field }}</p>
+
   {% endfor%}
+  <div class="for_turv">
+  <p><label for="turv_lvl">Разряд (для табельного учета)</label>
+    <input type="text" name="turv_lvl" value=""><label for="turv_pop">Ступень оплаты (для табельного учета)</label>
+    <input type="text" name="turv_pop" value=""></p>  
+
+    <label for="turv_dep">Подразделение табельного учета</label>
+    <select class="" name="turv_dep">
+      {% for dep in tdeps %}
+        <option value="{{dep.id}}">{{dep.name}}</option>
+      {%endfor%}
+    </select>
+  </div>
 
   <!-- <input class="btn btn-success" type="submit" value="Добавить" />
   <a class="btn btn-outline-danger" href=".">Отмена</a> -->
