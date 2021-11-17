@@ -54,33 +54,30 @@
 
 <nav  class="paginator" aria-label="Page navigation example">
   <ul class="pagination">
-    <li class="page-item">
-      <a class="page-link" href="#" aria-label="Previous">
-<span aria-hidden="true">&laquo;</span>
-      </a>
-    </li>
-{% for p in idents.paginator.page_range %}
-  {% if idents.number == p%}
-   <li class="page-item active"><a class="page-link" href="?page={{p}}">{{ p }}</a></li>
-   {%else%}
-        <li class="page-item"><a class="page-link" href="?page={{p}}">{{ p }}</a></li>
-    {%endif%}
-  {% endfor %}
+    {%if idents.has_previous%}
+        <li class="page-item">
+          <a class="page-link" aria-label="previous" href="?page=1">
+              <span aria-hidden="true">Первая</span></a>
+        </li>
+        <li class="page-item">
+          <a class="page-link" href='?page={{idents.previous_page_number}}' aria-label="previous">
+    <span aria-hidden="true">{{idents.previous_page_number}}</span>
+          </a>
+        </li>
+  {%endif%}
+
+   <li class="page-item active"><a class="page-link" href="">{{ idents.number }}</a></li>
 
 {%if idents.has_next%}
     <li class="page-item">
-      <a class="page-link" href='?page={{idents.next_page_number}}' aria-label="Next">
-<span aria-hidden="true">&raquo;</span>
-      </a>
-    </li>
-  {%else%}
-  <li class="page-item disabled">
-    <a class="page-link" href='#' aria-disabled='true' aria-label="Next">
-      <span aria-hidden="true">&raquo;</span>
-    </a>
-  </li>
+      <a class="page-link" href='?page={{idents.next_page_number}}' aria-label="Next">{{idents.next_page_number}}</a>
+      </li>
   {%endif%}
-  </ul>
+
+  <li class="page-item">
+  <a class="page-link" href="?page={{ idents.paginator.num_pages }}">Последняя</a>
+  </li>
+</ul>
 </nav>
 
 {%endblock%}

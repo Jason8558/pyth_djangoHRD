@@ -113,7 +113,7 @@ def letter_of_resignation(request):
 
         else:
             letters = LetterOfResignation.objects.all().order_by('-id')
-            p_letters = Paginator(letters, 10)
+            p_letters = Paginator(letters, 20)
             page_number = request.GET.get('page', 1)
         page = p_letters.get_page(page_number)
         count = len(letters)
@@ -176,7 +176,7 @@ def letter_of_invite(request):
 
             else:
                 letters = LetterOfInvite.objects.all().order_by('-id')
-                p_letters = Paginator(letters, 10)
+                p_letters = Paginator(letters, 20)
                 page_number = request.GET.get('page', 1)
             page = p_letters.get_page(page_number)
             count = len(letters)
@@ -256,9 +256,10 @@ def order_other_matters(request):
                     page_number = request.GET.get('page', 1)
                 else:
                     orders = OrdersOnOtherMatters.objects.all().order_by('-id')
-                    p_orders = Paginator(orders, 40)
+                    p_orders = Paginator(orders, 20)
                     page_number = request.GET.get('page', 1)
         page = p_orders.get_page(page_number)
+
         count = len(orders)
         return render(request, 'reg_jounals/orders_on_others.html', context={'orders':page, 'count':count, 'res_users':users})
     else:
