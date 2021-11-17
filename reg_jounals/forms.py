@@ -11,10 +11,10 @@ class LetterOfResignation_form(forms.ModelForm):
         model = LetterOfResignation
         fields =['lor_date',
         'lor_employee',
+        'lor_departament',
         'lor_dateOfRes',
         'lor_position',
-        'lor_additionalData',
-        'lor_departament']
+        'lor_additionalData']
 
 
     lor_date = forms.CharField(label="Дата подачи заявления" , widget=forms.TextInput(
