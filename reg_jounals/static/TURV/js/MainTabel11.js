@@ -7214,7 +7214,7 @@ weekends = s24/8
 
 
 if ($('#manover').prop('checked') == false){
-s4 = h_work - parseFloat($('#n_time').text()) - s3}
+s4 = h_work - parseFloat($('#n_time').text())}
 
 if (s4 < 0) {
   s4 = 0
@@ -7328,5 +7328,5 @@ function row_highlight_off(r_id) {
 }
 
 function message() {
-  
+
 }
