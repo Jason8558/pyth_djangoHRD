@@ -5,7 +5,7 @@ function print() {
   for (var inf of info) {
     if (inf.indexOf('Chrome') >-1) {
       browser = "Chrome"
-      rcount = 56
+      rcount = 58
     }
     if (inf.indexOf('Firefox') >-1 ) {
       browser = "Firefox"
@@ -14,7 +14,7 @@ function print() {
   }
 
   var WinPrint = window.open('','','left=50,top=50,width=1500,height=1000,toolbar=0,scrollbars=1,status=0');
-  WinPrint.document.write('<link rel="stylesheet" type="text/css" href="/static/TURV/css/tabel_print5.css"> ')
+  WinPrint.document.write('<link rel="stylesheet" type="text/css" href="/static/TURV/css/tabel_print6.css"> ')
   WinPrint.document.write('<link rel="stylesheet" href="/static/TURV/css/style11.css">')
 
 
