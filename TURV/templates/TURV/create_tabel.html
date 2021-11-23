@@ -16,7 +16,7 @@
 
 {%block scripts%}
   <script src="{% static 'TURV\js\Eighties5.js' %}" charset="utf-8"></script>
-  <script src="{% static 'TURV\js\printtabel.js' %}" charset="utf-8"></script>
+  <script src="{% static 'TURV\js\printtabel1.js' %}" charset="utf-8"></script>
   <script src="{% static 'TURV\js\cookie.js' %}" charset="utf-8"></script>
     <link rel="stylesheet" href="{% static 'TURV\css\printwarning.css'%}">
   {%endblock%}
@@ -72,11 +72,11 @@
 </div>
 
 <div class="cover_dep">
-<h3 class="b-bottom">КГУП "Камчатский водоканал"</h3>
+<h3 style="border-bottom: 1px solid black; " class="b-bottom">КГУП "Камчатский водоканал"</h3>
 <p>(наименование организации)</p>
 
 
-<h3 class="b-bottom" id='c_dep'>{{b_tabel.department}}</h3>
+<h3 class="b-bottom" style="border-bottom: 1px solid black; " id='c_dep'>{{b_tabel.department}}</h3>
 <p>(наименование подразделения)</p>
 </div>
 
