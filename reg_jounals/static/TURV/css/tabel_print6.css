@@ -14,7 +14,9 @@
 th {
   color: black;
   font-size: 10pt;
+  text-transform: uppercase;
   text-decoration: underline;
+  font-weight: bolder;
 }
 
 nav {
@@ -73,7 +75,7 @@ table  .for-print {
 
 .fio {
   text-align: left;
-  width: 181px !important;
+  width: 278px !important;
 }
 
 .thin-itogo {
@@ -85,7 +87,7 @@ table  .for-print {
 }
 
 .include {
-width: 72px;
+width: 60px;
 }
 
 .vac-include {
@@ -97,7 +99,7 @@ table  .for-print {
 }
 
 .head-hours {
-width: 35px !important;
+width: 40px !important;
 }
 
 .wide-itogs {

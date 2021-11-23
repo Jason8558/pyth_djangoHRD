@@ -16,7 +16,7 @@
 
 {%block scripts%}
   <script src="{% static 'TURV\js\Eighties5.js' %}" charset="utf-8"></script>
-  <script src="{% static 'TURV\js\printtabel6.js' %}" charset="utf-8"></script>
+  <script src="{% static 'TURV\js\printtabel7.js' %}" charset="utf-8"></script>
   <script src="{% static 'TURV\js\cookie.js' %}" charset="utf-8"></script>
     <link rel="stylesheet" href="{% static 'TURV\css\printwarning.css'%}">
   {%endblock%}
@@ -155,7 +155,7 @@
   <tr class="tr-header">
 
     <th  rowspan="2">№</th>
-    <th colspan="3" style="display:none;">ФИО, долж., разр.</th>
+    <th colspan="3" style="display:none;">ФИО | долж. | разр.</th>
     <th >ФИО</th>
     <th >Должн.</th>
     <th  >Раз.</th>
@@ -218,7 +218,7 @@
   <tr class="tr-header">
 
     <th class=" num " rowspan="2">№</th>
-    <th class="for-print  fio " colspan="3">ФИО, долж., разр.</th>
+    <th class="for-print  fio " colspan="3">ФИО|долж.|разр.</th>
     <th class="not-print fio-screen ">ФИО</th>
     <th class="not-print pos-screen" >Должн.</th>
     <th class="not-print " >Раз.</th>
@@ -284,7 +284,7 @@
       <tr id="{{item.id}}"  onmouseleave="row_highlight_off({{item.id}})" onclick="return location.href = '{% url 'tabel_updItem_url' id=item.id%}' "  onmouseover="row_highlight({{item.id}})" class="time_types">
     {%endif%}
       <th class="print-num cell_bb" rowspan="2"></th>
-      <td  class="for-print cell_bb fio" rowspan="2" colspan="3">{{item.employer.fullname}}, {{item.employer.position|truncatechars:10}}, {{item.employer.level}}</td>
+      <td  class="for-print cell_bb fio" rowspan="2" colspan="3">{{item.employer.fullname}}|{{item.employer.position|truncatechars:10}}|{{item.employer.level}}</td>
 
       <td class="not-print cell_bb" rowspan="2">{{item.employer.fullname}}</td>
       <td class="not-print cell_bb" rowspan="2">{{item.employer.position}}</td>
