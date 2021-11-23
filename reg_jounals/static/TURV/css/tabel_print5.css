@@ -107,6 +107,7 @@ table  .for-print {
 td {
   font-weight: 700 !important;
   /* border: 2px solid black !important; */
+  font-size: 11pt;
 }
 
 @page {
