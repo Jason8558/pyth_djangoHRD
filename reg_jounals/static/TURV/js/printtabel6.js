@@ -54,7 +54,7 @@ if (parts > 0) {
     }
 
 
-  WinPrint.document.write("<table class='print_table' style='page-break-after: always; table-layout: fixed !important;'> <thead>")
+  WinPrint.document.write("<table class='print_table'  table-layout: fixed !important;'> <thead>")
     i = (rows.length) - ost
 WinPrint.document.write( $(".tabel thead").html() + "</thead><tbody>")
     for (var i = i; i < rows.length; i++) {
