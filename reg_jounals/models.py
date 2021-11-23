@@ -178,7 +178,8 @@ class SickRegistry(models.Model):
         return reg_num
 
 class SickDocument(models.Model):
-    sd_reg_number = models.CharField(max_length=256, blank=True, help_text="Введите номер реестра", verbose_name="№ реестра ", default=" ")
+    sd_reg_number = models.ForeignKey('SickRegistry',  on_delete=models.CASCADE, verbose_name="Реестр ", default="1")
+    # sd_reg_number = models.CharField(max_length=256, blank=True, help_text="Введите номер реестра", verbose_name="№ реестра ", default=" ")
     sd_number = models.CharField(max_length=256, help_text="Введите номер б\л", verbose_name="Номер б\л", unique=True, db_index=True)
     sd_emp = models.CharField(max_length=256, help_text="Введите ФИО сотрудника", verbose_name="ФИО", db_index=True)
     sd_pos = models.CharField(max_length=256, help_text="Введите должность", verbose_name="Должность", db_index=True)

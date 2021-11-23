@@ -670,7 +670,7 @@ def sick_regs(request):
 
 def create_SickRegistry(request, sr_number):
     if request.user.is_authenticated:
-        positions = SickDocument.objects.filter(sd_reg_number__exact=sr_number)
+        positions = SickDocument.objects.filter(sd_reg_number_id__exact=sr_number)
         print(positions)
         count = len(positions)
         return render(request, 'reg_jounals/sick_reg_create.html', context={'positions':positions, 'rnum':sr_number, 'count':count})
@@ -707,7 +707,7 @@ def add_SickDocument(request, sr_number_):
                     dual_num = request.POST.get('sd_number','')
                     find_doc = SickDocument.objects.get(sd_number=dual_num)
                     print('yes')
-                    errs = "Больничный лист c таким номером существует в реестре № " + str(find_doc.sd_reg_number) + " сотрудник: " + str(find_doc.sd_emp)
+                    errs = "Больничный лист c таким номером существует в реестре № " + str(find_doc.sd_reg_number.reg_number) + " сотрудник: " + str(find_doc.sd_emp)
     else:
         return render(request, 'reg_jounals/no_auth.html')
     return render(request, 'reg_jounals/SickDocument_add.html', context={'form':doc_form, 'reg_num':sr_number_, 'errs':errs})
@@ -715,7 +715,7 @@ def add_SickDocument(request, sr_number_):
 def upd_SickDocument(request, id):
     if request.user.is_authenticated:
         document = SickDocument.objects.get(id__exact=id)
-        reg = SickRegistry.objects.get(sr_number__exact=document.sd_reg_number)
+        reg = SickRegistry.objects.get(sr_number__exact=document.sd_reg_number.id)
         b_reg = document.sd_reg_number
         if request.method == "GET":
             bound_form = SickDocument_form(instance=document)
