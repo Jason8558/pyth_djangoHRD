@@ -22,26 +22,9 @@
   {%endblock%}
 
 {% block body %}
-<script type="text/javascript">
-  $(document).ready(function(){
-    if ($.cookie('msg') == null)  {
-      alert("Изменился способ печати табеля! Теперь для того, чтобы распечатать табель - нажмите желтую кнопку 'Печать' , после чего в открывшемся окне нажмите голубую кнопку 'Печать' в верхем левом углу")
-      $.cookie('msg', 'yes')
-      $('#tabel_message').css('display', 'block')
-    }
-    else {
 
-    }
-  })
-  function close_message() {
-    $('#tabel_message').css('display', 'none')
-  }
-</script>
 <!-- <link rel="stylesheet" href="{% static 'TURV\css\tabel_print2.css'%}"> -->
-<div style="width: 70%; margin: 0 auto; display: none;" id="tabel_message" class="alert alert-danger">
-<h4>ВНИМАНИЕ! Изменился способ печати табеля! Теперь для того, чтобы распечатать табель - нажмите желтую кнопку 'Печать' , после чего в открывшемся окне нажмите голубую кнопку 'Печать' в верхем левом углу</h4>
-<button class="btn btn-success w-100" type="button" onclick="close_message()" name="button"> ОК </button>
-</div>
+
 
 <form action="" class="f_search intabel not-print">
 <p>ПОИСК</p>
@@ -133,7 +116,9 @@
     <a class="btn btn-success" href="{% url 'checked' id=b_tabel.id%}">Отметить как проверенный</a>
     {%endif%}
 {%endif%}
+{% if granted == 1%}
 <input class="btn btn-warning"  style="margin-left: 6px;" type="button" name="" onclick="print()" value="ПЕЧАТЬ">
+{%endif%}
 </div>
   {% if form.errors %}
   {{form.errors}}
