@@ -9,7 +9,9 @@
       <li>Справочники <span class='angle-down'>v</span>
       <ul class="sprav">
         <li><a href="{% url 'emp_list'%}"> > Сотрудники</a></li>
+        {% if granted == 1%}
         <li><a href="{% url 'pos_list'%}"> > Должности</a></li>
+        {%endif%}
       </ul>
       </li>
       <li>Информация <span class='angle-down'>v</span>
