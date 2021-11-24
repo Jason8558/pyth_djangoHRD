@@ -299,11 +299,11 @@ $(location).attr('href',url);}, 250)
 
                   case 'add':
                         if ($('table').is('.vac_table')) {
-                          $('tbody').prepend("<tr><td>" + name + "</td><td>" + dep + "</td><td>" + from + "</td><td>"+ to +"</td><td>" + days + "</td><td>" + type + "</td><td>" + comm + "</td><td></td></tr>")
+                          $('tbody').append("<tr><td>" + name + "</td><td>" + dep + "</td><td>" + from + "</td><td>"+ to +"</td><td>" + days + "</td><td>" + type + "</td><td>" + comm + "</td><td></td></tr>")
                         }
                         else {
                           $('#btn-add').before('<table class="vac_table"><thead class="thead-dark"><thead class="thead-dark"><tr class="tr-header"><th scope="col">ФИО</th><th scope="col">Подразделение</th><th scope="col">Дата начала</th><th scope="col">Дата окончания</th><th scope="col">Дней отпуска</th><th scope="col">Вид отпуска</th><th scope="col">Примечание</th><th scope="col"></th></tr></thead><tbody></tbody></table>')
-                          $('tbody').prepend("<tr><td>" + name + "</td><td>" + dep + "</td><td>" + from + "</td><td>"+ to +"</td><td>" + days + "</td><td>" + type + "</td><td>" + comm + "</td><td></td></tr>")
+                          $('tbody').append("<tr><td>" + name + "</td><td>" + dep + "</td><td>" + from + "</td><td>"+ to +"</td><td>" + days + "</td><td>" + type + "</td><td>" + comm + "</td><td></td></tr>")
                         }
 
                     break;
