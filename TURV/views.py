@@ -530,9 +530,9 @@ def unload(request):
             dn = transliterate(dn)
 
             if notulonl == "1":
-                items = TabelItem.objects.filter(employer__department_id=dep.id).filter(month=month_).filter(year=year_).filter(bound_tabel__unloaded=False).filter(employer__shift_personnel=True).order_by('employer')
+                items = TabelItem.objects.filter(employer__department_id=dep.id).filter(month=month_).filter(year=year_).filter(bound_tabel__unloaded=False).order_by('employer')
             else:
-                items = TabelItem.objects.filter(employer__department_id=dep.id).filter(month=month_).filter(year=year_).filter(employer__shift_personnel=True).order_by('employer')
+                items = TabelItem.objects.filter(employer__department_id=dep.id).filter(month=month_).filter(year=year_).order_by('employer')
 
 
             if items:
