@@ -9,7 +9,7 @@ function print() {
     }
     if (inf.indexOf('Firefox') >-1 ) {
       browser = "Firefox"
-      rcount = 56
+      rcount = 64
     }
   }
 
