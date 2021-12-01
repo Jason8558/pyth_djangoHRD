@@ -7,6 +7,7 @@ from django.core.paginator import Paginator
 import datetime as DT
 from itertools import groupby
 from django.contrib.auth.models import *
+from .forms import last_doc
 
 
 
@@ -668,12 +669,13 @@ def sick_regs(request):
     else:
         return render(request, 'reg_jounals/no_auth.html')
 
-def create_SickRegistry(request, sr_number):
+def create_SickRegistry(request, id):
     if request.user.is_authenticated:
-        positions = SickDocument.objects.filter(sd_reg_number__exact=sr_number)
-        print(positions)
+        reg = SickRegistry.objects.get(id=id)
+        positions = SickDocument.objects.filter(sd_bound_reg_id=id)
+
         count = len(positions)
-        return render(request, 'reg_jounals/sick_reg_create.html', context={'positions':positions, 'rnum':sr_number, 'count':count})
+        return render(request, 'reg_jounals/sick_reg_create.html', context={'positions':positions, 'year':reg.sr_year, 'rnum':reg.sr_number, 'count':count})
     else:
         return render(request, 'reg_jounals/no_auth.html')
 
@@ -682,13 +684,16 @@ def add_SickRegistry(request):
         reg_form = SickRegistry_form()
         regs = SickRegistry.objects.all().order_by('sr_number')
         user_ = request.user.first_name
-        reg_form.saveFirst(user_)
+        year_ = DT.datetime.today().year
+        reg_form.saveFirst(user_, year_)
+        new_reg = last_doc(SickRegistry)
+
 
     else:
         return render(request, 'reg_jounals/no_auth.html')
-    return redirect('/sick_regs')
+    return redirect('/sick_reg/' + str(new_reg.id) + '/create')
 
-def add_SickDocument(request, sr_number_):
+def add_SickDocument(request, id):
     if request.user.is_authenticated:
         doc_form = SickDocument_form()
         errs = doc_form.errors.as_data()
@@ -696,8 +701,8 @@ def add_SickDocument(request, sr_number_):
             doc_form = SickDocument_form(request.POST)
             if doc_form.is_valid():
                 user_ = request.user.first_name
-                doc_form.saveFirst(user_, sr_number_)
-                loc = '/sick_reg/'+str(sr_number_)+'/create/'
+                doc_form.saveFirst(user_, id)
+                loc = '/sick_reg/'+str(id)+'/create/'
                 return redirect(loc)
             else:
                 errs = doc_form.errors.as_data()
@@ -707,16 +712,16 @@ def add_SickDocument(request, sr_number_):
                     dual_num = request.POST.get('sd_number','')
                     find_doc = SickDocument.objects.get(sd_number=dual_num)
                     print('yes')
-                    errs = "Больничный лист c таким номером существует в реестре № " + str(find_doc.sd_reg_number) + " сотрудник: " + str(find_doc.sd_emp)
+                    errs = "Больничный лист c таким номером существует в реестре № " + str(find_doc.sd_bound_reg.sr_number) + " сотрудник: " + str(find_doc.sd_emp)
     else:
         return render(request, 'reg_jounals/no_auth.html')
-    return render(request, 'reg_jounals/SickDocument_add.html', context={'form':doc_form, 'reg_num':sr_number_, 'errs':errs})
+    return render(request, 'reg_jounals/SickDocument_add.html', context={'form':doc_form, 'reg_num':id, 'errs':errs})
 
 def upd_SickDocument(request, id):
     if request.user.is_authenticated:
         document = SickDocument.objects.get(id__exact=id)
-        reg = SickRegistry.objects.get(sr_number__exact=document.sd_reg_number)
-        b_reg = document.sd_reg_number
+        reg = SickRegistry.objects.get(sr_number__exact=document.sd_bound_reg_id)
+        b_reg = document.sd_bound_reg_id
         if request.method == "GET":
             bound_form = SickDocument_form(instance=document)
             return render(request, 'reg_jounals/SickDocument_upd.html', context={'form':bound_form, 'document':document, 'b_reg':b_reg})
@@ -742,7 +747,7 @@ def check_SickDocument(request, num):
         sdoc = SickDocument.objects.filter(sd_number__exact=num)
         print(sdoc)
         if sdoc:
-            message = "Болничный лист с таким номером уже занесен в реестр № " + str(sdoc[0].sd_reg_number) + ". Сотрудник: " + str(sdoc[0].sd_emp)
+            message = "Болничный лист с таким номером уже занесен в реестр № " + str(sdoc[0].sd_bound_reg.sr_number) + ". Сотрудник: " + str(sdoc[0].sd_emp)
         else:
             message = "Б\Л с таким номером не заносился в систему"
         return JsonResponse(message, safe=False)

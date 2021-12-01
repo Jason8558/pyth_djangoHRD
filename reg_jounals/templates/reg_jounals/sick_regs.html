@@ -22,6 +22,7 @@
   <tr class="tr-header">
 
     <th scope="col">Номер реестра</th>
+    <th scope="col">Год</th>
     <th scope="col">Ответственный</th>
 
 
@@ -31,9 +32,10 @@
 
   {%for reg in regs %}
 
-<tr onclick="return location.href = '{% url 'sick_reg_create_url'  sr_number=reg.sr_number %}'">
+<tr onclick="return location.href = '{% url 'sick_reg_create_url'  id=reg.id %}'">
 
     <td>{{reg.sr_number}}</td>
+    <td>{{reg.sr_year}}</td>
     <td>{{reg.sr_res_officer}}</td>
 
 

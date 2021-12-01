@@ -346,9 +346,6 @@ $(location).attr('href',url);}, 250)
       break;
 
       case 'orders_of_BTrip':
-
-
-
           date = $('#iframe').contents().find("#id_bt_date").val().split("-")
           date = date[2] + "." + date[1] + "." + date[0]
           fio = $('#iframe').contents().find("#id_bt_emloyer").val()
@@ -609,7 +606,7 @@ if ($('#iframe').contents().find('div').is('#form_error')) {
 }
 else {
 
-    close_frame()
+    // close_frame()
 }
 }, 500)
 

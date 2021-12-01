@@ -167,10 +167,11 @@ class EmploymentHistory(models.Model):
 
 class SickRegistry(models.Model):
     sr_number = models.IntegerField(help_text="Введите номер реестра", verbose_name="Номер реестра", db_index=True)
+    sr_year = models.IntegerField(help_text="Год_сервисное_поле", verbose_name="Год. Сервисное поле", db_index=True, default="0")
     sr_res_officer = models.CharField(blank=True, editable=False,  max_length=256, help_text="Сотрудник, который создал реестр ", verbose_name='Ответственный сотрудник')
 
     class Meta:
-        ordering = ["sr_number"]
+        ordering = ["id"]
         verbose_name = 'Реестр больничных листов'
         verbose_name_plural = 'Реестры больничных листов'
     def __str__(self):
@@ -178,22 +179,23 @@ class SickRegistry(models.Model):
         return reg_num
 
 class SickDocument(models.Model):
-    sd_reg_number = models.CharField(max_length=256, blank=True, help_text="Введите номер реестра", verbose_name="№ реестра ", default=" ")
-    sd_number = models.CharField(max_length=256, help_text="Введите номер б\л", verbose_name="Номер б\л", unique=True, db_index=True)
+    # sd_reg_number_id = models.CharField(max_length=256, blank=True, help_text="Введите номер реестра", verbose_name="№ реестра ", default=" ")
+    sd_number = models.CharField(max_length=200, help_text="Введите номер б\л", verbose_name="Номер б\л", unique=True, db_index=True)
     sd_emp = models.CharField(max_length=256, help_text="Введите ФИО сотрудника", verbose_name="ФИО", db_index=True)
     sd_pos = models.CharField(max_length=256, help_text="Введите должность", verbose_name="Должность", db_index=True)
     sd_dep = models.ForeignKey('Departments',  on_delete=models.CASCADE, verbose_name="Подразделение ", default="1")
     sd_dur_from = models.DateField(help_text="Введите дату начала болезни", verbose_name="Дата начала болезни", db_index=True)
     sd_dur_to = models.DateField(help_text="Введите дату окончания болезни", verbose_name="Дата окончания болезни", db_index=True)
     sd_comm = models.CharField(blank=True, default=" ", max_length=256, help_text="Введите примечание", verbose_name="Примечание")
+    sd_bound_reg = models.ForeignKey('SickRegistry',  on_delete=models.CASCADE, verbose_name="Связанный реестр ", default='1')
 
     class Meta:
-        ordering = ["sd_reg_number"]
+        ordering = ["sd_bound_reg"]
         verbose_name = 'Больничный лист'
         verbose_name_plural = 'Больничные листы'
 
     def __str__(self):
-        doc_name = 'Больничный № ' + str(self.sd_number) + ' в реестре № ' + str(self.sd_reg_number)
+        doc_name = 'Больничный № ' + str(self.sd_number) + ' в реестре № ' + str(self.sd_bound_reg.sr_number)
         return doc_name
 
 class Identity(models.Model):

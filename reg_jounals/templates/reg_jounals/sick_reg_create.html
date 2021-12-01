@@ -1,7 +1,7 @@
 {%extends "reg_jounals/index.html" %}
 
-{%block title%}Реестр № {{rnum}}{%endblock%}
-{%block header%} <a class="btn btn-dark" href="/sick_regs/"> < назад</a> Реестр № {{rnum}}. Больничных листов в реестре: {{count}}  {%endblock%}
+{%block title%}Реестр № {{rnum}} за {{year}} г.{%endblock%}
+{%block header%} <a class="btn btn-dark" href="/sick_regs/"> < назад</a> Реестр № {{rnum}} за {{year}} г. Больничных листов в реестре: {{count}}  {%endblock%}
 {%block content%}
 <!-- <form action="{% url 'orders_on_personnel' %}">
   <input type="search" name="op_search" placeholder="Поиск по ФИО..">
@@ -93,5 +93,5 @@ body {
 
 {%endif%}
 <button type="button" class="btn btn-success btn-sm m-bottom btn-add print " onclick="open_frame_new()" > + Добавить больничный лист в реестр</button>
-<!-- <a class="btn btn-success btn-lg m-bottom btn-sm btn-add print" href="{%url 'sick_reg_addItem_url' sr_number_=rnum%}"> + Добавить больничный лист в реестр</a> -->
+
 {%endblock%}
