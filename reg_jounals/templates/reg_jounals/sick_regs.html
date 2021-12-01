@@ -42,35 +42,42 @@
 </tr>
   {%endfor%}
 </table>
+
 <nav  class="paginator" aria-label="Page navigation example">
   <ul class="pagination">
-    <li class="page-item">
-      <a class="page-link" href="#" aria-label="Previous">
-<span aria-hidden="true">&laquo;</span>
-      </a>
-    </li>
-{% for p in regs.paginator.page_range %}
-  {% if orders.number == p%}
-   <li class="page-item active"><a class="page-link" href="?page={{p}}">{{ p }}</a></li>
-   {%else%}
-        <li class="page-item"><a class="page-link" href="?page={{p}}">{{ p }}</a></li>
-    {%endif%}
-  {% endfor %}
-
-{%if orders.has_next%}
-    <li class="page-item">
-      <a class="page-link" href='?page={{orders.next_page_number}}' aria-label="Next">
-<span aria-hidden="true">&raquo;</span>
-      </a>
-    </li>
-  {%else%}
-  <li class="page-item disabled">
-    <a class="page-link" href='#' aria-disabled='true' aria-label="Next">
-      <span aria-hidden="true">&raquo;</span>
-    </a>
-  </li>
+    {%if regs.has_previous%}
+        <li class="page-item">
+          <a class="page-link" aria-label="previous" href="?page=1">
+              <span aria-hidden="true">Первая</span></a>
+        </li>
+        <li class="page-item">
+          <a class="page-link" href='?page={{regs.previous_page_number}}' aria-label="previous">
+    <span aria-hidden="true">{{regs.previous_page_number}}</span>
+          </a>
+        </li>
   {%endif%}
-  </ul>
+
+   <li class="page-item active"><a class="page-link" href="">{{ regs.number }}</a></li>
+
+{%if regs.has_next%}
+    <li class="page-item">
+      <a class="page-link" href='?page={{regs.next_page_number}}' aria-label="Next">{{regs.next_page_number}}</a>
+      </li>
+      <li class="page-item">
+        <a class="page-link" href='?page={{regs.next_page_number|add:1}}' aria-label="Next">{{regs.next_page_number|add:1}}</a>
+        </li>
+        <li class="page-item">
+          <a class="page-link" href='?page={{regs.next_page_number|add:2}}' aria-label="Next">{{regs.next_page_number|add:2}}</a>
+          </li>
+          <li class="page-item">
+            <a class="page-link" href='?page={{regs.next_page_number|add:3}}' aria-label="Next">...</a>
+            </li>
+  {%endif%}
+
+  <li class="page-item">
+  <a class="page-link" href="?page={{ regs.paginator.num_pages }}">Последняя</a>
+  </li>
+</ul>
 </nav>
 
 {%else%}

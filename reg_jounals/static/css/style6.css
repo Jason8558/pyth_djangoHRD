@@ -463,9 +463,14 @@ box-shadow: 0px 0px 11px -2px black;
     border-bottom: none;
   }
 
+  .pagination {
+    justify-content: center;
+  }
+
   .paginator {
     width: 100%;
     float: left;
+    ;
   }
 
   .page-item.active .page-link {
