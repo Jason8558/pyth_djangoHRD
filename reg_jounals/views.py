@@ -662,7 +662,7 @@ def sick_regs(request):
                 return render(request, 'reg_jounals/sick_search.html', context={'sick_docs':sick_docs, 'search_query':sq_dep, 'sdocs_count':sdocs_count, 'deps':deps})
             else:
                 regs = SickRegistry.objects.all().order_by('-id')
-                p_regs = Paginator(regs, 10)
+                p_regs = Paginator(regs, 30)
                 page_number = request.GET.get('page', 1)
                 page = p_regs.get_page(page_number)
                 return render(request, 'reg_jounals/sick_regs.html', context={'regs':page, 'deps':deps})
