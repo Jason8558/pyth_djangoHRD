@@ -9,7 +9,9 @@ from itertools import groupby
 from django.contrib.auth.models import *
 from .forms import last_doc
 
-
+def get_user_name(request):
+    username = request.user.first_name
+    return JsonResponse(username, safe=False)
 
 def index(request):
 
@@ -775,7 +777,7 @@ def new_order_on_vacation(request):
             else:
                 orders = NewOrdersOnVacation.objects.all().order_by('-id')
                 count = len(orders)
-                p_orders = Paginator(orders, 20)
+                p_orders = Paginator(orders, 30)
                 page_number = request.GET.get('page', 1)
                 page = p_orders.get_page(page_number)
                 return render(request, 'reg_jounals/orders_on_vacation_new.html', context={'orders':page, 'count':count, 'deps':deps})
@@ -798,6 +800,7 @@ def nr_new_order_on_vacation(request):
             order_form = NewOrdersOnVacation_form(request.POST)
             if order_form.is_valid():
                 user_ = request.user.first_name
+
                 order_form.saveFirst(user_)
                 return redirect('/orders_on_vacation_new')
     else:

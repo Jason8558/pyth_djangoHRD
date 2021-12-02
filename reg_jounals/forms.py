@@ -282,9 +282,6 @@ class LetterOfInvite_form(forms.ModelForm):
     loi_dateOfInv = forms.DateField(label="Дата приема" , required=False, widget=forms.TextInput(
         attrs={'placeholder': 'Введите дату',  'type':'date'}))
 
-
-
-
     def saveFirst(self, user_):
         current_doc = last_doc(LetterOfInvite)
         letters = LetterOfInvite.objects.all()
@@ -411,7 +408,7 @@ class SickRegistry_form(forms.ModelForm):
             if regs_count == 0:
                 reg_next_num_ = 1
             else:
-                
+
                 if str(year_) != str(current_doc.sr_year):
                     reg_next_num_ = 1
                 else:
@@ -484,15 +481,19 @@ class NewOrdersOnVacation_form(forms.ModelForm):
         attrs={'placeholder': 'Введите дату', 'type':'date'}))
 
     def saveFirst(self, user_):
+        current_doc = last_doc(NewOrdersOnVacation)
         orders = NewOrdersOnVacation.objects.all().order_by('id')
         orders_count = len(orders)
-        print(orders_count)
+
         if orders_count == 0:
             order_next_num_ = 1
         else:
-            order_prev_num = orders[orders_count - 1].order_number
-            cut_symb = (len(str(order_prev_num)) - 6)
-            order_next_num_ = int(order_prev_num[:cut_symb]) + 1
+            if str(self.cleaned_data['order_date']).split("-")[0] != str(current_doc.order_date).split("-")[0]:
+                order_next_num_ = 1
+            else:
+                order_prev_num = current_doc.order_number
+                cut_symb = (len(str(order_prev_num)) - 6)
+                order_next_num_ = int(order_prev_num[:cut_symb]) + 1
 
         new_order = NewOrdersOnVacation.objects.create(
             order_date = self.cleaned_data['order_date'],

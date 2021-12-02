@@ -6,7 +6,7 @@ var printed_rows = 0;
 
 var WinPrint = window.open('','','left=50,top=50,width=1000,height=640,toolbar=0,scrollbars=1,status=0');
 WinPrint.document.write('<style> table tr {border-bottom: solid black 1px;}</style>');
-WinPrint.document.write('<table border="1" width="100%">');
+WinPrint.document.write("<table border='1' width='100%' style = 'border-collapse: collapse;text-align: center;'>");
 WinPrint.document.write('<thead class="thead-dark">');
 WinPrint.document.write('<tr class="tr-header">');
 WinPrint.document.write('<th></th>');
@@ -27,28 +27,5 @@ for (var i = 0; i < checkboxes.length; i++) {
 };
 WinPrint.document.write('</table>');
 WinPrint.focus();
-
-
-
-
-
-
-//
-// for (var i = 0; i < row_.length; i++) {
-//   WinPrint.document.write('<tr>')
-//   WinPrint.document.write(row_[i].innerHTML );
-// WinPrint.document.write('</tr>')
-// }
-//
-//
-//
-// WinPrint.document.write('</table>');
-//
-//
-//
-//
-// WinPrint.focus();
-
-
 
 }

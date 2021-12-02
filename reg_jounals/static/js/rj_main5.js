@@ -1,3 +1,12 @@
+function get_uname() {
+  $.getJSON("/getusername/",  (data) => {
+    return data
+  })
+
+}
+
+
+
 // Рассчет дней отпуска -----------------------------------------------------------------------------------
 function vac_calc() {
 
@@ -244,7 +253,7 @@ $('#frame_').css('opacity','0');
 function send_submit() {
   next_id = $('tbody').find('tr').attr('id')
   next_id = parseInt(next_id, 10) + 1
-  res_officer = $('#uname').text()
+  res_officer = get_uname()
   next_num = $('#iframe').contents().find("#next_num").text()
     switch (check_doctype()) {
       case 'orders_on_others':
