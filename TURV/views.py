@@ -827,10 +827,7 @@ def unload(request):
     else:
         return render(request, 'TURV/unload.html', context={"deps":deps})
 
-def upd_norma_test(request):
-    emps = list(Employers.objects.filter(department_id=2))
-    for emp in emps:
+def upd_norma(request):
+    norms = Overtime.objects.all()
 
-        emp.stand_worktime = 164.33
-    Employers.objects.bulk_update(emps, ['stand_worktime'])
-    return redirect('/turv/')
+    return render(request, 'TURV/overtime.html', context={'norms':norms})

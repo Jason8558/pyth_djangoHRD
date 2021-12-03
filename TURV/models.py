@@ -186,3 +186,17 @@ class TabelItem(models.Model):
     def __str__(self):
         doc_fullname = str(self.employer) + ' ' + str(self.month) + '  ' + str(self.year)
         return doc_fullname
+
+class Overtime(models.Model):
+    year = models.DateField(verbose_name='Период', db_index=True)
+    value = models.FloatField(verbose_name='Значение')
+    sex = models.CharField(verbose_name='пол', max_length=1, default='')
+
+    class Meta:
+        ordering = ['-year']
+        verbose_name = 'Норма времени'
+        verbose_name_plural = 'Нормы врмени'
+
+    def __str__(self):
+        fullname = str(self.year)
+        return fullname
