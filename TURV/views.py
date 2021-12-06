@@ -845,9 +845,9 @@ def new_norma(request):
         m.save()
 
     emps_w = Employers.objects.filter(sex='Ж').filter(shift_personnel=1)
-        for w in emps_w:
-            w.stand_worktime = current_norma_w
-            w.save()
+    for w in emps_w:
+        w.stand_worktime = current_norma_w
+        w.save()
 
 
     return render(request, 'TURV/overtime.html')
