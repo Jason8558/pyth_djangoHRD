@@ -221,6 +221,10 @@ switch (check_doctype()) {
       request = "/sick_reg/updItem/" + id
       break;
 
+    case 'sick_reg':
+      request = "/sick_reg/updItem/" + id
+      break;
+
     case 'identity':
       request = "/identity/upd/" + id
       break;
@@ -615,7 +619,7 @@ if ($('#iframe').contents().find('div').is('#form_error')) {
 }
 else {
 
-    // close_frame()
+    close_frame()
 }
 }, 500)
 
