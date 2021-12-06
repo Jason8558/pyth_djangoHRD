@@ -300,11 +300,12 @@ class Tabel_form(forms.ModelForm):
 class Employer_form(forms.ModelForm):
     class Meta:
         model = Employers
-        fields = ['fullname', 'position', 'department', 'level', 'positionOfPayment', 'shift_personnel', 'stand_worktime', 'fired']
+        fields = ['fullname', 'sex', 'position', 'department', 'level', 'positionOfPayment', 'shift_personnel', 'stand_worktime', 'fired']
 
     def saveFirst(self):
         new_employer = Employers.objects.create(
             fullname  = self.cleaned_data['fullname'],
+            sex = self.cleaned_data['sex'],
             position = self.cleaned_data['position'],
             shift_personnel = self.cleaned_data['shift_personnel'],
             fired = self.cleaned_data['fired'],

@@ -831,3 +831,23 @@ def upd_norma(request):
     norms = Overtime.objects.all()
 
     return render(request, 'TURV/overtime.html', context={'norms':norms})
+
+def new_norma(request):
+    current_date = str(DT.datetime.today().year)
+    current_date = current_date + "-01-01"
+    current_norma = Overtime.objects.filter(year=current_date)
+    current_norma_m = current_norma[0].value_m
+    current_norma_w = current_norma[0].value_w
+
+    emps_m = Employers.objects.filter(sex='М').filter(shift_personnel=1)
+    for m in emps_m:
+        m.stand_worktime = current_norma_m
+        m.save()
+
+    emps_w = Employers.objects.filter(sex='Ж').filter(shift_personnel=1)
+        for w in emps_w:
+            w.stand_worktime = current_norma_w
+            w.save()
+
+
+    return render(request, 'TURV/overtime.html')
