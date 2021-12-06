@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 from django.db.models import Sum, F, Case, When
 from .models import *
 from .forms import *
@@ -828,26 +828,29 @@ def unload(request):
         return render(request, 'TURV/unload.html', context={"deps":deps})
 
 def upd_norma(request):
-    norms = Overtime.objects.all()
+    if request.user.is_authenticated:
+        norms = Overtime.objects.all()
 
-    return render(request, 'TURV/overtime.html', context={'norms':norms})
+        return render(request, 'TURV/overtime.html', context={'norms':norms})
 
 def new_norma(request):
-    current_date = str(DT.datetime.today().year)
-    current_date = current_date + "-01-01"
-    current_norma = Overtime.objects.filter(year=current_date)
-    current_norma_m = current_norma[0].value_m
-    current_norma_w = current_norma[0].value_w
+    if request.user.is_authenticated:
+        current_date = str(DT.datetime.today().year)
+        current_date = current_date + "-01-01"
+        current_norma = Overtime.objects.filter(year=current_date)
+        current_norma_m = current_norma[0].value_m
+        current_norma_w = current_norma[0].value_w
 
-    emps_m = Employers.objects.filter(sex='М').filter(shift_personnel=1)
-    for m in emps_m:
-        m.stand_worktime = current_norma_m
-        m.save()
+        emps_m = Employers.objects.filter(sex='М').filter(shift_personnel=1)
+        for m in emps_m:
+            m.stand_worktime = current_norma_m
+            m.save()
 
-    emps_w = Employers.objects.filter(sex='Ж').filter(shift_personnel=1)
-    for w in emps_w:
-        w.stand_worktime = current_norma_w
-        w.save()
+        emps_w = Employers.objects.filter(sex='Ж').filter(shift_personnel=1)
+        for w in emps_w:
+            w.stand_worktime = current_norma_w
+            w.save()
+        message = "Норма обновлена!"
 
 
-    return render(request, 'TURV/overtime.html')
+        return JsonResponse(message, safe=False)
