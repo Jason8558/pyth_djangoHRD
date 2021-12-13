@@ -119,9 +119,11 @@
 {% if granted == 1%}
 <input class="btn btn-warning"  style="margin-left: 6px;" type="button" name="" onclick="print()" value="ПЕЧАТЬ">
 {%endif%}
-{% if b_tabel.department == 40%}
+{% if dep == 40%}
 <input class="btn btn-warning"  style="margin-left: 6px;" type="button" name="" onclick="print()" value="ПЕЧАТЬ">
 {%endif%}
+
+
 </div>
   {% if form.errors %}
   {{form.errors}}

@@ -214,7 +214,7 @@ def tabel_create(request, id):
 's_vacwork':s_vacwork,
 's_vac':s_vac,
 's_weekends':s_weekends,
-            'hours':hours,'form':tabel_form, 'items':items, 'month':t_month, 'year':t_year, 'count':count, 'b_tabel':b_tabel, 'granted':granted, 'ro':is_ro})
+            'hours':hours,'form':tabel_form, 'items':items, 'month':t_month, 'year':t_year, 'count':count, 'b_tabel':b_tabel, 'dep':b_tabel.department_id, 'granted':granted, 'ro':is_ro})
         else:
             b_tabel = Tabel.objects.get(id=id)
             bound_form = Tabel_form(request.POST, instance=b_tabel)
