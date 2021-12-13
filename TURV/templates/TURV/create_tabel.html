@@ -45,7 +45,7 @@
 
 
 <div  class="container tabel_container">
-<h5 class="not-print" style="color:red;">ВАЖНО: ПЕЧАТЬ ТАБЕЛЯ ВРЕМЕННО ОСУЩЕСТВЛЯЕТСЯ СЛУЖБОЙ УПРАВЛЕНИЯ ПЕРСОНАЛОМ! ЕСЛИ ВАШ ТАБЕЛЬ ГОТОВ К ПЕЧАТИ, ПОЗВОНИТЕ В СУП И СООБЩИТЕ ОБ ЭТОМ</h5>
+<!-- <h5 class="not-print" style="color:red;">ВАЖНО: ПЕЧАТЬ ТАБЕЛЯ ВРЕМЕННО ОСУЩЕСТВЛЯЕТСЯ СЛУЖБОЙ УПРАВЛЕНИЯ ПЕРСОНАЛОМ! ЕСЛИ ВАШ ТАБЕЛЬ ГОТОВ К ПЕЧАТИ, ПОЗВОНИТЕ В СУП И СООБЩИТЕ ОБ ЭТОМ</h5> -->
 <div class="for-print not-screen cover">
 
 <div class="colon">
@@ -118,6 +118,11 @@
 {%endif%}
 {% if granted == 1%}
 <input class="btn btn-warning"  style="margin-left: 6px;" type="button" name="" onclick="print()" value="ПЕЧАТЬ">
+{%endif%}
+{% if print == 1%}
+<input class="btn btn-warning"  style="margin-left: 6px;" type="button" name="" onclick="print()" value="ПЕЧАТЬ">
+{%else%}
+<h5 class="not-print" style="color:red;">ВАЖНО: ПЕЧАТЬ ТАБЕЛЯ ВРЕМЕННО ОСУЩЕСТВЛЯЕТСЯ СЛУЖБОЙ УПРАВЛЕНИЯ ПЕРСОНАЛОМ! ЕСЛИ ВАШ ТАБЕЛЬ ГОТОВ К ПЕЧАТИ, ПОЗВОНИТЕ В СУП И СООБЩИТЕ ОБ ЭТОМ</h5>
 {%endif%}
 </div>
   {% if form.errors %}
