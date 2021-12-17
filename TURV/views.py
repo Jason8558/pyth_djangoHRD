@@ -167,6 +167,7 @@ def tabel_create(request, id):
         u_group = request.user.groups.all()
         granted = 0
         is_ro = 0
+        allow_print = 0
         if request.user.is_superuser:
             granted = 1
         else:
@@ -175,6 +176,8 @@ def tabel_create(request, id):
                     granted = 1
                 if (group.name == 'Сотрудник РО'):
                     is_ro = 1
+                if (group.name == 'Печать табеля'):
+                    allow_print = 1
         if request.method == "GET":
 
             b_tabel = Tabel.objects.get(id=id)
@@ -214,7 +217,9 @@ def tabel_create(request, id):
 's_vacwork':s_vacwork,
 's_vac':s_vac,
 's_weekends':s_weekends,
-            'hours':hours,'form':tabel_form, 'items':items, 'month':t_month, 'year':t_year, 'count':count, 'b_tabel':b_tabel, 'dep':b_tabel.department_id, 'uid':request.user.id, 'granted':granted, 'ro':is_ro})
+
+            'hours':hours,'form':tabel_form, 'items':items, 'print':allow_print, 'month':t_month, 'year':t_year, 'count':count, 'b_tabel':b_tabel, 'granted':granted, 'ro':is_ro})
+
         else:
             b_tabel = Tabel.objects.get(id=id)
             bound_form = Tabel_form(request.POST, instance=b_tabel)
