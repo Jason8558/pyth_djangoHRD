@@ -722,7 +722,7 @@ def add_SickDocument(request, id):
 def upd_SickDocument(request, id):
     if request.user.is_authenticated:
         document = SickDocument.objects.get(id__exact=id)
-        reg = SickRegistry.objects.get(sr_number__exact=document.sd_bound_reg_id)
+        reg = SickRegistry.objects.get(id=document.sd_bound_reg_id)
         b_reg = document.sd_bound_reg_id
         if request.method == "GET":
             bound_form = SickDocument_form(instance=document)
