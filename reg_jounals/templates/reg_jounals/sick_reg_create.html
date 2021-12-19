@@ -1,7 +1,8 @@
 {%extends "reg_jounals/index.html" %}
-
+{%load static%}
 {%block title%}Реестр № {{rnum}} за {{year}} г.{%endblock%}
 {%block header%} <a class="btn btn-dark" href="/sick_regs/"> < назад</a> Реестр № {{rnum}} за {{year}} г. Больничных листов в реестре: {{count}}  {%endblock%}
+{%block scripts%}<script src="{% static 'js/reqtest.js'%}"></script>{%endblock%}
 {%block content%}
 <!-- <form action="{% url 'orders_on_personnel' %}">
   <input type="search" name="op_search" placeholder="Поиск по ФИО..">
@@ -48,12 +49,13 @@ body {
 
 <div id="frame_" class="frame vacantion">
   <iframe id="iframe" src="" width="" height=""></iframe>
-  <button type="button" class="btn btn-success" onclick="send_submit()" name="button">Сохранить</button>
+  <button type="button" class="btn btn-success" onclick="send_request()" name="button">Сохранить</button>
   <button type="button" onclick="close_frame()"class="btn btn-outline-danger" name="button">Отмена</button>
 </div>
 
 <a class=" btn btn-sm btn-warning print" onclick="javascript:window.print();" style="margin-top: 5px;" href="">Печать реестра</a>
 <!-- <a class=" btn btn-sm btn-danger print"  style="margin-top: 5px;" href="">Удалить реестр</a> -->
+<button type="button" class="btn btn-warning" onclick="open_frame()" name="button">test</button>
 {% if positions %}
 <h3 class="print-allow" style="text-align: center;"> Реестр больничных листов № {{rnum}}. Листов в реестре: {{count}}</h3>
 <table>
