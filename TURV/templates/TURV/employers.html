@@ -93,6 +93,35 @@
   </tr>
   {%endfor%}
 </table>
+
+<nav  class="paginator" aria-label="Page navigation example">
+  <ul class="pagination">
+    {%if employers.has_previous%}
+        <li class="page-item">
+          <a class="page-link" aria-label="previous" href="?page=1">
+              <span aria-hidden="true">Первая</span></a>
+        </li>
+        <li class="page-item">
+          <a class="page-link" href='?page={{employers.previous_page_number}}' aria-label="previous">
+    <span aria-hidden="true">{{employers.previous_page_number}}</span>
+          </a>
+        </li>
+  {%endif%}
+
+   <li class="page-item active"><a class="page-link" href="">{{ employers.number }}</a></li>
+
+{%if employers.has_next%}
+    <li class="page-item">
+      <a class="page-link" href='?page={{employers.next_page_number}}' aria-label="Next">{{employers.next_page_number}}</a>
+      </li>
+  {%endif%}
+
+  <li class="page-item">
+  <a class="page-link" href="?page={{ employers.paginator.num_pages }}">Последняя</a>
+  </li>
+</ul>
+</nav>
+
 {%else%}
 <h2>Сотрудники не найдены</h2>
 {%endif%}

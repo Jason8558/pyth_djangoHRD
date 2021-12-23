@@ -356,6 +356,7 @@ def employers_list(request):
             for dep in deps:
                 allow_departments.append(dep.id)
             # Алгоритм поиска
+            pag = 1000
             if (sq_emp):
                 employers = Employers.objects.all().filter(department_id__in=allow_departments).filter(fullname__icontains=sq_emp)
             else:
@@ -375,11 +376,13 @@ def employers_list(request):
                             if (sq_shift == '2'):
                                 employers = Employers.objects.all().filter(department_id__in=allow_departments).filter(shift_personnel=False)
                             else:
+                                pag = 50
                                 employers = Employers.objects.all().filter(department_id__in=allow_departments)
 
         else:
             deps = Department.objects.all()
             # Алгоритм поиска
+            pag = 1000
             if (sq_emp):
                 employers = Employers.objects.all().filter(fullname__icontains=sq_emp)
             else:
@@ -399,14 +402,17 @@ def employers_list(request):
                             if (sq_shift == '2'):
                                 employers = Employers.objects.all().filter(shift_personnel=False)
                             else:
+                                pag = 50
                                 employers = Employers.objects.all()
 
 
 
 
-
+        p_emps = Paginator(employers, pag)
+        page_number = request.GET.get('page', 1)
+        page = p_emps.get_page(page_number)
         count = len(employers)
-        return render(request, 'TURV/employers.html', context={'employers':employers, 'count':count, 'deps':deps})
+        return render(request, 'TURV/employers.html', context={'employers':page, 'count':count, 'deps':deps})
 
 def new_employer(request):
     if request.user.is_authenticated:
