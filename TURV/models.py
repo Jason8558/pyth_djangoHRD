@@ -2,7 +2,7 @@ from django.db import models
 from django.contrib.auth.models import User
 
 class Employers(models.Model):
-    sex_choices = [('1','М'),('2','Ж')]
+    sex_choices = [('М','М'),('Ж','Ж')]
     fullname = models.CharField(verbose_name = 'ФИО сотрудника', db_index=True, max_length=256)
     sex = models.CharField(verbose_name = 'Пол', choices=sex_choices, db_index=True, max_length=1, default="М")
     position = models.ForeignKey('Position', verbose_name='Должность', db_index=True, on_delete=models.CASCADE)
