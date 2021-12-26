@@ -36,7 +36,11 @@
 
   {%for history in histories %}
 
-<tr id={{history.id}} onclick="open_for_upd({{history.id}}) ">
+  {%if history.eh_isdigital%}
+    <tr id={{history.id}} style="background: lightblue;" onclick="open_for_upd({{history.id}}) ">
+  {%else%}
+    <tr id={{history.id}} onclick="open_for_upd({{history.id}}) ">
+  {%endif%}
 
     <td id="number">{{history.eh_number}}</td>
     <td id="dateofinv">{{history.eh_dateOfInv|date:"d.m.Y"}}</td>
