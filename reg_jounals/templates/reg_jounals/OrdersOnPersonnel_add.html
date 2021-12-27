@@ -5,11 +5,7 @@
 
 
 {%block content%}
-<script type="text/javascript">
-  $(document).ready(function() {
-    $('header').css('display','none')
-    $('body').css('background', 'white !important') })
-</script>
+
 {% if form.errors%}
 
 
@@ -38,10 +34,10 @@
   <p>{{form.op_dep.label}}:{{form.op_dep}}</p>
   <p>{{form.op_content.label}}:{{form.op_content}}</p>
 
-<!-- <div class="buttons">
+<div class="buttons">
   <input class="btn btn-success" style="" type="submit" value="Добавить" />
   <a class="btn btn-outline-danger" href=".">Отмена</a>
-  </div> -->
+  </div>
 </form>
 
 {%endblock%}
