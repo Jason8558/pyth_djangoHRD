@@ -20,7 +20,8 @@
   </select>
   <button class="btn btn-sm btn-dark" type="submit" name="" value="Найти">Найти</button>
 </form>
-<button type="button" class="btn btn-success btn-lg m-bottom btn-add " onclick="open_frame_new()" > + Добавить</button>
+
+<a class="btn btn-success btn-lg m-bottom btn-add " href="{%url 'orders_on_others_add_url'%}"> + Добавить</a>
 
 
 
@@ -40,7 +41,7 @@
 
   {%for order in orders%}
 
-<tr  id="{{order.id}}" onclick="open_for_upd({{order.id}})">
+<tr id="{{item.id}}" onclick="return location.href = '{% url 'orders_on_others_upd_url' id=order.id%}' ">
 
     <td id="date">{{order.oom_date|date:"d.m.Y"}}</td>
     <td id="number">{{order.oom_number}}</td>

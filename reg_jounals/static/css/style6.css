@@ -95,7 +95,7 @@ font-size: 20pt;
 
 .add_form {
   display: grid;
-  grid-template-rows: repeat(5, 42px);
+/*   grid-template-rows: repeat(42px); */
   grid-template-columns: repeat(1, 100%);
   grid-gap: 14px;
   /* padding: 9px; */
@@ -504,11 +504,13 @@ box-shadow: 0px 0px 11px -2px black;
 }
 
 .idents {
-height: 354px;
+
+height: 354px;
 }
 
 .iidents {
-height: 85% !important;
+
+height: 85% !important;
 }
 
 .vacantion {
@@ -529,7 +531,7 @@ border: none;
 
 @media (max-width: 1088px) {
     .container {
-      max-width: none !important;
+      /* max-width: none !important; */
     }
 
   }
