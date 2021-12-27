@@ -16,28 +16,71 @@ function send_request() {
   sd_reg_number = "268"
   sd_bound_reg_id = "268"
   id="1051"
+  errors = 1
 
 
   const request = new XMLHttpRequest()
 
-  const url = "/sick_reg/updItem/1051"
+  const url = "/sick_reg/268/addItem"
 
   const params = 'sd_number=' + sd_number + "&sd_emp=" + sd_emp + "&sd_pos=" + sd_pos + "&sd_dur_from=" + sd_dur_from + "&sd_dur_to=" + sd_dur_to + "&sd_dep=8&sd_reg_number=268&sd_bound_reg_id=268"
 
   request.open("POST",url,true)
 
   token = $.cookie('csrftoken')
-  console.log(token);
+  // console.log(token);
   request.setRequestHeader("Content-type", "application/x-www-form-urlencoded")
   request.setRequestHeader("X-CSRFToken", token)
 
   request.addEventListener("readystatechange", () => {
-    if(request.status === 500) {
-console.log(request.responseText);
-nw = window.open();
-nw.document.write(request.responseText)
+    // console.log(request.status);
+    txt = request.responseText
+
+  //
+  //     console.log(k, v);
+  //
+  //
+  // })
+  // try {
+    txt = JSON.parse(txt)
+  //   console.log(txt);
+  //   console.log(errors);
+  // } catch (e) {
+  //   errors = 0
+  // }
+
+
+  if (errors == 1) {
+  keys = Object.keys(txt)
+  values = Object.values(txt)
+
+  vals = Object.values(values[0])
+
+
+  for (var i = 0; i < values.length; i++) {
+    val = Object.values(values[i])
+    console.log(keys[i] + " " + val[0].message + " <" + val[0].code + "> ");
+  }
 }
-console.log(request.responseText);
+
+
+
+
+
+    // $.getJSON(txt,  (data) => {
+    //   nw.write(data)
+    // })
+
+
+
+    if(request.status === 500) {
+
+
+
+
+
+}
+
   })
 
   request.send(params)
