@@ -359,6 +359,7 @@ class EmploymentHistory_form(forms.ModelForm):
     class Meta:
         model = EmploymentHistory
         fields = [
+            'eh_isdigital'
             'eh_number',
             'eh_dateOfInv',
             'eh_OrderInv',
