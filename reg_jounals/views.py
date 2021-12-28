@@ -677,7 +677,7 @@ def create_SickRegistry(request, id):
         positions = SickDocument.objects.filter(sd_bound_reg_id=id)
 
         count = len(positions)
-        return render(request, 'reg_jounals/sick_reg_create.html', context={'positions':positions, 'year':reg.sr_year, 'rnum':reg.sr_number, 'count':count})
+        return render(request, 'reg_jounals/sick_reg_create.html', context={'positions':positions, 'year':reg.sr_year, 'rnum':reg.sr_number, 'reg':reg, 'count':count})
     else:
         return render(request, 'reg_jounals/no_auth.html')
 
@@ -739,7 +739,7 @@ def upd_SickDocument(request, id):
 def ItemDel_SickList(request, id):
     if request.user.is_authenticated:
         item = SickDocument.objects.get(id__iexact=id)
-        num = item.sd_reg_number
+        num = item.sd_bound_reg_id
         dest = '/sick_reg/' + str(num) + '/create/'
         item.delete()
         return redirect(dest)
