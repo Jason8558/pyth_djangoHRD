@@ -12,8 +12,8 @@
   <input type="search" name="lor_search" placeholder="Поиск по ФИО..">
   <button class="btn btn-sm btn-dark" type="submit" name="" value="Найти">Найти</button>
 </form>
-<!-- <a class="btn btn-success btn-lg m-bottom  btn-add" href="{%url 'letter_resignation_add_url' %}"> + Добавить</a> -->
-<button class="btn btn-success btn-lg m-bottom btn-add " type="button" name="button" onclick="open_frame_new()"> + Добавить</button>
+<a class="btn btn-success btn-lg m-bottom  btn-add" href="{%url 'letter_resignation_add_url' %}"> + Добавить</a>
+<!-- <button class="btn btn-success btn-lg m-bottom btn-add " type="button" name="button" onclick="open_frame_new()"> + Добавить</button> -->
 {% if letters %}
 <table>
   <thead class="thead-dark">
@@ -32,7 +32,8 @@
 
   {%for let in letters.object_list%}
 
- <tr id="{{let.id}}" onclick="open_for_upd({{let.id}})">
+<tr onclick="return location.href = '{% url 'letter_resignation_upd_url' id=let.id%}' ">
+ <!-- <tr id="{{let.id}}" onclick="open_for_upd({{let.id}})"> -->
 
     <td id="number">{{let.lor_number}}</td>
     <td id="date">{{let.lor_date|date:"d.m.Y"}}</td>

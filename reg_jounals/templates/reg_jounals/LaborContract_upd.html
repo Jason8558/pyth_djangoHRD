@@ -4,11 +4,7 @@
 {%block header%}Изменить запись - Трудовой договор № {{order.lc_number}}{% endblock %}
 
 {%block content%}
-<script type="text/javascript">
-  $(document).ready(function() {
-    $('header').css('display','none')
-    $('body').css('background', 'white !important') })
-</script>
+
 
 {% if form.errors%}
 
@@ -22,14 +18,8 @@
   <p>{{field.label}}{{ field }}</p>
   {% endfor%}
 
-  <!-- <input class="btn btn-success" type="submit" value="Сохранить" />
-  <a class="btn btn-outline-danger" id="sure_btn" onclick="OpenSureDialog()">Удалить</a>
-  <!-- <div id="sure" style="display: none;" class="yousure">
-    <p>Вы уверены? <span style="color: red;"><b>ЭТО ДЕЙСТВИЕ НЕОБРАТИМО</b></span></p>
-    <a class="btn btn-outline-danger" href="{% url 'labor_contracts_del_url' id=order.id%}">Да</a>
-
-  </div>
-  <a class="btn btn-outline-info" href="..">Отмена</a> --> 
+  <input class="btn btn-success" type="submit" value="Сохранить" />
+  <a class="btn btn-outline-danger" href="..">Отмена</a>
 </form>
 
 {%endblock%}

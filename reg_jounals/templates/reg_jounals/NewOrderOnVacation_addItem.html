@@ -6,11 +6,7 @@
 {%block header%}Добавить сотрудника в приказ{% endblock %}
 
 {%block content%}
-<script type="text/javascript">
-  $(document).ready(function() {
-    $('header').css('display','none')
-    $('body').css('background', 'white !important') })
-</script>
+
 {% if form.errors%}
 
 <div class="alert alert-danger mt-5" role="alert">
@@ -29,10 +25,9 @@
   <p>{{form.comm.label}}{{form.comm}}</p>
 
 
-
-<!-- <input class="btn btn-success" onclick="" type="submit" value="Добавить сотрудника в приказ" />
+ <input class="btn btn-success" onclick="" type="submit" value="Добавить сотрудника в приказ" />
 
   <a class="btn btn-outline-danger" href="/orders_on_vacation_new/">Отмена</a>
-</form> -->
+</form>
 
 {%endblock%}
