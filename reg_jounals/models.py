@@ -154,6 +154,7 @@ class EmploymentHistory(models.Model):
     eh_OrderResign = models.CharField(null=True, blank=True, max_length=256, help_text="Введите номер приказа об увольнении", verbose_name="Приказ об увольнении:", db_index=True)
     eh_dateOfResign = models.DateField(null=True, blank=True, help_text="Введите дату увольнения", verbose_name="Дата увольнения", db_index=True)
     eh_res_officer = models.CharField(blank=True, editable=False,  max_length=256, help_text="Сотрудник, который внес документ в систему ", verbose_name='Ответственный сотрудник')
+    eh_isdigital = models.BooleanField(verbose_name="Электронная", default=False)
 
     class Meta:
         ordering = ["-id"]
