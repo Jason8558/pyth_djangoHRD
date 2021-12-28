@@ -88,3 +88,16 @@ function check_SickDoc() {
         alert(data)
       })
 }
+
+//Электронные трудовые
+function digital_histories() {
+
+if ($('#id_eh_isdigital').prop('checked') == false) {
+  $("#id_eh_number").val(" ")
+}
+else {
+  $("#id_eh_number").val("Электронная") 
+}
+
+
+}

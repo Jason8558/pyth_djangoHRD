@@ -529,6 +529,15 @@ height: 90%;
 border: none;
 }
 
+#id_eh_isdigital {
+  width: 12px;
+  margin-left: 19px;
+}
+
+
+
+/*Медиа запросы*/
+
 @media (max-width: 1088px) {
     .container {
       /* max-width: none !important; */

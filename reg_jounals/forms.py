@@ -369,6 +369,7 @@ class EmploymentHistory_form(forms.ModelForm):
             'eh_dateOfResign',
             'eh_OrderResign']
 
+    eh_isdigital = forms.CharField(label="Электронная",required=False,widget=forms.CheckboxInput(attrs={'onclick':'digital_histories()'}))        
     eh_dateOfInv = forms.CharField(label="Дата приема на работу" , widget=forms.TextInput(
         attrs={'placeholder': 'Введите дату', 'type':'date'}))
     eh_dateOfResign = forms.DateField(label="Дата увольнения" , required=False,  widget=forms.TextInput(
