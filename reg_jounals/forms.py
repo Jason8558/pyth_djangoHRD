@@ -369,7 +369,7 @@ class EmploymentHistory_form(forms.ModelForm):
             'eh_dateOfResign',
             'eh_OrderResign']
 
-    eh_isdigital = forms.CharField(label="Электронная",required=False,widget=forms.CheckboxInput(attrs={'onclick':'digital_histories()'}))        
+    eh_isdigital = forms.BooleanField(label="Электронная", widget=forms.CheckboxInput(attrs={'onclick':'digital_histories()'}))
     eh_dateOfInv = forms.CharField(label="Дата приема на работу" , widget=forms.TextInput(
         attrs={'placeholder': 'Введите дату', 'type':'date'}))
     eh_dateOfResign = forms.DateField(label="Дата увольнения" , required=False,  widget=forms.TextInput(
@@ -384,6 +384,7 @@ class EmploymentHistory_form(forms.ModelForm):
 
 
         new_empHistory = EmploymentHistory.objects.create(
+            eh_isdigital = self.cleaned_data['eh_isdigital'],
             eh_number = self.cleaned_data['eh_number'],
             eh_dateOfInv = self.cleaned_data['eh_dateOfInv'],
             eh_employer = self.cleaned_data['eh_employer'],

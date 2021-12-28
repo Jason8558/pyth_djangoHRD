@@ -96,7 +96,7 @@ if ($('#id_eh_isdigital').prop('checked') == false) {
   $("#id_eh_number").val(" ")
 }
 else {
-  $("#id_eh_number").val("Электронная") 
+  $("#id_eh_number").val("Электронная")
 }
 
 
