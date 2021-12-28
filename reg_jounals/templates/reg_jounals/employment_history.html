@@ -12,8 +12,8 @@
   <input type="search" name="eh_search" placeholder="Поиск по ФИО...">
   <button class="btn btn-sm btn-dark" type="submit" name="" value="Найти">Найти</button>
 </form>
-<!-- <a class="btn btn-success btn-lg m-bottom btn-add " href="{%url 'employment_history_add_url'%}"> + Добавить</a> -->
-<button class="btn btn-success btn-lg m-bottom btn-add " type="button" name="button" onclick="open_frame_new()"> + Добавить</button>
+<a class="btn btn-success btn-lg m-bottom btn-add " href="{%url 'employment_history_add_url'%}"> + Добавить</a>
+<!-- <button class="btn btn-success btn-lg m-bottom btn-add " type="button" name="button" onclick="open_frame_new()"> + Добавить</button> -->
 {% if histories %}
 <table>
   <thead class="thead-dark">
@@ -37,9 +37,11 @@
   {%for history in histories %}
 
   {%if history.eh_isdigital%}
-    <tr id={{history.id}} style="background: lightblue;" onclick="open_for_upd({{history.id}}) ">
+    <tr style="background: lightblue;" onclick="return location.href = '{% url 'employment_history_upd_url' id=history.id%}' ">
+    <!-- <tr id={{history.id}} style="background: lightblue;" onclick="open_for_upd({{history.id}}) "> -->
   {%else%}
-    <tr id={{history.id}} onclick="open_for_upd({{history.id}}) ">
+    <tr  onclick="return location.href = '{% url 'employment_history_upd_url' id=history.id%}' ">
+    <!-- <tr id={{history.id}} onclick="open_for_upd({{history.id}}) "> -->
   {%endif%}
 
     <td id="number">{{history.eh_number}}</td>
