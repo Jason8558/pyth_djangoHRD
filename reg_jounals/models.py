@@ -165,7 +165,6 @@ class EmploymentHistory(models.Model):
         doc_fullname = "Трудовая книжка" + ' №' + str(self.eh_number) + '  ' + str(self.eh_employer)
         return doc_fullname
 
-
 class SickRegistry(models.Model):
     sr_number = models.IntegerField(help_text="Введите номер реестра", verbose_name="Номер реестра", db_index=True)
     sr_year = models.IntegerField(help_text="Год_сервисное_поле", verbose_name="Год. Сервисное поле", db_index=True, default="0")
@@ -214,7 +213,6 @@ class Identity(models.Model):
         fullname = "Удостоверение № " + str(self.number) + " " + self.employer
         return fullname
 
-
 class Departments(models.Model):
     dep_name = models.CharField(max_length=256,  help_text="Введите название подразделения", verbose_name="Название подразделения", db_index=True)
 
@@ -258,3 +256,19 @@ class NewOrdersOnVacation_item(models.Model):
 
     def __str__(self):
         return self.fio
+
+class log_table_rj(models.Model):
+    event_date = models.DateField(help_text="", verbose_name="Дата события", db_index=True)
+    event = models.CharField(max_length=256, verbose_name="Событие")
+    doc = models.CharField(max_length=256, verbose_name="Документ")
+    
+    user = models.ForeignKey('Users', on_delete=models.CASCADE, verbose_name="Пользователь", default="1")
+
+    class Meta:
+        ordering = ["id"]
+        verbose_name = "Запись лога"
+        verbose_name_plural = "Лог журналов регистрации"
+
+    def __str__(self):
+        rec_name = "Запись лога № от " + str(self.event_date)
+        return rec_name
