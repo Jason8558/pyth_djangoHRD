@@ -104,7 +104,7 @@
 <img src="{% static 'TURV\img\legend.jpg'%}" alt="">
 </div>
 </div>
-
+<h5 class="not-print" style="color:red;">ВАЖНО: ПЕРЕД ПЕЧАТЬЮ ТАБЕЛЯ ОБЯЗАТЕЛЬНО ОЗНАКОМТЕСЬ С <span><a style="float: none; margin-left: none;" href="https://docs.google.com/document/d/1Z439AZgEkRSZErC1wrBpQE9ajGD-OPZIZOkNI08mPSg/edit#heading=h.g1x2nyrk0y8c">ИНСТРУКЦИЕЙ,</a></span> ПРОВЕРЬТЕ НАСТРОЙКИ ПЕЧАТИ, А ТАК ЖЕ ПРОВЕРЬТЕ КОРРЕКТНОСТЬ СФОРМИРОВАННОГО ДОКУМЕНТА В ОКНЕ ПРЕДВАРИТЕЛЬНОГО ПРОСМОТРА </h5>
 <div class="sup_check not-print">
   {% if b_tabel.sup_check %}
     {% if granted == 1%}
@@ -117,18 +117,7 @@
     {%endif%}
 {%endif%}
 
-
-{% if granted == 1%}
 <input class="btn btn-warning"  style="margin-left: 6px;" type="button" name="" onclick="print()" value="ПЕЧАТЬ">
-{%else%}
-    {% if print == 1%}
-      <input class="btn btn-warning"  style="margin-left: 6px;" type="button" name="" onclick="print()" value="ПЕЧАТЬ">
-    {%else%}
-      <h5 class="not-print" style="color:red;">ВАЖНО: ПЕЧАТЬ ТАБЕЛЯ ВРЕМЕННО ОСУЩЕСТВЛЯЕТСЯ СЛУЖБОЙ УПРАВЛЕНИЯ ПЕРСОНАЛОМ! ЕСЛИ ВАШ ТАБЕЛЬ ГОТОВ К ПЕЧАТИ, ПОЗВОНИТЕ В СУП ПО Т. 2035 И СООБЩИТЕ ОБ ЭТОМ</h5>
-    {%endif%}
-{%endif%}
-
-
 
 </div>
   {% if form.errors %}
