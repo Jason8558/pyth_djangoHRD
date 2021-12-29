@@ -2,7 +2,9 @@ from django.db import models
 from django.contrib.auth.models import User
 
 class Employers(models.Model):
+    sex_choices = [('М','М'),('Ж','Ж')]
     fullname = models.CharField(verbose_name = 'ФИО сотрудника', db_index=True, max_length=256)
+    sex = models.CharField(verbose_name = 'Пол', choices=sex_choices, db_index=True, max_length=1, default="М")
     position = models.ForeignKey('Position', verbose_name='Должность', db_index=True, on_delete=models.CASCADE)
     shift_personnel = models.BooleanField(verbose_name='Сменный персонал', default=False)
     fired = models.BooleanField(verbose_name='Сотрудник уволен', default=False)
@@ -186,3 +188,17 @@ class TabelItem(models.Model):
     def __str__(self):
         doc_fullname = str(self.employer) + ' ' + str(self.month) + '  ' + str(self.year)
         return doc_fullname
+
+class Overtime(models.Model):
+    year = models.DateField(verbose_name='Период', db_index=True)
+    value_m = models.FloatField(verbose_name='Значение_мужчины', default=0)
+    value_w = models.FloatField(verbose_name='Значение_женщины', default=0)
+
+    class Meta:
+        ordering = ['-year']
+        verbose_name = 'Норма времени'
+        verbose_name_plural = 'Нормы врмени'
+
+    def __str__(self):
+        fullname = str(self.year)
+        return fullname

@@ -1,0 +1,33 @@
+{% extends 'TURV/index.html'%}
+{%load static%}
+{%block title%}Обновление нормы{% endblock %}
+{%block scripts%}<script src="{% static 'TURV\js\unload.js' %}" charset="utf-8"></script>{%endblock%}
+{%block header%} <a href="/turv/" class="btn btn-dark">< Назад</a> Нормы времени{%endblock%}
+
+{% block body %}
+<div id="ot_container" class="container">
+  <div class="table_top_buttons">
+    <button type="button" class="btn btn-success btn-add btn-sm" id='add_overtime' name="button"> + Добавить </button>
+    <button type="button" class="btn btn-success btn-sm" id='upd_overtime' onclick="upd_norma()" name="button"> Обновить </button>
+  </div>
+<table>
+  <thead>
+    <tr>
+      <th>Период</th>
+      <th>Мужчины</th>
+      <th>Женщины</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    {% for norm in norms %}
+    <tr>
+      <td>{{norm.year}}</td>
+      <td>{{norm.value_m}}</td>
+      <td>{{norm.value_w}}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+</div>
+{%endblock%}

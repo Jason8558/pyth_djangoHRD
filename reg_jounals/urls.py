@@ -43,9 +43,9 @@ urlpatterns = [
     path('employment_history/<int:id>/del', views.del_EmploymentHistory, name='employment_history_del_url'),
     path('employment_history/<int:id>/print', views.print_EmploymentHistory, name='employment_history_print_url'),
     path('sick_regs/', views.sick_regs, name='sick_regs'),
-    path('sick_reg/<int:sr_number>/create/', views.create_SickRegistry, name='sick_reg_create_url'),
+    path('sick_reg/<int:id>/create/', views.create_SickRegistry, name='sick_reg_create_url'),
     path('sick_reg/add', views.add_SickRegistry, name='sick_reg_add_url'),
-    path('sick_reg/<int:sr_number_>/addItem', views.add_SickDocument, name='sick_reg_addItem_url'),
+    path('sick_reg/<int:id>/addItem', views.add_SickDocument, name='sick_reg_addItem_url'),
     path('sick_reg/updItem/<int:id>', views.upd_SickDocument, name='sick_reg_updDoc_url'),
     path('sick_reg/Itemdel/<int:id>', views.ItemDel_SickList, name='sick_reg_delDoc_url'),
     path('sick_reg/checkdoc/<int:num>', views.check_SickDocument, name='sick_reg_checkdoc_url'),
@@ -60,4 +60,5 @@ urlpatterns = [
     path('identity/add', views.nr_identitys, name='identity_add_url'),
     path('identity/upd/<int:id>', views.upd_identitys, name='identity_upd_url'),
     path('identity/del/<int:id>', views.del_identitys, name='identity_del_url'),
+    path('getusername/', views.get_user_name, name='getusername_url')
      ]

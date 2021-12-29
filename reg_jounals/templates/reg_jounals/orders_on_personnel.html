@@ -23,8 +23,8 @@
 
 <a style="margin-left: 10px" onclick="PrintSelected();" class="op_print btn btn-sm btn-warning" href="#">Печать выбранных</a>
 </div>
-<!-- <a class="btn btn-success btn-lg m-bottom btn-add " href="{%url 'orders_on_personnel_add_url'%}"> + Добавить</a> -->
-<button class="btn btn-success btn-lg m-bottom btn-add " type="button" name="button" onclick="open_frame_new()"> + Добавить</button>
+<a class="btn btn-success btn-lg m-bottom btn-add " href="{%url 'orders_on_personnel_add_url'%}"> + Добавить</a>
+<!-- <button class="btn btn-success btn-lg m-bottom btn-add " type="button" name="button" onclick="open_frame_new()"> + Добавить</button> -->
 {% if orders %}
 <table>
   <thead class="thead-dark">
@@ -50,13 +50,14 @@
   {%for order in orders%}
 {%if order.op_selected %}
 
-
-<tr id="{{order.id}}" style="background: #f9dd89;" class="t_row" ondblclick="open_for_upd({{order.id}})">
+<tr style="background: #f9dd89;" ondblclick="return location.href = '{% url 'orders_on_personnel_upd_url' id=order.id%}' ">
+<!-- <tr id="{{order.id}}" style="background: #f9dd89;" class="t_row" ondblclick="open_for_upd({{order.id}})"> -->
     {%else%}
     {%if order.op_lastcheck %}
-    <tr id="{{order.id}}" style="background: darkseagreen;" class="t_row" ondblclick="open_for_upd({{order.id}})">
+    <tr style="background: darkseagreen;" ondblclick="return location.href = '{% url 'orders_on_personnel_upd_url' id=order.id%}' ">
+    <!-- <tr id="{{order.id}}"  class="t_row" ondblclick="open_for_upd({{order.id}})"> -->
         {%else%}
-          <tr id="{{order.id}}"  class="t_row" ondblclick="open_for_upd({{order.id}})">
+              <tr ondblclick="return location.href = '{% url 'orders_on_personnel_upd_url' id=order.id%}' ">
             {%endif%}
             {%endif%}
     <td><input type="checkbox" class="for_print" name="forprint" value=""></td>

@@ -12,8 +12,8 @@
   <input type="search" name="loi_search" placeholder="Поиск по ФИО..">
   <button class="btn btn-sm btn-dark" type="submit" name="" value="Найти">Найти</button>
 </form>
-<!-- <a class="btn btn-success btn-lg m-bottom btn-add" href="{% url 'invite_add' %}"> + Добавить</a> -->
-<button class="btn btn-success btn-lg m-bottom btn-add " type="button" name="button" onclick="open_frame_new()"> + Добавить</button>
+<a class="btn btn-success btn-lg m-bottom btn-add" href="{% url 'invite_add' %}"> + Добавить</a>
+<!-- <button class="btn btn-success btn-lg m-bottom btn-add " type="button" name="button" onclick="open_frame_new()"> + Добавить</button> -->
 {% if letters %}
 <table>
   <thead class="thead-dark">
@@ -32,7 +32,7 @@
 
   {%for let in letters%}
 
-  <tr id="{{let.id}}" onclick="open_for_upd({{let.id}})">
+  <tr onclick="return location.href = '{% url 'invite_upd_url' id=let.id%}' ">
 
     <td id="number">{{let.loi_number}}</td>
     <td id="date">{{let.loi_date|date:"d.m.Y"}}</td>

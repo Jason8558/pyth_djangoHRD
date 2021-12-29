@@ -5,11 +5,7 @@
 {%block header%}Изменить запись - Приказ №{{order.op_number}}{% endblock %}
 
 {%block content%}
-<script type="text/javascript">
-  $(document).ready(function() {
-    $('header').css('display','none')
-    $('body').css('background', 'white !important') })
-</script>
+
 {% if form.errors%}
 
 
@@ -35,16 +31,12 @@
   <p>{{form.op_dep.label}}:{{form.op_dep}}</p>
   <p>{{form.op_content.label}}:{{form.op_content}}</p>
 
-<!-- <div class="buttons">
+<div class="buttons">
   <input class="btn btn-success" type="submit" value="Сохранить" />
-  <a id="sure_btn" onclick="OpenSureDialog()" class="btn btn-outline-danger">Удалить</a>
-  <div id="sure" style="display: none;" class="yousure">
-    <p>Вы уверены? <span style="color: red;"><b>ЭТО ДЕЙСТВИЕ НЕОБРАТИМО</b></span></p>
-    <a class="btn btn-outline-danger" href="{% url 'orders_on_personnel_del_url' id=order.id%}">Да</a>
 
+
+    <a class="btn btn-outline-danger"  href="..">Закрыть</a>
   </div>
-    <a class="btn btn-outline-info" onclick="window.close()" href="#">Закрыть</a>
-  </div> -->
 
 </form>
 

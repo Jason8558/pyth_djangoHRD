@@ -14,8 +14,8 @@
   <input type="date" id="search_date2" name="doc_search_to" placeholder="По">
   <button class="btn btn-sm btn-dark" type="submit" name="" value="Найти">Найти</button>
 </form>
-<!-- <a class="btn btn-success btn-lg m-bottom btn-add " href="{% url 'doc_outbound_add_url' %}"> + Добавить</a> -->
-<button class="btn btn-success btn-lg m-bottom btn-add " type="button" name="button" onclick="open_frame_new()"> + Добавить</button>
+<a class="btn btn-success btn-lg m-bottom btn-add " href="{% url 'doc_outbound_add_url' %}"> + Добавить</a>
+<!-- <button class="btn btn-success btn-lg m-bottom btn-add " type="button" name="button" onclick="open_frame_new()"> + Добавить</button> -->
 {% if documents %}
 <table>
   <thead class="thead-dark">
@@ -32,8 +32,8 @@
 
   {%for doc in documents%}
 
-  <!-- <tr onclick="return location.href = '{% url 'doc_outbound_upd_url' id=doc.id%}' "> -->
-  <tr id="{{doc.id}}" onclick="open_for_upd({{doc.id}})">
+  <tr onclick="return location.href = '{% url 'doc_outbound_upd_url' id=doc.id%}' ">
+  <!-- <tr id="{{doc.id}}" onclick="open_for_upd({{doc.id}})"> -->
 
     <td id="date">{{doc.doc_date|date:"d.m.Y"}}</td>
     <td id="number">{{doc.doc_number}}</td>

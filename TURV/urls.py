@@ -17,5 +17,7 @@ urlpatterns = [
     path('positions/new', views.new_position, name='pos_new'),
     path('positions/upd/<int:id>', views.upd_position, name='pos_upd'),
     path('unload/', views.unload, name='unload'),
-    path('checked/<int:id>', views.tabel_sup_check, name='checked')
+    path('checked/<int:id>', views.tabel_sup_check, name='checked'),
+    path('overtime/', views.upd_norma, name='overtime_url'),
+    path('overtime/upd', views.new_norma, name='overtime_new_url')
      ]

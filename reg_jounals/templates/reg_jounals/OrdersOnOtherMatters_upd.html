@@ -4,11 +4,7 @@
 {%block header%}Изменить запись - Приказ {{order.oom_number}} от {{order.oom_date}}{% endblock %}
 
 {%block content%}
-<script type="text/javascript">
-  $(document).ready(function() {
-    $('header').css('display','none')
-    $('body').css('background', 'white !important') })
-</script>
+
 {% if form.errors%}
 
 <div class="alert alert-danger mt-5" role="alert">
@@ -21,14 +17,12 @@
   <p>{{field.label}}{{ field }}</p>
   {% endfor%}
 
-  <!-- <input class="btn btn-success" type="submit" value="Сохранить" />
-  <a class="btn btn-outline-danger btn-upd" id="sure_btn" onclick="OpenSureDialog()">Удалить запись</a>
-  <div id="sure" style="display: none;" class="yousure">
-    <p>Вы уверены? <span style="color: red;"><b>ЭТО ДЕЙСТВИЕ НЕОБРАТИМО</b></span></p>
-    <a class="btn btn-outline-danger" href="{% url 'orders_on_others_del_url' id=order.id%}">Да</a>
 
-  </div>
-  <a class="btn btn-outline-info btn-upd" href="..">Отмена</a> -->
+  <input class="btn btn-success" type="submit" value="Сохранить" />
+
+     <a class="btn btn-outline-danger btn-upd" href="..">Отмена</a>
+
+
 </form>
 
 {%endblock%}

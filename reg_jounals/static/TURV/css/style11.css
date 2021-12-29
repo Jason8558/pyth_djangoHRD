@@ -293,14 +293,16 @@ box-shadow: 0px 0px 8px 0px #000000cc;
     box-shadow: 0 0 0 0.25rem rgb(135 185 255) !important;
 }
 
-.btn-add:hover {transition: 0.3s;
+.btn-add:hover {
+  transition: 0.3s;
   width: 100%;
-  margin-bottom: 16px;
+  /* margin-bottom: 16px; */
   background: #2dbbff !important;
   outline: none !important;
   border: none !important;
   color: black !important;
-  box-shadow: 0px 0px 8px 3px #0067ff;}
+  box-shadow: 0px 0px 8px 3px #0067ff;
+  }
 
 
 
@@ -597,9 +599,39 @@ background: #005eff;
 }
 
 #print_button {
-  font-size: 20pt;
-  background: #51dfff !important;
-  border: none;
-  border-radius: 8px;
-  box-shadow: 0px 0px 5px 1px black !important;
+font-size: 20pt;
+background: #51dfff !important;
+border: none;
+border-radius: 8px;
+box-shadow: 0px 0px 5px 1px black !important;
+}
+
+.table_top_buttons {
+display: grid;
+grid-gap: 0px;
+grid-template-columns: 50% 50%;
+margin-bottom: 17px;
+}
+
+.table_top_buttons button {
+/* padding: 0 35px; */
+width: 344px;
+margin: 0 auto;
+}
+
+.table_top_buttons button:hover {
+  margin-bottom: 0;
+  box-shadow: none;
+}
+
+#add_overtime {
+
+}
+
+#upd_overtime {
+
+}
+
+#ot_container {
+  width: 764px;
 }

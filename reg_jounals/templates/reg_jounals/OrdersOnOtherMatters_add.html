@@ -5,11 +5,7 @@
 
 
 {%block content%}
-<script type="text/javascript">
-  $(document).ready(function() {
-    $('header').css('display','none')
-    $('body').css('background', 'white !important') })
-</script>
+
 {% if form.errors%}
 
 
@@ -26,8 +22,8 @@
   {% endfor%}
 
 
-  <!-- <input class="btn btn-success" type="submit" value="Добавить" />
-  <a class="btn btn-outline-danger" href=".">Отмена</a> -->
+  <input class="btn btn-success" type="submit" value="Добавить" />
+  <a class="btn btn-outline-danger" href=".">Отмена</a>
 </form>
 
 {%endblock%}

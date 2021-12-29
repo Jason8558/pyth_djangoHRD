@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 from django.db.models import Sum, F, Case, When
 from .models import *
 from .forms import *
@@ -358,6 +358,7 @@ def employers_list(request):
             for dep in deps:
                 allow_departments.append(dep.id)
             # Алгоритм поиска
+            pag = 1000
             if (sq_emp):
                 employers = Employers.objects.all().filter(department_id__in=allow_departments).filter(fullname__icontains=sq_emp)
             else:
@@ -377,11 +378,13 @@ def employers_list(request):
                             if (sq_shift == '2'):
                                 employers = Employers.objects.all().filter(department_id__in=allow_departments).filter(shift_personnel=False)
                             else:
+                                pag = 50
                                 employers = Employers.objects.all().filter(department_id__in=allow_departments)
 
         else:
             deps = Department.objects.all()
             # Алгоритм поиска
+            pag = 1000
             if (sq_emp):
                 employers = Employers.objects.all().filter(fullname__icontains=sq_emp)
             else:
@@ -401,14 +404,17 @@ def employers_list(request):
                             if (sq_shift == '2'):
                                 employers = Employers.objects.all().filter(shift_personnel=False)
                             else:
+                                pag = 50
                                 employers = Employers.objects.all()
 
 
 
 
-
+        p_emps = Paginator(employers, pag)
+        page_number = request.GET.get('page', 1)
+        page = p_emps.get_page(page_number)
         count = len(employers)
-        return render(request, 'TURV/employers.html', context={'employers':employers, 'count':count, 'deps':deps})
+        return render(request, 'TURV/employers.html', context={'employers':page, 'count':count, 'deps':deps})
 
 def new_employer(request):
     if request.user.is_authenticated:
@@ -832,10 +838,30 @@ def unload(request):
     else:
         return render(request, 'TURV/unload.html', context={"deps":deps})
 
-def upd_norma_test(request):
-    emps = list(Employers.objects.filter(department_id=2))
-    for emp in emps:
+def upd_norma(request):
+    if request.user.is_authenticated:
+        norms = Overtime.objects.all()
 
-        emp.stand_worktime = 164.33
-    Employers.objects.bulk_update(emps, ['stand_worktime'])
-    return redirect('/turv/')
+        return render(request, 'TURV/overtime.html', context={'norms':norms})
+
+def new_norma(request):
+    if request.user.is_authenticated:
+        current_date = str(DT.datetime.today().year)
+        current_date = current_date + "-01-01"
+        current_norma = Overtime.objects.filter(year=current_date)
+        current_norma_m = current_norma[0].value_m
+        current_norma_w = current_norma[0].value_w
+
+        emps_m = Employers.objects.filter(sex='М').filter(shift_personnel=1)
+        for m in emps_m:
+            m.stand_worktime = current_norma_m
+            m.save()
+
+        emps_w = Employers.objects.filter(sex='Ж').filter(shift_personnel=1)
+        for w in emps_w:
+            w.stand_worktime = current_norma_w
+            w.save()
+        message = "Норма обновлена!"
+
+
+        return JsonResponse(message, safe=False)
