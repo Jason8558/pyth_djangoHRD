@@ -261,8 +261,8 @@ class log_table_rj(models.Model):
     event_date = models.DateField(help_text="", verbose_name="Дата события", db_index=True)
     event = models.CharField(max_length=256, verbose_name="Событие")
     doc = models.CharField(max_length=256, verbose_name="Документ")
-    
-    user = models.ForeignKey('Users', on_delete=models.CASCADE, verbose_name="Пользователь", default="1")
+
+    user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name="Пользователь", default="1")
 
     class Meta:
         ordering = ["id"]
