@@ -708,7 +708,7 @@ def add_SickDocument(request, id):
                 return redirect(loc)
             else:
                 errs = doc_form.errors.as_data()
-                print(str(errs['sd_number'][0]))
+                
 
                 if errs['sd_number']:
                     dual_num = request.POST.get('sd_number','')
