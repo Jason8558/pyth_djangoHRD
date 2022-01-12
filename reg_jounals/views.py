@@ -697,6 +697,7 @@ def add_SickRegistry(request):
 
 def add_SickDocument(request, id):
     if request.user.is_authenticated:
+        reg = SickRegistry.objects.get(id=id)
         doc_form = SickDocument_form()
         errs = doc_form.errors.as_data()
         if request.method == "POST":
@@ -708,7 +709,7 @@ def add_SickDocument(request, id):
                 return redirect(loc)
             else:
                 errs = doc_form.errors.as_data()
-                
+
 
                 if errs['sd_number']:
                     dual_num = request.POST.get('sd_number','')
@@ -717,7 +718,7 @@ def add_SickDocument(request, id):
                     errs = "Больничный лист c таким номером существует в реестре № " + str(find_doc.sd_bound_reg.sr_number) + " сотрудник: " + str(find_doc.sd_emp)
     else:
         return render(request, 'reg_jounals/no_auth.html')
-    return render(request, 'reg_jounals/SickDocument_add.html', context={'form':doc_form, 'reg_num':id, 'errs':errs})
+    return render(request, 'reg_jounals/SickDocument_add.html', context={'form':doc_form, 'reg_num':str(reg.sr_number), 'errs':errs})
 
 def upd_SickDocument(request, id):
     if request.user.is_authenticated:
@@ -726,7 +727,7 @@ def upd_SickDocument(request, id):
         b_reg = document.sd_bound_reg_id
         if request.method == "GET":
             bound_form = SickDocument_form(instance=document)
-            return render(request, 'reg_jounals/SickDocument_upd.html', context={'form':bound_form, 'document':document, 'b_reg':b_reg})
+            return render(request, 'reg_jounals/SickDocument_upd.html', context={'form':bound_form, 'document':document, 'b_reg':reg})
         else:
             document = SickDocument.objects.get(id__exact=id)
             bound_form = SickDocument_form(request.POST, instance=document)

@@ -15,7 +15,7 @@
 
 <form class="add_form sick_list" action="" method="post">
   {% csrf_token %}
-  <p>Номер реестра: {{b_reg}}</p>
+  <p>Номер реестра: {{b_reg.sr_number}}</p>
   <p>{{form.sd_number.label}}{{form.sd_number}}</p>
   <p>{{form.sd_emp.label}}{{form.sd_emp}}</p>
   <p>{{form.sd_pos.label}}{{form.sd_pos}}</p>
