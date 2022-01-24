@@ -111,7 +111,7 @@ def tabels(request):
                             tabels = Tabel.objects.all().filter(department_id__in=allow_departments).filter(year=year_).filter(month=month_)
                         else:
                             pag = 40
-                            tabels = Tabel.objects.all().filter(department_id__in=allow_departments).order_by('-month')
+                            tabels = Tabel.objects.all().filter(department_id__in=allow_departments).order_by('-year', '-month')
 
 
         else:
