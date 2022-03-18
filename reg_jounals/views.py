@@ -8,6 +8,8 @@ import datetime as DT
 from itertools import groupby
 from django.contrib.auth.models import *
 from .forms import last_doc
+from TURV.models import Department as TDep
+from TURV.models import Position as TPos
 
 def get_user_name(request):
     username = request.user.first_name
@@ -482,6 +484,8 @@ def order_on_personnel(request):
 
 def nr_OrderOnPersonnel(request):
     if request.user.is_authenticated:
+        tab_deps = TDep.objects.all()
+        tab_pos = TPos.objects.all()
         order_form = OrdersOnPersonnel_form()
         depts = Departments.objects.all()
         orders = OrdersOnPersonnel.objects.all().order_by('id')
@@ -502,7 +506,7 @@ def nr_OrderOnPersonnel(request):
                 return redirect('../orders_on_personnel/')
     else:
         return render(request, 'reg_jounals/no_auth.html')
-    return render(request, 'reg_jounals/OrdersOnPersonnel_add.html', context={'form':order_form, 'depts':depts, 'next_num':order_next_num_})
+    return render(request, 'reg_jounals/OrdersOnPersonnel_add.html', context={'form':order_form, 'depts':depts, 'next_num':order_next_num_, 'tab_deps':tab_deps, 'tab_pos':tab_pos})
 
 def upd_OrderOnPersonnel(request, id):
     if request.user.is_authenticated:

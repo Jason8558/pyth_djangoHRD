@@ -95,8 +95,8 @@ font-size: 20pt;
 
 .add_form {
   display: grid;
-/*   grid-template-rows: repeat(42px); */
-  grid-template-columns: repeat(1, 100%);
+  /*   grid-template-rows: repeat(42px); */
+  /* grid-template-columns: repeat(1, 100%); */
   grid-gap: 14px;
   /* padding: 9px; */
   /* width: 50%; */
@@ -111,8 +111,11 @@ font-size: 20pt;
 }
 
 .personnel {
-  grid-template-rows: auto !important;
-  grid-gap: 1px;
+  /* grid-template-rows: auto !important; */
+  grid-gap: 54px;
+  grid-template-areas:
+    'main main tabel'
+    'buttons buttons buttons';
 }
 
 #id_oom_content {
@@ -122,6 +125,7 @@ font-size: 20pt;
 
 .buttons {
   /* margin-top: 149px; */
+  grid-area: buttons;
 }
 
 .buttons .btn {
@@ -534,7 +538,17 @@ border: none;
   margin-left: 19px;
 }
 
+.to_tabel {
+grid-area: tabel;
+}
 
+.to_tabel p {
+  margin: 0;
+}
+
+.op_main {
+grid-area: main;
+}
 
 /*Медиа запросы*/
 

@@ -188,6 +188,9 @@ class OrdersOnPersonnel_form(forms.ModelForm):
 
     op_date = forms.CharField(label="Дата приказа" , widget=forms.TextInput(
         attrs={'placeholder': 'Введите дату',  'type':'date'}))
+    op_emloyer = forms.CharField(label='ФИО сотрудника', widget=forms.TextInput(
+    attrs={'onchange':'sfio()'}
+    ))
 
     def saveFirst(self, user_):
         current_doc = last_doc(OrdersOnPersonnel)

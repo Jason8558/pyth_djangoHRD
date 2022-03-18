@@ -23,9 +23,13 @@
     width: 9%;
   }
 </style>
+
 <form class="add_form personnel" action="" method="post">
   {% csrf_token %}
-  <h5>Номер приказа <span id='next_num'>{{next_num}}ЛС</span></h5>
+  <div class="op_main">
+
+
+  <h4>Номер приказа <span id='next_num'>{{next_num}}ЛС</span></h4>
 
   <p>{{form.op_selected.label}}:{{form.op_selected}} {{form.op_lastcheck.label}}:{{form.op_lastcheck}}</p>
 
@@ -33,7 +37,39 @@
   <p>{{form.op_emloyer.label}}:{{form.op_emloyer}}</p>
   <p>{{form.op_dep.label}}:{{form.op_dep}}</p>
   <p>{{form.op_content.label}}:{{form.op_content}}</p>
+  </div>
+  <div class="to_tabel">
+    <h4>Табельный учет</h4>
+    <label for="short_fio">ФИО:</label>
+    <p><input type="text" name="short_fio" id='short_fio' value=""></p>
+    <p><label for=tab_pos"">Должность:</label></p>
+    <p><select class="" name="tab_pos">
+      {% for pos in tab_pos %}
+      <option value="{{pos.id}}">{{pos.name}}</option>
+      {%endfor%}
+    </select></p>
+    <label for="dep_for_tabel">Подразделение табельного учета:</label>
+    <p><select class="" name="dep_for_tabel">
+    {% for dep in tab_deps %}
+    <option value="{{dep.id}}">{{dep.name}}</option>
+    {%endfor%}
+    </select></p>
+    <p><label for="tab_level">Разряд\категория:</label></p>
+    <p><input type="text" name="tab_level" value=""></p>
+    <p><label for="tab_payment">Ступень оплаты:</label></p>
+    <p><input type="text" name="tab_payment" id=""></p>
+    <p><label for="tab_work">Режим работы:</label></p>
+    <p><select class="" name="tab_work">
+        <option value="0">Дневной</option>
+        <option value="1">Сменный</option>
 
+    </select></p>
+    <p><label for="tab_sex">Пол:</label></p>
+    <p><select class="" name="tab_sex">
+
+    </select></p>
+  </div>
+<button type="button" name="button" onclick="all_off()">test</button>
 <div class="buttons">
   <input class="btn btn-success" style="" type="submit" value="Добавить" />
   <a class="btn btn-outline-danger" href=".">Отмена</a>

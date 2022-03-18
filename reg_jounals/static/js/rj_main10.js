@@ -1,3 +1,10 @@
+$('#next_num').click(function() {
+  alert('alert!')
+})
+
+
+
+
 function get_uname() {
   $.getJSON("/getusername/",  (data) => {
     return data
@@ -99,5 +106,20 @@ else {
   $("#id_eh_number").val("Электронная")
 }
 
+
+}
+
+//Сокращение имени
+
+function sfio() {
+fio = $('#id_op_emloyer').val().split(" ")
+name = fio[1]
+patronymic = fio[2]
+new_fio = fio[0] + " " + name[0] + "." + patronymic[0] + "."
+$('#short_fio').val(new_fio)
+}
+
+function all_off() {
+  $('.to_tabel input, .to_tabel select').prop('disabled', true)
 
 }
