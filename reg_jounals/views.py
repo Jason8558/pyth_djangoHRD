@@ -11,6 +11,7 @@ from .forms import last_doc
 from TURV.models import Department as TDep
 from TURV.models import Position as TPos
 from TURV.models import Employers as TEmps
+from TURV.models import Overtime as TOt
 
 def get_user_name(request):
     username = request.user.first_name
@@ -519,6 +520,20 @@ def nr_OrderOnPersonnel(request):
                 if tname and tpos and tdep and tlvl and tpay and twork:
                     tpos_ = TPos.objects.get(id=tpos)
                     tdep_ = TDep.objects.get(id=tdep)
+                    print(twork)
+                    if twork == '1':
+                        year_ = str(DT.datetime.now().year) + "-01-01"
+                        print(year_)
+                        wtime = TOt.objects.get(year=year_)
+                        print(wtime.year)
+                        if tsex == "М":
+                            wtime = wtime.value_m
+                        else:
+                            wtime = wtime.value_w
+
+                    else:
+                        wtime = 0
+
                     TEmps.objects.create(
                     fullname = tname,
                     sex = tsex,
@@ -527,7 +542,7 @@ def nr_OrderOnPersonnel(request):
                     department = tdep_,
                     position = tpos_,
                     shift_personnel = twork,
-                    stand_worktime = 0,
+                    stand_worktime = wtime,
                     fired = 0
                     )
 
