@@ -113,10 +113,14 @@ class OrdersOnPersonnelTypes(models.Model):
         ordering = ['id']
         verbose_name = "Виды ЛС приказов"
 
+    def __str__(self):
+        name = self.name
+        return name
+
 class OrdersOnPersonnel(models.Model):
     op_number = models.CharField(max_length=5, help_text="Введите номер приказа", verbose_name="Номер приказа", db_index=True)
     op_date = models.DateField(help_text="Введите дату приказа", verbose_name="Дата приказа", db_index=True)
-    op_type = models.ForeignKey('OrdersOnPersonnelTypes', on_delete=models.CASCADE, verbose_name="Вид приказа ", default="1")
+    op_type = models.ForeignKey('OrdersOnPersonnelTypes', on_delete=models.CASCADE, verbose_name="Вид приказа ", default="4")
     op_dep = models.ForeignKey('Departments', on_delete=models.CASCADE,  verbose_name="Подразделение ", default="1")
     op_emloyer = models.CharField(max_length=256, help_text="Введите ФИО сотрудника", verbose_name="ФИО сотрудника", db_index=True)
     op_content = models.TextField(help_text="Введите содержание", verbose_name="Содержание приказа")

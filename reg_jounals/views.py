@@ -10,6 +10,7 @@ from django.contrib.auth.models import *
 from .forms import last_doc
 from TURV.models import Department as TDep
 from TURV.models import Position as TPos
+from TURV.models import Employers as TEmps
 
 def get_user_name(request):
     username = request.user.first_name
@@ -499,10 +500,37 @@ def nr_OrderOnPersonnel(request):
             order_next_num_ = int(order_prev_num[:cut_symb]) + 1
 
         if request.method == "POST":
+            # -----------------------------------------
+            tname = request.POST.get('short_fio','')
+            tpos = request.POST.get('tab_pos','')
+            tdep = request.POST.get('dep_for_tabel','')
+            tlvl = request.POST.get('tab_level','')
+            tpay = request.POST.get('tab_payment','')
+            twork = request.POST.get('tab_work', '')
+            tsex = request.POST.get('tab_sex','')
+
+
+            # -----------------------------------------
             order_form =OrdersOnPersonnel_form(request.POST)
             if order_form.is_valid():
                 user_ = request.user.first_name
                 order_form.saveFirst(user_)
+
+                if tname and tpos and tdep and tlvl and tpay and twork:
+                    tpos_ = TPos.objects.get(id=tpos)
+                    tdep_ = TDep.objects.get(id=tdep)
+                    TEmps.objects.create(
+                    fullname = tname,
+                    sex = tsex,
+                    level = tlvl,
+                    positionOfPayment = tpay,
+                    department = tdep_,
+                    position = tpos_,
+                    shift_personnel = twork,
+                    stand_worktime = 0,
+                    fired = 0
+                    )
+
                 return redirect('../orders_on_personnel/')
     else:
         return render(request, 'reg_jounals/no_auth.html')

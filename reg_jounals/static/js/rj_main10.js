@@ -123,3 +123,8 @@ function all_off() {
   $('.to_tabel input, .to_tabel select').prop('disabled', true)
 
 }
+
+function all_on() {
+  $('.to_tabel input, .to_tabel select').prop('disabled', false)
+
+}
