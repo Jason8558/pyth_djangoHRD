@@ -21,7 +21,7 @@
     width: 9%;
   }
 </style>
-<form class="add_form personnel" action="" method="post">
+<form class="add_form personnel" action="" method="post" style="grid-template-areas: none !important; grid-gap: 14px;">
   {% csrf_token %}
 
   <p>{{form.op_selected.label}}:{{form.op_selected}} {{form.op_lastcheck.label}}:{{form.op_lastcheck}}</p>
@@ -31,7 +31,7 @@
   <p>{{form.op_dep.label}}:{{form.op_dep}}</p>
   <p>{{form.op_content.label}}:{{form.op_content}}</p>
 
-<div class="buttons">
+<div class="buttons" style="grid-area:auto">
   <input class="btn btn-success" type="submit" value="Сохранить" />
 
 
