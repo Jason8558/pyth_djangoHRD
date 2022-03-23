@@ -1,6 +1,6 @@
 {% extends "TURV/index.html" %}
 {%load static%}
-{%block scripts%}<script src="{% static 'TURV\js\TabelItemAdd3.js' %}" charset="utf-8"></script>{%endblock%}
+{%block scripts%}<script src="{% static 'TURV\js\TabelItemAdd.js' %}" charset="utf-8"></script>{%endblock%}
 {%block title%}Заполнение сотрудника{%endblock%}
 
 {%block header%}<a class="btn btn-dark" href="/turv/create/{{b_tabel.id}}">< Назад</a> | <span class="hide" id="id_month">{{month}}</span>Табель за <span  class='field_month'>{{month}}</span> <span id='id_year'>{{year}}</span> г.{%endblock%}
@@ -92,7 +92,7 @@
       {%endif%}
       {%endfor%}
     </select>
-    <a href="{% url 'emp_new'%}" target="_blank" class="btn btn-outline-info "> + новый сотрудник </a>
+    <!-- <a href="{% url 'emp_new'%}" target="_blank" class="btn btn-outline-info "> + новый сотрудник </a> -->
 
     {{tabel.employer}}
 
@@ -100,6 +100,7 @@
 <div class="nt_text_employer">
   <div class="nt_emp_info">
   <h5 id="fullname"></h5>
+  <h5>Пол: <span id="sex"></span></h5>
   <h5 id="position"></h5>
   <h5 id="level"></h5>
   <h5 id="payment"></h5>
@@ -225,6 +226,7 @@
     {{tabel.hours31}}
   </div>
   <div class="tabel_buttons">
+    <button type="button" class="btn btn-warning" onclick='auto_fill()' name="t_auto_fill">Автозаполнение</button>
   <button type="button" onclick="Tabel();" class="btn btn-outline-dark" name="button">Расчитать</button>
   <input type="button" onclick="Tabel();" class="btn btn-success tItem_submit" name="" value="Расчитать и добавить">
   </div>
