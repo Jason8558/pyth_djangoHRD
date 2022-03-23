@@ -12,6 +12,9 @@ import datetime
 from itertools import groupby
 from django.contrib.auth.models import *
 
+def w_close(request):
+    return render(request, 'TURV/close.html')
+
 def transliterate(name):
    """
    Автор: LarsKort
@@ -463,7 +466,7 @@ def upd_employer(request, id):
             if emp_form.is_valid():
                 user_ = request.user.first_name
                 emp_form.save()
-                loc = '/turv/employers'
+                loc = '/turv/close'
                 return redirect(loc)
     else:
         return render(request, 'reg_jounals/no_auth.html')
