@@ -1,6 +1,6 @@
 {% extends 'TURV/index.html'%}
 {%load static%}
-{%block title%}Добавить сотрудника{% endblock %}
+{%block title%}{{name}}{% endblock %}
 
 {%block scripts%}<script src="{% static 'TURV\js\EmployerAdd.js' %}" charset="utf-8"></script>{%endblock%}
 
@@ -36,7 +36,7 @@
 <div class="buttons"><input type="submit" name="" class="btn btn-success" value="Сохранить">
 
 
-<a href=".." id="ue_cancel" class="btn btn-outline-dark">Отмена</a></div>
+<a href="#" onclick="window.close()"  id="ue_cancel" class="btn btn-outline-danger">Закрыть</a></div>
 
 
 

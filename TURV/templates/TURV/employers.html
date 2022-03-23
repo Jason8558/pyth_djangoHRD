@@ -56,7 +56,7 @@
   {%for emp in employers %}
 
   {% if emp.fired %}
-  <tr style="text-decoration: line-through" onclick="return location.href = '{% url 'emp_upd' id=emp.id%}' " >
+  <tr style="text-decoration: line-through" onclick="return window.open('{% url 'emp_upd' id=emp.id%}') " >
 
 
     <td>{{emp.fullname}}</td>
@@ -73,7 +73,7 @@
 
   {%else%}
 
-  <tr  onclick="return location.href = '{% url 'emp_upd' id=emp.id%}' " >
+  <tr  onclick="return window.open('{% url 'emp_upd' id=emp.id%}') " >
 
 
     <td>{{emp.fullname}}</td>
