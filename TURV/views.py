@@ -291,7 +291,7 @@ def tabel_additem(request, id):
             if tabelItem_form.is_valid():
                 user_ = request.user.first_name
                 tabelItem_form.saveFirst(id)
-                loc = '/turv/create/'+str(id)
+                loc = '/turv/additem/'+str(id)
                 return redirect(loc)
     else:
         return render(request, 'reg_jounals/no_auth.html')

@@ -127,7 +127,7 @@
   {% if b_tabel.sup_check %}
     <h2 style="color:green; text-decoration: underline;" class="not-print">Табель проверен, внесение изменений невозможно</h2>
   {% else %}
-  <a class="btn btn-success btn-add not-print" href="{% url 'tabel_addItem_url' id=b_tabel.id%}">+ Добавить сотрудника в табель</a>
+  <a class="btn btn-success btn-add not-print" href="{% url 'tabel_addItem_url' id=b_tabel.id%}">НАЧАТЬ ЗАПОЛНЕНИЕ</a>
   {% endif %}
 
 {% if items %}

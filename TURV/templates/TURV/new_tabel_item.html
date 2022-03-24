@@ -1,11 +1,16 @@
 {% extends "TURV/index.html" %}
 {%load static%}
-{%block scripts%}<script src="{% static 'TURV\js\TabelItemAdd.js' %}" charset="utf-8"></script>{%endblock%}
+{%block scripts%}<script src="{% static 'TURV\js\TabelItemAdd1.js' %}" charset="utf-8"></script>{%endblock%}
 {%block title%}Заполнение сотрудника{%endblock%}
 
 {%block header%}<a class="btn btn-dark" href="/turv/create/{{b_tabel.id}}">< Назад</a> | <span class="hide" id="id_month">{{month}}</span>Табель за <span  class='field_month'>{{month}}</span> <span id='id_year'>{{year}}</span> г.{%endblock%}
 
 {%block body%}
+<style media="screen">
+  #t_emps_chosen {
+    display:none;
+  }
+</style>
 <div class="alert alert-danger errors" role="alert">
 
 </div>
@@ -18,17 +23,36 @@
 <div class="container titem">
 
 
-
+  <h4 style="grid-area:text; text-align:center">Выберите сотрудника из списка</h4>
 <div class="indep">
 
-<ul>
+  <table>
+    <thead>
+      <th>ФИО</th>
+      <th>Должн.</th>
+      <th>Раз.\кат.</th>
+      <th>Реж.</th>
+
+    </thead>
+
+  <tbody>
+
+
   {% for emp in emps %}
   {% if emp.fired%}
   {%else%}
-  <li id={{emp.id}}>{{emp.fullname}}|{{emp.position}}|{{emp.level}}|{{emp.positionOfPayment}}|<span class="posid" style="color:white">{{emp.id}}</span></li>
+  <tr id={{emp.id}} onclick="emp_info({{emp.id}})">
+    <td>{{emp.fullname}}</td>
+    <td>{{emp.position}}</td>
+    <td>{{emp.level}}</td>
+    <td>{{emp.shift_personnel}}</td>
+
+  </tr>
+  <!-- <li onclick="emp_info({{emp.id}})" id={{emp.id}}>{{emp.fullname}}|{{emp.position}}|{{emp.level}}|{{emp.positionOfPayment}}|<span class="posid" style="color:white">{{emp.id}}</span></li> -->
   {%endif%}
   {%endfor%}
-</ul>
+  </tbody>
+</table>
 </div>
 
 
@@ -77,14 +101,14 @@
 {%endif%}
 
 <div class="nt_body">
-<form class="" action="" method="post">
+<form class="" action="" onsubmit="alert('Сотрудник добавлен!')" method="post">
   {%csrf_token%}
 
 
 
   <div class="nt_body_employer">
-    <h4>Выберите сотрудника из списка: (фио, должность, разряд): </h4>
-    <select class="chosen-select" id='t_emps' onchange="ReSelectEmp()" name="t_emps">
+    <!-- <h4>Выберите сотрудника из списка: (фио, должность, разряд): </h4> -->
+    <select style='display:none' class="chosen-select" id='t_emps' onchange="ReSelectEmp()" name="t_emps">
       {% for emp in emps%}
         {% if emp.fired %}
         {%else%}
@@ -226,7 +250,7 @@
     {{tabel.hours31}}
   </div>
   <div class="tabel_buttons">
-    <button type="button" class="btn btn-warning" onclick='auto_fill()' name="t_auto_fill">Автозаполнение</button>
+    <button type="button" class="btn btn-warning " onclick='auto_fill()' name="t_auto_fill">Автозаполнение</button>
   <button type="button" onclick="Tabel();" class="btn btn-outline-dark" name="button">Расчитать</button>
   <input type="button" onclick="Tabel();" class="btn btn-success tItem_submit" name="" value="Расчитать и добавить">
   </div>
