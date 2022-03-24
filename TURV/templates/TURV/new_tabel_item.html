@@ -26,11 +26,12 @@
   <h4 style="grid-area:text; text-align:center">Выберите сотрудника из списка</h4>
 <div class="indep">
 
-  <table style="box-shadow: none;">
+  <table style="box-shadow: none; font-size: 11pt;">
     <thead>
       <th>ФИО</th>
       <th>Должн.</th>
       <th>Раз.\кат.</th>
+      <th>Ст.опл.</th>
       <th>Реж.</th>
 
     </thead>
@@ -44,7 +45,9 @@
   <tr id={{emp.id}} onclick="emp_info({{emp.id}})">
     <td>{{emp.fullname}}</td>
     <td>{{emp.position}}</td>
+    <td>{{emp.positionOfPayment}}</td>
     <td>{{emp.level}}</td>
+
     {% if emp.shift_personnel %}
       <td>Смен.</td>
       {% else %}
