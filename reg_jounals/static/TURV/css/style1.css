@@ -106,6 +106,7 @@ display: none;
 'text main'
 'list main';
 /* grid-template-columns: 30% 70%; */
+grid-template-rows: 27px;
 width: 100% !important;
 margin: 0 auto !important;
 grid-gap: 7px;

@@ -1,6 +1,6 @@
 {% extends "TURV/index.html" %}
 {%load static%}
-{%block scripts%}<script src="{% static 'TURV\js\TabelItemAdd1.js' %}" charset="utf-8"></script>{%endblock%}
+{%block scripts%}<script src="{% static 'TURV\js\TabelItemAdd.js' %}" charset="utf-8"></script>{%endblock%}
 {%block title%}Заполнение сотрудника{%endblock%}
 
 {%block header%}<a class="btn btn-dark" href="/turv/create/{{b_tabel.id}}">< Назад</a> | <span class="hide" id="id_month">{{month}}</span>Табель за <span  class='field_month'>{{month}}</span> <span id='id_year'>{{year}}</span> г.{%endblock%}
@@ -26,7 +26,7 @@
   <h4 style="grid-area:text; text-align:center">Выберите сотрудника из списка</h4>
 <div class="indep">
 
-  <table>
+  <table style="box-shadow: none;">
     <thead>
       <th>ФИО</th>
       <th>Должн.</th>
@@ -126,7 +126,7 @@
   </div>
 <div class="nt_text_employer">
   <div class="nt_emp_info">
-  <h5 id="fullname"></h5>
+  <h5 class="btn btn-link" style="font-size: 1.25rem; padding:0;" id="fullname"></h5>
   <h5>Пол: <span id="sex"></span></h5>
   <h5 id="position"></h5>
   <h5 id="level"></h5>

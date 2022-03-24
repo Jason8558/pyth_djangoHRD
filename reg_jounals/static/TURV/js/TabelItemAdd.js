@@ -16,8 +16,10 @@ function emp_info(e_id) {
   // }).prop('selected', true);
 
   emp_select = $('#id_employer option:selected').text().split(",")
+  emp_path = "window.open('/turv/employers/upd/" + e_id + "')"
 
   $('#fullname').text(emp_select[0])
+  $('#fullname').attr('onclick', emp_path)
   $('#sex').text(emp_select[7])
   $('#position').text('Должность: ' + emp_select[1])
   $('#level').text('Разряд/категория ст.учета: ' + emp_select[2])
