@@ -45,8 +45,11 @@
     <td>{{emp.fullname}}</td>
     <td>{{emp.position}}</td>
     <td>{{emp.level}}</td>
-    <td>{{emp.shift_personnel}}</td>
-
+    {% if emp.shift_personnel %}
+      <td>Смен.</td>
+      {% else %}
+      <td>Днев.</td>
+    {%endif%}
   </tr>
   <!-- <li onclick="emp_info({{emp.id}})" id={{emp.id}}>{{emp.fullname}}|{{emp.position}}|{{emp.level}}|{{emp.positionOfPayment}}|<span class="posid" style="color:white">{{emp.id}}</span></li> -->
   {%endif%}
