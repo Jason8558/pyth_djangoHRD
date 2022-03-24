@@ -55,7 +55,7 @@ for (var i = 0; i < indeps.length; i++) {
  for (var intabel of intabels) {
    if (indeps[i].id == intabel.id) {
 
-     $('.indep').find('#' + intabel.id).css('display', 'none')
+     $('.indep').find('#' + intabel.id).css('background', 'lightgreen')
      $('.indep').find('#' + intabel.id).prop('onclick', '')
    }
  }
