@@ -1,3 +1,36 @@
-{% for line in log%}
-<h4>{{line}}</h4>
-{%endfor%}
+{% extends "reg_jounals/index.html" %}
+
+{%block title%}Логи{%endblock%}
+{%block header%}<a class="btn btn-dark" href="../"> < назад</a> Журнал событий {%endblock%}
+{%block content%}
+
+<table class='logtable'>
+  <thead>
+    <th>Дата события</th>
+    <th>Событие</th>
+    <th>Документ</th>
+    <th>Номер</th>
+    <th>Дата документа</th>
+    <th>Год</th>
+    <th>Дополнительная информация</th>
+    <th>Ответственный</th>
+  </thead>
+
+  <tbody>
+  {% for log in logs %}
+    <tr  onclick="return location.href = '{{log.link}}'" >
+      <td>{{log.date}}</td>
+      <td>{{log.event}}</td>
+      <td>{{log.type}}</td>
+      <td>{{log.number}}</td>
+      <td>{{log.doc_date|date:"d.m.Y"}}</td>
+      <td>{{log.year}}</td>
+      <td>{{log.addData}}</td>
+      <td>{{log.res_officer}}</td>
+    </tr>
+    {%endfor%}
+  </tbody>
+</table>
+
+
+{%endblock%}

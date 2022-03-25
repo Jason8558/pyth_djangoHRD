@@ -41,6 +41,8 @@
     {%block content%}
     <div class='sub-navbar'>
     <button class="btn btn-dark" onclick="open_vac_calc()" type="button" name="">Калькулятор дат</button>
+    <a class="btn btn-dark" href="{% url 'logs_url' %}">Журналы событий</a>
+    <a class="btn btn-dark" href="#">Отчетность</a>
 
     </div>
 
@@ -68,11 +70,7 @@
     margin-top: 8px;
     font-size: 21pt;
     border-bottom: 1px solid #000;">Главное меню</h2>
-    <div class="recents">
 
-
-
-</div>
     <div class="container_grid">
       <a href="#" class="btn btn-info main_button old_vac disabled" ><img src="{% static 'img/regrepl.png' %}" alt="">Штатное замещение</a>
       <a href="{% url 'orders_on_vacation' %}" class="btn btn-info main_button old_vac" ><img src="{% static 'img/old.png' %}" alt="">Приказы на отпуск (старые c 1 по 13К-ОТП за 2021г.)</a>

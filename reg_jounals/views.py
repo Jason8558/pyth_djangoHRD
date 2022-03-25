@@ -541,7 +541,7 @@ def nr_OrderOnPersonnel(request):
                     positionOfPayment = tpay,
                     department = tdep_,
                     position = tpos_,
-                    shift_personnel = twork,
+                    shift_personnel = twork, 
                     stand_worktime = wtime,
                     fired = 0
                     )
@@ -564,7 +564,12 @@ def upd_OrderOnPersonnel(request, id):
                 user_ = request.user.first_name
                 new_obj = bound_form.save()
                 return redirect('/orders_on_personnel')
+            else:
+                ers = bound_form.errors.as_data()
 
+                for e in ers.keys():
+                    print(str(e) + ' ' + str(ers.get(e)))
+                return render(request, 'reg_jounals/OrdersOnPersonnel_upd.html', context={'form':bound_form, 'order':order})
 def del_OrderOnPersonnel(request, id):
     if request.user.is_authenticated:
         order = OrdersOnPersonnel.objects.get(id__iexact=id)
@@ -977,3 +982,9 @@ def del_identitys(request, id):
         dest = '/identity'
         ident.delete()
         return redirect(dest)
+
+# ЛОГИ -------------------------------------------------------------
+def logs_(request):
+    if request.user.is_authenticated:
+        logs_ = logs.objects.all()
+        return render(request, 'reg_jounals/log.html', context={'logs':logs_})

@@ -41,9 +41,20 @@ class LetterOfResignation_form(forms.ModelForm):
             else:
                 letter_prev_num = last_doc(current_doc).lor_number
                 letter_next_num_ = int(letter_prev_num) + 1
-        log = open('log.txt', 'a')
-        log.write(str(DT.date.today()) + " пользователь " +str(user_) + ' внес запись о заявлении об увольнении : ' + str(letter_next_num_) +  ' от '+ str(self.cleaned_data['lor_date']) + " увольняемый сотрудник: " + str(self.cleaned_data['lor_employee']) + '\n'  )
-        log.close()
+        next_id = int(LetterOfResignation.objects.latest('id').id) + 1
+        logs.objects.create(
+        date = DT.datetime.now(),
+        event = logs_event.objects.get(id=1),
+        doc_id = next_id,
+        type = 'Заявление на увольнение',
+        number = str(letter_next_num_),
+        doc_date = self.cleaned_data['lor_date'],
+        addData = self.cleaned_data['lor_additionalData'],
+        link = '/letters_of_resignation/' + str(next_id) + '/edit',
+        res_officer = user_
+
+        )
+
         new_letter = LetterOfResignation.objects.create(
         lor_date = self.cleaned_data['lor_date'],
         lor_number = str(letter_next_num_),
@@ -81,9 +92,21 @@ class OrdersOnOtherMatters_form(forms.ModelForm):
                 order_prev_num = last_doc(current_doc).oom_number
                 cut_symb = (len(str(order_prev_num)) - 2)
                 order_next_num_ = int(order_prev_num[:cut_symb]) + 1
-            log = open('log.txt', 'a')
-            log.write(str(DT.date.today()) + " пользователь " +str(user_) + ' внес запись: ' + str(order_next_num_) + "-К" + ' от '+ str(self.cleaned_data['oom_date']) + '\n'  )
-            log.close()
+
+        next_id = int(OrdersOnOtherMatters.objects.latest('id').id) + 1
+        logs.objects.create(
+        date = DT.datetime.now(),
+        event = logs_event.objects.get(id=1),
+        doc_id = next_id,
+        type = 'Приказ по другим вопросам',
+        number = str(order_next_num_) + "К",
+        doc_date = self.cleaned_data['oom_date'],
+        addData = '',
+        link = '/orders_on_others/' + str(next_id) + '/edit',
+        res_officer = user_
+
+        )
+
         new_order = OrdersOnOtherMatters.objects.create(
             oom_number = str(order_next_num_) + "-К",
             oom_date = self.cleaned_data['oom_date'],
@@ -159,9 +182,20 @@ class OrdersOfBTrip_form(forms.ModelForm):
                 order_prev_num = orders[order_count - 1].bt_number
                 cut_symb = (len(str(order_prev_num)) - 1)
                 order_next_num_ = int(order_prev_num[:cut_symb]) + 1
-        log = open('log.txt', 'a')
-        log.write(str(DT.date.today()) + " пользователь " +str(user_) + ' внес запись: ' + str(order_next_num_ ) + '-П '+  ' от '+ str(self.cleaned_data['bt_date'])  + '\n'  )
-        log.close()
+
+        next_id = int(OrdersOfBTrip.objects.latest('id').id) + 1
+        logs.objects.create(
+        date = DT.datetime.now(),
+        event = logs_event.objects.get(id=1),
+        doc_id = next_id,
+        type = 'Приказ на командировку',
+        number = str(order_next_num_) + "П",
+        doc_date = self.cleaned_data['bt_date'],
+        addData = '',
+        link = '/orders_of_BTrip/' + str(next_id) + '/upd',
+        res_officer = user_
+        )
+
         new_order = OrdersOfBTrip.objects.create(
             bt_date  = self.cleaned_data['bt_date'],
             bt_number  = str(order_next_num_) + "П",
@@ -209,9 +243,20 @@ class OrdersOnPersonnel_form(forms.ModelForm):
                 order_prev_num = orders[order_count - 1].op_number
                 cut_symb = (len(str(order_prev_num)) - 2)
                 order_next_num_ = int(order_prev_num[:cut_symb]) + 1
-        log = open('log.txt', 'a')
-        log.write(str(DT.date.today()) + " пользователь " +str(user_) + ' внес запись: ' + str(order_next_num_ ) + '-ЛС '+  ' от '+ str(self.cleaned_data['op_date'])  + '\n'  )
-        log.close()
+
+        next_id = int(OrdersOnPersonnel.objects.latest('id').id) + 1
+        logs.objects.create(
+        date = DT.datetime.now(),
+        event = logs_event.objects.get(id=1),
+        doc_id = next_id,
+        type = 'Приказ по личному составу',
+        number = str(order_next_num_) + 'ЛС',
+        doc_date = self.cleaned_data['op_date'],
+        addData = '',
+        link = '/orders_on_personnel/' + str(next_id) + '/upd',
+        res_officer = user_
+        )
+
         new_order = OrdersOnPersonnel.objects.create(
             op_date  = self.cleaned_data['op_date'],
             op_type = self.cleaned_data['op_type'],
@@ -247,9 +292,20 @@ class OutBoundDocument_form(forms.ModelForm):
             else:
                 doc_prev_num = docs[docs_count - 1].doc_number
                 doc_next_num_ = int(doc_prev_num) + 1
-        log = open('log.txt', 'a')
-        log.write(str(DT.date.today()) + " пользователь " +str(user_) + ' внес запись: '+ str(self.cleaned_data['doc_type'])+ " " + str(doc_next_num_ ) +  ' от '+ str(self.cleaned_data['doc_date'])  + '\n'  )
-        log.close()
+
+        next_id = int(OutBoundDocument.objects.latest('id').id) + 1
+        logs.objects.create(
+        date = DT.datetime.now(),
+        event = logs_event.objects.get(id=1),
+        doc_id = next_id,
+        type = 'Исходящий документ',
+        number = str(doc_next_num_),
+        doc_date = self.cleaned_data['doc_date'],
+        addData = self.cleaned_data['doc_type'],
+        link = '/outbound_docs/' + str(next_id) + '/edit',
+        res_officer = user_
+        )
+
         new_document = OutBoundDocument.objects.create(
         doc_type = self.cleaned_data['doc_type'],
         doc_number = str(doc_next_num_),
@@ -302,9 +358,21 @@ class LetterOfInvite_form(forms.ModelForm):
             else:
                 letter_prev_num = letters[letters_count - 1].loi_number
                 letter_next_num_ = int(letter_prev_num) + 1
-        log = open('log.txt', 'a')
-        log.write(str(DT.date.today()) + " пользователь " +str(user_) + ' внес запись о заявлении о приеме : ' + str(letter_next_num_) +  ' от '+ str(self.cleaned_data['loi_date']) + " принимаемый сотрудник: " + str(self.cleaned_data['loi_employee']) + '\n'  )
-        log.close()
+
+
+        next_id = int(LetterOfInvite.objects.latest('id').id) + 1
+        logs.objects.create(
+        date = DT.datetime.now(),
+        event = logs_event.objects.get(id=1),
+        doc_id = next_id,
+        type = 'Заявление на прием',
+        number = str(letter_next_num_),
+        doc_date = self.cleaned_data['loi_date'],
+        addData = '',
+        link = '/letters_of_invite/' + str(next_id) + '/edit',
+        res_officer = user_
+        )
+
         new_letter = LetterOfInvite.objects.create(
         loi_date = self.cleaned_data['loi_date'],
         loi_number = str(letter_next_num_),
@@ -347,9 +415,21 @@ class LaborContract_form(forms.ModelForm):
                 order_prev_num = orders[orders_count - 1].lc_number
                 cut_symb = (len(str(order_prev_num)) - 4)
                 order_next_num_ = int(order_prev_num[:cut_symb]) + 1
-        log = open('log.txt', 'a')
-        log.write(str(DT.date.today()) + " пользователь " +str(user_) + ' внес запись о трудовом договоре: ' + str(order_next_num_) + " " + str(year_) +  ' от '+ str(self.cleaned_data['lc_date']) + " принимаемый сотрудник: " + str(self.cleaned_data['lc_emloyer']) + '\n'  )
-        log.close()
+
+        next_id = int(LetterOfInvite.objects.latest('id').id) + 1
+        logs.objects.create(
+        date = DT.datetime.now(),
+        event = logs_event.objects.get(id=1),
+        doc_id = next_id,
+        type = 'Трудовой договор',
+        number = str(order_next_num_),
+        doc_date = self.cleaned_data['lc_date'],
+        addData = '',
+        link = '/laborContracts/' + str(next_id) + '/upd',
+        res_officer = user_
+        )
+
+
         new_contract = LaborContract.objects.create(
             lc_date  = self.cleaned_data['lc_date'],
             lc_number  = str(order_next_num_)+"("+str(year_)+")",
