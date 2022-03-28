@@ -12,6 +12,9 @@ import datetime
 from itertools import groupby
 from django.contrib.auth.models import *
 
+def w_close(request):
+    return render(request, 'TURV/close.html')
+
 def transliterate(name):
    """
    Автор: LarsKort
@@ -111,7 +114,7 @@ def tabels(request):
                             tabels = Tabel.objects.all().filter(department_id__in=allow_departments).filter(year=year_).filter(month=month_)
                         else:
                             pag = 40
-                            tabels = Tabel.objects.all().filter(department_id__in=allow_departments).order_by('-month')
+                            tabels = Tabel.objects.all().filter(department_id__in=allow_departments).order_by('-year', '-month')
 
 
         else:
@@ -288,7 +291,7 @@ def tabel_additem(request, id):
             if tabelItem_form.is_valid():
                 user_ = request.user.first_name
                 tabelItem_form.saveFirst(id)
-                loc = '/turv/create/'+str(id)
+                loc = '/turv/additem/'+str(id)
                 return redirect(loc)
     else:
         return render(request, 'reg_jounals/no_auth.html')
@@ -463,7 +466,7 @@ def upd_employer(request, id):
             if emp_form.is_valid():
                 user_ = request.user.first_name
                 emp_form.save()
-                loc = '/turv/employers'
+                loc = '/turv/close'
                 return redirect(loc)
     else:
         return render(request, 'reg_jounals/no_auth.html')

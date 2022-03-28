@@ -19,7 +19,7 @@ class Employers(models.Model):
         verbose_name_plural = 'Сотрудники'
 
     def __str__(self):
-        return  self.fullname + ',' + str(self.position) + ',' + str(self.level) + ',' + str(self.positionOfPayment) + ',' + str(self.id) + ',' + str(self.shift_personnel) + ',' + str(self.stand_worktime)
+        return  self.fullname + ',' + str(self.position) + ',' + str(self.level) + ',' + str(self.positionOfPayment) + ',' + str(self.id) + ',' + str(self.shift_personnel) + ',' + str(self.stand_worktime) + ',' + str(self.sex)
         # return self.fullname
 
 class Department(models.Model):

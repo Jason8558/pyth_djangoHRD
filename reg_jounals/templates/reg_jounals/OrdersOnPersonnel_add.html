@@ -1,10 +1,12 @@
 {% extends "reg_jounals/index.html" %}
-
+{%load static%}
 {%block title%}Добавить запись{% endblock %}
 {%block header%}Добавить запись - Приказ по личному составу{% endblock %}
 
+}
 
 {%block content%}
+
 
 {% if form.errors%}
 
@@ -23,21 +25,71 @@
     width: 9%;
   }
 </style>
+
 <form class="add_form personnel" action="" method="post">
   {% csrf_token %}
-  <h5>Номер приказа <span id='next_num'>{{next_num}}ЛС</span></h5>
+  <div class="op_main">
+
+
+  <h4>Номер приказа <span id='next_num'>{{next_num}}ЛС</span></h4>
 
   <p>{{form.op_selected.label}}:{{form.op_selected}} {{form.op_lastcheck.label}}:{{form.op_lastcheck}}</p>
 
   <p>{{form.op_date.label}}:{{form.op_date}}</p>
+  <p>{{form.op_type.label}}:{{form.op_type}}</p>
   <p>{{form.op_emloyer.label}}:{{form.op_emloyer}}</p>
   <p>{{form.op_dep.label}}:{{form.op_dep}}</p>
   <p>{{form.op_content.label}}:{{form.op_content}}</p>
+  </div>
+  <div class="to_tabel">
+    <h4>Табельный учет</h4>
+    <label for="short_fio">ФИО:</label>
+    <p><input type="text" name="short_fio" id='short_fio' value="" disabled></p>
+    <p><label for=tab_pos"">Должность:</label></p>
+    <p><select class="" name="tab_pos" disabled>
+      {% for pos in tab_pos %}
+      <option value="{{pos.id}}">{{pos.name}}</option>
+      {%endfor%}
+    </select></p>
+    <label for="dep_for_tabel">Подразделение табельного учета:</label>
+    <p><select class="" name="dep_for_tabel" disabled>
+    {% for dep in tab_deps %}
+    <option value="{{dep.id}}">{{dep.name}}</option>
+    {%endfor%}
+    </select></p>
+    <p><label for="tab_level">Разряд\категория:</label></p>
+    <p><input type="text" name="tab_level" value="" disabled></p>
+    <p><label for="tab_payment">Ступень оплаты:</label></p>
+    <p><input type="text" name="tab_payment" id="" disabled></p>
+    <p><label for="tab_work">Режим работы:</label></p>
+    <p><select class="" name="tab_work" disabled>
+        <option value="0">Дневной</option>
+        <option value="1">Сменный</option>
 
+    </select></p>
+    <p><label for="tab_sex">Пол:</label></p>
+    <p><select class="" name="tab_sex" disabled>
+      <option value="М">М</option>
+      <option value="Ж">Ж</option>
+
+    </select></p>
+  </div>
+<button type="button" name="button" onclick="all_off()">test</button>
 <div class="buttons">
   <input class="btn btn-success" style="" type="submit" value="Добавить" />
   <a class="btn btn-outline-danger" href=".">Отмена</a>
   </div>
 </form>
+<script type="text/javascript">
+  document.getElementById('id_op_type').onchange = function() {
+    if ($('#id_op_type option:selected').val() == 1) {
+      all_on()
+    }
+    else {
+      all_off()
+    }
 
+  }
+
+</script>
 {%endblock%}

@@ -8,6 +8,10 @@ import datetime as DT
 from itertools import groupby
 from django.contrib.auth.models import *
 from .forms import last_doc
+from TURV.models import Department as TDep
+from TURV.models import Position as TPos
+from TURV.models import Employers as TEmps
+from TURV.models import Overtime as TOt
 
 def get_user_name(request):
     username = request.user.first_name
@@ -482,6 +486,8 @@ def order_on_personnel(request):
 
 def nr_OrderOnPersonnel(request):
     if request.user.is_authenticated:
+        tab_deps = TDep.objects.all()
+        tab_pos = TPos.objects.all()
         order_form = OrdersOnPersonnel_form()
         depts = Departments.objects.all()
         orders = OrdersOnPersonnel.objects.all().order_by('id')
@@ -495,14 +501,55 @@ def nr_OrderOnPersonnel(request):
             order_next_num_ = int(order_prev_num[:cut_symb]) + 1
 
         if request.method == "POST":
+            # -----------------------------------------
+            tname = request.POST.get('short_fio','')
+            tpos = request.POST.get('tab_pos','')
+            tdep = request.POST.get('dep_for_tabel','')
+            tlvl = request.POST.get('tab_level','')
+            tpay = request.POST.get('tab_payment','')
+            twork = request.POST.get('tab_work', '')
+            tsex = request.POST.get('tab_sex','')
+
+
+            # -----------------------------------------
             order_form =OrdersOnPersonnel_form(request.POST)
             if order_form.is_valid():
                 user_ = request.user.first_name
                 order_form.saveFirst(user_)
+
+                if tname and tpos and tdep and tlvl and tpay and twork:
+                    tpos_ = TPos.objects.get(id=tpos)
+                    tdep_ = TDep.objects.get(id=tdep)
+                    print(twork)
+                    if twork == '1':
+                        year_ = str(DT.datetime.now().year) + "-01-01"
+                        print(year_)
+                        wtime = TOt.objects.get(year=year_)
+                        print(wtime.year)
+                        if tsex == "М":
+                            wtime = wtime.value_m
+                        else:
+                            wtime = wtime.value_w
+
+                    else:
+                        wtime = 0
+
+                    TEmps.objects.create(
+                    fullname = tname,
+                    sex = tsex,
+                    level = tlvl,
+                    positionOfPayment = tpay,
+                    department = tdep_,
+                    position = tpos_,
+                    shift_personnel = twork,
+                    stand_worktime = wtime,
+                    fired = 0
+                    )
+
                 return redirect('../orders_on_personnel/')
     else:
         return render(request, 'reg_jounals/no_auth.html')
-    return render(request, 'reg_jounals/OrdersOnPersonnel_add.html', context={'form':order_form, 'depts':depts, 'next_num':order_next_num_})
+    return render(request, 'reg_jounals/OrdersOnPersonnel_add.html', context={'form':order_form, 'depts':depts, 'next_num':order_next_num_, 'tab_deps':tab_deps, 'tab_pos':tab_pos})
 
 def upd_OrderOnPersonnel(request, id):
     if request.user.is_authenticated:
@@ -697,6 +744,7 @@ def add_SickRegistry(request):
 
 def add_SickDocument(request, id):
     if request.user.is_authenticated:
+        reg = SickRegistry.objects.get(id=id)
         doc_form = SickDocument_form()
         errs = doc_form.errors.as_data()
         if request.method == "POST":
@@ -708,7 +756,7 @@ def add_SickDocument(request, id):
                 return redirect(loc)
             else:
                 errs = doc_form.errors.as_data()
-                print(str(errs['sd_number'][0]))
+
 
                 if errs['sd_number']:
                     dual_num = request.POST.get('sd_number','')
@@ -717,7 +765,7 @@ def add_SickDocument(request, id):
                     errs = "Больничный лист c таким номером существует в реестре № " + str(find_doc.sd_bound_reg.sr_number) + " сотрудник: " + str(find_doc.sd_emp)
     else:
         return render(request, 'reg_jounals/no_auth.html')
-    return render(request, 'reg_jounals/SickDocument_add.html', context={'form':doc_form, 'reg_num':id, 'errs':errs})
+    return render(request, 'reg_jounals/SickDocument_add.html', context={'form':doc_form, 'reg_num':str(reg.sr_number), 'errs':errs})
 
 def upd_SickDocument(request, id):
     if request.user.is_authenticated:
@@ -726,7 +774,7 @@ def upd_SickDocument(request, id):
         b_reg = document.sd_bound_reg_id
         if request.method == "GET":
             bound_form = SickDocument_form(instance=document)
-            return render(request, 'reg_jounals/SickDocument_upd.html', context={'form':bound_form, 'document':document, 'b_reg':b_reg})
+            return render(request, 'reg_jounals/SickDocument_upd.html', context={'form':bound_form, 'document':document, 'b_reg':reg})
         else:
             document = SickDocument.objects.get(id__exact=id)
             bound_form = SickDocument_form(request.POST, instance=document)

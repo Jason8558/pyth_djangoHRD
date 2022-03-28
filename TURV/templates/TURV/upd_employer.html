@@ -1,6 +1,6 @@
 {% extends 'TURV/index.html'%}
 {%load static%}
-{%block title%}Добавить сотрудника{% endblock %}
+{%block title%}{{name}}{% endblock %}
 
 {%block scripts%}<script src="{% static 'TURV\js\EmployerAdd.js' %}" charset="utf-8"></script>{%endblock%}
 
@@ -33,10 +33,10 @@
 <p class="shift"></p>
 <p class="wtime"></p>
 <p> {{emp.fired.label}}: {{emp.fired}}</p>
-<div class="buttons"><input type="submit" name="" class="btn btn-success" value="Сохранить">
+<div class="buttons"><input type="submit" name="" class="btn btn-success"  value="Сохранить">
 
 
-<a href=".." id="ue_cancel" class="btn btn-outline-dark">Отмена</a></div>
+<a href="#" onclick="window.close()"  id="ue_cancel" class="btn btn-outline-danger">Закрыть</a></div>
 
 
 

@@ -106,9 +106,21 @@ class OrdersOfBTrip(models.Model):
         doc_fullname = "Приказ о командировке" + ' №' + str(self.bt_number) + ' от ' + str(self.bt_date)
         return doc_fullname
 
+class OrdersOnPersonnelTypes(models.Model):
+    name = models.CharField(max_length=15, help_text="", verbose_name="Наименование", db_index=True)
+
+    class Meta:
+        ordering = ['id']
+        verbose_name = "Виды ЛС приказов"
+
+    def __str__(self):
+        name = self.name
+        return name
+
 class OrdersOnPersonnel(models.Model):
     op_number = models.CharField(max_length=5, help_text="Введите номер приказа", verbose_name="Номер приказа", db_index=True)
     op_date = models.DateField(help_text="Введите дату приказа", verbose_name="Дата приказа", db_index=True)
+    op_type = models.ForeignKey('OrdersOnPersonnelTypes', on_delete=models.CASCADE, verbose_name="Вид приказа ", default="4")
     op_dep = models.ForeignKey('Departments', on_delete=models.CASCADE,  verbose_name="Подразделение ", default="1")
     op_emloyer = models.CharField(max_length=256, help_text="Введите ФИО сотрудника", verbose_name="ФИО сотрудника", db_index=True)
     op_content = models.TextField(help_text="Введите содержание", verbose_name="Содержание приказа")
@@ -154,7 +166,7 @@ class EmploymentHistory(models.Model):
     eh_OrderResign = models.CharField(null=True, blank=True, max_length=256, help_text="Введите номер приказа об увольнении", verbose_name="Приказ об увольнении:", db_index=True)
     eh_dateOfResign = models.DateField(null=True, blank=True, help_text="Введите дату увольнения", verbose_name="Дата увольнения", db_index=True)
     eh_res_officer = models.CharField(blank=True, editable=False,  max_length=256, help_text="Сотрудник, который внес документ в систему ", verbose_name='Ответственный сотрудник')
-    eh_isdigital = models.BooleanField(verbose_name="Электронная", default=False)
+    eh_isdigital = models.BooleanField(null=True, blank=True, verbose_name="Электронная", default=False)
 
     class Meta:
         ordering = ["-id"]

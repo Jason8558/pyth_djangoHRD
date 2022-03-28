@@ -11,6 +11,7 @@ function emp_info() {
   emp_select = $('#id_employer option:selected').text().split(",")
 
   $('#fullname').text(emp_select[0])
+  $('#sex').text(emp_select[7])
   $('#position').text('Должность: ' + emp_select[1])
   $('#level').text('Разряд/категория ст.учета: ' + emp_select[2])
   $('#payment').text('Ступень оплаты: ' + emp_select[3])
@@ -401,3 +402,40 @@ function ReSelectEmp() {
 
 emp_info()
   }
+
+function auto_fill() {
+  emp_select = $('#id_employer option:selected').text().split(",")
+  codes = $('.dig_code')
+  hours = $('.dig_hours')
+  sex = $('#sex').text()
+  shift = emp_select[5]
+  console.log(shift);
+  if (shift == 'False') {
+
+
+  for (var i = 0; i < codes.length+1; i++) {
+    hours[i].value = '8'
+    if (sex == 'Ж' && codes[i+1].value == 'В' && codes[i].value != 'В' ) {
+      codes[i].value = 'Я/ЛЧ'
+      hours[i].value = '4/4'
+    }
+
+    switch (codes[i].value) {
+
+    case 'В':
+    codes[i].value = 'В'
+    break;
+
+    case '':
+    codes[i].value = 'Я'
+    break;
+    default:
+
+    }
+
+  }
+}
+else {
+  alert('Для сотрудников, работающих в сменном режиме, автозаполнение недоступно!')
+}
+}

@@ -180,6 +180,7 @@ class OrdersOnPersonnel_form(forms.ModelForm):
         model = OrdersOnPersonnel
         fields = [
     'op_date',
+    'op_type',
     'op_dep',
     'op_emloyer',
     'op_content',
@@ -188,6 +189,12 @@ class OrdersOnPersonnel_form(forms.ModelForm):
 
     op_date = forms.CharField(label="Дата приказа" , widget=forms.TextInput(
         attrs={'placeholder': 'Введите дату',  'type':'date'}))
+    op_emloyer = forms.CharField(label='ФИО сотрудника', widget=forms.TextInput(
+    attrs={'onchange':'sfio()'}
+    ))
+
+    # op_type = forms.ChoiceField(label='Вид приказа: ', widget=forms.Select(attrs={
+    # 'onselect':'lock_fields()' }))
 
     def saveFirst(self, user_):
         current_doc = last_doc(OrdersOnPersonnel)
@@ -207,6 +214,7 @@ class OrdersOnPersonnel_form(forms.ModelForm):
         log.close()
         new_order = OrdersOnPersonnel.objects.create(
             op_date  = self.cleaned_data['op_date'],
+            op_type = self.cleaned_data['op_type'],
             op_number  = str(order_next_num_)+"ЛС",
             op_dep = self.cleaned_data['op_dep'],
             op_content = self.cleaned_data['op_content'],
@@ -369,7 +377,7 @@ class EmploymentHistory_form(forms.ModelForm):
             'eh_dateOfResign',
             'eh_OrderResign']
 
-    eh_isdigital = forms.BooleanField(label="Электронная", widget=forms.CheckboxInput(attrs={'onclick':'digital_histories()'}))
+    eh_isdigital = forms.BooleanField(label="Электронная",required=False, widget=forms.CheckboxInput(attrs={'onclick':'digital_histories()'}))
     eh_dateOfInv = forms.CharField(label="Дата приема на работу" , widget=forms.TextInput(
         attrs={'placeholder': 'Введите дату', 'type':'date'}))
     eh_dateOfResign = forms.DateField(label="Дата увольнения" , required=False,  widget=forms.TextInput(
