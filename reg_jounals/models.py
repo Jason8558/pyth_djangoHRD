@@ -177,7 +177,6 @@ class EmploymentHistory(models.Model):
         doc_fullname = "Трудовая книжка" + ' №' + str(self.eh_number) + '  ' + str(self.eh_employer)
         return doc_fullname
 
-
 class SickRegistry(models.Model):
     sr_number = models.IntegerField(help_text="Введите номер реестра", verbose_name="Номер реестра", db_index=True)
     sr_year = models.IntegerField(help_text="Год_сервисное_поле", verbose_name="Год. Сервисное поле", db_index=True, default="0")
@@ -225,7 +224,6 @@ class Identity(models.Model):
     def __str__(self):
         fullname = "Удостоверение № " + str(self.number) + " " + self.employer
         return fullname
-
 
 class Departments(models.Model):
     dep_name = models.CharField(max_length=256,  help_text="Введите название подразделения", verbose_name="Название подразделения", db_index=True)

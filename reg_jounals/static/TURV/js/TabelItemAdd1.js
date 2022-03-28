@@ -122,8 +122,11 @@ days_count = Date.getDaysInMonth(year_, rMonth)
 switch (days_count) {
 case 30:
 $('#id_type_time31').css('visibility','hidden')
+
 $('#id_hours31').css('visibility','hidden')
+
 $('#day31').css('visibility','hidden')
+
 break;
 case 29:
 $('#id_type_time30').css('visibility','hidden')
@@ -414,6 +417,63 @@ emp_info()
   }
 
 function auto_fill() {
+  month_  = $('#id_month').text()
+  year_ = $('#id_year').text()
+  let rMonth = 0
+
+  switch (month_) {
+  case '01':
+    rMonth = 0
+  break;
+
+  case '02':
+    rMonth = 1
+  break;
+
+  case '03':
+    rMonth = 2
+  break;
+
+  case '04':
+    rMonth = 3
+  break;
+
+  case '05':
+    rMonth = 4
+  break;
+
+  case '06':
+    rMonth = 5
+  break;
+
+  case '07':
+    rMonth = 6
+  break;
+
+  case '08':
+    rMonth = 7
+  break;
+
+  case '09':
+    rMonth = 8
+  break;
+
+  case '10':
+    rMonth = 9
+  break;
+
+  case '11':
+    rMonth = 10
+  break;
+
+  case '12':
+    rMonth = 11
+  break;
+  }
+
+
+  days_count = Date.getDaysInMonth(year_, rMonth)
+
   emp_select = $('#id_employer option:selected').text().split(",")
   codes = $('.dig_code')
   hours = $('.dig_hours')
@@ -423,7 +483,7 @@ function auto_fill() {
   if (shift == 'False') {
 
 
-  for (var i = 0; i < codes.length+1; i++) {
+  for (var i = 0; i < days_count; i++) {
     hours[i].value = '8'
     if (sex == 'Ж' && codes[i+1].value == 'В' && codes[i].value != 'В' ) {
       codes[i].value = 'Я/ЛЧ'

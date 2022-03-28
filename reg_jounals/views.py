@@ -541,7 +541,7 @@ def nr_OrderOnPersonnel(request):
                     positionOfPayment = tpay,
                     department = tdep_,
                     position = tpos_,
-                    shift_personnel = twork, 
+                    shift_personnel = twork,
                     stand_worktime = wtime,
                     fired = 0
                     )
