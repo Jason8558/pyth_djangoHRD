@@ -977,3 +977,6 @@ def del_identitys(request, id):
         dest = '/identity'
         ident.delete()
         return redirect(dest)
+
+
+# def logs(request):
