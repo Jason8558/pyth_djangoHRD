@@ -18,7 +18,7 @@ function print() {
   WinPrint.document.write('<link rel="stylesheet" href="/static/TURV/css/style11.css">')
 
 
-
+WinPrint.document.write("<!DOCTYPE html>")
 WinPrint.document.write("<input onclick='window.print()' id='print_button' type='button' value='печать'>")
 
 
