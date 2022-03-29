@@ -282,16 +282,14 @@ class logs_event(models.Model):
 
 
 class logs(models.Model):
-    date = models.DateField(verbose_name="Дата события", db_index=True)
+    date = models.DateTimeField(verbose_name="Дата события", db_index=True)
     event = models.ForeignKey('logs_event', verbose_name='Событие', on_delete=models.CASCADE)
     doc_id = models.IntegerField(verbose_name = 'Связанный документ')
     type = models.CharField(verbose_name = 'Вид документа', max_length=100)
     number = models.CharField(verbose_name = 'Номер документа', max_length=100, default=0)
     doc_date = models.DateField(verbose_name="Дата документа", db_index=True, default='2000-01-01')
     link = models.CharField(verbose_name = 'Ссылка', max_length=256, default='')
-
     year = models.CharField(verbose_name = 'Год', max_length=4, blank=True)
-
     addData = models.CharField(verbose_name = 'Дополнительная информация', max_length=256, blank=True)
     res_officer = models.CharField(verbose_name = 'Ответственный', max_length=256, blank=True)
 

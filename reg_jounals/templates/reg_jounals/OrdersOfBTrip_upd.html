@@ -18,8 +18,13 @@
   {% endfor%}
 
 <input class="btn btn-success" type="submit" value="Сохранить" />
-  <a class="btn btn-outline-danger" href="..">Отмена</a>
+  <a id="close" class="btn btn-outline-danger" href="..">Отмена</a>
 
 </form>
+
+<script type="text/javascript">
+  prev = document.referrer
+  $('#close').attr('href', prev)
+</script>
 
 {%endblock%}

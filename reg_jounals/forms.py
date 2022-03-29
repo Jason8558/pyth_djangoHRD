@@ -416,13 +416,13 @@ class LaborContract_form(forms.ModelForm):
                 cut_symb = (len(str(order_prev_num)) - 4)
                 order_next_num_ = int(order_prev_num[:cut_symb]) + 1
 
-        next_id = int(LetterOfInvite.objects.latest('id').id) + 1
+        next_id = int(LaborContract.objects.latest('id').id) + 1
         logs.objects.create(
         date = DT.datetime.now(),
         event = logs_event.objects.get(id=1),
         doc_id = next_id,
         type = 'Трудовой договор',
-        number = str(order_next_num_),
+        number = str(order_next_num_)+"("+str(year_)+")",
         doc_date = self.cleaned_data['lc_date'],
         addData = '',
         link = '/laborContracts/' + str(next_id) + '/upd',
@@ -464,11 +464,20 @@ class EmploymentHistory_form(forms.ModelForm):
         attrs={'placeholder': 'Введите дату', 'type':'date'}))
 
 
-
     def saveFirst(self, user_):
-        log = open('log.txt', 'a')
-        log.write(str(DT.date.today()) + " пользователь " +str(user_) + ' внес запись о трудовой книжке #: ' +  str(self.cleaned_data['eh_number']) + " принимаемый сотрудник: " + str(self.cleaned_data['eh_employer']) + '\n'  )
-        log.close()
+        next_id = int(EmploymentHistory.objects.latest('id').id) + 1
+        logs.objects.create(
+        date = DT.datetime.now(),
+        event = logs_event.objects.get(id=1),
+        doc_id = next_id,
+        type = 'Трудовая книжка',
+        number = self.cleaned_data['eh_number'],
+        doc_date = '',
+        addData = '',
+        link = '/employment_history/' + str(next_id) + '/upd',
+        res_officer = user_
+        )
+
 
 
         new_empHistory = EmploymentHistory.objects.create(
@@ -505,6 +514,19 @@ class SickRegistry_form(forms.ModelForm):
                 else:
                     reg_prev_num = current_doc.sr_number
                     reg_next_num_ = int(reg_prev_num) + 1
+            #
+            # next_id = int(LetterOfInvite.objects.latest('id').id) + 1
+            # logs.objects.create(
+            # date = DT.datetime.now(),
+            # event = logs_event.objects.get(id=1),
+            # doc_id = next_id,
+            # type = 'Реестр б\л',
+            # number = self.cleaned_data['eh_number'],,
+            # doc_date = '',
+            # addData = '',
+            # link = '/employment_history/' + str(next_id) + '/upd',
+            # res_officer = user_
+            # )
 
             new_registry = SickRegistry.objects.create(
             sr_number = reg_next_num_,
@@ -611,9 +633,19 @@ class NewOrdersOnVacationItem_form(forms.ModelForm):
 
     def saveFirst(self, order_id, user_):
         order = NewOrdersOnVacation.objects.get(id=order_id)
-        log = open('log.txt', 'a')
-        log.write(str(DT.date.today()) + " пользователь " +str(user_) + ' внес запись в приказ №: ' + str(order.order_number) +  ' от '+ str(order.order_date) + " о сотруднике: " + str(self.cleaned_data['fio']) + '\n'  )
-        log.close()
+        next_id = int(NewOrdersOnVacation_item.objects.latest('id').id) + 1
+
+        logs.objects.create(
+        date = DT.datetime.now(),
+        event = logs_event.objects.get(id=1),
+        doc_id = next_id,
+        type = 'Запись в приказе на отпуск',
+        number = order.order_number,
+        doc_date = order.order_date,
+        addData = 'Приказ: ' + order.order_number + ' ' + str(order.order_date),
+        link = '/orders_on_vacation_new/upditem' + str(next_id),
+        res_officer = user_
+                )
         new_item = NewOrdersOnVacation_item.objects.create(
             bound_order_id = order_id,
             fio = self.cleaned_data['fio'],
