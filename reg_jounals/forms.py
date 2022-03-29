@@ -472,7 +472,7 @@ class EmploymentHistory_form(forms.ModelForm):
         doc_id = next_id,
         type = 'Трудовая книжка',
         number = self.cleaned_data['eh_number'],
-        doc_date = '',
+        doc_date = DT.datetime.now(),
         addData = '',
         link = '/employment_history/' + str(next_id) + '/upd',
         res_officer = user_
