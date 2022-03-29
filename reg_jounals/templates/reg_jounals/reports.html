@@ -15,6 +15,7 @@
 
 </form>
 
+{% if request.method == 'POST'%}
 <table class="reports-table">
   <thead>
     <th>Документ</th>
@@ -87,8 +88,88 @@
       {%endfor%}
     {%endif%}
 
+    {% if contracts %}
+    <tr style='background: lightgrey !important'>
+      <th colspan="9">Трудовые договоры</th>
+    </tr>
+      {%for c in contracts %}
+        <tr>
+          <td>{{c.lc_number}}</td>
+          <td>{{c.lc_date |date:"d.m.Y"}}</td>
+          <td>{{c.lc_emloyer}}</td>
+          <td>{{c.lc_dep}}</td>
+          <td>-</td>
+          <td>-</td>
+          <td>-</td>
+          <td>-</td>
+          <td>-</td>
+        </tr>
+      {%endfor%}
+    {%endif%}
+
+    {% if invite %}
+    <tr style='background: lightgrey !important'>
+      <th colspan="9">Заявления на прием</th>
+    </tr>
+      {%for i in invite %}
+        <tr>
+          <td>{{i.loi_number}}</td>
+          <td>{{i.loi_date |date:"d.m.Y"}}</td>
+          <td>{{i.loi_employee}}</td>
+          <td>{{i.loi_department}}</td>
+          <td>-</td>
+          <td>-</td>
+          <td>-</td>
+          <td>-</td>
+          <td>-</td>
+        </tr>
+      {%endfor%}
+    {%endif%}
+
+    {% if resign %}
+    <tr style='background: lightgrey !important'>
+      <th colspan="9">Заявления на увольнение</th>
+    </tr>
+      {%for r in resign %}
+        <tr>
+          <td>{{r.lor_number}}</td>
+          <td>{{r.lor_date |date:"d.m.Y"}}</td>
+          <td>{{r.lor_employee}}</td>
+          <td>{{r.lor_departament}}</td>
+          <td>-</td>
+          <td>-</td>
+          <td>-</td>
+          <td>-</td>
+          <td>-</td>
+        </tr>
+      {%endfor%}
+    {%endif%}
+
+    {% if history %}
+    <tr style='background: lightgrey !important'>
+      <th colspan="9">Трудовые книжки</th>
+    </tr>
+      {%for h in history %}
+        <tr>
+          <td>{{h.eh_number}}</td>
+          <td>{{h.eh_dateOfInv |date:"d.m.Y"}}</td>
+          <td>{{h.eh_employer}}</td>
+          <td>{{h.eh_dep}}</td>
+          <td>-</td>
+          <td>-</td>
+          <td>-</td>
+          <td>-</td>
+          <td>-</td>
+        </tr>
+      {%endfor%}
+    {%endif%}
+
   </tbody>
 </table>
+  {%else%}
+    <h1>Отчет не сформирован</h1>
+{%endif%}
+
 
 <script type="text/javascript">
 $('.container').css('width', '1666px')[0]

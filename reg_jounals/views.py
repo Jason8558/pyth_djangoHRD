@@ -997,6 +997,10 @@ def reports(request):
                 vacantions = NewOrdersOnVacation_item.objects.all().filter(fio__icontains=employer)
                 personnel = OrdersOnPersonnel.objects.all().filter(op_emloyer__icontains=employer)
                 trips = OrdersOfBTrip.objects.all().filter(bt_emloyer__icontains=employer)
-                return render(request, 'reg_jounals/reports.html', context={'vacantions':vacantions, 'personnel':personnel, 'trips':trips})
+                contracts = LaborContract.objects.all().filter(lc_emloyer__icontains=employer)
+                invite = LetterOfInvite.objects.all().filter(loi_employee__icontains=employer)
+                resign = LetterOfResignation.objects.all().filter(lor_employee__icontains=employer)
+                history = EmploymentHistory.objects.all().filter(eh_employer__icontains=employer)
+                return render(request, 'reg_jounals/reports.html', context={'history':history, 'resign':resign, 'vacantions':vacantions, 'personnel':personnel, 'trips':trips, 'contracts':contracts, 'invite':invite})
         else:
             return render(request, 'reg_jounals/reports.html')
