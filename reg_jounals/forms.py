@@ -678,14 +678,26 @@ class Identity_form(forms.ModelForm):
     def saveFirst(self, user_):
         ind = Identity.objects.all().order_by("id")
         ind_count = len(ind)
-        log = open('log.txt', 'a')
-        log.write(str(DT.datetime.today()) + " пользователь " +str(user_) + ' внес запись об удостоверении №: ' + str(self.cleaned_data['number']) + "сотрудник: " + str(self.cleaned_data['employer']) + '\n'  )
-        log.close()
+
         if ind_count == 0:
             ind_next_num_ = 1
         else:
             ind_prev_num = ind[ind_count - 1].number
             ind_next_num_ = int(ind_prev_num) + 1
+
+        next_id = int(Identity.objects.latest('id').id) + 1
+
+        logs.objects.create(
+        date = DT.datetime.now(),
+        event = logs_event.objects.get(id=1),
+        doc_id = next_id,
+        type = 'Удостоверение',
+        number = next_id,
+        doc_date = self.cleaned_data['date_giving'],
+        addData = '',
+        link = '/identity/upd' + str(next_id),
+        res_officer = user_
+                )
 
         new_identity = Identity.objects.create(
             number = ind_next_num_,
