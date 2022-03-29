@@ -996,6 +996,7 @@ def reports(request):
             if employer:
                 vacantions = NewOrdersOnVacation_item.objects.all().filter(fio__icontains=employer)
                 personnel = OrdersOnPersonnel.objects.all().filter(op_emloyer__icontains=employer)
-                return render(request, 'reg_jounals/reports.html', context={'vacantions':vacantions, 'personnel':personnel})
+                trips = OrdersOfBTrip.objects.all().filter(bt_emloyer__icontains=employer)
+                return render(request, 'reg_jounals/reports.html', context={'vacantions':vacantions, 'personnel':personnel, 'trips':trips})
         else:
             return render(request, 'reg_jounals/reports.html')

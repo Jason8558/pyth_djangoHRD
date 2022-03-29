@@ -3,13 +3,96 @@
 {%block title%}Отчетность{%endblock%}
 {%block header%}<a class="btn btn-dark" href="../">< назад</a> Отчеты по зарегестрированным документам {%endblock%}
 {%block content%}
-<form class="reports-form" action="" method="post">
+<form class="reports-form" action="{% url 'reports_url' %}" method="post">
+  {% csrf_token %}
   <select class="reports-type" name="reports-type">
     <option value="1">Сотрудник</option>
     <option value="2">Подразделение</option>
     <option value="3">Событие</option>
   </select>
 <input type="text" name="reports-emp" value="">
+<input class='btn btn-warning' type="submit" name="" value="Сформировать">
 
 </form>
+
+<table class="reports-table">
+  <thead>
+    <th>Документ</th>
+    <th>Дата</th>
+    <th>Сотрудник</th>
+    <th>Подразделение</th>
+    <th>Дата начала</th>
+    <th>Дата окончания</th>
+    <th>Место командировки (если есть)</th>
+    <th>Кол-во дней отпуска (если)</th>
+    <th>Событие</th>
+  </thead>
+
+  <tbody>
+
+    {% if vacantions %}
+    <tr style='background: lightgrey !important'>
+      <th colspan="9">Приказы на отпуск</th>
+    </tr>
+      {%for v in vacantions %}
+        <tr>
+          <td>{{v.bound_order.order_number}} {{v.bound_order.order_date|date:"d.m.Y"}}</td>
+          <td>{{v.bound_order.order_date |date:"d.m.Y"}}</td>
+          <td>{{v.fio}}</td>
+          <td>{{v.dep}}</td>
+          <td>{{v.dur_from |date:"d.m.Y"}}</td>
+          <td>{{v.dur_to |date:"d.m.Y"}}</td>
+          <td>нет</td>
+          <td>{{v.days_count}}</td>
+          <td>Отпуск сотрудников</td>
+        </tr>
+      {%endfor%}
+    {%endif%}
+
+    {% if personnel %}
+    <tr style='background: lightgrey !important'>
+      <th colspan="9">Приказы ЛС</th>
+    </tr>
+      {%for p in personnel %}
+        <tr>
+          <td>{{p.op_number}}</td>
+          <td>{{p.op_date |date:"d.m.Y"}}</td>
+          <td>{{p.op_emloyer}}</td>
+          <td>{{p.op_dep}}</td>
+          <td>-</td>
+          <td>-</td>
+          <td>нет</td>
+          <td>нет</td>
+          <td>{{p.op_type.name}}</td>
+        </tr>
+      {%endfor%}
+    {%endif%}
+
+    {% if trips %}
+    <tr style='background: lightgrey !important'>
+      <th colspan="9">Командировки</th>
+    </tr>
+      {%for t in trips %}
+        <tr>
+          <td>{{t.bt_number}}</td>
+          <td>{{t.bt_date |date:"d.m.Y"}}</td>
+          <td>{{t.bt_emloyer}}</td>
+          <td>{{t.bt_dep}}</td>
+          <td>{{t.bt_dur_from |date:"d.m.Y"}}</td>
+          <td>{{t.bt_dur_to |date:"d.m.Y"}}</td>
+          <td>{{t.bt_place}}</td>
+          <td>нет</td>
+          <td>Командировка</td>
+        </tr>
+      {%endfor%}
+    {%endif%}
+
+  </tbody>
+</table>
+
+<script type="text/javascript">
+$('.container').css('width', '1666px')[0]
+$('.container').css('max-width', 'none')[0]
+</script>
+
 {%endblock%}
