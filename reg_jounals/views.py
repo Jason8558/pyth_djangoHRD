@@ -988,3 +988,14 @@ def logs_(request):
     if request.user.is_authenticated:
         logs_ = logs.objects.all()
         return render(request, 'reg_jounals/log.html', context={'logs':logs_})
+# ОТЧЕТЫ -----------------------------------------------------------
+def reports(request):
+    if request.user.is_authenticated:
+        if request.method == 'POST':
+            employer = request.POST.get('reports-emp', '')
+            if employer:
+                vacantions = NewOrdersOnVacation_item.objects.all().filter(fio__icontains=employer)
+                personnel = OrdersOnPersonnel.objects.all().filter(op_emloyer__icontains=employer)
+                return render(request, 'reg_jounals/reports.html', context={'vacantions':vacantions, 'personnel':personnel})
+        else:
+            return render(request, 'reg_jounals/reports.html')

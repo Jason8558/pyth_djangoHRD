@@ -1,0 +1,15 @@
+{%extends "reg_jounals/index.html" %}
+{% load static %}
+{%block title%}Отчетность{%endblock%}
+{%block header%}<a class="btn btn-dark" href="../">< назад</a> Отчеты по зарегестрированным документам {%endblock%}
+{%block content%}
+<form class="reports-form" action="" method="post">
+  <select class="reports-type" name="reports-type">
+    <option value="1">Сотрудник</option>
+    <option value="2">Подразделение</option>
+    <option value="3">Событие</option>
+  </select>
+<input type="text" name="reports-emp" value="">
+
+</form>
+{%endblock%}
