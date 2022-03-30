@@ -1089,6 +1089,28 @@ def reports(request):
                         invite = ''
                         resign = ''
                         history = ''
+
+                    else:
+                        if event:
+                            # print(event)
+                            if event == 'Прием на работу' or event == 'Увольнение' or event == 'Перевод' or event == 'Другое':
+                                personnel = OrdersOnPersonnel.objects.all().filter(op_type__name=event)
+                                trips = ''
+                                vacantions = ''
+                            else:
+                                if event == 'Командировка':
+                                    trips = OrdersOfBTrip.objects.all()
+                                    personnel = ''
+                                    vacantions = ''
+                                else:
+                                    if event == 'Отпуск':
+                                        vacantions = NewOrdersOnVacation_item.objects.all()
+                                        trips = ''
+                                        personnel = ''
+                            contracts = ''
+                            invite = ''
+                            resign = ''
+                            history = ''
                 # -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 
