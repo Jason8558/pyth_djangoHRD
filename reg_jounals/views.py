@@ -993,14 +993,28 @@ def reports(request):
     if request.user.is_authenticated:
         if request.method == 'POST':
             employer = request.POST.get('reports-emp', '')
-            if employer:
-                vacantions = NewOrdersOnVacation_item.objects.all().filter(fio__icontains=employer)
-                personnel = OrdersOnPersonnel.objects.all().filter(op_emloyer__icontains=employer)
-                trips = OrdersOfBTrip.objects.all().filter(bt_emloyer__icontains=employer)
-                contracts = LaborContract.objects.all().filter(lc_emloyer__icontains=employer)
-                invite = LetterOfInvite.objects.all().filter(loi_employee__icontains=employer)
-                resign = LetterOfResignation.objects.all().filter(lor_employee__icontains=employer)
-                history = EmploymentHistory.objects.all().filter(eh_employer__icontains=employer)
+            type = request.POST.get('reports-type', '')
+            dfrom = request.POST.get('reports-from')
+            dto = request.POST.get('reports-to')
+            print(employer + '\n' + type + '\n' + dfrom + '\n' + dto)
+            if type == '1':
+                if employer and dfrom and dto:
+                    vacantions = NewOrdersOnVacation_item.objects.all().filter(fio__icontains=employer).filter(bound_order__order_date__range=(dfrom,dto))
+                    personnel = OrdersOnPersonnel.objects.all().filter(op_emloyer__icontains=employer).filter(op_date__range=(dfrom,dto))
+                    trips = OrdersOfBTrip.objects.all().filter(bt_emloyer__icontains=employer).filter(bt_date__range=(dfrom,dto))
+                    contracts = LaborContract.objects.all().filter(lc_emloyer__icontains=employer).filter(lc_date__range=(dfrom,dto))
+                    invite = LetterOfInvite.objects.all().filter(loi_employee__icontains=employer).filter(loi_date__range=(dfrom,dto))
+                    resign = LetterOfResignation.objects.all().filter(lor_employee__icontains=employer).filter(lor_date__range=(dfrom,dto))
+                    history = ""
+                if employer:
+                    vacantions = NewOrdersOnVacation_item.objects.all().filter(fio__icontains=employer)
+                    personnel = OrdersOnPersonnel.objects.all().filter(op_emloyer__icontains=employer)
+                    trips = OrdersOfBTrip.objects.all().filter(bt_emloyer__icontains=employer)
+                    contracts = LaborContract.objects.all().filter(lc_emloyer__icontains=employer)
+                    invite = LetterOfInvite.objects.all().filter(loi_employee__icontains=employer)
+                    resign = LetterOfResignation.objects.all().filter(lor_employee__icontains=employer)
+                    history = EmploymentHistory.objects.all().filter(eh_employer__icontains=employer)
                 return render(request, 'reg_jounals/reports.html', context={'history':history, 'resign':resign, 'vacantions':vacantions, 'personnel':personnel, 'trips':trips, 'contracts':contracts, 'invite':invite})
+
         else:
             return render(request, 'reg_jounals/reports.html')
