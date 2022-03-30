@@ -12,23 +12,36 @@
   </select>
 <input type="text" id="reports-emp" name="reports-emp" value="">
 <select class=""  id="reports-dep" name="reports-dep">
+  <option value="">Все подразделения</option>
   {% for d in deps %}
     <option value="{{d.id}}">{{d.dep_name}}</option>
   {%endfor%}
 </select>
+<select class="" id="reports-event" name="reports-event">
+  <option value="">--выберите событие из списка--</option>
+  <option value="Прием">Прием</option>
+  <option value="Увольнение">Увольнение</option>
+  <option value="Перевод">Перевод</option>
+  <option value="Отпуск">Отпуск</option>
+  <option value="Командировка">Командировка</option>
+  <option value="Другое">Другое</option>
+</select>
+
   <label for="reports-from">Период с: </label>
   <input type="date" name="reports-from" value="">
   <label for="reports-to">по: </label>
   <input type="date" name="reports-to" value="">
 
 <input class='btn btn-warning' type="submit" name="" value="Сформировать">
-<button type="button" onclick="tableToExcel('reports-table','Отчет', 'Отчет по документу.xls');" name="button">Сформировать EXEL</button>
+{% if request.method == 'POST'%}
+  <button type="button" class='btn btn-success' onclick="tableToExcel('reports-table','Отчет', 'Отчет по зарегестрированным документам.xls');" name="button">Сформировать EXEL</button>
+{%endif%}
 
 </form>
 
 {% if request.method == 'POST'%}
 <table id="reports-table" class="reports-table">
-  <thead>
+  <thead style='background: #a5d5ff;'>
     <th>Документ</th>
     <th>Дата</th>
     <th>Сотрудник</th>
@@ -43,7 +56,7 @@
   <tbody>
 
     {% if vacantions %}
-    <tr style='background: lightgrey !important'>
+    <tr style='background: lightgrey !important;  border: 1px solid black !important;'>
       <th colspan="9">Приказы на отпуск</th>
     </tr>
       {%for v in vacantions %}
@@ -62,7 +75,7 @@
     {%endif%}
 
     {% if personnel %}
-    <tr style='background: lightgrey !important'>
+    <tr style='background: lightgrey !important; border: 1px solid black !important;'>
       <th colspan="9">Приказы ЛС</th>
     </tr>
       {%for p in personnel %}
@@ -81,7 +94,7 @@
     {%endif%}
 
     {% if trips %}
-    <tr style='background: lightgrey !important'>
+    <tr style='background: lightgrey !important; border: 1px solid black !important;'>
       <th colspan="9">Командировки</th>
     </tr>
       {%for t in trips %}
@@ -100,7 +113,7 @@
     {%endif%}
 
     {% if contracts %}
-    <tr style='background: lightgrey !important'>
+    <tr style='background: lightgrey !important; border: 1px solid black !important;'>
       <th colspan="9">Трудовые договоры</th>
     </tr>
       {%for c in contracts %}
@@ -119,7 +132,7 @@
     {%endif%}
 
     {% if invite %}
-    <tr style='background: lightgrey !important'>
+    <tr style='background: lightgrey !important; border: 1px solid black !important;'>
       <th colspan="9">Заявления на прием</th>
     </tr>
       {%for i in invite %}
@@ -138,7 +151,7 @@
     {%endif%}
 
     {% if resign %}
-    <tr style='background: lightgrey !important'>
+    <tr style='background: lightgrey !important; border: 1px solid black !important;'>
       <th colspan="9">Заявления на увольнение</th>
     </tr>
       {%for r in resign %}
@@ -157,7 +170,7 @@
     {%endif%}
 
     {% if history %}
-    <tr style='background: lightgrey !important'>
+    <tr style='background: lightgrey !important; border: 1px solid black !important;'>
       <th colspan="9">Трудовые книжки</th>
     </tr>
       {%for h in history %}
@@ -199,12 +212,21 @@ function change_type() {
     case '1':
       $('#reports-emp').css('display','')
       $('#reports-dep').css('display','none')
+      $('#reports-event').css('display','none')
 
       break;
 
     case '2':
       $('#reports-emp').css('display','none')
       $('#reports-dep').css('display','')
+      $('#reports-event').css('display','none')
+
+      break;
+
+    case '3':
+      $('#reports-emp').css('display','none')
+      $('#reports-dep').css('display','')
+      $('#reports-event').css('display','')
 
       break;
 
