@@ -1046,7 +1046,7 @@ def reports(request):
             if type == '3':
 
                 if event and dfrom and dto and dep:
-                    if event == 'Прием' or event == 'Увольнение' or event == 'Перевод' or event == 'Другое':
+                    if event == 'Прием на работу' or event == 'Увольнение' or event == 'Перевод' or event == 'Другое':
                         print(event)
                         vacantions = ''
                         personnel = OrdersOnPersonnel.objects.all().filter(op_dep=dep).filter(op_date__range=(dfrom,dto)).filter(op_type__name=event)
@@ -1071,7 +1071,7 @@ def reports(request):
                 else:
                     if event and dfrom and dto:
                         # print(event)
-                        if event == 'Прием' or event == 'Увольнение' or event == 'Перевод' or event == 'Другое':
+                        if event == 'Прием на работу' or event == 'Увольнение' or event == 'Перевод' or event == 'Другое':
                             personnel = OrdersOnPersonnel.objects.all().filter(op_date__range=(dfrom,dto)).filter(op_type__name=event)
                             trips = ''
                             vacantions = ''
