@@ -5,23 +5,29 @@
 {%block content%}
 <form class="reports-form" action="{% url 'reports_url' %}" method="post">
   {% csrf_token %}
-  <select class="reports-type" name="reports-type">
+  <select id="reports-type" class="reports-type" name="reports-type">
     <option value="1">Сотрудник</option>
     <option value="2">Подразделение</option>
     <option value="3">Событие</option>
   </select>
-<input type="text" name="reports-emp" value="">
+<input type="text" id="reports-emp" name="reports-emp" value="">
+<select class=""  id="reports-dep" name="reports-dep">
+  {% for d in deps %}
+    <option value="{{d.id}}">{{d.dep_name}}</option>
+  {%endfor%}
+</select>
   <label for="reports-from">Период с: </label>
   <input type="date" name="reports-from" value="">
   <label for="reports-to">по: </label>
   <input type="date" name="reports-to" value="">
 
 <input class='btn btn-warning' type="submit" name="" value="Сформировать">
+<button type="button" onclick="tableToExcel('reports-table','Отчет', 'Отчет по документу.xls');" name="button">Сформировать EXEL</button>
 
 </form>
 
 {% if request.method == 'POST'%}
-<table class="reports-table">
+<table id="reports-table" class="reports-table">
   <thead>
     <th>Документ</th>
     <th>Дата</th>
@@ -177,8 +183,57 @@
 
 
 <script type="text/javascript">
+$(document).ready(function(){
+  change_type()
+})
 $('.container').css('width', '1666px')[0]
 $('.container').css('max-width', 'none')[0]
+
+$('#reports-type').change(function() {
+  change_type()
+
+})
+
+function change_type() {
+  switch ($('#reports-type option:selected ').val()) {
+    case '1':
+      $('#reports-emp').css('display','')
+      $('#reports-dep').css('display','none')
+
+      break;
+
+    case '2':
+      $('#reports-emp').css('display','none')
+      $('#reports-dep').css('display','')
+
+      break;
+
+  }
+}
+
+var tableToExcel = (function() {
+		var uri = 'data:application/vnd.ms-excel;base64,'
+		, template = '<html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:x="urn:schemas-microsoft-com:office:excel" xmlns="http://www.w3.org/TR/REC-html40"><head><!--[if gte mso 9]><xml><x:ExcelWorkbook><x:ExcelWorksheets><x:ExcelWorksheet><x:Name>{worksheet}</x:Name><x:WorksheetOptions><x:DisplayGridlines/></x:WorksheetOptions></x:ExcelWorksheet></x:ExcelWorksheets></x:ExcelWorkbook></xml><![endif]--><meta http-equiv="content-type" content="text/plain; charset=UTF-8"/></head><body><table>{table}</table></body></html>'
+		, base64 = function(s) { return window.btoa(unescape(encodeURIComponent(s))) }
+		, format = function(s, c) {
+			return s.replace(/{(\w+)}/g, function(m, p) { return c[p]; })
+		}
+		, downloadURI = function(uri, name) {
+		    var link = document.createElement("a");
+		    link.download = name;
+		    link.href = uri;
+		    link.click();
+		}
+
+		return function(table, name, fileName) {
+			if (!table.nodeType) table = document.getElementById(table)
+				var ctx = {worksheet: name || 'Worksheet', table: table.innerHTML}
+			var resuri = uri + base64(format(template, ctx))
+			downloadURI(resuri, fileName);
+		}
+	})();
+
+
 </script>
 
 {%endblock%}
