@@ -999,7 +999,7 @@ def reports(request):
             print(employer + '\n' + type + '\n' + dfrom + '\n' + dto)
             if type == '1':
                 if employer and dfrom and dto:
-                    vacantions = NewOrdersOnVacation_item.objects.all().filter(fio__icontains=employer).filter(bound_order__order_date__range=(dfrom,dto))
+                    vacantions = NewOrdersOnVacation_item.objects.all().filter(fio__icontains=employer, bound_order__order_date__range=(dfrom,dto))
                     personnel = OrdersOnPersonnel.objects.all().filter(op_emloyer__icontains=employer).filter(op_date__range=(dfrom,dto))
                     trips = OrdersOfBTrip.objects.all().filter(bt_emloyer__icontains=employer).filter(bt_date__range=(dfrom,dto))
                     contracts = LaborContract.objects.all().filter(lc_emloyer__icontains=employer).filter(lc_date__range=(dfrom,dto))
