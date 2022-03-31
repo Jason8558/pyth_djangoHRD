@@ -580,14 +580,27 @@ def del_OrderOnPersonnel(request, id):
 def LaborContracts(request):
     if request.user.is_authenticated:
         search_query = request.GET.get('lc_search','')
-        if search_query:
-            contracts = LaborContract.objects.filter(lc_dep_id=search_query).order_by('-id')
+        dfrom = request.GET.get('dur-from','')
+        dto = request.GET.get('dur-to','')
+        if dfrom and dto and search_query:
+            contracts = LaborContract.objects.filter(lc_date__range=(dfrom,dto)).filter(lc_dep_id=search_query).order_by('-id')
             p_orders = Paginator(contracts, 1000)
             page_number = request.GET.get('page', 1)
         else:
-            contracts = LaborContract.objects.all().order_by('-id')
-            p_orders = Paginator(contracts, 20)
-            page_number = request.GET.get('page', 1)
+            if search_query:
+                contracts = LaborContract.objects.filter(lc_dep_id=search_query).order_by('-id')
+                p_orders = Paginator(contracts, 1000)
+                page_number = request.GET.get('page', 1)
+            else:
+                if dfrom and dto:
+                    contracts = LaborContract.objects.filter(lc_date__range=(dfrom,dto)).order_by('-id')
+                    p_orders = Paginator(contracts, 1000)
+                    page_number = request.GET.get('page', 1)
+
+                else:
+                    contracts = LaborContract.objects.all().order_by('-id')
+                    p_orders = Paginator(contracts, 20)
+                    page_number = request.GET.get('page', 1)
         deps = Departments.objects.all()
         page = p_orders.get_page(page_number)
         count = len(contracts)
