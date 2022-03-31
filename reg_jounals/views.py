@@ -564,7 +564,12 @@ def upd_OrderOnPersonnel(request, id):
                 user_ = request.user.first_name
                 new_obj = bound_form.save()
                 return redirect('/orders_on_personnel')
+            else:
+                ers = bound_form.errors.as_data()
 
+                for e in ers.keys():
+                    print(str(e) + ' ' + str(ers.get(e)))
+                return render(request, 'reg_jounals/OrdersOnPersonnel_upd.html', context={'form':bound_form, 'order':order})
 def del_OrderOnPersonnel(request, id):
     if request.user.is_authenticated:
         order = OrdersOnPersonnel.objects.get(id__iexact=id)
@@ -977,3 +982,139 @@ def del_identitys(request, id):
         dest = '/identity'
         ident.delete()
         return redirect(dest)
+
+# ЛОГИ -------------------------------------------------------------
+def logs_(request):
+    if request.user.is_authenticated:
+        logs_ = logs.objects.all()
+        return render(request, 'reg_jounals/log.html', context={'logs':logs_})
+# ОТЧЕТЫ -----------------------------------------------------------
+def reports(request):
+    if request.user.is_authenticated:
+        deps = Departments.objects.all()
+        if request.method == 'POST':
+            employer = request.POST.get('reports-emp', '')
+            dep = request.POST.get('reports-dep','')
+            event = request.POST.get('reports-event','')
+            type = request.POST.get('reports-type', '')
+            dfrom = request.POST.get('reports-from')
+            dto = request.POST.get('reports-to')
+            print(employer + '\n' + type + '\n' + dfrom + '\n' + dto)
+            # По сотруднику -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+            if type == '1':
+                if employer and dfrom and dto:
+                    vacantions = NewOrdersOnVacation_item.objects.all().filter(fio__icontains=employer, bound_order__order_date__range=(dfrom,dto))
+                    personnel = OrdersOnPersonnel.objects.all().filter(op_emloyer__icontains=employer).filter(op_date__range=(dfrom,dto))
+                    trips = OrdersOfBTrip.objects.all().filter(bt_emloyer__icontains=employer).filter(bt_date__range=(dfrom,dto))
+                    contracts = LaborContract.objects.all().filter(lc_emloyer__icontains=employer).filter(lc_date__range=(dfrom,dto))
+                    invite = LetterOfInvite.objects.all().filter(loi_employee__icontains=employer).filter(loi_date__range=(dfrom,dto))
+                    resign = LetterOfResignation.objects.all().filter(lor_employee__icontains=employer).filter(lor_date__range=(dfrom,dto))
+                    history = ""
+                else:
+                    if employer:
+                        vacantions = NewOrdersOnVacation_item.objects.all().filter(fio__icontains=employer)
+                        personnel = OrdersOnPersonnel.objects.all().filter(op_emloyer__icontains=employer)
+                        trips = OrdersOfBTrip.objects.all().filter(bt_emloyer__icontains=employer)
+                        contracts = LaborContract.objects.all().filter(lc_emloyer__icontains=employer)
+                        invite = LetterOfInvite.objects.all().filter(loi_employee__icontains=employer)
+                        resign = LetterOfResignation.objects.all().filter(lor_employee__icontains=employer)
+                        history = EmploymentHistory.objects.all().filter(eh_employer__icontains=employer)
+                # -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+                # По подразделению -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+            if type == '2':
+                if dep and dfrom and dto:
+                    vacantions = NewOrdersOnVacation_item.objects.all().filter(dep=dep, bound_order__order_date__range=(dfrom,dto))
+                    personnel = OrdersOnPersonnel.objects.all().filter(op_dep=dep).filter(op_date__range=(dfrom,dto))
+                    trips = OrdersOfBTrip.objects.all().filter(bt_dep=dep).filter(bt_date__range=(dfrom,dto))
+                    contracts = LaborContract.objects.all().filter(lc_dep=dep).filter(lc_date__range=(dfrom,dto))
+                    invite = LetterOfInvite.objects.all().filter(loi_department=dep).filter(loi_date__range=(dfrom,dto))
+                    resign = LetterOfResignation.objects.all().filter(lor_departament=dep).filter(lor_date__range=(dfrom,dto))
+                    history = " "
+                else:
+                    if dep:
+                        vacantions = NewOrdersOnVacation_item.objects.all().filter(dep=dep)
+                        personnel = OrdersOnPersonnel.objects.all().filter(op_dep=dep)
+                        trips = OrdersOfBTrip.objects.all().filter(bt_dep=dep)
+                        contracts = LaborContract.objects.all().filter(lc_dep=dep)
+                        invite = LetterOfInvite.objects.all().filter(loi_department=dep)
+                        resign = LetterOfResignation.objects.all().filter(lor_departament=dep)
+                        history = EmploymentHistory.objects.all().filter(eh_dep=dep)
+                # -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+                # По событию -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+            if type == '3':
+
+                if event and dfrom and dto and dep:
+                    if event == 'Прием на работу' or event == 'Увольнение' or event == 'Перевод' or event == 'Другое':
+                        print(event)
+                        vacantions = ''
+                        personnel = OrdersOnPersonnel.objects.all().filter(op_dep=dep).filter(op_date__range=(dfrom,dto)).filter(op_type__name=event)
+                        print(personnel)
+                        trips = ''
+                    else:
+                        if event == 'Командировка':
+                            trips = OrdersOfBTrip.objects.all().filter(bt_date__range=(dfrom,dto)).filter(bt_dep=dep)
+                            personnel = ''
+                            vacantions = ''
+                        else:
+                            if event == 'Отпуск':
+                                trips = ''
+                                personnel = ''
+                                vacantions = NewOrdersOnVacation_item.objects.all().filter(dep=dep, bound_order__order_date__range=(dfrom,dto))
+
+                    contracts = ''
+                    invite = ''
+                    resign = ''
+                    history = ''
+
+                else:
+                    if event and dfrom and dto:
+                        # print(event)
+                        if event == 'Прием на работу' or event == 'Увольнение' or event == 'Перевод' or event == 'Другое':
+                            personnel = OrdersOnPersonnel.objects.all().filter(op_date__range=(dfrom,dto)).filter(op_type__name=event)
+                            trips = ''
+                            vacantions = ''
+                        else:
+                            if event == 'Командировка':
+                                trips = OrdersOfBTrip.objects.all().filter(bt_date__range=(dfrom,dto))
+                                personnel = ''
+                                vacantions = ''
+                            else:
+                                if event == 'Отпуск':
+                                    vacantions = NewOrdersOnVacation_item.objects.all().filter(bound_order__order_date__range=(dfrom,dto))
+                                    trips = ''
+                                    personnel = ''
+                        contracts = ''
+                        invite = ''
+                        resign = ''
+                        history = ''
+
+                    else:
+                        if event:
+                            # print(event)
+                            if event == 'Прием на работу' or event == 'Увольнение' or event == 'Перевод' or event == 'Другое':
+                                personnel = OrdersOnPersonnel.objects.all().filter(op_type__name=event)
+                                trips = ''
+                                vacantions = ''
+                            else:
+                                if event == 'Командировка':
+                                    trips = OrdersOfBTrip.objects.all()
+                                    personnel = ''
+                                    vacantions = ''
+                                else:
+                                    if event == 'Отпуск':
+                                        vacantions = NewOrdersOnVacation_item.objects.all()
+                                        trips = ''
+                                        personnel = ''
+                            contracts = ''
+                            invite = ''
+                            resign = ''
+                            history = ''
+                # -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+            return render(request, 'reg_jounals/reports.html', context={'history':history, 'resign':resign, 'vacantions':vacantions, 'personnel':personnel, 'trips':trips, 'contracts':contracts, 'invite':invite, 'deps':deps})
+
+        else:
+            return render(request, 'reg_jounals/reports.html', context={'deps':deps})

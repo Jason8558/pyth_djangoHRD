@@ -2,6 +2,7 @@ from django import forms
 from .models import *
 from django.contrib.auth.forms import AuthenticationForm
 import datetime as DT
+from reg_jounals.models import logs, logs_event
 
 class TabelItem_form(forms.ModelForm):
         class Meta:
@@ -317,17 +318,25 @@ class Tabel_form(forms.ModelForm):
 
     year = forms.CharField(label="Год (ТОЛЬКО 4 ЦИФРЫ!)", widget=forms.NumberInput(attrs={'maxlength':'4'}))
     def saveFirst(self, user_):
-        log = open('log.txt', 'a')
-        log.write(str(DT.date.today()) + " пользователь " +str(user_) + " создал табель " + str(self.cleaned_data['department']) + " за " + str(self.cleaned_data['year']) + '.' + str(self.cleaned_data['month'] ))
-        log.close()
+
+        next_id = int(Tabel.objects.latest('id').id) + 1
+        logs.objects.create(
+            date = DT.datetime.now(),
+            event = logs_event.objects.get(id=3),
+            doc_id = next_id,
+            type = 'Табель',
+            number = next_id,
+            year = self.cleaned_data['year'],
+            doc_date = DT.datetime.strptime(str(self.cleaned_data['year'] + '-' + self.cleaned_data['month'] + '-' + str(DT.datetime.now().day)), '%Y-%M-%d'),
+            addData = 'Табель за: ' + str(self.cleaned_data['month']) + ' ' + str(self.cleaned_data['year']) ,
+            link = '/turv/create' + str(next_id),
+            res_officer = user_)
+
         new_tabel = Tabel.objects.create(
             year = self.cleaned_data['year'],
             month = self.cleaned_data['month'],
             department = self.cleaned_data['department'],
-            res_officer = user_
-
-
-        )
+            res_officer = user_)
 
         return new_tabel
 

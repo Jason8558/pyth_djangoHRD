@@ -177,7 +177,6 @@ class EmploymentHistory(models.Model):
         doc_fullname = "Трудовая книжка" + ' №' + str(self.eh_number) + '  ' + str(self.eh_employer)
         return doc_fullname
 
-
 class SickRegistry(models.Model):
     sr_number = models.IntegerField(help_text="Введите номер реестра", verbose_name="Номер реестра", db_index=True)
     sr_year = models.IntegerField(help_text="Год_сервисное_поле", verbose_name="Год. Сервисное поле", db_index=True, default="0")
@@ -226,7 +225,6 @@ class Identity(models.Model):
         fullname = "Удостоверение № " + str(self.number) + " " + self.employer
         return fullname
 
-
 class Departments(models.Model):
     dep_name = models.CharField(max_length=256,  help_text="Введите название подразделения", verbose_name="Название подразделения", db_index=True)
 
@@ -270,3 +268,35 @@ class NewOrdersOnVacation_item(models.Model):
 
     def __str__(self):
         return self.fio
+
+class logs_event(models.Model):
+    name = models.CharField(max_length=256, verbose_name="Имя события", db_index=True)
+
+    class Meta:
+        ordering = ['name']
+        verbose_name = 'Событие'
+        verbose_name_plural = 'События логов'
+
+    def __str__(self):
+        return self.name
+
+
+class logs(models.Model):
+    date = models.DateTimeField(verbose_name="Дата события", db_index=True)
+    event = models.ForeignKey('logs_event', verbose_name='Событие', on_delete=models.CASCADE)
+    doc_id = models.IntegerField(verbose_name = 'Связанный документ')
+    type = models.CharField(verbose_name = 'Вид документа', max_length=100)
+    number = models.CharField(verbose_name = 'Номер документа', max_length=100, default=0)
+    doc_date = models.DateField(verbose_name="Дата документа", db_index=True, default='2000-01-01')
+    link = models.CharField(verbose_name = 'Ссылка', max_length=256, default='')
+    year = models.CharField(verbose_name = 'Год', max_length=4, blank=True)
+    addData = models.CharField(verbose_name = 'Дополнительная информация', max_length=256, blank=True)
+    res_officer = models.CharField(verbose_name = 'Ответственный', max_length=256, blank=True)
+
+    class Meta:
+        ordering = ['-date']
+        verbose_name = 'Запись'
+        verbose_name_plural = 'Логи'
+
+    def __str__(self):
+        return 'Запись от: ' + str(self.date) + ' по: ' + str(self.type)

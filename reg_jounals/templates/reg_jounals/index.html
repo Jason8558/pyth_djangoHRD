@@ -29,7 +29,7 @@
     <nav class="navbar navbar-light ">
 
 
-    <span class="navbar-brand mb-0 h1">{%block header%}Кадровое делопроизводство КГУП "Камчатский водоканал"{%endblock%}</span><span style="text-align: right; float: right;font-size: 14pt;">  <span id="uname">{{ user.first_name }}</span> {% if request.user.is_superuser%}  <a style="color:black;" href="{% url 'logfile' %}">| Лог |</a> <a style="color:black;" href="/admin/">Войти в админ-панель</a><span id="version"> v2.1 </span>{%endif%} {% if request.user.groups.all.0.name == 'Редактирование справочников' %} <a style="color:black;" href="/admin">| Подразделения</a> {% endif %}<a class="btn btn-outline-danger" style="margin-left: 17px;" href="{% url 'logout'%}">выйти</a></span>
+    <span class="navbar-brand mb-0 h1">{%block header%}Кадровое делопроизводство КГУП "Камчатский водоканал"{%endblock%}</span><span style="text-align: right; float: right;font-size: 14pt;">  <span id="uname">{{ user.first_name }}</span> {% if request.user.is_superuser%}   <a style="color:black;" href="/admin/">| Войти в админ-панель</a><span id="version"> v2.1 </span>{%endif%} {% if request.user.groups.all.0.name == 'Редактирование справочников' %} <a style="color:black;" href="/admin">| Подразделения</a> {% endif %}<a class="btn btn-outline-danger" style="margin-left: 17px;" href="{% url 'logout'%}">выйти</a></span>
 
     </div>
 
@@ -41,6 +41,8 @@
     {%block content%}
     <div class='sub-navbar'>
     <button class="btn btn-dark" onclick="open_vac_calc()" type="button" name="">Калькулятор дат</button>
+    <a class="btn btn-dark" href="{% url 'logs_url' %}">Журналы событий</a>
+    <a class="btn btn-dark" href="{% url 'reports_url'%}">Отчетность</a>
 
     </div>
 
@@ -68,14 +70,10 @@
     margin-top: 8px;
     font-size: 21pt;
     border-bottom: 1px solid #000;">Главное меню</h2>
-    <div class="recents">
 
-
-
-</div>
     <div class="container_grid">
-      <a href="#" class="btn btn-info main_button old_vac disabled" ><img src="{% static 'img/regrepl.png' %}" alt="">Штатное замещение</a>
-      <a href="{% url 'orders_on_vacation' %}" class="btn btn-info main_button old_vac" ><img src="{% static 'img/old.png' %}" alt="">Приказы на отпуск (старые c 1 по 13К-ОТП за 2021г.)</a>
+      <a href="//172.16.23.38:8082" class="btn btn-info main_button old_vac" ><img src="{% static 'img/regrepl.png' %}" alt="">Штатное замещение</a>
+      <!-- <a href="{% url 'orders_on_vacation' %}" class="btn btn-info main_button old_vac" ><img src="{% static 'img/old.png' %}" alt="">Приказы на отпуск (старые c 1 по 13К-ОТП за 2021г.)</a> -->
       <a href="{% url 'orders_on_vacation_new' %}" class="btn btn-info main_button" ><img src="{% static 'img/sun.png' %}" alt="">Приказы на отпуск</a>
       <a href="{% url 'orders_on_others' %}" class="btn btn-info main_button"><img src="{% static 'img/letter.png' %}" alt="">Приказы по другим вопросам</a>
       <a href="{%url 'outbound'%}" class="btn btn-info main_button"><img src="{% static 'img/envelop.png' %}" alt="">Исходящие документы</a>

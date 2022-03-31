@@ -77,7 +77,12 @@
 
 
   <input class="btn btn-success vac_addDoc" type="button" onclick="this.parentNode.submit();" value="Сохранить" />
-  <a class="btn btn-outline-danger vac_canDoc" href="..">Отмена</a>
+  <a id="close" class="btn btn-outline-danger vac_canDoc" href="..">Отмена</a>
 </form>
+
+<script type="text/javascript">
+  prev = document.referrer
+  $('#close').attr('href', prev)
+</script>
 
 {%endblock%}

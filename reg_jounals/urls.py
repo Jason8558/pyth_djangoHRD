@@ -60,5 +60,7 @@ urlpatterns = [
     path('identity/add', views.nr_identitys, name='identity_add_url'),
     path('identity/upd/<int:id>', views.upd_identitys, name='identity_upd_url'),
     path('identity/del/<int:id>', views.del_identitys, name='identity_del_url'),
-    path('getusername/', views.get_user_name, name='getusername_url')
+    path('getusername/', views.get_user_name, name='getusername_url'),
+    path('logs/', views.logs_, name='logs_url'),
+    path('reports/', views.reports, name='reports_url'),
      ]

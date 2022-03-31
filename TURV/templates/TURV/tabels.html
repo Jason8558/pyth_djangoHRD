@@ -94,7 +94,7 @@ function Supchecked() {
 
   {% if granted == 1%}
   <select class=""  name="tab_user">
-    <option value="">Поиск по табельщику</option>
+    <option value="">Поиск по ответственному</option>
       {%for u in tab_users %}
       <option value="{{u.first_name}}">{{u.first_name}}</option>
       {%endfor%}
@@ -106,6 +106,7 @@ function Supchecked() {
 </form>
 
 <div class="container main">
+  <h3 style="text-align: left !important; color: red !important">ИНФОРМАЦИЯ! Новые сотрудники добавляются в справочник АВТОМАТИЧЕСКИ! Инф. т.2035 </h3>
   <a class="btn btn-success btn-add"  href="{% url 'new_tabel_url' %}"  >+ Новый табель</a>
 
 
@@ -119,7 +120,7 @@ function Supchecked() {
     <th scope="col">Период составления</th>
     <th scope="col">Подразделение</th>
     {% if granted == 1 or user.is_superuser%}
-    <th scope="col">Табельщик</th>
+    <th scope="col">Ответственный</th>
     {%endif%}
     <th scope="col">Проверен СУП</th>
       {% if granted == 1 or user.is_superuser%}

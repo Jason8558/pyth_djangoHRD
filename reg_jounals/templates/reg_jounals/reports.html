@@ -1,0 +1,261 @@
+{%extends "reg_jounals/index.html" %}
+{% load static %}
+{%block title%}Отчетность{%endblock%}
+{%block header%}<a class="btn btn-dark" href="../">< назад</a> Отчеты по зарегестрированным документам {%endblock%}
+{%block content%}
+<form class="reports-form" action="{% url 'reports_url' %}" method="post">
+  {% csrf_token %}
+  <select id="reports-type" class="reports-type" name="reports-type">
+    <option value="1">Сотрудник</option>
+    <option value="2">Подразделение</option>
+    <option value="3">Событие</option>
+  </select>
+<input type="text" id="reports-emp" name="reports-emp" value="">
+<select class=""  id="reports-dep" name="reports-dep">
+  <option value="">Все подразделения</option>
+  {% for d in deps %}
+    <option value="{{d.id}}">{{d.dep_name}}</option>
+  {%endfor%}
+</select>
+<select class="" id="reports-event" name="reports-event">
+  <option value="">--выберите событие из списка--</option>
+  <option value="Прием на работу">Прием</option>
+  <option value="Увольнение">Увольнение</option>
+  <option value="Перевод">Перевод</option>
+  <option value="Отпуск">Отпуск</option>
+  <option value="Командировка">Командировка</option>
+  <option value="Другое">Другое</option>
+</select>
+
+  <label for="reports-from">Период с: </label>
+  <input type="date" name="reports-from" value="">
+  <label for="reports-to">по: </label>
+  <input type="date" name="reports-to" value="">
+
+<input class='btn btn-warning' type="submit" name="" value="Сформировать">
+{% if request.method == 'POST'%}
+  <button type="button" class='btn btn-success' onclick="tableToExcel('reports-table','Отчет', 'Отчет по зарегестрированным документам.xls');" name="button">Сформировать EXEL</button>
+{%endif%}
+
+</form>
+
+{% if request.method == 'POST'%}
+<table id="reports-table" class="reports-table">
+  <thead style='background: #a5d5ff;'>
+    <th>Документ</th>
+    <th>Дата</th>
+    <th>Сотрудник</th>
+    <th>Подразделение</th>
+    <th>Дата начала</th>
+    <th>Дата окончания</th>
+    <th>Место командировки (если есть)</th>
+    <th>Кол-во дней отпуска (если)</th>
+    <th>Событие</th>
+  </thead>
+
+  <tbody>
+
+    {% if vacantions %}
+    <tr style='background: lightgrey !important;  border: 1px solid black !important;'>
+      <th colspan="9">Приказы на отпуск</th>
+    </tr>
+      {%for v in vacantions %}
+        <tr>
+          <td>{{v.bound_order.order_number}} {{v.bound_order.order_date|date:"d.m.Y"}}</td>
+          <td>{{v.bound_order.order_date |date:"d.m.Y"}}</td>
+          <td>{{v.fio}}</td>
+          <td>{{v.dep}}</td>
+          <td>{{v.dur_from |date:"d.m.Y"}}</td>
+          <td>{{v.dur_to |date:"d.m.Y"}}</td>
+          <td>нет</td>
+          <td>{{v.days_count}}</td>
+          <td>Отпуск сотрудников</td>
+        </tr>
+      {%endfor%}
+    {%endif%}
+
+    {% if personnel %}
+    <tr style='background: lightgrey !important; border: 1px solid black !important;'>
+      <th colspan="9">Приказы ЛС</th>
+    </tr>
+      {%for p in personnel %}
+        <tr>
+          <td>{{p.op_number}}</td>
+          <td>{{p.op_date |date:"d.m.Y"}}</td>
+          <td>{{p.op_emloyer}}</td>
+          <td>{{p.op_dep}}</td>
+          <td>-</td>
+          <td>-</td>
+          <td>нет</td>
+          <td>нет</td>
+          <td>{{p.op_type.name}}</td>
+        </tr>
+      {%endfor%}
+    {%endif%}
+
+    {% if trips %}
+    <tr style='background: lightgrey !important; border: 1px solid black !important;'>
+      <th colspan="9">Командировки</th>
+    </tr>
+      {%for t in trips %}
+        <tr>
+          <td>{{t.bt_number}}</td>
+          <td>{{t.bt_date |date:"d.m.Y"}}</td>
+          <td>{{t.bt_emloyer}}</td>
+          <td>{{t.bt_dep}}</td>
+          <td>{{t.bt_dur_from |date:"d.m.Y"}}</td>
+          <td>{{t.bt_dur_to |date:"d.m.Y"}}</td>
+          <td>{{t.bt_place}}</td>
+          <td>нет</td>
+          <td>Командировка</td>
+        </tr>
+      {%endfor%}
+    {%endif%}
+
+    {% if contracts %}
+    <tr style='background: lightgrey !important; border: 1px solid black !important;'>
+      <th colspan="9">Трудовые договоры</th>
+    </tr>
+      {%for c in contracts %}
+        <tr>
+          <td>{{c.lc_number}}</td>
+          <td>{{c.lc_date |date:"d.m.Y"}}</td>
+          <td>{{c.lc_emloyer}}</td>
+          <td>{{c.lc_dep}}</td>
+          <td>-</td>
+          <td>-</td>
+          <td>-</td>
+          <td>-</td>
+          <td>-</td>
+        </tr>
+      {%endfor%}
+    {%endif%}
+
+    {% if invite %}
+    <tr style='background: lightgrey !important; border: 1px solid black !important;'>
+      <th colspan="9">Заявления на прием</th>
+    </tr>
+      {%for i in invite %}
+        <tr>
+          <td>{{i.loi_number}}</td>
+          <td>{{i.loi_date |date:"d.m.Y"}}</td>
+          <td>{{i.loi_employee}}</td>
+          <td>{{i.loi_department}}</td>
+          <td>-</td>
+          <td>-</td>
+          <td>-</td>
+          <td>-</td>
+          <td>-</td>
+        </tr>
+      {%endfor%}
+    {%endif%}
+
+    {% if resign %}
+    <tr style='background: lightgrey !important; border: 1px solid black !important;'>
+      <th colspan="9">Заявления на увольнение</th>
+    </tr>
+      {%for r in resign %}
+        <tr>
+          <td>{{r.lor_number}}</td>
+          <td>{{r.lor_date |date:"d.m.Y"}}</td>
+          <td>{{r.lor_employee}}</td>
+          <td>{{r.lor_departament}}</td>
+          <td>-</td>
+          <td>-</td>
+          <td>-</td>
+          <td>-</td>
+          <td>-</td>
+        </tr>
+      {%endfor%}
+    {%endif%}
+
+    {% if history %}
+    <tr style='background: lightgrey !important; border: 1px solid black !important;'>
+      <th colspan="9">Трудовые книжки</th>
+    </tr>
+      {%for h in history %}
+        <tr>
+          <td>{{h.eh_number}}</td>
+          <td>{{h.eh_dateOfInv |date:"d.m.Y"}}</td>
+          <td>{{h.eh_employer}}</td>
+          <td>{{h.eh_dep}}</td>
+          <td>-</td>
+          <td>-</td>
+          <td>-</td>
+          <td>-</td>
+          <td>-</td>
+        </tr>
+      {%endfor%}
+    {%endif%}
+
+  </tbody>
+</table>
+  {%else%}
+    <h1>Отчет не сформирован</h1>
+{%endif%}
+
+
+<script type="text/javascript">
+$(document).ready(function(){
+  change_type()
+})
+$('.container').css('width', '1666px')[0]
+$('.container').css('max-width', 'none')[0]
+
+$('#reports-type').change(function() {
+  change_type()
+
+})
+
+function change_type() {
+  switch ($('#reports-type option:selected ').val()) {
+    case '1':
+      $('#reports-emp').css('display','')
+      $('#reports-dep').css('display','none')
+      $('#reports-event').css('display','none')
+
+      break;
+
+    case '2':
+      $('#reports-emp').css('display','none')
+      $('#reports-dep').css('display','')
+      $('#reports-event').css('display','none')
+
+      break;
+
+    case '3':
+      $('#reports-emp').css('display','none')
+      $('#reports-dep').css('display','')
+      $('#reports-event').css('display','')
+
+      break;
+
+  }
+}
+
+var tableToExcel = (function() {
+		var uri = 'data:application/vnd.ms-excel;base64,'
+		, template = '<html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:x="urn:schemas-microsoft-com:office:excel" xmlns="http://www.w3.org/TR/REC-html40"><head><!--[if gte mso 9]><xml><x:ExcelWorkbook><x:ExcelWorksheets><x:ExcelWorksheet><x:Name>{worksheet}</x:Name><x:WorksheetOptions><x:DisplayGridlines/></x:WorksheetOptions></x:ExcelWorksheet></x:ExcelWorksheets></x:ExcelWorkbook></xml><![endif]--><meta http-equiv="content-type" content="text/plain; charset=UTF-8"/></head><body><table>{table}</table></body></html>'
+		, base64 = function(s) { return window.btoa(unescape(encodeURIComponent(s))) }
+		, format = function(s, c) {
+			return s.replace(/{(\w+)}/g, function(m, p) { return c[p]; })
+		}
+		, downloadURI = function(uri, name) {
+		    var link = document.createElement("a");
+		    link.download = name;
+		    link.href = uri;
+		    link.click();
+		}
+
+		return function(table, name, fileName) {
+			if (!table.nodeType) table = document.getElementById(table)
+				var ctx = {worksheet: name || 'Worksheet', table: table.innerHTML}
+			var resuri = uri + base64(format(template, ctx))
+			downloadURI(resuri, fileName);
+		}
+	})();
+
+
+</script>
+
+{%endblock%}

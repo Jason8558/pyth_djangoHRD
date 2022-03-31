@@ -10,6 +10,7 @@ from mimetypes import MimeTypes
 import os
 import datetime
 from itertools import groupby
+from reg_jounals.models import logs, logs_event
 from django.contrib.auth.models import *
 
 def w_close(request):
@@ -325,15 +326,26 @@ def tabel_upditem(request, id):
 def tabel_sup_check(request, id):
     if request.user.is_authenticated:
             tabel = Tabel.objects.get(id=id)
-            log = open('log.txt', 'a')
+
             if tabel.sup_check == False:
                 tabel.sup_check = True
-                log.write(str(DT.date.today()) + " пользователь " + request.user.first_name + " проверил табель " + str(tabel.department) + ' за ' + str(tabel.year) + '.' + str(tabel.month) + '\n'  )
+                logs.objects.create(
+                    date = DT.datetime.now(),
+                    event = logs_event.objects.get(id=4),
+                    doc_id = id,
+                    type = 'Табель проверен',
+                    number = id,
+                    year = tabel.year,
+                    doc_date = DT.datetime.strptime(str(tabel.year + '-' + tabel.month + '-' + str(DT.datetime.now().day)), '%Y-%M-%d'),
+                    addData = 'Табель за ' + str(tabel.year) + ' ' + str(tabel.month) + ' проверен сотрудником СУП' ,
+                    link = '/turv/create/' + str(id),
+                    res_officer = request.user.first_name)
+
             else:
                 tabel.sup_check = False
-                log.write(str(DT.date.today()) + " пользователь " + request.user.first_name + " снял пометку о проверке табеля " + str(tabel.department) + ' за ' + str(tabel.year) + '.' + str(tabel.month) + '\n'  )
+
             tabel.save()
-            log.close()
+
     return redirect('/turv/create/' + str(id))
 
 def tabel_delitem(request, id):
