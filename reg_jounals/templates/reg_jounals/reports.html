@@ -40,6 +40,7 @@
 </form>
 
 {% if request.method == 'POST'%}
+<h3>Количество строк в отчете: <span id="rows-count"></span></h3>
 <table id="reports-table" class="reports-table">
   <thead style='background: #a5d5ff;'>
     <th>Документ</th>
@@ -60,7 +61,7 @@
       <th colspan="9">Приказы на отпуск</th>
     </tr>
       {%for v in vacantions %}
-        <tr>
+        <tr class="report_row" >
           <td>{{v.bound_order.order_number}} {{v.bound_order.order_date|date:"d.m.Y"}}</td>
           <td>{{v.bound_order.order_date |date:"d.m.Y"}}</td>
           <td>{{v.fio}}</td>
@@ -79,7 +80,7 @@
       <th colspan="9">Приказы ЛС</th>
     </tr>
       {%for p in personnel %}
-        <tr>
+        <tr class="report_row" >
           <td>{{p.op_number}}</td>
           <td>{{p.op_date |date:"d.m.Y"}}</td>
           <td>{{p.op_emloyer}}</td>
@@ -98,7 +99,7 @@
       <th colspan="9">Командировки</th>
     </tr>
       {%for t in trips %}
-        <tr>
+        <tr class="report_row" >
           <td>{{t.bt_number}}</td>
           <td>{{t.bt_date |date:"d.m.Y"}}</td>
           <td>{{t.bt_emloyer}}</td>
@@ -117,7 +118,7 @@
       <th colspan="9">Трудовые договоры</th>
     </tr>
       {%for c in contracts %}
-        <tr>
+        <tr class="report_row" >
           <td>{{c.lc_number}}</td>
           <td>{{c.lc_date |date:"d.m.Y"}}</td>
           <td>{{c.lc_emloyer}}</td>
@@ -136,7 +137,7 @@
       <th colspan="9">Заявления на прием</th>
     </tr>
       {%for i in invite %}
-        <tr>
+        <tr class="report_row" >
           <td>{{i.loi_number}}</td>
           <td>{{i.loi_date |date:"d.m.Y"}}</td>
           <td>{{i.loi_employee}}</td>
@@ -155,7 +156,7 @@
       <th colspan="9">Заявления на увольнение</th>
     </tr>
       {%for r in resign %}
-        <tr>
+        <tr class="report_row" >
           <td>{{r.lor_number}}</td>
           <td>{{r.lor_date |date:"d.m.Y"}}</td>
           <td>{{r.lor_employee}}</td>
@@ -174,7 +175,7 @@
       <th colspan="9">Трудовые книжки</th>
     </tr>
       {%for h in history %}
-        <tr>
+        <tr class="report_row" >
           <td>{{h.eh_number}}</td>
           <td>{{h.eh_dateOfInv |date:"d.m.Y"}}</td>
           <td>{{h.eh_employer}}</td>
@@ -196,6 +197,11 @@
 
 
 <script type="text/javascript">
+$('#reports-table').ready(function() {
+  rows = $('#reports-table .report_row')
+  $('#rows-count').text(rows.length)
+})
+
 $(document).ready(function(){
   change_type()
 })
