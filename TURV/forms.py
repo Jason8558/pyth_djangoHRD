@@ -328,7 +328,7 @@ class Tabel_form(forms.ModelForm):
             number = next_id,
             year = self.cleaned_data['year'],
             doc_date = DT.datetime.strptime(str(self.cleaned_data['year'] + '-' + self.cleaned_data['month'] + '-' + str(DT.datetime.now().day)), '%Y-%M-%d'),
-            addData = 'Табель за: ' + str(self.cleaned_data['month']) + ' ' + str(self.cleaned_data['year']) ,
+            addData = 'Табель: '+ str(self.cleaned_data['department'].name) + ' за: ' + str(self.cleaned_data['month']) + ' ' + str(self.cleaned_data['year']) ,
             link = '/turv/create' + str(next_id),
             res_officer = user_)
 
