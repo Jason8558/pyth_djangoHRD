@@ -1,13 +1,13 @@
 {% extends 'TURV/index.html'%}
 {%load static%}
-{%block title%}{{b_tabel.department}} {{month}} {{year}}{%endblock%}
+{%block title%}{{b_tabel.type}} {{b_tabel.department}} {{month}} {{year}}{%endblock%}
 
 {%block header%}
 <a class="btn btn-danger" onclick="window.close()"> ЗАКРЫТЬ  </a> |
 <span id="id_month" class="not-print" style="display:none">{{month}}</span>
 <span id="id_year" class="not-print" style="display:none">{{year}}</span>
 
-Табель учета рабочего времени
+Табель учета <span style="text-transform: lowercase;">{{b_tabel.type}}</span>
 <span><b>{{b_tabel.department}}</b></span>
 за: <b><span class="field_month">{{month}}</span> {{year}} г.</b>
 Всего сотрудников в табеле: {{count}}
@@ -117,7 +117,11 @@
     {%endif%}
 {%endif%}
 
+{% if b_tabel.type.id == 2 %}
+<input class="btn btn-warning"  style="margin-left: 6px;" type="button" name="" onclick="print_toxic()" value="ПЕЧАТЬ">
+{%else%}
 <input class="btn btn-warning"  style="margin-left: 6px;" type="button" name="" onclick="print()" value="ПЕЧАТЬ">
+{%endif%}
 
 </div>
   {% if form.errors %}
@@ -145,6 +149,9 @@
     <th >Должн.</th>
     <th  >Раз.</th>
     <th >Ст.</th>
+    {%if b_tabel.type.id == 2%}
+      <th>% вред.</th>
+    {%endif%}
     <th>1</th>
     <th >2</th>
     <th>3</th>
@@ -208,6 +215,9 @@
     <th class="not-print pos-screen" >Должн.</th>
     <th class="not-print " >Раз.</th>
     <th class="thin-itogo">Ст.</th>
+    {%if b_tabel.type.id == 2%}
+      <th class="thin-itogo">% вред</th>
+    {%endif%}
     <th class="head-hours">1</th>
     <th class="head-hours">2</th>
     <th class="head-hours">3</th>
@@ -275,6 +285,9 @@
       <td class="not-print cell_bb" rowspan="2">{{item.employer.position}}</td>
       <td class="not-print cell_bb" rowspan="2">{{item.employer.level}}</td>
       <td rowspan="2" class="cell_bb">{{item.employer.positionOfPayment}}</td>
+      {%if b_tabel.type.id == 2%}
+        <td rowspan="2" class="cell_bb"">{{item.toxic_p}}</td>
+      {%endif%}
       <td class="cell_ttime">{{item.type_time1}}</td>
       <td class="cell_ttime">{{item.type_time2}}</td>
       <td class="cell_ttime">{{item.type_time3}}</td>

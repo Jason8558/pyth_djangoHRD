@@ -301,13 +301,15 @@ def tabel_additem(request, id):
 def tabel_upditem(request, id):
     if request.user.is_authenticated:
         if request.method == "GET":
-            item = TabelItem.objects.get(id=id)
 
+            item = TabelItem.objects.get(id=id)
+        
             bound_form = TabelItem_form(instance=item)
             year = item.bound_tabel.year
             month = item.bound_tabel.month
             department = item.bound_tabel.department
-            return render(request, 'TURV/upd_tabel_item.html', context={'tabel':bound_form, 'item':item, 'b_tabel':item.bound_tabel.id, 'year':year, 'month':month})
+            type = item.bound_tabel.type_id
+            return render(request, 'TURV/upd_tabel_item.html', context={'tabel':bound_form, 'item':item, 'b_tabel':item.bound_tabel.id, 'year':year, 'month':month, 'type':type})
 
         else:
             item = TabelItem.objects.get(id=id)

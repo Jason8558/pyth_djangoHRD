@@ -116,7 +116,7 @@ function Supchecked() {
   <thead class="thead-dark">
   <tr class="tr-header">
 
-
+    <th scope="col">Вид</th>
     <th scope="col">Период составления</th>
     <th scope="col">Подразделение</th>
     {% if granted == 1 or user.is_superuser%}
@@ -137,13 +137,13 @@ function Supchecked() {
 
   {%for tabel in tabels %}
 
-
-  {% if tabel.del_check %}
-<tr style='background: red !important;' onclick="return window.open('{% url 'tabel_create_url' id=tabel.id%}')"</tr>
-  {%else%}
+{% if tabel.type.id == 2 %}
+<tr  style="background: lightgreen !important;"onclick="return window.open('{% url 'tabel_create_url' id=tabel.id%}')" >
+{%else%}
 <tr  onclick="return window.open('{% url 'tabel_create_url' id=tabel.id%}')" >
-  {%endif%}
+{%endif%}
 
+    <td>{{tabel.type}}</td>
     <td><span class="field_month">{{tabel.month}}</span> {{tabel.year}}  </td>
     <td>{{tabel.department}}</td>
     {% if granted == 1 or user.is_superuser%}

@@ -45,14 +45,24 @@ class Position(models.Model):
     def __str__(self):
         return self.name
 
+class TabelType(models.Model):
+    name = models.CharField(verbose_name='Вид табеля ',  max_length=256)
+    class Meta:
+        ordering = ['id']
+        verbose_name = "Вид табеля"
+        verbose_name_plural = "Виды табеля"
+    def __str__(self):
+        return self.name
+
+
 class Tabel(models.Model):
+    type = models.ForeignKey('TabelType', verbose_name="Вид ", db_index=True, on_delete=models.CASCADE, default='1')
     year = models.CharField(verbose_name='Год', db_index=True, max_length=4)
     month = models.CharField(verbose_name='Месяц', db_index=True, max_length=256)
     department = models.ForeignKey('Department', verbose_name=' ', db_index=True, on_delete=models.CASCADE)
     del_check = models.BooleanField(verbose_name='Пометка удаления', default=False, blank=True)
     sup_check = models.BooleanField(verbose_name='Проверен СУП', default=False, blank=True)
     unloaded =  models.BooleanField(verbose_name='Загружен в 1С', default=False, blank=True)
-    # ro_check = models.BooleanField(verbose_name='Проверен РО', default=False, blank=True)
     res_officer = models.CharField(blank=True, editable=False,  max_length=256, help_text="Отвественный за составление табеля", verbose_name='Табельщик')
     class Meta:
         ordering = ['-year']
@@ -60,13 +70,14 @@ class Tabel(models.Model):
         verbose_name_plural = 'Табели'
 
     def __str__(self):
-        return str(self.department) + str(self.month) + str(self.year)
+        return str(self.department) + str(self.month) + str(self.year) + str(self.type__name)
 
 class TabelItem(models.Model):
     bound_tabel = models.ForeignKey('Tabel', verbose_name='Св. табель', db_index=True, on_delete=models.CASCADE)
     employer = models.ForeignKey('Employers', verbose_name='Сотрудник', db_index=True, on_delete=models.CASCADE)
     year = models.CharField(verbose_name='Год', db_index=True, max_length=256)
     month = models.CharField(verbose_name='Месяц', db_index=True, max_length=256)
+    toxic_p = models.IntegerField(blank=True, default=0, verbose_name='Процент доплаты за вредность')
 
 # Виды времени
     type_time1 = models.CharField(max_length=4, verbose_name='Вид времени1', null = True, blank=True)
