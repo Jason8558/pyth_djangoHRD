@@ -303,7 +303,7 @@ def tabel_upditem(request, id):
         if request.method == "GET":
 
             item = TabelItem.objects.get(id=id)
-        
+
             bound_form = TabelItem_form(instance=item)
             year = item.bound_tabel.year
             month = item.bound_tabel.month
@@ -536,7 +536,6 @@ def unload(request):
     udeps = request.GET.get('udeps','')
     notulonl =  request.GET.get('nounload_only','')
     month_ = request.GET.get('uload_month','')
-    print(notulonl)
     if udeps:
         udeps_l = []
         udeps = udeps.split(',')
@@ -854,6 +853,62 @@ def unload(request):
 
     else:
         return render(request, 'TURV/unload.html', context={"deps":deps})
+
+def toxic_unload(request):
+    if request.user.is_authenticated:
+        month = request.GET.get('month', '')
+        notulonl =  request.GET.get('nounload_only','')
+        year = request.GET.get('year', '')
+        deps = Department.objects.all()
+        if month and year:
+            wb = xlwt.Workbook()
+
+            for dep in deps:
+                dn = str(dep.name).replace(' ','_')
+                dn = dn.replace('-','')
+                dn = dn.replace('(','')
+                dn = dn.replace(')','')
+                dn = transliterate(dn)
+                print(dep)
+                if notulonl == "1":
+                    items = TabelItem.objects.filter(employer__department_id=dep.id).filter(month=month).filter(year=year).filter(bound_tabel__unloaded=False).filter(bound_tabel__type__id = 2).order_by('employer')
+                    print(items)
+                else:
+                    items = TabelItem.objects.filter(employer__department_id=dep.id).filter(month=month).filter(bound_tabel__type_id = 2).filter(year=year).order_by('employer')
+
+
+                if items:
+                    ws = wb.add_sheet(dn)
+                    ct = items[0].bound_tabel.id
+                    current_tabel = Tabel.objects.get(id=ct)
+                    if current_tabel.sup_check == True:
+                        i = 0
+                        for item in items:
+                            ws.write(i,0,item.employer.fullname)
+                            ws.write(i,1,item.toxic_p)
+                            ws.write(i,2,item.w_hours)
+                            i = i+1
+
+                else:
+                    pass
+
+
+            name =  str(month)+'_'+str(year)+ '_vrednost.xls'
+            print(name)
+            wb.save(name)
+
+            fp = open(name, "rb")
+            response = HttpResponse(fp.read())
+            fp.close();
+
+            file_type = 'application/octet-stream'
+            response['Content-Type'] = file_type
+            response['Content-Length'] = str(os.stat(name).st_size)
+            response['Content-Disposition'] = "attachment; filename=%s" %name
+
+            return response;
+        else:
+            return render(request, 'TURV/toxic-unload.html')
 
 def upd_norma(request):
     if request.user.is_authenticated:

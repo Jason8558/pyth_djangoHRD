@@ -118,7 +118,7 @@
 {%endif%}
 
 {% if b_tabel.type.id == 2 %}
-<input class="btn btn-warning"  style="margin-left: 6px;" type="button" name="" onclick="print_toxic()" value="ПЕЧАТЬ">
+<input class="btn btn-warning"  style="margin-left: 6px;" type="button" name="" onclick="print_toxic({{b_tabel.year}}, {{b_tabel.month}}, '{{b_tabel.department.name}}')" value="ПЕЧАТЬ">
 {%else%}
 <input class="btn btn-warning"  style="margin-left: 6px;" type="button" name="" onclick="print()" value="ПЕЧАТЬ">
 {%endif%}
@@ -205,9 +205,14 @@
 </div>
 
 <table id="t_tabel" class="tabel" style="display: none" cellpadding="0.5" cellspacing="1">
+  {% if b_tabel.type.id == 2%}
 
-  <thead style="display: table-header-group" class="thead-dark" id="tabel_head">
+  <thead style="display: table-header-group; background:lightgreen !important; color: black !important;" class="thead-dark" id="tabel_head">
+    {%else%}
+    <thead style="display: table-header-group" class="thead-dark" id="tabel_head">
+    {%endif%}
   <tr class="tr-header">
+
 
     <th class=" num " rowspan="2">№</th>
     <th class="for-print  fio " colspan="3">ФИО|долж.|разр.</th>
@@ -251,12 +256,12 @@
     <th class="day31 head-hours">31</th>
     <th class="thin-itogo">Дни.</th>
     <th class="wide-itogs">Час./ЛЧ</th>
-    <th class="wide-itogs">Св.</th>
-    <th class="thin-itogo">НЧ</th>
-    <th class="thin-itogo">в./пр.</th>
-    <th class="thin-itogo">Сов.</th>
-    <th class="thin-itogo">Нея.</th>
-    <th class="include">Из них</th>
+    <th class="wide-itogs toxic-hide">Св.</th>
+    <th class="thin-itogo toxic-hide">НЧ</th>
+    <th class="thin-itogo toxic-hide">в./пр.</th>
+    <th class="thin-itogo toxic-hide">Сов.</th>
+    <th class="thin-itogo toxic-hide ">Нея.</th>
+    <th class="include toxic-hide">Из них</th>
     <th class="thin-itogo" >Вых.</th>
 
 
@@ -329,33 +334,33 @@
         {%endif%}
 
       {% if item.sHours4 > 0 %}
-      <td rowspan="2"class="cell_bb wide-itogs">{{item.sHours4|floatformat:2}}</td>
+      <td rowspan="2"class="cell_bb wide-itogs toxic-hide">{{item.sHours4|floatformat:2}}</td>
       {% else %}
-        <td rowspan="2" class="cell_bb"></td>
+        <td rowspan="2" class="cell_bb toxic-hide"></td>
       {%endif%}
 
       {%if item.sHours2 %}
-        <td rowspan="2" class="cell_bb">{{item.sHours2}}</td>
+        <td rowspan="2" class="cell_bb toxic-hide">{{item.sHours2}}</td>
       {%else%}
-        <td rowspan="2" class="cell_bb"></td>
+        <td rowspan="2" class="cell_bb toxic-hide "></td>
       {%endif%}
       {%if item.sHours3 %}
-        <td rowspan="2" class="cell_bb">{{item.sHours3}}</td>
+        <td rowspan="2" class="cell_bb toxic-hide">{{item.sHours3}}</td>
       {%else%}
-        <td rowspan="2" class="cell_bb"></td>
+        <td rowspan="2" class="cell_bb toxic-hide"></td>
       {%endif%}
 
       {%if item.sHours35 %}
-        <td rowspan="2" class="cell_bb">{{item.sHours35}}</td>
+        <td rowspan="2" class="cell_bb toxic-hide">{{item.sHours35}}</td>
       {%else%}
-        <td rowspan="2" class="cell_bb"></td>
+        <td rowspan="2" class="cell_bb toxic-hide "></td>
         {%endif%}
       {% if item.v_days > 0%}
-        <td rowspan="2" class="cell_bb">{{item.v_days}}</td>
+        <td rowspan="2" class="cell_bb toxic-hide ">{{item.v_days}}</td>
       {%else%}
-        <td rowspan="2" class="cell_bb"></td>
+        <td rowspan="2" class="cell_bb toxic-hide "></td>
       {%endif%}
-      <td rowspan="2"class="vac-include cell_bb" ></td>
+      <td rowspan="2"class="vac-include cell_bb toxic-hide" ></td>
       <td rowspan="2" class="weekends cell_bb">{{item.sHours24}}</td>
 
 
@@ -414,9 +419,12 @@
   {%endfor%}
   <tr style="font-weight: bold;">
 
-    <td class="for-print"></td>
+
     <td colspan="3">ИТОГО</td>
 
+
+    <td></td>
+    <td></td>
     <td></td>
     <td></td>
     <td></td>
@@ -449,14 +457,23 @@
     <td class="day29"></td>
     <td class="day30"></td>
     <td class="day31"></td>
-    <td>{{s_days}}</td>
-    <td>{{s_hours}}\{{s_lhours}}</td>
-    <td>{{s_over|floatformat:2}}</td>
-    <td>{{s_night}}</td>
-    <td>{{s_vacwork}}</td>
-    <td></td>
-    <td>{{s_vac}}</td>
-    <td></td>
+    <td >{{s_days}}</td>
+    <td >{{s_hours}}\{{s_lhours}}</td>
+    {% if b_tabel.type.id == 2%}
+        <td class="toxic-hide"></td>
+        <td class="toxic-hide"></td>
+        <td class="toxic-hide"></td>
+        <td class="toxic-hide"></td>
+        <td class="toxic-hide"></td>
+        <td class="toxic-hide"></td>
+    {%else%}
+        <td class="toxic-hide">{{s_over|floatformat:2}}</td>
+        <td class="toxic-hide">{{s_night}}</td>
+        <td class="toxic-hide">{{s_vacwork}}</td>
+        <td class="toxic-hide"></td>
+        <td class="toxic-hide">{{s_vac}}</td>
+        <td class="toxic-hide"></td>
+    {%endif%}
     <td>{{s_weekends}}</td>
 
 
@@ -480,4 +497,6 @@
 <div style="display:none" class="print_warning">
   <h1 style="color:red;">ДЛЯ ПЕЧАТИ ТАБЕЛЯ НАЖМИТЕ ЖЕЛТУЮ КНОПКУ ПЕЧАТЬ, КОТОРАЯ НАХОДИТСЯ ВЫШЕ ОСНОВНОЙ ТАБЛИЦЫ ТАБЕЛЯ!</h1>
 </div>
+
+
 {%endblock%}

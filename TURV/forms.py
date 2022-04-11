@@ -115,7 +115,7 @@ class TabelItem_form(forms.ModelForm):
             'v_hours'
             ]
 
-        
+
         type_time1 = forms.CharField(required=False, widget=forms.TextInput(attrs={'placeholder': 'К', 'class': 'dig_code', 'type':'text'}))
         type_time2 = forms.CharField(required=False, widget=forms.TextInput(attrs={'placeholder': 'К', 'class': 'dig_code', 'type':'text'}))
         type_time3 = forms.CharField(required=False, widget=forms.TextInput(attrs={'placeholder': 'К', 'class': 'dig_code', 'type':'text'}))
@@ -305,6 +305,7 @@ class TabelItem_form(forms.ModelForm):
             w_hours = self.cleaned_data['w_hours'],
             v_days = self.cleaned_data['v_days'],
             v_hours = self.cleaned_data['v_hours'],
+            toxic_p = self.cleaned_data['toxic_p']
 
 
 
