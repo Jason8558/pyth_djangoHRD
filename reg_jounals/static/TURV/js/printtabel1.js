@@ -157,7 +157,7 @@ switch (month) {
 
 
   WinPrint.document.write("<input onclick='window.print()' id='print_button' type='button' value='печать'>")
-  WinPrint.document.write("<h1 style='text-align:center; font-size: 25pt;'> Табель вредность за " + month + " " + year + " " + dep + "</h1>")
+  WinPrint.document.write("<h1 style='text-align:center; font-size: 25pt;'> Табель учета рабочего времени во вредных условиях труда за " + month + " " + year + " " + dep + "</h1>")
 
 
 

@@ -423,9 +423,9 @@
     <td colspan="3">ИТОГО</td>
 
 
-    <td></td>
-    <td></td>
-    <td></td>
+    <td class="for-print"></td>
+    <td class="not-print"></td>
+
     <td></td>
     <td></td>
     <td></td>
@@ -457,9 +457,16 @@
     <td class="day29"></td>
     <td class="day30"></td>
     <td class="day31"></td>
-    <td >{{s_days}}</td>
-    <td >{{s_hours}}\{{s_lhours}}</td>
+
+
+
     {% if b_tabel.type.id == 2%}
+    <td class="for-print"></td>
+    <td class="for-print"></td>
+    <td >{{s_days}}</td>
+        <td >{{s_hours}}</td>
+        <td class="not-print"></td>
+        <td class="not-print"></td>
         <td class="toxic-hide"></td>
         <td class="toxic-hide"></td>
         <td class="toxic-hide"></td>
@@ -467,12 +474,19 @@
         <td class="toxic-hide"></td>
         <td class="toxic-hide"></td>
     {%else%}
+
+          <td ></td>
+
+            <td >{{s_days}}</td>
+        <td >{{s_hours}}\{{s_lhours}}</td>
+
         <td class="toxic-hide">{{s_over|floatformat:2}}</td>
         <td class="toxic-hide">{{s_night}}</td>
         <td class="toxic-hide">{{s_vacwork}}</td>
-        <td class="toxic-hide"></td>
+          <td class="toxic-hide"></td>
+            <td class="toxic-hide"></td>
         <td class="toxic-hide">{{s_vac}}</td>
-        <td class="toxic-hide"></td>
+
     {%endif%}
     <td>{{s_weekends}}</td>
 
