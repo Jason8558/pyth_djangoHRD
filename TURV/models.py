@@ -77,7 +77,7 @@ class TabelItem(models.Model):
     employer = models.ForeignKey('Employers', verbose_name='Сотрудник', db_index=True, on_delete=models.CASCADE)
     year = models.CharField(verbose_name='Год', db_index=True, max_length=256)
     month = models.CharField(verbose_name='Месяц', db_index=True, max_length=256)
-    toxic_p = models.IntegerField(blank=True, default=0, verbose_name='Процент доплаты за вредность')
+    toxic_p = models.IntegerField(blank=True, null=True, default=0, verbose_name='Процент доплаты за вредность')
 
 # Виды времени
     type_time1 = models.CharField(max_length=4, verbose_name='Вид времени1', null = True, blank=True)
