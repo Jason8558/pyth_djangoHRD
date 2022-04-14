@@ -99,15 +99,14 @@ font-size: 20pt;
 
 .add_form {
   display: grid;
-  /*   grid-template-rows: repeat(42px); */
-  /* grid-template-columns: repeat(1, 100%); */
   grid-gap: 14px;
-  /* padding: 9px; */
-  /* width: 50%; */
   margin: 0 auto;
-  /* background: white; */
-  /* border: 6px solid #977390; */
-  /* border-radius: 16px; */
+  width: 579px;
+  border: 1px solid #977390;
+  padding: 10px;
+  box-shadow: 0px 0px 8px 2px #977390;
+
+
 }
 
 .f_search {
@@ -163,9 +162,9 @@ width: 70%;
   grid-template-columns: repeat(6, 100px)
 }
 
-.add_form input {width: 100%;}
+.add_form input {width: 100%; text-align: center;}
 
-.add_form select {width: 100%;}
+.add_form select {width: 100%; text-align: center;}
 
 .add_form a {width: 100%;}
 
@@ -553,6 +552,15 @@ border: none;
 .op_main {
 grid-area: main;
 }
+
+.p_unite {display: flex;}
+
+.p_unite span {padding: 6px;}
+
+.p_unite input {}
+
+.hide_field {position: absolute;
+    visibility: hidden;}
 
 /*Медиа запросы*/
 

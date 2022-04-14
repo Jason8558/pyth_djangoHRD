@@ -1,7 +1,7 @@
 {% extends "reg_jounals/index.html" %}
 
 {%block title%}Приказ №{{order.bt_number}} {% endblock %}
-{%block header%}Изменить запись - Приказ о командировке{% endblock %}
+{%block header%}Изменить запись - Приказ о командировке №{{order.bt_number}}{% endblock %}
 
 {%block content%}
 
@@ -13,9 +13,12 @@
 {%endif%}
 <form class="add_form" action="" method="post">
   {% csrf_token %}
-  {% for field in form %}
-  <p>{{field.label}}{{ field }}</p>
-  {% endfor%}
+  <p>{{form.bt_date.label}}{{form.bt_date}}</p>
+  <p>{{form.bt_emloyer.label}}{{form.bt_emloyer}}</p>
+  <p>{{form.bt_dep.label}}{{form.bt_dep}}</p>
+  <p>{{form.bt_place.label}}{{form.bt_place}}</p>
+  <p class="p_unite"><span>{{form.bt_dur_from.label}}{{form.bt_dur_from}}</span><span>{{form.bt_dur_to.label}}{{form.bt_dur_to}}</span></p>
+
 
 <input class="btn btn-success" type="submit" value="Сохранить" />
   <a id="close" class="btn btn-outline-danger" href="..">Отмена</a>

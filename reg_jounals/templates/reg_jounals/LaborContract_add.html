@@ -14,12 +14,29 @@
 <form class="add_form" action="" method="post">
   {% csrf_token %}
   <h5>Номер договора: <span id="next_num">{{next_num}}</span>({{year_}})</h5>
-  {% for field in form %}
-  <p>{{field.label}}{{ field }}</p>
-  {% endfor%}
+  <p class="p_unite"><span>{{form.lc_date.label}}{{form.lc_date}}</span><span>{{form.lc_dateOfInv.label}}{{form.lc_dateOfInv}}</span></p>
+  <p>{{form.lc_emloyer.label}}{{form.lc_emloyer}}</p>
+  <p class="p_unite"> <span> {{form.lc_pos.label}} <select id="sel_pos" class="" name="">
+    {%for p in pos %}
+    <option value="{{p.id}}">{{p}}</option>
+    {%endfor%}
+  </select></span> <span>{{form.lc_dep.label}}{{form.lc_dep}}</span></p>
+  <p class="hide_field">{{form.lc_pos}}</p>
+  <p>{{form.lc_workCond.label}}{{form.lc_workCond}}</p>
+
+
+
 
   <input class="btn btn-success" type="submit" value="Добавить" />
   <a class="btn btn-outline-danger" href=".">Отмена</a>
 </form>
+
+<script type="text/javascript">
+$('#sel_pos').change(function() {
+  $('#id_lc_pos').val('')
+
+  $('#id_lc_pos').val($('#sel_pos option:selected').text())
+})
+</script>
 
 {%endblock%}

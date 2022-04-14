@@ -13,12 +13,30 @@
 {%endif%}
 <form class="add_form" action="" method="post">
   {% csrf_token %}
-  {% for field in form %}
-  <p>{{field.label}}{{ field }}</p>
-  {% endfor%}
+<p class="p_unite"><span>{{form.eh_number.label}}{{form.eh_number}}</span><span>{{form.eh_isdigital.label}}{{form.eh_isdigital}}</span></p>
+<p class="p_unite"><span>{{form.eh_dateOfInv.label}}{{form.eh_dateOfInv}}</span><span>{{form.eh_OrderInv.label}}{{form.eh_OrderInv}}</span></p>
+<p>{{form.eh_employer.label}}{{form.eh_employer}}</p>
+<p class="p_unite"><span>{{form.eh_pos.label}}
+  <select class="" id="sel_pos" name="">
+    {% for p in pos %}
+      <option value="{{p}}">{{p}}</option>
+    {%endfor%}
+  </select>
+</span>
+<span>{{form.eh_dep.label}}{{form.eh_dep}}</span></p>
+<p class="p_unite"><span>{{form.eh_dateOfResign.label}}{{form.eh_dateOfResign}}</span><span>{{form.eh_OrderResign.label}}{{form.eh_OrderResign}}</span></p>
+<p class="hide_field">{{form.eh_pos}}</p>
 
   <input class="btn btn-success" type="submit" value="Добавить" />
   <a class="btn btn-outline-danger" href=".">Отмена</a>
 </form>
+
+<script type="text/javascript">
+$('#sel_pos').change(function() {
+  $('#id_eh_pos').val('')
+
+  $('#id_eh_pos').val($('#sel_pos option:selected').text())
+})
+</script>
 
 {%endblock%}

@@ -46,7 +46,7 @@
     <label for="short_fio">ФИО:</label>
     <p><input type="text" name="short_fio" id='short_fio' value="" disabled></p>
     <p><label for=tab_pos"">Должность:</label></p>
-    <p><select class="" name="tab_pos" disabled>
+    <p><select class="" id="tab_pos" name="tab_pos" disabled>
       {% for pos in tab_pos %}
       <option value="{{pos.id}}">{{pos.name}}</option>
       {%endfor%}
@@ -58,9 +58,9 @@
     {%endfor%}
     </select></p>
     <p><label for="tab_level">Разряд\категория:</label></p>
-    <p><input type="text" name="tab_level" value="" disabled></p>
+    <p><input type="text" id="tab_level" name="tab_level" value="" disabled></p>
     <p><label for="tab_payment">Ступень оплаты:</label></p>
-    <p><input type="text" name="tab_payment" id="" disabled></p>
+    <p><input type="text" id="tab_payment" name="tab_payment" id="" disabled></p>
     <p><label for="tab_work">Режим работы:</label></p>
     <p><select class="" name="tab_work" disabled>
         <option value="0">Дневной</option>
@@ -74,7 +74,7 @@
 
     </select></p>
   </div>
-<button type="button" name="button" onclick="all_off()">test</button>
+
 <div class="buttons">
   <input class="btn btn-success" style="" type="submit" value="Добавить" />
   <a class="btn btn-outline-danger" href=".">Отмена</a>
@@ -90,6 +90,18 @@
     }
 
   }
+
+$('#id_op_content').focus(function(){
+  if ($('#id_op_type option:selected').val() == 1) {
+
+  text = 'Прием на должность ' + $('#tab_pos option:selected').text() + ' по ' + $('#tab_payment').val() + ' ступени, разряд(категория): ' + $('#tab_level').val()
+  $('#id_op_content').val(text)
+
+
+}
+
+})
+
 
 </script>
 {%endblock%}
