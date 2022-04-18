@@ -22,5 +22,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('reg_jounals.urls')),
     path('turv/', include('TURV.urls')),
+    path('vacshed/', include('VacShed.urls')),
     path('accounts/login/', views.LoginView.as_view(template_name="registration/login.html",authentication_form=UserLoginForm),name='login'),
     path('accounts/', include('django.contrib.auth.urls'))]

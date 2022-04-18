@@ -1,0 +1,27 @@
+{% extends 'VacShed/index.html'%}
+{%load static%}
+{%block title%}Грфаик №{{vacshed.id}}{%endblock%}
+{%block script%}<script src="{% static 'VacShed/js/getvacshed.js'%}" charset="utf-8"></script>{%endblock%}
+{%block header%}  <div class="header-main"><button type="button" class="button" name="button">Закрыть</button><h1> График отпусков {{vacshed.dep.name}} на {{vacshed.year}} год</h1></div>{%endblock%}
+{% block body %}
+<div class="container vs-create">
+<table class="vs-table-create">
+  <thead>
+    <th>Сотрудник</th>
+    <th>Период</th>
+    <th>Дни</th>
+    <th>Всего дней</th>
+  </thead>
+  <tbody>
+    {% for i in items %}
+      <tr id="{{i.id}}">
+        <td>{{i.emp.fullname}}</td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      {%endfor%}
+  </tbody>
+</table>
+</div>
+{%endblock%}
