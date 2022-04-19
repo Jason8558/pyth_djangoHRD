@@ -5,11 +5,11 @@ function print() {
   for (var inf of info) {
     if (inf.indexOf('Chrome') >-1) {
       browser = "Chrome"
-      rcount = 58
+      rcount = 56
     }
     if (inf.indexOf('Firefox') >-1 ) {
       browser = "Firefox"
-      rcount = 58
+      rcount = 56
     }
   }
 
