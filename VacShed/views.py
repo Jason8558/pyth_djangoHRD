@@ -33,6 +33,6 @@ def vacshed_create(request,vs):
 
 def getvacshed_json(request, vs):
     if request.user.is_authenticated:
-        items = VacantionSheduleItem.objects.filter(bound_shed=vs).values('id', 'emp', 'emp__fullname', 'dur_from', 'dur_to', 'days_count').order_by('emp', 'dur_from')
+        items = VacantionSheduleItem.objects.filter(bound_shed=vs).values('id', 'emp', 'emp__fullname', 'dur_from', 'dur_to', 'days_count').order_by('emp', 'id', 'dur_from')
         items = list(items)
         return JsonResponse(items, safe=False)

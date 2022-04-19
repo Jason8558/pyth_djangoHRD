@@ -12,7 +12,7 @@ function getvacshed() {
     }
 
     for (var i = 0; i < data.length; i++) {
-      console.log(emp(data[i].id,data[i].emp))
+      emp(data[i].id,data[i].emp)
     }
 
   })
@@ -28,32 +28,41 @@ function formrow(id, emp, emp__fullname, dur_from, dur_to, days_count){
   dur_to = dur_to.toString().split('-')
   dur_to = dur_to[2]+'.'+dur_to[1]+'.'+dur_to[0]
 
-  row = '<tr id="'+ id + '"><td class="'+emp+'">' + emp__fullname + '</td><td>С ' + dur_from + ' по ' + dur_to + '</td><td class="dayscount">' + days_count + '</td><td id="totaldays"> </td></tr>'
+  row = '<tr id="'+ id + '_' + emp + '"><td class="'+emp+'">' + emp__fullname + '</td><td>С ' + dur_from + ' по ' + dur_to + '</td><td class="count_'+ emp + '">' + days_count + '</td><td class="totaldays'+emp+'"> </td></tr>'
   return row
 }
 
 function emp(rid,id){
-  dayscount = $('.' + rid + ' .dayscount').text()
-  rows = $('.' + id)
+  rows_emp = $('.' + id)
+  tdays = $('.count_' + id)
+  tcell = $('.totaldays_' + id)
+  console.log(tdays);
+  length = rows_emp.length
 
-  length = rows.length
+  totaldays = 0
+
   if (length > 1) {
     for (var i = 1; i < length; i++) {
-      console.log(dayscount);
-      rows[0].rowSpan = rows.length
-      rows[0].parentElement.style.borderTop = '2px solid black'
+      rows_emp[0].rowSpan = rows_emp.length
+      tcell[0].rowSpan = length
+      rows_emp[0].parentElement.style.borderTop = '2px solid black'
+      totaldays = totaldays + parseInt(tdays[i].innerText)
 
-      rows[i].remove()
+      rows_emp[i].remove()
     }
-    days = 0
+    console.log(totaldays+1);
+    $('#' + rid + ' #totaldays').text()
 
-  
+
+
+
 
   }
   else {
-    rows[0].parentElement.style.borderTop = '2px solid black'
+    rows_emp[0].parentElement.style.borderTop = '2px solid black'
+
   }
-  mes = id + ' ' + length
-  return mes
+
+
 
 }
