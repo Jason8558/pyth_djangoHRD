@@ -21,9 +21,14 @@ class VacantionSheduleItem(models.Model):
     emp = models.ForeignKey('TURV.Employers', on_delete = models.CASCADE, verbose_name="Сотрудник")
     dur_from = models.DateField(verbose_name="Период с")
     dur_to = models.DateField(verbose_name="Период по")
+    move_from = models.DateField(verbose_name='Перенос с: ', null=True, blank=True)
+    move_to = models.DateField(verbose_name='перенос по: ', null=True, blank=True)
+    child_year = models.CharField(verbose_name='Год рож-я иждевенца: ', null=True, blank=True, max_length=4, default='')
+    city = models.CharField(verbose_name='Проезд: ', null=True, blank=True, max_length=254, default='')
     days_count = models.IntegerField(verbose_name="Количество дней")
+    days_count_move = models.IntegerField(verbose_name='Кол-во дней после переноса ', null=True, blank=True)
     class Meta:
-        ordering = ['bound_shed']
+        ordering = ['-bound_shed__year']
         verbose_name = 'Элемент графика'
         verbose_name_plural = 'Элементы графика'
     def __str__(self):

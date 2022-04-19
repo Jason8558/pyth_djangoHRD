@@ -36,6 +36,8 @@ class Department(models.Model):
 
 class Position(models.Model):
     name = models.CharField(verbose_name = 'Название должности', db_index=True, max_length=256)
+    vac_days = models.IntegerField(verbose_name = 'Максимально возможное кол-во дней', default=0)
+    cat = models.ForeignKey('Category', on_delete=models.CASCADE, default='2')
 
     class Meta:
         ordering = ['name']
@@ -199,6 +201,17 @@ class TabelItem(models.Model):
     def __str__(self):
         doc_fullname = str(self.employer) + ' ' + str(self.month) + '  ' + str(self.year)
         return doc_fullname
+
+class Category(models.Model):
+    name = models.CharField(verbose_name='Наименование ', max_length=4)
+    class Meta:
+        ordering = ["id"]
+        verbose_name = 'Категория'
+
+    def __str__(self):
+        fullname = self.name
+        return fullname
+
 
 class Overtime(models.Model):
     year = models.DateField(verbose_name='Период', db_index=True)
