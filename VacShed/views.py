@@ -46,6 +46,13 @@ def vacshed_addItem(request,id):
         employers = list(employers)
         if request.method == 'GET':
             return render(request, 'VacShed/new_item.html', context={'vacshed':vacshed})
+        if request.method == 'POST':
+            periods = request.POST.get('vac-form-all-periods')
+            for per in periods.split('|'):
+                if per != '':
+                    print(per)
+            return render(request, 'VacShed/new_item.html', context={'vacshed':vacshed})
+
 
 def getemployers(request, dep):
     if request.user.is_authenticated:

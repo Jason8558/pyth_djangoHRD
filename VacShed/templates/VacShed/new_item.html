@@ -5,7 +5,8 @@
 {%block header%}  <div class="header-main"><button type="button" class="button" name="button">Назад</button><h1>Добавить позицию</h1></div>{%endblock%}
 {% block body %}
 <div class="container">
-  <form class="" action="index.html" method="post">
+  <form class="" action="{% url 'additem_url' id=vacshed.id%}" method="post">
+      {% csrf_token %}
 
 
   <label for="vac_emp">Сотрудник: </label>
@@ -28,6 +29,7 @@
   </div>
 <button type="button" id="form-add-period" name="button">+ Добавить период</button>
 <button type="button" id="form-add-all-period" name="button">ОК</button>
+<input type="submit" name="" value="Отправить">
 <textarea id="vac-form-all-periods" name="vac-form-all-periods"></textarea>
   </form>
   </div>
@@ -60,7 +62,7 @@
       for (var i = 0; i < pers.length; i++) {
 
 
-        txt = $('#vac-form-all-periods').val() + '|' + $('#per' + i + ' #per-date-from' ).val() + ':' + $('#per' + i + ' #per-date-to' ).val()
+        txt = $('#vac-form-all-periods').val() + $('#per' + i + ' #per-date-from' ).val() + ':' + $('#per' + i + ' #per-date-to' ).val()  + '|'
         $('#vac-form-all-periods').val(txt)
       }
     })
