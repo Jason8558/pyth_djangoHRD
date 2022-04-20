@@ -9,25 +9,85 @@
 
 
   <label for="vac_emp">Сотрудник: </label>
-  <select class="" name="vac_emp">
-    {%for e in emps%}
-      <option value="{{e.id}}">{{e.fullname}}</option>
-    {%endfor%}
+  <select id="vac_emp" class="" name="vac_emp">
 
 
   </select>
-  <div class=".vac-form-periods">
+  <label for="city">Проезд</label>
+  <input type="text" name="city" value="">
+  <div id="vac-form-periods" class=".vac-form-periods">
     <div class="vac-period">
       <label for="per-date-from">Отпуск с: </label>
-      <input type="date" name="per-date-from" value="">
+      <input id="per-date-from" type="date" name="per-date-from" value="">
 
       <label for="per-date-to">по: </label>
-      <input type="date" name="per-date-to" value="">
+      <input id="per-date-to" onchange="change_per(0)" type="date" name="per-date-to" value="">
+      <input id="per-days-count" type="text" name="per-days-count" value="">
     </div>
-    <button type="button" name="button">+ Добавить период</button>
-  </div>
 
+  </div>
+<button type="button" id="form-add-period" name="button">+ Добавить период</button>
+<button type="button" id="form-add-all-period" name="button">ОК</button>
+<textarea id="vac-form-all-periods" name="vac-form-all-periods"></textarea>
   </form>
   </div>
+
+<script type="text/javascript">
+  $(document).ready(function(){
+
+    url = "/vacshed/getemps/" + {{vacshed.dep_id}}
+
+    $.getJSON(url,  (data) => {
+      for (var i = 0; i < data.length; i++) {
+        if (data[i].fullname != data[i+1].fullname) {
+        $('#vac_emp').append('<option value=' + data[i].id + '>' + data[i].fullname + '</option>')}
+      }
+    })
+    $('.vac-period').attr('id', 'per0')
+
+    id = 0
+    $('#form-add-period').click(function(){
+
+      id = id+1
+      newper = '<div id="per'+ id +'" class="vac-period">  <label for="per-date-from">Отпуск с: </label>  <input type="date" id="per-date-from" name="per-date-from" value="">     <label for="per-date-to">по: </label>   <input type="date" id="per-date-to" onchange="change_per(' + id + ')" name="per-date-to" value="">     <input type="text" id="per-days-count" name="per-days-count" value=""></div>'
+      console.log(newper);
+      $('#vac-form-periods').append(newper)
+
+    })
+    $('#form-add-all-period').click(function(){
+
+      pers = $('.vac-period')
+      for (var i = 0; i < pers.length; i++) {
+
+
+        txt = $('#vac-form-all-periods').val() + '|' + $('#per' + i + ' #per-date-from' ).val() + ':' + $('#per' + i + ' #per-date-to' ).val()
+        $('#vac-form-all-periods').val(txt)
+      }
+    })
+
+  })
+
+  function change_per(id){
+    vac_calc($('#per' + id + ' #per-date-from').val(), $('#per' + id + ' #per-date-to').val())
+    $('#per' + id + ' #per-days-count').val(vac_calc($('#per' + id + ' #per-date-from').val(), $('#per' + id + ' #per-date-to').val()))
+
+  }
+
+  function vac_calc(date_from, date_to) {
+
+    date_from = date_from.split('-')[2] + '.' + date_from.split('-')[1] + '.' + date_from.split('-')[0]
+
+    date_to = date_to.split('-')[2] + '.' + date_to.split('-')[1] + '.' + date_to.split('-')[0]
+
+    console.log(Date.parse(date_to));
+    console.log(date_from);
+
+    dcount = (( Date.parse(date_to) - Date.parse(date_from)) / 24 / 60 / 60 / 1000) + 1
+
+    console.log(dcount);
+
+    return(dcount)
+}
+</script>
 
 {%endblock%}

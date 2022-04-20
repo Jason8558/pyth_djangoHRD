@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.http import HttpResponse, JsonResponse
 from .models import *
 from TURV.models import Employers
+from itertools import groupby
 
 def ugroup(request):
         # Проверка на права пользователя
@@ -41,6 +42,13 @@ def getvacshed_json(request, vs):
 def vacshed_addItem(request,id):
     if request.user.is_authenticated:
         vacshed = VacantionShedule.objects.get(id=id)
-        employers = Employers.objects.all()
+        employers = Employers.objects.filter(department_id=vacshed.dep_id)
+        employers = list(employers)
         if request.method == 'GET':
-            return render(request, 'VacShed/new_item.html', context={'emps':employers})
+            return render(request, 'VacShed/new_item.html', context={'vacshed':vacshed})
+
+def getemployers(request, dep):
+    if request.user.is_authenticated:
+        emps = Employers.objects.filter(department_id=dep).values('id','fullname','position__name').order_by('fullname')
+        emps = list(emps)
+        return JsonResponse(emps, safe=False)
