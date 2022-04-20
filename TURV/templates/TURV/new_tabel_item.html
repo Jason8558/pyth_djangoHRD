@@ -6,6 +6,7 @@
 {%block header%}<a class="btn btn-dark" href="/turv/create/{{b_tabel.id}}">< Назад</a> | <span class="hide" id="id_month">{{month}}</span>Табель за <span  class='field_month'>{{month}}</span> <span id='id_year'>{{year}}</span> г.{%endblock%}
 
 {%block body%}
+<span id='tabel-type' style='display:none'>{{b_tabel.type_id}}</span>
 <style media="screen">
   #t_emps_chosen {
     display:none;
@@ -261,6 +262,7 @@
   <div class="tabel_buttons">
     <button type="button" class="btn btn-warning " onclick='auto_fill()' name="t_auto_fill">Автозаполнение</button>
   <button type="button" onclick="Tabel();" class="btn btn-outline-dark" name="button">Расчитать</button>
+
   <input type="button" onclick="Tabel();" class="btn btn-success tItem_submit" name="" value="Расчитать и добавить">
   </div>
 </div>
@@ -310,4 +312,8 @@
 </div>
 </div>
 </div>
+
+
+
+
 {%endblock%}

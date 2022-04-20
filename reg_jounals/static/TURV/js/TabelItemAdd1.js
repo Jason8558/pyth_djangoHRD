@@ -486,8 +486,13 @@ function auto_fill() {
   for (var i = 0; i < days_count; i++) {
     hours[i].value = '8'
     if (sex == 'Ж' && codes[i+1].value == 'В' && codes[i].value != 'В' ) {
+      if ($('#tabel-type').text() != 2) {
       codes[i].value = 'Я/ЛЧ'
-      hours[i].value = '4/4'
+      hours[i].value = '4/4'}
+      else {
+        codes[i].value = 'Я'
+        hours[i].value = '4'
+      }
     }
 
     switch (codes[i].value) {

@@ -220,9 +220,36 @@ for (var field of checkfields) {
 
 
     }
+if ($('#tabel-type').text() == 2) {
+    checkfields = $('.dig_code')
+    errors = 0
+    for (var field of checkfields) {
+      if (field.value == 'Я/ЛЧ' || field.value == 'Я/Н') {
+        field.style.background = 'red'
+        errors = errors + 1
+      }
+      else if (field.style.background == 'red') {
+
+          field.style.background = 'white'
+          errors = 0
+        }
+      }
+      if (errors >= 1) {
+        $('.errors').text("Ошибка заполнения! В табеле вредности коды 'ЛЧ' и 'Н' указывать не нужно!")
+      $('.errors').css('display','block')
+      $('.errors').css('position','absolute')
+      $('.tItem_submit').prop('type','button')
+    }
+
+      else {
+          $('.errors').text("")
+          $('.errors').css('display','none')
+          $('.tItem_submit').prop('type','submit')
 
 
+        }
 
+}
 
 // Виды аремени и кол-во часов
   tt1 = $('#id_type_time1').val().toUpperCase()
