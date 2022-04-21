@@ -198,15 +198,26 @@ def tabel_create(request, id):
                     items = TabelItem.objects.filter(bound_tabel=id).filter(employer__position__name=sq_position).order_by('employer')
                 else:
                     items = TabelItem.objects.filter(bound_tabel=id).order_by('employer')
-            hours = items.aggregate(sum_of_hours=Sum("w_hours"), sum_of_lhours=Sum("sHours19"), sum_of_days=Sum("w_days"),  s_over=Sum('sHours4'), s_night=Sum("sHours2"), s_vacwork=Sum("sHours3"),     s_vac=Sum("v_days"), s_weekends=Sum("sHours24")/8)
-            s_hours = hours['sum_of_hours']
-            s_lhours = hours['sum_of_lhours']
-            s_days = hours['sum_of_days']
-            s_over = hours['s_over']
-            s_night = hours['s_night']
-            s_vacwork = hours['s_vacwork']
-            s_vac = hours['s_vac']
-            s_weekends = hours['s_weekends']
+            if b_tabel.type_id != 1:
+                hours = items.aggregate(sum_of_hours=Sum("w_hours"), sum_of_lhours=Sum("sHours19"), sum_of_days=Sum("w_days"),  s_over=Sum('sHours4'), s_night=Sum("sHours2"), s_vacwork=Sum("sHours3"),     s_vac=Sum("v_days"), s_weekends=Sum("sHours24"))
+                s_hours = hours['sum_of_hours']
+                s_lhours = hours['sum_of_lhours']
+                s_days = hours['sum_of_days']
+                s_over = hours['s_over']
+                s_night = hours['s_night']
+                s_vacwork = hours['s_vacwork']
+                s_vac = hours['s_vac']
+                s_weekends = hours['s_weekends']
+            else:
+                hours = items.aggregate(sum_of_hours=Sum("w_hours"), sum_of_lhours=Sum("sHours19"), sum_of_days=Sum("w_days"),  s_over=Sum('sHours4'), s_night=Sum("sHours2"), s_vacwork=Sum("sHours3"),     s_vac=Sum("v_days"), s_weekends=Sum("sHours24")/8)
+                s_hours = hours['sum_of_hours']
+                s_lhours = hours['sum_of_lhours']
+                s_days = hours['sum_of_days']
+                s_over = hours['s_over']
+                s_night = hours['s_night']
+                s_vacwork = hours['s_vacwork']
+                s_vac = hours['s_vac']
+                s_weekends = hours['s_weekends']
 
             count = len(items)
             t_month = b_tabel.month

@@ -153,6 +153,7 @@ switch (month) {
     WinPrint.document.write("th {font-size: 13pt !important;}")
     WinPrint.document.write("table {width: 100% !important; font-size: 20pt !important;}")
     WinPrint.document.write(".toxic-hide {display:none !important;}")
+    WinPrint.document.write(".thin-itogo {width:81px !important;}")
     WinPrint.document.write("#print_button {height: 50px; background:blue !important; font-size: 10pt;}")
     WinPrint.document.write(".fio {width:366px !important; text-align: left;}")
     WinPrint.document.write("</style>")
@@ -163,7 +164,12 @@ switch (month) {
 
 
   WinPrint.document.write("<input onclick='window.print()' id='print_button' type='button' value='печать'>")
+  if ($('#tabel-type').text() == 2) {
   WinPrint.document.write("<h1 style='text-align:center; font-size: 25pt;'> Табель учета рабочего времени во вредных условиях труда за " + month + " " + year + " " + dep + "</h1>")
+}
+  if ($('#tabel-type').text() == 3) {
+    WinPrint.document.write("<h1 style='text-align:center; font-size: 25pt;'> Табель совмещения за " + month + " " + year + " " + dep + "</h1>")
+  }
 
 
 

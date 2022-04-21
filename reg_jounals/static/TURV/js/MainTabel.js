@@ -224,7 +224,7 @@ for (var field of checkfields) {
 
     }
     }
-if ($('#tabel-type').text() == 2) {
+if ($('#tabel-type').text() != 1) {
     checkfields = $('.dig_code')
     errors = 0
     for (var field of checkfields) {

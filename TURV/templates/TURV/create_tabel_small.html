@@ -16,7 +16,7 @@
 
 {%block scripts%}
   <script src="{% static 'TURV\js\Eighties.js' %}" charset="utf-8"></script>
-  <script src="{% static 'TURV\js\printtabel1.js' %}" charset="utf-8"></script>
+  <script src="{% static 'TURV\js\printtabel.js' %}" charset="utf-8"></script>
   <script src="{% static 'TURV\js\cookie.js' %}" charset="utf-8"></script>
     <link rel="stylesheet" href="{% static 'TURV\css\printwarning.css'%}">
   {%endblock%}
@@ -53,11 +53,9 @@
     {%endif%}
 {%endif%}
 
-{% if b_tabel.type.id == 2 %}
+
 <input class="btn btn-warning"  style="margin-left: 6px;" type="button" name="" onclick="print_toxic({{b_tabel.year}}, {{b_tabel.month}}, '{{b_tabel.department.name}}')" value="ПЕЧАТЬ">
-{%else%}
-<input class="btn btn-warning"  style="margin-left: 6px;" type="button" name="" onclick="print()" value="ПЕЧАТЬ">
-{%endif%}
+
 
 </div>
   {% if form.errors %}
@@ -85,6 +83,10 @@
     <th >Должн.</th>
     <th  >Раз.</th>
     <th >Ст.</th>
+    {%if b_tabel.type.id == 3%}
+    <th>А/М</th>
+    <th>% доп.</th>
+    {%endif%}
     {%if b_tabel.type.id == 2%}
       <th>% вред.</th>
     {%endif%}
@@ -156,6 +158,10 @@
     <th class="not-print pos-screen" >Должн.</th>
     <th class="not-print " >Раз.</th>
     <th class="thin-itogo">Ст.</th>
+    {%if b_tabel.type.id == 3%}
+    <th class="thin-itogo">А/М</th>
+    <th class="thin-itogo">% доп.</th>
+    {%endif%}
     {%if b_tabel.type.id == 2%}
       <th class="thin-itogo">% вред</th>
     {%endif%}
@@ -220,6 +226,10 @@
       <td class="not-print cell_bb"  >{{item.employer.position}}</td>
       <td class="not-print cell_bb"  >{{item.employer.level}}</td>
       <td   class="cell_bb">{{item.employer.positionOfPayment}}</td>
+      {%if b_tabel.type.id == 3%}
+      <td>{{item.auto.number}}</td>
+      <td>{{item.auto.unite_p}}</td>
+      {%endif%}
       {%if b_tabel.type.id == 2%}
         <td   class="cell_bb"">{{item.toxic_p}}</td>
       {%endif%}
@@ -290,6 +300,7 @@
 
     <td class="for-print"></td>
     <td class="not-print"></td>
+    <td></td>
 
     <td></td>
     <td></td>
