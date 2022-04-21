@@ -115,7 +115,7 @@ def tabels(request):
                             tabels = Tabel.objects.all().filter(department_id__in=allow_departments).filter(year=year_).filter(month=month_)
                         else:
                             pag = 40
-                            tabels = Tabel.objects.all().filter(department_id__in=allow_departments).order_by('-year', '-month')
+                            tabels = Tabel.objects.all().filter(department_id__in=allow_departments).order_by('-year', '-month', 'type__id')
 
 
         else:
@@ -137,7 +137,7 @@ def tabels(request):
                             tabels = Tabel.objects.all().filter(year=sq_period_year)
                         else:
                             if (sq_dep):
-                                tabels = Tabel.objects.all().filter(department_id=sq_dep).order_by('-year', '-month')
+                                tabels = Tabel.objects.all().filter(department_id=sq_dep).order_by('-year', '-month', 'type__id')
                             else:
                                 if (sq_this_month):
                                     tabels = Tabel.objects.all().filter(year=year_).filter(month=month_).order_by('department__name')
@@ -212,17 +212,25 @@ def tabel_create(request, id):
             t_month = b_tabel.month
             t_year = b_tabel.year
             t_dep = b_tabel.department
-            return render(request, 'TURV/create_tabel.html', context={'positions':positions,
-            's_hours':s_hours,
-'s_lhours':s_lhours,
-'s_days':s_days,
-'s_over':s_over,
-'s_night':s_night,
-'s_vacwork':s_vacwork,
-'s_vac':s_vac,
-'s_weekends':s_weekends,
+            if b_tabel.type_id != 1:
+
+                return render(request, 'TURV/create_tabel_small.html', context={'positions':positions, 's_hours':s_hours, 's_lhours':s_lhours, 's_days':s_days, 's_over':s_over, 's_night':s_night, 's_vacwork':s_vacwork,
+    's_vac':s_vac,
+    's_weekends':s_weekends,
 
             'hours':hours,'form':tabel_form, 'items':items, 'print':allow_print, 'month':t_month, 'year':t_year, 'count':count, 'b_tabel':b_tabel, 'granted':granted, 'ro':is_ro})
+            else:
+                return render(request, 'TURV/create_tabel.html', context={'positions':positions,
+                's_hours':s_hours,
+    's_lhours':s_lhours,
+    's_days':s_days,
+    's_over':s_over,
+    's_night':s_night,
+    's_vacwork':s_vacwork,
+    's_vac':s_vac,
+    's_weekends':s_weekends,
+
+                'hours':hours,'form':tabel_form, 'items':items, 'print':allow_print, 'month':t_month, 'year':t_year, 'count':count, 'b_tabel':b_tabel, 'granted':granted, 'ro':is_ro})
 
         else:
             b_tabel = Tabel.objects.get(id=id)
@@ -309,7 +317,10 @@ def tabel_upditem(request, id):
             month = item.bound_tabel.month
             department = item.bound_tabel.department
             type = item.bound_tabel.type_id
-            return render(request, 'TURV/upd_tabel_item.html', context={'tabel':bound_form, 'item':item, 'b_tabel':item.bound_tabel.id, 'year':year, 'month':month, 'type':type})
+            if type != 1:
+                return render(request, 'TURV/upd_tabel_itemSmall.html', context={'tabel':bound_form, 'item':item, 'b_tabel':item.bound_tabel.id, 'year':year, 'month':month, 'type':type})
+            else:
+                return render(request, 'TURV/upd_tabel_item.html', context={'tabel':bound_form, 'item':item, 'b_tabel':item.bound_tabel.id, 'year':year, 'month':month, 'type':type})
 
         else:
             item = TabelItem.objects.get(id=id)

@@ -10,6 +10,7 @@ class TabelItem_form(forms.ModelForm):
             fields = [
             'employer',
             'toxic_p',
+            'auto',
             'type_time1',
             'type_time2',
             'type_time3',
@@ -305,7 +306,8 @@ class TabelItem_form(forms.ModelForm):
             w_hours = self.cleaned_data['w_hours'],
             v_days = self.cleaned_data['v_days'],
             v_hours = self.cleaned_data['v_hours'],
-            toxic_p = self.cleaned_data['toxic_p']
+            toxic_p = self.cleaned_data['toxic_p'],
+            auto = self.cleaned_data['auto']
 
 
 

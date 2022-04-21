@@ -45,6 +45,20 @@ class Position(models.Model):
     def __str__(self):
         return self.name
 
+class Automobile(models.Model):
+    number = models.CharField(verbose_name='Номер а\м',  db_index=True, max_length=256)
+    model = models.CharField(verbose_name='Модель(необязательно) ',  max_length=256, blank=True, null=True)
+    unite_p = models.IntegerField(verbose_name='Процент доплаты')
+    used = models.BooleanField(verbose_name='Автомобиль используется', default=1)
+    class Meta:
+        ordering = ['unite_p']
+        verbose_name = 'Автомобиль'
+        verbose_name_plural = 'Автомобили'
+    def __str__(self):
+        return self.number + "(" + str(self.unite_p) + ")"
+
+
+
 class TabelType(models.Model):
     name = models.CharField(verbose_name='Вид табеля ',  max_length=256)
     class Meta:
@@ -70,7 +84,7 @@ class Tabel(models.Model):
         verbose_name_plural = 'Табели'
 
     def __str__(self):
-        return str(self.department) + str(self.month) + str(self.year) + str(self.type__name)
+        return str(self.department) + str(self.month) + str(self.year) + str(self.type.name)
 
 class TabelItem(models.Model):
     bound_tabel = models.ForeignKey('Tabel', verbose_name='Св. табель', db_index=True, on_delete=models.CASCADE)
@@ -78,6 +92,8 @@ class TabelItem(models.Model):
     year = models.CharField(verbose_name='Год', db_index=True, max_length=256)
     month = models.CharField(verbose_name='Месяц', db_index=True, max_length=256)
     toxic_p = models.IntegerField(blank=True, null=True, default=0, verbose_name='Процент доплаты за вредность')
+    auto = models.ForeignKey('Automobile', verbose_name='а/м', on_delete=models.CASCADE, default='', blank=True, null=True)
+
 
 # Виды времени
     type_time1 = models.CharField(max_length=4, verbose_name='Вид времени1', null = True, blank=True)

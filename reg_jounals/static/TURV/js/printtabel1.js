@@ -5,7 +5,7 @@ function print() {
   for (var inf of info) {
     if (inf.indexOf('Chrome') >-1) {
       browser = "Chrome"
-      rcount = 58
+      rcount = 56
     }
     if (inf.indexOf('Firefox') >-1 ) {
       browser = "Firefox"
@@ -15,13 +15,18 @@ function print() {
 
   var WinPrint = window.open('','','left=50,top=50,width=1500,height=1000,toolbar=0,scrollbars=1,status=0');
   WinPrint.document.write("<!DOCTYPE html>")
-  WinPrint.document.write('<link rel="stylesheet" type="text/css" href="/static/TURV/css/tabel_print6.css?v=2"> ')
+  WinPrint.document.write('<link rel="stylesheet" type="text/css" href="/static/TURV/css/tabel_print6.css"> ')
   WinPrint.document.write('<link rel="stylesheet" href="/static/TURV/css/style1.css">')
+
 
 
 
 WinPrint.document.write("<input onclick='window.print()' id='print_button' type='button' value='печать'>")
 
+WinPrint.document.write("<style>")
+
+WinPrint.document.write(".fio {width:278px !important; text-align: left;}")
+WinPrint.document.write("</style>")
 
 
 
@@ -133,11 +138,11 @@ switch (month) {
     for (var inf of info) {
       if (inf.indexOf('Chrome') >-1) {
         browser = "Chrome"
-        rcount = 46
+        rcount = 45
       }
       if (inf.indexOf('Firefox') >-1 ) {
         browser = "Firefox"
-        rcount = 42
+        rcount = 41
       }
     }
 
@@ -149,9 +154,10 @@ switch (month) {
     WinPrint.document.write("table {width: 100% !important; font-size: 20pt !important;}")
     WinPrint.document.write(".toxic-hide {display:none !important;}")
     WinPrint.document.write("#print_button {height: 50px; background:blue !important; font-size: 10pt;}")
+    WinPrint.document.write(".fio {width:366px !important; text-align: left;}")
     WinPrint.document.write("</style>")
 
-    WinPrint.document.write('<link rel="stylesheet" type="text/css" href="/static/TURV/css/tabel_print6.css?v=2"> ')
+    WinPrint.document.write('<link rel="stylesheet" type="text/css" href="/static/TURV/css/tabel_print6.css"> ')
     // WinPrint.document.write('<link rel="stylesheet" href="/static/TURV/css/style1.css">')
 
 
@@ -208,6 +214,7 @@ switch (month) {
   else {
 
   }
+
 
 
 }
