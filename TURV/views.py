@@ -565,13 +565,41 @@ def upd_position(request, id):
 
 def autos(request):
     if request.user.is_authenticated:
-        automobiles = Automobile.objects.all()
+        car = request.GET.get('car','')
+        if car:
+            automobiles = Automobile.objects.filter(number__contains=car)
+        else:
+            automobiles = Automobile.objects.all()
         pag = 20
         p_autos = Paginator(automobiles, pag)
         page_number = request.GET.get('page', 1)
         page = p_autos.get_page(page_number)
         count = len(automobiles)
         return render(request, 'TURV/autos.html', context={'automobiles':page, 'count':count})
+
+def nr_autos(request):
+    if request.user.is_authenticated:
+        form = Automobile_form()
+        if request.method == 'POST':
+            form = Automobile_form(request.POST)
+            if form.is_valid():
+                form.saveFirst()
+                return redirect('/turv/autos')
+        else:
+            return render(request, 'TURV/new_auto.html', context={'form':form})
+
+def edit_autos(request,id):
+    if request.user.is_authenticated:
+        car = Automobile.objects.get(id=id)
+        if request.method == 'GET':
+            form = Automobile_form(instance=car)
+            return render(request, 'TURV/new_auto.html', context={'form':form})
+        else:
+            form = Automobile_form(request.POST, instance=car)
+            if form.is_valid():
+                form.save()
+                return redirect('/turv/autos')
+
 
 
 def unload(request):

@@ -6,7 +6,7 @@
 
 {% block body %}
 
-<form  class="f_search"  action="{% url 'emp_list'%}" >
+<form  class="f_search"  action="{% url 'autos_list'%}" >
 <p><u>ПОИСК: </u></p>
   <input type="text" name="car" placeholder="Поиск по номеру" value="">
 
@@ -15,7 +15,7 @@
 </form>
 
 <div class="container">
-  <a class="btn btn-success btn-add"  href="#"  >+ Новый автомобиль</a>
+  <a class="btn btn-success btn-add"  href="{% url 'new_auto_url'%}"  >+ Новый автомобиль</a>
 
 {%if automobiles%}
 
@@ -38,8 +38,8 @@
 
   {%for car in automobiles %}
 
-  <tr  onclick="" >
-  
+  <tr  onclick="return window.open('{% url 'edit_auto_url' id=car.id%}')" >
+
 
 
     <td>{{car.id}}</td>

@@ -376,3 +376,16 @@ class Position_form(forms.ModelForm):
             name = self.cleaned_data['name']
         )
         return new_position
+
+class Automobile_form(forms.ModelForm):
+    class Meta:
+        model = Automobile
+        fields = ['number', 'model', 'unite_p', 'used']
+    def saveFirst(self):
+        new_automobile = Automobile.objects.create(
+        number = self.cleaned_data['number'],
+        model = self.cleaned_data['model'],
+        unite_p = self.cleaned_data['unite_p'],
+        used = self.cleaned_data['used']
+        )
+        return new_automobile
