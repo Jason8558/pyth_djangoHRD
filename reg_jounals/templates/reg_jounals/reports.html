@@ -61,7 +61,7 @@
       <th colspan="9">Приказы на отпуск</th>
     </tr>
       {%for v in vacantions %}
-        <tr class="report_row" >
+        <tr class="report_row" onclick="return window.open('{% url 'new_order_on_vacation_updItem' id=v.id%}')" >
           <td>{{v.bound_order.order_number}} {{v.bound_order.order_date|date:"d.m.Y"}}</td>
           <td>{{v.bound_order.order_date |date:"d.m.Y"}}</td>
           <td>{{v.fio}}</td>
@@ -80,7 +80,7 @@
       <th colspan="9">Приказы ЛС</th>
     </tr>
       {%for p in personnel %}
-        <tr class="report_row" >
+        <tr class="report_row" onclick="return window.open('{% url 'new_order_on_vacation_updItem' id=v.id%}')" >
           <td>{{p.op_number}}</td>
           <td>{{p.op_date |date:"d.m.Y"}}</td>
           <td>{{p.op_emloyer}}</td>
@@ -99,7 +99,7 @@
       <th colspan="9">Командировки</th>
     </tr>
       {%for t in trips %}
-        <tr class="report_row" >
+        <tr class="report_row" onclick="return location.href = '{% url 'orders_of_BTrip_upd_url' id=t.id" >
           <td>{{t.bt_number}}</td>
           <td>{{t.bt_date |date:"d.m.Y"}}</td>
           <td>{{t.bt_emloyer}}</td>
@@ -118,7 +118,7 @@
       <th colspan="9">Трудовые договоры</th>
     </tr>
       {%for c in contracts %}
-        <tr class="report_row" >
+        <tr class="report_row" onclick="return location.href = '{% url 'labor_contracts_upd_url' id=c.id" >
           <td>{{c.lc_number}}</td>
           <td>{{c.lc_date |date:"d.m.Y"}}</td>
           <td>{{c.lc_emloyer}}</td>
@@ -137,7 +137,7 @@
       <th colspan="9">Заявления на прием</th>
     </tr>
       {%for i in invite %}
-        <tr class="report_row" >
+        <tr class="report_row" onclick="return location.href = '{% url 'invite_upd_url' id=i.id">
           <td>{{i.loi_number}}</td>
           <td>{{i.loi_date |date:"d.m.Y"}}</td>
           <td>{{i.loi_employee}}</td>
@@ -156,7 +156,7 @@
       <th colspan="9">Заявления на увольнение</th>
     </tr>
       {%for r in resign %}
-        <tr class="report_row" >
+        <tr class="report_row" onclick="return location.href = '{% url 'letter_resignation_upd_url' id=r.id" >
           <td>{{r.lor_number}}</td>
           <td>{{r.lor_date |date:"d.m.Y"}}</td>
           <td>{{r.lor_employee}}</td>
@@ -175,7 +175,7 @@
       <th colspan="9">Трудовые книжки</th>
     </tr>
       {%for h in history %}
-        <tr class="report_row" >
+        <tr class="report_row" onclick="return location.href = '{% url 'employment_history_upd_url' id=h.id">
           <td>{{h.eh_number}}</td>
           <td>{{h.eh_dateOfInv |date:"d.m.Y"}}</td>
           <td>{{h.eh_employer}}</td>
