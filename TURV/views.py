@@ -939,25 +939,28 @@ def toxic_unload(request):
                 dn = dn.replace('(','')
                 dn = dn.replace(')','')
                 dn = transliterate(dn)
-                print(dep)
+
                 if notulonl == "1":
                     items = TabelItem.objects.filter(employer__department_id=dep.id).filter(month=month).filter(year=year).filter(bound_tabel__unloaded=False).filter(bound_tabel__type__id = 2).order_by('employer')
-                    print(items)
+
                 else:
                     items = TabelItem.objects.filter(employer__department_id=dep.id).filter(month=month).filter(bound_tabel__type_id = 2).filter(year=year).order_by('employer')
 
 
                 if items:
-                    ws = wb.add_sheet(dn)
+
                     ct = items[0].bound_tabel.id
                     current_tabel = Tabel.objects.get(id=ct)
                     if current_tabel.sup_check == True:
+                        ws = wb.add_sheet(dn)
                         i = 0
                         for item in items:
                             ws.write(i,0,item.employer.fullname)
                             ws.write(i,1,item.toxic_p)
                             ws.write(i,2,item.w_hours)
                             i = i+1
+                        current_tabel.unloaded = True
+                        current_tabel.save()
 
                 else:
                     pass
