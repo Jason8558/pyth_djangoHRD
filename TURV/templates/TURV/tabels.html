@@ -12,6 +12,9 @@
         {% if granted == 1%}
         <li><a href="{% url 'pos_list'%}"> > Должности</a></li>
         {%endif%}
+        {% if granted == 1 or unite == 1%}
+        <li><a href="{% url 'autos_list'%}"> > Автотранспорт</a></li>
+        {%endif%}
       </ul>
       </li>
       <li>Информация <span class='angle-down'>v</span>

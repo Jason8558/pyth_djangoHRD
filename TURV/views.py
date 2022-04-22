@@ -75,6 +75,7 @@ def tabels(request):
         u_group = user_.groups.all()
         is_ro = 0
         granted = 0
+        unite = True
 
         # Определение текущего месяца и года
         now = datetime.datetime.now()
@@ -98,21 +99,25 @@ def tabels(request):
             allow_departments = []
             for dep in deps:
                 allow_departments.append(dep.id)
+                # если атц, то выдаем список автотранспорта
+                if dep.id == 3:
+
+                    unite = True
 
 
             # Алгоритм поиска
             pag = 1000
             if (sq_period_month) and (sq_period_year):
-                tabels = Tabel.objects.all().filter(department_id__in=allow_departments).filter(year=sq_period_year).filter(month=sq_period_month)
+                tabels = Tabel.objects.all().filter(department_id__in=allow_departments).filter(year=sq_period_year).filter(month=sq_period_month).order_by('-year', '-month', 'type__id')
             else:
                 if (sq_period_month):
-                    tabels = Tabel.objects.all().filter(department_id__in=allow_departments).filter(month=sq_period_month)
+                    tabels = Tabel.objects.all().filter(department_id__in=allow_departments).filter(month=sq_period_month).order_by('-year', '-month', 'type__id')
                 else:
                     if (sq_period_year):
-                        tabels = Tabel.objects.all().filter(department_id__in=allow_departments).filter(year=sq_period_year)
+                        tabels = Tabel.objects.all().filter(department_id__in=allow_departments).filter(year=sq_period_year).order_by('-year', '-month', 'type__id')
                     else:
                         if (sq_this_month):
-                            tabels = Tabel.objects.all().filter(department_id__in=allow_departments).filter(year=year_).filter(month=month_)
+                            tabels = Tabel.objects.all().filter(department_id__in=allow_departments).filter(year=year_).filter(month=month_).order_by('-year', '-month', 'type__id')
                         else:
                             pag = 40
                             tabels = Tabel.objects.all().filter(department_id__in=allow_departments).order_by('-year', '-month', 'type__id')
@@ -125,31 +130,35 @@ def tabels(request):
             pag = 1000
             if (sq_period_month) and (sq_period_year) and (sq_dep):
 
-                tabels = Tabel.objects.all().filter(year=sq_period_year).filter(month=sq_period_month).filter(department_id=sq_dep)
+                tabels = Tabel.objects.all().filter(year=sq_period_year).filter(month=sq_period_month).filter(department_id=sq_dep).order_by('-year', '-month', 'type__id')
             else:
-                if (sq_period_year) and (sq_dep):
-                    tabels = Tabel.objects.all().filter(year=sq_period_year).filter(department_id=sq_dep)
+                if (sq_period_month) and (sq_period_year):
+
+                    tabels = Tabel.objects.all().filter(year=sq_period_year).filter(month=sq_period_month).filter(year=sq_period_year).order_by('-year', '-month', 'type__id')
                 else:
-                    if (sq_period_month):
-                        tabels = Tabel.objects.all().filter(month=sq_period_month)
+                    if (sq_period_year) and (sq_dep):
+                        tabels = Tabel.objects.all().filter(year=sq_period_year).filter(department_id=sq_dep).order_by('-year', '-month', 'type__id')
                     else:
-                        if (sq_period_year):
-                            tabels = Tabel.objects.all().filter(year=sq_period_year)
+                        if (sq_period_month):
+                            tabels = Tabel.objects.all().filter(month=sq_period_month).order_by('-year', '-month', 'type__id')
                         else:
-                            if (sq_dep):
-                                tabels = Tabel.objects.all().filter(department_id=sq_dep).order_by('-year', '-month', 'type__id')
+                            if (sq_period_year):
+                                tabels = Tabel.objects.all().filter(year=sq_period_year).order_by('-year', '-month', 'type__id')
                             else:
-                                if (sq_this_month):
-                                    tabels = Tabel.objects.all().filter(year=year_).filter(month=month_).order_by('department__name')
+                                if (sq_dep):
+                                    tabels = Tabel.objects.all().filter(department_id=sq_dep).order_by('-year', '-month', 'type__id')
                                 else:
-                                    if (sq_check_this_month):
-                                        tabels = Tabel.objects.all().filter(year=year_).filter(month=month_).filter(sup_check= True)
+                                    if (sq_this_month):
+                                        tabels = Tabel.objects.all().filter(year=year_).filter(month=month_).order_by('department__name')
                                     else:
-                                        if (sq_user):
-                                            tabels = Tabel.objects.all().filter(res_officer=sq_user).order_by('-year', '-month')
+                                        if (sq_check_this_month):
+                                            tabels = Tabel.objects.all().filter(year=year_).filter(month=month_).filter(sup_check= True).order_by('-year', '-month', 'type__id')
                                         else:
-                                            pag = 40
-                                            tabels = Tabel.objects.all().order_by('-year', '-month')
+                                            if (sq_user):
+                                                tabels = Tabel.objects.all().filter(res_officer=sq_user).order_by('-year', '-month', 'type__id')
+                                            else:
+                                                pag = 40
+                                                tabels = Tabel.objects.all().order_by('-year', '-month', 'department__id', 'type__id')
 
 
 
@@ -160,7 +169,7 @@ def tabels(request):
 
 
 
-        return render(request, 'TURV/tabels.html', context={'tab_users':tab_users, 'tabels':page, 'count':count, 'deps':deps, 'granted':granted, 'ro':is_ro, 'month_':month_, "year_":year_})
+        return render(request, 'TURV/tabels.html', context={'tab_users':tab_users, 'tabels':page, 'count':count, 'deps':deps, 'granted':granted, 'ro':is_ro, 'month_':month_, "year_":year_, 'unite':unite})
     else:
         return redirect('/accounts/login/')
 
@@ -553,6 +562,17 @@ def upd_position(request, id):
                     return redirect(loc)
     else:
         return render(request, 'reg_jounals/no_auth.html')
+
+def autos(request):
+    if request.user.is_authenticated:
+        automobiles = Automobile.objects.all()
+        pag = 20
+        p_autos = Paginator(automobiles, pag)
+        page_number = request.GET.get('page', 1)
+        page = p_autos.get_page(page_number)
+        count = len(automobiles)
+        return render(request, 'TURV/autos.html', context={'automobiles':page, 'count':count})
+
 
 def unload(request):
     udeps = request.GET.get('udeps','')

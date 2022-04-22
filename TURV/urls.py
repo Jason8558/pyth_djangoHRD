@@ -16,6 +16,7 @@ urlpatterns = [
     path('positions/', views.positions_list, name='pos_list'),
     path('positions/new', views.new_position, name='pos_new'),
     path('positions/upd/<int:id>', views.upd_position, name='pos_upd'),
+    path('autos/', views.autos, name='autos_list'),
     path('unload/', views.unload, name='unload'),
     path('toxic-unload/', views.toxic_unload, name='toxic-unload'),
     path('checked/<int:id>', views.tabel_sup_check, name='checked'),
