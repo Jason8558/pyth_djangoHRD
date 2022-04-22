@@ -37,6 +37,8 @@ function emp_info(e_id) {
 }
 // ------------------------------------------------------------------------
 $(document).ready(function(){
+$('#id_auto').addClass('chosen-select')
+$('#id_auto').css('width', '300px')
 $(".chosen-select").chosen()
 var query = String(document.location.href).split('/');
 
