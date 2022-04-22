@@ -193,6 +193,9 @@ function Tabel() {
 
 
 // ВЫДАЕТ ОШИБКУ, ЕСЛИ ВМЕСТО 8 "В"
+if ($('#tabel-type').text() == 1) {
+
+
 checkfields = $('.dig_hours')
 errors = 0
 for (var field of checkfields) {
@@ -220,11 +223,40 @@ for (var field of checkfields) {
 
 
     }
+    }
+if ($('#tabel-type').text() != 1) {
+    checkfields = $('.dig_code')
+    errors = 0
+    for (var field of checkfields) {
+      if (field.value == 'Я/ЛЧ' || field.value == 'Я/Н') {
+        field.style.background = 'red'
+        errors = errors + 1
+      }
+      else if (field.style.background == 'red') {
+
+          field.style.background = 'white'
+          errors = 0
+        }
+      }
+      if (errors >= 1) {
+        $('.errors').text("Ошибка заполнения! В табеле вредности коды 'ЛЧ' и 'Н' указывать не нужно!")
+      $('.errors').css('display','block')
+      $('.errors').css('position','absolute')
+      $('.tItem_submit').prop('type','button')
+    }
+
+      else {
+          $('.errors').text("")
+          $('.errors').css('display','none')
+          $('.tItem_submit').prop('type','submit')
 
 
+        }
 
+}
 
 // Виды аремени и кол-во часов
+if ($('#tabel-type').text() == 1) {
   tt1 = $('#id_type_time1').val().toUpperCase()
   $('#id_type_time1').val(tt1)
   h1 = $('#id_hours1').val()
@@ -347,7 +379,99 @@ for (var field of checkfields) {
 
   tt31 = $('#id_type_time31').val().toUpperCase()
   $('#id_type_time31').val(tt31)
-  h31 = $('#id_hours31').val()
+  h31 = $('#id_hours31').val() }
+  else {
+
+    h1 = $('#id_hours1').val().toUpperCase()
+
+
+    h2 = $('#id_hours2').val().toUpperCase()
+
+    h3 = $('#id_hours3').val().toUpperCase()
+
+
+    h4 = $('#id_hours4').val().toUpperCase()
+
+
+    h5 = $('#id_hours5').val().toUpperCase()
+
+
+    h6 = $('#id_hours6').val().toUpperCase()
+
+
+    h7 = $('#id_hours7').val().toUpperCase()
+
+    h8 = $('#id_hours8').val().toUpperCase()
+
+
+    h9 = $('#id_hours9').val().toUpperCase()
+
+
+    h10 = $('#id_hours10').val().toUpperCase()
+
+
+    h11 = $('#id_hours11').val().toUpperCase()
+
+
+    h12 = $('#id_hours12').val().toUpperCase()
+
+
+    h13 = $('#id_hours13').val().toUpperCase()
+
+
+    h14 = $('#id_hours14').val().toUpperCase()
+
+
+    h15 = $('#id_hours15').val().toUpperCase()
+
+
+    h16 = $('#id_hours16').val().toUpperCase()
+
+
+    h17 = $('#id_hours17').val().toUpperCase()
+
+
+    h18 = $('#id_hours18').val().toUpperCase()
+
+
+    h19 = $('#id_hours19').val().toUpperCase()
+
+
+    h20 = $('#id_hours20').val().toUpperCase()
+
+
+    h21 = $('#id_hours21').val().toUpperCase()
+
+
+    h22 = $('#id_hours22').val().toUpperCase()
+
+
+    h23 = $('#id_hours23').val().toUpperCase()
+
+
+    h24 = $('#id_hours24').val().toUpperCase()
+
+
+    h25 = $('#id_hours25').val().toUpperCase()
+
+
+    h26 = $('#id_hours26').val().toUpperCase()
+
+
+    h27 = $('#id_hours27').val().toUpperCase()
+
+
+    h28 = $('#id_hours28').val().toUpperCase()
+
+
+    h29 = $('#id_hours29').val().toUpperCase()
+
+
+    h30 = $('#id_hours30').val().toUpperCase()
+
+
+    h31 = $('#id_hours31').val().toUpperCase()
+  }
 
 
 
@@ -398,6 +522,7 @@ for (var field of checkfields) {
   let h_work = 0 //часы явок
   let h_vac = 0 //часы неявок
 
+if ($('#tabel-type').text() == 1) {
 
 switch (tt1) {
   case 'Я':
@@ -7207,10 +7332,39 @@ switch (tt31) {
 }
 
 h_work = s1 + s5 + s3 + s36 + s7 + s8 + s23 + s38
-console.log(h_work);
+}
+
+else {
+  hours = $('.dig_hours')
+  for (var i = 0; i < hours.length; i++) {
+    if (hours[i].value != 'В' && hours[i].value != ''){
+    work = work + 1
+    h_work = h_work + parseFloat(hours[i].value)
+
+  }
+  }
+}
+
+
+
 h_vac = s9 + s10 + s11 + s13 + s14 + s15 + s16 + s17 + s18 + s20 + s21 +  s24 + s25 + s26 + s27 + s28 + s29 + s30 + s31 + s32 + s33 + s34 + s37
 
-weekends = s24/8
+if ($('#tabel-type').text() != 1) {
+  weekends = 0
+  hours = $('.dig_hours')
+  for (var i = 0; i < hours.length; i++) {
+    if (hours[i].value == "В") {
+      weekends = weekends + 1
+      console.log(weekends);
+    }
+
+  }
+  s24 = weekends
+}
+else {
+  weekends = s24/8
+}
+
 
 
 if ($('#manover').prop('checked') == false){

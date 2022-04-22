@@ -167,233 +167,233 @@ pDate = pDate.toString().split(" ")
 if (pDate[0] == 'Sat' || pDate[0] == 'Sun') {
 switch (pDate[2]) {
     case '01':
-    $('#id_type_time1').val("В")
-    $('#id_hours1').val("8")
+
+    $('#id_hours1').val("В")
     $('#id_type_time1').css('background','lightgreen')
 
     $('#id_hours1').css('background','lightgreen')
     break;
 
     case '02':
-    $('#id_type_time2').val("В")
-    $('#id_hours2').val("8")
+
+    $('#id_hours2').val("В")
     $('#id_type_time2').css('background','lightgreen')
 
     $('#id_hours2').css('background','lightgreen')
     break;
 
     case '03':
-    $('#id_type_time3').val("В")
-    $('#id_hours3').val("8")
+
+    $('#id_hours3').val("В")
     $('#id_type_time3').css('background','lightgreen')
 
     $('#id_hours3').css('background','lightgreen')
     break;
 
     case '04':
-    $('#id_type_time4').val("В")
-    $('#id_hours4').val("8")
+
+    $('#id_hours4').val("В")
     $('#id_type_time4').css('background','lightgreen')
 
     $('#id_hours4').css('background','lightgreen')
     break;
 
     case '05':
-    $('#id_type_time5').val("В")
-    $('#id_hours5').val("8")
+
+    $('#id_hours5').val("В")
     $('#id_type_time5').css('background','lightgreen')
 
     $('#id_hours5').css('background','lightgreen')
     break;
 
     case '06':
-    $('#id_type_time6').val("В")
-    $('#id_hours6').val("8")
+
+    $('#id_hours6').val("В")
     $('#id_type_time6').css('background','lightgreen')
 
     $('#id_hours6').css('background','lightgreen')
     break;
 
     case '07':
-    $('#id_type_time7').val("В")
-    $('#id_hours7').val("8")
+
+    $('#id_hours7').val("В")
     $('#id_type_time7').css('background','lightgreen')
 
     $('#id_hours7').css('background','lightgreen')
     break;
 
     case '08':
-    $('#id_type_time8').val("В")
-    $('#id_hours8').val("8")
+
+    $('#id_hours8').val("В")
     $('#id_type_time8').css('background','lightgreen')
 
     $('#id_hours8').css('background','lightgreen')
     break;
 
     case '09':
-    $('#id_type_time9').val("В")
-    $('#id_hours9').val("8")
+
+    $('#id_hours9').val("В")
     $('#id_type_time9').css('background','lightgreen')
     $('#id_hours9').css('background','lightgreen')
     break;
 
     case '10':
-    $('#id_type_time10').val("В")
-    $('#id_hours10').val("8")
+
+    $('#id_hours10').val("В")
     $('#id_type_time10').css('background','lightgreen')
     $('#id_hours10').css('background','lightgreen')
     break;
 
     case '10':
-    $('#id_type_time10').val("В")
-    $('#id_hours10').val("8")
+
+    $('#id_hours10').val("В")
     $('#id_type_time10').css('background','lightgreen')
     $('#id_hours10').css('background','lightgreen')
     break;
 
     case '11':
-    $('#id_type_time11').val("В")
-    $('#id_hours11').val("8")
+
+    $('#id_hours11').val("В")
     $('#id_type_time11').css('background','lightgreen')
     $('#id_hours11').css('background','lightgreen')
     break;
 
     case '12':
-    $('#id_type_time12').val("В")
-    $('#id_hours12').val("8")
+
+    $('#id_hours12').val("В")
     $('#id_type_time12').css('background','lightgreen')
     $('#id_hours12').css('background','lightgreen')
     break;
 
     case '13':
-    $('#id_type_time13').val("В")
-    $('#id_hours13').val("8")
+
+    $('#id_hours13').val("В")
     $('#id_type_time13').css('background','lightgreen')
     $('#id_hours13').css('background','lightgreen')
     break;
 
     case '14':
-    $('#id_type_time14').val("В")
-    $('#id_hours14').val("8")
+
+    $('#id_hours14').val("В")
     $('#id_type_time14').css('background','lightgreen')
     $('#id_hours14').css('background','lightgreen')
     break;
 
     case '15':
-    $('#id_type_time15').val("В")
-    $('#id_hours15').val("8")
+
+    $('#id_hours15').val("В")
     $('#id_type_time15').css('background','lightgreen')
     $('#id_hours15').css('background','lightgreen')
     break;
 
     case '16':
-    $('#id_type_time16').val("В")
-    $('#id_hours16').val("8")
+
+    $('#id_hours16').val("В")
     $('#id_type_time16').css('background','lightgreen')
     $('#id_hours16').css('background','lightgreen')
     break;
 
     case '17':
-    $('#id_type_time17').val("В")
-    $('#id_hours17').val("8")
+
+    $('#id_hours17').val("В")
     $('#id_type_time17').css('background','lightgreen')
     $('#id_hours17').css('background','lightgreen')
     break;
 
     case '18':
-    $('#id_type_time18').val("В")
-    $('#id_hours18').val("8")
+
+    $('#id_hours18').val("В")
     $('#id_type_time18').css('background','lightgreen')
     $('#id_hours18').css('background','lightgreen')
     break;
 
     case '19':
-    $('#id_type_time19').val("В")
-    $('#id_hours19').val("8")
+
+    $('#id_hours19').val("В")
     $('#id_type_time19').css('background','lightgreen')
     $('#id_hours19').css('background','lightgreen')
     break;
 
     case '20':
-    $('#id_type_time20').val("В")
-    $('#id_hours20').val("8")
+
+    $('#id_hours20').val("В")
     $('#id_type_time20').css('background','lightgreen')
     $('#id_hours20').css('background','lightgreen')
     break;
 
     case '21':
-    $('#id_type_time21').val("В")
-    $('#id_hours21').val("8")
+
+    $('#id_hours21').val("В")
     $('#id_type_time21').css('background','lightgreen')
     $('#id_hours21').css('background','lightgreen')
     break;
 
     case '22':
-    $('#id_type_time22').val("В")
-    $('#id_hours22').val("8")
+
+    $('#id_hours22').val("В")
     $('#id_type_time22').css('background','lightgreen')
     $('#id_hours22').css('background','lightgreen')
     break;
 
     case '23':
-    $('#id_type_time23').val("В")
-    $('#id_hours23').val("8")
+
+    $('#id_hours23').val("В")
     $('#id_type_time23').css('background','lightgreen')
     $('#id_hours23').css('background','lightgreen')
     break;
 
     case '24':
-    $('#id_type_time24').val("В")
-    $('#id_hours24').val("8")
+
+    $('#id_hours24').val("В")
     $('#id_type_time24').css('background','lightgreen')
     $('#id_hours24').css('background','lightgreen')
     break;
 
     case '25':
-    $('#id_type_time25').val("В")
-    $('#id_hours25').val("8")
+
+    $('#id_hours25').val("В")
     $('#id_type_time25').css('background','lightgreen')
     $('#id_hours25').css('background','lightgreen')
     break;
 
     case '26':
-    $('#id_type_time26').val("В")
-    $('#id_hours26').val("8")
+
+    $('#id_hours26').val("В")
     $('#id_type_time26').css('background','lightgreen')
     $('#id_hours26').css('background','lightgreen')
     break;
 
     case '27':
-    $('#id_type_time27').val("В")
-    $('#id_hours27').val("8")
+
+    $('#id_hours27').val("В")
     $('#id_type_time27').css('background','lightgreen')
     $('#id_hours27').css('background','lightgreen')
     break;
 
     case '28':
-    $('#id_type_time28').val("В")
-    $('#id_hours28').val("8")
+
+    $('#id_hours28').val("В")
     $('#id_type_time28').css('background','lightgreen')
     $('#id_hours28').css('background','lightgreen')
     break;
 
     case '29':
-    $('#id_type_time29').val("В")
-    $('#id_hours29').val("8")
+
+    $('#id_hours29').val("В")
     $('#id_type_time29').css('background','lightgreen')
     $('#id_hours29').css('background','lightgreen')
     break;
 
     case '30':
-    $('#id_type_time30').val("В")
-    $('#id_hours30').val("8")
+
+    $('#id_hours30').val("В")
     $('#id_type_time30').css('background','lightgreen')
     $('#id_hours30').css('background','lightgreen')
     break;
 
     case '31':
-    $('#id_type_time31').val("В")
-    $('#id_hours31').val("8")
+
+    $('#id_hours31').val("В")
     $('#id_type_time31').css('background','lightgreen')
     $('#id_hours31').css('background','lightgreen')
     break;
@@ -484,27 +484,20 @@ function auto_fill() {
 
 
   for (var i = 0; i < days_count; i++) {
-    hours[i].value = '8'
+    if (hours[i].value != 'В'){
+      hours[i].value = '8'
+    }
+
     if (sex == 'Ж' && codes[i+1].value == 'В' && codes[i].value != 'В' ) {
-      codes[i].value = 'Я/ЛЧ'
-      hours[i].value = '4/4'
+
+        hours[i].value = '4'
+      }
     }
 
-    switch (codes[i].value) {
 
-    case 'В':
-    codes[i].value = 'В'
-    break;
-
-    case '':
-    codes[i].value = 'Я'
-    break;
-    default:
-
-    }
 
   }
-}
+
 else {
   alert('Для сотрудников, работающих в сменном режиме, автозаполнение недоступно!')
 }

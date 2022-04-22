@@ -23,9 +23,8 @@
 
 {% block body %}
 <span id='tabel-type' style='display:none'>{{b_tabel.type_id}}</span>
-
 <!-- <link rel="stylesheet" href="{% static 'TURV\css\tabel_print2.css'%}"> -->
-
+<div  class="container tabel_container">
 
 <form action="" class="f_search intabel not-print">
 <p>ПОИСК</p>
@@ -40,71 +39,7 @@
 <a class="btn btn-outline-danger" href="/turv/create/{{b_tabel.id}}">Сбросить поиск</a>
 </form>
 
-<!-- <div class="alert alert-danger not-print " >
-<p><b>ВНИМАНИЕ! ИЗМЕНИЛИСЬ НАСТРОЙКИ ПЕЧАТИ! В БРАУЗЕРЕ FIREFOX МАСШТАБ: 85, CHROME: 100. ПОЛЯ ВЕЗДЕ: По умолчанию. Вопросы по т. 2035</b></p>
-</div> -->
 
-
-<div  class="container tabel_container">
-<!-- <h5 class="not-print" style="color:red;">ВАЖНО: ПЕЧАТЬ ТАБЕЛЯ ВРЕМЕННО ОСУЩЕСТВЛЯЕТСЯ СЛУЖБОЙ УПРАВЛЕНИЯ ПЕРСОНАЛОМ! ЕСЛИ ВАШ ТАБЕЛЬ ГОТОВ К ПЕЧАТИ, ПОЗВОНИТЕ В СУП И СООБЩИТЕ ОБ ЭТОМ</h5> -->
-<div class="for-print not-screen cover">
-
-<div class="colon">
-<p>Унифицированная форма № Т-12</p>
-<p>Утверждена Постановлением Госкомстата</p>
-<p>России от 05.01.2004 № 1</p>
-</div>
-
-<div class="cover_dep">
-<h3 style="border-bottom: 1px solid black; " class="b-bottom">КГУП "Камчатский водоканал"</h3>
-<p>(наименование организации)</p>
-
-
-<h3 class="b-bottom" style="border-bottom: 1px solid black; font-size: 30px;" id='c_dep'>{{b_tabel.department}}</h3>
-<p>(наименование подразделения)</p>
-</div>
-
-<div class="cover_middle">
-<div class="cover_head">
-<h2>ТАБЕЛЬ</h2>
-<h3>учета рабочего времени и расчета оплаты труда</h3>
-<h2>УСЛОВНЫЕ ОБОЗНАЧЕНИЯ</h2>
-</div>
-
-<div class="cover-tables">
-<table class="cover_period">
-<thead>
-<tr>
-<th colspan="2">Отчетный период</th>
-
-</tr>
-
-<tr>
-<th>с</th>
-<th>по</th>
-</tr>
-<tbody>
-<td id="cover_from"> </td>
-<td id="cover_to"> </td>
-</tbody>
-</thead>
-</table>
-<table class="cover_number">
-<thead>
-<tr>
-<th>Номер документа</th>
-<th>Дата составления</th>
-</tr>
-<tbody>
-<td> </td>
-<td id="cover_today"> </td>
-</tbody>
-</thead>
-</table>
-</div>
-<img src="{% static 'TURV\img\legend.jpg'%}" alt="">
-</div>
-</div>
 <h5 class="not-print" style="color:red;">ВАЖНО: ПЕРЕД ПЕЧАТЬЮ ТАБЕЛЯ ОБЯЗАТЕЛЬНО ОЗНАКОМТЕСЬ С <span><a style="float: none; margin-left: none;" href="https://docs.google.com/document/d/1Z439AZgEkRSZErC1wrBpQE9ajGD-OPZIZOkNI08mPSg/edit#heading=h.g1x2nyrk0y8c">ИНСТРУКЦИЕЙ,</a></span> ПРОВЕРЬТЕ НАСТРОЙКИ ПЕЧАТИ, А ТАК ЖЕ ПРОВЕРЬТЕ КОРРЕКТНОСТЬ СФОРМИРОВАННОГО ДОКУМЕНТА В ОКНЕ ПРЕДВАРИТЕЛЬНОГО ПРОСМОТРА </h5>
 <div class="sup_check not-print">
   {% if b_tabel.sup_check %}
@@ -118,11 +53,9 @@
     {%endif%}
 {%endif%}
 
-{% if b_tabel.type.id == 2 %}
+
 <input class="btn btn-warning"  style="margin-left: 6px;" type="button" name="" onclick="print_toxic({{b_tabel.year}}, {{b_tabel.month}}, '{{b_tabel.department.name}}')" value="ПЕЧАТЬ">
-{%else%}
-<input class="btn btn-warning"  style="margin-left: 6px;" type="button" name="" onclick="print()" value="ПЕЧАТЬ">
-{%endif%}
+
 
 </div>
   {% if form.errors %}
@@ -144,12 +77,16 @@
   <thead style="display: table-header-group" class="thead-dark">
   <tr class="tr-header">
 
-    <th  rowspan="2">№</th>
+    <th   >№</th>
     <th colspan="3" style="display:none;">ФИО | долж. | разр.</th>
     <th >ФИО</th>
     <th >Должн.</th>
     <th  >Раз.</th>
     <th >Ст.</th>
+    {%if b_tabel.type.id == 3%}
+    <th>А/М</th>
+    <th>% доп.</th>
+    {%endif%}
     {%if b_tabel.type.id == 2%}
       <th>% вред.</th>
     {%endif%}
@@ -215,12 +152,16 @@
   <tr class="tr-header">
 
 
-    <th class=" num " rowspan="2">№</th>
+    <th class=" num "  >№</th>
     <th class="for-print  fio " colspan="3">ФИО|долж.|разр.</th>
     <th class="not-print fio-screen ">ФИО</th>
     <th class="not-print pos-screen" >Должн.</th>
     <th class="not-print " >Раз.</th>
     <th class="thin-itogo">Ст.</th>
+    {%if b_tabel.type.id == 3%}
+    <th class="thin-itogo">А/М</th>
+    <th class="thin-itogo">% доп.</th>
+    {%endif%}
     {%if b_tabel.type.id == 2%}
       <th class="thin-itogo">% вред</th>
     {%endif%}
@@ -257,12 +198,6 @@
     <th class="day31 head-hours">31</th>
     <th class="thin-itogo">Дни.</th>
     <th class="wide-itogs">Час./ЛЧ</th>
-    <th class="wide-itogs toxic-hide">Св.</th>
-    <th class="thin-itogo toxic-hide">НЧ</th>
-    <th class="thin-itogo toxic-hide">в./пр.</th>
-    <th class="thin-itogo toxic-hide">Сов.</th>
-    <th class="thin-itogo toxic-hide ">Нея.</th>
-    <th class="include toxic-hide">Из них</th>
     <th class="thin-itogo" >Вых.</th>
 
 
@@ -284,86 +219,61 @@
     {%else%}
       <tr id="{{item.id}}"  onmouseleave="row_highlight_off({{item.id}})" onclick="return location.href = '{% url 'tabel_updItem_url' id=item.id%}' "  onmouseover="row_highlight({{item.id}})" class="time_types">
     {%endif%}
-      <th class="print-num cell_bb" rowspan="2"></th>
-      <td  class="for-print cell_bb fio" rowspan="2" colspan="3">{{item.employer.fullname}}|{{item.employer.position|truncatechars:10}}|{{item.employer.level}}</td>
+      <th class="print-num cell_bb"  ></th>
+      <td  class="for-print cell_bb fio"   colspan="3">{{item.employer.fullname}}|{{item.employer.position|truncatechars:10}}|{{item.employer.level}}</td>
 
-      <td class="not-print cell_bb" rowspan="2">{{item.employer.fullname}}</td>
-      <td class="not-print cell_bb" rowspan="2">{{item.employer.position}}</td>
-      <td class="not-print cell_bb" rowspan="2">{{item.employer.level}}</td>
-      <td rowspan="2" class="cell_bb">{{item.employer.positionOfPayment}}</td>
+      <td class="not-print cell_bb"  >{{item.employer.fullname}}</td>
+      <td class="not-print cell_bb"  >{{item.employer.position}}</td>
+      <td class="not-print cell_bb"  >{{item.employer.level}}</td>
+      <td   class="cell_bb">{{item.employer.positionOfPayment}}</td>
+      {%if b_tabel.type.id == 3%}
+      <td>{{item.auto.number}}</td>
+      <td>{{item.auto.unite_p}}</td>
+      {%endif%}
       {%if b_tabel.type.id == 2%}
-        <td rowspan="2" class="cell_bb"">{{item.toxic_p}}</td>
+        <td   class="cell_bb"">{{item.toxic_p}}</td>
       {%endif%}
 
-      <td class="cell_ttime">{{item.type_time1}}</td>
-      <td class="cell_ttime">{{item.type_time2}}</td>
-      <td class="cell_ttime">{{item.type_time3}}</td>
+      <td   class="cell_hours">{{item.hours1}}</td>
+      <td    class="cell_hours">{{item.hours2}}</td>
+      <td   class="cell_hours">{{item.hours3}}</td>
 
-      <td class="cell_ttime">{{item.type_time4}}</td>
-
-      <td class="cell_ttime">{{item.type_time5}}</td>
-      <td class="cell_ttime">{{item.type_time6}}</td>
-      <td class="cell_ttime">{{item.type_time7}}</td>
-      <td class="cell_ttime">{{item.type_time8}}</td>
-      <td class="cell_ttime">{{item.type_time9}}</td>
-      <td class="cell_ttime">{{item.type_time10}}</td>
-      <td class="cell_ttime">{{item.type_time11}}</td>
-      <td class="cell_ttime">{{item.type_time12}}</td>
-      <td class="cell_ttime">{{item.type_time13}}</td>
-      <td class="cell_ttime">{{item.type_time14}}</td>
-      <td class="cell_ttime">{{item.type_time15}}</td>
-      <td class="cell_ttime">{{item.type_time16}}</td>
-      <td class="cell_ttime">{{item.type_time17}}</td>
-      <td class="cell_ttime">{{item.type_time18}}</td>
-      <td class="cell_ttime">{{item.type_time19}}</td>
-      <td class="cell_ttime">{{item.type_time20}}</td>
-      <td class="cell_ttime">{{item.type_time21}}</td>
-      <td class="cell_ttime">{{item.type_time22}}</td>
-      <td class="cell_ttime">{{item.type_time23}}</td>
-      <td class="cell_ttime">{{item.type_time24}}</td>
-      <td class="cell_ttime">{{item.type_time25}}</td>
-      <td class="cell_ttime">{{item.type_time26}}</td>
-      <td class="cell_ttime">{{item.type_time27}}</td>
-      <td class="cell_ttime">{{item.type_time28}}</td>
-      <td class="cell_ttime  day29 ">{{item.type_time29}}</td>
-      <td class="cell_ttime day30 ">{{item.type_time30}}</td>
-      <td class="cell_ttime day31">{{item.type_time31}}</td>
-      <td rowspan="2" class="cell_bb">{{item.w_days}}</td>
+      <td   class="cell_hours">{{item.hours4}}</td>
+      <td   class="cell_hours">{{item.hours5}}</td>
+      <td   class="cell_hours">{{item.hours6}}</td>
+      <td   class="cell_hours">{{item.hours7}}</td>
+    <td   class="cell_hours">{{item.hours8}}</td>
+    <td   class="cell_hours">{{item.hours9}}</td>
+    <td   class="cell_hours">{{item.hours10}}</td>
+    <td   class="cell_hours">{{item.hours11}}</td>
+    <td   class="cell_hours">{{item.hours12}}</td>
+    <td   class="cell_hours">{{item.hours13}}</td>
+    <td   class="cell_hours">{{item.hours14}}</td>
+    <td   class="cell_hours">{{item.hours15}}</td>
+    <td   class="cell_hours">{{item.hours16}}</td>
+    <td   class="cell_hours">{{item.hours17}}</td>
+    <td   class="cell_hours">{{item.hours18}}</td>
+    <td   class="cell_hours">{{item.hours19}}</td>
+    <td   class="cell_hours">{{item.hours20}}</td>
+    <td   class="cell_hours">{{item.hours21}}</td>
+    <td    class="cell_hours">{{item.hours22}}</td>
+    <td   class="cell_hours">{{item.hours23}}</td>
+    <td   class="cell_hours">{{item.hours24}}</td>
+    <td   class="cell_hours">{{item.hours25}}</td>
+    <td   class="cell_hours">{{item.hours26}}</td>
+    <td   class="cell_hours">{{item.hours27}}</td>
+    <td    class="cell_hours">{{item.hours28}}</td>
+    <td   class="cell_hours day29">{{item.hours29}}</td>
+    <td   class="cell_hours day30">{{item.hours30}}</td>
+    <td   class="cell_hours day31">{{item.hours31}}</td>
+    <td   class="cell_bb">{{item.w_days}}</td>
       {% if item.sHours19 != 0 %}
-      <td rowspan="2" class="cell_bb wide-itogs">{{item.w_hours|floatformat:-2}}/{{item.sHours19}}</td>
+      <td   class="cell_bb wide-itogs">{{item.w_hours|floatformat:-2}}/{{item.sHours19}}</td>
       {%else%}
-      <td rowspan="2" class="cell_bb wide-itogs">{{item.w_hours|floatformat:-2}}</td>
+      <td   class="cell_bb wide-itogs">{{item.w_hours|floatformat:-2}}</td>
         {%endif%}
 
-      {% if item.sHours4 > 0 %}
-      <td rowspan="2"class="cell_bb wide-itogs toxic-hide">{{item.sHours4|floatformat:2}}</td>
-      {% else %}
-        <td rowspan="2" class="cell_bb toxic-hide"></td>
-      {%endif%}
-
-      {%if item.sHours2 %}
-        <td rowspan="2" class="cell_bb toxic-hide">{{item.sHours2}}</td>
-      {%else%}
-        <td rowspan="2" class="cell_bb toxic-hide "></td>
-      {%endif%}
-      {%if item.sHours3 %}
-        <td rowspan="2" class="cell_bb toxic-hide">{{item.sHours3}}</td>
-      {%else%}
-        <td rowspan="2" class="cell_bb toxic-hide"></td>
-      {%endif%}
-
-      {%if item.sHours35 %}
-        <td rowspan="2" class="cell_bb toxic-hide">{{item.sHours35}}</td>
-      {%else%}
-        <td rowspan="2" class="cell_bb toxic-hide "></td>
-        {%endif%}
-      {% if item.v_days > 0%}
-        <td rowspan="2" class="cell_bb toxic-hide ">{{item.v_days}}</td>
-      {%else%}
-        <td rowspan="2" class="cell_bb toxic-hide "></td>
-      {%endif%}
-      <td rowspan="2"class="vac-include cell_bb toxic-hide" ></td>
-      <td rowspan="2" class="weekends cell_bb">{{item.sHours24}}</td>
+      <td   class="weekends cell_bb">{{item.sHours24}}</td>
 
 
 
@@ -373,43 +283,6 @@
 
     </tr>
 
-<tr id="{{item.id}}_1">
-
-
-        <td class="cell_hours">{{item.hours1}}</td>
-        <td class="cell_hours">{{item.hours2}}</td>
-        <td class="cell_hours">{{item.hours3}}</td>
-
-        <td class="cell_hours">{{item.hours4}}</td>
-        <td class="cell_hours">{{item.hours5}}</td>
-        <td class="cell_hours">{{item.hours6}}</td>
-        <td class="cell_hours">{{item.hours7}}</td>
-      <td class="cell_hours">{{item.hours8}}</td>
-      <td class="cell_hours">{{item.hours9}}</td>
-      <td class="cell_hours">{{item.hours10}}</td>
-      <td class="cell_hours">{{item.hours11}}</td>
-      <td class="cell_hours">{{item.hours12}}</td>
-      <td class="cell_hours">{{item.hours13}}</td>
-      <td class="cell_hours">{{item.hours14}}</td>
-      <td class="cell_hours">{{item.hours15}}</td>
-      <td class="cell_hours">{{item.hours16}}</td>
-      <td class="cell_hours">{{item.hours17}}</td>
-      <td class="cell_hours">{{item.hours18}}</td>
-      <td class="cell_hours">{{item.hours19}}</td>
-      <td class="cell_hours">{{item.hours20}}</td>
-      <td class="cell_hours">{{item.hours21}}</td>
-      <td class="cell_hours">{{item.hours22}}</td>
-      <td class="cell_hours">{{item.hours23}}</td>
-      <td class="cell_hours">{{item.hours24}}</td>
-      <td class="cell_hours">{{item.hours25}}</td>
-      <td class="cell_hours">{{item.hours26}}</td>
-      <td class="cell_hours">{{item.hours27}}</td>
-      <td class="cell_hours">{{item.hours28}}</td>
-      <td class="cell_hours day29">{{item.hours29}}</td>
-      <td class="cell_hours day30">{{item.hours30}}</td>
-      <td class="cell_hours day31">{{item.hours31}}</td>
-
-    </tr>
 
 
 
@@ -427,6 +300,7 @@
 
     <td class="for-print"></td>
     <td class="not-print"></td>
+    <td></td>
 
     <td></td>
     <td></td>
@@ -462,34 +336,12 @@
 
 
 
-    {% if b_tabel.type.id == 2%}
+
     <td class="for-print"></td>
     <td class="for-print"></td>
     <td >{{s_days}}</td>
         <td >{{s_hours}}</td>
-        <td class="not-print"></td>
-        <td class="not-print"></td>
-        <td class="toxic-hide"></td>
-        <td class="toxic-hide"></td>
-        <td class="toxic-hide"></td>
-        <td class="toxic-hide"></td>
-        <td class="toxic-hide"></td>
-        <td class="toxic-hide"></td>
-    {%else%}
 
-          <td ></td>
-
-            <td >{{s_days}}</td>
-        <td >{{s_hours}}\{{s_lhours}}</td>
-
-        <td class="toxic-hide">{{s_over|floatformat:2}}</td>
-        <td class="toxic-hide">{{s_night}}</td>
-        <td class="toxic-hide">{{s_vacwork}}</td>
-          <td class="toxic-hide"></td>
-            <td class="toxic-hide"></td>
-        <td class="toxic-hide">{{s_vac}}</td>
-
-    {%endif%}
     <td>{{s_weekends}}</td>
 
 
@@ -514,5 +366,8 @@
   <h1 style="color:red;">ДЛЯ ПЕЧАТИ ТАБЕЛЯ НАЖМИТЕ ЖЕЛТУЮ КНОПКУ ПЕЧАТЬ, КОТОРАЯ НАХОДИТСЯ ВЫШЕ ОСНОВНОЙ ТАБЛИЦЫ ТАБЕЛЯ!</h1>
 </div>
 
+<script type="text/javascript">
+  $
+</script>
 
 {%endblock%}

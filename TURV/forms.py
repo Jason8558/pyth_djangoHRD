@@ -9,6 +9,8 @@ class TabelItem_form(forms.ModelForm):
             model = TabelItem
             fields = [
             'employer',
+            'toxic_p',
+            'auto',
             'type_time1',
             'type_time2',
             'type_time3',
@@ -304,6 +306,8 @@ class TabelItem_form(forms.ModelForm):
             w_hours = self.cleaned_data['w_hours'],
             v_days = self.cleaned_data['v_days'],
             v_hours = self.cleaned_data['v_hours'],
+            toxic_p = self.cleaned_data['toxic_p'],
+            auto = self.cleaned_data['auto']
 
 
 
@@ -314,7 +318,7 @@ class TabelItem_form(forms.ModelForm):
 class Tabel_form(forms.ModelForm):
     class Meta:
         model = Tabel
-        fields = ['year', 'month', 'department', 'del_check', 'sup_check']
+        fields = ['year', 'month', 'department', 'del_check', 'sup_check', 'type']
 
     year = forms.CharField(label="Год (ТОЛЬКО 4 ЦИФРЫ!)", widget=forms.NumberInput(attrs={'maxlength':'4'}))
     def saveFirst(self, user_):
@@ -336,6 +340,7 @@ class Tabel_form(forms.ModelForm):
             year = self.cleaned_data['year'],
             month = self.cleaned_data['month'],
             department = self.cleaned_data['department'],
+            type = self.cleaned_data['type'],
             res_officer = user_)
 
         return new_tabel

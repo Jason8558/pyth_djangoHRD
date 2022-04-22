@@ -1,0 +1,86 @@
+{% extends 'TURV/index.html'%}
+
+{%block title%}Автотранспорт{% endblock %}
+
+{%block header%}  <a class="btn btn-dark" href=".."> < Назад </a> | Автотранспорт. Всего: {{count}}.{%endblock%}
+
+{% block body %}
+
+<form  class="f_search"  action="{% url 'emp_list'%}" >
+<p><u>ПОИСК: </u></p>
+  <input type="text" name="car" placeholder="Поиск по номеру" value="">
+
+    <input class="btn btn-dark"type="submit" name="" value="Найти">
+
+</form>
+
+<div class="container">
+  <a class="btn btn-success btn-add"  href="#"  >+ Новый автомобиль</a>
+
+{%if automobiles%}
+
+<table>
+  <thead class="thead-dark">
+  <tr class="tr-header">
+
+
+    <th scope="col">Код</th>
+    <th scope="col">Номер</th>
+    <th scope="col">Марка</th>
+    <th scope="col">Процент доплаты</th
+
+
+
+
+
+  </tr >
+  </thead>
+
+  {%for car in automobiles %}
+
+  <tr  onclick="" >
+  
+
+
+    <td>{{car.id}}</td>
+    <td>{{car.number}}</td>
+    <td>{{car.model}}</td>
+    <td>{{car.unite_p}}</td>
+
+  </tr>
+  {%endfor%}
+</table>
+
+<nav  class="paginator" aria-label="Page navigation example">
+  <ul class="pagination">
+    {%if automobiles.has_previous%}
+        <li class="page-item">
+          <a class="page-link" aria-label="previous" href="?page=1">
+              <span aria-hidden="true">Первая</span></a>
+        </li>
+        <li class="page-item">
+          <a class="page-link" href='?page={{automobiles.previous_page_number}}' aria-label="previous">
+    <span aria-hidden="true">{{automobiles.previous_page_number}}</span>
+          </a>
+        </li>
+  {%endif%}
+
+   <li class="page-item active"><a class="page-link" href="">{{ automobiles.number }}</a></li>
+
+{%if automobiles.has_next%}
+    <li class="page-item">
+      <a class="page-link" href='?page={{automobiles.next_page_number}}' aria-label="Next">{{automobiles.next_page_number}}</a>
+      </li>
+  {%endif%}
+
+  <li class="page-item">
+  <a class="page-link" href="?page={{ automobiles.paginator.num_pages }}">Последняя</a>
+  </li>
+</ul>
+</nav>
+
+{%else%}
+<h2>Автотранспорт не найден</h2>
+{%endif%}
+</div>
+{%endblock%}
