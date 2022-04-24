@@ -116,7 +116,8 @@ class TabelItem_form(forms.ModelForm):
             'v_hours'
             ]
 
-        # auto = forms.ChoiceField(required=True, widget=forms.Select(attrs={'class':'chosen-select'}))
+        auto = forms.ModelChoiceField(queryset=Automobile.objects.filter(used=1))
+        
 
         type_time1 = forms.CharField(required=False, widget=forms.TextInput(attrs={'placeholder': 'К', 'class': 'dig_code', 'type':'text'}))
         type_time2 = forms.CharField(required=False, widget=forms.TextInput(attrs={'placeholder': 'К', 'class': 'dig_code', 'type':'text'}))

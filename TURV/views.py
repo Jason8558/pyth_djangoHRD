@@ -328,13 +328,12 @@ def tabel_additem(request, id):
         year = b_tabel.year
         month = b_tabel.month
         department = b_tabel.department
-        allow_employers = Employers.objects.filter(department_id=department)
-        names = []
-        for emp in allow_employers:
-            names.append(emp.fullname)
+        allow_employers = Employers.objects.filter(department_id=department).filter(fired=0)
+
 
 
         tabelItem_form = TabelItem_form()
+
         if request.method == "POST":
             tabelItem_form = TabelItem_form(request.POST)
             if tabelItem_form.is_valid():
@@ -342,6 +341,8 @@ def tabel_additem(request, id):
                 tabelItem_form.saveFirst(id)
                 loc = '/turv/additem/'+str(id)
                 return redirect(loc)
+        else:
+            tabelItem_form.fields['employer'].queryset  = allow_employers
     else:
         return render(request, 'reg_jounals/no_auth.html')
     return render(request, 'TURV/new_tabel_item.html', context={'tabel':tabelItem_form, 'in_tabel':in_tabel_items, 'b_tabel':b_tabel, 'year':year, 'month':month, 'emps':allow_employers})
@@ -590,7 +591,7 @@ def autos(request):
             automobiles = Automobile.objects.filter(number__contains=car)
         else:
             automobiles = Automobile.objects.all()
-        pag = 20
+        pag = 40
         p_autos = Paginator(automobiles, pag)
         page_number = request.GET.get('page', 1)
         page = p_autos.get_page(page_number)
