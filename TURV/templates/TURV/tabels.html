@@ -95,6 +95,13 @@ function Supchecked() {
       <option value="{{dep.id}}">{{dep}}</option>
       {% endfor%}
   </select>
+  <label for="search_type">По виду</label>
+  <select class="" name="search_type">
+    {%for t in type%}
+      <option value="{{t.id}}">{{t.name}}</option>
+    {%endfor%}
+
+  </select>
 
   {% if granted == 1%}
   <select class=""  name="tab_user">
@@ -143,7 +150,11 @@ function Supchecked() {
 
 {% if tabel.type.id == 2 %}
 <tr  style="background: lightgreen !important;"onclick="return window.open('{% url 'tabel_create_url' id=tabel.id%}')" >
-{%else%}
+{%endif%}
+{% if tabel.type.id == 3 %}
+<tr  style="background: #8702cb !important;"onclick="return window.open('{% url 'tabel_create_url' id=tabel.id%}')" >
+{%endif%}
+{% if tabel.type.id == 1 %}
 <tr  onclick="return window.open('{% url 'tabel_create_url' id=tabel.id%}')" >
 {%endif%}
 
