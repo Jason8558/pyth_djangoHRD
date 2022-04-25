@@ -951,6 +951,9 @@ def toxic_unload(request):
         notulonl =  request.GET.get('nounload_only','')
         year = request.GET.get('year', '')
         deps = Department.objects.all()
+        sep = '\\'
+        list = 'S:\Сетевые папки\Обмен\Бухгалтерия\РАСЧЕТНЫЙ ОТДЕЛ\ВыгрузкаВредности' + sep + str(month)+'_'+str(year) + '_списокЛистов.txt'
+        l_file = open(list, 'w+')
         if month and year:
             wb = xlwt.Workbook()
 
@@ -974,12 +977,14 @@ def toxic_unload(request):
                     current_tabel = Tabel.objects.get(id=ct)
                     if current_tabel.sup_check == True:
                         ws = wb.add_sheet(dn)
+                        l_file.write(dn + '\n')
                         i = 0
                         for item in items:
-                            ws.write(i,0,item.employer.fullname)
-                            ws.write(i,1,item.toxic_p)
-                            ws.write(i,2,item.w_hours)
-                            i = i+1
+                            if item.w_hours != 0:
+                                ws.write(i,0,item.employer.fullname)
+                                ws.write(i,1,item.toxic_p)
+                                ws.write(i,2,item.w_hours)
+                                i = i+1
                         current_tabel.unloaded = True
                         current_tabel.save()
 
@@ -987,20 +992,25 @@ def toxic_unload(request):
                     pass
 
 
-            name =  str(month)+'_'+str(year)+ '_vrednost.xls'
+            name =  'S:\Сетевые папки\Обмен\Бухгалтерия\РАСЧЕТНЫЙ ОТДЕЛ\ВыгрузкаВредности' + sep + str(month)+'_'+str(year)+ '_vrednost.xls'
             print(name)
             wb.save(name)
+            l_file.close()
 
-            fp = open(name, "rb")
-            response = HttpResponse(fp.read())
-            fp.close();
 
-            file_type = 'application/octet-stream'
-            response['Content-Type'] = file_type
-            response['Content-Length'] = str(os.stat(name).st_size)
-            response['Content-Disposition'] = "attachment; filename=%s" %name
 
-            return response;
+
+
+            # fp = open(name, "rb")
+            # response = HttpResponse(fp.read())
+            # fp.close();
+            #
+            # file_type = 'application/octet-stream'
+            # response['Content-Type'] = file_type
+            # response['Content-Length'] = str(os.stat(name).st_size)
+            # response['Content-Disposition'] = "attachment; filename=%s" %name
+
+            return render(request, 'TURV/toxic-unload.html')
         else:
             return render(request, 'TURV/toxic-unload.html')
 
