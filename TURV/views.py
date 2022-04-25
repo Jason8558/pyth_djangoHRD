@@ -77,7 +77,7 @@ def tabels(request):
         u_group = user_.groups.all()
         is_ro = 0
         granted = 0
-        unite = True
+        unite = False
 
         # Определение текущего месяца и года
         now = datetime.datetime.now()
@@ -94,16 +94,19 @@ def tabels(request):
 
         if request.user.is_superuser:
             granted = True
+            unite = True
 
         if (granted == False):
             # если пользователь только с правами на определенные подразделения, собираем их тут:
             deps = Department.objects.all().filter(user=user_.id)
             allow_departments = []
             for dep in deps:
+
                 allow_departments.append(dep.id)
                 # если атц, то выдаем список автотранспорта
                 if dep.id == 3:
 
+                    print(unite)
                     unite = True
 
 
@@ -605,7 +608,7 @@ def nr_autos(request):
             form = Automobile_form(request.POST)
             if form.is_valid():
                 form.saveFirst()
-                return redirect('/turv/autos')
+                return render(request, 'TURV/close.html')
         else:
             return render(request, 'TURV/new_auto.html', context={'form':form})
 
