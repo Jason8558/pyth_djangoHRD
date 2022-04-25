@@ -152,7 +152,7 @@ function Supchecked() {
 <tr  style="background: lightgreen !important;"onclick="return window.open('{% url 'tabel_create_url' id=tabel.id%}')" >
 {%endif%}
 {% if tabel.type.id == 3 %}
-<tr  style="background: #8702cb !important;"onclick="return window.open('{% url 'tabel_create_url' id=tabel.id%}')" >
+<tr  style="background: #8702cb !important; color:white;"onclick="return window.open('{% url 'tabel_create_url' id=tabel.id%}')" >
 {%endif%}
 {% if tabel.type.id == 1 %}
 <tr  onclick="return window.open('{% url 'tabel_create_url' id=tabel.id%}')" >
