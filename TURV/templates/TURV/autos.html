@@ -15,7 +15,7 @@
 </form>
 
 <div class="container">
-  <a class="btn btn-success btn-add"  href="{% url 'new_auto_url'%}"  >+ Новый автомобиль</a>
+  <a class="btn btn-success btn-add"  onclick="return window.open('{% url 'new_auto_url'%}');"  >+ Новый автомобиль</a>
 
 {%if automobiles%}
 
@@ -38,7 +38,7 @@
 
   {%for car in automobiles %}
 
-  <tr  onclick="return window.open('{% url 'edit_auto_url' id=car.id%}')" >
+  <tr  onclick="return window.open('{% url 'edit_auto_url' id=car.id%}');" >
 
 
 
