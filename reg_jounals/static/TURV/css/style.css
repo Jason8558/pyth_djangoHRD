@@ -632,3 +632,25 @@ margin-right: 10px;
 border: 2px solid #5a9dff !important;height: 30px !important;background: white !important;}
 
 .chosen-results {    padding: 3px !important;}
+
+#new_auto {
+  display: block !important;
+  width: max-content;
+}
+
+#new_auto .fields {
+  display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    flex-wrap: nowrap;
+    align-content: center;
+    align-items: baseline;
+}
+
+#new_auto .buttons {
+  margin-top: 22px;
+}
+
+#id_unite_p {
+  width: 56px;
+}
