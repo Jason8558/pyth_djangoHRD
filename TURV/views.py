@@ -955,10 +955,9 @@ def toxic_unload(request):
         year = request.GET.get('year', '')
         deps = Department.objects.all()
         sep = '\\'
-        list = 'S:\Сетевые папки\Обмен\Бухгалтерия\РАСЧЕТНЫЙ ОТДЕЛ\ВыгрузкаВредности' + sep + str(month)+'_'+str(year) + '_списокЛистов.txt'
-        l_file = open(list, 'w+')
+
         if month and year:
-            wb = xlwt.Workbook()
+
 
             for dep in deps:
                 dn = str(dep.name).replace(' ','_')
@@ -979,8 +978,9 @@ def toxic_unload(request):
                     ct = items[0].bound_tabel.id
                     current_tabel = Tabel.objects.get(id=ct)
                     if current_tabel.sup_check == True:
-                        ws = wb.add_sheet(dn)
-                        l_file.write(dn + '\n')
+                        wb = xlwt.Workbook()
+                        ws = wb.add_sheet("Лист1")
+
                         i = 0
                         for item in items:
                             if item.w_hours != 0:
@@ -990,15 +990,16 @@ def toxic_unload(request):
                                 i = i+1
                         current_tabel.unloaded = True
                         current_tabel.save()
+                        name =  'S:\Сетевые папки\Обмен\Бухгалтерия\РАСЧЕТНЫЙ ОТДЕЛ\ВыгрузкаВредности' + sep + str(dn) + '_' + str(month)+'_'+str(year)+ '_vrednost.xls'
+                        print(name)
+                        wb.save(name)
+
+
 
                 else:
                     pass
 
 
-            name =  'S:\Сетевые папки\Обмен\Бухгалтерия\РАСЧЕТНЫЙ ОТДЕЛ\ВыгрузкаВредности' + sep + str(month)+'_'+str(year)+ '_vrednost.xls'
-            print(name)
-            wb.save(name)
-            l_file.close()
 
 
 
@@ -1016,6 +1017,66 @@ def toxic_unload(request):
             return render(request, 'TURV/toxic-unload.html')
         else:
             return render(request, 'TURV/toxic-unload.html')
+
+def unite_unload(request):
+    if request.user.is_authenticated:
+        month = request.GET.get('month', '')
+        notulonl =  request.GET.get('nounload_only','')
+        year = request.GET.get('year', '')
+        deps = Department.objects.all()
+        sep = '\\'
+
+        if month and year:
+
+
+            for dep in deps:
+                dn = str(dep.name).replace(' ','_')
+                dn = dn.replace('-','')
+                dn = dn.replace('(','')
+                dn = dn.replace(')','')
+                dn = transliterate(dn)
+
+                if notulonl == "1":
+                    items = TabelItem.objects.filter(employer__department_id=dep.id).filter(month=month).filter(year=year).filter(bound_tabel__unloaded=False).filter(bound_tabel__type__id = 3).order_by('employer')
+
+                else:
+                    items = TabelItem.objects.filter(employer__department_id=dep.id).filter(month=month).filter(bound_tabel__type_id = 3).filter(year=year).order_by('employer')
+
+
+                if items:
+
+                    ct = items[0].bound_tabel.id
+                    current_tabel = Tabel.objects.get(id=ct)
+                    if current_tabel.sup_check == True:
+                        wb = xlwt.Workbook()
+                        ws = wb.add_sheet("Лист1")
+
+                        i = 0
+                        for item in items:
+                            if item.w_hours != 0:
+                                ws.write(i,0,item.employer.fullname)
+                                ws.write(i,2,item.employer.stand_worktime)
+                                ws.write(i,1,item.auto.unite_p)
+                                ws.write(i,3,item.w_hours)
+                                i = i+1
+                        current_tabel.unloaded = True
+                        current_tabel.save()
+                        name =  'S:\Сетевые папки\Обмен\Бухгалтерия\РАСЧЕТНЫЙ ОТДЕЛ\ВыгрузкаВредности' + sep + str(dn) + '_' + str(month)+'_'+str(year)+ '_sovmesheniye.xls'
+                        print(name)
+                        wb.save(name)
+
+
+                else:
+                    pass
+
+
+
+
+            return render(request, 'TURV/unite-unload.html')
+        else:
+            return render(request, 'TURV/unite-unload.html')
+
+
 
 def upd_norma(request):
     if request.user.is_authenticated:

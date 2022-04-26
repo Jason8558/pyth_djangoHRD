@@ -21,6 +21,7 @@ urlpatterns = [
     path('autos/edit/<int:id>', views.edit_autos, name='edit_auto_url'),
     path('unload/', views.unload, name='unload'),
     path('toxic-unload/', views.toxic_unload, name='toxic-unload'),
+    path('unite-unload/', views.unite_unload, name='unite-unload'),
     path('checked/<int:id>', views.tabel_sup_check, name='checked'),
     path('overtime/', views.upd_norma, name='overtime_url'),
     path('overtime/upd', views.new_norma, name='overtime_new_url'),
