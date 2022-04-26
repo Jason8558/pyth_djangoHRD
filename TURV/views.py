@@ -991,7 +991,6 @@ def toxic_unload(request):
                         current_tabel.unloaded = True
                         current_tabel.save()
                         name =  'S:\Сетевые папки\Обмен\Бухгалтерия\РАСЧЕТНЫЙ ОТДЕЛ\ВыгрузкаВредности' + sep + str(dn) + '_' + str(month)+'_'+str(year)+ '_vrednost.xls'
-                        print(name)
                         wb.save(name)
 
 
@@ -1038,7 +1037,7 @@ def unite_unload(request):
 
                 if notulonl == "1":
                     items = TabelItem.objects.filter(employer__department_id=dep.id).filter(month=month).filter(year=year).filter(bound_tabel__unloaded=False).filter(bound_tabel__type__id = 3).order_by('employer')
-
+        
                 else:
                     items = TabelItem.objects.filter(employer__department_id=dep.id).filter(month=month).filter(bound_tabel__type_id = 3).filter(year=year).order_by('employer')
 
@@ -1053,6 +1052,7 @@ def unite_unload(request):
 
                         i = 0
                         for item in items:
+                            print(item)
                             if item.w_hours != 0:
                                 ws.write(i,0,item.employer.fullname)
                                 ws.write(i,2,item.employer.stand_worktime)
@@ -1061,7 +1061,7 @@ def unite_unload(request):
                                 i = i+1
                         current_tabel.unloaded = True
                         current_tabel.save()
-                        name =  'S:\Сетевые папки\Обмен\Бухгалтерия\РАСЧЕТНЫЙ ОТДЕЛ\ВыгрузкаВредности' + sep + str(dn) + '_' + str(month)+'_'+str(year)+ '_sovmesheniye.xls'
+                        name =  'S:\Сетевые папки\Обмен\Бухгалтерия\РАСЧЕТНЫЙ ОТДЕЛ\ВыгрузкаСовмещения' + sep + str(dn) + '_' + str(month)+'_'+str(year)+ '_sovmesheniye.xls'
                         print(name)
                         wb.save(name)
 
