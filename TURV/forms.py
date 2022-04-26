@@ -10,6 +10,7 @@ class TabelItem_form(forms.ModelForm):
             fields = [
             'employer',
             'toxic_p',
+            'auto',
             'type_time1',
             'type_time2',
             'type_time3',
@@ -114,6 +115,8 @@ class TabelItem_form(forms.ModelForm):
             'v_days',
             'v_hours'
             ]
+
+        auto = forms.ModelChoiceField(required=False, queryset=Automobile.objects.filter(used=1))
 
 
         type_time1 = forms.CharField(required=False, widget=forms.TextInput(attrs={'placeholder': 'К', 'class': 'dig_code', 'type':'text'}))
@@ -305,7 +308,8 @@ class TabelItem_form(forms.ModelForm):
             w_hours = self.cleaned_data['w_hours'],
             v_days = self.cleaned_data['v_days'],
             v_hours = self.cleaned_data['v_hours'],
-            toxic_p = self.cleaned_data['toxic_p']
+            toxic_p = self.cleaned_data['toxic_p'],
+            auto = self.cleaned_data['auto']
 
 
 
@@ -330,7 +334,7 @@ class Tabel_form(forms.ModelForm):
             number = next_id,
             year = self.cleaned_data['year'],
             doc_date = DT.datetime.strptime(str(self.cleaned_data['year'] + '-' + self.cleaned_data['month'] + '-' + str(DT.datetime.now().day)), '%Y-%M-%d'),
-            addData = 'Табель за: ' + str(self.cleaned_data['month']) + ' ' + str(self.cleaned_data['year']) ,
+            addData = 'Табель: '+ str(self.cleaned_data['department'].name) + ' за: ' + str(self.cleaned_data['month']) + ' ' + str(self.cleaned_data['year']) ,
             link = '/turv/create' + str(next_id),
             res_officer = user_)
 
@@ -373,3 +377,16 @@ class Position_form(forms.ModelForm):
             name = self.cleaned_data['name']
         )
         return new_position
+
+class Automobile_form(forms.ModelForm):
+    class Meta:
+        model = Automobile
+        fields = ['number', 'model', 'unite_p', 'used']
+    def saveFirst(self):
+        new_automobile = Automobile.objects.create(
+        number = self.cleaned_data['number'],
+        model = self.cleaned_data['model'],
+        unite_p = self.cleaned_data['unite_p'],
+        used = self.cleaned_data['used']
+        )
+        return new_automobile

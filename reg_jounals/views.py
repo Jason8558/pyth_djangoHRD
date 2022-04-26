@@ -468,23 +468,37 @@ def order_on_personnel(request):
         search_query = request.GET.get('op_search','')
         date_from = request.GET.get('op_search_from','')
         date_to = request.GET.get('op_search_to', '')
-        if date_from and date_to:
-            orders = OrdersOnPersonnel.objects.filter(op_date__range=(date_from, date_to)).order_by('op_date')
+        event = request.GET.get('op_event','')
+        events = OrdersOnPersonnelTypes.objects.all()
+
+        if date_from and date_to and event:
+            orders = OrdersOnPersonnel.objects.filter(op_date__range=(date_from, date_to)).filter(op_type__id = event).order_by('op_date')
             p_orders = Paginator(orders, 1000)
             page_number = request.GET.get('page', 1)
         else:
-            if search_query:
-                orders = OrdersOnPersonnel.objects.filter(op_emloyer__icontains=search_query).order_by('-id')
+
+            if date_from and date_to:
+                orders = OrdersOnPersonnel.objects.filter(op_date__range=(date_from, date_to)).order_by('op_date')
                 p_orders = Paginator(orders, 1000)
                 page_number = request.GET.get('page', 1)
-
             else:
-                orders = OrdersOnPersonnel.objects.all().order_by('-id')
-                p_orders = Paginator(orders, 20)
-                page_number = request.GET.get('page', 1)
+                if search_query:
+                    orders = OrdersOnPersonnel.objects.filter(op_emloyer__icontains=search_query).order_by('-id')
+                    p_orders = Paginator(orders, 1000)
+                    page_number = request.GET.get('page', 1)
+                else:
+                    if event:
+                        orders = OrdersOnPersonnel.objects.filter(op_type__id = event).order_by('op_date')
+                        p_orders = Paginator(orders, 1000)
+                        page_number = request.GET.get('page', 1)
+
+                    else:
+                        orders = OrdersOnPersonnel.objects.all().order_by('-id')
+                        p_orders = Paginator(orders, 20)
+                        page_number = request.GET.get('page', 1)
         page = p_orders.get_page(page_number)
         count = len(orders)
-        return render(request, 'reg_jounals/orders_on_personnel.html', context={'orders':page, 'count':count})
+        return render(request, 'reg_jounals/orders_on_personnel.html', context={'orders':page, 'count':count, 'events':events})
     else:
         return render(request, 'reg_jounals/no_auth.html')
 

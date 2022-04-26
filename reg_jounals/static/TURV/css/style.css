@@ -576,25 +576,7 @@ margin-right: 10px;
 width: 102px;
 }
 
-#t_emps_chosen {
-font-size: 17px;
-font-weight: bold;
-/* background: #005eff; */
-}
-#t_emps_chosen .chosen-single {
-background: #005eff;
-height: 39px;
-padding: 6px;
-color: black;
-}
 
-#t_emps_chosen .chosen-results  li:hover {
-background: #005eff;
-}
-
-#t_emps_chosen .chosen-results  .highlighted {
-background: #005eff;
-}
 
 #u_dep {
   height: 500px;
@@ -643,4 +625,32 @@ background: #005eff;
 
 #ot_container {
   width: 764px;
+}
+
+.chosen-single {
+
+border: 2px solid #5a9dff !important;height: 30px !important;background: white !important;}
+
+.chosen-results {    padding: 3px !important;}
+
+#new_auto {
+  display: block !important;
+  width: max-content;
+}
+
+#new_auto .fields {
+  display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    flex-wrap: nowrap;
+    align-content: center;
+    align-items: baseline;
+}
+
+#new_auto .buttons {
+  margin-top: 22px;
+}
+
+#id_unite_p {
+  width: 56px;
 }

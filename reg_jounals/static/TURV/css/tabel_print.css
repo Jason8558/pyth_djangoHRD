@@ -63,6 +63,7 @@ nav {
 
 .cover-footer h3 {
   font-size: 14pt !important;
+  margin: 4px 0px;
 }
 
 table  .for-print {
@@ -73,10 +74,10 @@ table  .for-print {
   /* border-bottom: 2px solid black !important; */
 }
 
-.fio {
-  text-align: left;
+/* .fio {
+
   width: 278px !important;
-}
+} */
 
 .thin-itogo {
 width: 36px;

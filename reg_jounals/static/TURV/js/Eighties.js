@@ -290,8 +290,14 @@ types_rows_nums[i].textContent = n
   if (s37 != 0) {
   vac_include[i].textContent +=  ' | ОЗ ' + s37}
 
+if ($('#tabel-type').text() != 1) {
+  weekends[i].textContent = weekends[i].innerText
+  console.log('1');
+}
+else {
+  weekends[i].textContent =  parseInt(weekends[i].innerText, 10)/8
+}
 
-weekends[i].textContent =  parseInt(weekends[i].innerText, 10)/8
 
 
 }

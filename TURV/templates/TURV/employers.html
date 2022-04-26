@@ -38,7 +38,7 @@
   <thead class="thead-dark">
   <tr class="tr-header">
 
-
+    <th scope="col">Код</th>
     <th scope="col">ФИО</th>
     <th scope="col">Должность</th>
     <th scope="col">Подразделение</th>
@@ -58,7 +58,7 @@
   {% if emp.fired %}
   <tr style="text-decoration: line-through" onclick="return window.open('{% url 'emp_upd' id=emp.id%}') " >
 
-
+    <td>{{emp.id}}</td>
     <td>{{emp.fullname}}</td>
     <td>{{emp.position}}</td>
     <td>{{emp.department}}</td>
@@ -75,7 +75,7 @@
 
   <tr  onclick="return window.open('{% url 'emp_upd' id=emp.id%}') " >
 
-
+    <td>{{emp.id}}</td>
     <td>{{emp.fullname}}</td>
     <td>{{emp.position}}</td>
     <td>{{emp.department}}</td>

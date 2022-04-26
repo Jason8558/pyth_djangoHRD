@@ -12,6 +12,9 @@
         {% if granted == 1%}
         <li><a href="{% url 'pos_list'%}"> > Должности</a></li>
         {%endif%}
+        {% if granted == 1 or unite == 1%}
+        <li><a href="{% url 'autos_list'%}"> > Автотранспорт</a></li>
+        {%endif%}
       </ul>
       </li>
       <li>Информация <span class='angle-down'>v</span>
@@ -28,6 +31,7 @@
       <ul class="service">
            <li><a  href="{% url 'unload'%}"> > Выгрузить для 1С</a></li>
            <li><a  href="{% url 'toxic-unload'%}"> > Выгрузить вредность для 1С</a></li>
+           <li><a  href="{% url 'unite-unload'%}"> > Выгрузить совмещение для 1С</a></li>
            <li><a  href="{% url 'overtime_url'%}"> > Обновить годовую норму времени сотрудников</a></li>
 
 
@@ -92,6 +96,13 @@ function Supchecked() {
       <option value="{{dep.id}}">{{dep}}</option>
       {% endfor%}
   </select>
+  <label for="search_type">По виду</label>
+  <select class="" name="search_type">
+    {%for t in type%}
+      <option value="{{t.id}}">{{t.name}}</option>
+    {%endfor%}
+
+  </select>
 
   {% if granted == 1%}
   <select class=""  name="tab_user">
@@ -116,7 +127,7 @@ function Supchecked() {
 <table>
   <thead class="thead-dark">
   <tr class="tr-header">
-
+    <th scope="col">Код</th>
     <th scope="col">Вид</th>
     <th scope="col">Период составления</th>
     <th scope="col">Подразделение</th>
@@ -140,10 +151,14 @@ function Supchecked() {
 
 {% if tabel.type.id == 2 %}
 <tr  style="background: lightgreen !important;"onclick="return window.open('{% url 'tabel_create_url' id=tabel.id%}')" >
-{%else%}
+{%endif%}
+{% if tabel.type.id == 3 %}
+<tr  style="background: #8702cb !important; color:white;" onclick="return window.open('{% url 'tabel_create_url' id=tabel.id%}')" >
+{%endif%}
+{% if tabel.type.id == 1 %}
 <tr  onclick="return window.open('{% url 'tabel_create_url' id=tabel.id%}')" >
 {%endif%}
-
+    <td>{{tabel.id}}</td>
     <td>{{tabel.type}}</td>
     <td><span class="field_month">{{tabel.month}}</span> {{tabel.year}}  </td>
     <td>{{tabel.department}}</td>
