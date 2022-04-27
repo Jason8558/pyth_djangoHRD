@@ -968,12 +968,13 @@ def toxic_unload(request):
 
                 if notulonl == "1":
                     items = TabelItem.objects.filter(employer__department_id=dep.id).filter(month=month).filter(year=year).filter(bound_tabel__unloaded=False).filter(bound_tabel__type__id = 2).order_by('employer')
-
+                    print(items)
                 else:
                     items = TabelItem.objects.filter(employer__department_id=dep.id).filter(month=month).filter(bound_tabel__type_id = 2).filter(year=year).order_by('employer')
-
+                    print(items)
 
                 if items:
+                    print(items)
 
                     ct = items[0].bound_tabel.id
                     current_tabel = Tabel.objects.get(id=ct)

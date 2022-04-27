@@ -353,8 +353,16 @@ class Employer_form(forms.ModelForm):
         fields = ['fullname', 'sex', 'position', 'department', 'level', 'positionOfPayment', 'shift_personnel', 'stand_worktime', 'fired']
 
     def saveFirst(self):
+        if len(str(self.cleaned_data['fullname']).split(" ")) > 2:
+            name = str(self.cleaned_data['fullname']).split(" ")
+            lastname = str(name[0]) + ' '
+            firstname = str(name[1][0]) + '.'
+            middlename = str(name[2][0]) + '.'
+            fullname = str(lastname) + str(firstname) + str(middlename)
+        else:
+            fullname = self.cleaned_data['fullname']
         new_employer = Employers.objects.create(
-            fullname  = self.cleaned_data['fullname'],
+            fullname  = fullname,
             sex = self.cleaned_data['sex'],
             position = self.cleaned_data['position'],
             shift_personnel = self.cleaned_data['shift_personnel'],
