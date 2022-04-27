@@ -84,7 +84,7 @@
     <th  >Раз.</th>
     <th >Ст.</th>
     {%if b_tabel.type.id == 3%}
-    <th>А/М</th>
+    <th >А/М</th>
     <th>% доп.</th>
     {%endif%}
     {%if b_tabel.type.id == 2%}
@@ -227,7 +227,7 @@
       <td class="not-print cell_bb"  >{{item.employer.level}}</td>
       <td   class="cell_bb">{{item.employer.positionOfPayment}}</td>
       {%if b_tabel.type.id == 3%}
-      <td>{{item.auto.number}}</td>
+      <td style="text-transform: uppercase;">{{item.auto.number}}</td>
       <td>{{item.auto.unite_p}}</td>
       {%endif%}
       {%if b_tabel.type.id == 2%}
@@ -302,7 +302,7 @@
     <td class="not-print"></td>
     <td class="not-print"></td>
 
-    <td ></td>
+    <td></td>
     <td></td>
     <td></td>
     <td></td>
