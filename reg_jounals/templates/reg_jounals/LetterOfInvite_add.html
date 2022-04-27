@@ -14,12 +14,27 @@
 <form class="add_form" action="" method="post">
   {% csrf_token %}
   <h3>Номер заявления: <span id="next_num">{{next_num}}</span></h3>
-  {% for field in form %}
-  <p>{{field.label}}{{ field }}</p>
-  {% endfor%}
+  <p class="p_unite"><span>{{form.loi_date.label}}{{form.loi_date}}</span><span>{{form.loi_dateOfInv.label}}{{form.loi_dateOfInv}}</span></p>
+  <p><span>{{form.loi_employee.label}}{{form.loi_employee}}</span></p>
+  <p class="p_unite"><span>{{form.loi_position.label}}<select class="" id="sel_pos" name="">
+    {%for p in pos%}
+      <option value="{{p.id}}">{{p}}</option>
+    {%endfor%}
+  </select></span>
+  <span>{{form.loi_department.label}}{{form.loi_department}}</span></p>
+  <p>{{form.loi_additionalData.label}}{{form.loi_additionalData}}</p>
+  <p class="hide_field">{{form.loi_position}}</p>
 
   <input class="btn btn-success" type="submit" value="Добавить" />
   <a class="btn btn-outline-danger" href=".">Отмена</a>
 </form>
+
+<script type="text/javascript">
+$('#sel_pos').change(function() {
+  $('#id_loi_position').val('')
+
+  $('#id_loi_position').val($('#sel_pos option:selected').text())
+})
+</script>
 
 {%endblock%}

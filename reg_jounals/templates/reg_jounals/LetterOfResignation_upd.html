@@ -13,17 +13,39 @@
 {%endif%}
 <form class="add_form" action="" method="post">
   {% csrf_token %}
-  {% for field in form %}
-  <p>{{field.label}}{{ field }}</p>
-  {% endfor%}
+  <p class="p_unite"><span>{{form.lor_date.label}}{{form.lor_date}}</span><span>{{form.lor_dateOfRes.label}}{{form.lor_dateOfRes}}</span></p>
+  <p><span>{{form.lor_employee.label}}{{form.lor_employee}}</span></p>
+  <p class="p_unite"><span>{{form.lor_position.label}}<select class="" id="sel_pos" name="">
+    {%for p in pos%}
+      <option value="{{p}}">{{p}}</option>
+    {%endfor%}
+  </select></span>
+  <span>{{form.lor_departament.label}}{{form.lor_departament}}</span></p>
+  <p>{{form.lor_additionalData.label}}{{form.lor_additionalData}}</p>
+  <p class="hide_field">{{form.lor_position}}</p>
 
   <input class="btn btn-success" type="submit" value="Сохранить" />
   <a id="close" class="btn btn-outline-danger" href="..">Отмена</a>
 </form>
 
 <script type="text/javascript">
+  $(document).ready(function(){
+
+    $('#sel_pos option').filter(function() {
+      return ($(this).val() == $('#id_lor_position').val()); //To select Blue
+    }).prop('selected', true);
+
+  })
+
   prev = document.referrer
   $('#close').attr('href', prev)
+
+  $('#sel_pos').change(function() {
+    $('#id_lor_position').val('')
+
+    $('#id_lor_position').val($('#sel_pos option:selected').text())
+  })
+
 </script>
 
 {%endblock%}

@@ -3,7 +3,7 @@
 
 
 {%block title%}Изменить запись{% endblock %}
-{%block header%}{{item.fio}} в приказе {{order.order_number}}{% endblock %}
+{%block header%}{{item.fio}} в приказе {{item.bound_order.order_number}}{% endblock %}
 
 {%block content%}
 
@@ -13,16 +13,17 @@
 {{form.errors}}
 </div>
 {%endif%}
-<form class="add_form sick_list" action="" method="post">
+<form id="vacation" class="add_form" action="" method="post">
   {% csrf_token %}
-  <!-- <p>Номер реестра:{{form.sd_reg_number}}</p> -->
+
   <p>{{form.fio.label}}{{form.fio}}</p>
   <p>{{form.dep.label}}{{form.dep}}</p>
-  <p>{{form.dur_from.label}}{{form.dur_from}}</p>
-  <p>{{form.dur_to.label}}{{form.dur_to}}</p>
-  <p>{{form.days_count.label}}{{form.days_count}}</p>
-  <p>{{form.vac_type.label}}{{form.vac_type}}</p>
+  <p class="p_unite"><span>{{form.dur_from.label}}{{form.dur_from}} </span> <span>{{form.dur_to.label}}{{form.dur_to}}</span></p>
+
+  <p class="p_unite"><span>{{form.days_count.label}}{{form.days_count}}</span> <span>{{form.vac_type.label}}{{form.vac_type}}</span></p>
+
   <p>{{form.comm.label}}{{form.comm}}</p>
+
 
 
 
