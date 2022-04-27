@@ -106,15 +106,14 @@ font-size: 20pt;
 
 .add_form {
   display: grid;
-  /*   grid-template-rows: repeat(42px); */
-  /* grid-template-columns: repeat(1, 100%); */
   grid-gap: 14px;
-  /* padding: 9px; */
-  /* width: 50%; */
   margin: 0 auto;
-  /* background: white; */
-  /* border: 6px solid #72d8ff; */
-  /* border-radius: 16px; */
+  width: 579px;
+  border: 1px solid #72d8ff;
+  padding: 10px;
+  box-shadow: 0px 0px 8px 2px #72d8ff;
+
+
 }
 
 .f_search {
@@ -548,6 +547,15 @@ grid-area: tabel;
 
 grid-area: main;
 }
+
+.p_unite {display: flex;}
+
+.p_unite span {padding: 6px;}
+
+.p_unite input {}
+
+.hide_field {position: absolute;
+    visibility: hidden;}
 
 /*ÐœÐµÐ´Ð¸Ð° Ð·Ð°Ð¿Ñ€Ð¾ÑÑ‹*/
 
