@@ -1,4 +1,4 @@
-function print() {
+function print(year, month, dep) {
 
 
   info = navigator.userAgent.split(' ')
@@ -30,7 +30,9 @@ WinPrint.document.write("</style>")
 
 
 
+
   WinPrint.document.write("<div style='display:block !important;' class='for-print not-screen cover'> " + $(".cover").html() + "</div>")
+
     rows = $(".tabel tbody tr")
 
     parts = ((rows.length)/rcount)
@@ -170,6 +172,12 @@ switch (month) {
   if ($('#tabel-type').text() == 3) {
     WinPrint.document.write("<h1 style='text-align:center; font-size: 25pt;'> Табель совмещения за " + month + " " + year + " " + dep + "</h1>")
   }
+
+  if ($('#tabel-type').text() == 4) {
+  WinPrint.document.write("<h1 style='text-align:center; font-size: 25pt;'> Табель учета рабочего времени в выходные дни за" + month + " " + year + " " + dep + " по приказу ______ от __ __ ____</h1>")
+  }
+
+
 
 
 

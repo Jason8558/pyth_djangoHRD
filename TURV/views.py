@@ -230,7 +230,7 @@ def tabel_create(request, id):
                     items = TabelItem.objects.filter(bound_tabel=id).filter(employer__position__name=sq_position).order_by('employer')
                 else:
                     items = TabelItem.objects.filter(bound_tabel=id).order_by('employer')
-            if b_tabel.type_id != 1:
+            if (b_tabel.type_id != 1) or (b_tabel.type_id == 4):
                 hours = items.aggregate(sum_of_hours=Sum("w_hours"), sum_of_lhours=Sum("sHours19"), sum_of_days=Sum("w_days"),  s_over=Sum('sHours4'), s_night=Sum("sHours2"), s_vacwork=Sum("sHours3"),     s_vac=Sum("v_days"), s_weekends=Sum("sHours24"))
                 s_hours = hours['sum_of_hours']
                 s_lhours = hours['sum_of_lhours']
