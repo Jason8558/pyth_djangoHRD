@@ -255,7 +255,7 @@ def tabel_create(request, id):
             t_month = b_tabel.month
             t_year = b_tabel.year
             t_dep = b_tabel.department
-            if b_tabel.type_id != 1:
+            if b_tabel.type_id != 1 and b_tabel.type_id != 4 :
 
                 return render(request, 'TURV/create_tabel_small.html', context={'positions':positions, 's_hours':s_hours, 's_lhours':s_lhours, 's_days':s_days, 's_over':s_over, 's_night':s_night, 's_vacwork':s_vacwork,
     's_vac':s_vac,
@@ -263,6 +263,7 @@ def tabel_create(request, id):
 
             'hours':hours,'form':tabel_form, 'items':items, 'print':allow_print, 'month':t_month, 'year':t_year, 'count':count, 'b_tabel':b_tabel, 'granted':granted, 'ro':is_ro})
             else:
+
                 return render(request, 'TURV/create_tabel.html', context={'positions':positions,
                 's_hours':s_hours,
     's_lhours':s_lhours,
@@ -361,7 +362,7 @@ def tabel_upditem(request, id):
             month = item.bound_tabel.month
             department = item.bound_tabel.department
             type = item.bound_tabel.type_id
-            if type != 1:
+            if type != 1 and type != 4:
                 return render(request, 'TURV/upd_tabel_itemSmall.html', context={'tabel':bound_form, 'item':item, 'b_tabel':item.bound_tabel.id, 'year':year, 'month':month, 'type':type})
             else:
                 return render(request, 'TURV/upd_tabel_item.html', context={'tabel':bound_form, 'item':item, 'b_tabel':item.bound_tabel.id, 'year':year, 'month':month, 'type':type})
