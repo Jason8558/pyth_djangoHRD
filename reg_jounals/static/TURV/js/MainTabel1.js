@@ -482,9 +482,8 @@ if ($('#tabel-type').text() == 1 || $('#tabel-type').text() == 4 ){
   let s3 = 0 //РВ
   if ($('#manover').prop('checked') == false){
   let s4 = 0} //сверхурочка
-  else {
-    let s4 = 0
-  }
+  let s4 = 0
+
   let s5 = 0 //Вахтовый метод
   let s6 = 0 //командировка
   let s7 = 0 //ПК
