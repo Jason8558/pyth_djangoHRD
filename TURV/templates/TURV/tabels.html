@@ -5,7 +5,7 @@
 {%block header%}
     {% if granted == 1 or user.is_superuser%}<a href="/" class="btn btn-dark"> < Назад </a>{%endif%}
     Табели учета рабочего времени. Всего: {{count}}.
-    <ul class="menu">
+    <ul id="big-menu" class="menu">
       <li>Справочники <span class='angle-down'>v</span>
       <ul class="sprav">
         <li><a href="{% url 'emp_list'%}"> > Сотрудники</a></li>
@@ -50,6 +50,57 @@
     </ul>
 
 
+    <ul style="display:none;" id="small-menu" class="small-menu">
+        <li>Меню</li>
+      <ul style="display: none;">
+
+
+      <li>Справочники <span class='angle-down'>v</span>
+      <ul class="sprav">
+        <li><a href="{% url 'emp_list'%}"> > Сотрудники</a></li>
+        {% if granted == 1%}
+        <li><a href="{% url 'pos_list'%}"> > Должности</a></li>
+        {%endif%}
+        {% if granted == 1 or unite == 1%}
+        <li><a href="{% url 'autos_list'%}"> > Автотранспорт</a></li>
+        {%endif%}
+      </ul>
+      </li>
+      <li>Информация <span class='angle-down'>v</span>
+      <ul class="info">
+        <li><a target="_blank" href="https://docs.google.com/document/d/1Z439AZgEkRSZErC1wrBpQE9ajGD-OPZIZOkNI08mPSg/edit?usp=sharing"> > Инструкция пользователя</a></li>
+        {% if user.is_superuser%}
+        <li><a target="_blank" href="https://docs.google.com/document/d/1MWZ-9vxpc1lO9-VJu_Idzoy7S3Vg8mqFRPYfTSCwzxA/edit?usp=sharing"> > Инструкция администратора</a></li>
+        {%endif%}
+
+      </ul>
+      </li>
+
+{%if request.user.is_superuser %}
+      <li>Сервис <span class='angle-down'>v</span>
+      <ul class="service">
+           <li><a  href="{% url 'unload'%}"> > Выгрузить для 1С</a></li>
+           <li><a  href="{% url 'toxic-unload'%}"> > Выгрузить вредность для 1С</a></li>
+           <li><a  href="{% url 'unite-unload'%}"> > Выгрузить совмещение для 1С</a></li>
+           <li><a  href="{% url 'overtime_url'%}"> > Обновить годовую норму времени сотрудников</a></li>
+
+
+
+      </ul>
+      </li>
+  {%endif%}
+      <li>Вид <span class='angle-down'>v</span>
+      <ul class="view">
+      <li> <a  href="?this_month=1"> > Показать только за текущий месяц</a></li>
+      {% if granted == 1%}
+      <li><a  href="?chk_this_month=1"> > Показать проверенные за текущий месяц</a></li>
+      {%endif%}
+      </ul>
+      </li>
+    </ul>
+    </ul>
+
+
 
 
 
@@ -69,8 +120,81 @@ function Supchecked() {
 }
 </script>
 
+<div style="display:none;" class="tabel-head-main">
+  <form action="" class="f_search">
+    <p>ФИЛЬТР</p>
+    <div class="f-elements">
+  <span>
+    <label for="search_month">Месяц:</label>
+    <select class="" name="search_month">
+      <option value="">Весь год</option>
+      <option value="01">Январь</option>
+      <option value="02">Февраль</option>
+      <option value="03">Март</option>
+      <option value="04">Апрель</option>
+      <option value="05">Май</option>
+      <option value="06">Июнь</option>
+      <option value="07">Июль</option>
+      <option value="08">Август</option>
+      <option value="09">Сентябрь</option>
+      <option value="10">Октябрь</option>
+      <option value="11">Ноябрь</option>
+      <option value="12">Декабрь</option>
+    </select>
+  </span>
+
+  <span>
+    <label for="search_year">Год</label>
+  <input type="text" placeholder="год..." name="search_year" value="">
+  </span>
+  <span>
+  <label for="t_tab_dep_search">Подразделение: </label>
+    <select class="" name="t_tab_dep_search">
+      <option value="">---</option>
+      {% for dep in deps%}
+        <option value="{{dep.id}}">{{dep}}</option>
+        {% endfor%}
+    </select>
+    </span>
+
+    <span>
+    <label for="search_type">По виду</label>
+    <select class="" name="search_type">
+      {%for t in type%}
+        <option value="{{t.id}}">{{t.name}}</option>
+      {%endfor%}
+
+    </select>
+    </span>
+
+  <span>
+    {% if granted == 1%}
+    <label for="tab_user">Ответственный</label>
+    <select class=""  name="tab_user">
+      <option value="">Поиск по ответственному</option>
+        {%for u in tab_users %}
+        <option value="{{u.first_name}}">{{u.first_name}}</option>
+        {%endfor%}
+    </select>
+  {%endif%}
+  </span>
+
+  </div>
+  <div class="f-buttons">
+  <input type="submit" name="" class="btn btn-dark" value="Найти">
+
+  <a class="btn btn-outline-danger" href="/turv">Сбросить поиск</a>
+  </div>
+  </form>
+  <div class="tabel-info-main">
+      <h6>ИНФОРМАЦИЯ</h6>
+      <h3 style="text-align: left !important; color: red !important">ИНФОРМАЦИЯ! Новые сотрудники добавляются в справочник АВТОМАТИЧЕСКИ! Инф. т.2035 </h3>
+  </div>
+</div>
 <form action="" class="f_search">
-  <p>ПОИСК</p>
+  <p>ФИЛЬТР</p>
+  <div class="f-elements">
+<span>
   <label for="search_month">Месяц:</label>
   <select class="" name="search_month">
     <option value="">Весь год</option>
@@ -87,8 +211,13 @@ function Supchecked() {
     <option value="11">Ноябрь</option>
     <option value="12">Декабрь</option>
   </select>
+</span>
 
+<span>
+  <label for="search_year">Год</label>
 <input type="text" placeholder="год..." name="search_year" value="">
+</span>
+<span>
 <label for="t_tab_dep_search">Подразделение: </label>
   <select class="" name="t_tab_dep_search">
     <option value="">---</option>
@@ -96,6 +225,9 @@ function Supchecked() {
       <option value="{{dep.id}}">{{dep}}</option>
       {% endfor%}
   </select>
+  </span>
+
+  <span>
   <label for="search_type">По виду</label>
   <select class="" name="search_type">
     {%for t in type%}
@@ -103,8 +235,11 @@ function Supchecked() {
     {%endfor%}
 
   </select>
+  </span>
 
+<span>
   {% if granted == 1%}
+  <label for="tab_user">Ответственный</label>
   <select class=""  name="tab_user">
     <option value="">Поиск по ответственному</option>
       {%for u in tab_users %}
@@ -112,13 +247,24 @@ function Supchecked() {
       {%endfor%}
   </select>
 {%endif%}
+</span>
+
+</div>
+<div class="f-buttons">
 <input type="submit" name="" class="btn btn-dark" value="Найти">
 
 <a class="btn btn-outline-danger" href="/turv">Сбросить поиск</a>
+</div>
 </form>
+<div class="tabel-info-main">
+    <h6>ИНФОРМАЦИЯ</h6>
+    <h3 style="text-align: left !important; color: red !important">ИНФОРМАЦИЯ! Новые сотрудники добавляются в справочник АВТОМАТИЧЕСКИ! Инф. т.2035 </h3>
+</div>
+
 
 <div class="container main">
-  <h3 style="text-align: left !important; color: red !important">ИНФОРМАЦИЯ! Новые сотрудники добавляются в справочник АВТОМАТИЧЕСКИ! Инф. т.2035 </h3>
+
+
   <a class="btn btn-success btn-add"  href="{% url 'new_tabel_url' %}"  >+ Новый табель</a>
 
 
@@ -150,16 +296,16 @@ function Supchecked() {
   {%for tabel in tabels %}
 
 {% if tabel.type.id == 2 %}
-<tr  style="background: lightgreen !important;"onclick="return window.open('{% url 'tabel_create_url' id=tabel.id%}')" >
+<tr class="row-toxic" onclick="return window.open('{% url 'tabel_create_url' id=tabel.id%}')" >
 {%endif%}
 {% if tabel.type.id == 3 %}
-<tr  style="background: #8702cb !important; color:white;" onclick="return window.open('{% url 'tabel_create_url' id=tabel.id%}')" >
+<tr class="row-unite" onclick="return window.open('{% url 'tabel_create_url' id=tabel.id%}')" >
 {%endif%}
 {% if tabel.type.id == 4 %}
-<tr  style="background: #ffc107 !important; color:white;" onclick="return window.open('{% url 'tabel_create_url' id=tabel.id%}')" >
+<tr  class="row-vac" onclick="return window.open('{% url 'tabel_create_url' id=tabel.id%}')" >
 {%endif%}
 {% if tabel.type.id == 1 %}
-<tr  onclick="return window.open('{% url 'tabel_create_url' id=tabel.id%}')" >
+<tr  class="row-main" onclick="return window.open('{% url 'tabel_create_url' id=tabel.id%}')" >
 {%endif%}
     <td>{{tabel.id}}</td>
     <td>{{tabel.type}}</td>
@@ -222,4 +368,24 @@ function Supchecked() {
 <h2>Табели не найдены</h2>
 {%endif%}
 </div>
+
+<script type="text/javascript">
+  $(window).load(changeElems())
+  $(window).resize(changeElems())
+
+  $('#small-menu').hover(function(){
+    alert(' ')
+  })
+
+  function changeElems(){
+    if ($(window).width() <= '1400') {
+      $('#big-menu').hide()
+      $('#small-menu').show()
+    }
+    else{
+      $('#big-menu').show()
+      $('#small-menu').hide()
+    }
+  }
+</script>
 {%endblock%}

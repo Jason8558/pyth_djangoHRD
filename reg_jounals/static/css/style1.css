@@ -362,7 +362,7 @@ width: 32%;height: 82px;margin: 4px;/* flex-wrap: wrap; */}
 }
 
 .btn-info:focus {
-  background-color: #eceb4a !important;
+  background-color: #5de1ff !important;
   color: #000 !important;
   border-color: !important;
   border: none !important;
