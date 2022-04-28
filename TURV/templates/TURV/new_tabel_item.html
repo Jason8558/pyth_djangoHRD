@@ -276,6 +276,10 @@
   <input type="button" onclick="Tabel();" class="btn btn-success tItem_submit" name="" value="Расчитать и добавить">
   </div>
   {% if b_tabel.type_id == 1%}
+  <div class="warning">
+    <h4 style="color: red">Внимание! При заполнении неполных часов (напр. 3.5; 3.2) следует разделять цифры ТОЧКОЙ, а не запятой</h4>
+
+  </div>
   {%else%}
   {% if b_tabel.type_id == 4%}
   <div class="warning">
