@@ -482,6 +482,9 @@ if ($('#tabel-type').text() == 1 || $('#tabel-type').text() == 4 ){
   let s3 = 0 //РВ
   if ($('#manover').prop('checked') == false){
   let s4 = 0} //сверхурочка
+  else {
+    let s4 = 0
+  }
   let s5 = 0 //Вахтовый метод
   let s6 = 0 //командировка
   let s7 = 0 //ПК
@@ -7367,7 +7370,7 @@ h_vac = s9 + s10 + s11 + s13 + s14 + s15 + s16 + s17 + s18 + s20 + s21 +  s24 + 
 //   weekends = s24/8
 // }
 
-  weekends = s24/8
+
 
 if ($('#manover').prop('checked') == false){
 s4 = h_work - parseFloat($('#n_time').text()) - s3}
@@ -7376,6 +7379,7 @@ if (s4 < 0) {
   s4 = 0
 }
 
+weekends = s24/8
 $('#weekends').val(weekends)
 $('#id_sHours1').val(s1)
 $('#id_sHours2').val(s2)
