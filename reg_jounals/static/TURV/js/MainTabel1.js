@@ -7346,26 +7346,28 @@ else {
 }
 
 
-
+console.log(s24);
 h_vac = s9 + s10 + s11 + s13 + s14 + s15 + s16 + s17 + s18 + s20 + s21 +  s24 + s25 + s26 + s27 + s28 + s29 + s30 + s31 + s32 + s33 + s34 + s37
 
-if ($('#tabel-type').text() != 1 || $('#tabel-type').text() != 4) {
-  weekends = 0
-  hours = $('.dig_hours')
-  for (var i = 0; i < hours.length; i++) {
-    if (hours[i].value == "В") {
-      weekends = weekends + 1
-      console.log(weekends);
-    }
+// if ($('#tabel-type').text() != 1 || $('#tabel-type').text() != 4) {
+//   weekends = 0
+//   console.log('here');
+//   hours = $('.dig_hours')
+//   for (var i = 0; i < hours.length; i++) {
+//     if (hours[i].value == "В") {
+//       weekends = weekends + 1
+//       console.log(weekends);
+//     }
+//
+//   }
+//   s24 = weekends
+// }
+// else {
+//
+//   weekends = s24/8
+// }
 
-  }
-  s24 = weekends
-}
-else {
   weekends = s24/8
-}
-
-
 
 if ($('#manover').prop('checked') == false){
 s4 = h_work - parseFloat($('#n_time').text()) - s3}
@@ -7422,7 +7424,7 @@ $('#id_w_hours').val(h_work)
 $('#id_v_days').val(vac)
 $('#id_v_hours').val(h_vac)
 
-console.log(s19);
+
 
 sum_fields = $('.summary_times').children('.st')
 container = $('#tabel_item')
