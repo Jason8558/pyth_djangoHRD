@@ -186,13 +186,14 @@
     <th class="day31 ">31</th>
     <th >Дни.</th>
     <th>Час./ЛЧ</th>
+    {% if b_tabel.type.id != 4%}
     <th >Св.</th>
     <th >НЧ</th>
     <th >в./пр.</th>
     <th >Сов.</th>
     <th >Нея.</th>
     <th >Из них</th>
-  {% if b_tabel.type.id != 4%}
+
 <th  >Вых.</th>
 
 
@@ -260,16 +261,17 @@
     <th class="day31 head-hours">31</th>
     <th class="thin-itogo">Дни.</th>
     <th class="wide-itogs">Час./ЛЧ</th>
+      {% if b_tabel.type.id != 4%}
     <th class="wide-itogs toxic-hide">Св.</th>
     <th class="thin-itogo toxic-hide">НЧ</th>
     <th class="thin-itogo toxic-hide">в./пр.</th>
     <th class="thin-itogo toxic-hide">Сов.</th>
     <th class="thin-itogo toxic-hide ">Нея.</th>
     <th class="include toxic-hide">Из них</th>
-    {% if b_tabel.type.id != 4%}
+
   <th class="thin-itogo" >Вых.</th>
-
-
+{%else%}
+    <th class="thin-itogo">НЧ</th>
   {%endif%}
 
 
@@ -343,43 +345,43 @@
       {%else%}
       <td rowspan="2" class="cell_bb wide-itogs">{{item.w_hours|floatformat:-2}}</td>
         {%endif%}
+      {% if b_tabel.type.id != 4%}
 
-      {% if item.sHours4 > 0 %}
-      <td rowspan="2"class="cell_bb wide-itogs toxic-hide">{{item.sHours4|floatformat:2}}</td>
-      {% else %}
-        <td rowspan="2" class="cell_bb toxic-hide"></td>
+          {% if item.sHours4 > 0 %}
+          <td rowspan="2"class="cell_bb wide-itogs toxic-hide">{{item.sHours4|floatformat:2}}</td>
+          {% else %}
+            <td rowspan="2" class="cell_bb toxic-hide"></td>
+          {%endif%}
+
+          {%if item.sHours2 %}
+            <td rowspan="2" class="cell_bb toxic-hide">{{item.sHours2}}</td>
+          {%else%}
+            <td rowspan="2" class="cell_bb toxic-hide "></td>
+          {%endif%}
+          {%if item.sHours3 %}
+            <td rowspan="2" class="cell_bb toxic-hide">{{item.sHours3}}</td>
+          {%else%}
+            <td rowspan="2" class="cell_bb toxic-hide"></td>
+          {%endif%}
+
+          {%if item.sHours35 %}
+            <td rowspan="2" class="cell_bb toxic-hide">{{item.sHours35}}</td>
+          {%else%}
+            <td rowspan="2" class="cell_bb toxic-hide "></td>
+            {%endif%}
+
+          {% if item.v_days > 0%}
+            <td rowspan="2" class="cell_bb toxic-hide ">{{item.v_days}}</td>
+          {%else%}
+            <td rowspan="2" class="cell_bb toxic-hide "></td>
+          {%endif%}
+
+          <td rowspan="2"class="vac-include cell_bb toxic-hide" ></td>
+
+          <td rowspan="2" class="weekends cell_bb">{{item.sHours24}}</td>
+      {%else%}
+        <td rowspan="2" style="" class="weekends cell_bb">{{item.sHours2}}</td>
       {%endif%}
-
-      {%if item.sHours2 %}
-        <td rowspan="2" class="cell_bb toxic-hide">{{item.sHours2}}</td>
-      {%else%}
-        <td rowspan="2" class="cell_bb toxic-hide "></td>
-      {%endif%}
-      {%if item.sHours3 %}
-        <td rowspan="2" class="cell_bb toxic-hide">{{item.sHours3}}</td>
-      {%else%}
-        <td rowspan="2" class="cell_bb toxic-hide"></td>
-      {%endif%}
-
-      {%if item.sHours35 %}
-        <td rowspan="2" class="cell_bb toxic-hide">{{item.sHours35}}</td>
-      {%else%}
-        <td rowspan="2" class="cell_bb toxic-hide "></td>
-        {%endif%}
-
-      {% if item.v_days > 0%}
-        <td rowspan="2" class="cell_bb toxic-hide ">{{item.v_days}}</td>
-      {%else%}
-        <td rowspan="2" class="cell_bb toxic-hide "></td>
-      {%endif%}
-
-      <td rowspan="2"class="vac-include cell_bb toxic-hide" ></td>
-        {% if b_tabel.type.id != 4%}
-      <td rowspan="2" class="weekends cell_bb">{{item.sHours24}}</td>
-      {%else%}
-        <td rowspan="2" style="display:none;" class="weekends cell_bb">{{item.sHours24}}</td>
-        {%endif%}
-
 
 
 
@@ -474,42 +476,32 @@
     <td class="day29"></td>
     <td class="day30"></td>
     <td class="day31"></td>
+    <td></td>
+    {%if b_tabel.type.id == 4%}
+
+      <td>{{s_days}}</td>
+      <td>{{s_hours}}\{{s_lhours}}</td>
+      <td>{{s_night}}</td>
 
 
 
-    {% if b_tabel.type.id == 2%}
-    <td class="for-print"></td>
-    <td class="for-print"></td>
-    <td >{{s_days}}</td>
-        <td >{{s_hours}}</td>
-        <td class="not-print"></td>
-        <td class="not-print"></td>
-        <td class="toxic-hide"></td>
-        <td class="toxic-hide"></td>
-        <td class="toxic-hide"></td>
-        <td class="toxic-hide"></td>
-        <td class="toxic-hide"></td>
-        <td class="toxic-hide"></td>
     {%else%}
 
-          <td ></td>
-
-            <td >{{s_days}}</td>
-        <td >{{s_hours}}\{{s_lhours}}</td>
-
-        <td class="toxic-hide">{{s_over|floatformat:2}}</td>
-        <td class="toxic-hide">{{s_night}}</td>
-        <td class="toxic-hide">{{s_vacwork}}</td>
-          <td class="toxic-hide"></td>
-            <td class="toxic-hide"></td>
-        <td class="toxic-hide">{{s_vac}}</td>
+      <td>{{s_days}}</td>
+      <td>{{s_hours}}/{{s_lhours}}</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td>{{s_vac}}</td>
+      <td>{{s_weekends}}</td>
 
     {%endif%}
-    {% if b_tabel.type.id != 4%}
-  <td>{{s_weekends}}</td>
-  {%else%}
-    <td style="display:none;">{{s_weekends}}</td>
-    {%endif%}
+
+
+
+
 
 
 
