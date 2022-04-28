@@ -192,8 +192,11 @@
     <th >Сов.</th>
     <th >Нея.</th>
     <th >Из них</th>
-    <th  >Вых.</th>
+  {% if b_tabel.type.id != 4%}
+<th  >Вых.</th>
 
+
+{%endif%}
 
 
 
@@ -263,7 +266,13 @@
     <th class="thin-itogo toxic-hide">Сов.</th>
     <th class="thin-itogo toxic-hide ">Нея.</th>
     <th class="include toxic-hide">Из них</th>
-    <th class="thin-itogo" >Вых.</th>
+    {% if b_tabel.type.id != 4%}
+  <th class="thin-itogo" >Вых.</th>
+
+
+  {%endif%}
+
+
 
 
 
@@ -357,13 +366,19 @@
       {%else%}
         <td rowspan="2" class="cell_bb toxic-hide "></td>
         {%endif%}
+
       {% if item.v_days > 0%}
         <td rowspan="2" class="cell_bb toxic-hide ">{{item.v_days}}</td>
       {%else%}
         <td rowspan="2" class="cell_bb toxic-hide "></td>
       {%endif%}
+
       <td rowspan="2"class="vac-include cell_bb toxic-hide" ></td>
+        {% if b_tabel.type.id != 4%}
       <td rowspan="2" class="weekends cell_bb">{{item.sHours24}}</td>
+      {%else%}
+        <td rowspan="2" style="display:none;" class="weekends cell_bb">{{item.sHours24}}</td>
+        {%endif%}
 
 
 
@@ -490,7 +505,12 @@
         <td class="toxic-hide">{{s_vac}}</td>
 
     {%endif%}
-    <td>{{s_weekends}}</td>
+    {% if b_tabel.type.id != 4%}
+  <td>{{s_weekends}}</td>
+  {%else%}
+    <td style="display:none;">{{s_weekends}}</td>
+    {%endif%}
+
 
 
 

@@ -267,17 +267,27 @@
     {{tabel.hours31}}
   </div>
   <div class="tabel_buttons">
+    {% if b_tabel.type_id == 1%}
     <button type="button" class="btn btn-warning " onclick='auto_fill()' name="t_auto_fill">Автозаполнение</button>
+    {%else%}
+    {%endif%}
   <button type="button" onclick="Tabel();" class="btn btn-outline-dark" name="button">Расчитать</button>
 
   <input type="button" onclick="Tabel();" class="btn btn-success tItem_submit" name="" value="Расчитать и добавить">
   </div>
   {% if b_tabel.type_id == 1%}
   {%else%}
+  {% if b_tabel.type_id == 4%}
   <div class="warning">
-    <h4 style="color: red">Внимание! При заполнении табеля вредности(совмещения), отпуска, ЛЧ и ночные указывать не нужно! Только фактическое количество отработаных часов!</h4>
+    <h4 style="color: red">Внимание! При заполнении табеля работы в выходные, следует указывать только ночные и дневные явки!</h4>
 
   </div>
+  {%else%}
+  <div class="warning">
+    <h4 style="color: red">Внимание! При заполнении табеля вредности или совмещения, отпуска, ЛЧ и ночные указывать не нужно! Только фактическое количество отработаных часов!</h4>
+
+  </div>
+  {%endif%}
   {%endif%}
 </div>
 
