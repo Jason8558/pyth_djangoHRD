@@ -1057,9 +1057,10 @@ def unite_unload(request):
                             print(item)
                             if item.w_hours != 0:
                                 ws.write(i,0,item.employer.fullname)
-                                ws.write(i,2,item.employer.stand_worktime)
                                 ws.write(i,1,item.auto.unite_p)
+                                ws.write(i,2,item.employer.stand_worktime)
                                 ws.write(i,3,item.w_hours)
+                                ws.write(i,4,item.employer.positionOfPayment)
                                 i = i+1
                         current_tabel.unloaded = True
                         current_tabel.save()
