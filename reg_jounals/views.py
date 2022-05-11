@@ -488,7 +488,7 @@ def order_on_personnel(request):
                     page_number = request.GET.get('page', 1)
                 else:
                     if event:
-                        orders = OrdersOnPersonnel.objects.filter(op_type__id = event).order_by('op_date')
+                        orders = OrdersOnPersonnel.objects.filter(op_type__id = event).order_by('op_date').order_by('-id')
                         p_orders = Paginator(orders, 1000)
                         page_number = request.GET.get('page', 1)
 
