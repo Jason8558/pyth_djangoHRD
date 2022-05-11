@@ -1,4 +1,7 @@
+type =   $('#tabel-type').text()
 $(document).ready(function(){
+
+
 
 
 
@@ -193,7 +196,7 @@ function Tabel() {
 
 
 // ВЫДАЕТ ОШИБКУ, ЕСЛИ ВМЕСТО 8 "В"
-if ($('#tabel-type').text() == 1 || $('#tabel-type').text() == 4) {
+if ($('#tabel-type').text() == 1 || $('#tabel-type').text() == 4 || $('#tabel-type').text() == 5) {
 
 
 checkfields = $('.dig_hours')
@@ -224,7 +227,7 @@ for (var field of checkfields) {
 
     }
     }
-if ($('#tabel-type').text() != 1 && $('#tabel-type').text() != 4){
+if ($('#tabel-type').text() != 1 && $('#tabel-type').text() != 4 && $('#tabel-type').text() != 5){
     checkfields = $('.dig_code')
     errors = 0
     for (var field of checkfields) {
@@ -256,7 +259,7 @@ if ($('#tabel-type').text() != 1 && $('#tabel-type').text() != 4){
 }
 
 // Виды аремени и кол-во часов
-if ($('#tabel-type').text() == 1 || $('#tabel-type').text() == 4 ){
+if ($('#tabel-type').text() == 1 || $('#tabel-type').text() == 4 || $('#tabel-type').text() == 5 ){
   tt1 = $('#id_type_time1').val().toUpperCase()
   $('#id_type_time1').val(tt1)
   h1 = $('#id_hours1').val()
@@ -524,7 +527,7 @@ if ($('#tabel-type').text() == 1 || $('#tabel-type').text() == 4 ){
   let h_work = 0 //часы явок
   let h_vac = 0 //часы неявок
 
-if ($('#tabel-type').text() == 1 || $('#tabel-type').text() == 4) {
+if ($('#tabel-type').text() == 1 || $('#tabel-type').text() == 4 || $('#tabel-type').text() == 5) {
 
 switch (tt1) {
   case 'Я':
@@ -7351,23 +7354,23 @@ else {
 console.log(s24);
 h_vac = s9 + s10 + s11 + s13 + s14 + s15 + s16 + s17 + s18 + s20 + s21 +  s24 + s25 + s26 + s27 + s28 + s29 + s30 + s31 + s32 + s33 + s34 + s37
 
-// if ($('#tabel-type').text() != 1 || $('#tabel-type').text() != 4) {
-//   weekends = 0
-//   console.log('here');
-//   hours = $('.dig_hours')
-//   for (var i = 0; i < hours.length; i++) {
-//     if (hours[i].value == "В") {
-//       weekends = weekends + 1
-//       console.log(weekends);
-//     }
-//
-//   }
-//   s24 = weekends
-// }
-// else {
-//
-//   weekends = s24/8
-// }
+if ($('#tabel-type').text() != 1 && $('#tabel-type').text() != 4 && $('#tabel-type').text() != '5') {
+
+  console.log($('#tabel-type').text());
+  hours = $('.dig_hours')
+  for (var i = 0; i < hours.length; i++) {
+    if (hours[i].value == "В") {
+      weekends = weekends + 1
+      console.log(weekends);
+    }
+
+  }
+  s24 = weekends
+}
+else {
+
+  weekends = s24/8
+}
 
 
 
@@ -7378,13 +7381,14 @@ if (s4 < 0) {
   s4 = 0
 }
 
-weekends = s24/8
+
 $('#weekends').val(weekends)
 $('#id_sHours1').val(s1)
 $('#id_sHours2').val(s2)
 $('#id_sHours3').val(s3)
-if ($('#manover').prop('checked') == false){
-$('#id_sHours4').val(s4)}
+
+if ($('#manover').prop('checked') == false){$('#id_sHours4').val(s4)}
+
 $('#id_sHours5').val(s5)
 $('#id_sHours6').val(s6)
 $('#id_sHours7').val(s7)
@@ -7399,12 +7403,7 @@ $('#id_sHours15').val(s15)
 $('#id_sHours16').val(s16)
 $('#id_sHours17').val(s17)
 $('#id_sHours18').val(s18)
-
-
-
-
-    $('#id_sHours19').val(s19)
-
+$('#id_sHours19').val(s19)
 $('#id_sHours20').val(s20)
 $('#id_sHours21').val(s21)
 $('#id_sHours22').val(s22)

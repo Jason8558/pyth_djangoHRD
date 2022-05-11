@@ -174,7 +174,11 @@ switch (month) {
   }
 
   if ($('#tabel-type').text() == 4) {
-  WinPrint.document.write("<h1 style='text-align:center; font-size: 25pt;'> Табель учета рабочего времени в выходные дни за" + month + " " + year + " " + dep + " по приказу ______ от __ __ ____</h1>")
+  WinPrint.document.write("<h1 style='text-align:center; font-size: 25pt;'> Табель учета рабочего времени в выходные дни за " + month + " " + year + " " + dep + " по приказу ______ от __ __ ____</h1>")
+  }
+
+  if ($('#tabel-type').text() == 5) {
+  WinPrint.document.write("<h1 style='text-align:center; font-size: 25pt;'> Табель учета сверхурочных часов за " + month + " " + year + " " + dep + " по приказу ______ от __ __ ____</h1>")
   }
 
 

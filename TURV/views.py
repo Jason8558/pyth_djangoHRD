@@ -230,7 +230,7 @@ def tabel_create(request, id):
                     items = TabelItem.objects.filter(bound_tabel=id).filter(employer__position__name=sq_position).order_by('employer')
                 else:
                     items = TabelItem.objects.filter(bound_tabel=id).order_by('employer')
-            if (b_tabel.type_id != 1) or (b_tabel.type_id == 4):
+            if (b_tabel.type_id != 1) or (b_tabel.type_id == 4) or (b_tabel.type_id == 5):
                 hours = items.aggregate(sum_of_hours=Sum("w_hours"), sum_of_lhours=Sum("sHours19"), sum_of_days=Sum("w_days"),  s_over=Sum('sHours4'), s_night=Sum("sHours2"), s_vacwork=Sum("sHours3"),     s_vac=Sum("v_days"), s_weekends=Sum("sHours24"))
                 s_hours = hours['sum_of_hours']
                 s_lhours = hours['sum_of_lhours']
@@ -255,7 +255,7 @@ def tabel_create(request, id):
             t_month = b_tabel.month
             t_year = b_tabel.year
             t_dep = b_tabel.department
-            if b_tabel.type_id != 1 and b_tabel.type_id != 4 :
+            if (b_tabel.type_id != 1) and (b_tabel.type_id != 4) and (b_tabel.type_id != 5):
 
                 return render(request, 'TURV/create_tabel_small.html', context={'positions':positions, 's_hours':s_hours, 's_lhours':s_lhours, 's_days':s_days, 's_over':s_over, 's_night':s_night, 's_vacwork':s_vacwork,
     's_vac':s_vac,
@@ -362,7 +362,7 @@ def tabel_upditem(request, id):
             month = item.bound_tabel.month
             department = item.bound_tabel.department
             type = item.bound_tabel.type_id
-            if type != 1 and type != 4:
+            if type != 1 and type != 4 and type != 5:
                 return render(request, 'TURV/upd_tabel_itemSmall.html', context={'tabel':bound_form, 'item':item, 'b_tabel':item.bound_tabel.id, 'year':year, 'month':month, 'type':type})
             else:
                 return render(request, 'TURV/upd_tabel_item.html', context={'tabel':bound_form, 'item':item, 'b_tabel':item.bound_tabel.id, 'year':year, 'month':month, 'type':type})
