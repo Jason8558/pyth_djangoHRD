@@ -3,6 +3,8 @@ from . import views
 
 urlpatterns = [
     path('', views.tabels, name='tabels_url'),
+    path('over/', views.over_tabels, name='over-tabels_url'),
+    path('vac/', views.vac_tabels, name='vac-tabels_url'),
     path('new/', views.new_tabel, name='new_tabel_url'),
     path('delete_checked/', views.del_tabel, name='del_tabel_url'),
     path('create/<int:id>', views.tabel_create, name='tabel_create_url'),

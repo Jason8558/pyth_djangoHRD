@@ -654,3 +654,19 @@ border: 2px solid #5a9dff !important;height: 30px !important;background: white !
 #id_unite_p {
   width: 56px;
 }
+
+#id_day {
+
+width: 46px;margin-right: 10px;}
+
+#id_year {
+
+width: 100px;}
+
+#t_month {
+
+width: 213px;margin-right: 24px;}
+
+.newtabel-date {
+
+display: flex;}

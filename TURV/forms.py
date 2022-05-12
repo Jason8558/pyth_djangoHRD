@@ -320,7 +320,7 @@ class TabelItem_form(forms.ModelForm):
 class Tabel_form(forms.ModelForm):
     class Meta:
         model = Tabel
-        fields = ['year', 'month', 'department', 'del_check', 'sup_check', 'type']
+        fields = ['year', 'month', 'department', 'del_check', 'sup_check', 'type', 'day']
 
     year = forms.CharField(label="Год (ТОЛЬКО 4 ЦИФРЫ!)", widget=forms.NumberInput(attrs={'maxlength':'4'}))
     def saveFirst(self, user_):
@@ -343,6 +343,7 @@ class Tabel_form(forms.ModelForm):
             month = self.cleaned_data['month'],
             department = self.cleaned_data['department'],
             type = self.cleaned_data['type'],
+            day = self.cleaned_data['day'],
             res_officer = user_)
 
         return new_tabel

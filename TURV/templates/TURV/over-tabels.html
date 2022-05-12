@@ -1,0 +1,129 @@
+{% extends 'TURV/index.html'%}
+
+{%block title%}Сверхурочка{% endblock %}
+
+{%block header%}
+  <a href="/turv/" class="btn btn-dark"> < Назад </a>
+    Табели учета сверхурочных часов. Всего: {{count}}.
+
+
+
+
+
+
+{%endblock%}
+
+{% block body %}
+
+<script type="text/javascript">
+function Supchecked() {
+
+
+  if ($('#supcheck').prop('checked') == true) {
+    $('#supcheck').val('1')
+  }
+  else {
+    $('#supcheck').val('0')
+  }
+}
+</script>
+
+
+
+<div class="container main">
+
+  <a class="btn btn-success btn-add"  href="{% url 'new_tabel_url' %}"  >+ Новый табель</a>
+
+
+{%if tabels%}
+
+<table>
+  <thead class="thead-dark">
+  <tr class="tr-header">
+    <th scope="col">Код</th>
+    <th scope="col">Дата</th>
+    <th scope="col">Подразделение</th>
+    {% if granted == 1 or user.is_superuser%}
+    <th scope="col">Ответственный</th>
+    {%endif%}
+    <th scope="col">Проверен СУП</th>
+      {% if granted == 1 or user.is_superuser%}
+      <th scope="col"> Загружен в 1С </th>
+      {%endif%}
+
+
+
+
+
+
+  </tr >
+  </thead>
+
+  {%for tabel in tabels %}
+
+
+<tr  onclick="return window.open('{% url 'tabel_create_url' id=tabel.id%}')" >
+
+    <td>{{tabel.id}}</td>
+
+    <td>{{tabel.day}}.{{tabel.month}}.{{tabel.year}}  </td>
+    <td>{{tabel.department}}</td>
+    {% if granted == 1 or user.is_superuser%}
+    <td>{{tabel.res_officer}}</td>
+    {%endif%}
+    {%if tabel.sup_check%}
+      <td>✅</td>
+    {%else%}
+      <td>❌</td>
+    {%endif%}
+    {% if granted == 1 or user.is_superuser%}
+      {%if tabel.unloaded%}
+        <td>✅</td>
+      {%else%}
+        <td>❌</td>
+      {%endif%}
+    {%endif%}
+
+
+
+
+</tr>
+  {%endfor%}
+</table>
+<nav  class="paginator" aria-label="Page navigation example">
+  <ul class="pagination">
+    <li class="page-item">
+      <a class="page-link" href="#" aria-label="Previous">
+<span aria-hidden="true">&laquo;</span>
+      </a>
+    </li>
+{% for p in tabels.paginator.page_range %}
+  {% if tabels.number == p%}
+   <li class="page-item active"><a class="page-link" href="?page={{p}}">{{ p }}</a></li>
+   {%else%}
+        <li class="page-item"><a class="page-link" href="?page={{p}}">{{ p }}</a></li>
+    {%endif%}
+  {% endfor %}
+
+{%if tabels.has_next%}
+    <li class="page-item">
+      <a class="page-link" href='?page={{letters.next_page_number}}' aria-label="Next">
+<span aria-hidden="true">&raquo;</span>
+      </a>
+    </li>
+  {%else%}
+  <li class="page-item disabled">
+    <a class="page-link" href='#' aria-disabled='true' aria-label="Next">
+      <span aria-hidden="true">&raquo;</span>
+    </a>
+  </li>
+  {%endif%}
+  </ul>
+</nav>
+
+{%else%}
+<h2>Табели не найдены</h2>
+{%endif%}
+</div>
+
+{%endblock%}

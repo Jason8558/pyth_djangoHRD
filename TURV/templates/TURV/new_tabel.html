@@ -22,27 +22,33 @@
     <option value="{{dep.name}}">{{dep.name}}</option>
   {%endfor%}
   </select>
-<label for="t_month">Месяц</label>
+
+  <div class="newtabel-date">
+
+
+   <span style="display: none;" id="day">{{form.day}}</span>
 
 
 
+    <select class="" onchange="SetMonth()" id="t_month" name="t_month">
+      <option value="01">Январь</option>
+      <option value="02">Февраль</option>
+      <option value="03">Март</option>
+      <option value="04">Апрель</option>
+      <option value="05">Май</option>
+      <option value="06">Июнь</option>
+      <option value="07">Июль</option>
+      <option value="08">Август</option>
+      <option value="09">Сентябрь</option>
+      <option value="10">Октябрь</option>
+      <option value="11">Ноябрь</option>
+      <option value="12">Декабрь</option>
+    </select>
 
-<select class="" onchange="SetMonth()" id="t_month" name="t_month">
-  <option value="01">Январь</option>
-  <option value="02">Февраль</option>
-  <option value="03">Март</option>
-  <option value="04">Апрель</option>
-  <option value="05">Май</option>
-  <option value="06">Июнь</option>
-  <option value="07">Июль</option>
-  <option value="08">Август</option>
-  <option value="09">Сентябрь</option>
-  <option value="10">Октябрь</option>
-  <option value="11">Ноябрь</option>
-  <option value="12">Декабрь</option>
-</select>
 
-{{form.year.label}} {{form.year}}
+    {{form.year}}
+  </div>
+
 
 <div class="hide">
 {{form.department}}
@@ -56,4 +62,25 @@
   <a class="btn btn-outline-danger" href="..">Отмена</a>
 </form>
 </div>
+
+<script type="text/javascript">
+$(document).ready(function() {
+$("#id_day").attr('placeholder','День')
+$("#id_year").attr('placeholder','Год')
+})
+$("#id_type").change(function() {
+    if ($("#id_type option:selected").val() == '4' || $("#id_type option:selected").val() == '5'){
+      if ($("#id_department option:selected").val() == "3" || $("#id_department option:selected").val() == "2") {
+
+        $('#day').css('display','')
+    }
+
+
+}
+else {
+  $('#day').css('display','none')
+}
+})
+</script>
+
 {%endblock%}
