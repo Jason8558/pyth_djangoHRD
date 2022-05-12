@@ -67,7 +67,10 @@
 $(document).ready(function() {
 $("#id_day").attr('placeholder','День')
 $("#id_year").attr('placeholder','Год')
+
 })
+
+
 $("#id_type").change(function() {
     if ($("#id_type option:selected").val() == '4' || $("#id_type option:selected").val() == '5'){
       if ($("#id_department option:selected").val() == "3" || $("#id_department option:selected").val() == "2") {

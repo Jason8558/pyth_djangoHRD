@@ -47,7 +47,7 @@
       {%endif%}
       </ul>
       </li>
-
+  {%if granted == 1 or unite%}
       <li>Дополнительные <span class='angle-down'>v</span>
       <ul class="view">
         {%if granted == 1%}
@@ -57,6 +57,7 @@
             <li><a href="{% url 'over-tabels_url' %}">Сверхурочка</a></li>
             <li><a href="{% url 'vac-tabels_url' %}">Выходные</a></li>
         {%endif%}
+  {%endif%}
       </ul>
       </li>
 
