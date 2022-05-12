@@ -338,12 +338,12 @@ def vac_tabels(request):
         else:
             deps = Department.objects.all()
 
-            if granted == 1:
-                pag = 40
-                tabels = Tabel.objects.all().filter(type_id=4).filter(department_id__in=(2,3)).order_by('-year', '-month', 'type__id')
-            else:
-                pag = 40
-                tabels = Tabel.objects.all().filter(type_id=4).filter(department_id__in=allow_departments).order_by('-year', '-month', 'type__id')
+        if granted == 1:
+            pag = 40
+            tabels = Tabel.objects.all().filter(type_id=4).filter(department_id__in=(2,3)).order_by('-year', '-month', 'type__id')
+        else:
+            pag = 40
+            tabels = Tabel.objects.all().filter(type_id=4).filter(department_id__in=allow_departments).order_by('-year', '-month', 'type__id')
 
         p_tabels = Paginator(tabels, pag)
         page_number = request.GET.get('page', 1)
