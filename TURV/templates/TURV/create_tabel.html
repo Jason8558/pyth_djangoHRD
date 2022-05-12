@@ -16,7 +16,7 @@
 
 {%block scripts%}
   <script src="{% static 'TURV\js\Eighties.js' %}" charset="utf-8"></script>
-  <script src="{% static 'TURV\js\printtabel1.js' %}" charset="utf-8"></script>
+  <script src="{% static 'TURV\js\printtabel.js' %}" charset="utf-8"></script>
   <script src="{% static 'TURV\js\cookie.js' %}" charset="utf-8"></script>
     <link rel="stylesheet" href="{% static 'TURV\css\printwarning.css'%}">
   {%endblock%}
@@ -118,7 +118,7 @@
     {%endif%}
 {%endif%}
 
-{% if b_tabel.type.id == 4 or b_tabel.type.id == 5 %}
+{% if b_tabel.type.id == 4 or b_tabel.type.id == 5 or b_tabel.type.id == 6 %}
 <input class="btn btn-warning"  style="margin-left: 6px;" type="button" name="" onclick="print_toxic({{b_tabel.year}}, {{b_tabel.month}}, '{{b_tabel.department.name}}')" value="ПЕЧАТЬ">
 {%else%}
 <input class="btn btn-warning"  style="margin-left: 6px;" type="button" name="" onclick="print({{b_tabel.year}}, {{b_tabel.month}}, '{{b_tabel.department.name}}')" value="ПЕЧАТЬ">
@@ -186,7 +186,7 @@
     <th class="day31 ">31</th>
     <th >Дни.</th>
     <th>Час./ЛЧ</th>
-    {% if b_tabel.type.id != 4 and b_tabel.type.id != 5%}
+    {% if b_tabel.type.id != 4 and b_tabel.type.id != 5 and b_tabel.type.id != 6%}
     <th >Св.</th>
     <th >НЧ</th>
     <th >в./пр.</th>
@@ -261,7 +261,7 @@
     <th class="day31 head-hours">31</th>
     <th class="thin-itogo">Дни.</th>
     <th class="wide-itogs">Час./ЛЧ</th>
-      {% if b_tabel.type.id != 4 and b_tabel.type.id != 5 %}
+      {% if b_tabel.type.id != 4 and b_tabel.type.id != 5 and b_tabel.type.id != 6%}
     <th class="wide-itogs toxic-hide">Св.</th>
     <th class="thin-itogo toxic-hide">НЧ</th>
     <th class="thin-itogo toxic-hide">в./пр.</th>
@@ -345,7 +345,7 @@
       {%else%}
       <td rowspan="2" class="cell_bb wide-itogs">{{item.w_hours|floatformat:-2}}</td>
         {%endif%}
-      {% if b_tabel.type.id != 4 and b_tabel.type.id != 5%}
+      {% if b_tabel.type.id != 4 and b_tabel.type.id != 5 and b_tabel.type.id != 6%}
 
           {% if item.sHours4 > 0 %}
           <td rowspan="2"class="cell_bb wide-itogs toxic-hide">{{item.sHours4|floatformat:2}}</td>
@@ -477,7 +477,7 @@
     <td class="day30"></td>
     <td class="day31"></td>
     <td></td>
-    {%if b_tabel.type.id == 4 or b_tabel.type.id == 5 %}
+    {%if b_tabel.type.id == 4 or b_tabel.type.id == 5  or b_tabel.type.id == 6%}
 
       <td>{{s_days}}</td>
       <td>{{s_hours}}\{{s_lhours}}</td>

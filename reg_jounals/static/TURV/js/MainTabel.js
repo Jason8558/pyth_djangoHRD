@@ -1,4 +1,4 @@
-type =   $('#tabel-type').text()
+// type =   $('#tabel-type').text()
 $(document).ready(function(){
 
 
@@ -196,7 +196,7 @@ function Tabel() {
 
 
 // ВЫДАЕТ ОШИБКУ, ЕСЛИ ВМЕСТО 8 "В"
-if ($('#tabel-type').text() == 1 || $('#tabel-type').text() == 4 || $('#tabel-type').text() == 5) {
+if ($('#tabel-type').text() == 1 || $('#tabel-type').text() == 4 || $('#tabel-type').text() == 5 || $('#tabel-type').text() == 6) {
 
 
 checkfields = $('.dig_hours')
@@ -227,7 +227,7 @@ for (var field of checkfields) {
 
     }
     }
-if ($('#tabel-type').text() != 1 && $('#tabel-type').text() != 4 && $('#tabel-type').text() != 5){
+if ($('#tabel-type').text() != 1 && $('#tabel-type').text() != 4 && $('#tabel-type').text() != 5 && $('#tabel-type').text() != 6){
     checkfields = $('.dig_code')
     errors = 0
     for (var field of checkfields) {
@@ -259,7 +259,7 @@ if ($('#tabel-type').text() != 1 && $('#tabel-type').text() != 4 && $('#tabel-ty
 }
 
 // Виды аремени и кол-во часов
-if ($('#tabel-type').text() == 1 || $('#tabel-type').text() == 4 || $('#tabel-type').text() == 5 ){
+if ($('#tabel-type').text() == 1 || $('#tabel-type').text() == 4 || $('#tabel-type').text() == 5 || $('#tabel-type').text() == 6){
   tt1 = $('#id_type_time1').val().toUpperCase()
   $('#id_type_time1').val(tt1)
   h1 = $('#id_hours1').val()
@@ -527,7 +527,7 @@ if ($('#tabel-type').text() == 1 || $('#tabel-type').text() == 4 || $('#tabel-ty
   let h_work = 0 //часы явок
   let h_vac = 0 //часы неявок
 
-if ($('#tabel-type').text() == 1 || $('#tabel-type').text() == 4 || $('#tabel-type').text() == 5) {
+if ($('#tabel-type').text() == 1 || $('#tabel-type').text() == 4 || $('#tabel-type').text() == 5 || $('#tabel-type').text() == 6) {
 
 switch (tt1) {
   case 'Я':
@@ -7354,7 +7354,7 @@ else {
 console.log(s24);
 h_vac = s9 + s10 + s11 + s13 + s14 + s15 + s16 + s17 + s18 + s20 + s21 +  s24 + s25 + s26 + s27 + s28 + s29 + s30 + s31 + s32 + s33 + s34 + s37
 
-if ($('#tabel-type').text() != 1 && $('#tabel-type').text() != 4 && $('#tabel-type').text() != '5') {
+if ($('#tabel-type').text() != 1 && $('#tabel-type').text() != 4 && $('#tabel-type').text() != 5 && $('#tabel-type').text() != 6) {
 
   console.log($('#tabel-type').text());
   hours = $('.dig_hours')

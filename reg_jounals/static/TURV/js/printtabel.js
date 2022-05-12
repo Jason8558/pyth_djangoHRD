@@ -181,6 +181,10 @@ switch (month) {
   WinPrint.document.write("<h1 style='text-align:center; font-size: 25pt;'> Табель учета сверхурочных часов за " + month + " " + year + " " + dep + " по приказу ______ от __ __ ____</h1>")
   }
 
+  if ($('#tabel-type').text() == 6) {
+  WinPrint.document.write("<h1 style='text-align:center; font-size: 25pt;'> Табель дежурства за " + month + " " + year + " " + dep + " по приказу ______ от __ __ ____</h1>")
+  }
+
 
 
 
