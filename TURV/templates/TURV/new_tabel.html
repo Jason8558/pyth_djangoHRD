@@ -67,6 +67,30 @@
 $(document).ready(function() {
 $("#id_day").attr('placeholder','День')
 $("#id_year").attr('placeholder','Год')
+last = document.referrer.split('/')[4]
+
+switch (last) {
+    case 'vac':
+      $("#id_type option").remove()
+      $("#id_type").append('<option value="4">Выходные</option>')
+      $('#day').css('display','')
+    break;
+
+    case 'over':
+      $("#id_type option").remove()
+      $("#id_type").append('<option value="5">Сверхурочные</option>')
+      $('#day').css('display','')
+    break;
+
+}
+
+if (last == "vac") {
+
+  // $("#id_type option").filter(function() {return this.value == 4;}).prop('selected', true);
+
+
+}
+
 
 })
 

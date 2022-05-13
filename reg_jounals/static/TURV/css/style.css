@@ -670,3 +670,12 @@ width: 213px;margin-right: 24px;}
 .newtabel-date {
 
 display: flex;}
+
+/* media */
+
+@media (max-width: 1600px) {
+
+  .menu {
+    font-size: 10pt;
+  }
+}

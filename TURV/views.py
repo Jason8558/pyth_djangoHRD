@@ -94,7 +94,7 @@ def tabels(request):
 
         if request.user.is_superuser:
             granted = True
-            unite = True
+
 
         if (granted == False):
             # если пользователь только с правами на определенные подразделения, собираем их тут:
@@ -106,7 +106,7 @@ def tabels(request):
                 # если атц, то выдаем список автотранспорта
                 if (dep.id == 3) or (dep.id == 2) :
 
-                    print(unite)
+
                     unite = True
 
 
@@ -191,7 +191,7 @@ def tabels(request):
                                                             else:
                                                                 if unite == True:
                                                                     pag = 40
-                                                                    tabels = Tabel.objects.all().filter(~Q(type_id=5)).filter(~Q(type_id=4)).order_by('department__id' ,'-year', '-month', 'type__id')
+                                                                    tabels = Tabel.objects.all().filter(~Q(type_id=5)).filter(~Q(type_id=4)).order_by('-year', '-month', 'department__id' ,'type__id')
 
                                                                 else:
                                                                     pag = 40
@@ -469,7 +469,14 @@ def new_tabel(request):
             if tabel_form.is_valid():
                 user_ = request.user.first_name
                 tabel_form.saveFirst(user_)
-                return redirect('..')
+                last_tabel = Tabel.objects.latest('id')
+                if last_tabel.type_id == 4:
+                    return redirect('/turv/vac/')
+                else:
+                    if last_tabel.type_id == 5:
+                        return redirect('/turv/over/')
+                    else:
+                        return redirect('..')
 
         else:
 
