@@ -1,11 +1,11 @@
 {% extends 'TURV/index.html'%}
 
-{%block title%}Табели{% endblock %}
+{%block title%}Ненормированность{% endblock %}
 
 {%block header%}
-    {% if granted == 1 or user.is_superuser%}<a href="/" class="btn btn-dark"> < Назад </a>{%endif%}
-    Табели учета рабочего времени. Всего: {{count}}.
-    <ul class="menu">
+  <a href="/turv/" class="btn btn-dark"> < Назад </a>
+    Табели учета ненормированности. Всего: {{count}}.
+    <!-- <ul class="menu">
       <li>Справочники <span class='angle-down'>v</span>
       <ul class="sprav">
         <li><a href="{% url 'emp_list'%}"> > Сотрудники</a></li>
@@ -47,24 +47,16 @@
       {%endif%}
       </ul>
       </li>
-  {%if granted == 1 or unite%}
+
       <li>Дополнительные <span class='angle-down'>v</span>
       <ul class="view">
-        {%if granted == 1%}
-            <li><a href="{% url 'over-tabels_url' %}">Сверхурочка АТЦ</a></li>
-            <li><a href="{% url 'vac-tabels_url' %}">Выходные АТЦ</a></li>
-            <li><a href="{% url 'nn-tabels_url' %}">Ненормированность АТЦ</a></li>
-        {%else%}
-            <li><a href="{% url 'over-tabels_url' %}">Сверхурочка</a></li>
-            <li><a href="{% url 'vac-tabels_url' %}">Выходные</a></li>
-            <li><a href="{% url 'nn-tabels_url' %}">Ненормированность</a></li>
-        {%endif%}
-  {%endif%}
+        <li><a href="#">Свверхурочка</a></li>
+        <li><a href="#">Выходные</a></li>
       </ul>
       </li>
 
 
-    </ul>
+    </ul> -->
 
 
 
@@ -73,6 +65,7 @@
 {%endblock%}
 
 {% block body %}
+
 <script type="text/javascript">
 function Supchecked() {
 
@@ -86,7 +79,7 @@ function Supchecked() {
 }
 </script>
 
-<form action="" class="f_search">
+<!-- <form action="" class="f_search">
   <p>ПОИСК</p>
   <label for="search_month">Месяц:</label>
   <select class="" name="search_month">
@@ -132,10 +125,10 @@ function Supchecked() {
 <input type="submit" name="" class="btn btn-dark" value="Найти">
 
 <a class="btn btn-outline-danger" href="/turv">Сбросить поиск</a>
-</form>
+</form> -->
 
 <div class="container main">
-  <h3 style="text-align: left !important; color: red !important">ИНФОРМАЦИЯ! Новые сотрудники добавляются в справочник АВТОМАТИЧЕСКИ! Инф. т.2035 </h3>
+  <!-- <h3 style="text-align: left !important; color: red !important">ИНФОРМАЦИЯ! Новые сотрудники добавляются в справочник АВТОМАТИЧЕСКИ! Инф. т.2035 </h3> -->
   <a class="btn btn-success btn-add"  href="{% url 'new_tabel_url' %}"  >+ Новый табель</a>
 
 
@@ -145,8 +138,7 @@ function Supchecked() {
   <thead class="thead-dark">
   <tr class="tr-header">
     <th scope="col">Код</th>
-    <th scope="col">Вид</th>
-    <th scope="col">Период составления</th>
+    <th scope="col">Дата</th>
     <th scope="col">Подразделение</th>
     {% if granted == 1 or user.is_superuser%}
     <th scope="col">Ответственный</th>
@@ -166,26 +158,11 @@ function Supchecked() {
 
   {%for tabel in tabels %}
 
-{% if tabel.type.id == 2 %}
-<tr  style="background: lightgreen !important;"onclick="return window.open('{% url 'tabel_create_url' id=tabel.id%}')" >
-{%endif%}
-{% if tabel.type.id == 3 %}
-<tr  style="background: #8702cb !important; color:white;" onclick="return window.open('{% url 'tabel_create_url' id=tabel.id%}')" >
-{%endif%}
-{% if tabel.type.id == 4 %}
-<tr  style="background: #ffc107 !important; color:white;" onclick="return window.open('{% url 'tabel_create_url' id=tabel.id%}')" >
-{%endif%}
-{% if tabel.type.id == 5 %}
-<tr  style="background: #932f00 !important; color:white;" onclick="return window.open('{% url 'tabel_create_url' id=tabel.id%}')" >
-{%endif%}
-{% if tabel.type.id == 6 %}
-<tr  style="background: yellow !important; color:black;" onclick="return window.open('{% url 'tabel_create_url' id=tabel.id%}')" >
-{%endif%}
-{% if tabel.type.id == 1 %}
+
 <tr  onclick="return window.open('{% url 'tabel_create_url' id=tabel.id%}')" >
-{%endif%}
+
     <td>{{tabel.id}}</td>
-    <td>{{tabel.type}}</td>
+
     <td><span class="field_month">{{tabel.month}}</span> {{tabel.year}}  </td>
     <td>{{tabel.department}}</td>
     {% if granted == 1 or user.is_superuser%}
@@ -245,4 +222,5 @@ function Supchecked() {
 <h2>Табели не найдены</h2>
 {%endif%}
 </div>
+
 {%endblock%}

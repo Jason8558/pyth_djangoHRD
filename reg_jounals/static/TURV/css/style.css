@@ -671,6 +671,10 @@ width: 213px;margin-right: 24px;}
 
 display: flex;}
 
+.percent {
+  background: lightgray;
+}
+
 /* media */
 
 @media (max-width: 1600px) {

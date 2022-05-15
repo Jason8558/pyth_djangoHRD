@@ -147,8 +147,8 @@
     <p><span>{{tabel.sHours4.label}}</span>{{tabel.sHours4}}</p>
     <p><label style="color: blue;" for="manual_overwork">Ввести сверхурочные вручную</label><input type="checkbox" id="manover" name="manual_overwork" value=""></p>
     <p><span><label for="weekends">Выходных дней</label></span><input id="weekends" type="number" readonly name="weekends" value=""></p>
-    {%if b_tabel.type.id == 2%}
-    <p><span style="font-size:12pt;">Процент д-ты за вредность</span>{{tabel.toxic_p}}</p>
+    {%if b_tabel.type.id == 2 or b_tabel.type.id == 8%}
+    <p><span style="font-size:12pt;">Процент доплаты </span>{{tabel.toxic_p}}</p>
     {%endif%}
     {%if b_tabel.type.id == 3%}
     <p><span style="font-size:12pt;">Номер автомобиля(процент)</span>{{tabel.auto}}</p>

@@ -135,11 +135,11 @@ def tabels(request):
                                     else:
                                         if unite == True:
                                             pag = 40
-                                            tabels = Tabel.objects.all().filter(~Q(type_id=5)).filter(~Q(type_id=4)).filter(department_id__in=allow_departments).order_by('-month',  '-year', 'department__id' ,  'type__id')
+                                            tabels = Tabel.objects.all().filter(~Q(type_id=5)).filter(~Q(type_id=4)).filter(~Q(type_id=8)).filter(department_id__in=allow_departments).order_by('-month',  '-year', 'department__id' ,  'type__id')
 
                                         else:
                                             pag = 40
-                                            tabels = Tabel.objects.all().filter(department_id__in=allow_departments).order_by('department__id' ,'-year', '-month', 'type__id')
+                                            tabels = Tabel.objects.all().filter(~Q(type_id=5)).filter(~Q(type_id=8)).filter(department_id__in=allow_departments).order_by('department__id' ,'-year', '-month', 'type__id')
 
 
 
@@ -191,11 +191,11 @@ def tabels(request):
                                                             else:
                                                                 if unite == True:
                                                                     pag = 40
-                                                                    tabels = Tabel.objects.all().filter(~Q(type_id=5)).filter(~Q(type_id=4)).order_by('-year', '-month', 'department__id' ,'type__id')
+                                                                    tabels = Tabel.objects.all().filter(~Q(type_id=5)).filter(~Q(type_id=4)).filter(~Q(type_id=8)).order_by('-year', '-month', 'department__id' ,'type__id')
 
                                                                 else:
                                                                     pag = 40
-                                                                    tabels = Tabel.objects.all().filter(day='0').order_by('-year', '-month', 'department__id' ,'type__id')
+                                                                    tabels = Tabel.objects.all().filter(~Q(type_id=5)).filter(~Q(type_id=8)).filter(day='0').order_by('-year', '-month', 'department__id' ,'type__id')
 
 
 
@@ -358,6 +358,84 @@ def vac_tabels(request):
 
 # =========================================
 
+# -----------------------------------------
+
+def nn_tabels(request):
+ #Проверка на аутентификацию
+    if request.user.is_authenticated:
+        # Переменные
+        type = TabelType.objects.all()
+        group = Group.objects.get(name__icontains='Табельщик')
+        tab_users = group.user_set.all().order_by('first_name')
+        sq_period_month = request.GET.get('search_month', '')
+        sq_period_year = request.GET.get('search_year', '')
+        sq_dep = request.GET.get('t_tab_dep_search', '')
+        sq_check = request.GET.get('tab_supcheck','')
+        sq_user = request.GET.get('tab_user','')
+        sq_this_month = request.GET.get('this_month','')
+        sq_check_this_month = request.GET.get('chk_this_month','')
+        sq_type = request.GET.get('search_type', '')
+        user_ = request.user
+        u_group = user_.groups.all()
+        is_ro = 0
+        granted = 0
+        unite = False
+
+        # Определение текущего месяца и года
+        now = datetime.datetime.now()
+        if len(str(now.month)) == 1:
+            month_ = str(0) + str(now.month)
+        else:
+            month_ = now.month
+        year_ = now.year
+
+        # Проверка на права пользователя
+        for group in u_group:
+            if (group.name == 'Сотрудник СУП') or (group.name == 'Сотрудник РО'):
+                granted = True
+
+        if request.user.is_superuser:
+            granted = True
+            unite = True
+
+        if (granted == False):
+            # если пользователь только с правами на определенные подразделения, собираем их тут:
+            deps = Department.objects.all().filter(user=user_.id)
+            allow_departments = []
+            for dep in deps:
+
+                allow_departments.append(dep.id)
+                # если атц, то выдаем список автотранспорта
+                if (dep.id == 3) or (dep.id == 2) :
+
+                    print(unite)
+                    unite = True
+
+
+        else:
+            deps = Department.objects.all()
+
+        if granted == 1:
+            pag = 40
+            tabels = Tabel.objects.all().filter(type_id=8).filter(department_id__in=(2,3)).order_by('-year', '-month', 'type__id')
+        else:
+            pag = 40
+            tabels = Tabel.objects.all().filter(type_id=8).filter(department_id__in=allow_departments).order_by('-year', '-month', 'type__id')
+
+        p_tabels = Paginator(tabels, pag)
+        page_number = request.GET.get('page', 1)
+        page = p_tabels.get_page(page_number)
+        count = len(tabels)
+
+
+
+        return render(request, 'TURV/nn-tabels.html', context={'type':type, 'tab_users':tab_users, 'tabels':page, 'count':count, 'deps':deps, 'granted':granted, 'ro':is_ro, 'month_':month_, "year_":year_, 'unite':unite})
+    else:
+        return redirect('/accounts/login/')
+
+# =========================================
+
+
 
 
 def tabel_create(request, id):
@@ -476,7 +554,10 @@ def new_tabel(request):
                     if last_tabel.type_id == 5:
                         return redirect('/turv/over/')
                     else:
-                        return redirect('..')
+                        if last_tabel.type_id == 8:
+                            return redirect('/turv/nn/')
+                        else:
+                            return redirect('..')
 
         else:
 

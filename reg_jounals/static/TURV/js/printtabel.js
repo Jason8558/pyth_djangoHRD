@@ -158,6 +158,7 @@ switch (month) {
     WinPrint.document.write(".thin-itogo {width:81px !important;}")
     WinPrint.document.write("#print_button {height: 50px; background:blue !important; font-size: 10pt;}")
     WinPrint.document.write(".fio {width:366px !important; text-align: left;}")
+      WinPrint.document.write(".percent {background: lightgray; text-decoration: underline !important;}")
     WinPrint.document.write("</style>")
 
     WinPrint.document.write('<link rel="stylesheet" type="text/css" href="/static/TURV/css/tabel_print.css"> ')
@@ -183,6 +184,10 @@ switch (month) {
 
   if ($('#tabel-type').text() == 6) {
   WinPrint.document.write("<h1 style='text-align:center; font-size: 25pt;'> Табель дежурства за " + month + " " + year + " " + dep + " по приказу ______ от __ __ ____</h1>")
+  }
+
+  if ($('#tabel-type').text() == 8) {
+  WinPrint.document.write("<h1 style='text-align:center; font-size: 25pt;'> Табель учета за " + month + " " + year + " " + dep + " по приказу ______ от __ __ ____</h1>")
   }
 
 
