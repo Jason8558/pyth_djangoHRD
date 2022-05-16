@@ -1259,7 +1259,8 @@ def toxic_unload(request):
                                 i = i+1
                         current_tabel.unloaded = True
                         current_tabel.save()
-                        name =  'S:\Сетевые папки\Обмен\Бухгалтерия\РАСЧЕТНЫЙ ОТДЕЛ\ВыгрузкаВредности' + sep + str(dn) + '_' + str(month)+'_'+str(year)+ '_vrednost.xls'
+                        # name =  'S:\Сетевые папки\Обмен\Бухгалтерия\РАСЧЕТНЫЙ ОТДЕЛ\ВыгрузкаВредности' + sep + str(dn) + '_' + str(month)+'_'+str(year)+ '_vrednost.xls'
+                        name =  '/samba/users/toxic/' + sep + str(dn) + '_' + str(month)+'_'+str(year)+ '_vrednost.xls'
                         wb.save(name)
 
 
