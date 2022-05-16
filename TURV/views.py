@@ -135,11 +135,11 @@ def tabels(request):
                                     else:
                                         if unite == True:
                                             pag = 40
-                                            tabels = Tabel.objects.all().filter(~Q(type_id=5)).filter(~Q(type_id=4)).filter(~Q(type_id=8)).filter(department_id__in=allow_departments).order_by('-month',  '-year', 'department__id' ,  'type__id')
+                                            tabels = Tabel.objects.all().filter(~Q(type_id=5)).filter(~Q(type_id=4)).filter(~Q(type_id=8)).filter(department_id__in=allow_departments).order_by('-year', '-month',   'department__id' ,  'type__id')
 
                                         else:
                                             pag = 40
-                                            tabels = Tabel.objects.all().filter(~Q(type_id=5)).filter(~Q(type_id=8)).filter(department_id__in=allow_departments).order_by('department__id' ,'-year', '-month', 'type__id')
+                                            tabels = Tabel.objects.all().filter(~Q(type_id=5)).filter(~Q(type_id=8)).filter(department_id__in=allow_departments).order_by('-year', '-month',   'department__id' , 'type__id')
 
 
 
@@ -191,11 +191,11 @@ def tabels(request):
                                                             else:
                                                                 if unite == True:
                                                                     pag = 40
-                                                                    tabels = Tabel.objects.all().filter(~Q(type_id=5)).filter(~Q(type_id=4)).filter(~Q(type_id=8)).order_by('-year', '-month', 'department__id' ,'type__id')
+                                                                    tabels = Tabel.objects.all().filter(~Q(type_id=5)).filter(~Q(type_id=4)).filter(~Q(type_id=8)).order_by('-year', '-month',   'department__id' , 'type__id')
 
                                                                 else:
                                                                     pag = 40
-                                                                    tabels = Tabel.objects.all().filter(~Q(type_id=5)).filter(~Q(type_id=8)).filter(day='0').order_by('-year', '-month', 'department__id' ,'type__id')
+                                                                    tabels = Tabel.objects.all().filter(~Q(type_id=5)).filter(~Q(type_id=8)).filter(day='0').order_by('-year', '-month',   'department__id' , 'type__id')
 
 
 
