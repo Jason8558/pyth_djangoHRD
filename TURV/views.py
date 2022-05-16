@@ -559,6 +559,7 @@ def new_tabel(request):
                 user_ = request.user.first_name
                 tabel_form.saveFirst(user_)
                 last_tabel = Tabel.objects.latest('id')
+            if last_tabel.department_id == 2 or last_tabel.department_id == 3 or last_tabel.department_id == 26 or last_tabel.department_id == 40:
                 if last_tabel.type_id == 4:
                     return redirect('/turv/vac/')
                 else:
@@ -569,6 +570,8 @@ def new_tabel(request):
                             return redirect('/turv/nn/')
                         else:
                             return redirect('..')
+            else:
+                return redirect('..')
 
         else:
 
