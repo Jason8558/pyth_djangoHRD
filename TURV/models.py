@@ -78,7 +78,7 @@ class Tabel(models.Model):
     del_check = models.BooleanField(verbose_name='Пометка удаления', default=False, blank=True)
     sup_check = models.BooleanField(verbose_name='Проверен СУП', default=False, blank=True)
     unloaded =  models.BooleanField(verbose_name='Загружен в 1С', default=False, blank=True)
-    comm = models.CharField(verbose_name='Комментарий', max_length=256, default="", blank=True)
+    comm = models.CharField(verbose_name='Комментарий (НЕОБЯЗАТЕЛЬНО)', max_length=256, default="", blank=True)
     res_officer = models.CharField(blank=True, editable=False,  max_length=256, help_text="Отвественный за составление табеля", verbose_name='Табельщик')
     class Meta:
         ordering = ['-year']
