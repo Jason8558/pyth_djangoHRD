@@ -165,7 +165,7 @@ class TabelItem(models.Model):
 
 #Итоги видов времени
     sHours1 = models.FloatField(verbose_name='Явки (Я)', help_text='Явки', null = True, blank=True)
-    sHours2 = models.IntegerField(verbose_name='Ночные (Н)', null = True, blank=True)
+    sHours2 = models.FloatField(verbose_name='Ночные (Н)', null = True, blank=True)
     sHours3 = models.IntegerField(verbose_name='Работа в выходные и празд. (РВ)', null = True, blank=True)
     sHours4 = models.FloatField(verbose_name='Сверхурочные (С)', null = True, blank=True)
     sHours5 = models.IntegerField(verbose_name='Вахтовый метод (ВМ)', null = True, blank=True)
