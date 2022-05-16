@@ -54,7 +54,19 @@
 {%endif%}
 
 
+
+
 <input class="btn btn-warning"  style="margin-left: 6px;" type="button" name="" onclick="print_toxic({{b_tabel.year}}, {{b_tabel.month}}, '{{b_tabel.department.name}}')" value="ПЕЧАТЬ">
+
+<form class="comm" action="{% url 'comm' id=b_tabel.id%}" method="post">
+    {% csrf_token %}
+  <input type="text" name="tabel_comm" placeholder="введите коментарий" value="{{b_tabel.comm}}">
+    <input type="submit" class="btn btn-warning btn-small" name="" value="ИЗМЕНИТЬ">
+
+</form>
+
+
+
 
 
 </div>

@@ -50,6 +50,7 @@ function Supchecked() {
       {% if granted == 1 or user.is_superuser%}
       <th scope="col"> Загружен в 1С </th>
       {%endif%}
+    <th scope="col">Комментарий</th>
 
 
 
@@ -83,7 +84,7 @@ function Supchecked() {
         <td>❌</td>
       {%endif%}
     {%endif%}
-
+<td>{{tabel.comm}}</td>
 
 
 

@@ -529,6 +529,17 @@ def tabel_create(request, id):
     else:
         return render(request, 'reg_jounals/no_auth.html')
 
+def upd_comm(request,id):
+    if request.user.is_authenticated:
+
+        comm = request.POST.get('tabel_comm','')
+        tabel = Tabel.objects.get(id=id)
+        print(comm)
+        tabel.comm = comm
+        tabel.save()
+        return redirect('/turv/create/' + str(id))
+
+
 def new_tabel(request):
     if request.user.is_authenticated:
         user_ = request.user

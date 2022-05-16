@@ -124,6 +124,12 @@
 <input class="btn btn-warning"  style="margin-left: 6px;" type="button" name="" onclick="print({{b_tabel.year}}, {{b_tabel.month}}, '{{b_tabel.department.name}}')" value="ПЕЧАТЬ">
 {%endif%}
 
+<form class="comm" action="{% url 'comm' id=b_tabel.id%}" method="post">
+  {% csrf_token %}
+  <input type="text" name="tabel_comm" placeholder="введите коментарий" value="{{b_tabel.comm}}">
+  <input type="submit" class="btn btn-warning btn-small" value="ИЗМЕНИТЬ">
+</form>
+
 </div>
   {% if form.errors %}
   {{form.errors}}

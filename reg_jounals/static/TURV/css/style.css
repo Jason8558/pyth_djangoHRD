@@ -21,7 +21,7 @@ input[type=text]:focus, input[type=number]:focus, select:focus {
 .sup_check {
 margin-bottom: 7px;
 height: 47px;
-}
+display: flex;align-content: center;align-items: center;flex-direction: row;justify-content: flex-start;}
 
 .menu {
   z-index: 3;
@@ -673,6 +673,15 @@ display: flex;}
 
 .percent {
   background: lightgray;
+}
+
+.comm a {
+  float: right;
+  margin-left: 10px;
+}
+
+.comm input {
+  margin-left: 10px;
 }
 
 /* media */
