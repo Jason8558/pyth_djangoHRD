@@ -13,6 +13,7 @@ import datetime
 from itertools import groupby
 from reg_jounals.models import logs, logs_event
 from django.contrib.auth.models import *
+import json
 
 def w_close(request):
     return render(request, 'TURV/close.html')
@@ -58,6 +59,8 @@ def access_check(request):
     if request.user.is_superuser:
         granted = True
     return granted
+
+# Списки табелей --------------------------
 
 def tabels(request):
  #Проверка на аутентификацию
@@ -210,7 +213,8 @@ def tabels(request):
         return render(request, 'TURV/tabels.html', context={'type':type, 'tab_users':tab_users, 'tabels':page, 'count':count, 'deps':deps, 'granted':granted, 'ro':is_ro, 'month_':month_, "year_":year_, 'unite':unite})
     else:
         return redirect('/accounts/login/')
-# -----------------------------------------
+
+# =========================================
 
 def over_tabels(request):
  #Проверка на аутентификацию
@@ -281,8 +285,6 @@ def over_tabels(request):
         return redirect('/accounts/login/')
 
 # =========================================
-
-# -----------------------------------------
 
 def vac_tabels(request):
  #Проверка на аутентификацию
@@ -359,8 +361,6 @@ def vac_tabels(request):
 
 # =========================================
 
-# -----------------------------------------
-
 def nn_tabels(request):
  #Проверка на аутентификацию
     if request.user.is_authenticated:
@@ -436,8 +436,7 @@ def nn_tabels(request):
 
 # =========================================
 
-
-
+# Основные функции ------------------------
 
 def tabel_create(request, id):
     if request.user.is_authenticated:
@@ -539,7 +538,6 @@ def upd_comm(request,id):
         tabel.comm = comm
         tabel.save()
         return redirect('/turv/create/' + str(id))
-
 
 def new_tabel(request):
     if request.user.is_authenticated:
@@ -892,7 +890,43 @@ def edit_autos(request,id):
                 form.save()
                 return redirect('/turv/autos')
 
+def total_tabels(request, month, year):
+    if request.user.is_authenticated:
+        dict = {}
+        types = TabelType.objects.all()
+        deps = Department.objects.all().order_by('name')
+        tabels = Tabel.objects.filter(month='05').filter(year=year)
+        print(tabels)
+        for dep in deps:
+            dict.update({dep.name:{}})
+            dep_tabels = tabels.filter(department_id=dep.id)
 
+            for type in types:
+                d_tabel = dep_tabels.filter(type_id=type.id)
+                if d_tabel:
+                    if len(d_tabel) == 1:
+                        if d_tabel[0].sup_check == True:
+                            dict[dep.name].update({type.id:'green'})
+                        else:
+                            dict[dep.name].update({type.id:'gray'})
+                    else:
+                        d_tabel = d_tabel.latest('id')
+                        if d_tabel.sup_check == True:
+                            dict[dep.name].update({type.id:'green'})
+                        else:
+                            dict[dep.name].update({type.id:'gray'})
+    jsonStr = json.dumps(dict)
+
+    return JsonResponse (jsonStr, safe=False)
+
+
+
+
+
+
+
+
+# Выгрузка ------------------
 
 def unload(request):
     udeps = request.GET.get('udeps','')
@@ -1351,7 +1385,7 @@ def unite_unload(request):
         else:
             return render(request, 'TURV/unite-unload.html')
 
-
+# ---------------------------
 
 def upd_norma(request):
     if request.user.is_authenticated:
