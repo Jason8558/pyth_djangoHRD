@@ -1,4 +1,4 @@
-# -*- coding: utf-8 -*-
+# coding: utf8
 from django.shortcuts import render
 from django.http import HttpResponse, JsonResponse
 from django.db.models import Sum, F, Case, When, Q
@@ -1262,6 +1262,7 @@ def toxic_unload(request):
                         current_tabel.save()
                         # name =  'S:\Сетевые папки\Обмен\Бухгалтерия\РАСЧЕТНЫЙ ОТДЕЛ\ВыгрузкаВредности' + sep + str(dn) + '_' + str(month)+'_'+str(year)+ '_vrednost.xls'
                         name =  '/samba/users/toxic/' + sep + str(dn) + '_' + str(month)+'_'+str(year)+ '_vrednost.xls'
+                        name.encode('utf8')
                         wb.save(name)
 
 
