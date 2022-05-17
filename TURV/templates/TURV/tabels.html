@@ -70,6 +70,9 @@
   </ul>
   </li>
     </ul>
+    {% if granted == 1%}
+      <a class="btn btn-warning btn-total"  href="{% url 'total_url_page' %}"  >Свод</a>
+    {%endif%}
 
 
 
@@ -141,6 +144,7 @@ function Supchecked() {
 
 <div class="container main">
   <h3 style="text-align: left !important; color: red !important">ИНФОРМАЦИЯ! Новые сотрудники добавляются в справочник АВТОМАТИЧЕСКИ! Инф. т.2035 </h3>
+
   <a class="btn btn-success btn-add"  href="{% url 'new_tabel_url' %}"  >+ Новый табель</a>
 
 
