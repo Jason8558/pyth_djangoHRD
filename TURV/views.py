@@ -1334,7 +1334,9 @@ def unite_unload(request):
                                 i = i+1
                         current_tabel.unloaded = True
                         current_tabel.save()
-                        name =  'S:\Сетевые папки\Обмен\Бухгалтерия\РАСЧЕТНЫЙ ОТДЕЛ\ВыгрузкаСовмещения' + sep + str(dn) + '_' + str(month)+'_'+str(year)+ '_sovmesheniye.xls'
+                        '/samba/users/toxic/'
+                        # name =  'S:\Сетевые папки\Обмен\Бухгалтерия\РАСЧЕТНЫЙ ОТДЕЛ\ВыгрузкаСовмещения' + sep + str(dn) + '_' + str(month)+'_'+str(year)+ '_sovmesheniye.xls'
+                        name =  '/samba/users/unite/' + str(dn) + '_' + str(month)+'_'+str(year)+ '_sovmesheniye.xls'
                         print(name)
                         wb.save(name)
 
