@@ -265,10 +265,10 @@ def over_tabels(request):
 
         if granted == 1:
             pag = 40
-            tabels = Tabel.objects.all().filter(type_id=5).filter(department_id__in=(2,3)).order_by('-year', '-month', 'type__id')
+            tabels = Tabel.objects.all().filter(type_id=5).filter(department_id__in=(2,3)).order_by('-year', '-month', '-day', 'type__id')
         else:
             pag = 40
-            tabels = Tabel.objects.all().filter(type_id=5).filter(department_id__in=allow_departments).order_by('-year', '-month', 'type__id')
+            tabels = Tabel.objects.all().filter(type_id=5).filter(department_id__in=allow_departments).order_by('-year', '-month', '-day', 'type__id')
         p_tabels = Paginator(tabels, pag)
         page_number = request.GET.get('page', 1)
         page = p_tabels.get_page(page_number)
@@ -341,10 +341,10 @@ def vac_tabels(request):
 
         if granted == 1:
             pag = 40
-            tabels = Tabel.objects.all().filter(type_id=4).filter(department_id__in=(2,3)).order_by('-year', '-month', 'type__id')
+            tabels = Tabel.objects.all().filter(type_id=4).filter(department_id__in=(2,3)).order_by('-year', '-month', '-day', 'type__id')
         else:
             pag = 40
-            tabels = Tabel.objects.all().filter(type_id=4).filter(department_id__in=allow_departments).order_by('-year', '-month', 'type__id')
+            tabels = Tabel.objects.all().filter(type_id=4).filter(department_id__in=allow_departments).order_by('-year', '-month', '-day', 'type__id')
 
         p_tabels = Paginator(tabels, pag)
         page_number = request.GET.get('page', 1)
@@ -418,10 +418,10 @@ def nn_tabels(request):
 
         if granted == 1:
             pag = 40
-            tabels = Tabel.objects.all().filter(type_id=8).filter(department_id__in=(2,3)).order_by('-year', '-month', 'type__id')
+            tabels = Tabel.objects.all().filter(type_id=8).filter(department_id__in=(2,3)).order_by('-year', '-month', '-day', 'type__id')
         else:
             pag = 40
-            tabels = Tabel.objects.all().filter(type_id=8).filter(department_id__in=allow_departments).order_by('-year', '-month', 'type__id')
+            tabels = Tabel.objects.all().filter(type_id=8).filter(department_id__in=allow_departments).order_by('-year', '-month', '-day', 'type__id')
 
         p_tabels = Paginator(tabels, pag)
         page_number = request.GET.get('page', 1)
