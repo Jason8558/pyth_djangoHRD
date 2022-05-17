@@ -6,6 +6,10 @@
     {% if granted == 1 or user.is_superuser%}<a href="/" class="btn btn-dark"> < Назад </a>{%endif%}
     Табели учета рабочего времени. Всего: {{count}}.
     <ul class="menu">
+      <li>Меню <span class='angle-down'>v</span>
+      <ul class="menu-main-ul">
+
+
       <li>Справочники <span class='angle-down'>v</span>
       <ul class="sprav">
         <li><a href="{% url 'emp_list'%}"> > Сотрудники</a></li>
@@ -63,7 +67,8 @@
       </ul>
       </li>
 
-
+  </ul>
+  </li>
     </ul>
 
 
@@ -141,11 +146,11 @@ function Supchecked() {
 
 {%if tabels%}
 
-<table>
+<table class="tabels-main-table">
   <thead class="thead-dark">
   <tr class="tr-header">
     <th scope="col">Код</th>
-    <th scope="col">Вид</th>
+    <th  scope="col">Вид</th>
     <th scope="col">Период составления</th>
     <th scope="col">Подразделение</th>
     {% if granted == 1 or user.is_superuser%}
@@ -167,25 +172,25 @@ function Supchecked() {
   {%for tabel in tabels %}
 
 {% if tabel.type.id == 2 %}
-<tr  style="background: lightgreen !important;"onclick="return window.open('{% url 'tabel_create_url' id=tabel.id%}')" >
+<tr  class="toxic-row" onclick="return window.open('{% url 'tabel_create_url' id=tabel.id%}')" >
 {%endif%}
 {% if tabel.type.id == 3 %}
-<tr  style="background: #8702cb !important; color:white;" onclick="return window.open('{% url 'tabel_create_url' id=tabel.id%}')" >
+<tr class="unite-row"  onclick="return window.open('{% url 'tabel_create_url' id=tabel.id%}')" >
 {%endif%}
 {% if tabel.type.id == 4 %}
-<tr  style="background: #ffc107 !important; color:white;" onclick="return window.open('{% url 'tabel_create_url' id=tabel.id%}')" >
+<tr  class="vac-row" onclick="return window.open('{% url 'tabel_create_url' id=tabel.id%}')" >
 {%endif%}
 {% if tabel.type.id == 5 %}
-<tr  style="background: #932f00 !important; color:white;" onclick="return window.open('{% url 'tabel_create_url' id=tabel.id%}')" >
+<tr  class="over-row" onclick="return window.open('{% url 'tabel_create_url' id=tabel.id%}')" >
 {%endif%}
 {% if tabel.type.id == 6 %}
-<tr  style="background: yellow !important; color:black;" onclick="return window.open('{% url 'tabel_create_url' id=tabel.id%}')" >
+<tr  class="standby-row" onclick="return window.open('{% url 'tabel_create_url' id=tabel.id%}')" >
 {%endif%}
 {% if tabel.type.id == 1 %}
 <tr  onclick="return window.open('{% url 'tabel_create_url' id=tabel.id%}')" >
 {%endif%}
     <td>{{tabel.id}}</td>
-    <td>{{tabel.type}}</td>
+    <td class="table-type">{{tabel.type}}</td>
     <td><span class="field_month">{{tabel.month}}</span> {{tabel.year}}  </td>
     <td>{{tabel.department}}</td>
     {% if granted == 1 or user.is_superuser%}
