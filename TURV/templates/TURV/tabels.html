@@ -36,6 +36,7 @@
            <li><a  href="{% url 'unload'%}"> > Выгрузить для 1С</a></li>
            <li><a  href="{% url 'toxic-unload'%}"> > Выгрузить вредность для 1С</a></li>
            <li><a  href="{% url 'unite-unload'%}"> > Выгрузить совмещение для 1С</a></li>
+           <li><a  href="{% url 'del_tabel_url'%}"> > Удалить помеченные на удаление</a></li>
            <li><a  href="{% url 'overtime_url'%}"> > Обновить годовую норму времени сотрудников</a></li>
 
 
@@ -193,7 +194,11 @@ function Supchecked() {
 {% if tabel.type.id == 1 %}
 <tr  onclick="return window.open('{% url 'tabel_create_url' id=tabel.id%}')" >
 {%endif%}
-    <td>{{tabel.id}}</td>
+{%if tabel.del_check %}
+    <td style="color: red !important; font-weight: bold !important;">{{tabel.id}}</td>
+{%else%}
+  <td>{{tabel.id}}</td>
+{%endif%}
     <td class="table-type">{{tabel.type}}</td>
     <td><span class="field_month">{{tabel.month}}</span> {{tabel.year}}  </td>
     <td>{{tabel.department}}</td>

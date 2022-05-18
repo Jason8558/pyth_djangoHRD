@@ -7,6 +7,7 @@ urlpatterns = [
     path('vac/', views.vac_tabels, name='vac-tabels_url'),
     path('nn/', views.nn_tabels, name='nn-tabels_url'),
     path('new/', views.new_tabel, name='new_tabel_url'),
+    path('delcheck/<int:id>', views.tabel_delcheck, name='delcheck_url'),
     path('delete_checked/', views.del_tabel, name='del_tabel_url'),
     path('create/<int:id>', views.tabel_create, name='tabel_create_url'),
     path('additem/<int:id>', views.tabel_additem, name='tabel_addItem_url'),

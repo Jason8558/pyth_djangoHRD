@@ -578,6 +578,18 @@ def new_tabel(request):
     else:
         return render(request, 'reg_jounals/no_auth.html')
 
+def tabel_delcheck(request,id):
+    if request.user.is_authenticated:
+        tabel = Tabel.objects.get(id=id)
+        print(tabel.del_check)
+        if tabel.del_check == True:
+            tabel.del_check = False
+            tabel.save()
+        else:
+            tabel.del_check = True
+            tabel.save()
+        return redirect('/turv/create/' + str(id))
+
 def del_tabel(request):
     if request.user.is_authenticated:
         for_delete = Tabel.objects.filter(del_check = True)
@@ -895,7 +907,7 @@ def total_tabels(request, month, year, dep):
         dict = {}
         types = TabelType.objects.all()
         deps = Department.objects.all().order_by('name')
-        tabels = Tabel.objects.filter(month=month).filter(year=year).filter(department_id=dep).filter(day='0').values('department__name','department_id','type_id', 'sup_check')
+        tabels = Tabel.objects.filter(month=month).filter(year=year).filter(department_id=dep).filter(day='0').filter(del_check=0).values('department__name','department_id','type_id', 'sup_check')
         print(tabels)
         tabels = list(tabels)
     return JsonResponse(tabels, safe=False)
