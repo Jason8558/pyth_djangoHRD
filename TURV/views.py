@@ -82,6 +82,7 @@ def tabels(request):
         is_ro = 0
         granted = 0
         unite = False
+        is_atc = False
 
         # Определение текущего месяца и года
         now = datetime.datetime.now()
@@ -107,11 +108,13 @@ def tabels(request):
             for dep in deps:
 
                 allow_departments.append(dep.id)
-                # если атц, то выдаем список автотранспорта
+                # если совмещение, то выдаем список автотранспорта
                 if (dep.id == 3) or (dep.id == 2) or (dep.id == 26) or (dep.id == 40):
-
-
                     unite = True
+
+                if (dep.id == 3) or (dep.id == 2):
+                    is_atc = True
+
 
 
             # Алгоритм поиска
@@ -210,7 +213,7 @@ def tabels(request):
 
 
 
-        return render(request, 'TURV/tabels.html', context={'type':type, 'tab_users':tab_users, 'tabels':page, 'count':count, 'deps':deps, 'granted':granted, 'ro':is_ro, 'month_':month_, "year_":year_, 'unite':unite})
+        return render(request, 'TURV/tabels.html', context={'type':type, 'tab_users':tab_users, 'tabels':page, 'count':count, 'deps':deps, 'granted':granted, 'ro':is_ro, 'month_':month_, "year_":year_, 'unite':unite, 'is_atc':is_atc})
     else:
         return redirect('/accounts/login/')
 
