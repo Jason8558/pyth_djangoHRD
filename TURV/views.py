@@ -108,7 +108,7 @@ def tabels(request):
 
                 allow_departments.append(dep.id)
                 # если атц, то выдаем список автотранспорта
-                if (dep.id == 3) or (dep.id == 2) :
+                if (dep.id == 3) or (dep.id == 2) or (dep.id == 26) or (dep.id == 40):
 
 
                     unite = True
