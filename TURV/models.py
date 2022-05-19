@@ -57,8 +57,6 @@ class Automobile(models.Model):
     def __str__(self):
         return self.number + "(" + str(self.unite_p) + ")"
 
-
-
 class TabelType(models.Model):
     name = models.CharField(verbose_name='Вид табеля ',  max_length=256)
     class Meta:
@@ -67,7 +65,6 @@ class TabelType(models.Model):
         verbose_name_plural = "Виды табеля"
     def __str__(self):
         return self.name
-
 
 class Tabel(models.Model):
     type = models.ForeignKey('TabelType', verbose_name="Вид ", db_index=True, on_delete=models.CASCADE, default='1')
@@ -231,3 +228,23 @@ class Overtime(models.Model):
     def __str__(self):
         fullname = str(self.year)
         return fullname
+
+class InfoMessages(models.Model):
+        class ViewInCHS(models.TextChoices):
+            main = '1','Главное окно'
+            intabel = '2', 'Окно табеля'
+            edit = '3', 'Окно редактирования табеля'
+
+        class MesTypeCHS(models.TextChoices):
+            ord = '1','Обычное'
+            imp = '2', 'Особо важное'
+            vac = '3', 'О переносе отпуска'
+
+        text = models.TextField(verbose_name='Текст сообщения: ', blank=False, null=False)
+        deps = models.ManyToManyField('Department', null=True, blank=True, verbose_name='Подразделения, для которых предназначена информация: ')
+        active = models.BooleanField(default=True, verbose_name='Сообщение активно')
+        dfrom = models.DateField(verbose_name='Дата начала показа: ', null=True, blank=True)
+        dto = models.DateField(verbose_name='Дата окончания показа: ', null=True, blank=True)
+        always = models.BooleanField(default=True, verbose_name='Показывать постоянно', null=True, blank=True)
+        viewin = models.CharField(max_length=100, choices=ViewInCHS.choices, default=ViewInCHS.main)
+        intypes = models.ManyToManyField('TabelType', verbose_name="Отображать в табелях: ", default=1)
