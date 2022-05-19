@@ -7,6 +7,7 @@ urlpatterns = [
     path('vac/', views.vac_tabels, name='vac-tabels_url'),
     path('nn/', views.nn_tabels, name='nn-tabels_url'),
     path('new/', views.new_tabel, name='new_tabel_url'),
+    path('delcheck/<int:id>', views.tabel_delcheck, name='delcheck_url'),
     path('delete_checked/', views.del_tabel, name='del_tabel_url'),
     path('create/<int:id>', views.tabel_create, name='tabel_create_url'),
     path('additem/<int:id>', views.tabel_additem, name='tabel_addItem_url'),
@@ -29,6 +30,9 @@ urlpatterns = [
     path('comm/<int:id>/', views.upd_comm, name='comm'),
     path('overtime/', views.upd_norma, name='overtime_url'),
     path('overtime/upd', views.new_norma, name='overtime_new_url'),
-    path('close/', views.w_close, name='close_url')
+    path('close/', views.w_close, name='close_url'),
+    path('total/<str:month>/<str:year>/<int:dep>/', views.total_tabels, name='total_url'),
+    path('total/open/', views.total_tabels_html, name='total_url_page')
+
 
      ]

@@ -725,6 +725,33 @@ color: #e79806;}
 
 }
 
+.total-type-head {
+  transform: rotate(90deg);
+}
+
+#total-container {
+  width: 700px;
+}
+
+.total-params {
+  margin-bottom: 8px;
+}
+
+#total-table {
+
+zoom: 93%;
+}
+
+#total-table thead {
+height: 70px;
+}
+
+.tt-cell {
+
+}
+
+.btn-total {left: 641px;position: absolute;}
+
 /* -------------- */
 
 /* media */

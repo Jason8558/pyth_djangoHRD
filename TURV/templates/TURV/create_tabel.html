@@ -129,6 +129,11 @@
   <input type="text" name="tabel_comm" placeholder="введите коментарий" value="{{b_tabel.comm}}">
   <input type="submit" class="btn btn-warning btn-small" value="ИЗМЕНИТЬ">
 </form>
+  {% if b_tabel.del_check == False %}
+    <a class="btn btn-danger" href="{% url 'delcheck_url' id=b_tabel.id %}">Пометить на удаление</a>
+  {%else%}
+    <a class="btn btn-danger" href="{% url 'delcheck_url' id=b_tabel.id %}">Снять пометку удаления</a>
+  {%endif%}
 
 </div>
   {% if form.errors %}
@@ -138,7 +143,11 @@
   {% if b_tabel.sup_check %}
     <h2 style="color:green; text-decoration: underline;" class="not-print">Табель проверен, внесение изменений невозможно</h2>
   {% else %}
-  <a class="btn btn-success btn-add not-print" href="{% url 'tabel_addItem_url' id=b_tabel.id%}">НАЧАТЬ ЗАПОЛНЕНИЕ</a>
+    {% if b_tabel.del_check %}
+      <h2 style="color:red; text-decoration: underline;" class="not-print">Табель помечен на удаление, внесение изменений невозможно</h2>
+    {%else%}
+        <a class="btn btn-success btn-add not-print" href="{% url 'tabel_addItem_url' id=b_tabel.id%}">НАЧАТЬ ЗАПОЛНЕНИЕ</a>
+    {% endif %}
   {% endif %}
 
 {% if items %}
@@ -299,7 +308,11 @@
     {% if b_tabel.sup_check %}
     <tr id="{{item.id}}" onmouseleave="row_highlight_off({{item.id}})" onmouseover="row_highlight({{item.id}})" class="time_types">
     {%else%}
-      <tr id="{{item.id}}"  onmouseleave="row_highlight_off({{item.id}})" onclick="return location.href = '{% url 'tabel_updItem_url' id=item.id%}' "  onmouseover="row_highlight({{item.id}})" class="time_types">
+      {% if b_tabel.del_check %}
+      <tr id="{{item.id}}" onmouseleave="row_highlight_off({{item.id}})" onmouseover="row_highlight({{item.id}})" class="time_types">
+        {%else%}
+        <tr id="{{item.id}}"  onmouseleave="row_highlight_off({{item.id}})" onclick="return location.href = '{% url 'tabel_updItem_url' id=item.id%}' "  onmouseover="row_highlight({{item.id}})" class="time_types">
+        {%endif%}
     {%endif%}
       <th class="print-num cell_bb" rowspan="2"></th>
       <td  class="for-print cell_bb fio" rowspan="2" colspan="3">{{item.employer.fullname}}|{{item.employer.position|truncatechars:10}}|{{item.employer.level}}</td>

@@ -1,0 +1,168 @@
+{% extends 'TURV/index.html'%}
+
+{%block title%}Свод{% endblock %}
+
+{%block header%}<a href="/turv/" class="btn btn-dark">< Назад</a>
+
+<span id="total-title">Свод за месяц</span>
+
+{%endblock%}
+
+
+
+{% block body %}
+
+<div class="container" id="total-container">
+  <div class="total-params">
+  <select id="total-month" class="" name="total-month">
+    <option value="01">Январь</option>
+    <option value="02">Февраль</option>
+    <option value="03">Март</option>
+    <option value="04">Апрель</option>
+    <option value="05">Май</option>
+    <option value="06">Июнь</option>
+    <option value="07">Июль</option>
+    <option value="08">Август</option>
+    <option value="09">Сентябрь</option>
+    <option value="10">Октябрь</option>
+    <option value="11">Ноябрь</option>
+    <option value="12">Декабрь</option>
+  </select>
+  <input id="total-year" maxlength="4" type="text" name="" value="" placeholder="год">
+  <button type="button" class="btn btn-success" onclick="get_total()"name="button">Сформировать свод</button>
+</div>
+<table id="total-table">
+
+  <thead>
+    <th>Подразделение</th>
+    <th class="total-type-head tt-cell" >Осн.</th>
+    <th class="total-type-head tt-cell" >Вред.</th>
+    <th class="total-type-head tt-cell" >Совм.</th>
+    <th class="total-type-head tt-cell" >Вых.</th>
+    <th class="total-type-head tt-cell" >Сверх.</th>
+    <th class="total-type-head tt-cell" >Деж.</th>
+    <th class="total-type-head tt-cell" >Ненорм.</th>
+  </thead>
+
+  <tbody>
+      {%for dep in deps %}
+        <tr id={{dep.id}} >
+          <td>{{dep.name}}</td>
+          <td class="tt-cell main"></td>
+          <td class="tt-cell toxic"></td>
+          <td class="tt-cell unite"></td>
+          <td class="tt-cell vac"> </td>
+          <td class="tt-cell over"></td>
+          <td class="tt-cell standby"></td>
+          <td class="tt-cell nn"></td>
+          </tr>
+      {%endfor%}
+  </tbody>
+
+</table>
+
+</div>
+<script type="text/javascript">
+  function get_total() {
+    $('#total-table tbody .tt-cell').css('background', 'none')
+    month = $('#total-month option:selected').val()
+    year = $('#total-year').val()
+    document.title = "Свод за " + $('#total-month option:selected').text() + " " + year + "г."
+    $('#total-title').text(document.title)
+    {%for dep in deps %}
+    query_url = '/turv/total/'+ month + '/' + year +'/' + "{{dep.id}}" + '/'
+    $.getJSON(query_url,  (data) => {
+    for (var i = 0; i < data.length; i++) {
+
+      switch (data[i].type_id) {
+        case 1:
+          if (data[i].sup_check == true) {
+            $('#total-table #' + data[i].department_id + ' .main' ).css('background', 'green')
+
+          }
+          else {
+            $('#total-table #' + data[i].department_id + ' .main' ).css('background', 'gray')
+          }
+
+          break;
+
+          case 2:
+            if (data[i].sup_check == true) {
+              $('#total-table #' + data[i].department_id + ' .toxic' ).css('background', 'green')
+
+            }
+            else {
+              $('#total-table #' + data[i].department_id + ' .toxic' ).css('background', 'gray')
+            }
+
+            break;
+
+            case 3:
+              if (data[i].sup_check == true) {
+                $('#total-table #' + data[i].department_id + ' .unite' ).css('background', 'green')
+
+              }
+              else {
+                $('#total-table #' + data[i].department_id + ' .unite' ).css('background', 'gray')
+              }
+
+              break;
+
+              case 4:
+                if (data[i].sup_check == true) {
+                  $('#total-table #' + data[i].department_id + ' .vac' ).css('background', 'green')
+
+                }
+                else {
+                  $('#total-table #' + data[i].department_id + ' .vac' ).css('background', 'gray')
+                }
+
+                break;
+
+                case 5:
+                  if (data[i].sup_check == true) {
+                    $('#total-table #' + data[i].department_id + ' .over' ).css('background', 'green')
+
+                  }
+                  else {
+                    $('#total-table #' + data[i].department_id + ' .over' ).css('background', 'gray')
+                  }
+
+                  break;
+
+                  case 6:
+                    if (data[i].sup_check == true) {
+                      $('#total-table #' + data[i].department_id + ' .standby' ).css('background', 'green')
+
+                    }
+                    else {
+                      $('#total-table #' + data[i].department_id + ' .standby' ).css('background', 'gray')
+                    }
+
+                    break;
+
+                    case 8:
+                      if (data[i].sup_check == true) {
+                        $('#total-table #' + data[i].department_id + ' .nn' ).css('background', 'green')
+
+                      }
+                      else {
+                        $('#total-table #' + data[i].department_id + ' .nn' ).css('background', 'gray')
+                      }
+
+                      break;
+
+
+        default:
+
+      }
+    }
+
+    })
+{%endfor%}
+  }
+
+
+</script>
+
+{%endblock%}
