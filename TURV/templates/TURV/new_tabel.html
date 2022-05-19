@@ -61,12 +61,13 @@
 
 
   <input class="btn btn-success" type="submit"  value="Создать" />
-  <a class="btn btn-outline-danger" href="..">Отмена</a>
+  <a class="btn btn-outline-danger" id="nt-cancel" href="..">Отмена</a>
 </form>
 </div>
 
 <script type="text/javascript">
 $(document).ready(function() {
+$('#nt-cancel').attr('href', document.referrer)
 $("#id_day").attr('placeholder','День')
 $("#id_year").attr('placeholder','Год')
 last = document.referrer.split('/')[4]

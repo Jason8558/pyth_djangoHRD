@@ -30,7 +30,7 @@ display: flex;align-content: center;align-items: center;flex-direction: row;just
   position: absolute;
   margin-bottom: 0;
   float: left;
-}
+padding: 7px;margin-left: 17px;}
 
 .menu > li {
   margin-right: 25px;
@@ -187,14 +187,14 @@ display: none;
 .tabel_container {max-width: 1855px !important;margin-top: 1px !important;}
 
 .tabel_container form {
-  margin-bottom: 17px;
+  /* margin-bottom: 17px; */
 }
 
 .f_search {
   /* margin-top: 21px; */
   /* margin-left: 25px; */
-  width: max-content;
-  margin: 7px auto;
+  /* width: max-content; */
+  /* margin: 7px auto; */
   background: #ffffff;
   padding: 6px;
   border-radius: 17px;
@@ -239,7 +239,7 @@ table {
 
 .tabels-main-table {}
 
-.tabels-main-table tbody .table-type {}
+.tabels-main-table tbody .table-type {font-weight: bold;}
 
 .tabel {
   font-size: 8pt !important;
@@ -751,6 +751,56 @@ height: 70px;
 }
 
 .btn-total {left: 641px;position: absolute;}
+
+.comm input[type=text] {
+
+width: 520px;}
+
+.info-window {
+
+background: white;padding: 5px;border-radius: 14px;border: 1px solid;border-radius: 17px;
+    border: 3px solid #dc3545;}
+
+.info-window .info-window-head {margin-bottom: 10px;text-align: center;border-bottom: 1px solid;text-transform: uppercase;font-weight: bold;}
+
+.info-window h5 {
+
+color: red;font-size: 11pt;border-bottom: 2px solid;}
+
+.main-iw {/* position: absolute; *//* width: 290px; *//* left: 6px; */}
+
+.main-fs {position: absolute;top: 360px;width: 290px;left: 6px;display: flex;flex-direction: column;}
+
+.fs-main > .fs-content {padding: 4px;display: flex;border-bottom: 1px solid;align-content: space-around;align-items: stretch;}
+
+.fs-main > .fs-content select {width: 120px;}
+
+.fs-main > .fs-content > #fs-year{width: 71px;}
+
+.fs-main > .fs-buttons, .fs-intabel > .fs-buttons {display: flex;flex-direction: row;justify-content: center;align-items: center;/* border-top: 1px solid; */margin-top: 5px;}
+
+.fs-main > .fs-buttons > .btn,  .fs-intabel > .fs-buttons > .btn {margin-right: 7px;}
+
+.fs-intabel {margin-right: 22px;}
+
+.fs-intabel > .fs-content  {display: flex;border-bottom: 1px solid black;padding: 4px;}
+
+.info-block {
+
+display: flex;align-content: center;align-items: stretch;justify-content: flex-end;margin-bottom: 15px;}
+
+.iw-main {
+
+margin-right: 15px;}
+
+.iw-content {
+
+overflow-y: scroll;height: 100px;padding: 5px;}
+
+.table-block .tb-table {overflow-y: scroll;height: 552px;box-shadow: 0px 0px 4px 0px black;margin-bottom: 9px;}
+
+.table-block .tb-table table {box-shadow: none;
+margin: 0 !important;}
 
 /* -------------- */
 
