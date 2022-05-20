@@ -722,6 +722,29 @@ def tabel_delitem(request, id):
         item.delete()
         return redirect(dest)
 
+# Справочники ---------------------------------
+
+def messages_ref(request):
+    if request.user.is_authenticated:
+        messages = InfoMessages.objects.all()
+        return render(request, 'TURV/messages.html', context={'messages':messages})
+
+def new_message(request):
+    if request.user.is_authenticated:
+
+        if request.method == 'GET':
+            form = InfoMessages_form()
+            return render(request, 'TURV/message-form.html', context={'form':form})
+        else:
+            form = InfoMessages_form(request.POST)
+            if form.is_valid():
+                form.saveFirst()
+                return redirect('/turv/messages/')
+            else:
+                return render(request, 'TURV/message-form.html', context={'form':form})
+
+
+
 def employers_list(request):
     if request.user.is_authenticated:
         # Проверка пользователя и прав

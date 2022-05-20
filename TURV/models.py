@@ -246,7 +246,7 @@ class InfoMessages(models.Model):
         active = models.BooleanField(default=True, verbose_name='Сообщение активно')
         dfrom = models.DateField(verbose_name='Дата начала показа: ', null=True, blank=True)
         dto = models.DateField(verbose_name='Дата окончания показа: ', null=True, blank=True)
-        always = models.BooleanField(default=True, verbose_name='Показывать постоянно', null=True, blank=True)
+        always = models.BooleanField(default=True, verbose_name='Показывать постоянно')
         viewin = models.CharField(max_length=100, choices=ViewInCHS.choices, default=ViewInCHS.mainw)
         intypes = models.ManyToManyField('TabelType', verbose_name="Отображать в табелях: ", default='1')
         mestype = models.CharField(max_length=100, choices=MesTypeCHS.choices, default=MesTypeCHS.ord)

@@ -30,7 +30,7 @@
 
       </ul>
       </li>
-{%if request.user.is_superuser %}
+{%if request.user.is_superuser  or granted == 1%}
       <li>Сервис <span class='angle-down'>v</span>
       <ul class="service">
            <li><a  href="{% url 'unload'%}"> > Выгрузить для 1С</a></li>
@@ -38,6 +38,7 @@
            <li><a  href="{% url 'unite-unload'%}"> > Выгрузить совмещение для 1С</a></li>
            <li><a  href="{% url 'del_tabel_url'%}"> > Удалить помеченные на удаление</a></li>
            <li><a  href="{% url 'overtime_url'%}"> > Обновить годовую норму времени сотрудников</a></li>
+
 
 
 
@@ -67,13 +68,20 @@
   {%endif%}
       </ul>
       </li>
+      {% if granted == 1 %}
+      <li>Функции и отчеты <span class='angle-down'>v</span>
+      <ul class="additional">
+           <li><a  href="{% url 'total_url_page' %}"> > Сформировать свод</a></li>
+           <li><a  href="{% url 'messages_list'%}"> > Система оповещения пользователей</a></li>
+
+      </ul>
+      </li>
+      {% endif %}
 
   </ul>
   </li>
     </ul>
-    {% if granted == 1%}
-      <a class="btn btn-warning btn-total"  href="{% url 'total_url_page' %}"  >Свод</a>
-    {%endif%}
+
 
 
 

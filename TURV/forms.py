@@ -400,3 +400,28 @@ class Automobile_form(forms.ModelForm):
         used = self.cleaned_data['used']
         )
         return new_automobile
+
+class InfoMessages_form(forms.ModelForm):
+    class Meta:
+        model = InfoMessages
+        fields = ['text', 'alldeps', 'deps', 'active', 'dfrom', 'dto', 'always', 'viewin', 'intypes', 'mestype', 'important']
+
+    def saveFirst(self):
+        deps = self.cleaned_data.get('deps')
+        intypes = self.cleaned_data.get('intypes')
+
+        new_message = InfoMessages.objects.create(
+        text = self.cleaned_data['text'],
+        alldeps = self.cleaned_data['alldeps'],
+        active = self.cleaned_data['active'],
+        dfrom = self.cleaned_data['dfrom'],
+        dto = self.cleaned_data['dto'],
+        always = self.cleaned_data['always'],
+        viewin = self.cleaned_data['viewin'],
+        mestype = self.cleaned_data['mestype'],
+        important = self.cleaned_data['important']
+
+        )
+        new_message.deps.set(deps)
+        new_message.intypes.set(intypes)
+        return new_message
