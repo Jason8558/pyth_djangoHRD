@@ -101,6 +101,35 @@ def tabels(request):
             granted = True
 
 
+        # Сообщения
+        # Полный доступ
+        meslist = []
+        messages = InfoMessages.objects.filter(viewin=1).order_by('-important','-id')
+        if granted == True:
+            # Проверяем на постоянные и непостояннные
+            for mes in messages:
+                if mes.always:
+                    meslist.append(mes.id)
+                else:
+                    if mes.dfrom <= datetime.datetime.now().date() and mes.dfrom >= datetime.datetime.now().date():
+                        meslist.append(mes.id)
+            messages = messages.filter(id__in=meslist)
+
+        else:
+            deps = Department.objects.all().filter(user=user_.id)
+            allow_departments = []
+            for dep in deps:
+                allow_departments.append(dep.id)
+            for mes in messages:
+                if mes.alldeps:
+                    meslist.append(mes.id)
+                else:
+                    if mes.deps.filter(id__in=allow_departments):
+                        meslist.append(mes.id)
+            messages = messages.filter(id__in=meslist)
+
+
+
         if (granted == False):
             # если пользователь только с правами на определенные подразделения, собираем их тут:
             deps = Department.objects.all().filter(user=user_.id)
@@ -115,16 +144,6 @@ def tabels(request):
                 if (dep.id == 3) or (dep.id == 2):
                     is_atc = True
 
-            # Сообщения
-
-            if granted:
-                messages = InfoMessages.objects.filter(viewin=1).order_by('important')
-            else:
-                for mes in messages:
-                    if mes.alldeps:
-                        messages = messages
-                    else:
-                        messages = messages.filter(deps__in=allow_departments)
 
             # Алгоритм поиска
             pag = 1000

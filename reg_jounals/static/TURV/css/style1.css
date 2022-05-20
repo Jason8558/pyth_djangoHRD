@@ -765,7 +765,7 @@ background: white;padding: 5px;border-radius: 14px;border: 1px solid;border-radi
 
 .info-window h5 {
 
-color: red;font-size: 11pt;border-bottom: 2px solid;}
+/* color: red; */font-size: 11pt;border-bottom: 2px solid;}
 
 .main-iw {/* position: absolute; *//* width: 290px; *//* left: 6px; */}
 
@@ -791,7 +791,7 @@ display: flex;align-content: center;align-items: stretch;justify-content: flex-e
 
 .iw-main {
 
-margin-right: 15px;}
+margin-right: 15px;width: 100%;}
 
 .iw-content {
 

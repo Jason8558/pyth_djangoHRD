@@ -106,7 +106,12 @@ function Supchecked() {
   <div class="info-window iw-main">
     <p class="info-window-head">информация</p>
     <div class="iw-content">
-      <h5 style="text-align: left !important; color: red !important">ИНФОРМАЦИЯ! Новые сотрудники добавляются в справочник АВТОМАТИЧЕСКИ! Инф. т.2035 </h5>
+      {% for mes in messages  %}
+
+
+      <h5 style="text-align: left !important; {% if mes.important %}color: red;{% endif %} !important">{% if mes.important %}!ВАЖНО!{% endif %}{{mes.text}}</h5>
+
+      {% endfor %}
     </div>
   </div>
 
