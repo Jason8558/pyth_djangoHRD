@@ -231,20 +231,27 @@ class Overtime(models.Model):
 
 class InfoMessages(models.Model):
         class ViewInCHS(models.TextChoices):
-            main = '1','Главное окно'
+            mainw = '1','Главное окно'
             intabel = '2', 'Окно табеля'
             edit = '3', 'Окно редактирования табеля'
 
         class MesTypeCHS(models.TextChoices):
             ord = '1','Обычное'
-            imp = '2', 'Особо важное'
-            vac = '3', 'О переносе отпуска'
+            vac = '2', 'О переносе отпуска'
 
         text = models.TextField(verbose_name='Текст сообщения: ', blank=False, null=False)
+        alldeps = models.BooleanField(default=True, verbose_name='Для всех')
         deps = models.ManyToManyField('Department', null=True, blank=True, verbose_name='Подразделения, для которых предназначена информация: ')
         active = models.BooleanField(default=True, verbose_name='Сообщение активно')
         dfrom = models.DateField(verbose_name='Дата начала показа: ', null=True, blank=True)
         dto = models.DateField(verbose_name='Дата окончания показа: ', null=True, blank=True)
         always = models.BooleanField(default=True, verbose_name='Показывать постоянно', null=True, blank=True)
-        viewin = models.CharField(max_length=100, choices=ViewInCHS.choices, default=ViewInCHS.main)
-        intypes = models.ManyToManyField('TabelType', verbose_name="Отображать в табелях: ", default=1)
+        viewin = models.CharField(max_length=100, choices=ViewInCHS.choices, default=ViewInCHS.mainw)
+        intypes = models.ManyToManyField('TabelType', verbose_name="Отображать в табелях: ", default='1')
+        mestype = models.CharField(max_length=100, choices=MesTypeCHS.choices, default=MesTypeCHS.ord)
+        important = models.BooleanField(default=False, verbose_name='Особо важное')
+
+        class Meta:
+            ordering = ['-id']
+            verbose_name = "Сообщение пользователям"
+            verbose_name_plural = "Система оповещения пользователей"

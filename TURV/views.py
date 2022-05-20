@@ -115,7 +115,16 @@ def tabels(request):
                 if (dep.id == 3) or (dep.id == 2):
                     is_atc = True
 
+            # Сообщения
 
+            if granted:
+                messages = InfoMessages.objects.filter(viewin=1).order_by('important')
+            else:
+                for mes in messages:
+                    if mes.alldeps:
+                        messages = messages
+                    else:
+                        messages = messages.filter(deps__in=allow_departments)
 
             # Алгоритм поиска
             pag = 1000
@@ -202,7 +211,7 @@ def tabels(request):
 
                                                                 else:
                                                                     pag = 40
-                                                                    tabels = Tabel.objects.all().filter(~Q(type_id=8)).filter(day='0').order_by('-year', '-month',   'department__id' , 'type__id')
+                                                                    tabels = Tabel.objects.all().filter(~Q(type_id=8)).filter(day='0').order_by('-year', '-month',   'department__id' , 'type__id', )
 
 
 
@@ -213,7 +222,7 @@ def tabels(request):
 
 
 
-        return render(request, 'TURV/tabels.html', context={'type':type, 'tab_users':tab_users, 'tabels':page, 'count':count, 'deps':deps, 'granted':granted, 'ro':is_ro, 'month_':month_, "year_":year_, 'unite':unite, 'is_atc':is_atc})
+        return render(request, 'TURV/tabels.html', context={'type':type, 'tab_users':tab_users, 'tabels':page, 'count':count, 'deps':deps, 'granted':granted, 'ro':is_ro, 'month_':month_, "year_":year_, 'unite':unite, 'is_atc':is_atc, 'messages':messages})
     else:
         return redirect('/accounts/login/')
 
