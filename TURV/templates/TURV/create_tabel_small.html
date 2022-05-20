@@ -26,21 +26,35 @@
 <!-- <link rel="stylesheet" href="{% static 'TURV\css\tabel_print2.css'%}"> -->
 <div  class="container tabel_container">
 
-<form action="" class="f_search intabel not-print">
-<p>ПОИСК</p>
-<input type="text" name="its_employer"  placeholder="поиск по ФИО" value="">
-<select class="" name="its_position">
-<option value="">Поиск по должности</option>
-{% for pos in positions%}
-<option value="{{pos}}">{{pos}}</option>
-{%endfor%}
-</select>
-<input type="submit" name="" class="btn btn-dark" value="Найти">
-<a class="btn btn-outline-danger" href="/turv/create/{{b_tabel.id}}">Сбросить поиск</a>
-</form>
+<div class="info-block ib-intabel">
+
+    <form action="" class="f_search fs-intabel not-print">
+    <div class="fs-head">
+      <p>ПОИСК</p>
+    </div>
+    <div class="fs-content">
+    <input type="text" name="its_employer"  placeholder="поиск по ФИО" value="">
+    <select class="" name="its_position">
+    <option value="">Поиск по должности</option>
+    {% for pos in positions%}
+    <option value="{{pos}}">{{pos}}</option>
+    {%endfor%}
+    </select>
+    </div>
+    <div class="fs-buttons">
+    <input type="submit" name="" class="btn btn-dark" value="Найти">
+    <a class="btn btn-outline-danger" href="/turv/create/{{b_tabel.id}}">Сбросить поиск</a>
+    </div>
+    </form>
 
 
-<h5 class="not-print" style="color:red;">ВАЖНО: ПЕРЕД ПЕЧАТЬЮ ТАБЕЛЯ ОБЯЗАТЕЛЬНО ОЗНАКОМТЕСЬ С <span><a style="float: none; margin-left: none;" href="https://docs.google.com/document/d/1Z439AZgEkRSZErC1wrBpQE9ajGD-OPZIZOkNI08mPSg/edit#heading=h.g1x2nyrk0y8c">ИНСТРУКЦИЕЙ,</a></span> ПРОВЕРЬТЕ НАСТРОЙКИ ПЕЧАТИ, А ТАК ЖЕ ПРОВЕРЬТЕ КОРРЕКТНОСТЬ СФОРМИРОВАННОГО ДОКУМЕНТА В ОКНЕ ПРЕДВАРИТЕЛЬНОГО ПРОСМОТРА </h5>
+
+    <div class="info-window iw-intabel">
+    <p class="info-window-head">информация</p>
+    <h5 class="not-print" style="color:red;">ВАЖНО: ПЕРЕД ПЕЧАТЬЮ ТАБЕЛЯ ОБЯЗАТЕЛЬНО ОЗНАКОМТЕСЬ С <span><a style="float: none; margin-left: none;" href="https://docs.google.com/document/d/1Z439AZgEkRSZErC1wrBpQE9ajGD-OPZIZOkNI08mPSg/edit#heading=h.g1x2nyrk0y8c">ИНСТРУКЦИЕЙ,</a></span> ПРОВЕРЬТЕ НАСТРОЙКИ ПЕЧАТИ, А ТАК ЖЕ ПРОВЕРЬТЕ КОРРЕКТНОСТЬ СФОРМИРОВАННОГО ДОКУМЕНТА В ОКНЕ ПРЕДВАРИТЕЛЬНОГО ПРОСМОТРА </h5>
+    </div>
+
+</div>
 <div class="sup_check not-print">
   {% if b_tabel.sup_check %}
     {% if granted == 1%}
