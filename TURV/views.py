@@ -524,6 +524,39 @@ def tabel_create(request, id):
                 s_vac = hours['s_vac']
                 s_weekends = hours['s_weekends']
 
+            # Сообщения
+            # Полный доступ
+            # meslist = []
+            # messages = InfoMessages.objects.filter(viewin=2).filter(active=1).order_by('-important','-id')
+            # if granted == True:
+            #     # Проверяем на постоянные и непостояннные
+            #     for mes in messages:
+            #
+            #         if mes.always:
+            #             meslist.append(mes.id)
+            #         else:
+            #             if mes.dfrom <= datetime.datetime.now().date() and mes.dfrom >= datetime.datetime.now().date():
+            #                 meslist.append(mes.id)
+            #         # Проверяем на пренадлежность к виду табеля
+            #
+            #     messages = messages.filter(id__in=meslist)
+            #
+            # #неполный доступ
+            # else:
+            #     deps = Department.objects.all().filter(user=user_.id)
+            #     allow_departments = []
+            #     for dep in deps:
+            #         allow_departments.append(dep.id)
+            #     for mes in messages:
+            #         if mes.alldeps:
+            #             meslist.append(mes.id)
+            #         else:
+            #             if mes.deps.filter(id__in=allow_departments):
+            #                 meslist.append(mes.id)
+            #     messages = messages.filter(id__in=meslist)
+
+
+
             count = len(items)
             t_month = b_tabel.month
             t_year = b_tabel.year
@@ -729,19 +762,29 @@ def messages_ref(request):
         messages = InfoMessages.objects.all()
         return render(request, 'TURV/messages.html', context={'messages':messages})
 
-def new_message(request):
+def new_message(request, id):
     if request.user.is_authenticated:
-
         if request.method == 'GET':
-            form = InfoMessages_form()
+            if id != 0:
+                message = InfoMessages.objects.get(id=id)
+                form = InfoMessages_form(instance=message)
+            else:
+                form = InfoMessages_form()
+
             return render(request, 'TURV/message-form.html', context={'form':form})
         else:
-            form = InfoMessages_form(request.POST)
-            if form.is_valid():
-                form.saveFirst()
-                return redirect('/turv/messages/')
+            if id == 0:
+                form = InfoMessages_form(request.POST)
+                if form.is_valid():
+                        form.saveFirst()
+                        return redirect('/turv/messages/')
             else:
-                return render(request, 'TURV/message-form.html', context={'form':form})
+                message = InfoMessages.objects.get(id=id)
+                form = InfoMessages_form(request.POST, instance=message)
+                if form.is_valid():
+                    form.save()
+                    return redirect('/turv/messages/')
+
 
 
 

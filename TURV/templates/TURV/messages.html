@@ -7,7 +7,7 @@
 {% block body %}
 
 <div class="container">
-  <a class="btn btn-success btn-add"  onclick="return window.open('{% url 'message_new_url'%}');"  >+ Новое сообщение</a>
+  <a class="btn btn-success btn-add"  onclick="return window.open('{% url 'message_new_url' id=0%}' );"  >+ Новое сообщение</a>
 
 {%if messages %}
 
@@ -30,7 +30,7 @@
 
   {% for mes in messages %}
 
-  <tr  onclick="return window.open('#');" >
+  <tr  onclick="return location.href = '{% url 'message_new_url' id=mes.id%}'" >
 
 
 

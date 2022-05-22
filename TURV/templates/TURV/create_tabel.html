@@ -121,6 +121,11 @@
     <div class="info-window iw-intabel">
     <p class="info-window-head">информация</p>
     <h5 class="not-print" style="color:red;">ВАЖНО: ПЕРЕД ПЕЧАТЬЮ ТАБЕЛЯ ОБЯЗАТЕЛЬНО ОЗНАКОМТЕСЬ С <span><a style="float: none; margin-left: none;" href="https://docs.google.com/document/d/1Z439AZgEkRSZErC1wrBpQE9ajGD-OPZIZOkNI08mPSg/edit#heading=h.g1x2nyrk0y8c">ИНСТРУКЦИЕЙ,</a></span> ПРОВЕРЬТЕ НАСТРОЙКИ ПЕЧАТИ, А ТАК ЖЕ ПРОВЕРЬТЕ КОРРЕКТНОСТЬ СФОРМИРОВАННОГО ДОКУМЕНТА В ОКНЕ ПРЕДВАРИТЕЛЬНОГО ПРОСМОТРА </h5>
+    <div class="iw-content">
+      {% for mes in messages  %}
+      <h5 style="text-align: left !important; {% if mes.important %}color: red;{% endif %} !important">{% if mes.important %}!ВАЖНО!{% endif %}{{mes.text}}</h5>
+      {% endfor %}
+    </div>
     </div>
 
 </div>
