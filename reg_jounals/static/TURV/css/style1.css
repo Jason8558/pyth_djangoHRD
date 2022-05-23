@@ -771,7 +771,9 @@ background: white;padding: 5px;border-radius: 14px;border: 1px solid;border-radi
 
 .main-fs {position: absolute;top: 360px;width: 290px;left: 6px;display: flex;flex-direction: column;}
 
-.fs-main > .fs-content {padding: 4px;display: flex;border-bottom: 1px solid;align-content: space-around;align-items: stretch;}
+.fs-main {width: 46%;}
+
+.fs-main > .fs-content {padding: 4px;display: flex;border-bottom: 1px solid;align-content: space-around;align-items: stretch;justify-content: space-evenly;}
 
 .fs-main > .fs-content select {width: 120px;}
 
@@ -799,7 +801,7 @@ display: flex;align-content: center;align-items: stretch;justify-content: flex-e
 
 .iw-main {
 
-margin-right: 15px;width: 100%;}
+margin-right: 15px;width: 54%;}
 
 .iw-content {
 
