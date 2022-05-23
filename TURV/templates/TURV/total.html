@@ -48,13 +48,42 @@
       {%for dep in deps %}
         <tr id={{dep.id}} >
           <td>{{dep.name}}</td>
-          <td class="tt-cell main"></td>
-          <td class="tt-cell toxic"></td>
-          <td class="tt-cell unite"></td>
-          <td class="tt-cell vac"> </td>
-          <td class="tt-cell over"></td>
-          <td class="tt-cell standby"></td>
-          <td class="tt-cell nn"></td>
+          <td style="border: 2px solid red !important" class="tt-cell main"></td>
+
+          {% for type in dep.conftype.all  %}
+
+               {% if type.id == 2 %}
+                <td style="border: 2px solid red !important" class="tt-cell toxic"> </td>
+               {% else %}
+               {% endif %}
+
+               {% if type.id == 3 %}
+                <td style="border: 2px solid red !important" class="tt-cell unite"> </td>
+               {% else %}
+               {% endif %}
+
+               {% if type.id == 4 %}
+                <td style="border: 2px solid red !important" class="tt-cell vac"> </td>
+               {% else %}
+               {% endif %}
+
+               {% if type.id == 5 %}
+                <td style="border: 2px solid red !important" class="tt-cell over"> </td>
+               {% else %}
+               {% endif %}
+
+               {% if type.id == 6 %}
+                <td style="border: 2px solid red !important" class="tt-cell standby"> </td>
+               {% else %}
+               {% endif %}
+
+               {% if type.id == 8 %}
+                <td style="border: 2px solid red !important" class="tt-cell nn"> </td>
+               {% else %}
+               {% endif %}
+
+          {% endfor %}
+
           </tr>
       {%endfor%}
   </tbody>

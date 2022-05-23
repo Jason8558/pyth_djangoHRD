@@ -1116,7 +1116,7 @@ def total_tabels(request, month, year, dep):
     if request.user.is_authenticated:
         dict = {}
         types = TabelType.objects.all()
-        deps = Department.objects.all().order_by('name')
+        deps = Department.objects.all().filter(notused=0).order_by('name')
         tabels = Tabel.objects.filter(month=month).filter(year=year).filter(department_id=dep).filter(day='0').filter(del_check=0).values('department__name','department_id','type_id', 'sup_check', 'paper_check')
         print(tabels)
         tabels = list(tabels)
@@ -1124,7 +1124,7 @@ def total_tabels(request, month, year, dep):
 
 def total_tabels_html(request):
     if request.user.is_authenticated:
-        deps = Department.objects.all()
+        deps = Department.objects.all().filter(notused=0)
 
         return render(request, 'TURV/total.html', context={'deps':deps})
 
