@@ -554,7 +554,7 @@ def tabel_create(request, id):
                 meslist = []
                 print(messages)
 
-                # Сортировка по подразделениям 
+                # Сортировка по подразделениям
                 for mes in messages:
                     if  mes.alldeps:
                         meslist.append(mes.id)
@@ -718,7 +718,6 @@ def tabel_additem(request, id):
 
             messages = messages.filter(id__in=meslist)
             meslist = []
-            print(messages)
 
             for mes in messages:
                 if mes.always:
@@ -730,7 +729,6 @@ def tabel_additem(request, id):
 
             messages = messages.filter(id__in=meslist)
             meslist = []
-            print(messages)
 
             for mes in messages:
                 if  mes.alldeps:
@@ -740,14 +738,28 @@ def tabel_additem(request, id):
                         meslist.append(mes.id)
 
                     messages = messages.filter(id__in=meslist)
-            print(messages)
+
 
         #неполный доступ
         else:
+
+            for mes in messages:
+                if mes.alltypes:
+                    meslist.append(mes.id)
+                else:
+                    if mes.intypes.filter(id=b_tabel.type_id):
+                        meslist.append(mes.id)
+
+            messages = messages.filter(id__in=meslist)
+            meslist = []
+
+
             deps = Department.objects.all().filter(user=user_.id)
             allow_departments = []
             for dep in deps:
                 allow_departments.append(dep.id)
+
+
             for mes in messages:
                 if mes.alldeps:
                     meslist.append(mes.id)
@@ -755,6 +767,9 @@ def tabel_additem(request, id):
                     if mes.deps.filter(id=department.id):
                         meslist.append(mes.id)
             messages = messages.filter(id__in=meslist)
+
+
+
 
 
 

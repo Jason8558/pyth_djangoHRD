@@ -404,7 +404,7 @@ class Automobile_form(forms.ModelForm):
 class InfoMessages_form(forms.ModelForm):
     class Meta:
         model = InfoMessages
-        fields = ['text', 'alldeps', 'deps', 'active', 'dfrom' , 'dto', 'always', 'viewin', 'intypes', 'mestype', 'important']
+        fields = ['text', 'alldeps', 'deps', 'active', 'dfrom' , 'dto', 'always', 'viewin', 'alltypes', 'intypes', 'mestype', 'important']
 
     dfrom = forms.DateField(label="Дата начала показа" , required=False, widget=forms.TextInput(
         attrs={'placeholder': 'Введите дату',  'type':'date'}))
@@ -424,6 +424,7 @@ class InfoMessages_form(forms.ModelForm):
         dto = self.cleaned_data['dto'],
         always = self.cleaned_data['always'],
         viewin = self.cleaned_data['viewin'],
+        alltypes = self.cleaned_data['alltypes'],
         mestype = self.cleaned_data['mestype'],
         important = self.cleaned_data['important']
 

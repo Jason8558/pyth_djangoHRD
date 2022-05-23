@@ -51,8 +51,9 @@
   <p>{{form.viewin}}</p>
 </div>
 <div class="afm-intypes" id="afm-intypes">
-  <p>Показывать для следующих видов табеля: </p>
-  <p>{{form.intypes}}</p>
+  <p>Показывать для всех видов табеля: <span> {{form.alltypes}} </span></p>
+
+  <p id="afm-show-types">{{form.intypes}}</p>
 </div>
 
 <div class="buttons"><input type="submit" name="" class="btn btn-success" value="Добавить">
@@ -77,7 +78,14 @@
       else {
           $('#afm-show-deps').css('display', 'block')
       }
+// Виды табеля
+      if ($('#id_alltypes').prop('checked') == true) {
 
+      }
+      else {
+          $('#afm-show-types').css('display', 'block')
+      }
+// -----------
       if ($('#id_mestype option:selected').val() == 2) {
 
         $('#id_viewin option').filter(function() {
@@ -98,7 +106,7 @@
   $('#id_always').change(function(){
     if ($('#afm-per').css('display') == 'block') {
       $('#afm-per').css('display', 'none')
-      $('#afm-per input').val('0000-00-00')
+
     }
     else {
       $('#afm-per').css('display', 'block')
@@ -115,23 +123,17 @@
     }
   })
 
-  $('#id_mestype').change(function(){
-    if ($('#id_mestype option:selected').val() == 2) {
-
-      $('#id_viewin option').filter(function() {
-          return ($(this).val() != 2); //To select Blue
-      }).remove();
-      $('#afm-views').css('display', 'none')
-      $('#afm-intypes').css('display', 'none')
+  $('#id_alltypes').change(function(){
+    if ($('#afm-show-types').css('display') == 'block') {
+      $('#afm-show-types').css('display', 'none')
     }
     else {
-        $('#id_viewin').append('<option value="2">Окно табеля</option>')
-        $('#id_viewin').append('<option value="3">Окно редактирования табеля</option>')
-        $('#afm-views').css('display', 'block')
-        $('#afm-intypes').css('display', 'block')
-
+      $('#afm-show-types').css('display', 'block')
     }
   })
+
+
+
 
 </script>
 {%endblock%}
