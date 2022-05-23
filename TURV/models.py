@@ -25,6 +25,7 @@ class Employers(models.Model):
 class Department(models.Model):
     name = models.CharField(verbose_name = 'Название подразделения', db_index=True, max_length=256)
     user = models.ManyToManyField(User, verbose_name = 'Табельщик')
+    conftype = models.ManyToManyField('TabelType', verbose_name='Виды табелей для подразделения: ') 
     notused = models.BooleanField(default=False)
 
     class Meta:
