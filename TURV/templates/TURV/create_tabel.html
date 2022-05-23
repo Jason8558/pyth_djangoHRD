@@ -141,47 +141,62 @@
 
 <div class="functions f-intabel">
 
+  <div class="t-print">
+  {% if b_tabel.type.id == 4 or b_tabel.type.id == 5 or b_tabel.type.id == 6 %}
+  <input class="btn btn-warning btn-sm"  type="button" name="" onclick="print_toxic({{b_tabel.year}}, {{b_tabel.month}}, '{{b_tabel.department.name}}')" value="ПЕЧАТЬ">
+  {%else%}
+  <input class="btn btn-warning btn-sm"   type="button" name="" onclick="print({{b_tabel.year}}, {{b_tabel.month}}, '{{b_tabel.department.name}}')" value="ПЕЧАТЬ">
+  {%endif%}
+
+  </div>
+
 <div class="sup_check not-print">
   {% if b_tabel.sup_check %}
-    {% if granted == 1%}
-    <a class="btn btn-danger" href="{% url 'checked' id=b_tabel.id%}">Отменить проверку</a>
-    {%endif%}
     <h4 style="color: green;">✅ Проверен СУП</h4>
+      {% if granted == 1%}
+      <a class="btn btn-danger btn-sm" href="{% url 'checked' id=b_tabel.id%}">Отменить проверку</a>
+      {%endif%}
     {%else%}
-    {% if granted == 1%}
-    <a class="btn btn-success" href="{% url 'checked' id=b_tabel.id%}">Отметить как проверенный</a>
-    {%endif%}
+      {% if granted == 1%}
+      <a class="btn btn-success btn-sm" href="{% url 'checked' id=b_tabel.id%}">Отметить как проверенный</a>
+      {%endif%}
 {%endif%}
+</div>
 
+<div class="paper_check not-print">
 {% if b_tabel.paper_check %}
-  {% if granted == 1%}
-  <a class="btn btn-danger" href="{% url 'paper_checked' id=b_tabel.id%}">Отменить наличие бумажной копии</a>
-  {%endif%}
-  <h4 style="color: green;">✅ Сдан на бумаге</h4>
+    <h4 style="color: green;">✅ Сдан на бумаге</h4>
+
+    {% if granted == 1%}
+    <a class="btn btn-danger btn-sm" href="{% url 'paper_checked' id=b_tabel.id%}">Отменить наличие бумажной копии</a>
+    {%endif%}
+
   {%else%}
+
   {% if granted == 1%}
-  <a class="btn btn-success" href="{% url 'paper_checked' id=b_tabel.id%}">Подтвердить наличие бум. копии</a>
+  <a class="btn btn-success btn-sm" href="{% url 'paper_checked' id=b_tabel.id%}">Подтвердить наличие бум. копии</a>
   {%endif%}
 {%endif%}
+</div>
 
-{% if b_tabel.type.id == 4 or b_tabel.type.id == 5 or b_tabel.type.id == 6 %}
-<input class="btn btn-warning"  style="margin-left: 6px;" type="button" name="" onclick="print_toxic({{b_tabel.year}}, {{b_tabel.month}}, '{{b_tabel.department.name}}')" value="ПЕЧАТЬ">
-{%else%}
-<input class="btn btn-warning"  style="margin-left: 6px;" type="button" name="" onclick="print({{b_tabel.year}}, {{b_tabel.month}}, '{{b_tabel.department.name}}')" value="ПЕЧАТЬ">
-{%endif%}
 
-<form class="comm" action="{% url 'comm' id=b_tabel.id%}" method="post">
+
+<div class="comm">
+<form class="f-comm" action="{% url 'comm' id=b_tabel.id%}" method="post">
   {% csrf_token %}
   <input type="text" name="tabel_comm" placeholder="введите коментарий" value="{{b_tabel.comm}}">
   <input type="submit" class="btn btn-warning btn-sm" value="ИЗМЕНИТЬ">
 </form>
-  {% if b_tabel.del_check == False %}
-    <a class="btn btn-danger" href="{% url 'delcheck_url' id=b_tabel.id %}">Пометить на удаление</a>
-  {%else%}
-    <a class="btn btn-danger" href="{% url 'delcheck_url' id=b_tabel.id %}">Снять пометку удаления</a>
-  {%endif%}
-
 </div>
+<div class="del_check">
+  {% if b_tabel.del_check == False %}
+    <a class="btn btn-danger btn-sm" href="{% url 'delcheck_url' id=b_tabel.id %}">Пометить на удаление</a>
+  {%else%}
+    <a class="btn btn-danger btn-sm" href="{% url 'delcheck_url' id=b_tabel.id %}">Снять пометку удаления</a>
+  {%endif%}
+  </div>
+
+
 
 </div>
 

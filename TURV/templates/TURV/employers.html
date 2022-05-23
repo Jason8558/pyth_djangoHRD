@@ -6,30 +6,36 @@
 
 {% block body %}
 
-<form  class="f_search"  action="{% url 'emp_list'%}" >
-<p><u>ПОИСК: </u></p>
-  <input type="text" name="emp" placeholder="Поиск по ФИО..." value="">
 
-
-<label for="emp_dep_search">Подразделение: </label>
-  <select class="" name="emp_dep">
-    <option value="">---</option>
-    {% for dep in deps%}
-      <option value="{{dep.id}}">{{dep}}</option>
-      {% endfor%}
-  </select>
-    <label for="emp_shift">Режим работы: </label>
-    <select class="" name="emp_shift">
-      <option value="">---</option>
-      <option value="1">Сменные</option>
-      <option value="2">Дневные</option>
-    </select>
-
-    <input class="btn btn-dark"type="submit" name="" value="Найти">
-
-</form>
 
 <div class="container">
+
+  <form  class="f_search fs-employers"  action="{% url 'emp_list'%}" >
+  <p><u>ПОИСК: </u></p>
+  <div class="fs-content">
+    <input type="text" name="emp" placeholder="Поиск по ФИО..." value="">
+
+
+
+    <select class="" name="emp_dep">
+      <option value="">Подразделение</option>
+      {% for dep in deps%}
+        <option value="{{dep.id}}">{{dep}}</option>
+        {% endfor%}
+    </select>
+
+      <select class="" name="emp_shift">
+        <option value="">Режим работы</option>
+        <option value="1">Сменные</option>
+        <option value="2">Дневные</option>
+      </select>
+  <input class="btn btn-dark"type="submit" name="" value="Найти">
+</div>
+
+
+
+  </form>
+
   <a class="btn btn-success btn-add"  href="{% url 'emp_new'%}"  >+ Новый сотрудник</a>
 
 {%if employers%}
