@@ -166,7 +166,7 @@ def tabels(request):
                                     tabels = Tabel.objects.all().filter(type_id=sq_type).filter(department_id__in=allow_departments).order_by('-year', '-month', 'type__id')
                                 else:
                                     if (sq_this_month):
-                                        tabels = Tabel.objects.all().filter(department_id__in=allow_departments).filter(year=year_).filter(month=month_).order_by('-year', '-month', 'type__id')
+                                        tabels = Tabel.objects.all().filter(day='0').filter(department_id__in=allow_departments).filter(year=year_).filter(month=month_).order_by('-year', '-month', 'type__id')
                                     else:
                                         if unite == True:
                                             pag = 40
@@ -210,13 +210,13 @@ def tabels(request):
                                             tabels = Tabel.objects.all().filter(year=sq_period_year).order_by('-year', '-month', 'type__id')
                                         else:
                                             if (sq_dep):
-                                                tabels = Tabel.objects.all().filter(department_id=sq_dep).order_by('-year', '-month', 'type__id')
+                                                tabels = Tabel.objects.all().filter(department_id=sq_dep).filter(day='0').order_by('-year', '-month', 'type__id')
                                             else:
                                                 if (sq_this_month):
-                                                    tabels = Tabel.objects.all().filter(year=year_).filter(month=month_).order_by('department__name')
+                                                    tabels = Tabel.objects.all().filter(year=year_).filter(month=month_).filter(day='0').order_by('department__name')
                                                 else:
                                                     if (sq_check_this_month):
-                                                        tabels = Tabel.objects.all().filter(year=year_).filter(month=month_).filter(sup_check= True).order_by('-year', '-month', 'type__id')
+                                                        tabels = Tabel.objects.all().filter(year=year_).filter(month=month_).filter(day='0').filter(sup_check= True).order_by('-year', '-month', 'type__id')
                                                     else:
                                                         if (sq_user):
                                                             tabels = Tabel.objects.all().filter(res_officer=sq_user).order_by('-year', '-month', 'type__id')
