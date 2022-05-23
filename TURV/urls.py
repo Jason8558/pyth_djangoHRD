@@ -29,6 +29,7 @@ urlpatterns = [
     path('toxic-unload/', views.toxic_unload, name='toxic-unload'),
     path('unite-unload/', views.unite_unload, name='unite-unload'),
     path('checked/<int:id>', views.tabel_sup_check, name='checked'),
+    path('paper/<int:id>', views.tabel_paper_check, name='paper_checked'),
     path('comm/<int:id>/', views.upd_comm, name='comm'),
     path('overtime/', views.upd_norma, name='overtime_url'),
     path('overtime/upd', views.new_norma, name='overtime_new_url'),

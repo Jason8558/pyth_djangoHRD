@@ -818,6 +818,19 @@ def tabel_upditem(request, id):
     else:
         return render(request, 'reg_jounals/no_auth.html')
 
+def tabel_paper_check(request, id):
+    if request.user.is_authenticated:
+            tabel = Tabel.objects.get(id=id)
+
+            if tabel.paper_check == False:
+                tabel.paper_check = True
+            else:
+                tabel.paper_check = False
+
+            tabel.save()
+
+    return redirect('/turv/create/' + str(id))
+
 def tabel_sup_check(request, id):
     if request.user.is_authenticated:
             tabel = Tabel.objects.get(id=id)

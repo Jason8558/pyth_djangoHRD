@@ -153,6 +153,17 @@
     {%endif%}
 {%endif%}
 
+{% if b_tabel.paper_check %}
+  {% if granted == 1%}
+  <a class="btn btn-danger" href="{% url 'paper_checked' id=b_tabel.id%}">Отменить наличие бумажной копии</a>
+  {%endif%}
+  <h4 style="color: green;">✅ Сдан на бумаге</h4>
+  {%else%}
+  {% if granted == 1%}
+  <a class="btn btn-success" href="{% url 'paper_checked' id=b_tabel.id%}">Подтвердить наличие бум. копии</a>
+  {%endif%}
+{%endif%}
+
 {% if b_tabel.type.id == 4 or b_tabel.type.id == 5 or b_tabel.type.id == 6 %}
 <input class="btn btn-warning"  style="margin-left: 6px;" type="button" name="" onclick="print_toxic({{b_tabel.year}}, {{b_tabel.month}}, '{{b_tabel.department.name}}')" value="ПЕЧАТЬ">
 {%else%}

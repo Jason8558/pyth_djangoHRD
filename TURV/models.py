@@ -25,7 +25,7 @@ class Employers(models.Model):
 class Department(models.Model):
     name = models.CharField(verbose_name = 'Название подразделения', db_index=True, max_length=256)
     user = models.ManyToManyField(User, verbose_name = 'Табельщик')
-    conftype = models.ManyToManyField('TabelType', verbose_name='Виды табелей для подразделения: ') 
+    conftype = models.ManyToManyField('TabelType', verbose_name='Виды табелей для подразделения: ')
     notused = models.BooleanField(default=False)
 
     class Meta:
@@ -76,6 +76,7 @@ class Tabel(models.Model):
     department = models.ForeignKey('Department', verbose_name=' ', db_index=True, on_delete=models.CASCADE)
     del_check = models.BooleanField(verbose_name='Пометка удаления', default=False, blank=True)
     sup_check = models.BooleanField(verbose_name='Проверен СУП', default=False, blank=True)
+    paper_check = models.BooleanField(verbose_name='Сдан в бумажном виде',default=False)
     unloaded =  models.BooleanField(verbose_name='Загружен в 1С', default=False, blank=True)
     comm = models.CharField(verbose_name='Комментарий (НЕОБЯЗАТЕЛЬНО)', max_length=256, default="", blank=True)
     res_officer = models.CharField(blank=True, editable=False,  max_length=256, help_text="Отвественный за составление табеля", verbose_name='Табельщик')
