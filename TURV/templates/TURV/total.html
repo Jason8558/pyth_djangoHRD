@@ -76,6 +76,11 @@
 
       switch (data[i].type_id) {
         case 1:
+
+          if (data[i].paper_check == true) {
+            $('#total-table #' + data[i].department_id + ' .main' ).text('сдан.')
+          }
+
           if (data[i].sup_check == true) {
             $('#total-table #' + data[i].department_id + ' .main' ).css('background', 'green')
 
@@ -87,6 +92,11 @@
           break;
 
           case 2:
+
+            if (data[i].paper_check == true) {
+              $('#total-table #' + data[i].department_id + ' .toxic' ).text('сдан.')
+            }
+
             if (data[i].sup_check == true) {
               $('#total-table #' + data[i].department_id + ' .toxic' ).css('background', 'green')
 
@@ -98,6 +108,11 @@
             break;
 
             case 3:
+
+              if (data[i].paper_check == true) {
+                $('#total-table #' + data[i].department_id + ' .unite' ).text('сдан.')
+              }
+
               if (data[i].sup_check == true) {
                 $('#total-table #' + data[i].department_id + ' .unite' ).css('background', 'green')
 
@@ -109,6 +124,10 @@
               break;
 
               case 4:
+                if (data[i].paper_check == true) {
+                  $('#total-table #' + data[i].department_id + ' .vac' ).text('сдан.')
+                }
+
                 if (data[i].sup_check == true) {
                   $('#total-table #' + data[i].department_id + ' .vac' ).css('background', 'green')
 
@@ -120,6 +139,10 @@
                 break;
 
                 case 5:
+                  if (data[i].paper_check == true) {
+                    $('#total-table #' + data[i].department_id + ' .over' ).text('сдан.')
+                  }
+
                   if (data[i].sup_check == true) {
                     $('#total-table #' + data[i].department_id + ' .over' ).css('background', 'green')
 
@@ -131,6 +154,11 @@
                   break;
 
                   case 6:
+
+                    if (data[i].paper_check == true) {
+                      $('#total-table #' + data[i].department_id + ' .standby' ).text('сдан.')
+                    }
+
                     if (data[i].sup_check == true) {
                       $('#total-table #' + data[i].department_id + ' .standby' ).css('background', 'green')
 
@@ -142,6 +170,10 @@
                     break;
 
                     case 8:
+                      if (data[i].paper_check == true) {
+                        $('#total-table #' + data[i].department_id + ' .nn' ).text('сдан.')
+                      }
+
                       if (data[i].sup_check == true) {
                         $('#total-table #' + data[i].department_id + ' .nn' ).css('background', 'green')
 
