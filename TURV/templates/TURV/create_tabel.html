@@ -123,8 +123,17 @@
     <h5 class="not-print" style="color:red;">ВАЖНО: ПЕРЕД ПЕЧАТЬЮ ТАБЕЛЯ ОБЯЗАТЕЛЬНО ОЗНАКОМТЕСЬ С <span><a style="float: none; margin-left: none;" href="https://docs.google.com/document/d/1Z439AZgEkRSZErC1wrBpQE9ajGD-OPZIZOkNI08mPSg/edit#heading=h.g1x2nyrk0y8c">ИНСТРУКЦИЕЙ,</a></span> ПРОВЕРЬТЕ НАСТРОЙКИ ПЕЧАТИ, А ТАК ЖЕ ПРОВЕРЬТЕ КОРРЕКТНОСТЬ СФОРМИРОВАННОГО ДОКУМЕНТА В ОКНЕ ПРЕДВАРИТЕЛЬНОГО ПРОСМОТРА </h5>
     <div class="iw-content">
       {% for mes in messages  %}
-      <h5 style="text-align: left !important; {% if mes.important %}color: red;{% endif %} !important">{% if mes.important %}!ВАЖНО!{% endif %}{{mes.text}}</h5>
+
+        {% if mes.mestype == '1' %}
+          <h5 style="text-align: left !important; {% if mes.important %}color: red;{% endif %} !important">{% if mes.important %}!ВАЖНО!{% endif %}{{mes.text}}</h5>
+        {% else %}
+          <h5 class="iw-movevac-h5" style="text-align: left !important; color:blue; cursor:pointer;" onmouseout="closemovevac()" onmouseover="showmovevac('{{mes.text}}')">Перенос отпусков!</h5>
+        {% endif %}
+
       {% endfor %}
+      <div style="display:none;" class="iw-movevac" id="iw-movevac">
+        <p></p>
+      </div>
     </div>
     </div>
 
@@ -573,6 +582,21 @@
 <div style="display:none" class="print_warning">
   <h1 style="color:red;">ДЛЯ ПЕЧАТИ ТАБЕЛЯ НАЖМИТЕ ЖЕЛТУЮ КНОПКУ ПЕЧАТЬ, КОТОРАЯ НАХОДИТСЯ ВЫШЕ ОСНОВНОЙ ТАБЛИЦЫ ТАБЕЛЯ!</h1>
 </div>
+
+<script type="text/javascript">
+  function showmovevac(text) {
+    movevac_txt = $('#iw-movevac p')
+    $('#iw-movevac').css('display', 'block')
+
+    $('#iw-movevac p').text(text)
+  }
+
+  function closemovevac() {
+    $('#iw-movevac').css('display', 'none')
+
+  }
+
+</script>
 
 
 {%endblock%}

@@ -474,6 +474,7 @@ def tabel_create(request, id):
         sq_employer = request.GET.get('its_employer','')
         sq_position = request.GET.get('its_position','')
         u_group = request.user.groups.all()
+        user_ = request.user
         granted = 0
         is_ro = 0
         allow_print = 0
@@ -526,34 +527,59 @@ def tabel_create(request, id):
 
             # Сообщения
             # Полный доступ
-            # meslist = []
-            # messages = InfoMessages.objects.filter(viewin=2).filter(active=1).order_by('-important','-id')
-            # if granted == True:
-            #     # Проверяем на постоянные и непостояннные
-            #     for mes in messages:
-            #
-            #         if mes.always:
-            #             meslist.append(mes.id)
-            #         else:
-            #             if mes.dfrom <= datetime.datetime.now().date() and mes.dfrom >= datetime.datetime.now().date():
-            #                 meslist.append(mes.id)
-            #         # Проверяем на пренадлежность к виду табеля
-            #
-            #     messages = messages.filter(id__in=meslist)
-            #
-            # #неполный доступ
-            # else:
-            #     deps = Department.objects.all().filter(user=user_.id)
-            #     allow_departments = []
-            #     for dep in deps:
-            #         allow_departments.append(dep.id)
-            #     for mes in messages:
-            #         if mes.alldeps:
-            #             meslist.append(mes.id)
-            #         else:
-            #             if mes.deps.filter(id__in=allow_departments):
-            #                 meslist.append(mes.id)
-            #     messages = messages.filter(id__in=meslist)
+            meslist = []
+            messages = InfoMessages.objects.filter(viewin=2).filter(active=1).order_by('-important','-id')
+            if granted == True:
+                # Проверяем на пренадлежность к виду табеля
+                for mes in messages:
+                    if mes.alltypes:
+                        meslist.append(mes.id)
+                    else:
+                        if mes.intypes.filter(id=b_tabel.type_id):
+                            meslist.append(mes.id)
+
+                messages = messages.filter(id__in=meslist)
+                meslist = []
+                print(messages)
+                # Сортировка по периодам
+                for mes in messages:
+                    if mes.always:
+                        meslist.append(mes.id)
+                    else:
+                        if mes.dfrom <= datetime.datetime.now().date() and mes.dfrom >= datetime.datetime.now().date():
+                            meslist.append(mes.id)
+
+
+                messages = messages.filter(id__in=meslist)
+                meslist = []
+                print(messages)
+
+                # Сортировка по подразделениям 
+                for mes in messages:
+                    if  mes.alldeps:
+                        meslist.append(mes.id)
+                    else:
+                        if mes.deps.filter(id=b_tabel.department_id):
+                            print(mes.id)
+                            meslist.append(mes.id)
+
+                        messages = messages.filter(id__in=meslist)
+
+                print(messages)
+
+            #неполный доступ
+            else:
+                deps = Department.objects.all().filter(user=user_.id)
+                allow_departments = []
+                for dep in deps:
+                    allow_departments.append(dep.id)
+                for mes in messages:
+                    if mes.alldeps:
+                        meslist.append(mes.id)
+                    else:
+                        if mes.deps.filter(id=b_tabel.department_id):
+                            meslist.append(mes.id)
+                messages = messages.filter(id__in=meslist)
 
 
 
@@ -567,7 +593,7 @@ def tabel_create(request, id):
     's_vac':s_vac,
     's_weekends':s_weekends,
 
-            'hours':hours,'form':tabel_form, 'items':items, 'print':allow_print, 'month':t_month, 'year':t_year, 'count':count, 'b_tabel':b_tabel, 'granted':granted, 'ro':is_ro})
+            'hours':hours,'form':tabel_form, 'items':items, 'print':allow_print, 'month':t_month, 'year':t_year, 'count':count, 'b_tabel':b_tabel, 'granted':granted, 'ro':is_ro, 'messages':messages})
             else:
 
                 return render(request, 'TURV/create_tabel.html', context={'positions':positions,
@@ -580,7 +606,7 @@ def tabel_create(request, id):
     's_vac':s_vac,
     's_weekends':s_weekends,
 
-                'hours':hours,'form':tabel_form, 'items':items, 'print':allow_print, 'month':t_month, 'year':t_year, 'count':count, 'b_tabel':b_tabel, 'granted':granted, 'ro':is_ro})
+                'hours':hours,'form':tabel_form, 'items':items, 'print':allow_print, 'month':t_month, 'year':t_year, 'count':count, 'b_tabel':b_tabel, 'granted':granted, 'ro':is_ro, 'messages':messages})
 
         else:
             b_tabel = Tabel.objects.get(id=id)
@@ -673,7 +699,62 @@ def tabel_additem(request, id):
         year = b_tabel.year
         month = b_tabel.month
         department = b_tabel.department
+        user_ = request.user
         allow_employers = Employers.objects.filter(department_id=department).filter(fired=0)
+        granted = access_check(request)
+
+        # Сообщения
+        # Полный доступ
+        meslist = []
+        messages = InfoMessages.objects.filter(viewin=3).filter(active=1).order_by('-important','-id')
+        if granted == True:
+            # Проверяем на пренадлежность к виду табеля
+            for mes in messages:
+                if mes.alltypes:
+                    meslist.append(mes.id)
+                else:
+                    if mes.intypes.filter(id=b_tabel.type_id):
+                        meslist.append(mes.id)
+
+            messages = messages.filter(id__in=meslist)
+            meslist = []
+            print(messages)
+
+            for mes in messages:
+                if mes.always:
+                    meslist.append(mes.id)
+                else:
+                    if mes.dfrom <= datetime.datetime.now().date() and mes.dfrom >= datetime.datetime.now().date():
+                        meslist.append(mes.id)
+
+
+            messages = messages.filter(id__in=meslist)
+            meslist = []
+            print(messages)
+
+            for mes in messages:
+                if  mes.alldeps:
+                    pass
+                else:
+                    if mes.deps.filter(id=department.id):
+                        meslist.append(mes.id)
+
+                    messages = messages.filter(id__in=meslist)
+            print(messages)
+
+        #неполный доступ
+        else:
+            deps = Department.objects.all().filter(user=user_.id)
+            allow_departments = []
+            for dep in deps:
+                allow_departments.append(dep.id)
+            for mes in messages:
+                if mes.alldeps:
+                    meslist.append(mes.id)
+                else:
+                    if mes.deps.filter(id=department.id):
+                        meslist.append(mes.id)
+            messages = messages.filter(id__in=meslist)
 
 
 
@@ -690,7 +771,7 @@ def tabel_additem(request, id):
             tabelItem_form.fields['employer'].queryset  = allow_employers
     else:
         return render(request, 'reg_jounals/no_auth.html')
-    return render(request, 'TURV/new_tabel_item.html', context={'tabel':tabelItem_form, 'in_tabel':in_tabel_items, 'b_tabel':b_tabel, 'year':year, 'month':month, 'emps':allow_employers})
+    return render(request, 'TURV/new_tabel_item.html', context={'tabel':tabelItem_form, 'in_tabel':in_tabel_items, 'b_tabel':b_tabel, 'year':year, 'month':month, 'emps':allow_employers, 'messages':messages})
 
 def tabel_upditem(request, id):
     if request.user.is_authenticated:
@@ -778,12 +859,16 @@ def new_message(request, id):
                 if form.is_valid():
                         form.saveFirst()
                         return redirect('/turv/messages/')
+                else:
+                    return render(request, 'TURV/message-form.html', context={'form':form})
             else:
                 message = InfoMessages.objects.get(id=id)
                 form = InfoMessages_form(request.POST, instance=message)
                 if form.is_valid():
                     form.save()
                     return redirect('/turv/messages/')
+                else:
+                    return render(request, 'TURV/message-form.html', context={'form':form})
 
 
 

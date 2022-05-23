@@ -404,7 +404,13 @@ class Automobile_form(forms.ModelForm):
 class InfoMessages_form(forms.ModelForm):
     class Meta:
         model = InfoMessages
-        fields = ['text', 'alldeps', 'deps', 'active', 'dfrom', 'dto', 'always', 'viewin', 'intypes', 'mestype', 'important']
+        fields = ['text', 'alldeps', 'deps', 'active', 'dfrom' , 'dto', 'always', 'viewin', 'intypes', 'mestype', 'important']
+
+    dfrom = forms.DateField(label="Дата начала показа" , required=False, widget=forms.TextInput(
+        attrs={'placeholder': 'Введите дату',  'type':'date'}))
+
+    dto = forms.DateField(label="Дата окончания показа" , required=False, widget=forms.TextInput(
+        attrs={'placeholder': 'Введите дату',  'type':'date'}))
 
     def saveFirst(self):
         deps = self.cleaned_data.get('deps')

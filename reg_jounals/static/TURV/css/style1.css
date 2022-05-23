@@ -1,4 +1,4 @@
-input[type=text], input[type=number], select {
+input[type=text], input[type=number], input[type=date], select {
   background: #f9f9f9;
   border-radius: 11px;
   border: 3px solid #5a9dff;
@@ -811,11 +811,24 @@ margin: 0 !important;}
   width: 100%;
 }
 
+.af-message select[multiple] {
+
+height: 251px;}
+
 .af-message textarea {
   background: #f9f9f9;
   border-radius: 11px;
   border: 3px solid #5a9dff;
 width: 100%;}
+
+#id_intypes {
+
+height: 162px;}
+
+.iw-movevac {background: white;width: 437px;height: 172px;position: absolute;border: 1px solid blue;top: 261px;}
+
+.iw-movevac-h5:hover {background:#c7faff}
+
 
 /* -------------- */
 

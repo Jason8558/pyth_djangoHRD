@@ -24,6 +24,9 @@
 <div class="container titem">
 
 
+
+
+
   <h4 style="grid-area:text; text-align:center">Выберите сотрудника из списка</h4>
 <div class="indep">
 
@@ -64,6 +67,16 @@
 
 
 <div id="tabel_item" class="tabel_item">
+
+  <div class="info-window iw-initem">
+  <p class="info-window-head">информация</p>
+  <h5 class="not-print" style="color:red;">ВАЖНО: ПЕРЕД ПЕЧАТЬЮ ТАБЕЛЯ ОБЯЗАТЕЛЬНО ОЗНАКОМТЕСЬ С <span><a style="float: none; margin-left: none;" href="https://docs.google.com/document/d/1Z439AZgEkRSZErC1wrBpQE9ajGD-OPZIZOkNI08mPSg/edit#heading=h.g1x2nyrk0y8c">ИНСТРУКЦИЕЙ,</a></span> ПРОВЕРЬТЕ НАСТРОЙКИ ПЕЧАТИ, А ТАК ЖЕ ПРОВЕРЬТЕ КОРРЕКТНОСТЬ СФОРМИРОВАННОГО ДОКУМЕНТА В ОКНЕ ПРЕДВАРИТЕЛЬНОГО ПРОСМОТРА </h5>
+  <div class="iw-content">
+    {% for mes in messages  %}
+    <h5 style="text-align: left !important; {% if mes.important %}color: red;{% endif %} !important">{% if mes.important %}!ВАЖНО!{% endif %}{{mes.text}}</h5>
+    {% endfor %}
+  </div>
+  </div>
 
  <!-- <ul class="in_tabel_list">
    {% for emp in in_tabel %}
@@ -275,7 +288,10 @@
 
   <input type="button" onclick="Tabel();" class="btn btn-success tItem_submit" name="" value="Расчитать и добавить">
   </div>
-  {% if b_tabel.type_id == 1%}
+
+
+
+  <!-- {% if b_tabel.type_id == 1%}
   <div class="warning">
     <h4 style="color: red">Внимание! При заполнении неполных часов (напр. 3.5; 3.2) следует разделять цифры ТОЧКОЙ, а не запятой</h4>
 
@@ -293,7 +309,7 @@
   </div>
   {%endif%}
   {%endif%}
-</div>
+</div> -->
 
   <div class="summary_times">
    <p class="st">{{tabel.sHours1.label}}{{tabel.sHours1}}</p>

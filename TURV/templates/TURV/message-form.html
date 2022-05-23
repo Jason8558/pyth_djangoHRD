@@ -9,13 +9,28 @@
 {% block body %}
 
 <div class="container ">
+  {% if form.errors %}
+<div class="errors">
+  {% for error in form.errors  %}
+  <h5>{{error}}</h5>
+
+  {% endfor %}
+
+</div>
+
+{% endif %}
 
 <form class="add-form af-message" action="" method="post">
 {% csrf_token %}
+<div class="afm-active">
+  <p>Сообщение активно: <span>{{form.active}}</span></p>
+</div>
+
 <div class="afm-mestype">
   <p>Вид сообщения <span>{{form.mestype}}</span></p>
 
 </div>
+
 <div class="afm-important">
   <p>Особо важное сообщение: <span>{{form.important}}</span></p>
 </div>
@@ -31,17 +46,17 @@
   <p>{{form.always.label}} <span>{{form.always}} </span></p>
   <p class="afm-unite" id="afm-per" style="display: none;"><span>с: {{form.dfrom}}</span> по: <span>{{form.dto}}</span></p>
 </div>
-<div class="afm-views">
+<div class="afm-views" id="afm-views">
   <p>Показывать в: </p>
   <p>{{form.viewin}}</p>
 </div>
-<div class="afm-intypes">
+<div class="afm-intypes" id="afm-intypes">
   <p>Показывать для следующих видов табеля: </p>
   <p>{{form.intypes}}</p>
 </div>
 
 <div class="buttons"><input type="submit" name="" class="btn btn-success" value="Добавить">
-<a href="#" onclick="window.close()" class="btn btn-outline-danger">Отмена</a></div>
+<a href="/turv/messages/"  class="btn btn-outline-danger">Отмена</a></div>
 
 
 </form>
@@ -49,13 +64,41 @@
 
 <script type="text/javascript">
   $(document).ready(function(){
-      $('#id_dfrom').attr('type','date')
-      $('#id_dto').attr('type','date')
+      if ($('#id_always').prop('checked') == true) {
+
+      }
+      else {
+          $('#afm-per').css('display', 'block')
+      }
+
+      if ($('#id_alldeps').prop('checked') == true) {
+
+      }
+      else {
+          $('#afm-show-deps').css('display', 'block')
+      }
+
+      if ($('#id_mestype option:selected').val() == 2) {
+
+        $('#id_viewin option').filter(function() {
+            return ($(this).val() != 2); //To select Blue
+        }).remove();
+        $('#afm-views').css('display', 'none')
+        $('#afm-intypes').css('display', 'none')
+      }
+      else {
+          $('#id_viewin').append('<option value="2">Окно табеля</option>')
+          $('#id_viewin').append('<option value="3">Окно редактирования табеля</option>')
+          $('#afm-views').css('display', 'block')
+          $('#afm-intypes').css('display', 'block')
+
+      }
   })
 
   $('#id_always').change(function(){
     if ($('#afm-per').css('display') == 'block') {
       $('#afm-per').css('display', 'none')
+      $('#afm-per input').val('0000-00-00')
     }
     else {
       $('#afm-per').css('display', 'block')
@@ -69,6 +112,24 @@
     }
     else {
       $('#afm-show-deps').css('display', 'block')
+    }
+  })
+
+  $('#id_mestype').change(function(){
+    if ($('#id_mestype option:selected').val() == 2) {
+
+      $('#id_viewin option').filter(function() {
+          return ($(this).val() != 2); //To select Blue
+      }).remove();
+      $('#afm-views').css('display', 'none')
+      $('#afm-intypes').css('display', 'none')
+    }
+    else {
+        $('#id_viewin').append('<option value="2">Окно табеля</option>')
+        $('#id_viewin').append('<option value="3">Окно редактирования табеля</option>')
+        $('#afm-views').css('display', 'block')
+        $('#afm-intypes').css('display', 'block')
+
     }
   })
 

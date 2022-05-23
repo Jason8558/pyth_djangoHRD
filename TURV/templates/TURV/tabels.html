@@ -116,10 +116,15 @@ function Supchecked() {
     <div class="iw-content">
       {% for mes in messages  %}
 
-
-      <h5 style="text-align: left !important; {% if mes.important %}color: red;{% endif %} !important">{% if mes.important %}!ВАЖНО!{% endif %}{{mes.text}}</h5>
-
+        {% if mes.mestype == '1' %}
+          <h5 style="text-align: left !important; {% if mes.important %}color: red;{% endif %} !important">{% if mes.important %}!ВАЖНО!{% endif %}{{mes.text}}</h5>
+        {% else %}
+          <h5 class="iw-movevac-h5" style="text-align: left !important; color:blue; cursor:pointer;" onmouseout="closemovevac()" onmouseover="showmovevac('{{mes.text}}')">Перенос отпусков!</h5>
+      {% endif %}
       {% endfor %}
+    </div>
+    <div style="display:none;" class="iw-movevac" id="iw-movevac">
+      <p></p>
     </div>
   </div>
 
@@ -298,4 +303,6 @@ function Supchecked() {
 <h2>Табели не найдены</h2>
 {%endif%}
 </div>
+
+
 {%endblock%}
