@@ -247,11 +247,13 @@ function Supchecked() {
     <td>{{tabel.res_officer}}</td>
     {%endif%}
 
+  {% if granted == 1 or user.is_superuser%}
     {% if tabel.paper_check %}
     <td>✅</td>
     {% else %}
     <td>❌</td>
     {% endif %}
+    {%endif%}
 
     {%if tabel.sup_check%}
     <td>✅</td>
