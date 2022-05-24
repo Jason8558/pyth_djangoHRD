@@ -848,9 +848,32 @@ height: 162px;}
 
 /* media */
 
-/* @media (max-width: 1600px) {
+@media (max-width: 1360px) {
 
-  .menu {
-    font-size: 10pt;
+  .titem {
+    grid-template-areas: 'text text'
+                          'list list'
+                          'list list'
+                          'main main';
+                        grid-template-rows: 26px 232px;}
+  .tabel_item {
+
+  width: 100% !important;/* zoom: 94%; */}
+
+  .nt_text_employer {
+    display: flex;
+    flex-direction: column;
   }
-} */
+
+  .nt_emp_info {    display: flex;
+    flex-direction: row;
+    width: 100% !important;align-items: center;justify-content: space-between;}
+
+    .nt_emp_info h5 { font-size: 13pt;width: 100px;}
+    
+    .results {width: 100% !important;display: flex;flex-direction: row;justify-content: space-between;}
+
+    .results p {display: flex;flex-direction: column;/* font-size: 12pt; */justify-content: center;align-items: center;}
+
+    .results p span {font-size: 11pt;}
+}
