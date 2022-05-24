@@ -379,7 +379,11 @@
       {% if b_tabel.del_check %}
       <tr id="{{item.id}}" onmouseleave="row_highlight_off({{item.id}})" onmouseover="row_highlight({{item.id}})" class="time_types">
         {%else%}
-        <tr id="{{item.id}}"  onmouseleave="row_highlight_off({{item.id}})" onclick="return location.href = '{% url 'tabel_updItem_url' id=item.id%}' "  onmouseover="row_highlight({{item.id}})" class="time_types">
+          {% if item.bound_tabel.iscorr%}
+          <tr style="background:lightyellow;" id="{{item.id}}"  onmouseleave="row_highlight_off({{item.id}})" onclick="return location.href = '{% url 'tabel_updItem_url' id=item.id%}' "  onmouseover="row_highlight({{item.id}})" class="time_types">
+          {%else%}
+          <tr id="{{item.id}}"  onmouseleave="row_highlight_off({{item.id}})" onclick="return location.href = '{% url 'tabel_updItem_url' id=item.id%}' "  onmouseover="row_highlight({{item.id}})" class="time_types">
+          {%endif%}
         {%endif%}
     {%endif%}
       <th class="print-num cell_bb" rowspan="2"></th>

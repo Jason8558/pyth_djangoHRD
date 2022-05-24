@@ -491,7 +491,7 @@ def tabel_create(request, id):
         if request.method == "GET":
 
             b_tabel = Tabel.objects.get(id=id)
-            c_tabels = Tabel.objects.all().filter(corr_id=id)
+            c_tabels = Tabel.objects.all().filter(corr_id=id).filter(del_check=0)
 
             # Корректировка
             if c_tabels:
@@ -508,6 +508,7 @@ def tabel_create(request, id):
                     corr_items.append(i.id)
                 for i in c_items:
                     corr_items.append(i.id)
+                items = TabelItem.objects.filter(id__in=corr_items).order_by('employer')
 
 
 
