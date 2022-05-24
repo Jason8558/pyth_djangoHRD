@@ -848,15 +848,9 @@ height: 162px;}
 
 /* media */
 
-@media (max-width: 1360px) {
+/* @media (max-width: 1600px) {
 
-
-  .titem {max-width: 1327px !important;}
-
-  .tabel_item {width: 816px !important;}
-
-  .indep {width: 488px;}
-
-  .results p span {}
-
-}
+  .menu {
+    font-size: 10pt;
+  }
+} */
