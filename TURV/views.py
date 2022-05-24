@@ -491,19 +491,45 @@ def tabel_create(request, id):
         if request.method == "GET":
 
             b_tabel = Tabel.objects.get(id=id)
-            items = TabelItem.objects.filter(bound_tabel=id).order_by('employer__position__name').values('employer__position__name')
-            positions = []
-            for item in list(items):
-                positions.append(item['employer__position__name'])
-            positions = [el for el, _ in groupby(positions)]
-            tabel_form = Tabel_form(instance=b_tabel)
-            if sq_employer:
-                items = TabelItem.objects.filter(bound_tabel=id).filter(employer__fullname__icontains=sq_employer).order_by('employer')
+            c_tabels = Tabel.objects.all().filter(corr_id=id)
+
+            # Корректировка
+            if c_tabels:
+                corr_emps = []
+                corr_items = []
+                for c in c_tabels:
+                    if len(c_tabels) == 1:
+                        c_items = TabelItem.objects.all().filter(bound_tabel_id=c.id)
+                        for item in c_items:
+                            corr_emps.append(str(item.employer_id))
+                items = TabelItem.objects.filter(~Q(employer_id__in=corr_emps)).filter(bound_tabel=id)
+                corr_items = []
+                for i in items:
+                    corr_items.append(i.id)
+                for i in c_items:
+                    corr_items.append(i.id)
+
+
+
             else:
-                if sq_position:
-                    items = TabelItem.objects.filter(bound_tabel=id).filter(employer__position__name=sq_position).order_by('employer')
+                if sq_employer:
+                    items = TabelItem.objects.filter(bound_tabel=id).filter(employer__fullname__icontains=sq_employer).order_by('employer')
                 else:
-                    items = TabelItem.objects.filter(bound_tabel=id).order_by('employer')
+                    if sq_position:
+                        items = TabelItem.objects.filter(bound_tabel=id).filter(employer__position__name=sq_position).order_by('employer')
+                    else:
+                        items = TabelItem.objects.filter(bound_tabel=id).order_by('employer')
+    # ----------------------------
+
+            # items = TabelItem.objects.filter(bound_tabel=id).order_by('employer__position__name').values('employer__position__name')
+            # positions = []
+            # for item in list(items):
+            #     # positions.append(item['employer__position__name'])
+            # positions = [el for el, _ in groupby(positions)]
+            tabel_form = Tabel_form(instance=b_tabel)
+
+
+
             if (b_tabel.type_id != 1) or (b_tabel.type_id == 4) or (b_tabel.type_id == 5) or (b_tabel.type_id == 6):
                 hours = items.aggregate(sum_of_hours=Sum("w_hours"), sum_of_lhours=Sum("sHours19"), sum_of_days=Sum("w_days"),  s_over=Sum('sHours4'), s_night=Sum("sHours2"), s_vacwork=Sum("sHours3"),     s_vac=Sum("v_days"), s_weekends=Sum("sHours24"))
                 s_hours = hours['sum_of_hours']
@@ -589,14 +615,14 @@ def tabel_create(request, id):
             t_dep = b_tabel.department
             if (b_tabel.type_id != 1) and (b_tabel.type_id != 4) and (b_tabel.type_id != 5) and (b_tabel.type_id != 6):
 
-                return render(request, 'TURV/create_tabel_small.html', context={'positions':positions, 's_hours':s_hours, 's_lhours':s_lhours, 's_days':s_days, 's_over':s_over, 's_night':s_night, 's_vacwork':s_vacwork,
+                return render(request, 'TURV/create_tabel_small.html', context={ 's_hours':s_hours, 's_lhours':s_lhours, 's_days':s_days, 's_over':s_over, 's_night':s_night, 's_vacwork':s_vacwork,
     's_vac':s_vac,
     's_weekends':s_weekends,
 
             'hours':hours,'form':tabel_form, 'items':items, 'print':allow_print, 'month':t_month, 'year':t_year, 'count':count, 'b_tabel':b_tabel, 'granted':granted, 'ro':is_ro, 'messages':messages})
             else:
 
-                return render(request, 'TURV/create_tabel.html', context={'positions':positions,
+                return render(request, 'TURV/create_tabel.html', context={
                 's_hours':s_hours,
     's_lhours':s_lhours,
     's_days':s_days,
@@ -634,6 +660,7 @@ def new_tabel(request):
         user_ = request.user
         u_group = user_.groups.all()
         granted = 0
+
         for group in u_group:
             if group.name == 'Сотрудник СУП':
                 granted = 1
@@ -667,6 +694,31 @@ def new_tabel(request):
             return render(request, 'TURV/new_tabel.html', context={'form':tabel_form, 'deps':deps})
     else:
         return render(request, 'reg_jounals/no_auth.html')
+
+def new_corr_tabel(request, id):
+    if request.user.is_authenticated:
+        tabel = Tabel.objects.get(id=id)
+        if tabel:
+            new_corr = Tabel.objects.create(
+                year = tabel.year,
+                month = tabel.month,
+                department = tabel.department,
+                type = tabel.type,
+                day = tabel.day,
+                iscorr = True,
+                corr = tabel,
+                res_officer = tabel.res_officer,
+                comm = 'Корр. ' + str(tabel.month) + ' ' + str(tabel.year)
+
+            )
+
+            new_corr.save()
+
+            last_corr = Tabel.objects.all().filter(iscorr=True).latest('id')
+
+            return redirect('/turv/create/' + str(last_corr.id))
+
+
 
 def tabel_delcheck(request,id):
     if request.user.is_authenticated:

@@ -7,7 +7,7 @@
 <span id="id_month" class="not-print" style="display:none">{{month}}</span>
 <span id="id_year" class="not-print" style="display:none">{{year}}</span>
 
-Табель учета <span style="text-transform: lowercase;">{{b_tabel.type}}</span>
+Табель учета <span style="text-transform: lowercase;">{{b_tabel.type}} </span> {% if b_tabel.iscorr %} <span style="color:red;">(КОРРЕКТИРОВКА!)</span> {% endif %}
 <span><b>{{b_tabel.department}}</b></span>
 за: <b><span class="field_month">{{month}}</span> {{year}} г.</b>
 Всего сотрудников в табеле: {{count}}
@@ -148,6 +148,10 @@
   <input class="btn btn-warning btn-sm"   type="button" name="" onclick="print({{b_tabel.year}}, {{b_tabel.month}}, '{{b_tabel.department.name}}')" value="ПЕЧАТЬ">
   {%endif%}
 
+  </div>
+
+  <div class="t-corr">
+    <a href="{% url 'correct' id=b_tabel.id%}">Корректировка</a>
   </div>
 
 <div class="sup_check not-print">
