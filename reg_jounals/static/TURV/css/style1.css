@@ -848,9 +848,14 @@ height: 162px;}
 
 /* media */
 
-/* @media (max-width: 1600px) {
+@media (max-width: 1360px) {
 
-  .menu {
-    font-size: 10pt;
-  }
-} */
+  .titem {max-width: 1327px !important;}
+
+  .tabel_item {width: 816px !important;}
+
+  .indep {width: 488px;}
+
+  .results p span {}
+
+}
