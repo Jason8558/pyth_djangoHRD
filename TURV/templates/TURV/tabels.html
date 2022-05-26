@@ -240,7 +240,11 @@ function Supchecked() {
 {%else%}
   <td>{{tabel.id}}</td>
 {%endif%}
-    <td class="table-type">{{tabel.type}}</td>
+    {% if tabel.iscorr %}
+      <td class="table-type">{{tabel.type}} <span style="color:red !important;">(корректировка)</span></td>
+    {% else %}
+      <td class="table-type">{{tabel.type}}</td>
+    {% endif %}
     <td><span class="field_month">{{tabel.month}}</span> {{tabel.year}}  </td>
     <td>{{tabel.department}}</td>
     {% if granted == 1 or user.is_superuser%}

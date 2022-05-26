@@ -150,9 +150,11 @@
 
   </div>
 
-  <div class="t-corr">
-    <a href="{% url 'correct' id=b_tabel.id%}">Корректировка</a>
-  </div>
+  {% if b_tabel.iscorr == 0 and b_tabel.type_id == 1 %}
+    <div class="t-corr">
+      <a href="{% url 'correct' id=b_tabel.id%}">Корректировка</a>
+    </div>
+  {% endif %}
 
 <div class="sup_check not-print">
   {% if b_tabel.sup_check %}
@@ -374,7 +376,11 @@
 
 
     {% if b_tabel.sup_check %}
-    <tr id="{{item.id}}" onmouseleave="row_highlight_off({{item.id}})" onmouseover="row_highlight({{item.id}})" class="time_types">
+      {% if item.bound_tabel.iscorr%}
+        <tr style="background:lightyellow;" id="{{item.id}}"  onmouseleave="row_highlight_off({{item.id}})"  onmouseover="row_highlight({{item.id}})" class="time_types">
+      {%else%}
+        <tr id="{{item.id}}" onmouseleave="row_highlight_off({{item.id}})" onmouseover="row_highlight({{item.id}})" class="time_types">
+      {%endif%}
     {%else%}
       {% if b_tabel.del_check %}
       <tr id="{{item.id}}" onmouseleave="row_highlight_off({{item.id}})" onmouseover="row_highlight({{item.id}})" class="time_types">

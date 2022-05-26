@@ -491,7 +491,7 @@ def tabel_create(request, id):
         if request.method == "GET":
 
             b_tabel = Tabel.objects.get(id=id)
-            c_tabels = Tabel.objects.all().filter(corr_id=id).filter(del_check=0)
+            c_tabels = Tabel.objects.filter(iscorr=1).filter(corr_id=id).filter(sup_check=1).order_by('-id').filter(type_id=1)
 
             # Корректировка
             if c_tabels:
