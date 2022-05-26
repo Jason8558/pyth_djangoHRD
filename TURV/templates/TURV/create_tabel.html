@@ -376,7 +376,7 @@
 
 
     {% if b_tabel.sup_check %}
-      {% if item.bound_tabel.iscorr%}
+      {% if item.bound_tabel.iscorr and b_tabel.iscorr == 0 %}
         <tr style="background:lightyellow;" id="{{item.id}}"  onmouseleave="row_highlight_off({{item.id}})"  onmouseover="row_highlight({{item.id}})" class="time_types">
       {%else%}
         <tr id="{{item.id}}" onmouseleave="row_highlight_off({{item.id}})" onmouseover="row_highlight({{item.id}})" class="time_types">
