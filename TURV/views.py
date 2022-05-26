@@ -502,13 +502,33 @@ def tabel_create(request, id):
                         c_items = TabelItem.objects.all().filter(bound_tabel_id=c.id)
                         for item in c_items:
                             corr_emps.append(str(item.employer_id))
-                items = TabelItem.objects.filter(~Q(employer_id__in=corr_emps)).filter(bound_tabel=id)
-                corr_items = []
-                for i in items:
-                    corr_items.append(i.id)
-                for i in c_items:
-                    corr_items.append(i.id)
-                items = TabelItem.objects.filter(id__in=corr_items).order_by('employer')
+                        items = TabelItem.objects.filter(~Q(employer_id__in=corr_emps)).filter(bound_tabel=id)
+                        corr_items = []
+                        for i in items:
+                            corr_items.append(i.id)
+                        for i in c_items:
+                            corr_items.append(i.id)
+                        items = TabelItem.objects.filter(id__in=corr_items).order_by('employer')
+                    else:
+                        corr_emps = []
+                        corr_items = []
+                        corr_tabels = []
+                        for c_tabel in c_tabels:
+                            corr_tabels.append(c_tabel.id)
+                        c_items = TabelItem.objects.filter(bound_tabel_id__in=corr_tabels).order_by('-bound_tabel_id')
+                        for item in c_items:
+                            c_emps = c_items.filter(employer_id=item.employer_id)
+                            if len(c_emps) == 1:
+                                corr_emps.append(item.employer_id)
+                                corr_items.append(item.id)
+                            else:
+                                last = c_emps.latest('id')
+                                corr_emps.append(last.employer_id)
+                                corr_items.append(last.id)
+                        items = TabelItem.objects.filter(~Q(employer_id__in=corr_emps)).filter(bound_tabel_id=id)
+                        for i in items:
+                            corr_items.append(i.id)
+                        items = TabelItem.objects.filter(id__in=corr_items).order_by('employer')
                 # =========================================
 
 
@@ -1552,6 +1572,7 @@ def unload(request):
             if tabel.sup_check:
                 c_tabels = Tabel.objects.filter(iscorr=1).filter(corr_id=tabel.id).filter(sup_check=1).order_by('-id').filter(type_id=1)
                 if c_tabels:
+                    # Если корректировка одна
                     if len(c_tabels) == 1:
                         corr_emps = []
                         corr_items = []
@@ -1564,6 +1585,7 @@ def unload(request):
                         for i in c_items:
                             corr_items.append(i.id)
                         items = TabelItem.objects.filter(id__in=corr_items).order_by('employer')
+                    # Ежели нет
                     else:
                         corr_emps = []
                         corr_items = []
