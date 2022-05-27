@@ -1952,7 +1952,7 @@ def toxic_unload(request):
                         current_tabel.unloaded = True
                         current_tabel.save()
                         # name =  'S:\Сетевые папки\Обмен\Бухгалтерия\РАСЧЕТНЫЙ ОТДЕЛ\ВыгрузкаВредности' + sep + str(dn) + '_' + str(month)+'_'+str(year)+ '_vrednost.xls'
-                        name =  '/mnt/1c-u-HRD_Uploads/ВыгрузкаВредности/' + str(dn) + '_' + str(month)+'_'+str(year)+ '_vrednost.xlsx'
+                        name =  '/mnt/1c-u-HRD_Uploads/ВыгрузкаВредности/' + str(dn) + '_' + str(month)+'_'+str(year)+ '_vrednost.xls'
 
                         wb.save(name)
 
