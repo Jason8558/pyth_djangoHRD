@@ -1202,8 +1202,16 @@ def total_tabels(request, month, year, dep):
         dict = {}
         types = TabelType.objects.all()
         deps = Department.objects.all().filter(notused=0).order_by('name')
-        tabels = Tabel.objects.filter(month=month).filter(year=year).filter(department_id=dep).filter(day='0').filter(del_check=0).filter(iscorr=0).values('department__name','department_id','type_id', 'sup_check', 'paper_check')
-        print(tabels)
+        tabels_l = []
+        tabels = Tabel.objects.filter(month=month).filter(year=year).filter(department_id=dep).filter(day='0').filter(del_check=0).filter(iscorr=0)
+        if len(tabels) == 1:
+            tabels_l.append(tabels[0].id)
+        if len(tabels) >=1:
+            tabels_l.append(tabels.latest('id').id)
+        tabels = Tabel.objects.filter(id__in=tabels_l).values('department__name','department_id','type_id', 'sup_check', 'paper_check')
+        print(tabels_l)
+
+
         tabels = list(tabels)
     return JsonResponse(tabels, safe=False)
 
