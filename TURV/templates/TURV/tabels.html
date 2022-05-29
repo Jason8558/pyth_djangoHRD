@@ -200,10 +200,11 @@ function Supchecked() {
     <th scope="col">Подразделение</th>
     {% if granted == 1 or user.is_superuser%}
     <th scope="col">Ответственный</th>
+    <th scope="col">Сдан на бумаге</th>
     {%endif%}
-    <th scope="col">Проверен СУП</th>
+    <th scope="col"> СУП </th>
       {% if granted == 1 or user.is_superuser%}
-      <th scope="col"> Загружен в 1С </th>
+      <th scope="col"> 1С </th>
       {%endif%}
 
 <th scope="col">Комментарий</th>
@@ -239,17 +240,31 @@ function Supchecked() {
 {%else%}
   <td>{{tabel.id}}</td>
 {%endif%}
-    <td class="table-type">{{tabel.type}}</td>
+    {% if tabel.iscorr %}
+      <td class="table-type">{{tabel.type}} <span style="color:red !important;">(корректировка)</span></td>
+    {% else %}
+      <td class="table-type">{{tabel.type}}</td>
+    {% endif %}
     <td><span class="field_month">{{tabel.month}}</span> {{tabel.year}}  </td>
     <td>{{tabel.department}}</td>
     {% if granted == 1 or user.is_superuser%}
     <td>{{tabel.res_officer}}</td>
     {%endif%}
-    {%if tabel.sup_check%}
-      <td>✅</td>
-    {%else%}
-      <td>❌</td>
+
+  {% if granted == 1 or user.is_superuser%}
+    {% if tabel.paper_check %}
+    <td>✅</td>
+    {% else %}
+    <td>❌</td>
+    {% endif %}
     {%endif%}
+
+    {%if tabel.sup_check%}
+    <td>✅</td>
+    {%else%}
+    <td>❌</td>
+    {%endif%}
+
     {% if granted == 1 or user.is_superuser%}
       {%if tabel.unloaded%}
         <td>✅</td>

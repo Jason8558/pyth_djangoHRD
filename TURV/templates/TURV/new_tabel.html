@@ -16,6 +16,7 @@
     {%endfor%}
     {%endif%}
   {{form.type.label}}{{form.type}}
+  {{form.corr.label}}{{form.corr}}
   <label for="t_dep">Подразделение</label>
   <select onchange="ReSelectDep()" name="t_dep" id="t_dep">
     {% for dep in deps %}
@@ -67,10 +68,23 @@
 
 <script type="text/javascript">
 $(document).ready(function() {
+
 $('#nt-cancel').attr('href', document.referrer)
 $("#id_day").attr('placeholder','День')
 $("#id_year").attr('placeholder','Год')
 last = document.referrer.split('/')[4]
+
+if ($("#id_type option:selected").val() == '4' || $("#id_type option:selected").val() == '5'){
+  if ($("#id_department option:selected").val() == "3" || $("#id_department option:selected").val() == "2") {
+
+    $('#day').css('display','')
+}
+
+
+}
+else {
+$('#day').css('display','none')
+}
 
 switch (last) {
     case 'vac':
