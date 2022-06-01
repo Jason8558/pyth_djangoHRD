@@ -148,7 +148,10 @@ def tabels(request):
             # Алгоритм поиска
             pag = 1000
             if (sq_period_month) and (sq_period_year) and (sq_type):
-                tabels = Tabel.objects.all().filter(department_id__in=allow_departments).filter(year=sq_period_year).filter(del_check=0).filter(month=sq_period_month).filter(type_id=sq_type).order_by('-year', '-month', 'type__id')
+                if sq_type == 'c':
+                    tabels = Tabel.objects.all().filter(department_id__in=allow_departments).filter(year=sq_period_year).filter(del_check=0).filter(month=sq_period_month).filter(iscorr=1).order_by('-year', '-month', 'type__id')
+                else:
+                    tabels = Tabel.objects.all().filter(department_id__in=allow_departments).filter(year=sq_period_year).filter(del_check=0).filter(month=sq_period_month).filter(type_id=sq_type).order_by('-year', '-month', 'type__id')
             else:
                 if (sq_period_month) and (sq_period_year):
                     tabels = Tabel.objects.all().filter(department_id__in=allow_departments).filter(year=sq_period_year).filter(del_check=0).filter(month=sq_period_month).order_by('-year', '-month', 'type__id')
@@ -163,7 +166,10 @@ def tabels(request):
                                 tabels = Tabel.objects.all().filter(department_id=sq_dep).filter(del_check=0).order_by('-year', '-month', 'type__id')
                             else:
                                 if (sq_type):
-                                    tabels = Tabel.objects.all().filter(type_id=sq_type).filter(department_id__in=allow_departments).filter(del_check=0).order_by('-year', '-month', 'type__id')
+                                    if sq_type == 'c':
+                                        tabels = Tabel.objects.all().filter(iscorr=1).filter(department_id__in=allow_departments).filter(del_check=0).order_by('-year', '-month', 'type__id')
+                                    else:
+                                        tabels = Tabel.objects.all().filter(type_id=sq_type).filter(department_id__in=allow_departments).filter(del_check=0).order_by('-year', '-month', 'type__id')
                                 else:
                                     if (sq_this_month):
                                         tabels = Tabel.objects.all().filter(day='0').filter(department_id__in=allow_departments).filter(year=year_).filter(del_check=0).filter(month=month_).order_by('-year', '-month', 'type__id')
@@ -184,16 +190,21 @@ def tabels(request):
             # Алгоритм поиска
             pag = 1000
             if (sq_period_month) and (sq_period_year) and (sq_dep) and (sq_type):
+                if sq_type == 'c':
+                    tabels = Tabel.objects.all().filter(year=sq_period_year).filter(month=sq_period_month).filter(department_id=sq_dep).filter(iscorr=1).order_by('-year', '-month',   'department__id' , 'type__id')
+                else:
 
-                tabels = Tabel.objects.all().filter(year=sq_period_year).filter(month=sq_period_month).filter(department_id=sq_dep).filter(type_id=sq_type).order_by('-year', '-month',   'department__id' , 'type__id')
+                    tabels = Tabel.objects.all().filter(year=sq_period_year).filter(month=sq_period_month).filter(department_id=sq_dep).filter(type_id=sq_type).order_by('-year', '-month',   'department__id' , 'type__id')
             else:
                 if (sq_period_month) and (sq_period_year) and (sq_dep):
 
                     tabels = Tabel.objects.all().filter(year=sq_period_year).filter(month=sq_period_month).filter(department_id=sq_dep).order_by('-year', '-month',   'department__id' , 'type__id')
                 else:
                     if (sq_period_month) and (sq_period_year) and (sq_type):
-
-                        tabels = Tabel.objects.all().filter(year=sq_period_year).filter(month=sq_period_month).filter(type_id=sq_type).order_by('-year', '-month',   'department__id' , 'type__id')
+                        if sq_type == 'c':
+                            tabels = Tabel.objects.all().filter(year=sq_period_year).filter(month=sq_period_month).filter(iscorr=1).order_by('-year', '-month',   'department__id' , 'type__id')
+                        else:
+                            tabels = Tabel.objects.all().filter(year=sq_period_year).filter(month=sq_period_month).filter(type_id=sq_type).order_by('-year', '-month',   'department__id' , 'type__id')
                     else:
                         if (sq_period_month) and (sq_period_year):
 
@@ -222,7 +233,10 @@ def tabels(request):
                                                             tabels = Tabel.objects.all().filter(res_officer=sq_user).order_by('-year', '-month',   'department__id' , 'type__id')
                                                         else:
                                                             if (sq_type):
-                                                                tabels = Tabel.objects.all().filter(type_id=sq_type).order_by('-year', '-month',   'department__id' , 'type__id')
+                                                                if sq_type == 'c':
+                                                                    tabels = Tabel.objects.all().filter(iscorr=1).order_by('-year', '-month',   'department__id' , 'type__id')
+                                                                else:
+                                                                    tabels = Tabel.objects.all().filter(type_id=sq_type).order_by('-year', '-month',   'department__id' , 'type__id')
                                                             else:
                                                                 if unite == True:
                                                                     pag = 40
