@@ -345,7 +345,7 @@ class Tabel_form(forms.ModelForm):
             type = self.cleaned_data['type'],
             day = self.cleaned_data['day'],
             comm = self.cleaned_data['comm'],
-
+            
             res_officer = user_)
 
         return new_tabel
@@ -356,36 +356,14 @@ class Employer_form(forms.ModelForm):
         fields = ['fullname', 'sex', 'position', 'department', 'level', 'positionOfPayment', 'shift_personnel', 'stand_worktime', 'fired']
 
     def saveFirst(self):
-
-        #  Приводим ФИО сотрудника в надлежащий вид
-        fullname = self.cleaned_data['fullname'].split(' ')
-
-        for l in fullname:
-            if ' ' in fullname:
-                fullname.remove(' ')
-
-        lastname = fullname[0]
-
-        for l in fullname:
-            if lastname in fullname:
-                fullname.remove(lastname)
-
-        for l in fullname:
-            if '.' in fullname:
-                fullname.remove('.')
-
-        for l in fullname:
-            if l != '':
-                secondname = l.split('.')
-                if len(secondname) > 0:
-                    firstname = secondname[0]
-                    middlename = secondname[1]
-
-        fullname = str(lastname.capitalize() + ' ' + firstname[0].upper() + '.' + secondname[1].upper() + '.')
-        #  =====================================================
-
-
-
+        if len(str(self.cleaned_data['fullname']).split(" ")) > 2:
+            name = str(self.cleaned_data['fullname']).split(" ")
+            lastname = str(name[0]) + ' '
+            firstname = str(name[1][0]) + '.'
+            middlename = str(name[2][0]) + '.'
+            fullname = str(lastname) + str(firstname) + str(middlename)
+        else:
+            fullname = self.cleaned_data['fullname']
         new_employer = Employers.objects.create(
             fullname  = fullname,
             sex = self.cleaned_data['sex'],
