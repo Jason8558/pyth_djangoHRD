@@ -261,3 +261,27 @@ class InfoMessages(models.Model):
             ordering = ['-id']
             verbose_name = "Сообщение пользователям"
             verbose_name_plural = "Система оповещения пользователей"
+
+class FeedBackTypes(models.Model):
+    name = models.CharField(blank=False, Null=False, verbose_name='Наименование', max_length=100)
+
+    class Meta:
+        ordering = ['id']
+        verbose_name = 'Вид сообщения'
+        verbose_name = 'Виды сообщений от пользователей'
+
+    def __str__(self):
+        return name
+
+class FeedBack(models.Model):
+    mes_from = models.ForeignKey(User, verbose_name='От кого', db_index=True, on_delete=models.CASCADE)
+    date = models.DateTimeField(blank=True, default=datetime.datetime.now)
+    about = models.CharField(blank=False,Null=False, verbose_name='Тема', max_length=100)
+    text = models.TextField(blank=False, Null=False, verbose_name='Текст сообщения')
+    type = models.ForeignKey('FeedBackTypes', verbose_name='Вид сообщения')
+    inwork = models.BooleanField(default=False, verbose_name='Принято в работу')
+    readed = models.BooleanField(default=False, verbose_name='Прочитано')
+    answer = models.TextField(blank=True, Null=True, verbose_name='Ответ на сообщение')
+    answer_readed = models.BooleanField(default=False, verbose_name='Ответ прочитан')
+
+    class Meta
