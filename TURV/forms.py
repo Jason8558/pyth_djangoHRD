@@ -455,3 +455,19 @@ class InfoMessages_form(forms.ModelForm):
         new_message.deps.set(deps)
         new_message.intypes.set(intypes)
         return new_message
+
+class FeedBack_form(forms.ModelForm):
+    class Meta:
+        model = FeedBack
+        fields = ['text', 'about', 'type', 'answer', 'readed', 'inwork']
+
+    def saveFirst(self, user_id):
+        user = User.objects.get(id=user_id)
+        new_feedback = FeedBack.objects.create(
+            mes_from = user,
+            type = self.cleaned_data['type'],
+            text = self.cleaned_data['text'],
+            about = self.cleaned_data['about']
+
+        )
+        return new_feedback

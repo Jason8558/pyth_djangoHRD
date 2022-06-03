@@ -1,0 +1,86 @@
+{% extends 'TURV/index.html'%}
+
+{%block title%}Отзывы{% endblock %}
+
+{%block header%}  <a class="btn btn-dark" href=".."> < Назад </a> | {% if request.user.is_superuser %}Книга жалоб и предложений {% else %} Мои сообщения {% endif %} {%endblock%}
+
+{% block body %}
+
+<div class="container">
+  <a class="btn btn-success btn-add"  onclick="return location.href = '{% url 'feedback_new_url' id=0%}' "  >+ Новое сообщение</a>
+
+{%if feedbacks %}
+
+<table>
+  <thead class="thead-dark">
+  <tr class="tr-header">
+
+
+
+    <th scope="col">Код</th>
+    <th scope="col">Вид</th>
+    <th scope="col">Тема</th>
+    <th scope="col">От</th>
+    <th scope="col">Прочитано</th>
+    <th scope="col">Принято в работу</th>
+
+
+
+
+
+
+  </tr >
+  </thead>
+
+  {% for feed in feedbacks %}
+
+  <tr  onclick="return location.href = '{% url 'feedback_new_url' id=feed.id%}'" >
+
+
+
+
+    <td>{{feed.id}}</td>
+    <td>{{feed.type}}</td>
+    <td>{{feed.about}}</td>
+    <td>{{feed.mes_from.first_name}}</td>
+    <td>{{feed.readed}}</td>
+    <td>{{feed.inwork}}</td>
+
+
+  </tr>
+  {%endfor%}
+</table>
+
+<nav  class="paginator" aria-label="Page navigation example">
+  <ul class="pagination">
+    {%if feedbacks.has_previous%}
+        <li class="page-item">
+          <a class="page-link" aria-label="previous" href="?page=1">
+              <span aria-hidden="true">Первая</span></a>
+        </li>
+        <li class="page-item">
+          <a class="page-link" href='?page={{feedbacks.previous_page_number}}' aria-label="previous">
+    <span aria-hidden="true">{{feedbacks.previous_page_number}}</span>
+          </a>
+        </li>
+  {%endif%}
+
+   <li class="page-item active"><a class="page-link" href="">{{ feedbacks.number }}</a></li>
+
+{%if feedbacks.has_next%}
+    <li class="page-item">
+      <a class="page-link" href='?page={{feedbacks.next_page_number}}' aria-label="Next">{{feedbacks.next_page_number}}</a>
+      </li>
+  {%endif%}
+
+  <li class="page-item">
+  <a class="page-link" href="?page={{ feedbacks.paginator.num_pages }}">Последняя</a>
+  </li>
+</ul>
+</nav>
+
+{%else%}
+<h2>Сообщений пока нет</h2>
+{%endif%}
+</div>
+{%endblock%}

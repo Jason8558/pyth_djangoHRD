@@ -1000,6 +1000,44 @@ def new_message(request, id):
                 else:
                     return render(request, 'TURV/message-form.html', context={'form':form})
 
+# ==================== Отзывы ==================
+
+def feedbacks(request):
+    if request.user.is_authenticated:
+        if request.user.is_superuser:
+            feedbacks = FeedBack.objects.all()
+        else:
+            feedbacks = FeedBack.objects.filter(mes_from_id=request.user.id)
+    return render(request, 'TURV/feedbacks.html', context={'feedbacks':feedbacks})
+
+def new_feedback(request, id):
+    if request.user.is_authenticated:
+        if request.method == 'GET':
+            if id != 0:
+                feedback = FeedBack.objects.get(id=id)
+                form = FeedBack_form(instance=feedback)
+            else:
+                form = FeedBack_form()
+            return render(request, 'TURV/feedback-form.html', context={'form':form})
+        else:
+            if id == 0:
+                form = FeedBack_form(request.POST)
+                if form.is_valid():
+                    form.saveFirst(request.user.id)
+                    return redirect('/turv/feedbacks/')
+                else:
+                    return render(request, 'TURV/feedback-form.html', context={'form':form})
+            else:
+                feedback = FeedBack.objects.get(id=id)
+                form = FeedBack_form(request.POST, instance=feedback)
+                if form.is_valid():
+                    form.save()
+                    return redirect('/turv/feedbacks/')
+                else:
+                    return render(request, 'TURV/feedback-form.html', context={'form':form})
+
+
+
 def employers_list(request):
     if request.user.is_authenticated:
         # Проверка пользователя и прав
