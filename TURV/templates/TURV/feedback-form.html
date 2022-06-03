@@ -23,17 +23,41 @@
 <form class="add-form af-feedback" action="" method="post">
 {% csrf_token %}
 
-<div class="aff-type">
-  <p>{{form.type.label}}{{form.type}}</p>
-</div>
+{% if state == 'upd' %}
 
-<div class="aff-about">
-  <p>{{form.about.label}}{{form.about}}</p>
-</div>
+      <div class="aff-type">
+        <p>Тип сообщения</p>
+        <p>{{feedback.type}}</p>
+      </div>
 
-<div class="aff-text">
-  <p>{{form.text.label}}{{form.text}}</p>
-</div>
+      <div class="aff-about">
+        <p>Тема</p>
+        <p>{{feedback.about}}</p>
+      </div>
+
+      <div class="aff-text">
+        <p>Сообщение</p>
+        <p>{{feedback.text}}</p>
+      </div>
+
+{% else %}
+
+    <div class="aff-type">
+      <p>{{form.type.label}}</p>
+      <p>{{form.type}}</p>
+    </div>
+
+    <div class="aff-about">
+      <p>{{form.about.label}}</p>
+      <p>{{form.about}}</p>
+    </div>
+
+    <div class="aff-text">
+      <p>{{form.text.label}}</p>
+      <p>{{form.text}}</p>
+    </div>
+
+{%endif%}
 
 {%if request.user.is_superuser%}
 
@@ -44,13 +68,32 @@
   <div class="aff-inwork">
     <p>{{form.inwork.label}}<span>{{form.inwork}}</span></p>
   </div>
+{% else %}
+
+
+    {% if feedback.answer %}
+
+      <div class="aff-answer">
+        <p class="aff-answer-head">Ответ на сообщение</p>
+        <p class="aff-answer-content">  {{feedback.answer}}</p>
+      </div>
+
+
+
+    {% endif %}
+
+
 
 {%endif%}
 
 
 
 
-<div class="buttons"><input type="submit" name="" class="btn btn-success" value="Добавить">
+
+
+
+
+<div class="buttons"><input type="submit" name="" class="btn btn-success" value="ОК">
 <a href="/turv/feedbacks/"  class="btn btn-outline-danger">Отмена</a></div>
 
 

@@ -1012,13 +1012,16 @@ def feedbacks(request):
 
 def new_feedback(request, id):
     if request.user.is_authenticated:
+        state = ''
         if request.method == 'GET':
             if id != 0:
                 feedback = FeedBack.objects.get(id=id)
+                state = 'upd'
                 form = FeedBack_form(instance=feedback)
+                return render(request, 'TURV/feedback-form.html', context={'form':form, 'feedback':feedback, 'state':state})
             else:
                 form = FeedBack_form()
-            return render(request, 'TURV/feedback-form.html', context={'form':form})
+                return render(request, 'TURV/feedback-form.html', context={'form':form})
         else:
             if id == 0:
                 form = FeedBack_form(request.POST)
