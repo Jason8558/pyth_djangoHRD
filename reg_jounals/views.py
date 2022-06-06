@@ -552,7 +552,7 @@ def nr_OrderOnPersonnel(request):
                     else:
                         wtime = 0
 
-                    TEmps.objects.create(
+                    new_emp = TEmps.objects.create(
                     fullname = tname,
                     sex = tsex,
                     level = tlvl,
@@ -563,6 +563,7 @@ def nr_OrderOnPersonnel(request):
                     stand_worktime = wtime,
                     fired = 0
                     )
+                    new_emp.save()
 
                 return redirect('../orders_on_personnel/')
     else:
