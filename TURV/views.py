@@ -1008,7 +1008,10 @@ def feedbacks(request):
             feedbacks = FeedBack.objects.all()
         else:
             feedbacks = FeedBack.objects.filter(mes_from_id=request.user.id)
-    return render(request, 'TURV/feedbacks.html', context={'feedbacks':feedbacks})
+        p_emps = Paginator(feedbacks, 20)
+        page_number = request.GET.get('page', 1)
+        page = p_emps.get_page(page_number)
+    return render(request, 'TURV/feedbacks.html', context={'feedbacks':page})
 
 def new_feedback(request, id):
     if request.user.is_authenticated:
