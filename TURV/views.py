@@ -649,7 +649,7 @@ def tabel_create(request, id):
             t_month = b_tabel.month
             t_year = b_tabel.year
             t_dep = b_tabel.department
-            if (b_tabel.type_id != 1) and (b_tabel.type_id != 4) and (b_tabel.type_id != 5) and (b_tabel.type_id != 6):
+            if (b_tabel.type_id != 1) and (b_tabel.type_id != 4) and (b_tabel.type_id != 5):
 
                 return render(request, 'TURV/create_tabel_small.html', context={ 's_hours':s_hours, 's_lhours':s_lhours, 's_days':s_days, 's_over':s_over, 's_night':s_night, 's_vacwork':s_vacwork,
     's_vac':s_vac,
