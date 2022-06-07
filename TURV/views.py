@@ -1011,7 +1011,10 @@ def feedbacks(request):
         p_emps = Paginator(feedbacks, 20)
         page_number = request.GET.get('page', 1)
         page = p_emps.get_page(page_number)
-    return render(request, 'TURV/feedbacks.html', context={'feedbacks':page})
+        return render(request, 'TURV/feedbacks.html', context={'feedbacks':page})
+    else:
+        return render(request, 'reg_jounals/no_auth.html')
+
 
 def new_feedback(request, id):
     if request.user.is_authenticated:
@@ -1028,9 +1031,15 @@ def new_feedback(request, id):
         else:
             if id == 0:
                 form = FeedBack_form(request.POST)
+                user_io = request.user.first_name
+                user_io = user_io.split(' ')
+                if len(user_io) < 3:
+                    user_io = user_io[0]
+                else:
+                    user_io = user_io[1] + ' ' + user_io[2]
                 if form.is_valid():
                     form.saveFirst(request.user.id)
-                    return redirect('/turv/feedbacks/')
+                    return render(request, 'TURV/thankyou.html', context={'user_io':user_io})
                 else:
                     return render(request, 'TURV/feedback-form.html', context={'form':form})
             else:

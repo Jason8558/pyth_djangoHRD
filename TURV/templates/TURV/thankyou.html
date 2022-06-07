@@ -1,0 +1,12 @@
+{% extends "TURV/index.html" %}
+
+<style media="screen">
+  .thankyou {}
+</style>
+{%block title%}Спасибо за обращение!{%endblock%}
+{%block body%}
+<div class="container thankyou">
+  <h1>{{user_io}}, спасибо за Ваше обращение! Чтобы вернуться к работе в системе нажмите кнопку ниже</h1>
+  <h2><a class="btn btn-sucess btn-bg" href="/turv/">Вернуться в систему</a></h2>
+</div>
+{%endblock%}
