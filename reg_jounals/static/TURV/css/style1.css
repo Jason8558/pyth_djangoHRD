@@ -971,9 +971,13 @@ height: 162px;}
 
 /* media */
 
-/* @media (max-width: 1600px) {
+@media (max-width: 1400px) {
+  .fs-intabel {
+width: 40%;
+}
 
-  .menu {
-    font-size: 10pt;
+  .iw-intabel {
+    width: 60%;
   }
-} */
+
+}
