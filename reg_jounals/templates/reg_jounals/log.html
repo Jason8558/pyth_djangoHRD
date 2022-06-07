@@ -4,12 +4,42 @@
 {%block header%}<a class="btn btn-dark" href="../"> < назад</a> Журнал событий {%endblock%}
 {%block content%}
 
+<div class="search-panel logs">
+
+  <form  action="{%url 'logs_url'%}" class="fs-logs" method="post">
+      {%csrf_token%}
+
+
+      <p><label for="l_date_from">Период с:</label>
+      <span><input type="date" name="l_date_from" value=""></span>
+      </p>
+
+      <p><label for="l_date_from">по:</label>
+      <span><input type="date" name="l_date_to" value=""></span>
+      </p>
+
+      <select class="" name="l_user">
+        <option value="">Пользователь</option>
+        {%for u in users%}
+          <option value="{{u.first_name}}">{{u.first_name}}</option>
+        {%endfor%}
+      </select>
+
+    <div class="fs-buttons">
+      <input type="submit" name="" class='btn btn-dark btn-sm' value="Найти">
+      <a class="btn btn-sm btn-outline-danger" href="/logs/">Сбросить поиск</a>
+    </div>
+
+  </form>
+
+</div>
+
 <table class='logtable'>
   <thead>
     <th>Дата события</th>
     <th>Событие</th>
     <th>Документ</th>
-    <th>Номер</th>
+    <th>Номер (код)</th>
     <th>Дата документа</th>
     <th>Год</th>
     <th>Дополнительная информация</th>
@@ -31,6 +61,44 @@
     {%endfor%}
   </tbody>
 </table>
+
+<nav  class="paginator" aria-label="Page navigation example">
+  <ul class="pagination">
+    {%if logs.has_previous%}
+        <li class="page-item">
+          <a class="page-link" aria-label="previous" href="?page=1">
+              <span aria-hidden="true">Первая</span></a>
+        </li>
+        <li class="page-item">
+          <a class="page-link" href='?page={{logs.previous_page_number}}' aria-label="previous">
+    <span aria-hidden="true">{{logs.previous_page_number}}</span>
+          </a>
+        </li>
+
+  {%endif%}
+
+
+
+   <li class="page-item active"><a class="page-link" href="">{{ logs.number }}</a></li>
+
+
+
+
+{%if logs.has_next%}
+    <li class="page-item">
+      <a class="page-link" href='?page={{logs.next_page_number}}' aria-label="Next">{{logs.next_page_number}}</a>
+      </li>
+
+
+
+  {%endif%}
+  <li class="page-item">
+  <a class="page-link" href="?page={{ logs.paginator.num_pages }}">Последняя</a>
+  </li>
+
+
+  </ul>
+</nav>
 
 
 {%endblock%}

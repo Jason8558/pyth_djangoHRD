@@ -1023,8 +1023,23 @@ def del_identitys(request, id):
 # ЛОГИ -------------------------------------------------------------
 def logs_(request):
     if request.user.is_authenticated:
-        logs_ = logs.objects.all()
-        return render(request, 'reg_jounals/log.html', context={'logs':logs_})
+        if request.method == 'POST':
+            dfrom = request.POST.get('l_date_from', '')
+            dto = request.POST.get('l_date_to', '')
+            user = request.POST.get('l_user', '')
+            if user:
+                logs_ = logs.objects.filter(date__range=(dfrom,dto)).filter(res_officer=user)
+            else:
+                logs_ = logs.objects.filter(date__range=(dfrom,dto))
+            pag = 999
+        else:
+            pag = 20
+            logs_ = logs.objects.all()
+        users = User.objects.all().order_by('first_name')
+        p_logs = Paginator(logs_, pag)
+        page_number = request.GET.get('page', 1)
+        page = p_logs.get_page(page_number)
+        return render(request, 'reg_jounals/log.html', context={'logs':page, 'users':users})
 # ОТЧЕТЫ -----------------------------------------------------------
 def reports(request):
     if request.user.is_authenticated:

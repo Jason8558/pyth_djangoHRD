@@ -945,7 +945,7 @@ def tabel_sup_check(request, id):
                     number = id,
                     year = tabel.year,
                     doc_date = DT.datetime.strptime(str(tabel.year + '-' + tabel.month + '-' + str(DT.datetime.now().day)), '%Y-%M-%d'),
-                    addData = 'Табель за ' + str(tabel.year) + ' ' + str(tabel.month) + ' проверен сотрудником СУП' ,
+                    addData = 'Табель ' + str(tabel.type.name) + ' ' + str(tabel.department.name) + ' ' + str(tabel.year) + ' ' + str(tabel.month) + ' проверен сотрудником СУП' ,
                     link = '/turv/create/' + str(id),
                     res_officer = request.user.first_name)
 
