@@ -28,7 +28,9 @@
 
   <div style="grid-area:text;" class="ti-search">
     <h4 style=" text-align:center">Выберите сотрудника из списка</h4>
-    <input id="tis-input" type="text" name="" value="">
+    <p><input id="tis-input" type="text" name="" placeholder="введите строку для поиска и нажмите ENTER" value="">
+    <button type="button" class="btn btn-outline-danger" id="tis-clear" name="button">Очистить</button></p>
+
   </div>
 
 
@@ -362,24 +364,26 @@
 </div>
 
 <script type="text/javascript">
+  $('#tis-clear').click(function(){
+    $('#tis-input').val('')
+    allrows = $('.indep table tbody tr')
+    for (var row of allrows) {
+      row.style.display = ''
+    }
+  })
+
   $('#tis-input').change(function(){
     query =   $('#tis-input').val()
-    res = $('.indep table tbody tr .id-fio').filter(function(){ return $(this).text().includes(query) })
+    res = $('.indep table tbody tr .id-fio').filter(function(){ return $(this).text().toLowerCase().includes(query.toLowerCase())})
     allrows = $('.indep table tbody tr')
-    for (var i = 0; i < allrows.length; i++) {
-      for (var r of res) {
-        if ( allrows[i].id != r.parentElement.id) {
-          allrows[i].style.display = 'none'}
-        else  {
-          allrows[i].style.display = ''
-        }
-      }
+    for (var row of allrows) {
+      row.style.display = 'none'
+    }
 
+    for (var r of res) {
+      $('.indep table tbody #' + r.parentElement.id).css('display', '')
+    }
 
-
-
-
-      }
 
 
 
