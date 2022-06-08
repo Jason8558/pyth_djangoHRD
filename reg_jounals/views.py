@@ -472,13 +472,13 @@ def order_on_personnel(request):
         events = OrdersOnPersonnelTypes.objects.all()
 
         if date_from and date_to and event:
-            orders = OrdersOnPersonnel.objects.filter(op_date__range=(date_from, date_to)).filter(op_type__id = event).order_by('op_date')
+            orders = OrdersOnPersonnel.objects.filter(op_date__range=(date_from, date_to)).filter(op_type__id = event).order_by('-op_date')
             p_orders = Paginator(orders, 1000)
             page_number = request.GET.get('page', 1)
         else:
 
             if date_from and date_to:
-                orders = OrdersOnPersonnel.objects.filter(op_date__range=(date_from, date_to)).order_by('op_date')
+                orders = OrdersOnPersonnel.objects.filter(op_date__range=(date_from, date_to)).order_by('-op_date')
                 p_orders = Paginator(orders, 1000)
                 page_number = request.GET.get('page', 1)
             else:
@@ -488,7 +488,7 @@ def order_on_personnel(request):
                     page_number = request.GET.get('page', 1)
                 else:
                     if event:
-                        orders = OrdersOnPersonnel.objects.filter(op_type__id = event).order_by('op_date')
+                        orders = OrdersOnPersonnel.objects.filter(op_type__id = event).order_by('-op_date')
                         p_orders = Paginator(orders, 1000)
                         page_number = request.GET.get('page', 1)
 
