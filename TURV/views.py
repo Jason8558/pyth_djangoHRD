@@ -83,6 +83,8 @@ def tabels(request):
         granted = 0
         unite = False
         is_atc = False
+        answers = len(FeedBack.objects.filter(mes_from_id=request.user.id).filter(~Q(answer=None)).filter(~Q(answer='')).filter(answer_readed=0))
+
 
         # Определение текущего месяца и года
         now = datetime.datetime.now()
@@ -255,7 +257,7 @@ def tabels(request):
 
 
 
-        return render(request, 'TURV/tabels.html', context={'type':type, 'tab_users':tab_users, 'tabels':page, 'count':count, 'deps':deps, 'granted':granted, 'ro':is_ro, 'month_':month_, "year_":year_, 'unite':unite, 'is_atc':is_atc, 'messages':messages})
+        return render(request, 'TURV/tabels.html', context={'answers':answers, 'type':type, 'tab_users':tab_users, 'tabels':page, 'count':count, 'deps':deps, 'granted':granted, 'ro':is_ro, 'month_':month_, "year_":year_, 'unite':unite, 'is_atc':is_atc, 'messages':messages})
     else:
         return redirect('/accounts/login/')
 
@@ -1005,7 +1007,11 @@ def new_message(request, id):
 def feedbacks(request):
     if request.user.is_authenticated:
         if request.user.is_superuser:
-            feedbacks = FeedBack.objects.all()
+            unreaded = request.POST.get('unreaded_only', '')
+            if unreaded:
+                feedbacks = FeedBack.objects.filter(readed=0)
+            else:
+                feedbacks = FeedBack.objects.all()
         else:
             feedbacks = FeedBack.objects.filter(mes_from_id=request.user.id)
         p_emps = Paginator(feedbacks, 20)
@@ -1047,6 +1053,10 @@ def new_feedback(request, id):
                 form = FeedBack_form(request.POST, instance=feedback)
                 if form.is_valid():
                     form.save()
+                    feedback = FeedBack.objects.get(id=id)
+                    if feedback.answer and not request.user.is_superuser:
+                        feedback.answer_readed = True
+                        feedback.save()
                     return redirect('/turv/feedbacks/')
                 else:
                     return render(request, 'TURV/feedback-form.html', context={'form':form})

@@ -89,6 +89,8 @@
 
 
 
+
+
 {%endblock%}
 
 {% block body %}
@@ -115,7 +117,11 @@ function Supchecked() {
 
   <div class="info-window iw-main">
     <p class="info-window-head">информация</p>
+    {%if answers%}
+      <p class="answers"><a href="/turv/feedbacks/" >На Ваше обращение получен ответ! Нажмите чтобы открыть</a></p>
+    {%endif%}
     <div class="iw-content">
+
       {% for mes in messages  %}
 
         {% if mes.mestype == '1' %}

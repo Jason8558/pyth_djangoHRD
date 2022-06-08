@@ -7,6 +7,15 @@
 {% block body %}
 
 <div class="container">
+
+      <form class="info-block ib-feedbacks" action="{% url 'feedbacks_url' %}" method="post">
+        {% csrf_token %}
+          <p>Только непрочитанные: <span><input type="checkbox" name="unreaded_only" value="1"></span></p>
+
+          <input type="submit" class="btn btn-dark btn-sm" name="" value="Найти">
+
+
+    </form>
   <a class="btn btn-success btn-add"  onclick="return location.href = '{% url 'feedback_new_url' id=0%}' "  >+ Новое сообщение</a>
 
 {%if feedbacks %}
@@ -26,6 +35,7 @@
     {%endif%}
     <th scope="col">Прочитано</th>
     <th scope="col">Принято в работу</th>
+    <th scope="col">Ответ</th>
 
 
 
@@ -37,7 +47,7 @@
 
   {% for feed in feedbacks %}
 
-  <tr  onclick="return location.href = '{% url 'feedback_new_url' id=feed.id%}'" >
+  <tr   onclick="return location.href = '{% url 'feedback_new_url' id=feed.id%}'" >
 
 
 
@@ -59,6 +69,15 @@
     {% else %}
     <td>❌</td>
     {% endif %}
+    {%if feed.answer %}
+      {% if feed.answer_readed %}
+        <td>🟢 Прочитан {%if request.user.is_superuser%}пользователем {%else%}Вами {%endif%}</td>
+      {%else%}
+        <td>🟡 Непрочитан {%if request.user.is_superuser%}пользователем {%else%}Вами {%endif%}</td>
+      {%endif%}
+    {%else%}
+      <td>🔘 Пока нет</td>
+    {%endif%}
 
 
   </tr>

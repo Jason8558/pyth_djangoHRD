@@ -40,6 +40,33 @@
         <p>{{feedback.text}}</p>
       </div>
 
+      <div class="aff-type hide">
+        <p>{{form.type.label}}</p>
+        <p>{{form.type}}</p>
+      </div>
+
+      <div class="aff-about hide">
+        <p>{{form.about.label}}</p>
+        <p>{{form.about}}</p>
+      </div>
+
+      <div class="aff-text hide">
+        <p>{{form.text.label}}</p>
+        <p>{{form.text}}</p>
+      </div>
+
+      <div class="aff-readed hide">
+        <p>{{form.readed.label}}<span>{{form.readed}}</span></p>
+      </div>
+
+      <div class="aff-inwork hide">
+        <p>{{form.inwork.label}}<span>{{form.inwork}}</span></p>
+      </div>
+
+      <div class="aff-answer hide">
+        <p>Введите ответ: <span>{{form.answer}}</span></p>
+      </div>
+
 {% else %}
 
     <div class="aff-type">
@@ -68,6 +95,10 @@
   <div class="aff-inwork">
     <p>{{form.inwork.label}}<span>{{form.inwork}}</span></p>
   </div>
+
+  <div class="aff-answer">
+    <p>Введите ответ: <span>{{form.answer}}</span></p>
+  </div>
 {% else %}
 
 
@@ -93,8 +124,19 @@
 
 
 
-<div class="buttons"><input type="submit" name="" class="btn btn-success" value="ОК">
-<a href="/turv/feedbacks/"  class="btn btn-outline-danger">Отмена</a></div>
+
+{%if state == 'upd'%}
+  {%if request.user.is_superuser %}
+    <div class="buttons"><input type="submit" name="" class="btn btn-success" value="ОК">
+    <a href="/turv/feedbacks/"  class="btn btn-outline-danger">Отмена</a></div>
+  {%else%}
+    <div class="buttons"><input type="submit" name="" class="btn btn-success" value="Прочитано">
+  {%endif%}
+
+{%else%}
+      <div class="buttons"><input type="submit" name="" class="btn btn-success" value="ОК"> 
+    <a href="/turv/feedbacks/"  class="btn btn-outline-danger">Отмена</a></div>
+{%endif%}
 
 
 </form>

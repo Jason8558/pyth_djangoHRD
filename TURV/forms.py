@@ -467,7 +467,10 @@ class FeedBack_form(forms.ModelForm):
             mes_from = user,
             type = self.cleaned_data['type'],
             text = self.cleaned_data['text'],
-            about = self.cleaned_data['about']
+            about = self.cleaned_data['about'],
+            answer = self.cleaned_data['answer'],
+            readed = self.cleaned_data['readed'],
+            inwork = self.cleaned_data['inwork']
 
         )
         return new_feedback
