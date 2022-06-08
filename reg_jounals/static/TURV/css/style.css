@@ -126,30 +126,17 @@ margin-top: 24px !important;
 .container {margin-top: 27px;}
 
 .titem {
-
-display: grid;
-
-grid-template-areas:
-
-
-'text main'
-
-
-'list main';
-
-/* grid-template-columns: 30% 70%; */
-
-grid-template-rows: 27px;
-
-width: 100% !important;
-
-margin: 0 auto !important;
-
-grid-gap: 7px;
-
-height: 89vh;
-
-box-sizing: border-box;
+display: grid;
+grid-template-areas:
+'text main'
+'list main';
+/* grid-template-columns: 30% 70%; */
+grid-template-rows: 69px;
+width: 100% !important;
+margin: 0 auto !important;
+grid-gap: 7px;
+height: 89vh;
+box-sizing: border-box;
 }
 
  .positions {

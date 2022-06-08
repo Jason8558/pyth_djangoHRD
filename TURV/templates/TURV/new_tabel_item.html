@@ -26,8 +26,12 @@
 
 
 
+  <div style="grid-area:text;" class="ti-search">
+    <h4 style=" text-align:center">Выберите сотрудника из списка</h4>
+    <input id="tis-input" type="text" name="" value="">
+  </div>
 
-  <h4 style="grid-area:text; text-align:center">Выберите сотрудника из списка</h4>
+
 <div class="indep">
 
   <table style="box-shadow: none; font-size: 11pt;">
@@ -47,7 +51,7 @@
   {% if emp.fired%}
   {%else%}
   <tr id={{emp.id}} onclick="emp_info({{emp.id}})">
-    <td>{{emp.fullname}}</td>
+    <td class='id-fio'>{{emp.fullname}}</td>
     <td>{{emp.position}}</td>
     <td>{{emp.level}}</td>
     <td>{{emp.positionOfPayment}}</td>
@@ -357,7 +361,32 @@
 </div>
 </div>
 
+<script type="text/javascript">
+  $('#tis-input').change(function(){
+    query =   $('#tis-input').val()
+    res = $('.indep table tbody tr .id-fio').filter(function(){ return $(this).text().includes(query) })
+    allrows = $('.indep table tbody tr')
+    for (var i = 0; i < allrows.length; i++) {
+      for (var r of res) {
+        if ( allrows[i].id != r.parentElement.id) {
+          allrows[i].style.display = 'none'}
+        else  {
+          allrows[i].style.display = ''
+        }
+      }
 
+
+
+
+
+      }
+
+
+
+  })
+
+
+</script>
 
 
 {%endblock%}
