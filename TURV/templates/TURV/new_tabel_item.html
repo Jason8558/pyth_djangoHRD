@@ -368,7 +368,7 @@
     $('#tis-input').val('')
     allrows = $('.indep table tbody tr')
     for (var row of allrows) {
-      row.style.display = ''
+    $('.indep table tbody #' + row.id).css('display', '')
     }
   })
 
@@ -381,7 +381,7 @@
     }
 
     for (var r of res) {
-      $('.indep table tbody #' + r.parentElement.id).css('display', '')
+      r.parentElement.style.display = ''
     }
 
 
