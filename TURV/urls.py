@@ -25,6 +25,8 @@ urlpatterns = [
     path('autos/edit/<int:id>', views.edit_autos, name='edit_auto_url'),
     path('messages/', views.messages_ref, name='messages_list'),
     path('messages/new/<int:id>', views.new_message, name='message_new_url'),
+    path('feedbacks/', views.feedbacks, name='feedbacks_url'),
+    path('feedbacks/new/<int:id>', views.new_feedback, name='feedback_new_url'),
     path('unload/', views.unload, name='unload'),
     path('toxic-unload/', views.toxic_unload, name='toxic-unload'),
     path('unite-unload/', views.unite_unload, name='unite-unload'),
@@ -35,7 +37,9 @@ urlpatterns = [
     path('overtime/upd', views.new_norma, name='overtime_new_url'),
     path('close/', views.w_close, name='close_url'),
     path('total/<str:month>/<str:year>/<int:dep>/', views.total_tabels, name='total_url'),
-    path('total/open/', views.total_tabels_html, name='total_url_page')
+    path('total/open/', views.total_tabels_html, name='total_url_page'),
+    path('correct/<int:id>', views.new_corr_tabel, name='correct')
+
 
 
      ]

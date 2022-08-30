@@ -320,7 +320,7 @@ class TabelItem_form(forms.ModelForm):
 class Tabel_form(forms.ModelForm):
     class Meta:
         model = Tabel
-        fields = ['year', 'month', 'department', 'del_check', 'sup_check', 'type', 'day', 'comm']
+        fields = ['year', 'month', 'department', 'del_check', 'sup_check', 'type', 'day', 'comm', 'corr']
 
     year = forms.CharField(label="Год (ТОЛЬКО 4 ЦИФРЫ!)", widget=forms.NumberInput(attrs={'maxlength':'4'}))
     def saveFirst(self, user_):
@@ -334,8 +334,8 @@ class Tabel_form(forms.ModelForm):
             number = next_id,
             year = self.cleaned_data['year'],
             doc_date = DT.datetime.strptime(str(self.cleaned_data['year'] + '-' + self.cleaned_data['month'] + '-' + str(DT.datetime.now().day)), '%Y-%M-%d'),
-            addData = 'Табель: '+ str(self.cleaned_data['department'].name) + ' за: ' + str(self.cleaned_data['month']) + ' ' + str(self.cleaned_data['year']) ,
-            link = '/turv/create' + str(next_id),
+            addData = 'Табель: ' + str(self.cleaned_data['type'].name) + ' '  + str(self.cleaned_data['department'].name) + ' за: ' + str(self.cleaned_data['month']) + ' ' + str(self.cleaned_data['year']) ,
+            link = '/turv/create/' + str(next_id),
             res_officer = user_)
 
         new_tabel = Tabel.objects.create(
@@ -345,6 +345,7 @@ class Tabel_form(forms.ModelForm):
             type = self.cleaned_data['type'],
             day = self.cleaned_data['day'],
             comm = self.cleaned_data['comm'],
+
             res_officer = user_)
 
         return new_tabel
@@ -355,14 +356,36 @@ class Employer_form(forms.ModelForm):
         fields = ['fullname', 'sex', 'position', 'department', 'level', 'positionOfPayment', 'shift_personnel', 'stand_worktime', 'fired']
 
     def saveFirst(self):
-        if len(str(self.cleaned_data['fullname']).split(" ")) > 2:
-            name = str(self.cleaned_data['fullname']).split(" ")
-            lastname = str(name[0]) + ' '
-            firstname = str(name[1][0]) + '.'
-            middlename = str(name[2][0]) + '.'
-            fullname = str(lastname) + str(firstname) + str(middlename)
-        else:
-            fullname = self.cleaned_data['fullname']
+
+        #  Приводим ФИО сотрудника в надлежащий вид
+        fullname = self.cleaned_data['fullname'].split(' ')
+
+        for l in fullname:
+            if ' ' in fullname:
+                fullname.remove(' ')
+
+        lastname = fullname[0]
+
+        for l in fullname:
+            if lastname in fullname:
+                fullname.remove(lastname)
+
+        for l in fullname:
+            if '.' in fullname:
+                fullname.remove('.')
+
+        for l in fullname:
+            if l != '':
+                secondname = l.split('.')
+                if len(secondname) > 0:
+                    firstname = secondname[0]
+                    middlename = secondname[1]
+
+        fullname = str(lastname.capitalize() + ' ' + firstname[0].upper() + '.' + secondname[1].upper() + '.')
+        #  =====================================================
+
+
+
         new_employer = Employers.objects.create(
             fullname  = fullname,
             sex = self.cleaned_data['sex'],
@@ -432,3 +455,22 @@ class InfoMessages_form(forms.ModelForm):
         new_message.deps.set(deps)
         new_message.intypes.set(intypes)
         return new_message
+
+class FeedBack_form(forms.ModelForm):
+    class Meta:
+        model = FeedBack
+        fields = ['text', 'about', 'type', 'answer', 'readed', 'inwork']
+
+    def saveFirst(self, user_id):
+        user = User.objects.get(id=user_id)
+        new_feedback = FeedBack.objects.create(
+            mes_from = user,
+            type = self.cleaned_data['type'],
+            text = self.cleaned_data['text'],
+            about = self.cleaned_data['about'],
+            answer = self.cleaned_data['answer'],
+            readed = self.cleaned_data['readed'],
+            inwork = self.cleaned_data['inwork']
+
+        )
+        return new_feedback

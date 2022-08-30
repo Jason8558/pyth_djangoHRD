@@ -58,7 +58,9 @@ for (var i = 0; i < indeps.length; i++) {
    if (indeps[i].id == intabel.id) {
 
      $('.indep').find('#' + intabel.id).css('background', 'lightgreen')
-     $('.indep').find('#' + intabel.id).prop('onclick', '')
+       if ($('#tabel-type').text() == 3 || $('#tabel-type').text() == 2) { }
+       else{$('.indep').find('#' + intabel.id).prop('onclick', '')}
+
    }
  }
   }

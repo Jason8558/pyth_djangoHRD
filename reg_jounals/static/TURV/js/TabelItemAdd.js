@@ -1,3 +1,5 @@
+
+
 // ВЫВОД ИНФОРМАЦИИ О СОТРУДНИКЕ
 
 
@@ -56,6 +58,8 @@ for (var i = 0; i < indeps.length; i++) {
    if (indeps[i].id == intabel.id) {
 
      $('.indep').find('#' + intabel.id).css('background', 'lightgreen')
+
+
      $('.indep').find('#' + intabel.id).prop('onclick', '')
    }
  }

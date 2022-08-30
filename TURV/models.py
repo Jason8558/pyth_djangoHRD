@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+import datetime
 
 class Employers(models.Model):
     sex_choices = [('М','М'),('Ж','Ж')]
@@ -79,6 +80,8 @@ class Tabel(models.Model):
     paper_check = models.BooleanField(verbose_name='Сдан в бумажном виде',default=False)
     unloaded =  models.BooleanField(verbose_name='Загружен в 1С', default=False, blank=True)
     comm = models.CharField(verbose_name='Комментарий (НЕОБЯЗАТЕЛЬНО)', max_length=256, default="", blank=True)
+    iscorr = models.BooleanField(default=False)
+    corr = models.ForeignKey('Tabel', verbose_name="Корректировка к ", db_index=True, on_delete=models.CASCADE, null=True, blank=True)
     res_officer = models.CharField(blank=True, editable=False,  max_length=256, help_text="Отвественный за составление табеля", verbose_name='Табельщик')
     class Meta:
         ordering = ['-year']
@@ -131,37 +134,37 @@ class TabelItem(models.Model):
     type_time31 = models.CharField(max_length=4, verbose_name='Вид времени31', null = True, blank=True)
 
 # Кол-ва часов
-    hours1 = models.CharField(max_length=5, verbose_name='Часы1', null = True, blank=True)
-    hours2 = models.CharField(max_length=5, verbose_name='Часы2', null = True, blank=True)
-    hours3 = models.CharField(max_length=5, verbose_name='Часы3', null = True, blank=True)
-    hours4 = models.CharField(max_length=5, verbose_name='Часы4', null = True, blank=True)
-    hours5 = models.CharField(max_length=5, verbose_name='Часы5', null = True, blank=True)
-    hours6 = models.CharField(max_length=5, verbose_name='Часы6', null = True, blank=True)
-    hours7 = models.CharField(max_length=5, verbose_name='Часы7', null = True, blank=True)
-    hours8 = models.CharField(max_length=5, verbose_name='Часы8', null = True, blank=True)
-    hours9 = models.CharField(max_length=5, verbose_name='Часы9', null = True, blank=True)
-    hours10 = models.CharField(max_length=5, verbose_name='Часы10', null = True, blank=True)
-    hours11 = models.CharField(max_length=5, verbose_name='Часы11', null = True, blank=True)
-    hours12 = models.CharField(max_length=5, verbose_name='Часы12', null = True, blank=True)
-    hours13 = models.CharField(max_length=5, verbose_name='Часы13', null = True, blank=True)
-    hours14 = models.CharField(max_length=5, verbose_name='Часы14', null = True, blank=True)
-    hours15 = models.CharField(max_length=5, verbose_name='Часы15', null = True, blank=True)
-    hours16 = models.CharField(max_length=5, verbose_name='Часы16', null = True, blank=True)
-    hours17 = models.CharField(max_length=5, verbose_name='Часы17', null = True, blank=True)
-    hours18 = models.CharField(max_length=5, verbose_name='Часы18', null = True, blank=True)
-    hours19 = models.CharField(max_length=5, verbose_name='Часы19', null = True, blank=True)
-    hours20 = models.CharField(max_length=5, verbose_name='Часы20', null = True, blank=True)
-    hours21 = models.CharField(max_length=5, verbose_name='Часы21', null = True, blank=True)
-    hours22 = models.CharField(max_length=5, verbose_name='Часы22', null = True, blank=True)
-    hours23 = models.CharField(max_length=5, verbose_name='Часы23', null = True, blank=True)
-    hours24 = models.CharField(max_length=5, verbose_name='Часы24', null = True, blank=True)
-    hours25 = models.CharField(max_length=5, verbose_name='Часы25', null = True, blank=True)
-    hours26 = models.CharField(max_length=5, verbose_name='Часы26', null = True, blank=True)
-    hours27 = models.CharField(max_length=5, verbose_name='Часы27', null = True, blank=True)
-    hours28 = models.CharField(max_length=5, verbose_name='Часы28', null = True, blank=True)
-    hours29 = models.CharField(max_length=5, verbose_name='Часы29', null = True, blank=True)
-    hours30 = models.CharField(max_length=5, verbose_name='Часы30', null = True, blank=True)
-    hours31 = models.CharField(max_length=5, verbose_name='Часы31', null = True, blank=True)
+    hours1 = models.CharField(max_length=10, verbose_name='Часы1', null = True, blank=True)
+    hours2 = models.CharField(max_length=10, verbose_name='Часы2', null = True, blank=True)
+    hours3 = models.CharField(max_length=10, verbose_name='Часы3', null = True, blank=True)
+    hours4 = models.CharField(max_length=10, verbose_name='Часы4', null = True, blank=True)
+    hours5 = models.CharField(max_length=10, verbose_name='Часы5', null = True, blank=True)
+    hours6 = models.CharField(max_length=10, verbose_name='Часы6', null = True, blank=True)
+    hours7 = models.CharField(max_length=10, verbose_name='Часы7', null = True, blank=True)
+    hours8 = models.CharField(max_length=10, verbose_name='Часы8', null = True, blank=True)
+    hours9 = models.CharField(max_length=10, verbose_name='Часы9', null = True, blank=True)
+    hours10 = models.CharField(max_length=10, verbose_name='Часы10', null = True, blank=True)
+    hours11 = models.CharField(max_length=10, verbose_name='Часы11', null = True, blank=True)
+    hours12 = models.CharField(max_length=10, verbose_name='Часы12', null = True, blank=True)
+    hours13 = models.CharField(max_length=10, verbose_name='Часы13', null = True, blank=True)
+    hours14 = models.CharField(max_length=10, verbose_name='Часы14', null = True, blank=True)
+    hours15 = models.CharField(max_length=10, verbose_name='Часы15', null = True, blank=True)
+    hours16 = models.CharField(max_length=10, verbose_name='Часы16', null = True, blank=True)
+    hours17 = models.CharField(max_length=10, verbose_name='Часы17', null = True, blank=True)
+    hours18 = models.CharField(max_length=10, verbose_name='Часы18', null = True, blank=True)
+    hours19 = models.CharField(max_length=10, verbose_name='Часы19', null = True, blank=True)
+    hours20 = models.CharField(max_length=10, verbose_name='Часы20', null = True, blank=True)
+    hours21 = models.CharField(max_length=10, verbose_name='Часы21', null = True, blank=True)
+    hours22 = models.CharField(max_length=10, verbose_name='Часы22', null = True, blank=True)
+    hours23 = models.CharField(max_length=10, verbose_name='Часы23', null = True, blank=True)
+    hours24 = models.CharField(max_length=10, verbose_name='Часы24', null = True, blank=True)
+    hours25 = models.CharField(max_length=10, verbose_name='Часы25', null = True, blank=True)
+    hours26 = models.CharField(max_length=10, verbose_name='Часы26', null = True, blank=True)
+    hours27 = models.CharField(max_length=10, verbose_name='Часы27', null = True, blank=True)
+    hours28 = models.CharField(max_length=10, verbose_name='Часы28', null = True, blank=True)
+    hours29 = models.CharField(max_length=10, verbose_name='Часы29', null = True, blank=True)
+    hours30 = models.CharField(max_length=10, verbose_name='Часы30', null = True, blank=True)
+    hours31 = models.CharField(max_length=10, verbose_name='Часы31', null = True, blank=True)
 
 #Итоги видов времени
     sHours1 = models.FloatField(verbose_name='Явки (Я)', help_text='Явки', null = True, blank=True)
@@ -259,3 +262,30 @@ class InfoMessages(models.Model):
             ordering = ['-id']
             verbose_name = "Сообщение пользователям"
             verbose_name_plural = "Система оповещения пользователей"
+
+class FeedBackTypes(models.Model):
+    name = models.CharField(blank=False, null=False, verbose_name='Наименование', max_length=100)
+
+    class Meta:
+        ordering = ['id']
+        verbose_name = 'Вид сообщения'
+        verbose_name = 'Виды сообщений от пользователей'
+
+    def __str__(self):
+        return str(self.name)
+
+class FeedBack(models.Model):
+    mes_from = models.ForeignKey(User, verbose_name='От кого', db_index=True, on_delete=models.CASCADE)
+    date = models.DateTimeField(blank=True, default=datetime.datetime.now)
+    about = models.CharField(blank=False,null=False, verbose_name='Тема', max_length=100)
+    text = models.TextField(blank=False, null=False, verbose_name='Текст сообщения')
+    type = models.ForeignKey('FeedBackTypes', on_delete=models.CASCADE, verbose_name='Вид сообщения')
+    inwork = models.BooleanField(default=False, verbose_name='Принято в работу')
+    readed = models.BooleanField(default=False, verbose_name='Прочитано')
+    answer = models.TextField(blank=True, null=True, verbose_name='Ответ на сообщение')
+    answer_readed = models.BooleanField(default=False, verbose_name='Ответ прочитан')
+
+    class Meta:
+        ordering = ['-date']
+        verbose_name = 'Сообщение от пользователя'
+        verbose_name_plural = 'Сообщения пользователей'

@@ -30,6 +30,7 @@
 
       </ul>
       </li>
+      <li><a href="/turv/feedbacks/">Оставить обращение</a></li>
 {%if request.user.is_superuser  or granted == 1%}
       <li>Сервис <span class='angle-down'>v</span>
       <ul class="service">
@@ -78,9 +79,12 @@
       </li>
       {% endif %}
 
+
   </ul>
   </li>
     </ul>
+
+
 
 
 
@@ -113,7 +117,11 @@ function Supchecked() {
 
   <div class="info-window iw-main">
     <p class="info-window-head">информация</p>
+    {%if answers%}
+      <p class="answers"><a href="/turv/feedbacks/" >На Ваше обращение получен ответ! Нажмите чтобы открыть</a></p>
+    {%endif%}
     <div class="iw-content">
+
       {% for mes in messages  %}
 
         {% if mes.mestype == '1' %}
@@ -164,6 +172,7 @@ function Supchecked() {
       {%for t in type%}
         <option value="{{t.id}}">{{t.name}}</option>
       {%endfor%}
+        <option value="c">Корректировка</option>
 
     </select>
 
@@ -240,7 +249,11 @@ function Supchecked() {
 {%else%}
   <td>{{tabel.id}}</td>
 {%endif%}
-    <td class="table-type">{{tabel.type}}</td>
+    {% if tabel.iscorr %}
+      <td class="table-type">{{tabel.type}} <span style="color:red !important;">(корректировка)</span></td>
+    {% else %}
+      <td class="table-type">{{tabel.type}}</td>
+    {% endif %}
     <td><span class="field_month">{{tabel.month}}</span> {{tabel.year}}  </td>
     <td>{{tabel.department}}</td>
     {% if granted == 1 or user.is_superuser%}

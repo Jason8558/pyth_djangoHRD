@@ -26,8 +26,14 @@
 
 
 
+  <div style="grid-area:text;" class="ti-search">
+    <h4 style=" text-align:center">Выберите сотрудника из списка</h4>
+    <p><input id="tis-input" type="text" name="" placeholder="введите строку для поиска и нажмите ENTER" value="">
+    <button type="button" class="btn btn-outline-danger" id="tis-clear" name="button">Очистить</button></p>
 
-  <h4 style="grid-area:text; text-align:center">Выберите сотрудника из списка</h4>
+  </div>
+
+
 <div class="indep">
 
   <table style="box-shadow: none; font-size: 11pt;">
@@ -47,7 +53,7 @@
   {% if emp.fired%}
   {%else%}
   <tr id={{emp.id}} onclick="emp_info({{emp.id}})">
-    <td>{{emp.fullname}}</td>
+    <td class='id-fio'>{{emp.fullname}}</td>
     <td>{{emp.position}}</td>
     <td>{{emp.level}}</td>
     <td>{{emp.positionOfPayment}}</td>
@@ -187,7 +193,7 @@
     <span>13</span>
     <span>14</span>
     <span>15</span>
-    {%if b_tabel.type.id == 1 or b_tabel.type.id == 4 or b_tabel.type.id == 5 or b_tabel.type.id == 6 %}
+    {%if b_tabel.type.id == 1 or b_tabel.type.id == 4 or b_tabel.type.id == 5 %}
     {{tabel.type_time1}}
     {{tabel.type_time2}}
     {{tabel.type_time3}}
@@ -242,7 +248,7 @@
     <span id="day30">30</span>
     <span id="day31">31</span>
 
-{%if b_tabel.type.id == 1 or b_tabel.type.id == 4 or b_tabel.type.id == 5 or b_tabel.type.id == 6 %}
+{%if b_tabel.type.id == 1 or b_tabel.type.id == 4 or b_tabel.type.id == 5  %}
     {{tabel.type_time16}}
     {{tabel.type_time17}}
     {{tabel.type_time18}}
@@ -357,7 +363,34 @@
 </div>
 </div>
 
+<script type="text/javascript">
+  $('#tis-clear').click(function(){
+    $('#tis-input').val('')
+    allrows = $('.indep table tbody tr')
+    for (var row of allrows) {
+    $('.indep table tbody #' + row.id).css('display', '')
+    }
+  })
 
+  $('#tis-input').change(function(){
+    query =   $('#tis-input').val()
+    res = $('.indep table tbody tr .id-fio').filter(function(){ return $(this).text().toLowerCase().includes(query.toLowerCase())})
+    allrows = $('.indep table tbody tr')
+    for (var row of allrows) {
+      row.style.display = 'none'
+    }
+
+    for (var r of res) {
+      r.parentElement.style.display = ''
+    }
+
+
+
+
+  })
+
+
+</script>
 
 
 {%endblock%}

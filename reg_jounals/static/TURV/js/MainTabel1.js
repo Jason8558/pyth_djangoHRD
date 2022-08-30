@@ -259,7 +259,7 @@ if ($('#tabel-type').text() != 1 && $('#tabel-type').text() != 4 && $('#tabel-ty
 }
 
 // Виды аремени и кол-во часов
-if ($('#tabel-type').text() == 1 || $('#tabel-type').text() == 4 || $('#tabel-type').text() == 5 || $('#tabel-type').text() == 6){
+if ($('#tabel-type').text() == 1 || $('#tabel-type').text() == 4 || $('#tabel-type').text() == 5){
   tt1 = $('#id_type_time1').val().toUpperCase()
   $('#id_type_time1').val(tt1)
   h1 = $('#id_hours1').val()
@@ -527,7 +527,7 @@ if ($('#tabel-type').text() == 1 || $('#tabel-type').text() == 4 || $('#tabel-ty
   let h_work = 0 //часы явок
   let h_vac = 0 //часы неявок
 
-if ($('#tabel-type').text() == 1 || $('#tabel-type').text() == 4 || $('#tabel-type').text() == 5 || $('#tabel-type').text() == 6) {
+if ($('#tabel-type').text() == 1 || $('#tabel-type').text() == 4 || $('#tabel-type').text() == 5) {
 
 switch (tt1) {
   case 'Я':

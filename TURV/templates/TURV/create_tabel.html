@@ -7,7 +7,7 @@
 <span id="id_month" class="not-print" style="display:none">{{month}}</span>
 <span id="id_year" class="not-print" style="display:none">{{year}}</span>
 
-Табель учета <span style="text-transform: lowercase;">{{b_tabel.type}}</span>
+Табель учета <span style="text-transform: lowercase;">{{b_tabel.type}} </span> {% if b_tabel.iscorr %} <span style="color:red;">(КОРРЕКТИРОВКА!)</span> {% endif %}
 <span><b>{{b_tabel.department}}</b></span>
 за: <b><span class="field_month">{{month}}</span> {{year}} г.</b>
 Всего сотрудников в табеле: {{count}}
@@ -149,6 +149,12 @@
   {%endif%}
 
   </div>
+
+  {% if b_tabel.iscorr == 0 and b_tabel.type_id == 1 %}
+    <div class="t-corr">
+      <a href="{% url 'correct' id=b_tabel.id%}">Корректировка</a>
+    </div>
+  {% endif %}
 
 <div class="sup_check not-print">
   {% if b_tabel.sup_check %}
@@ -370,12 +376,20 @@
 
 
     {% if b_tabel.sup_check %}
-    <tr id="{{item.id}}" onmouseleave="row_highlight_off({{item.id}})" onmouseover="row_highlight({{item.id}})" class="time_types">
+      {% if item.bound_tabel.iscorr  %}
+        <tr style="background:lightyellow;" id="{{item.id}}"  onmouseleave="row_highlight_off({{item.id}})"  onmouseover="row_highlight({{item.id}})" class="time_types">
+      {%else%}
+        <tr id="{{item.id}}" onmouseleave="row_highlight_off({{item.id}})" onmouseover="row_highlight({{item.id}})" class="time_types">
+      {%endif%}
     {%else%}
       {% if b_tabel.del_check %}
       <tr id="{{item.id}}" onmouseleave="row_highlight_off({{item.id}})" onmouseover="row_highlight({{item.id}})" class="time_types">
         {%else%}
-        <tr id="{{item.id}}"  onmouseleave="row_highlight_off({{item.id}})" onclick="return location.href = '{% url 'tabel_updItem_url' id=item.id%}' "  onmouseover="row_highlight({{item.id}})" class="time_types">
+          {% if item.bound_tabel.iscorr%}
+          <tr style="background:lightyellow;" id="{{item.id}}"  onmouseleave="row_highlight_off({{item.id}})" onclick="return location.href = '{% url 'tabel_updItem_url' id=item.id%}' "  onmouseover="row_highlight({{item.id}})" class="time_types">
+          {%else%}
+          <tr id="{{item.id}}"  onmouseleave="row_highlight_off({{item.id}})" onclick="return location.href = '{% url 'tabel_updItem_url' id=item.id%}' "  onmouseover="row_highlight({{item.id}})" class="time_types">
+          {%endif%}
         {%endif%}
     {%endif%}
       <th class="print-num cell_bb" rowspan="2"></th>
