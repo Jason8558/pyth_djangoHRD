@@ -181,8 +181,12 @@ def tabels(request):
                                             tabels = Tabel.objects.all().filter(~Q(type_id=5)).filter(~Q(type_id=4)).filter(~Q(type_id=8)).filter(del_check=0).filter(department_id__in=allow_departments).order_by('-year', '-month',   'department__id' ,  'type__id')
 
                                         else:
-                                            pag = 40
-                                            tabels = Tabel.objects.all().filter(~Q(type_id=8)).filter(department_id__in=allow_departments).filter(del_check=0).order_by('-year', '-month',   'department__id' , 'type__id')
+                                            if is_atc == True:
+                                                pag = 40
+                                                tabels = Tabel.objects.all().filter(~Q(type_id=8)).filter(department_id__in=allow_departments).filter(del_check=0).order_by('-year', '-month',   'department__id' , 'type__id')
+                                            else:
+                                                pag = 40
+                                                tabels = Tabel.objects.all().filter(department_id__in=allow_departments).filter(del_check=0).order_by('-year', '-month',   'department__id' , 'type__id')
 
 
 
