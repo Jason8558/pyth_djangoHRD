@@ -621,13 +621,13 @@ class NewOrdersOnVacationItem_form(forms.ModelForm):
         model = NewOrdersOnVacation_item
         fields = ['fio', 'dep', 'dur_from', 'days_count', 'dur_to',  'vac_type', 'comm']
 
-    dur_from = forms.DateField(label="Дата начала отпуска" , widget=forms.TextInput(
+    dur_from = forms.DateField(label="Дата начала отпуска" , required=False, widget=forms.TextInput(
         attrs={'placeholder': 'Введите дату', 'type':'date'}))
 
-    days_count = forms.CharField(label="Количество дней отпуска" , widget=forms.TextInput(
+    days_count = forms.CharField(label="Количество дней отпуска" ,required=False, widget=forms.TextInput(
     attrs={'onchange':'duration()', 'type':'text'}))
 
-    dur_to = forms.DateField(label="Дата окончания отпуска" , widget=forms.TextInput(
+    dur_to = forms.DateField(label="Дата окончания отпуска" , required=False, widget=forms.TextInput(
         attrs={'placeholder': 'Введите дату', 'type':'date', 'onchange':'vac_calc()'}))
 
 
