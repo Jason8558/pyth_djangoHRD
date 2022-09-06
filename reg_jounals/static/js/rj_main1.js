@@ -122,9 +122,31 @@ $('#short_fio').val(new_fio)
 function all_off() {
   $('.to_tabel input, .to_tabel select').prop('disabled', true)
 
+
 }
 
 function all_on() {
   $('.to_tabel input, .to_tabel select').prop('disabled', false)
 
+}
+
+function closeAllFields() {
+  $('#op_invite').css('display', 'none')
+  $('#op_probation').css('display', 'none')
+  $('#op_typeOfWork').css('display','none')
+  $('#op_moveFrom').css('display','none')
+  $('#op_moveTo').css('display','none')
+}
+
+function inviteOnWork() {
+  $('#op_invite').css('display', '')
+  $('#op_probation').css('display', '')
+  $('#op_typeOfWork').css('display','')
+
+}
+
+function MoveOnOtherWork() {
+  $('#op_typeOfWork').css('display','')
+  $('#op_moveFrom').css('display','')
+  $('#tab_pos').prop('disabled', false)
 }

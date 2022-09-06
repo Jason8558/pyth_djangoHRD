@@ -37,6 +37,11 @@
 
   <p>{{form.op_date.label}}:{{form.op_date}}</p>
   <p>{{form.op_type.label}}:{{form.op_type}}</p>
+  <p id="op_invite">{{form.op_dateOfInv.label}}:{{form.op_dateOfInv}}</p>
+  <p id="op_typeOfWork">{{form.op_typeOfWork.label}}:{{form.op_typeOfWork}}</p>
+  <p id="op_probation">{{form.op_probation.label}}:{{form.op_probation}}</p>
+  <p id="op_moveFrom">{{form.op_moveFrom.label}}:{{form.op_moveFrom}}</p>
+  <p id="op_moveTo">{{form.op_moveTo.label}}:{{form.op_moveTo}}</p>
   <p>{{form.op_emloyer.label}}:{{form.op_emloyer}}</p>
   <p>{{form.op_dep.label}}:{{form.op_dep}}</p>
   <p>{{form.op_content.label}}:{{form.op_content}}</p>
@@ -81,24 +86,78 @@
   </div>
 </form>
 <script type="text/javascript">
+  $('document').ready(function(){
+    closeAllFields()
+  })
   document.getElementById('id_op_type').onchange = function() {
-    if ($('#id_op_type option:selected').val() == 1) {
-      all_on()
-    }
-    else {
+
+    switch ($('#id_op_type option:selected').val()) {
+      case '1':
+        closeAllFields()
+        all_on()
+        inviteOnWork()
+      break;
+
+      case '3':
+        all_off()
+        closeAllFields()
+        MoveOnOtherWork()
+
+      break;
+
+
+      default:
       all_off()
+      closeAllFields()
+
     }
+
 
   }
 
+$("#id_op_typeOfWork").change(function(){
+  if (($('#id_op_typeOfWork option:selected').val() == "Временно") && ($('#id_op_type option:selected').val() == 3))  {
+    $('#op_moveTo').css('display','')
+  }
+  else {
+    $('#op_moveTo').css('display','none')
+  }
+
+})
+
 $('#id_op_content').focus(function(){
-  if ($('#id_op_type option:selected').val() == 1) {
 
-  text = 'Прием на должность ' + $('#tab_pos option:selected').text() + ' по ' + $('#tab_payment').val() + ' ступени, разряд(категория): ' + $('#tab_level').val()
-  $('#id_op_content').val(text)
+  switch ($('#id_op_type option:selected').val()) {
+      case '1':
+        if ($('#id_op_probation').val()) {
+          probation = ', с испытательным сроком ' + $('#id_op_probation').val() + ' мес.'
+        }
+        else {
+          probation = ""
+        }
+
+        text = 'Прием ' + $('#id_op_typeOfWork option:selected').text().toLowerCase() + ' на должность ' + $('#tab_pos option:selected').text().toLowerCase() + ' по ' + $('#tab_payment').val() + ' ступени, разряд(категория): ' + $('#tab_level').val() + probation
+
+      break;
+
+      case '3':
+        date_from = $('#id_op_moveFrom').val().split('-')
+        date_from = date_from[2] + '.' + date_from[1] + '.' + date_from[0]
+
+        if ($('#id_op_moveTo').val()) {
+          date_to = $('#id_op_moveTo').val().split('-')
+          date_to = ' по ' + date_to[2] + '.' + date_to[1] + '.' + date_to[0] }
+        else {
+          date_to = ''
+        }
+       text = 'Перевод ' + $('#id_op_typeOfWork option:selected').text().toLowerCase() + ' на должность ' + $('#tab_pos option:selected').text().toLowerCase() + ' c ' + date_from + date_to
 
 
-}
+    default:
+
+  }
+
+$('#id_op_content').val(text)
 
 })
 

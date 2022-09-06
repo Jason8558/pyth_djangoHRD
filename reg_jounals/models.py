@@ -118,9 +118,16 @@ class OrdersOnPersonnelTypes(models.Model):
         return name
 
 class OrdersOnPersonnel(models.Model):
+    work_type_choices = [('Временно','Временно'), ('Постоянно','Постоянно')]
+
     op_number = models.CharField(max_length=5, help_text="Введите номер приказа", verbose_name="Номер приказа", db_index=True)
     op_date = models.DateField(help_text="Введите дату приказа", verbose_name="Дата приказа", db_index=True)
+    op_dateOfInv = models.DateField(default='0001-01-01',blank=True, null=True, help_text="Введите дату приема на работу", verbose_name="Дата приема на работу", db_index=True)
+    op_typeOfWork = models.CharField(blank=True, null=True, choices=work_type_choices, max_length=256, help_text="Характер работы", verbose_name="Характер работы", db_index=True)
+    op_probation = models.FloatField(blank=True, null=True, help_text="Введите число", verbose_name="Испытательный срок (мес.)")
     op_type = models.ForeignKey('OrdersOnPersonnelTypes', on_delete=models.CASCADE, verbose_name="Вид приказа ", default="4")
+    op_moveFrom = models.DateField(default='0001-01-01', blank=True, null=True, help_text="Введите начало периода перевода", verbose_name="Перевод с:", db_index=True)
+    op_moveTo = models.DateField(default='0001-01-01', blank=True, null=True, help_text="Введите окончания периода перевода", verbose_name="по:", db_index=True)
     op_dep = models.ForeignKey('Departments', on_delete=models.CASCADE,  verbose_name="Подразделение ", default="1")
     op_emloyer = models.CharField(max_length=256, help_text="Введите ФИО сотрудника", verbose_name="ФИО сотрудника", db_index=True)
     op_content = models.TextField(help_text="Введите содержание", verbose_name="Содержание приказа")
