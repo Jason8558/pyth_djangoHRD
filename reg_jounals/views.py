@@ -899,7 +899,7 @@ def nr_new_order_on_vacation(request):
 
 def create_new_order_on_vacation(request, id):
     if request.user.is_authenticated:
-        items = NewOrdersOnVacation_item.objects.filter(bound_order__exact=id)
+        items = NewOrdersOnVacation_item.objects.filter(bound_order__exact=id).order_by('fio')
         order = NewOrdersOnVacation.objects.get(id=id)
         items_count = len(items)
         return render(request, 'reg_jounals/OrderOnVacation_new_create.html', context={'items':items, 'order':order, 'count':items_count})
