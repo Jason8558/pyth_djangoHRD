@@ -160,7 +160,7 @@
 
   <div class="results">
     <p><span>{{tabel.w_days.label}}</span>{{tabel.w_days}}</p>
-    <p><span>{{tabel.w_hours.label}}</span>{{tabel.w_hours}}</p>
+    <p><span id='litres'>{{tabel.w_hours.label}}</span>{{tabel.w_hours}}</p>
     <p><span>{{tabel.v_days.label}}</span>{{tabel.v_days}}</p>
     <p><span>{{tabel.sHours35.label}}</span>{{tabel.sHours35}}</p>
     <p><span>{{tabel.sHours4.label}}</span>{{tabel.sHours4}}</p>
@@ -364,6 +364,16 @@
 </div>
 
 <script type="text/javascript">
+
+if ($('#tabel-type').text() == '9') {
+  $('#litres').text('Литров')
+
+  for (var field of $('.dig_hours')) {
+    field.setAttribute('placeholder', 'Л')
+  }
+
+}
+
   $('#tis-clear').click(function(){
     $('#tis-input').val('')
     allrows = $('.indep table tbody tr')

@@ -247,6 +247,9 @@ function Supchecked() {
 {% if tabel.type.id == 8 %}
 <tr  onclick="return window.open('{% url 'tabel_create_url' id=tabel.id%}')" >
 {%endif%}
+{% if tabel.type.id == 9 %}
+<tr  class="milk-row" onclick="return window.open('{% url 'tabel_create_url' id=tabel.id%}')" >
+{%endif%}
 {%if tabel.del_check %}
     <td style="color: red !important; font-weight: bold !important;">{{tabel.id}}</td>
 {%else%}

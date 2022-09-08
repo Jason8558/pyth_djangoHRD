@@ -168,26 +168,30 @@ switch (month) {
 
   WinPrint.document.write("<input onclick='window.print()' id='print_button' type='button' value='печать'>")
   if ($('#tabel-type').text() == 2) {
-  WinPrint.document.write("<h1 style='text-align:center; font-size: 25pt;'> Табель учета рабочего времени во вредных условиях труда за " + month + " " + year + " " + dep + "</h1>")
+  WinPrint.document.write("<h1 style='text-align:center; font-size: 25pt;'> Табель учета рабочего времени во вредных условиях труда за " + month.toLowerCase() + " " + year + " " + dep + "</h1>")
 }
   if ($('#tabel-type').text() == 3) {
-    WinPrint.document.write("<h1 style='text-align:center; font-size: 25pt;'> Табель совмещения за " + month + " " + year + " " + dep + "</h1>")
+    WinPrint.document.write("<h1 style='text-align:center; font-size: 25pt;'> Табель совмещения за " + month.toLowerCase() + " " + year + " " + dep + "</h1>")
   }
 
   if ($('#tabel-type').text() == 4) {
-  WinPrint.document.write("<h1 style='text-align:center; font-size: 25pt;'> Табель учета рабочего времени в выходные дни за " + month + " " + year + " " + dep + " по приказу ______ от __ __ ____</h1>")
+  WinPrint.document.write("<h1 style='text-align:center; font-size: 25pt;'> Табель учета рабочего времени в выходные дни за " + month.toLowerCase() + " " + year + " " + dep + " по приказу ______ от __ __ ____</h1>")
   }
 
   if ($('#tabel-type').text() == 5) {
-  WinPrint.document.write("<h1 style='text-align:center; font-size: 25pt;'> Табель учета сверхурочных часов за " + month + " " + year + " " + dep + " по приказу ______ от __ __ ____</h1>")
+  WinPrint.document.write("<h1 style='text-align:center; font-size: 25pt;'> Табель учета сверхурочных часов за " + month.toLowerCase() + " " + year + " " + dep + " по приказу ______ от __ __ ____</h1>")
   }
 
   if ($('#tabel-type').text() == 6) {
-  WinPrint.document.write("<h1 style='text-align:center; font-size: 25pt;'> Табель дежурства за " + month + " " + year + " " + dep + " по приказу ______ от __ __ ____</h1>")
+  WinPrint.document.write("<h1 style='text-align:center; font-size: 25pt;'> Табель дежурства за " + month.toLowerCase() + " " + year + " " + dep + " по приказу ______ от __ __ ____</h1>")
   }
 
   if ($('#tabel-type').text() == 8) {
-  WinPrint.document.write("<h1 style='text-align:center; font-size: 25pt;'> Табель учета за " + month + " " + year + " " + dep + " по приказу ______ от __ __ ____</h1>")
+  WinPrint.document.write("<h1 style='text-align:center; font-size: 25pt;'> Табель учета за " + month.toLowerCase() + " " + year + " " + dep + " по приказу ______ от __ __ ____</h1>")
+  }
+
+  if ($('#tabel-type').text() == 9) {
+  WinPrint.document.write("<h1 style='text-align:center; font-size: 25pt;'> Компенсация стоимости молока за " + month.toLowerCase()  + " " + year + " " + dep + "</h1>")
   }
 
 

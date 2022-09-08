@@ -191,7 +191,7 @@
     <th class="day30">30</th>
     <th class="day31 ">31</th>
     <th >Дни.</th>
-    <th>Час./ЛЧ</th>
+    <th class='litres'>Час./ЛЧ</th>
 
 
 
@@ -260,7 +260,7 @@
     <th class="day30 head-hours">30</th>
     <th class="day31 head-hours">31</th>
     <th class="thin-itogo">Дни.</th>
-    <th class="wide-itogs">Час./ЛЧ</th>
+    <th class="wide-itogs litres">Час./ЛЧ</th>
     <!-- <th class="thin-itogo" >Вых.</th> -->
 
 
@@ -429,6 +429,15 @@
 <div style="display:none" class="print_warning">
   <h1 style="color:red;">ДЛЯ ПЕЧАТИ ТАБЕЛЯ НАЖМИТЕ ЖЕЛТУЮ КНОПКУ ПЕЧАТЬ, КОТОРАЯ НАХОДИТСЯ ВЫШЕ ОСНОВНОЙ ТАБЛИЦЫ ТАБЕЛЯ!</h1>
 </div>
+
+<script type="text/javascript">
+
+  if ($('#tabel-type').text() == 9) {
+    for (var field of $('.litres') ) {
+      field.innerText = 'Лит.'
+    }
+  }
+</script>
 
 
 
