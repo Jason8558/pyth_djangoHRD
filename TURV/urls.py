@@ -30,6 +30,7 @@ urlpatterns = [
     path('unload/', views.unload, name='unload'),
     path('toxic-unload/', views.toxic_unload, name='toxic-unload'),
     path('unite-unload/', views.unite_unload, name='unite-unload'),
+    path('milk-unload/', views.milk_unload, name='milk-unload'),
     path('checked/<int:id>', views.tabel_sup_check, name='checked'),
     path('paper/<int:id>', views.tabel_paper_check, name='paper_checked'),
     path('comm/<int:id>/', views.upd_comm, name='comm'),

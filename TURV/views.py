@@ -2129,6 +2129,69 @@ def unite_unload(request):
 
 # =========================
 
+# Выгрузка молока
+
+def milk_unload(request):
+    if request.user.is_authenticated:
+        month = request.GET.get('month', '')
+        notulonl =  request.GET.get('nounload_only','')
+        year = request.GET.get('year', '')
+        deps = Department.objects.all()
+        sep = '\\'
+
+        if month and year:
+
+
+            for dep in deps:
+                dn = str(dep.name).replace(' ','_')
+                dn = dn.replace('-','')
+                dn = dn.replace('(','')
+                dn = dn.replace(')','')
+                dn = transliterate(dn)
+
+                if notulonl == "1":
+                    items = TabelItem.objects.filter(employer__department_id=dep.id).filter(bound_tabel__month=month).filter(bound_tabel__year=year).filter(bound_tabel__unloaded=False).filter(bound_tabel__type_id = 9).order_by('employer')
+
+                else:
+                    items = TabelItem.objects.filter(employer__department_id=dep.id).filter(bound_tabel__month=month).filter(bound_tabel__type_id = 9).filter(bound_tabel__year=year).order_by('employer')
+
+
+                if items:
+
+                    ct = items[0].bound_tabel.id
+                    current_tabel = Tabel.objects.get(id=ct)
+                    if current_tabel.sup_check == True:
+                        wb = xlwt.Workbook()
+                        ws = wb.add_sheet("Лист1")
+
+                        i = 0
+                        for item in items:
+                            print(item)
+                            if item.w_hours != 0:
+                                ws.write(i,0,item.employer.fullname)
+                                ws.write(i,1,item.w_hours)
+                                i = i+1
+                        current_tabel.unloaded = True
+                        current_tabel.save()
+                        '/samba/users/toxic/'
+                        # name =  'S:\Сетевые папки\Обмен\Бухгалтерия\РАСЧЕТНЫЙ ОТДЕЛ\ВыгрузкаМолока' + sep + str(dn) + '_' + str(month)+'_'+str(year)+ '_milk.xls'
+                        name =  '/mnt/1c-u-HRD_Uploads/ВыгрузкаМолока/' + str(dn) + '_' + str(month)+'_'+str(year)+ '_milk.xls'
+                        print(name)
+                        wb.save(name)
+
+
+                else:
+                    pass
+
+
+
+
+            return render(request, 'TURV/milk-unload.html')
+        else:
+            return render(request, 'TURV/milk-unload.html')
+
+# =========================
+
 # ---------------------------
 
 # ===== Работа с нормой =======
