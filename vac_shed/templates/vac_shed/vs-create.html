@@ -1,0 +1,32 @@
+{% extends 'vac_shed/index.html'%}
+{%load static%}
+{%block title%}Грфаик №{{vacshed.id}}{%endblock%}
+{%block script%}<script src="{% static 'vac_shed/js/getvacshed.js'%}" charset="utf-8"></script>{%endblock%}
+{%block header%}  <div class="header-main"><button type="button" class="button" name="button">Закрыть</button><h1> График отпусков {{vacshed.dep.name}} на {{vacshed.year}} год</h1></div>{%endblock%}
+{% block body %}
+<div class="container vs-create">
+  <a href="#"> + Добавить сотрудника в график</a>
+<table class="vs-table-create">
+  <thead>
+    <th>Сотрудник</th>
+    <th>Период</th>
+    <th>Дни</th>
+    <th>Перенос</th>
+    <th>Дни после переноса</th>
+    <th>Всего дней</th>
+    <th>Еждевенец</th>
+    <th>Проезд</th>
+  </thead>
+  <tbody>
+    {% for i in items %}
+      <tr id="{{i.id}}">
+        <td>{{i.emp.fullname}}</td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      {%endfor%}
+  </tbody>
+</table>
+</div>
+{%endblock%}
