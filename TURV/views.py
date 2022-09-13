@@ -2160,7 +2160,7 @@ def milk_unload(request):
 
                     ct = items[0].bound_tabel.id
                     current_tabel = Tabel.objects.get(id=ct)
-                    if current_tabel.sup_check == True:
+                    if current_tabel.del_check == False:
                         wb = xlwt.Workbook()
                         ws = wb.add_sheet("Лист1")
 
