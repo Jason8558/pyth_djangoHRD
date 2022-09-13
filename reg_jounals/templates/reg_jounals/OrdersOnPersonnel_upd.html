@@ -28,6 +28,11 @@
 
   <p>{{form.op_date.label}}:{{form.op_date}}</p>
   <p>{{form.op_type.label}}:{{form.op_type}}</p>
+  <p id="op_invite">{{form.op_dateOfInv.label}}:{{form.op_dateOfInv}}</p>
+  <p id="op_typeOfWork">{{form.op_typeOfWork.label}}:{{form.op_typeOfWork}}</p>
+  <p id="op_probation">{{form.op_probation.label}}:{{form.op_probation}}</p>
+  <p id="op_moveFrom">{{form.op_moveFrom.label}}:{{form.op_moveFrom}}</p>
+  <p id="op_moveTo">{{form.op_moveTo.label}}:{{form.op_moveTo}}</p>
   <p>{{form.op_emloyer.label}}:{{form.op_emloyer}}</p>
   <p>{{form.op_dep.label}}:{{form.op_dep}}</p>
   <p>{{form.op_content.label}}:{{form.op_content}}</p>
@@ -44,6 +49,22 @@
 <script type="text/javascript">
   prev = document.referrer
   $('#close').attr('href', prev)
+
+  $('document').ready(function(){
+    closeAllFields()
+    switch ($('#id_op_type option:selected').val()) {
+      case '1':
+          inviteOnWork()
+        break;
+
+      case '3':
+          MoveOnOtherWork()
+      break;
+
+      default:
+
+    }
+  })
 </script>
 
 {%endblock%}

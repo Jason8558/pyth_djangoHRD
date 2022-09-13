@@ -214,6 +214,9 @@ class OrdersOnPersonnel_form(forms.ModelForm):
         model = OrdersOnPersonnel
         fields = [
     'op_date',
+    'op_dateOfInv',
+    'op_typeOfWork',
+    'op_probation',
     'op_type',
     'op_dep',
     'op_emloyer',
@@ -226,6 +229,15 @@ class OrdersOnPersonnel_form(forms.ModelForm):
     op_emloyer = forms.CharField(label='ФИО сотрудника', widget=forms.TextInput(
     attrs={'onchange':'sfio()'}
     ))
+    op_dateOfInv = forms.CharField(label="Дата приема на работу" , required=False, widget=forms.TextInput(
+        attrs={'placeholder': 'Введите дату',  'type':'date', 'value':'01.01.0002'}))
+
+    op_moveFrom = forms.CharField(label="Перевод с" , required=False, widget=forms.TextInput(
+        attrs={'placeholder': 'Введите дату',  'type':'date'}))
+
+    op_moveTo = forms.CharField(label="по" , required=False, widget=forms.TextInput(
+        attrs={'placeholder': 'Введите дату',  'type':'date'}))
+
 
     # op_type = forms.ChoiceField(label='Вид приказа: ', widget=forms.Select(attrs={
     # 'onselect':'lock_fields()' }))
@@ -257,9 +269,31 @@ class OrdersOnPersonnel_form(forms.ModelForm):
         res_officer = user_
         )
 
+        print('date is ' + str(self.cleaned_data['op_dateOfInv']))
+
+        if self.cleaned_data['op_dateOfInv'] == "":
+            dateofInv = '0001-01-01'
+        else:
+            dateofInv = self.cleaned_data['op_dateOfInv']
+
+        if self.cleaned_data['op_moveFrom'] == "":
+            moveFrom = '0001-01-01'
+        else:
+            moveFrom = self.cleaned_data['op_moveFrom']
+
+        if self.cleaned_data['op_moveTo'] == "":
+            moveTo = '0001-01-01'
+        else:
+            moveTo = self.cleaned_data['op_moveTo']
+
         new_order = OrdersOnPersonnel.objects.create(
             op_date  = self.cleaned_data['op_date'],
             op_type = self.cleaned_data['op_type'],
+            op_dateOfInv = dateofInv,
+            op_typeOfWork = self.cleaned_data['op_typeOfWork'],
+            op_probation = self.cleaned_data['op_probation'],
+            op_moveFrom = moveFrom,
+            op_moveTo = moveTo,
             op_number  = str(order_next_num_)+"ЛС",
             op_dep = self.cleaned_data['op_dep'],
             op_content = self.cleaned_data['op_content'],
@@ -621,13 +655,13 @@ class NewOrdersOnVacationItem_form(forms.ModelForm):
         model = NewOrdersOnVacation_item
         fields = ['fio', 'dep', 'dur_from', 'days_count', 'dur_to',  'vac_type', 'comm']
 
-    dur_from = forms.DateField(label="Дата начала отпуска" , widget=forms.TextInput(
+    dur_from = forms.DateField(label="Дата начала отпуска" , required=False, widget=forms.TextInput(
         attrs={'placeholder': 'Введите дату', 'type':'date'}))
 
-    days_count = forms.CharField(label="Количество дней отпуска" , widget=forms.TextInput(
+    days_count = forms.CharField(label="Количество дней отпуска" ,required=False, widget=forms.TextInput(
     attrs={'onchange':'duration()', 'type':'text'}))
 
-    dur_to = forms.DateField(label="Дата окончания отпуска" , widget=forms.TextInput(
+    dur_to = forms.DateField(label="Дата окончания отпуска" , required=False, widget=forms.TextInput(
         attrs={'placeholder': 'Введите дату', 'type':'date', 'onchange':'vac_calc()'}))
 
 

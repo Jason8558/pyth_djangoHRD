@@ -24,7 +24,16 @@
 <div class="container titem">
 
 
-  <h4 style="grid-area:text; text-align:center">Выберите сотрудника из списка</h4>
+
+
+  <div style="grid-area:text;" class="ti-search">
+    <h4 style=" text-align:center">Выберите сотрудника из списка</h4>
+    <p><input id="tis-input" type="text" name="" placeholder="введите строку для поиска и нажмите ENTER" value="">
+    <button type="button" class="btn btn-outline-danger" id="tis-clear" name="button">Очистить</button></p>
+
+  </div>
+
+
 <div class="indep">
 
   <table style="box-shadow: none; font-size: 11pt;">
@@ -44,7 +53,7 @@
   {% if emp.fired%}
   {%else%}
   <tr id={{emp.id}} onclick="emp_info({{emp.id}})">
-    <td>{{emp.fullname}}</td>
+    <td class='id-fio'>{{emp.fullname}}</td>
     <td>{{emp.position}}</td>
     <td>{{emp.level}}</td>
     <td>{{emp.positionOfPayment}}</td>
@@ -64,6 +73,16 @@
 
 
 <div id="tabel_item" class="tabel_item">
+
+  <div class="info-window iw-initem">
+  <p class="info-window-head">информация</p>
+  <h5 class="not-print" style="color:red;">ВАЖНО: ПЕРЕД ПЕЧАТЬЮ ТАБЕЛЯ ОБЯЗАТЕЛЬНО ОЗНАКОМТЕСЬ С <span><a style="float: none; margin-left: none;" href="https://docs.google.com/document/d/1Z439AZgEkRSZErC1wrBpQE9ajGD-OPZIZOkNI08mPSg/edit#heading=h.g1x2nyrk0y8c">ИНСТРУКЦИЕЙ,</a></span> ПРОВЕРЬТЕ НАСТРОЙКИ ПЕЧАТИ, А ТАК ЖЕ ПРОВЕРЬТЕ КОРРЕКТНОСТЬ СФОРМИРОВАННОГО ДОКУМЕНТА В ОКНЕ ПРЕДВАРИТЕЛЬНОГО ПРОСМОТРА </h5>
+  <div class="iw-content">
+    {% for mes in messages  %}
+    <h5 style="text-align: left !important; {% if mes.important %}color: red;{% endif %} !important">{% if mes.important %}!ВАЖНО!{% endif %}{{mes.text}}</h5>
+    {% endfor %}
+  </div>
+  </div>
 
  <!-- <ul class="in_tabel_list">
    {% for emp in in_tabel %}
@@ -141,14 +160,14 @@
 
   <div class="results">
     <p><span>{{tabel.w_days.label}}</span>{{tabel.w_days}}</p>
-    <p><span>{{tabel.w_hours.label}}</span>{{tabel.w_hours}}</p>
+    <p><span id='litres'>{{tabel.w_hours.label}}</span>{{tabel.w_hours}}</p>
     <p><span>{{tabel.v_days.label}}</span>{{tabel.v_days}}</p>
     <p><span>{{tabel.sHours35.label}}</span>{{tabel.sHours35}}</p>
     <p><span>{{tabel.sHours4.label}}</span>{{tabel.sHours4}}</p>
     <p><label style="color: blue;" for="manual_overwork">Ввести сверхурочные вручную</label><input type="checkbox" id="manover" name="manual_overwork" value=""></p>
     <p><span><label for="weekends">Выходных дней</label></span><input id="weekends" type="number" readonly name="weekends" value=""></p>
-    {%if b_tabel.type.id == 2%}
-    <p><span style="font-size:12pt;">Процент д-ты за вредность</span>{{tabel.toxic_p}}</p>
+    {%if b_tabel.type.id == 2 or b_tabel.type.id == 8%}
+    <p><span style="font-size:12pt;">Процент доплаты </span>{{tabel.toxic_p}}</p>
     {%endif%}
     {%if b_tabel.type.id == 3%}
     <p><span style="font-size:12pt;">Номер автомобиля(процент)</span>{{tabel.auto}}</p>
@@ -174,7 +193,7 @@
     <span>13</span>
     <span>14</span>
     <span>15</span>
-    {%if b_tabel.type.id == 1%}
+    {%if b_tabel.type.id == 1 or b_tabel.type.id == 4 or b_tabel.type.id == 5 %}
     {{tabel.type_time1}}
     {{tabel.type_time2}}
     {{tabel.type_time3}}
@@ -229,7 +248,7 @@
     <span id="day30">30</span>
     <span id="day31">31</span>
 
-{%if b_tabel.type.id == 1%}
+{%if b_tabel.type.id == 1 or b_tabel.type.id == 4 or b_tabel.type.id == 5  %}
     {{tabel.type_time16}}
     {{tabel.type_time17}}
     {{tabel.type_time18}}
@@ -267,19 +286,36 @@
     {{tabel.hours31}}
   </div>
   <div class="tabel_buttons">
+    {% if b_tabel.type_id == 1%}
     <button type="button" class="btn btn-warning " onclick='auto_fill()' name="t_auto_fill">Автозаполнение</button>
+    {%else%}
+    {%endif%}
   <button type="button" onclick="Tabel();" class="btn btn-outline-dark" name="button">Расчитать</button>
 
   <input type="button" onclick="Tabel();" class="btn btn-success tItem_submit" name="" value="Расчитать и добавить">
   </div>
-  {% if b_tabel.type_id == 1%}
+
+
+
+  <!-- {% if b_tabel.type_id == 1%}
+  <div class="warning">
+    <h4 style="color: red">Внимание! При заполнении неполных часов (напр. 3.5; 3.2) следует разделять цифры ТОЧКОЙ, а не запятой</h4>
+
+  </div>
+  {%else%}
+  {% if b_tabel.type_id == 4%}
+  <div class="warning">
+    <h4 style="color: red">Внимание! При заполнении табеля работы в выходные, следует указывать только ночные и дневные явки! Также заполнении неполных часов (напр. 3.5; 3.2) следует разделять цифры ТОЧКОЙ, а не запятой</h4>
+
+  </div>
   {%else%}
   <div class="warning">
-    <h4 style="color: red">Внимание! При заполнении табеля вредности(совмещения), отпуска, ЛЧ и ночные указывать не нужно! Только фактическое количество отработаных часов!</h4>
+    <h4 style="color: red">Внимание! При заполнении табеля вредности или совмещения, отпуска, ЛЧ и ночные указывать не нужно! Только фактическое количество отработаных часов! Также заполнении неполных часов (напр. 3.5; 3.2) следует разделять цифры ТОЧКОЙ, а не запятой</h4>
 
   </div>
   {%endif%}
-</div>
+  {%endif%}
+</div> -->
 
   <div class="summary_times">
    <p class="st">{{tabel.sHours1.label}}{{tabel.sHours1}}</p>
@@ -327,7 +363,44 @@
 </div>
 </div>
 
+<script type="text/javascript">
 
+if ($('#tabel-type').text() == '9') {
+  $('#litres').text('Литров')
+
+  for (var field of $('.dig_hours')) {
+    field.setAttribute('placeholder', 'Л')
+  }
+
+}
+
+  $('#tis-clear').click(function(){
+    $('#tis-input').val('')
+    allrows = $('.indep table tbody tr')
+    for (var row of allrows) {
+    $('.indep table tbody #' + row.id).css('display', '')
+    }
+  })
+
+  $('#tis-input').change(function(){
+    query =   $('#tis-input').val()
+    res = $('.indep table tbody tr .id-fio').filter(function(){ return $(this).text().toLowerCase().includes(query.toLowerCase())})
+    allrows = $('.indep table tbody tr')
+    for (var row of allrows) {
+      row.style.display = 'none'
+    }
+
+    for (var r of res) {
+      r.parentElement.style.display = ''
+    }
+
+
+
+
+  })
+
+
+</script>
 
 
 {%endblock%}

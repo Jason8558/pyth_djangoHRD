@@ -3,7 +3,11 @@ from . import views
 
 urlpatterns = [
     path('', views.tabels, name='tabels_url'),
+    path('over/', views.over_tabels, name='over-tabels_url'),
+    path('vac/', views.vac_tabels, name='vac-tabels_url'),
+    path('nn/', views.nn_tabels, name='nn-tabels_url'),
     path('new/', views.new_tabel, name='new_tabel_url'),
+    path('delcheck/<int:id>', views.tabel_delcheck, name='delcheck_url'),
     path('delete_checked/', views.del_tabel, name='del_tabel_url'),
     path('create/<int:id>', views.tabel_create, name='tabel_create_url'),
     path('additem/<int:id>', views.tabel_additem, name='tabel_addItem_url'),
@@ -19,12 +23,24 @@ urlpatterns = [
     path('autos/', views.autos, name='autos_list'),
     path('autos/new', views.nr_autos, name='new_auto_url'),
     path('autos/edit/<int:id>', views.edit_autos, name='edit_auto_url'),
+    path('messages/', views.messages_ref, name='messages_list'),
+    path('messages/new/<int:id>', views.new_message, name='message_new_url'),
+    path('feedbacks/', views.feedbacks, name='feedbacks_url'),
+    path('feedbacks/new/<int:id>', views.new_feedback, name='feedback_new_url'),
     path('unload/', views.unload, name='unload'),
     path('toxic-unload/', views.toxic_unload, name='toxic-unload'),
     path('unite-unload/', views.unite_unload, name='unite-unload'),
+    path('milk-unload/', views.milk_unload, name='milk-unload'),
     path('checked/<int:id>', views.tabel_sup_check, name='checked'),
+    path('paper/<int:id>', views.tabel_paper_check, name='paper_checked'),
+    path('comm/<int:id>/', views.upd_comm, name='comm'),
     path('overtime/', views.upd_norma, name='overtime_url'),
     path('overtime/upd', views.new_norma, name='overtime_new_url'),
-    path('close/', views.w_close, name='close_url')
+    path('close/', views.w_close, name='close_url'),
+    path('total/<str:month>/<str:year>/<int:dep>/', views.total_tabels, name='total_url'),
+    path('total/open/', views.total_tabels_html, name='total_url_page'),
+    path('correct/<int:id>', views.new_corr_tabel, name='correct')
+
+
 
      ]

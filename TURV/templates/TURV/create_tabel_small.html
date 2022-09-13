@@ -26,35 +26,104 @@
 <!-- <link rel="stylesheet" href="{% static 'TURV\css\tabel_print2.css'%}"> -->
 <div  class="container tabel_container">
 
-<form action="" class="f_search intabel not-print">
-<p>ПОИСК</p>
-<input type="text" name="its_employer"  placeholder="поиск по ФИО" value="">
-<select class="" name="its_position">
-<option value="">Поиск по должности</option>
-{% for pos in positions%}
-<option value="{{pos}}">{{pos}}</option>
-{%endfor%}
-</select>
-<input type="submit" name="" class="btn btn-dark" value="Найти">
-<a class="btn btn-outline-danger" href="/turv/create/{{b_tabel.id}}">Сбросить поиск</a>
-</form>
+<div class="info-block ib-intabel">
+
+    <form action="" class="f_search fs-intabel not-print">
+    <div class="fs-head">
+      <p>ПОИСК</p>
+    </div>
+    <div class="fs-content">
+    <input type="text" name="its_employer"  placeholder="поиск по ФИО" value="">
+    <select class="" name="its_position">
+    <option value="">Поиск по должности</option>
+    {% for pos in positions%}
+    <option value="{{pos}}">{{pos}}</option>
+    {%endfor%}
+    </select>
+    </div>
+    <div class="fs-buttons">
+    <input type="submit" name="" class="btn btn-dark" value="Найти">
+    <a class="btn btn-outline-danger" href="/turv/create/{{b_tabel.id}}">Сбросить поиск</a>
+    </div>
+    </form>
 
 
-<h5 class="not-print" style="color:red;">ВАЖНО: ПЕРЕД ПЕЧАТЬЮ ТАБЕЛЯ ОБЯЗАТЕЛЬНО ОЗНАКОМТЕСЬ С <span><a style="float: none; margin-left: none;" href="https://docs.google.com/document/d/1Z439AZgEkRSZErC1wrBpQE9ajGD-OPZIZOkNI08mPSg/edit#heading=h.g1x2nyrk0y8c">ИНСТРУКЦИЕЙ,</a></span> ПРОВЕРЬТЕ НАСТРОЙКИ ПЕЧАТИ, А ТАК ЖЕ ПРОВЕРЬТЕ КОРРЕКТНОСТЬ СФОРМИРОВАННОГО ДОКУМЕНТА В ОКНЕ ПРЕДВАРИТЕЛЬНОГО ПРОСМОТРА </h5>
+
+    <div class="info-window iw-intabel">
+    <p class="info-window-head">информация</p>
+    <h5 class="not-print" style="color:red;">ВАЖНО: ПЕРЕД ПЕЧАТЬЮ ТАБЕЛЯ ОБЯЗАТЕЛЬНО ОЗНАКОМТЕСЬ С <span><a style="float: none; margin-left: none;" href="https://docs.google.com/document/d/1Z439AZgEkRSZErC1wrBpQE9ajGD-OPZIZOkNI08mPSg/edit#heading=h.g1x2nyrk0y8c">ИНСТРУКЦИЕЙ,</a></span> ПРОВЕРЬТЕ НАСТРОЙКИ ПЕЧАТИ, А ТАК ЖЕ ПРОВЕРЬТЕ КОРРЕКТНОСТЬ СФОРМИРОВАННОГО ДОКУМЕНТА В ОКНЕ ПРЕДВАРИТЕЛЬНОГО ПРОСМОТРА </h5>
+    <div class="iw-content">
+      {% for mes in messages  %}
+
+              {% if mes.mestype == '1' %}
+                <h5 style="text-align: left !important; {% if mes.important %}color: red;{% endif %} !important">{% if mes.important %}!ВАЖНО!{% endif %}{{mes.text}}</h5>
+              {% else %}
+                <h5 class="iw-movevac-h5" style="text-align: left !important; color:blue; cursor:pointer;" onmouseout="closemovevac()" onmouseover="showmovevac('{{mes.text}}')">Перенос отпусков!</h5>
+            {% endif %}
+
+      {% endfor %}
+      <div style="display:none;" class="iw-movevac" id="iw-movevac">
+        <p></p>
+      </div>
+    </div>
+    </div>
+
+</div>
+<div class="functions f-intabel">
+
+  <div class="t-print">
+
+  <input class="btn btn-warning btn-sm"  type="button" name="" onclick="print_toxic({{b_tabel.year}}, {{b_tabel.month}}, '{{b_tabel.department.name}}')" value="ПЕЧАТЬ">
+
+
+  </div>
+
 <div class="sup_check not-print">
   {% if b_tabel.sup_check %}
-    {% if granted == 1%}
-    <a class="btn btn-danger" href="{% url 'checked' id=b_tabel.id%}">Отменить проверку</a>
-    {%endif%}
     <h4 style="color: green;">✅ Проверен СУП</h4>
+      {% if granted == 1%}
+      <a class="btn btn-danger btn-sm" href="{% url 'checked' id=b_tabel.id%}">Отменить проверку</a>
+      {%endif%}
     {%else%}
-    {% if granted == 1%}
-    <a class="btn btn-success" href="{% url 'checked' id=b_tabel.id%}">Отметить как проверенный</a>
-    {%endif%}
+      {% if granted == 1%}
+      <a class="btn btn-success btn-sm" href="{% url 'checked' id=b_tabel.id%}">Отметить как проверенный</a>
+      {%endif%}
 {%endif%}
+</div>
+
+<div class="paper_check not-print">
+{% if b_tabel.paper_check %}
+    <h4 style="color: green;">✅ Сдан на бумаге</h4>
+
+    {% if granted == 1%}
+    <a class="btn btn-danger btn-sm" href="{% url 'paper_checked' id=b_tabel.id%}">Отменить наличие бумажной копии</a>
+    {%endif%}
+
+  {%else%}
+
+  {% if granted == 1%}
+  <a class="btn btn-success btn-sm" href="{% url 'paper_checked' id=b_tabel.id%}">Подтвердить наличие бум. копии</a>
+  {%endif%}
+{%endif%}
+</div>
 
 
-<input class="btn btn-warning"  style="margin-left: 6px;" type="button" name="" onclick="print_toxic({{b_tabel.year}}, {{b_tabel.month}}, '{{b_tabel.department.name}}')" value="ПЕЧАТЬ">
+
+<div class="comm">
+<form class="f-comm" action="{% url 'comm' id=b_tabel.id%}" method="post">
+  {% csrf_token %}
+  <input type="text" name="tabel_comm" placeholder="введите коментарий" value="{{b_tabel.comm}}">
+  <input type="submit" class="btn btn-warning btn-sm" value="ИЗМЕНИТЬ">
+</form>
+</div>
+<div class="del_check">
+  {% if b_tabel.del_check == False %}
+    <a class="btn btn-danger btn-sm" href="{% url 'delcheck_url' id=b_tabel.id %}">Пометить на удаление</a>
+  {%else%}
+    <a class="btn btn-danger btn-sm" href="{% url 'delcheck_url' id=b_tabel.id %}">Снять пометку удаления</a>
+  {%endif%}
+  </div>
+
 
 
 </div>
@@ -84,11 +153,11 @@
     <th  >Раз.</th>
     <th >Ст.</th>
     {%if b_tabel.type.id == 3%}
-    <th>А/М</th>
+    <th >А/М</th>
     <th>% доп.</th>
     {%endif%}
-    {%if b_tabel.type.id == 2%}
-      <th>% вред.</th>
+    {%if b_tabel.type.id == 2 or b_tabel.type.id == 8%}
+      <th>%</th>
     {%endif%}
     <th>1</th>
     <th >2</th>
@@ -122,14 +191,8 @@
     <th class="day30">30</th>
     <th class="day31 ">31</th>
     <th >Дни.</th>
-    <th>Час./ЛЧ</th>
-    <th >Св.</th>
-    <th >НЧ</th>
-    <th >в./пр.</th>
-    <th >Сов.</th>
-    <th >Нея.</th>
-    <th >Из них</th>
-    <th  >Вых.</th>
+    <th class='litres'>Час./ЛЧ</th>
+
 
 
 
@@ -162,8 +225,8 @@
     <th class="thin-itogo">А/М</th>
     <th class="thin-itogo">% доп.</th>
     {%endif%}
-    {%if b_tabel.type.id == 2%}
-      <th class="thin-itogo">% вред</th>
+    {%if b_tabel.type.id == 2 or  b_tabel.type.id == 8%}
+      <th class="thin-itogo">%</th>
     {%endif%}
     <th class="head-hours">1</th>
     <th class="head-hours">2</th>
@@ -197,8 +260,8 @@
     <th class="day30 head-hours">30</th>
     <th class="day31 head-hours">31</th>
     <th class="thin-itogo">Дни.</th>
-    <th class="wide-itogs">Час./ЛЧ</th>
-    <th class="thin-itogo" >Вых.</th>
+    <th class="wide-itogs litres">Час./ЛЧ</th>
+    <!-- <th class="thin-itogo" >Вых.</th> -->
 
 
 
@@ -227,11 +290,11 @@
       <td class="not-print cell_bb"  >{{item.employer.level}}</td>
       <td   class="cell_bb">{{item.employer.positionOfPayment}}</td>
       {%if b_tabel.type.id == 3%}
-      <td>{{item.auto.number}}</td>
+      <td style="text-transform: uppercase;">{{item.auto.number}}</td>
       <td>{{item.auto.unite_p}}</td>
       {%endif%}
-      {%if b_tabel.type.id == 2%}
-        <td   class="cell_bb"">{{item.toxic_p}}</td>
+      {%if b_tabel.type.id == 2 or b_tabel.type.id == 8 %}
+        <td   class="cell_bb percent">{{item.toxic_p}}</td>
       {%endif%}
 
       <td   class="cell_hours">{{item.hours1}}</td>
@@ -273,7 +336,7 @@
       <td   class="cell_bb wide-itogs">{{item.w_hours|floatformat:-2}}</td>
         {%endif%}
 
-      <td   class="weekends cell_bb">{{item.sHours24}}</td>
+      <td   style="display:none" class="weekends cell_bb">{{item.sHours24}}</td>
 
 
 
@@ -298,9 +361,9 @@
     <td colspan="3">ИТОГО</td>
 
 
-    <td class="for-print"></td>
+
     <td class="not-print"></td>
-    <td></td>
+    <td class="not-print"></td>
 
     <td></td>
     <td></td>
@@ -328,6 +391,7 @@
     <td></td>
     <td></td>
     <td></td>
+
     <td></td>
     <td></td>
     <td class="day29"></td>
@@ -342,7 +406,7 @@
     <td >{{s_days}}</td>
         <td >{{s_hours}}</td>
 
-    <td>{{s_weekends}}</td>
+    <!-- <td>{{s_weekends}}</td> -->
 
 
 
@@ -359,7 +423,10 @@
 <div class="cover-footer for-print" >
 <h3>Ответственный за составление табеля ________________________________________________________________________________________ __.__.20__ г.</h3>
 <h3>Руководитель структурного подразделения ________________________________________________________________________________________ __.__.20__ г..</h3>
+{% if b_tabel.type_id == 9%}
+{%else%}
 <h3>Специалист СУП ________________________________________________________________________________________ __.__.20__ г..</h3>
+{%endif%}
 </div>
 </div>
 <div style="display:none" class="print_warning">
@@ -367,7 +434,14 @@
 </div>
 
 <script type="text/javascript">
-  $
+
+  if ($('#tabel-type').text() == 9) {
+    for (var field of $('.litres') ) {
+      field.innerText = 'Лит.'
+    }
+  }
 </script>
+
+
 
 {%endblock%}

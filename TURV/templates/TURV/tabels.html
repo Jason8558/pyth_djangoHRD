@@ -6,6 +6,10 @@
     {% if granted == 1 or user.is_superuser%}<a href="/" class="btn btn-dark"> < Назад </a>{%endif%}
     Табели учета рабочего времени. Всего: {{count}}.
     <ul class="menu">
+      <li>Меню <span class='angle-down'>v</span>
+      <ul class="menu-main-ul">
+
+
       <li>Справочники <span class='angle-down'>v</span>
       <ul class="sprav">
         <li><a href="{% url 'emp_list'%}"> > Сотрудники</a></li>
@@ -26,13 +30,17 @@
 
       </ul>
       </li>
-{%if request.user.is_superuser %}
+      <li><a href="/turv/feedbacks/">Оставить обращение</a></li>
+{%if request.user.is_superuser  or granted == 1%}
       <li>Сервис <span class='angle-down'>v</span>
       <ul class="service">
            <li><a  href="{% url 'unload'%}"> > Выгрузить для 1С</a></li>
            <li><a  href="{% url 'toxic-unload'%}"> > Выгрузить вредность для 1С</a></li>
            <li><a  href="{% url 'unite-unload'%}"> > Выгрузить совмещение для 1С</a></li>
+            <li><a  href="{% url 'milk-unload'%}"> > Выгрузить молоко для 1С</a></li>
+           <li><a  href="{% url 'del_tabel_url'%}"> > Удалить помеченные на удаление</a></li>
            <li><a  href="{% url 'overtime_url'%}"> > Обновить годовую норму времени сотрудников</a></li>
+
 
 
 
@@ -47,7 +55,38 @@
       {%endif%}
       </ul>
       </li>
+  {%if granted == 1 or is_atc%}
+      <li>Дополнительные <span class='angle-down'>v</span>
+      <ul class="view">
+        {%if granted == 1%}
+            <li><a href="{% url 'over-tabels_url' %}">Сверхурочка АТЦ</a></li>
+            <li><a href="{% url 'vac-tabels_url' %}">Выходные АТЦ</a></li>
+            <li><a href="{% url 'nn-tabels_url' %}">Ненормированность АТЦ</a></li>
+        {%else%}
+            <li><a href="{% url 'over-tabels_url' %}">Сверхурочка</a></li>
+            <li><a href="{% url 'vac-tabels_url' %}">Выходные</a></li>
+            <li><a href="{% url 'nn-tabels_url' %}">Ненормированность</a></li>
+        {%endif%}
+  {%endif%}
+      </ul>
+      </li>
+      {% if granted == 1 %}
+      <li>Функции и отчеты <span class='angle-down'>v</span>
+      <ul class="additional">
+           <li><a  href="{% url 'total_url_page' %}"> > Сформировать свод</a></li>
+           <li><a  href="{% url 'messages_list'%}"> > Система оповещения пользователей</a></li>
+
+      </ul>
+      </li>
+      {% endif %}
+
+
+  </ul>
+  </li>
     </ul>
+
+
+
 
 
 
@@ -69,77 +108,116 @@ function Supchecked() {
 }
 </script>
 
-<form action="" class="f_search">
-  <p>ПОИСК</p>
-  <label for="search_month">Месяц:</label>
-  <select class="" name="search_month">
-    <option value="">Весь год</option>
-    <option value="01">Январь</option>
-    <option value="02">Февраль</option>
-    <option value="03">Март</option>
-    <option value="04">Апрель</option>
-    <option value="05">Май</option>
-    <option value="06">Июнь</option>
-    <option value="07">Июль</option>
-    <option value="08">Август</option>
-    <option value="09">Сентябрь</option>
-    <option value="10">Октябрь</option>
-    <option value="11">Ноябрь</option>
-    <option value="12">Декабрь</option>
-  </select>
 
-<input type="text" placeholder="год..." name="search_year" value="">
-<label for="t_tab_dep_search">Подразделение: </label>
-  <select class="" name="t_tab_dep_search">
-    <option value="">---</option>
-    {% for dep in deps%}
-      <option value="{{dep.id}}">{{dep}}</option>
-      {% endfor%}
-  </select>
-  <label for="search_type">По виду</label>
-  <select class="" name="search_type">
-    {%for t in type%}
-      <option value="{{t.id}}">{{t.name}}</option>
-    {%endfor%}
 
-  </select>
 
-  {% if granted == 1%}
-  <select class=""  name="tab_user">
-    <option value="">Поиск по ответственному</option>
-      {%for u in tab_users %}
-      <option value="{{u.first_name}}">{{u.first_name}}</option>
-      {%endfor%}
-  </select>
-{%endif%}
-<input type="submit" name="" class="btn btn-dark" value="Найти">
-
-<a class="btn btn-outline-danger" href="/turv">Сбросить поиск</a>
-</form>
 
 <div class="container main">
-  <h3 style="text-align: left !important; color: red !important">ИНФОРМАЦИЯ! Новые сотрудники добавляются в справочник АВТОМАТИЧЕСКИ! Инф. т.2035 </h3>
-  <a class="btn btn-success btn-add"  href="{% url 'new_tabel_url' %}"  >+ Новый табель</a>
 
+  <div class="info-block ib-main">
+
+  <div class="info-window iw-main">
+    <p class="info-window-head">информация</p>
+    {%if answers%}
+      <p class="answers"><a href="/turv/feedbacks/" >На Ваше обращение получен ответ! Нажмите чтобы открыть</a></p>
+    {%endif%}
+    <div class="iw-content">
+
+      {% for mes in messages  %}
+
+        {% if mes.mestype == '1' %}
+          <h5 style="text-align: left !important; {% if mes.important %}color: red;{% endif %} !important">{% if mes.important %}!ВАЖНО!{% endif %}{{mes.text}}</h5>
+        {% else %}
+          <h5 class="iw-movevac-h5" style="text-align: left !important; color:blue; cursor:pointer;" onmouseout="closemovevac()" onmouseover="showmovevac('{{mes.text}}')">Перенос отпусков!</h5>
+      {% endif %}
+      {% endfor %}
+    </div>
+    <div style="display:none;" class="iw-movevac" id="iw-movevac">
+      <p></p>
+    </div>
+  </div>
+
+  <form action="" class="f_search fs-main">
+  <div class="fs-head">
+    <p>ПОИСК</p>
+  </div>
+  <div class="fs-content">
+
+    <select class="" name="search_month">
+      <option value="">Весь год</option>
+      <option value="01">Январь</option>
+      <option value="02">Февраль</option>
+      <option value="03">Март</option>
+      <option value="04">Апрель</option>
+      <option value="05">Май</option>
+      <option value="06">Июнь</option>
+      <option value="07">Июль</option>
+      <option value="08">Август</option>
+      <option value="09">Сентябрь</option>
+      <option value="10">Октябрь</option>
+      <option value="11">Ноябрь</option>
+      <option value="12">Декабрь</option>
+    </select>
+
+  <input type="text" id="fs-year" placeholder="год..." name="search_year" value="">
+
+    <select class="" name="t_tab_dep_search">
+      <option value="">Подразделение</option>
+      {% for dep in deps%}
+        <option value="{{dep.id}}">{{dep}}</option>
+        {% endfor%}
+    </select>
+
+    <select class="" name="search_type">
+        <option value="">Вид</option>
+      {%for t in type%}
+        <option value="{{t.id}}">{{t.name}}</option>
+      {%endfor%}
+        <option value="c">Корректировка</option>
+
+    </select>
+
+    {% if granted == 1%}
+    <select class=""  name="tab_user">
+      <option value="">Поиск по ответственному</option>
+        {%for u in tab_users %}
+        <option value="{{u.first_name}}">{{u.first_name}}</option>
+        {%endfor%}
+    </select>
+  {%endif%}
+  </div>
+  <div class="fs-buttons">
+  <input type="submit" name="" class="btn btn-dark" value="Найти">
+
+  <a class="btn btn-outline-danger" href="/turv">Сбросить поиск</a>
+  </div>
+  </form>
+</div>
+
+<div class="table-block tb-main">
+
+  <a class="btn btn-success btn-add"  href="{% url 'new_tabel_url' %}"  >+ Новый табель</a>
+<div class="tb-table">
 
 {%if tabels%}
 
-<table>
+<table class="tabels-main-table">
   <thead class="thead-dark">
   <tr class="tr-header">
     <th scope="col">Код</th>
-    <th scope="col">Вид</th>
+    <th  scope="col">Вид</th>
     <th scope="col">Период составления</th>
     <th scope="col">Подразделение</th>
     {% if granted == 1 or user.is_superuser%}
     <th scope="col">Ответственный</th>
+    <th scope="col">Сдан на бумаге</th>
     {%endif%}
-    <th scope="col">Проверен СУП</th>
+    <th scope="col"> СУП </th>
       {% if granted == 1 or user.is_superuser%}
-      <th scope="col"> Загружен в 1С </th>
+      <th scope="col"> 1С </th>
       {%endif%}
 
-
+<th scope="col">Комментарий</th>
 
 
 
@@ -150,26 +228,59 @@ function Supchecked() {
   {%for tabel in tabels %}
 
 {% if tabel.type.id == 2 %}
-<tr  style="background: lightgreen !important;"onclick="return window.open('{% url 'tabel_create_url' id=tabel.id%}')" >
+<tr  class="toxic-row" onclick="return window.open('{% url 'tabel_create_url' id=tabel.id%}')" >
 {%endif%}
 {% if tabel.type.id == 3 %}
-<tr  style="background: #8702cb !important; color:white;" onclick="return window.open('{% url 'tabel_create_url' id=tabel.id%}')" >
+<tr class="unite-row"  onclick="return window.open('{% url 'tabel_create_url' id=tabel.id%}')" >
+{%endif%}
+{% if tabel.type.id == 4 %}
+<tr  class="vac-row" onclick="return window.open('{% url 'tabel_create_url' id=tabel.id%}')" >
+{%endif%}
+{% if tabel.type.id == 5 %}
+<tr  class="over-row" onclick="return window.open('{% url 'tabel_create_url' id=tabel.id%}')" >
+{%endif%}
+{% if tabel.type.id == 6 %}
+<tr  class="standby-row" onclick="return window.open('{% url 'tabel_create_url' id=tabel.id%}')" >
 {%endif%}
 {% if tabel.type.id == 1 %}
 <tr  onclick="return window.open('{% url 'tabel_create_url' id=tabel.id%}')" >
 {%endif%}
-    <td>{{tabel.id}}</td>
-    <td>{{tabel.type}}</td>
+{% if tabel.type.id == 8 %}
+<tr  onclick="return window.open('{% url 'tabel_create_url' id=tabel.id%}')" >
+{%endif%}
+{% if tabel.type.id == 9 %}
+<tr  class="milk-row" onclick="return window.open('{% url 'tabel_create_url' id=tabel.id%}')" >
+{%endif%}
+{%if tabel.del_check %}
+    <td style="color: red !important; font-weight: bold !important;">{{tabel.id}}</td>
+{%else%}
+  <td>{{tabel.id}}</td>
+{%endif%}
+    {% if tabel.iscorr %}
+      <td class="table-type">{{tabel.type}} <span style="color:red !important;">(корректировка)</span></td>
+    {% else %}
+      <td class="table-type">{{tabel.type}}</td>
+    {% endif %}
     <td><span class="field_month">{{tabel.month}}</span> {{tabel.year}}  </td>
     <td>{{tabel.department}}</td>
     {% if granted == 1 or user.is_superuser%}
     <td>{{tabel.res_officer}}</td>
     {%endif%}
-    {%if tabel.sup_check%}
-      <td>✅</td>
-    {%else%}
-      <td>❌</td>
+
+  {% if granted == 1 or user.is_superuser%}
+    {% if tabel.paper_check %}
+    <td>✅</td>
+    {% else %}
+    <td>❌</td>
+    {% endif %}
     {%endif%}
+
+    {%if tabel.sup_check%}
+    <td>✅</td>
+    {%else%}
+    <td>❌</td>
+    {%endif%}
+
     {% if granted == 1 or user.is_superuser%}
       {%if tabel.unloaded%}
         <td>✅</td>
@@ -177,13 +288,15 @@ function Supchecked() {
         <td>❌</td>
       {%endif%}
     {%endif%}
-
+<td>{{tabel.comm}}</td>
 
 
 
 </tr>
   {%endfor%}
 </table>
+
+</div>
 <nav  class="paginator" aria-label="Page navigation example">
   <ul class="pagination">
     <li class="page-item">
@@ -215,8 +328,12 @@ function Supchecked() {
   </ul>
 </nav>
 
+</div>
+
 {%else%}
 <h2>Табели не найдены</h2>
 {%endif%}
 </div>
+
+
 {%endblock%}

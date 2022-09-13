@@ -1,0 +1,139 @@
+{% extends 'TURV/index.html'%}
+{%load static%}
+{%block title%}Создать (изменить) сообщение{% endblock %}
+
+
+
+{%block header%}Создать (изменить) сообщение{%endblock%}
+
+{% block body %}
+
+<div class="container ">
+  {% if form.errors %}
+<div class="errors">
+  {% for error in form.errors  %}
+  <h5>{{error}}</h5>
+
+  {% endfor %}
+
+</div>
+
+{% endif %}
+
+<form class="add-form af-message" action="" method="post">
+{% csrf_token %}
+<div class="afm-active">
+  <p>Сообщение активно: <span>{{form.active}}</span></p>
+</div>
+
+<div class="afm-mestype">
+  <p>Вид сообщения <span>{{form.mestype}}</span></p>
+
+</div>
+
+<div class="afm-important">
+  <p>Особо важное сообщение: <span>{{form.important}}</span></p>
+</div>
+<div class="afm-text">
+  <p>{{form.text.label}}</p>
+  {{form.text}}
+</div>
+<div class="afm-deps">
+  <p>Показывать для всех подразделений: <span> {{form.alldeps}} </span></p>
+  <p style="display: none;" id="afm-show-deps">{{form.deps}}</p>
+</div>
+<div class="afm-period">
+  <p>{{form.always.label}} <span>{{form.always}} </span></p>
+  <p class="afm-unite" id="afm-per" style="display: none;"><span>с: {{form.dfrom}}</span> по: <span>{{form.dto}}</span></p>
+</div>
+<div class="afm-views" id="afm-views">
+  <p>Показывать в: </p>
+  <p>{{form.viewin}}</p>
+</div>
+<div class="afm-intypes" id="afm-intypes">
+  <p>Показывать для всех видов табеля: <span> {{form.alltypes}} </span></p>
+
+  <p id="afm-show-types" style="display: none;">{{form.intypes}}</p>
+</div>
+
+<div class="buttons"><input type="submit" name="" class="btn btn-success" value="Добавить">
+<a href="/turv/messages/"  class="btn btn-outline-danger">Отмена</a></div>
+
+
+</form>
+</div>
+
+<script type="text/javascript">
+  $(document).ready(function(){
+      if ($('#id_always').prop('checked') == true) {
+
+      }
+      else {
+          $('#afm-per').css('display', 'block')
+      }
+
+      if ($('#id_alldeps').prop('checked') == true) {
+
+      }
+      else {
+          $('#afm-show-deps').css('display', 'block')
+      }
+// Виды табеля
+      if ($('#id_alltypes').prop('checked') == true) {
+
+      }
+      else {
+          $('#afm-show-types').css('display', 'block')
+      }
+// -----------
+      if ($('#id_mestype option:selected').val() == 2) {
+
+        $('#id_viewin option').filter(function() {
+            return ($(this).val() != 2); //To select Blue
+        }).remove();
+        $('#afm-views').css('display', 'none')
+        $('#afm-intypes').css('display', 'none')
+      }
+      else {
+          $('#id_viewin').append('<option value="2">Окно табеля</option>')
+          $('#id_viewin').append('<option value="3">Окно редактирования табеля</option>')
+          $('#afm-views').css('display', 'block')
+          $('#afm-intypes').css('display', 'block')
+
+      }
+  })
+
+  $('#id_always').change(function(){
+    if ($('#afm-per').css('display') == 'block') {
+      $('#afm-per').css('display', 'none')
+
+    }
+    else {
+      $('#afm-per').css('display', 'block')
+    }
+
+  })
+
+  $('#id_alldeps').change(function(){
+    if ($('#afm-show-deps').css('display') == 'block') {
+      $('#afm-show-deps').css('display', 'none')
+    }
+    else {
+      $('#afm-show-deps').css('display', 'block')
+    }
+  })
+
+  $('#id_alltypes').change(function(){
+    if ($('#afm-show-types').css('display') == 'block') {
+      $('#afm-show-types').css('display', 'none')
+    }
+    else {
+      $('#afm-show-types').css('display', 'block')
+    }
+  })
+
+
+
+
+</script>
+{%endblock%}

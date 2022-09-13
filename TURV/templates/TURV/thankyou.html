@@ -1,0 +1,22 @@
+{% extends "TURV/index.html" %}
+
+
+{%block title%}Спасибо за обращение!{%endblock%}
+{%block header%}Спасибо!{%endblock%}
+{%block body%}
+<style media="screen">
+  .thankyou h1 {
+    text-align: center;
+  padding: 13px;
+  border: 2px solid green;
+  border-radius: 17px;
+  background: #d3ffd3;}
+  .thankyou a {
+    display: block !important;
+  }
+</style>
+<div class="container thankyou">
+  <h1>{{user_io}}, спасибо за Ваше обращение! Как только на него поступит ответ, Вы увидите уведомление в главном окне. Чтобы вернуться к работе в системе, нажмите кнопку ниже</h1>
+  <a class="btn btn-success" href="/turv/feedbacks/">Вернуться в систему</a>
+</div>
+{%endblock%}

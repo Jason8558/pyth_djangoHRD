@@ -320,7 +320,7 @@ class TabelItem_form(forms.ModelForm):
 class Tabel_form(forms.ModelForm):
     class Meta:
         model = Tabel
-        fields = ['year', 'month', 'department', 'del_check', 'sup_check', 'type']
+        fields = ['year', 'month', 'department', 'del_check', 'sup_check', 'type', 'day', 'comm', 'corr']
 
     year = forms.CharField(label="Год (ТОЛЬКО 4 ЦИФРЫ!)", widget=forms.NumberInput(attrs={'maxlength':'4'}))
     def saveFirst(self, user_):
@@ -334,8 +334,8 @@ class Tabel_form(forms.ModelForm):
             number = next_id,
             year = self.cleaned_data['year'],
             doc_date = DT.datetime.strptime(str(self.cleaned_data['year'] + '-' + self.cleaned_data['month'] + '-' + str(DT.datetime.now().day)), '%Y-%M-%d'),
-            addData = 'Табель: '+ str(self.cleaned_data['department'].name) + ' за: ' + str(self.cleaned_data['month']) + ' ' + str(self.cleaned_data['year']) ,
-            link = '/turv/create' + str(next_id),
+            addData = 'Табель: ' + str(self.cleaned_data['type'].name) + ' '  + str(self.cleaned_data['department'].name) + ' за: ' + str(self.cleaned_data['month']) + ' ' + str(self.cleaned_data['year']) ,
+            link = '/turv/create/' + str(next_id),
             res_officer = user_)
 
         new_tabel = Tabel.objects.create(
@@ -343,6 +343,9 @@ class Tabel_form(forms.ModelForm):
             month = self.cleaned_data['month'],
             department = self.cleaned_data['department'],
             type = self.cleaned_data['type'],
+            day = self.cleaned_data['day'],
+            comm = self.cleaned_data['comm'],
+
             res_officer = user_)
 
         return new_tabel
@@ -353,8 +356,38 @@ class Employer_form(forms.ModelForm):
         fields = ['fullname', 'sex', 'position', 'department', 'level', 'positionOfPayment', 'shift_personnel', 'stand_worktime', 'fired']
 
     def saveFirst(self):
+
+        #  Приводим ФИО сотрудника в надлежащий вид
+        fullname = self.cleaned_data['fullname'].split(' ')
+
+        for l in fullname:
+            if ' ' in fullname:
+                fullname.remove(' ')
+
+        lastname = fullname[0]
+
+        for l in fullname:
+            if lastname in fullname:
+                fullname.remove(lastname)
+
+        for l in fullname:
+            if '.' in fullname:
+                fullname.remove('.')
+
+        for l in fullname:
+            if l != '':
+                secondname = l.split('.')
+                if len(secondname) > 0:
+                    firstname = secondname[0]
+                    middlename = secondname[1]
+
+        fullname = str(lastname.capitalize() + ' ' + firstname[0].upper() + '.' + secondname[1].upper() + '.')
+        #  =====================================================
+
+
+
         new_employer = Employers.objects.create(
-            fullname  = self.cleaned_data['fullname'],
+            fullname  = fullname,
             sex = self.cleaned_data['sex'],
             position = self.cleaned_data['position'],
             shift_personnel = self.cleaned_data['shift_personnel'],
@@ -390,3 +423,54 @@ class Automobile_form(forms.ModelForm):
         used = self.cleaned_data['used']
         )
         return new_automobile
+
+class InfoMessages_form(forms.ModelForm):
+    class Meta:
+        model = InfoMessages
+        fields = ['text', 'alldeps', 'deps', 'active', 'dfrom' , 'dto', 'always', 'viewin', 'alltypes', 'intypes', 'mestype', 'important']
+
+    dfrom = forms.DateField(label="Дата начала показа" , required=False, widget=forms.TextInput(
+        attrs={'placeholder': 'Введите дату',  'type':'date'}))
+
+    dto = forms.DateField(label="Дата окончания показа" , required=False, widget=forms.TextInput(
+        attrs={'placeholder': 'Введите дату',  'type':'date'}))
+
+    def saveFirst(self):
+        deps = self.cleaned_data.get('deps')
+        intypes = self.cleaned_data.get('intypes')
+
+        new_message = InfoMessages.objects.create(
+        text = self.cleaned_data['text'],
+        alldeps = self.cleaned_data['alldeps'],
+        active = self.cleaned_data['active'],
+        dfrom = self.cleaned_data['dfrom'],
+        dto = self.cleaned_data['dto'],
+        always = self.cleaned_data['always'],
+        viewin = self.cleaned_data['viewin'],
+        alltypes = self.cleaned_data['alltypes'],
+        mestype = self.cleaned_data['mestype'],
+        important = self.cleaned_data['important']
+
+        )
+        new_message.deps.set(deps)
+        new_message.intypes.set(intypes)
+        return new_message
+
+class FeedBack_form(forms.ModelForm):
+    class Meta:
+        model = FeedBack
+        fields = ['text', 'about', 'type', 'answer', 'readed', 'inwork']
+
+    def saveFirst(self, user_id):
+        user = User.objects.get(id=user_id)
+        new_feedback = FeedBack.objects.create(
+            mes_from = user,
+            type = self.cleaned_data['type'],
+            text = self.cleaned_data['text'],
+            about = self.cleaned_data['about'],
+            answer = self.cleaned_data['answer'],
+            readed = self.cleaned_data['readed'],
+            inwork = self.cleaned_data['inwork']
+
+        )
+        return new_feedback

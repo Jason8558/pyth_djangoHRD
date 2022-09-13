@@ -1,4 +1,4 @@
-function print() {
+function print(year, month, dep) {
 
 
   info = navigator.userAgent.split(' ')
@@ -16,7 +16,7 @@ function print() {
   var WinPrint = window.open('','','left=50,top=50,width=1500,height=1000,toolbar=0,scrollbars=1,status=0');
   WinPrint.document.write("<!DOCTYPE html>")
   WinPrint.document.write('<link rel="stylesheet" type="text/css" href="/static/TURV/css/tabel_print.css"> ')
-  WinPrint.document.write('<link rel="stylesheet" href="/static/TURV/css/style.css">')
+  WinPrint.document.write('<link rel="stylesheet" href="/static/TURV/css/style1.css">')
 
 
 
@@ -30,7 +30,9 @@ WinPrint.document.write("</style>")
 
 
 
+
   WinPrint.document.write("<div style='display:block !important;' class='for-print not-screen cover'> " + $(".cover").html() + "</div>")
+
     rows = $(".tabel tbody tr")
 
     parts = ((rows.length)/rcount)
@@ -156,6 +158,7 @@ switch (month) {
     WinPrint.document.write(".thin-itogo {width:81px !important;}")
     WinPrint.document.write("#print_button {height: 50px; background:blue !important; font-size: 10pt;}")
     WinPrint.document.write(".fio {width:366px !important; text-align: left;}")
+      WinPrint.document.write(".percent {background: lightgray; text-decoration: underline !important;}")
     WinPrint.document.write("</style>")
 
     WinPrint.document.write('<link rel="stylesheet" type="text/css" href="/static/TURV/css/tabel_print.css"> ')
@@ -165,11 +168,33 @@ switch (month) {
 
   WinPrint.document.write("<input onclick='window.print()' id='print_button' type='button' value='печать'>")
   if ($('#tabel-type').text() == 2) {
-  WinPrint.document.write("<h1 style='text-align:center; font-size: 25pt;'> Табель учета рабочего времени во вредных условиях труда за " + month + " " + year + " " + dep + "</h1>")
+  WinPrint.document.write("<h1 style='text-align:center; font-size: 25pt;'> Табель учета рабочего времени во вредных условиях труда за " + month.toLowerCase() + " " + year + " " + dep + "</h1>")
 }
   if ($('#tabel-type').text() == 3) {
-    WinPrint.document.write("<h1 style='text-align:center; font-size: 25pt;'> Табель совмещения за " + month + " " + year + " " + dep + "</h1>")
+    WinPrint.document.write("<h1 style='text-align:center; font-size: 25pt;'> Табель совмещения за " + month.toLowerCase() + " " + year + " " + dep + "</h1>")
   }
+
+  if ($('#tabel-type').text() == 4) {
+  WinPrint.document.write("<h1 style='text-align:center; font-size: 25pt;'> Табель учета рабочего времени в выходные дни за " + month.toLowerCase() + " " + year + " " + dep + " по приказу ______ от __ __ ____</h1>")
+  }
+
+  if ($('#tabel-type').text() == 5) {
+  WinPrint.document.write("<h1 style='text-align:center; font-size: 25pt;'> Табель учета сверхурочных часов за " + month.toLowerCase() + " " + year + " " + dep + " по приказу ______ от __ __ ____</h1>")
+  }
+
+  if ($('#tabel-type').text() == 6) {
+  WinPrint.document.write("<h1 style='text-align:center; font-size: 25pt;'> Табель дежурства за " + month.toLowerCase() + " " + year + " " + dep + " по приказу ______ от __ __ ____</h1>")
+  }
+
+  if ($('#tabel-type').text() == 8) {
+  WinPrint.document.write("<h1 style='text-align:center; font-size: 25pt;'> Табель учета за " + month.toLowerCase() + " " + year + " " + dep + " по приказу ______ от __ __ ____</h1>")
+  }
+
+  if ($('#tabel-type').text() == 9) {
+  WinPrint.document.write("<h1 style='text-align:center; font-size: 25pt;'> Компенсация стоимости молока за " + month.toLowerCase()  + " " + year + " " + dep + "</h1>")
+  }
+
+
 
 
 

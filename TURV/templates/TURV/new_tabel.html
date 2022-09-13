@@ -16,33 +16,40 @@
     {%endfor%}
     {%endif%}
   {{form.type.label}}{{form.type}}
+
   <label for="t_dep">Подразделение</label>
   <select onchange="ReSelectDep()" name="t_dep" id="t_dep">
     {% for dep in deps %}
     <option value="{{dep.name}}">{{dep.name}}</option>
   {%endfor%}
   </select>
-<label for="t_month">Месяц</label>
+
+  <div class="newtabel-date">
+
+
+   <span style="display: none;" id="day">{{form.day}}</span>
 
 
 
+    <select class="" onchange="SetMonth()" id="t_month" name="t_month">
+      <option value="01">Январь</option>
+      <option value="02">Февраль</option>
+      <option value="03">Март</option>
+      <option value="04">Апрель</option>
+      <option value="05">Май</option>
+      <option value="06">Июнь</option>
+      <option value="07">Июль</option>
+      <option value="08">Август</option>
+      <option value="09">Сентябрь</option>
+      <option value="10">Октябрь</option>
+      <option value="11">Ноябрь</option>
+      <option value="12">Декабрь</option>
+    </select>
 
-<select class="" onchange="SetMonth()" id="t_month" name="t_month">
-  <option value="01">Январь</option>
-  <option value="02">Февраль</option>
-  <option value="03">Март</option>
-  <option value="04">Апрель</option>
-  <option value="05">Май</option>
-  <option value="06">Июнь</option>
-  <option value="07">Июль</option>
-  <option value="08">Август</option>
-  <option value="09">Сентябрь</option>
-  <option value="10">Октябрь</option>
-  <option value="11">Ноябрь</option>
-  <option value="12">Декабрь</option>
-</select>
 
-{{form.year.label}} {{form.year}}
+    {{form.year}}
+  </div>
+
 
 <div class="hide">
 {{form.department}}
@@ -51,9 +58,79 @@
 <span id="label_{{field.name}}">{{field.name}}</span>{{field}}
 </div>
 
+{{form.comm.label}}{{form.comm}}
+
 
   <input class="btn btn-success" type="submit"  value="Создать" />
-  <a class="btn btn-outline-danger" href="..">Отмена</a>
+  <a class="btn btn-outline-danger" id="nt-cancel" href="..">Отмена</a>
 </form>
 </div>
+
+<script type="text/javascript">
+$(document).ready(function() {
+
+$('#nt-cancel').attr('href', document.referrer)
+$("#id_day").attr('placeholder','День')
+$("#id_year").attr('placeholder','Год')
+last = document.referrer.split('/')[4]
+
+if ($("#id_type option:selected").val() == '4' || $("#id_type option:selected").val() == '5'){
+  if ($("#id_department option:selected").val() == "3" || $("#id_department option:selected").val() == "2") {
+
+    $('#day').css('display','')
+}
+
+
+}
+else {
+$('#day').css('display','none')
+}
+
+switch (last) {
+    case 'vac':
+      $("#id_type option").remove()
+      $("#id_type").append('<option value="4">Выходные</option>')
+      $('#day').css('display','')
+    break;
+
+    case 'over':
+      $("#id_type option").remove()
+      $("#id_type").append('<option value="5">Сверхурочные</option>')
+      $('#day').css('display','')
+    break;
+
+    case 'nn':
+      $("#id_type option").remove()
+      $("#id_type").append('<option value="8">Ненормированность</option>')
+      // $('#day').css('display','')
+    break;
+
+}
+
+if (last == "vac") {
+
+  // $("#id_type option").filter(function() {return this.value == 4;}).prop('selected', true);
+
+
+}
+
+
+})
+
+
+$("#id_type").change(function() {
+    if ($("#id_type option:selected").val() == '4' || $("#id_type option:selected").val() == '5'){
+      if ($("#id_department option:selected").val() == "3" || $("#id_department option:selected").val() == "2") {
+
+        $('#day').css('display','')
+    }
+
+
+}
+else {
+  $('#day').css('display','none')
+}
+})
+</script>
+
 {%endblock%}

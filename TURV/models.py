@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+import datetime
 
 class Employers(models.Model):
     sex_choices = [('М','М'),('Ж','Ж')]
@@ -25,6 +26,8 @@ class Employers(models.Model):
 class Department(models.Model):
     name = models.CharField(verbose_name = 'Название подразделения', db_index=True, max_length=256)
     user = models.ManyToManyField(User, verbose_name = 'Табельщик')
+    conftype = models.ManyToManyField('TabelType', verbose_name='Виды табелей для подразделения: ')
+    notused = models.BooleanField(default=False)
 
     class Meta:
         ordering = ['name']
@@ -59,8 +62,6 @@ class Automobile(models.Model):
     def __str__(self):
         return self.number + "(" + str(self.unite_p) + ")"
 
-
-
 class TabelType(models.Model):
     name = models.CharField(verbose_name='Вид табеля ',  max_length=256)
     class Meta:
@@ -70,15 +71,19 @@ class TabelType(models.Model):
     def __str__(self):
         return self.name
 
-
 class Tabel(models.Model):
     type = models.ForeignKey('TabelType', verbose_name="Вид ", db_index=True, on_delete=models.CASCADE, default='1')
     year = models.CharField(verbose_name='Год', db_index=True, max_length=4)
     month = models.CharField(verbose_name='Месяц', db_index=True, max_length=256)
+    day = models.CharField(verbose_name='Число', db_index=True, max_length=256, blank=True, null=True, default="0")
     department = models.ForeignKey('Department', verbose_name=' ', db_index=True, on_delete=models.CASCADE)
     del_check = models.BooleanField(verbose_name='Пометка удаления', default=False, blank=True)
     sup_check = models.BooleanField(verbose_name='Проверен СУП', default=False, blank=True)
+    paper_check = models.BooleanField(verbose_name='Сдан в бумажном виде',default=False)
     unloaded =  models.BooleanField(verbose_name='Загружен в 1С', default=False, blank=True)
+    comm = models.CharField(verbose_name='Комментарий (НЕОБЯЗАТЕЛЬНО)', max_length=256, default="", blank=True)
+    iscorr = models.BooleanField(default=False)
+    corr = models.ForeignKey('Tabel', verbose_name="Корректировка к ", db_index=True, on_delete=models.CASCADE, null=True, blank=True)
     res_officer = models.CharField(blank=True, editable=False,  max_length=256, help_text="Отвественный за составление табеля", verbose_name='Табельщик')
     class Meta:
         ordering = ['-year']
@@ -131,41 +136,41 @@ class TabelItem(models.Model):
     type_time31 = models.CharField(max_length=4, verbose_name='Вид времени31', null = True, blank=True)
 
 # Кол-ва часов
-    hours1 = models.CharField(max_length=4, verbose_name='Часы1', null = True, blank=True)
-    hours2 = models.CharField(max_length=4, verbose_name='Часы2', null = True, blank=True)
-    hours3 = models.CharField(max_length=4, verbose_name='Часы3', null = True, blank=True)
-    hours4 = models.CharField(max_length=4, verbose_name='Часы4', null = True, blank=True)
-    hours5 = models.CharField(max_length=4, verbose_name='Часы5', null = True, blank=True)
-    hours6 = models.CharField(max_length=4, verbose_name='Часы6', null = True, blank=True)
-    hours7 = models.CharField(max_length=4, verbose_name='Часы7', null = True, blank=True)
-    hours8 = models.CharField(max_length=4, verbose_name='Часы8', null = True, blank=True)
-    hours9 = models.CharField(max_length=4, verbose_name='Часы9', null = True, blank=True)
-    hours10 = models.CharField(max_length=4, verbose_name='Часы10', null = True, blank=True)
-    hours11 = models.CharField(max_length=4, verbose_name='Часы11', null = True, blank=True)
-    hours12 = models.CharField(max_length=4, verbose_name='Часы12', null = True, blank=True)
-    hours13 = models.CharField(max_length=4, verbose_name='Часы13', null = True, blank=True)
-    hours14 = models.CharField(max_length=4, verbose_name='Часы14', null = True, blank=True)
-    hours15 = models.CharField(max_length=4, verbose_name='Часы15', null = True, blank=True)
-    hours16 = models.CharField(max_length=4, verbose_name='Часы16', null = True, blank=True)
-    hours17 = models.CharField(max_length=4, verbose_name='Часы17', null = True, blank=True)
-    hours18 = models.CharField(max_length=4, verbose_name='Часы18', null = True, blank=True)
-    hours19 = models.CharField(max_length=4, verbose_name='Часы19', null = True, blank=True)
-    hours20 = models.CharField(max_length=4, verbose_name='Часы20', null = True, blank=True)
-    hours21 = models.CharField(max_length=4, verbose_name='Часы21', null = True, blank=True)
-    hours22 = models.CharField(max_length=4, verbose_name='Часы22', null = True, blank=True)
-    hours23 = models.CharField(max_length=4, verbose_name='Часы23', null = True, blank=True)
-    hours24 = models.CharField(max_length=4, verbose_name='Часы24', null = True, blank=True)
-    hours25 = models.CharField(max_length=4, verbose_name='Часы25', null = True, blank=True)
-    hours26 = models.CharField(max_length=4, verbose_name='Часы26', null = True, blank=True)
-    hours27 = models.CharField(max_length=4, verbose_name='Часы27', null = True, blank=True)
-    hours28 = models.CharField(max_length=4, verbose_name='Часы28', null = True, blank=True)
-    hours29 = models.CharField(max_length=4, verbose_name='Часы29', null = True, blank=True)
-    hours30 = models.CharField(max_length=4, verbose_name='Часы30', null = True, blank=True)
-    hours31 = models.CharField(max_length=4, verbose_name='Часы31', null = True, blank=True)
+    hours1 = models.CharField(max_length=10, verbose_name='Часы1', null = True, blank=True)
+    hours2 = models.CharField(max_length=10, verbose_name='Часы2', null = True, blank=True)
+    hours3 = models.CharField(max_length=10, verbose_name='Часы3', null = True, blank=True)
+    hours4 = models.CharField(max_length=10, verbose_name='Часы4', null = True, blank=True)
+    hours5 = models.CharField(max_length=10, verbose_name='Часы5', null = True, blank=True)
+    hours6 = models.CharField(max_length=10, verbose_name='Часы6', null = True, blank=True)
+    hours7 = models.CharField(max_length=10, verbose_name='Часы7', null = True, blank=True)
+    hours8 = models.CharField(max_length=10, verbose_name='Часы8', null = True, blank=True)
+    hours9 = models.CharField(max_length=10, verbose_name='Часы9', null = True, blank=True)
+    hours10 = models.CharField(max_length=10, verbose_name='Часы10', null = True, blank=True)
+    hours11 = models.CharField(max_length=10, verbose_name='Часы11', null = True, blank=True)
+    hours12 = models.CharField(max_length=10, verbose_name='Часы12', null = True, blank=True)
+    hours13 = models.CharField(max_length=10, verbose_name='Часы13', null = True, blank=True)
+    hours14 = models.CharField(max_length=10, verbose_name='Часы14', null = True, blank=True)
+    hours15 = models.CharField(max_length=10, verbose_name='Часы15', null = True, blank=True)
+    hours16 = models.CharField(max_length=10, verbose_name='Часы16', null = True, blank=True)
+    hours17 = models.CharField(max_length=10, verbose_name='Часы17', null = True, blank=True)
+    hours18 = models.CharField(max_length=10, verbose_name='Часы18', null = True, blank=True)
+    hours19 = models.CharField(max_length=10, verbose_name='Часы19', null = True, blank=True)
+    hours20 = models.CharField(max_length=10, verbose_name='Часы20', null = True, blank=True)
+    hours21 = models.CharField(max_length=10, verbose_name='Часы21', null = True, blank=True)
+    hours22 = models.CharField(max_length=10, verbose_name='Часы22', null = True, blank=True)
+    hours23 = models.CharField(max_length=10, verbose_name='Часы23', null = True, blank=True)
+    hours24 = models.CharField(max_length=10, verbose_name='Часы24', null = True, blank=True)
+    hours25 = models.CharField(max_length=10, verbose_name='Часы25', null = True, blank=True)
+    hours26 = models.CharField(max_length=10, verbose_name='Часы26', null = True, blank=True)
+    hours27 = models.CharField(max_length=10, verbose_name='Часы27', null = True, blank=True)
+    hours28 = models.CharField(max_length=10, verbose_name='Часы28', null = True, blank=True)
+    hours29 = models.CharField(max_length=10, verbose_name='Часы29', null = True, blank=True)
+    hours30 = models.CharField(max_length=10, verbose_name='Часы30', null = True, blank=True)
+    hours31 = models.CharField(max_length=10, verbose_name='Часы31', null = True, blank=True)
 
 #Итоги видов времени
     sHours1 = models.FloatField(verbose_name='Явки (Я)', help_text='Явки', null = True, blank=True)
-    sHours2 = models.IntegerField(verbose_name='Ночные (Н)', null = True, blank=True)
+    sHours2 = models.FloatField(verbose_name='Ночные (Н)', null = True, blank=True)
     sHours3 = models.IntegerField(verbose_name='Работа в выходные и празд. (РВ)', null = True, blank=True)
     sHours4 = models.FloatField(verbose_name='Сверхурочные (С)', null = True, blank=True)
     sHours5 = models.IntegerField(verbose_name='Вахтовый метод (ВМ)', null = True, blank=True)
@@ -242,3 +247,58 @@ class Overtime(models.Model):
     def __str__(self):
         fullname = str(self.year)
         return fullname
+
+class InfoMessages(models.Model):
+        class ViewInCHS(models.TextChoices):
+            mainw = '1','Главное окно'
+            intabel = '2', 'Окно табеля'
+            edit = '3', 'Окно редактирования табеля'
+
+        class MesTypeCHS(models.TextChoices):
+            ord = '1','Обычное'
+            vac = '2', 'О переносе отпуска'
+
+        text = models.TextField(verbose_name='Текст сообщения: ', blank=False, null=False)
+        alldeps = models.BooleanField(default=True, verbose_name='Для всех')
+        deps = models.ManyToManyField('Department', null=True, blank=True, verbose_name='Подразделения, для которых предназначена информация: ')
+        active = models.BooleanField(default=True, verbose_name='Сообщение активно')
+        dfrom = models.DateField(verbose_name='Дата начала показа: ', null=True, blank=True)
+        dto = models.DateField(verbose_name='Дата окончания показа: ', null=True, blank=True)
+        always = models.BooleanField(default=True, verbose_name='Показывать постоянно')
+        viewin = models.CharField(max_length=100, choices=ViewInCHS.choices, default=ViewInCHS.mainw)
+        alltypes = models.BooleanField(verbose_name='Для всех видов табеля',default=True)
+        intypes = models.ManyToManyField('TabelType', verbose_name="Отображать в табелях: ", default='1')
+        mestype = models.CharField(max_length=100, choices=MesTypeCHS.choices, default=MesTypeCHS.ord)
+        important = models.BooleanField(default=False, verbose_name='Особо важное')
+
+        class Meta:
+            ordering = ['-id']
+            verbose_name = "Сообщение пользователям"
+            verbose_name_plural = "Система оповещения пользователей"
+
+class FeedBackTypes(models.Model):
+    name = models.CharField(blank=False, null=False, verbose_name='Наименование', max_length=100)
+
+    class Meta:
+        ordering = ['id']
+        verbose_name = 'Вид сообщения'
+        verbose_name = 'Виды сообщений от пользователей'
+
+    def __str__(self):
+        return str(self.name)
+
+class FeedBack(models.Model):
+    mes_from = models.ForeignKey(User, verbose_name='От кого', db_index=True, on_delete=models.CASCADE)
+    date = models.DateTimeField(blank=True, default=datetime.datetime.now)
+    about = models.CharField(blank=False,null=False, verbose_name='Тема', max_length=100)
+    text = models.TextField(blank=False, null=False, verbose_name='Текст сообщения')
+    type = models.ForeignKey('FeedBackTypes', on_delete=models.CASCADE, verbose_name='Вид сообщения')
+    inwork = models.BooleanField(default=False, verbose_name='Принято в работу')
+    readed = models.BooleanField(default=False, verbose_name='Прочитано')
+    answer = models.TextField(blank=True, null=True, verbose_name='Ответ на сообщение')
+    answer_readed = models.BooleanField(default=False, verbose_name='Ответ прочитан')
+
+    class Meta:
+        ordering = ['-date']
+        verbose_name = 'Сообщение от пользователя'
+        verbose_name_plural = 'Сообщения пользователей'

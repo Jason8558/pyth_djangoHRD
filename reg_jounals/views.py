@@ -472,13 +472,13 @@ def order_on_personnel(request):
         events = OrdersOnPersonnelTypes.objects.all()
 
         if date_from and date_to and event:
-            orders = OrdersOnPersonnel.objects.filter(op_date__range=(date_from, date_to)).filter(op_type__id = event).order_by('op_date')
+            orders = OrdersOnPersonnel.objects.filter(op_date__range=(date_from, date_to)).filter(op_type__id = event).order_by('-op_date')
             p_orders = Paginator(orders, 1000)
             page_number = request.GET.get('page', 1)
         else:
 
             if date_from and date_to:
-                orders = OrdersOnPersonnel.objects.filter(op_date__range=(date_from, date_to)).order_by('op_date')
+                orders = OrdersOnPersonnel.objects.filter(op_date__range=(date_from, date_to)).order_by('-op_date')
                 p_orders = Paginator(orders, 1000)
                 page_number = request.GET.get('page', 1)
             else:
@@ -488,7 +488,7 @@ def order_on_personnel(request):
                     page_number = request.GET.get('page', 1)
                 else:
                     if event:
-                        orders = OrdersOnPersonnel.objects.filter(op_type__id = event).order_by('op_date')
+                        orders = OrdersOnPersonnel.objects.filter(op_type__id = event).order_by('-op_date')
                         p_orders = Paginator(orders, 1000)
                         page_number = request.GET.get('page', 1)
 
@@ -552,7 +552,7 @@ def nr_OrderOnPersonnel(request):
                     else:
                         wtime = 0
 
-                    TEmps.objects.create(
+                    new_emp = TEmps.objects.create(
                     fullname = tname,
                     sex = tsex,
                     level = tlvl,
@@ -563,6 +563,7 @@ def nr_OrderOnPersonnel(request):
                     stand_worktime = wtime,
                     fired = 0
                     )
+                    new_emp.save()
 
                 return redirect('../orders_on_personnel/')
     else:
@@ -898,7 +899,7 @@ def nr_new_order_on_vacation(request):
 
 def create_new_order_on_vacation(request, id):
     if request.user.is_authenticated:
-        items = NewOrdersOnVacation_item.objects.filter(bound_order__exact=id)
+        items = NewOrdersOnVacation_item.objects.filter(bound_order__exact=id).order_by('fio')
         order = NewOrdersOnVacation.objects.get(id=id)
         items_count = len(items)
         return render(request, 'reg_jounals/OrderOnVacation_new_create.html', context={'items':items, 'order':order, 'count':items_count})
@@ -1022,8 +1023,23 @@ def del_identitys(request, id):
 # ЛОГИ -------------------------------------------------------------
 def logs_(request):
     if request.user.is_authenticated:
-        logs_ = logs.objects.all()
-        return render(request, 'reg_jounals/log.html', context={'logs':logs_})
+        if request.method == 'POST':
+            dfrom = request.POST.get('l_date_from', '')
+            dto = request.POST.get('l_date_to', '')
+            user = request.POST.get('l_user', '')
+            if user:
+                logs_ = logs.objects.filter(date__range=(dfrom,dto)).filter(res_officer=user)
+            else:
+                logs_ = logs.objects.filter(date__range=(dfrom,dto))
+            pag = 999
+        else:
+            pag = 20
+            logs_ = logs.objects.all()
+        users = User.objects.all().order_by('first_name')
+        p_logs = Paginator(logs_, pag)
+        page_number = request.GET.get('page', 1)
+        page = p_logs.get_page(page_number)
+        return render(request, 'reg_jounals/log.html', context={'logs':page, 'users':users})
 # ОТЧЕТЫ -----------------------------------------------------------
 def reports(request):
     if request.user.is_authenticated:

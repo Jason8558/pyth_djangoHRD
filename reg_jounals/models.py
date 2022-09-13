@@ -118,9 +118,16 @@ class OrdersOnPersonnelTypes(models.Model):
         return name
 
 class OrdersOnPersonnel(models.Model):
+    work_type_choices = [('Временно','Временно'), ('Постоянно','Постоянно')]
+
     op_number = models.CharField(max_length=5, help_text="Введите номер приказа", verbose_name="Номер приказа", db_index=True)
     op_date = models.DateField(help_text="Введите дату приказа", verbose_name="Дата приказа", db_index=True)
+    op_dateOfInv = models.DateField(default='0001-01-01',blank=True, null=True, help_text="Введите дату приема на работу", verbose_name="Дата приема на работу", db_index=True)
+    op_typeOfWork = models.CharField(blank=True, null=True, choices=work_type_choices, max_length=256, help_text="Характер работы", verbose_name="Характер работы", db_index=True)
+    op_probation = models.FloatField(blank=True, null=True, help_text="Введите число", verbose_name="Испытательный срок (мес.)")
     op_type = models.ForeignKey('OrdersOnPersonnelTypes', on_delete=models.CASCADE, verbose_name="Вид приказа ", default="4")
+    op_moveFrom = models.DateField(default='0001-01-01', blank=True, null=True, help_text="Введите начало периода перевода", verbose_name="Перевод с:", db_index=True)
+    op_moveTo = models.DateField(default='0001-01-01', blank=True, null=True, help_text="Введите окончания периода перевода", verbose_name="по:", db_index=True)
     op_dep = models.ForeignKey('Departments', on_delete=models.CASCADE,  verbose_name="Подразделение ", default="1")
     op_emloyer = models.CharField(max_length=256, help_text="Введите ФИО сотрудника", verbose_name="ФИО сотрудника", db_index=True)
     op_content = models.TextField(help_text="Введите содержание", verbose_name="Содержание приказа")
@@ -250,14 +257,14 @@ class NewOrdersOnVacation(models.Model):
 
 class NewOrdersOnVacation_item(models.Model):
 
-    vac_type_choices = [('Очередной','Очередной'), ('Пенсионный','Пенсионный'), ('Без сохранения ЗП','Без сохранения ЗП'), ('Учебный','Учебный'), ('Донор','Донор'), ('С сохр. ЗП','С сохр. ЗП')]
+    vac_type_choices = [('Очередной','Очередной'), ('Пенсионный','Пенсионный'), ('Без сохранения ЗП','Без сохранения ЗП'), ('Учебный','Учебный'), ('Донор','Донор'), ('С сохр. ЗП','С сохр. ЗП'), ('Отменен','Отменен')]
 
     bound_order = models.ForeignKey('NewOrdersOnVacation', on_delete=models.CASCADE, verbose_name="Приказ ")
     fio = models.CharField(max_length=256, help_text="ФИО сотрудника", verbose_name="ФИО сотрудника", db_index=True)
     dep = models.ForeignKey('Departments', on_delete=models.CASCADE, verbose_name="Подразделение ", default="79")
-    dur_from = models.DateField(help_text="Введите дату начала отпуска", verbose_name="Дата начала отпуска", db_index=True)
-    dur_to = models.DateField(help_text="Введите дату окончания отпуска", verbose_name="Дата окончания отпуска", db_index=True)
-    days_count = models.CharField(max_length=5, help_text="Количество дней", verbose_name="Количество дней", db_index=True)
+    dur_from = models.DateField(blank = True, null=True, help_text="Введите дату начала отпуска", verbose_name="Дата начала отпуска", db_index=True)
+    dur_to = models.DateField(blank = True, null=True, help_text="Введите дату окончания отпуска", verbose_name="Дата окончания отпуска", db_index=True)
+    days_count = models.CharField(blank = True, null=True, max_length=5, help_text="Количество дней", verbose_name="Количество дней", db_index=True)
     vac_type = models.CharField(choices=vac_type_choices, max_length=256, help_text="Вид отпуска", verbose_name="Вид отпуска", db_index=True)
     comm = models.CharField(blank = True, null=True, max_length=256, help_text="Комментарий", verbose_name="Комментарий", db_index=True)
 
