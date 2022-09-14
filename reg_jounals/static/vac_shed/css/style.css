@@ -42,8 +42,12 @@ tbody {background: white;}
 td,th {border: 1px solid black;}
 
 tbody tr:hover {
-  cursor:pointer;
-  background: #8d54fb;
-  text-decoration:underline;
+  cursor:
+  pointer;
+  background: #ffffd7;
+  text-decoration:
+  underline;
   transition: 0.3s;
-color: white;}
+  color: black;
+  /* border: 2px solid yellow; */
+  }

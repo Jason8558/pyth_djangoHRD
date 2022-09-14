@@ -2,7 +2,7 @@
 {%load static%}
 {%block title%}Добавить позицию в график{%endblock%}
 {%block script%}{%endblock%}
-{%block header%}  <div class="header-main"><button type="button" class="button" name="button">Назад</button><h1>Добавить позицию</h1></div>{%endblock%}
+{%block header%}  <div class="header-main"><a class="button" href="..">НАЗАД</a><h1>Добавить позицию</h1></div>{%endblock%}
 {% block body %}
 <div class="container">
   <form class="" action="{% url 'additem_url' id=vacshed.id%}" method="post">
@@ -15,7 +15,7 @@
 
   </select>
   <label for="city">Проезд</label>
-  <input type="text" name="city" value="">
+  <input  id="city" type="text" placeholder="Город" name="city" value="">
   <div id="vac-form-periods" class=".vac-form-periods">
     <div class="vac-period">
       <label for="per-date-from">Отпуск с: </label>
@@ -23,10 +23,12 @@
 
       <label for="per-date-to">по: </label>
       <input id="per-date-to" onchange="change_per(0)" type="date" name="per-date-to" value="">
-      <input id="per-days-count" type="text" name="per-days-count" value="">
+      <input id="per-days-count" placeholder="Считается автоматически" type="text" name="per-days-count" value="">
     </div>
 
   </div>
+  <label for="child">Еждевенец (год рождения): </label>
+  <input type="text" name="child" placeholder="Год рождения" value="">
 <button type="button" id="form-add-period" name="button">+ Добавить период</button>
 <button type="button" id="form-add-all-period" name="button">ОК</button>
 <input type="submit" name="" value="Отправить">
@@ -62,7 +64,7 @@
       for (var i = 0; i < pers.length; i++) {
 
 
-        txt = $('#vac-form-all-periods').val() + $('#per' + i + ' #per-date-from' ).val() + ':' + $('#per' + i + ' #per-date-to' ).val()  + '|'
+        txt = $('#vac-form-all-periods').val() + $('#per' + i + ' #per-date-from' ).val() + ':' + $('#per' + i + ' #per-date-to' ).val() + ':' + $('#per' + i + " #per-days-count").val()  + '|'
         $('#vac-form-all-periods').val(txt)
       }
     })

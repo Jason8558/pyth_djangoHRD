@@ -5,8 +5,8 @@ function getvacshed() {
   $.getJSON('/vacshed/getvacshed/1/',  (data) => {
     rowspan = 0
     for (var i = 0; i < data.length; i++) {
-
-      $('.vs-table-create tbody').append(formrow(data[i].id, data[i].emp ,data[i].emp__fullname, data[i].emp__position__cat__name, data[i].dur_from, data[i].dur_to, data[i].days_count, data[i].move_from, data[i].move_to, data[i].days_count_move, data[i].child_year, data[i].city))
+      console.log(data[i].emp__position__name);
+      $('.vs-table-create tbody').append(formrow(data[i].id, data[i].emp ,data[i].emp__fullname, data[i].emp__position__name, data[i].dur_from, data[i].dur_to, data[i].days_count, data[i].move_from, data[i].move_to, data[i].days_count_move, data[i].child_year, data[i].city))
 
 
     }
@@ -21,7 +21,7 @@ function getvacshed() {
 
 }
 
-function formrow(id, emp, emp__fullname, emp__position__cat__name, dur_from, dur_to, days_count, move_from, move_to, days_count_move, child_year, city){
+function formrow(id, emp, emp__fullname, emp__position__name, dur_from, dur_to, days_count, move_from, move_to, days_count_move, child_year, city){
   dur_from = dur_from.toString().split('-')
   dur_from = dur_from[2]+'.'+dur_from[1]+'.'+dur_from[0]
 
@@ -48,7 +48,7 @@ function formrow(id, emp, emp__fullname, emp__position__cat__name, dur_from, dur
     days_count_move = ''
   }
 
-  row = '<tr id="'+ id + '_' + emp + '"><td class="'+emp+'">' + emp__fullname + ' ' + emp__position__cat__name + '</td><td>' + dur_from + ' - ' + dur_to + '</td><td class="count_'+ emp + '">' + days_count + '</td><td>'+ move_from + ' - ' + move_to + '</td><td>'+ days_count_move +'</td><td class="totaldays'+emp+'"> </td><td>'+child_year+'</td><td>'+city+'</td></tr>'
+  row = '<tr id="'+ id + '_' + emp + '"><td class="'+emp+'">' + emp__fullname + ' ' + emp__position__name + '</td><td>' + dur_from + ' - ' + dur_to + '</td><td class="count_'+ emp + '">' + days_count + '</td><td>'+ move_from + ' - ' + move_to + '</td><td>'+ days_count_move +'</td><td class="totaldays'+emp+'"> </td><td class="child' + emp + '">'+child_year+'</td><td class="city' + emp + '">'+city+'</td></tr>'
   return row
 }
 
@@ -56,20 +56,26 @@ function emp(rid,id){
   rows_emp = $('.' + id)
   tdays = $('.count_' + id)
   tcell = $('.totaldays' + id)
+  tchild = $('.child' + id)
+  tcity = $('.city' + id)
   console.log(tdays);
   length = rows_emp.length
-
+console.log(length);
   totaldays = 0
-
+  console.log(id + " " + length);
   if (length > 1) {
     for (var i = 1; i < length; i++) {
       rows_emp[0].rowSpan = rows_emp.length
       tcell[0].rowSpan = rows_emp.length
+      tchild[0].rowSpan = rows_emp.length
+      tcity[0].rowSpan = rows_emp.length
       rows_emp[0].parentElement.style.borderTop = '2px solid black'
       totaldays = totaldays + parseInt(tdays[i].innerText)
 
       rows_emp[i].remove()
       tcell[i].remove()
+      tcity[i].remove()
+      tchild[i].remove()
     }
     tcell[0].innerText = totaldays+parseInt(tdays[0].innerText)
 
@@ -80,6 +86,7 @@ function emp(rid,id){
   }
   else {
     rows_emp[0].parentElement.style.borderTop = '2px solid black'
+    // tcell[0].innerText = tdays[0].innerText
 
   }
 
