@@ -38,6 +38,7 @@
   <p>{{form.op_date.label}}:{{form.op_date}}</p>
   <p>{{form.op_type.label}}:{{form.op_type}}</p>
   <p id="op_invite">{{form.op_dateOfInv.label}}:{{form.op_dateOfInv}}</p>
+  <p id="op_resign">{{form.op_dateOfRes.label}}:{{form.op_dateOfRes}}</p>
   <p id="op_typeOfWork">{{form.op_typeOfWork.label}}:{{form.op_typeOfWork}}</p>
   <p id="op_probation">{{form.op_probation.label}}:{{form.op_probation}}</p>
   <p id="op_moveFrom">{{form.op_moveFrom.label}}:{{form.op_moveFrom}}</p>
@@ -96,6 +97,12 @@
         closeAllFields()
         all_on()
         inviteOnWork()
+      break;
+
+      case '2':
+        closeAllFields()
+        all_off()
+        ResignFromWork()
       break;
 
       case '3':

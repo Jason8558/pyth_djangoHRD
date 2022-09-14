@@ -123,6 +123,7 @@ class OrdersOnPersonnel(models.Model):
     op_number = models.CharField(max_length=5, help_text="Введите номер приказа", verbose_name="Номер приказа", db_index=True)
     op_date = models.DateField(help_text="Введите дату приказа", verbose_name="Дата приказа", db_index=True)
     op_dateOfInv = models.DateField(default='0001-01-01',blank=True, null=True, help_text="Введите дату приема на работу", verbose_name="Дата приема на работу", db_index=True)
+    op_dateOfRes = models.DateField(default='0001-01-01',blank=True, null=True, help_text="Введите дату увольнения", verbose_name="Дата увольнения", db_index=True)
     op_typeOfWork = models.CharField(blank=True, null=True, choices=work_type_choices, max_length=256, help_text="Характер работы", verbose_name="Характер работы", db_index=True)
     op_probation = models.FloatField(blank=True, null=True, help_text="Введите число", verbose_name="Испытательный срок (мес.)")
     op_type = models.ForeignKey('OrdersOnPersonnelTypes', on_delete=models.CASCADE, verbose_name="Вид приказа ", default="4")
