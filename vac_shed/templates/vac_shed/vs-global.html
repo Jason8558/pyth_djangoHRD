@@ -1,0 +1,48 @@
+{% extends 'vac_shed/index.html'%}
+{%load static%}
+{%block title%}Общий график на {%endblock%}
+{%block script%}<script src="{% static 'vac_shed/js/getvacshed_global.js'%}" charset="utf-8"></script>{%endblock%}
+{%block header%}  <div class="header-main"><button type="button" onclick="window.close()" class="button" name="button">Закрыть</button><h1> Общий график отпусков </h1></div>{%endblock%}
+{% block body %}
+
+
+
+<div class="container vs-create">
+
+  <div class="vs-form global">
+    <input type="text" name="vs-glob-year" id="vs-glob-year" placeholder="Введите год" value="">
+    <input type="button" class="button" name="" onclick="getvacshed()" value="Сформировать">
+    <a class="button print" href="#"> Печать графика </a>
+  </div>
+
+
+<table class="vs-table-create">
+  <thead>
+    <th>Подразделение</th>
+    <th>Сотрудник</th>
+    <th>Дата</th>
+    <th>Дни</th>
+    <th>Перенос</th>
+    <th>Дней после переноса</th>
+    <th>Всего дней</th>
+    <th>Иждивенец (год р-я)</th>
+    <th>Проезд</th>
+  </thead>
+  <tbody>
+    {% for i in items %}
+      <tr id="{{i.id}}">
+        <td></td>
+        <td>{{i.emp.fullname}}, {{i.emp.position}}</td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      {%endfor%}
+  </tbody>
+</table>
+</div>
+
+<script type="text/javascript">
+
+</script>
+{%endblock%}

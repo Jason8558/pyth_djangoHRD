@@ -10,12 +10,15 @@
 <table class="vs-table-create">
   <thead>
     <th>Сотрудник</th>
-    <th>Период</th>
+    <th>Дата</th>
     <th>Дни</th>
+    {% if granted %}
     <th>Перенос</th>
     <th>Дней после переноса</th>
+    {% else %}
+    {%endif%}
     <th>Всего дней</th>
-    <th>Еждевенец (год р-я)</th>
+    <th>Иждивенец (год р-я)</th>
     <th>Проезд</th>
   </thead>
   <tbody>
@@ -30,4 +33,10 @@
   </tbody>
 </table>
 </div>
+
+<script type="text/javascript">
+  $(document).ready(function() {getvacshed({{granted}})
+
+})
+</script>
 {%endblock%}

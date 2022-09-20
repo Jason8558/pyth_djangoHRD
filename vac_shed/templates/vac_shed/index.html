@@ -8,6 +8,7 @@
   <link rel="stylesheet" href="{% static 'vac_shed/css/style.css'%}">
   <script src="{% static 'TURV\js\jquery-3.6.0.min.js'%}"  crossorigin="anonymous"></script>
   <script src="{% static 'vac_shed\js\moment\moment.js'%}"  crossorigin="anonymous"></script>
+  <script src="{% static 'vac_shed\js\vs_main.js'%}"  crossorigin="anonymous"></script>
   <script src="{% static 'TURV\js\build\date-ru-RU.js'%}" charset="utf-8"></script>
   {%block script%}{%endblock%}
  <title>{%block title%} Графики отпусков {%endblock%}</title>
@@ -27,7 +28,11 @@
     </header>
   {%block body%}
   <div class="container">
-    <a href="#" class="button add">+Новый график</a>
+    <a href="{% url 'new_vacshed_url'%}" class="button add">+Новый график</a>
+    {%if granted == 1%}
+    <a href="{%url 'global_url'%}" class="button add">Сформировать общий график</a>
+    {%else%}
+    {%endif%}
     <table class="vs-table">
       <thead>
         <th scope="col">Код</th>

@@ -4,6 +4,13 @@ margin: 0;
 padding: 0;
 box-sizing: border-box;}
 
+select, input {
+border: 2px solid #ffff93;
+padding: 4px;
+background: #efefef;
+border-radius: 12px;
+}
+
 body {
  background: #ffffd7;
 }
@@ -35,7 +42,7 @@ thead {background:  #fdfd82; }
 tbody {background: white;}
 
 
-.button {background: #fdfd82;padding: 10px;/* margin: 0px; */text-decoration: none;text-transform: uppercase;color: black;border-radius: 9px;text-align: center;}
+.button {background: #fdfd82;padding: 10px;/* margin: 0px; */text-decoration: none;text-transform: uppercase;color: black;border-radius: 9px;cursor: pointer;text-align: center;}
 
 .add {width: 100%;float: left;margin-bottom: 14px;background: lightgreen;}
 
@@ -51,3 +58,55 @@ tbody tr:hover {
   color: black;
   /* border: 2px solid yellow; */
   }
+
+.vs-form {
+background: white;
+padding: 9px;
+border: 3px solid yellow;
+display: flex;
+flex-flow: column;
+justify-content: center;
+width: 321px;
+align-items: stretch;
+margin: 0 auto;
+float: none;
+}
+
+.vs-form input, .vs-form button, .vs-form select {
+margin-bottom: 14px;
+}
+
+.vs-form div {
+  display: flex;
+  flex-flow: column;
+}
+
+.accept {
+background: #7bed7b;
+border-color: green;
+}
+
+.back {
+border-color: black;
+border: 1px solid;
+margin-right: 16px;
+}
+
+.global {
+display: flex;
+flex-direction: row;
+align-items: stretch;
+justify-content: space-around;
+box-sizing: content-box;
+width: 425px;
+margin: 0;
+}
+
+.global * {
+margin: 0 !important;
+}
+
+#vs-glob-year {
+      width: 48px;
+      text-align: center;
+}

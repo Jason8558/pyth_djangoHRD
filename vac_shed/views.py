@@ -1,37 +1,87 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http import HttpResponse, JsonResponse
 from .models import *
 from TURV.models import Employers
+from TURV.models import Department
 from itertools import groupby
+from .forms import *
+
+
+def current_user(request):
+    return request.user.id
 
 def ugroup(request):
         # Проверка на права пользователя
         user_ = request.user
         u_group = user_.groups.all()
 
-        granted = False
+        granted = 0
         for group in u_group:
             if (group.name == 'Сотрудник СУП') or (group.name == 'Сотрудник РО'):
-                granted = True
+                granted = 1
+        if user_.is_superuser:
+            granted = 1
 
-        if request.user.is_superuser:
-            granted = True
         return granted
 
+def vacshed_new(request):
+    if request.user.is_authenticated:
+        user_ = request.user
+        u_group = user_.groups.all()
+        granted = 0
+
+        for group in u_group:
+            if group.name == 'Сотрудник СУП':
+                granted = 1
+        if (request.user.is_superuser) or (granted == 1):
+            vacshed_form = Vacshed_form(user_id='all')
+        else:
+            vacshed_form = Vacshed_form(user_id=current_user(request))
+
+
+        if request.method == "POST":
+            vacshed_form = Vacshed_form(request.POST)
+            if vacshed_form.is_valid():
+                user_ = request.user.first_name
+                vacshed_form.saveFirst(user_)
+                return redirect('/vacshed/')
+            else:
+                return render(request, 'vac_shed/new_vacshed.html', context={ 'form':vacshed_form})
+
+        else:
+
+            return render(request, 'vac_shed/new_vacshed.html', context={ 'form':vacshed_form})
+    else:
+        return render(request, 'reg_jounals/no_auth.html')
+
+def vacshed_global_json(request, year):
+    if request.user.is_authenticated:
+        items = VacantionSheduleItem.objects.filter(bound_shed__year=year).values('id', 'bound_shed__dep__name' , 'emp', 'emp__fullname', 'dur_from', 'dur_to', 'days_count', 'move_from', 'move_to', 'child_year', 'days_count_move', 'city', 'emp__position__name').order_by('bound_shed__dep__name', 'emp', 'id', 'dur_from')
+        items = list(items)
+        return JsonResponse(items, safe=False)
+
+def vacshed_global_create(request):
+    if request.user.is_authenticated:
+        return render(request, 'vac_shed/vs-global.html')
 
 def vacsheds(request):
     if request.user.is_authenticated:
-        if ugroup(request) == True:
+        print(ugroup(request))
+        if ugroup(request) == 1:
             vacsheds = VacantionShedule.objects.all()
-        return render(request, 'vac_shed/index.html', context={'vacsheds':vacsheds})
+        else:
+            deps = Department.objects.filter(user=current_user(request)).values('id')
+            vacsheds = VacantionShedule.objects.filter(dep__in=deps)
+        return render(request, 'vac_shed/index.html', context={'vacsheds':vacsheds, 'granted':ugroup(request)})
     else:
         return redirect('/accounts/login/')
 
 def vacshed_create(request,vs):
     if request.user.is_authenticated:
+        granted = ugroup(request)
         vacshed = VacantionShedule.objects.get(id=vs)
 
-        return render(request, 'vac_shed/vs-create.html', context={'vacshed':vacshed})
+        return render(request, 'vac_shed/vs-create.html', context={'vacshed':vacshed, 'granted':granted})
 
 def getvacshed_json(request, vs):
     if request.user.is_authenticated:
@@ -77,7 +127,7 @@ def vacshed_addItem(request,id):
                             dur_to = periods[i].split(':')[1],
                             days_count = periods[i].split(':')[2],
                             bound_shed = vacshed,
-        
+
                         )
 
             return render(request, 'vac_shed/new_item.html', context={'vacshed':vacshed})
