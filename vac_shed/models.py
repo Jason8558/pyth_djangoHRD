@@ -6,6 +6,7 @@ from TURV.models import Department as TDeps
 class VacantionShedule(models.Model):
     dep = models.ForeignKey('TURV.Department', verbose_name="Подразделение", on_delete=models.CASCADE)
     year = models.IntegerField(verbose_name="Период", db_index=True)
+    sup_check = models.BooleanField(verbose_name='Утвержден СУП', default=False)
     res_officer = models.CharField(verbose_name="Ответственный", max_length=256, default='')
     class Meta:
         ordering = ['-year']
@@ -27,6 +28,7 @@ class VacantionSheduleItem(models.Model):
     city = models.CharField(verbose_name='Проезд: ', null=True, blank=True, max_length=254, default='')
     days_count = models.IntegerField(verbose_name="Количество дней")
     days_count_move = models.IntegerField(verbose_name='Кол-во дней после переноса ', null=True, blank=True)
+
     class Meta:
         ordering = ['-bound_shed__year']
         verbose_name = 'Элемент графика'
