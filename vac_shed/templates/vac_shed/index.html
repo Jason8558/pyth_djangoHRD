@@ -5,6 +5,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="shortcut icon" href="{% static 'vac_shed/img/favicon.ico'%}" type="image/x-icon">
   <link rel="stylesheet" href="{% static 'vac_shed/css/style.css'%}">
   <script src="{% static 'TURV\js\jquery-3.6.0.min.js'%}"  crossorigin="anonymous"></script>
   <script src="{% static 'vac_shed\js\moment\moment.js'%}"  crossorigin="anonymous"></script>
@@ -18,6 +19,12 @@
 
 
   {%block header%}
+  {%if granted == 1%}
+    <a href="/" class="button back"> < К журналам</a>
+  {%else%}
+    <a href="/turv" class="button back"> < К табелям</a>
+  {%endif%}
+
   <div class="header-main">
     <h1>Графики отпусков</h1>
   </div>

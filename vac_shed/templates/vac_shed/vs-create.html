@@ -1,13 +1,13 @@
 {% extends 'vac_shed/index.html'%}
 {%load static%}
-{%block title%}Грфаик №{{vacshed.id}}{%endblock%}
+{%block title%}График №{{vacshed.id}}{%endblock%}
 {%block script%}<script src="{% static 'vac_shed/js/getvacshed.js'%}" charset="utf-8"></script>{%endblock%}
 {%block header%}  <div class="header-main"><button type="button" onclick="window.close()" class="button" name="button">Закрыть</button><h1> График отпусков <span style="text-decoration: underline;">{{vacshed.dep.name}}</span> на {{vacshed.year}} год</h1></div>{%endblock%}
 {% block body %}
 <div class="container vs-create">
-  <h5>Для внесения изменений в период щелкните по нему, для изменения данных о проезде и иждивенце щелкните по сотруднику </h5>
-  <a href="{% url 'additem_url' id=vacshed.id%}"> + Добавить сотрудника в график</a>
-  <a href="#"> Печать графика </a>
+
+  <a class="button" href="{% url 'additem_url' id=vacshed.id%}"> + Добавить сотрудника в график</a>
+  <a class="button print" href="#"> Печать графика </a>
 <table class="vs-table-create">
   <thead>
     <th>Сотрудник</th>
