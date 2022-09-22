@@ -45,6 +45,7 @@
         <th scope="col">Код</th>
         <th scope="col">Подразделение</th>
         <th scope="col">Период</th>
+        <th scope="col">Утвержд. СУП</th>
         <th scope="col">Ответственный</th>
       </thead>
       <tbody>
@@ -53,6 +54,11 @@
             <td>{{s.id}}</td>
             <td>{{s.dep.name}}</td>
             <td>{{s.year}}</td>
+            {% if s.sup_check %}
+              <td>+</td>
+            {%else%}
+              <td>-</td>
+            {%endif%}
             <td>{{s.res_officer}}</td>
           </tr>
           {%endfor%}
