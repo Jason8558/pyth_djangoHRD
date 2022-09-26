@@ -132,6 +132,31 @@ def vacshed_addItem(request,id):
 
             return render(request, 'vac_shed/new_item.html', context={'vacshed':vacshed})
 
+def vacshed_updItem(request, id, type):
+    if request.user.is_authenticated:
+        ndatefrom = request.POST.get('per-date-from')
+        ndateto = request.POST.get('per-date-to')
+        ndayscount = request.POST.get('per-days-count')
+        ncity = request.POST.get('city')
+        nchild = request.POST.get('child')
+        item = VacantionSheduleItem.objects.get(id=id)
+        if request.method == 'GET':
+            return render(request, 'vac_shed/upd_item.html', context={'item':item, 'type':type})
+        else:
+
+            if type != 1:
+                item.dur_from = ndatefrom
+                item.dur_to = ndateto
+                item.days_count = ndayscount
+                item.save()
+            else:
+                 item.city = ncity
+                 item.child_year = nchild
+                 item.save()
+            return redirect('/vacshed/create/' + str(item.bound_shed.id) + '/')
+
+
+
 
 def getemployers(request, dep):
     if request.user.is_authenticated:

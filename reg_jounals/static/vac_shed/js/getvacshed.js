@@ -1,13 +1,16 @@
 // $(document).ready(function() {getvacshed()})
 
+function pussy() {
+  alert('Произошла пизда')
+}
 
 function getvacshed(granted) {
   id = document.location.href.split('/')[5]
-  console.log(granted);
+
   $.getJSON('/vacshed/getvacshed/' + id + '/',  (data) => {
     rowspan = 0
     for (var i = 0; i < data.length; i++) {
-      console.log(data[i].emp__position__name);
+
       $('.vs-table-create tbody').append(formrow(data[i].id, data[i].emp ,data[i].emp__fullname, data[i].emp__position__name, data[i].dur_from, data[i].dur_to, data[i].days_count, data[i].move_from, data[i].move_to, data[i].days_count_move, data[i].child_year, data[i].city, granted))
 
 
@@ -29,7 +32,7 @@ function formrow(id, emp, emp__fullname, emp__position__name, dur_from, dur_to, 
 
   dur_to = dur_to.toString().split('-')
   dur_to = dur_to[2]+'.'+dur_to[1]+'.'+dur_to[0]
-  console.log(move_to);
+
   if (move_from == null) {
     move_from = ''
   }
@@ -50,11 +53,16 @@ function formrow(id, emp, emp__fullname, emp__position__name, dur_from, dur_to, 
     days_count_move = ''
   }
 
+
+
+
+
+
   if (granted == 0) {
-    row = '<tr id="'+ id + '_' + emp + '"><td class="'+emp+'">' + emp__fullname + ' ' + emp__position__name + '</td><td>' + dur_from + '</td><td class="count_'+ emp + '">' + days_count + '</td><td class="totaldays'+emp+'"> </td><td class="child' + emp + '">'+child_year+'</td><td class="city' + emp + '">'+city+'</td></tr>'
+    row = '<tr class="vs_row" id="'+ id + '_' + emp + '"><td class="'+emp+'">' + emp__fullname + ' | ' + emp__position__name + '</td><td id="durfrom_'+ id +'_' + emp + '">' + dur_from + '</td><td class="count_'+ emp + '">' + days_count + '</td><td class="totaldays'+emp+'"> </td><td class="child' + emp + '">'+child_year+'</td><td id="city_'+ id + '" class="city city' + emp + '">'+city+'</td></tr>'
   }
   else {
-    row = '<tr id="'+ id + '_' + emp + '"><td class="'+emp+'">' + emp__fullname + ' ' + emp__position__name + '</td><td>' + dur_from + '</td><td class="count_'+ emp + '">' + days_count + '</td><td>'+ move_from + ' - ' + move_to + '</td><td>'+ days_count_move +'</td><td class="totaldays'+emp+'"> </td><td class="child' + emp + '">'+child_year+'</td><td class="city' + emp + '">'+city+'</td></tr>'
+    row = '<tr class="vs_row" id="'+ id + '_' + emp + '"><td class="'+emp+'">' + emp__fullname + ' | ' + emp__position__name + '</td><td id="durfrom_' + id + '_' + emp + '">' + dur_from + '</td><td class="count_'+ emp + '">' + days_count + '</td><td>'+ move_from + ' - ' + move_to + '</td><td>'+ days_count_move +'</td><td class="totaldays'+emp+'"> </td><td class="child' + emp + '">'+child_year+'</td><td id="city_'+ id + '" class="city city' + emp + '">'+city+'</td></tr>'
   }
 
   return row
@@ -66,11 +74,11 @@ function emp(rid,id){
   tcell = $('.totaldays' + id)
   tchild = $('.child' + id)
   tcity = $('.city' + id)
-  console.log(tdays);
+
   length = rows_emp.length
-console.log(length);
+
   totaldays = 0
-  console.log(id + " " + length);
+
   if (length > 1) {
     for (var i = 1; i < length; i++) {
       rows_emp[0].rowSpan = rows_emp.length
@@ -98,6 +106,26 @@ console.log(length);
 
   }
 
+set_onclick()
+
+}
+
+function set_onclick() {
 
 
+  rows = $('.vs_row')
+
+  for (var r of rows) {
+    id = r.id.split('_')[0]
+
+
+    url = "/" + "vacshed" + "/" + "itemupd" + "/" + id + "/2'"
+    click = "location.href = '" + url
+
+    url2 = "/" + "vacshed" + "/" + "itemupd" + "/" + id + "/1'"
+    click2 = "location.href = '" + url2
+
+    $('#durfrom_' + r.id).attr('onclick', click)
+    $('#city_' + id).attr('onclick', click2)
+  }
 }

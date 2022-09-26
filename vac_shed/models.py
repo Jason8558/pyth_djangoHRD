@@ -24,6 +24,7 @@ class VacantionSheduleItem(models.Model):
     dur_to = models.DateField(verbose_name="Период по")
     move_from = models.DateField(verbose_name='Перенос с: ', null=True, blank=True)
     move_to = models.DateField(verbose_name='перенос по: ', null=True, blank=True)
+    move_reason = models.CharField(verbose_name='Основание переноса', null=True, blank=True, max_length=100)
     child_year = models.CharField(verbose_name='Год рож-я иждивенца: ', null=True, blank=True, max_length=4, default='')
     city = models.CharField(verbose_name='Проезд: ', null=True, blank=True, max_length=254, default='')
     days_count = models.IntegerField(verbose_name="Количество дней")
