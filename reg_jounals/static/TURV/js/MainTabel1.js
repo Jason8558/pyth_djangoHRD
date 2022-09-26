@@ -520,6 +520,7 @@ if ($('#tabel-type').text() == 1 || $('#tabel-type').text() == 4 || $('#tabel-ty
   let s36 = 0 //Местная командировка
   let s37 = 0 //ОЗ
   let s38 = 0 //НОД (нерабочие оплачиваемые дни)
+  let s39 = 0 //МБ (отсутсвие по мобилизации)
 
 //Суммирование дней
   let work = 0 //дни явок
@@ -703,6 +704,11 @@ switch (tt1) {
 
   case 'ОЗ':
     s37 += parseFloat(h1)
+    vac += 1
+  break;
+
+  case 'МБ':
+    s39 += parseFloat(h1)
     vac += 1
   break;
 
@@ -925,6 +931,11 @@ switch (tt2) {
     vac += 1
   break;
 
+  case 'МБ':
+    s39 += parseFloat(h2)
+    vac += 1
+  break;
+
   case 'НОД':
   if (h2.length > 2) {
     h_split = h2.split('/')
@@ -1138,6 +1149,11 @@ switch (tt3) {
 
   case 'ОЗ':
     s37 += parseFloat(h3)
+    vac += 1
+  break;
+
+  case 'МБ':
+    s39 += parseFloat(h3)
     vac += 1
   break;
 
@@ -1358,6 +1374,11 @@ switch (tt4) {
 
   case 'ОЗ':
     s37 += parseFloat(h4)
+    vac += 1
+  break;
+
+  case 'МБ':
+    s39 += parseFloat(h4)
     vac += 1
   break;
 
@@ -1604,6 +1625,11 @@ switch (tt5) {
     vac += 1
   break;
 
+  case 'МБ':
+    s39 += parseFloat(h5)
+    vac += 1
+  break;
+
   case 'НОД':
   if (h5.length > 2) {
     h_split = h5.split('/')
@@ -1820,6 +1846,11 @@ switch (tt6) {
 
   case 'ОЗ':
     s37 += parseFloat(h6)
+    vac += 1
+  break;
+
+  case 'МБ':
+    s39 += parseFloat(h6)
     vac += 1
   break;
 
@@ -2040,6 +2071,11 @@ switch (tt7) {
 
   case 'ОЗ':
     s37 += parseFloat(h7)
+    vac += 1
+  break;
+
+  case 'МБ':
+    s39 += parseFloat(h7)
     vac += 1
   break;
 
@@ -2285,6 +2321,11 @@ switch (tt8) {
     vac += 1
   break;
 
+  case 'МБ':
+    s39 += parseFloat(h8)
+    vac += 1
+  break;
+
   case 'НОД':
   if (h8.length > 2) {
     h_split = h8.split('/')
@@ -2500,6 +2541,11 @@ switch (tt9) {
 
   case 'ОЗ':
     s37 += parseFloat(h9)
+    vac += 1
+  break;
+
+  case 'МБ':
+    s39 += parseFloat(h9)
     vac += 1
   break;
 
@@ -2721,6 +2767,11 @@ switch (tt10) {
     vac += 1
   break;
 
+  case 'МБ':
+    s39 += parseFloat(h10)
+    vac += 1
+  break;
+
   case 'НОД':
   if (h10.length > 2) {
     h_split = h10.split('/')
@@ -2936,6 +2987,11 @@ switch (tt11) {
 
   case 'ОЗ':
     s37 += parseFloat(h11)
+    vac += 1
+  break;
+
+  case 'МБ':
+    s39 += parseFloat(h11)
     vac += 1
   break;
 
@@ -3159,6 +3215,11 @@ switch (tt12) {
     vac += 1
   break;
 
+  case 'МБ':
+    s39 += parseFloat(h12)
+    vac += 1
+  break;
+
   case 'НОД':
   if (h12.length > 2) {
     h_split = h12.split('/')
@@ -3374,6 +3435,11 @@ switch (tt13) {
 
   case 'ОЗ':
     s37 += parseFloat(h13)
+    vac += 1
+  break;
+
+  case 'МБ':
+    s39 += parseFloat(h13)
     vac += 1
   break;
 
@@ -3593,6 +3659,11 @@ switch (tt14) {
     vac += 1
   break;
 
+  case 'МБ':
+    s39 += parseFloat(h14)
+    vac += 1
+  break;
+
   case 'НОД':
   if (h14.length > 2) {
     h_split = h14.split('/')
@@ -3807,6 +3878,11 @@ switch (tt15) {
 
   case 'ОЗ':
     s37 += parseFloat(h15)
+    vac += 1
+  break;
+
+  case 'МБ':
+    s39 += parseFloat(h15)
     vac += 1
   break;
 
@@ -4029,6 +4105,11 @@ switch (tt16) {
     vac += 1
   break;
 
+  case 'МБ':
+    s39 += parseFloat(h16)
+    vac += 1
+  break;
+
   case 'НОД':
   if (h16.length > 2) {
     h_split = h16.split('/')
@@ -4244,6 +4325,11 @@ switch (tt17) {
 
   case 'ОЗ':
     s37 += parseFloat(h17)
+    vac += 1
+  break;
+
+  case 'МБ':
+    s39 += parseFloat(h17)
     vac += 1
   break;
 
@@ -4465,6 +4551,11 @@ switch (tt18) {
     vac += 1
   break;
 
+  case 'МБ':
+    s39 += parseFloat(h18)
+    vac += 1
+  break;
+
   case 'НОД':
   if (h18.length > 2) {
     h_split = h18.split('/')
@@ -4679,6 +4770,12 @@ switch (tt19) {
 
   case 'ОЗ':
     s37 += parseFloat(h19)
+    vac += 1
+  break;
+
+
+  case 'МБ':
+    s39 += parseFloat(h19)
     vac += 1
   break;
 
@@ -4899,6 +4996,11 @@ switch (tt20) {
     vac += 1
   break;
 
+  case 'МБ':
+    s39 += parseFloat(h20)
+    vac += 1
+  break;
+
   case 'НОД':
   if (h20.length > 2) {
     h_split = h20.split('/')
@@ -5113,6 +5215,11 @@ switch (tt21) {
 
   case 'ОЗ':
     s37 += parseFloat(h21)
+    vac += 1
+  break;
+
+  case 'МБ':
+    s39 += parseFloat(h21)
     vac += 1
   break;
 
@@ -5331,6 +5438,11 @@ switch (tt22) {
 
   case 'ОЗ':
     s37 += parseFloat(h22)
+    vac += 1
+  break;
+
+  case 'МБ':
+    s39 += parseFloat(h22)
     vac += 1
   break;
 
@@ -5553,6 +5665,11 @@ switch (tt23) {
     vac += 1
   break;
 
+  case 'МБ':
+    s39 += parseFloat(h23)
+    vac += 1
+  break;
+
   case 'НОД':
   if (h23.length > 2) {
     h_split = h23.split('/')
@@ -5771,6 +5888,11 @@ switch (tt24) {
     vac += 1
   break;
 
+  case 'МБ':
+    s39 += parseFloat(h24)
+    vac += 1
+  break;
+
   case 'НОД':
   if (h24.length > 2) {
     h_split = h24.split('/')
@@ -5985,6 +6107,11 @@ switch (tt25) {
 
   case 'ОЗ':
     s37 += parseFloat(h25)
+    vac += 1
+  break;
+
+  case 'МБ':
+    s39 += parseFloat(h25)
     vac += 1
   break;
 
@@ -6206,6 +6333,11 @@ switch (tt26) {
     vac += 1
   break;
 
+  case 'МБ':
+    s39 += parseFloat(h26)
+    vac += 1
+  break;
+
   case 'НОД':
   if (h26.length > 2) {
     h_split = h26.split('/')
@@ -6424,6 +6556,12 @@ switch (tt27) {
     vac += 1
   break;
 
+  case 'МБ':
+    s39 += parseFloat(h27)
+    vac += 1
+  break;
+
+
   case 'НОД':
   if (h27.length > 2) {
     h_split = h27.split('/')
@@ -6639,6 +6777,11 @@ switch (tt28) {
 
   case 'ОЗ':
     s37 += parseFloat(h28)
+    vac += 1
+  break;
+
+  case 'МБ':
+    s39 += parseFloat(h28)
     vac += 1
   break;
 
@@ -6860,6 +7003,11 @@ switch (tt29) {
     vac += 1
   break;
 
+  case 'МБ':
+    s39 += parseFloat(h29)
+    vac += 1
+  break;
+
   case 'НОД':
   if (h29.length > 2) {
     h_split = h29.split('/')
@@ -7075,6 +7223,11 @@ switch (tt30) {
 
   case 'ОЗ':
     s37 += parseFloat(h30)
+    vac += 1
+  break;
+
+  case 'МБ':
+    s39 += parseFloat(h30)
     vac += 1
   break;
 
@@ -7296,6 +7449,11 @@ switch (tt31) {
     vac += 1
   break;
 
+  case 'МБ':
+    s39 += parseFloat(h31)
+    vac += 1
+  break;
+
   case 'НОД':
   if (h31.length > 2) {
     h_split = h31.split('/')
@@ -7351,8 +7509,8 @@ else {
 }
 
 
-console.log(s24);
-h_vac = s9 + s10 + s11 + s13 + s14 + s15 + s16 + s17 + s18 + s20 + s21 +  s24 + s25 + s26 + s27 + s28 + s29 + s30 + s31 + s32 + s33 + s34 + s37
+
+h_vac = s9 + s10 + s11 + s13 + s14 + s15 + s16 + s17 + s18 + s20 + s21 +  s24 + s25 + s26 + s27 + s28 + s29 + s30 + s31 + s32 + s33 + s34 + s37 + s39
 
 if ($('#tabel-type').text() != 1 && $('#tabel-type').text() != 4 && $('#tabel-type').text() != 5 && $('#tabel-type').text() != 6) {
 
@@ -7421,6 +7579,7 @@ $('#id_sHours33').val(s33)
 $('#id_sHours34').val(s34)
 $('#id_sHours37').val(s37)
 $('#id_sHours38').val(s38)
+$('#id_sHours39').val(s39)
 $('#id_w_days').val(work)
 $('#id_w_hours').val(h_work)
 $('#id_v_days').val(vac)
