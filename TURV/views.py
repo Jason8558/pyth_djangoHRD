@@ -1964,8 +1964,10 @@ def unload(request):
                     ws.write(i,62,item.type_time30)
                     ws.write(i,63,item.type_time31)
                     i = i+1
-                    item.bound_tabel.unloaded = True
-                    
+                    tabel = Tabel.objects.get(id=item.bound_tabel_id)
+                    tabel.unloaded = True
+                    tabel.save()
+
             else:
                 pass
         name = str(month_)+'_'+str(year_)+'.xls'
