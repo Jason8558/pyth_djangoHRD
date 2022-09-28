@@ -269,6 +269,14 @@ table {
 
 .tabels-main-table tbody .table-type {font-weight: bold;}
 
+.button-block {
+
+}
+
+.tabandbuttons {
+  
+}
+
 .tabel {
   font-size: 8pt !important;
       table-layout: fixed;
