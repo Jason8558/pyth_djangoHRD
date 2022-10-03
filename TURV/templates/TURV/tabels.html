@@ -197,15 +197,16 @@ function Supchecked() {
 <div class="tabandbuttons">
 
 <div class="button-block bb-main">
-  <button class="type-button">Основные</button>
-  <button class="type-button">Вредность</button>
-  <button class="type-button">Сверхурочка</button>
-  <button class="type-button">Выходные дни</button>
-  <button class="type-button">Совмещение</button>
-  <button class="type-button">Дежурство</button>
-  <button class="type-button">Ненормированность</button>
-  <button class="type-button">Молоко</button>
-  <button class="type-button">Корректировки</button>
+  <h4>Виды табелей</h4>
+  <button onclick="gettabels(0,'{{granted}}')"class="type-button">Основные</button>
+  <button onclick="gettabels(2,'{{granted}}')" class="type-button toxic-row">Вредность</button>
+  <button onclick="gettabels(5,'{{granted}}')" class="type-button over-row">Сверхурочка</button>
+  <button onclick="gettabels(4,'{{granted}}')" class="type-button vac-row">Выходные дни</button>
+  <button onclick="gettabels(3,'{{granted}}')" class="type-button unite-row">Совмещение</button>
+  <button onclick="gettabels(6,'{{granted}}')" class="type-button standby-row">Дежурство</button>
+  <button onclick="gettabels(8,'{{granted}}')" class="type-button nn-row">Ненормированность</button>
+  <button onclick="gettabels(9,'{{granted}}')" class="type-button milk-row">Молоко</button>
+  <button onclick="gettabels(corr,'{{granted}}')" class="type-button">Корректировки</button>
 
 </div>
 
@@ -216,7 +217,7 @@ function Supchecked() {
 
 {%if tabels%}
 
-<table class="tabels-main-table">
+<table id="tabels-main-table" class="tabels-main-table">
   <thead class="thead-dark">
   <tr class="tr-header">
     <th scope="col">Код</th>
@@ -239,76 +240,9 @@ function Supchecked() {
 
   </tr >
   </thead>
+  <tbody>
 
-  {%for tabel in tabels %}
-
-{% if tabel.type.id == 2 %}
-<tr  class="toxic-row" onclick="return window.open('{% url 'tabel_create_url' id=tabel.id%}')" >
-{%endif%}
-{% if tabel.type.id == 3 %}
-<tr class="unite-row"  onclick="return window.open('{% url 'tabel_create_url' id=tabel.id%}')" >
-{%endif%}
-{% if tabel.type.id == 4 %}
-<tr  class="vac-row" onclick="return window.open('{% url 'tabel_create_url' id=tabel.id%}')" >
-{%endif%}
-{% if tabel.type.id == 5 %}
-<tr  class="over-row" onclick="return window.open('{% url 'tabel_create_url' id=tabel.id%}')" >
-{%endif%}
-{% if tabel.type.id == 6 %}
-<tr  class="standby-row" onclick="return window.open('{% url 'tabel_create_url' id=tabel.id%}')" >
-{%endif%}
-{% if tabel.type.id == 1 %}
-<tr  onclick="return window.open('{% url 'tabel_create_url' id=tabel.id%}')" >
-{%endif%}
-{% if tabel.type.id == 8 %}
-<tr  onclick="return window.open('{% url 'tabel_create_url' id=tabel.id%}')" >
-{%endif%}
-{% if tabel.type.id == 9 %}
-<tr  class="milk-row" onclick="return window.open('{% url 'tabel_create_url' id=tabel.id%}')" >
-{%endif%}
-{%if tabel.del_check %}
-    <td style="color: red !important; font-weight: bold !important;">{{tabel.id}}</td>
-{%else%}
-  <td>{{tabel.id}}</td>
-{%endif%}
-    {% if tabel.iscorr %}
-      <td class="table-type">{{tabel.type}} <span style="color:red !important;">(корректировка)</span></td>
-    {% else %}
-      <td class="table-type">{{tabel.type}}</td>
-    {% endif %}
-    <td><span class="field_month">{{tabel.month}}</span> {{tabel.year}}  </td>
-    <td>{{tabel.department}}</td>
-    {% if granted == 1 or user.is_superuser%}
-    <td>{{tabel.res_officer}}</td>
-    {%endif%}
-
-  {% if granted == 1 or user.is_superuser%}
-    {% if tabel.paper_check %}
-    <td>✅</td>
-    {% else %}
-    <td>❌</td>
-    {% endif %}
-    {%endif%}
-
-    {%if tabel.sup_check%}
-    <td>✅</td>
-    {%else%}
-    <td>❌</td>
-    {%endif%}
-
-    {% if granted == 1 or user.is_superuser%}
-      {%if tabel.unloaded%}
-        <td>✅</td>
-      {%else%}
-        <td>❌</td>
-      {%endif%}
-    {%endif%}
-<td>{{tabel.comm}}</td>
-
-
-
-</tr>
-  {%endfor%}
+  </tbody>
 </table>
 
 </div>
@@ -351,6 +285,12 @@ function Supchecked() {
 <h2>Табели не найдены</h2>
 {%endif%}
 </div>
+
+<script type="text/javascript">
+  $('document').ready(function () {
+    gettabels(0,'{{granted}}')
+  })
+</script>
 
 
 {%endblock%}

@@ -267,6 +267,19 @@ def tabels(request):
 
 # =========================================
 
+def tabels_json(request, type):
+    if request.user.is_authenticated:
+        if type == 0:
+            if access_check(request) == False:
+                deps = Department.objects.filter(user=request.user.id)
+                tabels = Tabel.objects.values('id', 'month', 'year', 'type__name', 'department', 'department__name', 'del_check', 'sup_check', 'paper_check', 'unloaded', 'res_officer', 'comm').filter(department_id__in=deps).filter(type=1).order_by('-year', '-month', 'department__name', 'id')
+            else:
+                tabels = Tabel.objects.values('id', 'month', 'year', 'type__name', 'department', 'department__name', 'del_check', 'sup_check', 'paper_check', 'unloaded', 'res_officer', 'comm').filter(type=1).order_by('-year', '-month', 'department__name', 'id')
+        else:
+            tabels = Tabel.objects.values('id', 'month', 'year', 'type__name', 'department', 'department__name', 'del_check', 'sup_check', 'paper_check', 'unloaded', 'res_officer', 'comm').filter(type=type).order_by('-year', '-month', 'department__name', 'id')
+    tabels = list(tabels)
+    return JsonResponse(tabels, safe=False)
+
 def over_tabels(request):
  #Проверка на аутентификацию
     if request.user.is_authenticated:
