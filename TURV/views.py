@@ -1642,6 +1642,7 @@ def unload(request):
         deps = Department.objects.all().order_by('id')
 
     if month_ and year_:
+        print(notulonl)
         if notulonl == '1':
             tabels = Tabel.objects.filter(department__in=deps).filter(year=year_).filter(month=month_).filter(type_id=1).filter(iscorr=0).filter(sup_check=1).filter(unloaded=0)
         else:
@@ -1650,6 +1651,7 @@ def unload(request):
         tabels = []
 
     if tabels:
+        print(tabels)
         wb = xlwt.Workbook()
         for tabel in tabels:
             if tabel.sup_check:
