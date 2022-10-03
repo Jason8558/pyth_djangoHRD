@@ -2011,10 +2011,10 @@ def toxic_unload(request):
                 dn = transliterate(dn)
 
                 if notulonl == "1":
-                    items = TabelItem.objects.filter(employer__department_id=dep.id).filter(month=month).filter(year=year).filter(bound_tabel__unloaded=False).filter(bound_tabel__type_id = 2).order_by('employer')
+                    items = TabelItem.objects.filter(employer__department_id=dep.id).filter(month=month).filter(year=year).filter(bound_tabel__unloaded=False).filter(bound_tabel__type_id = 2).filter(sup_check=1).order_by('employer')
                     print(items)
                 else:
-                    items = TabelItem.objects.filter(employer__department_id=dep.id).filter(month=month).filter(bound_tabel__type_id = 2).filter(year=year).order_by('employer')
+                    items = TabelItem.objects.filter(employer__department_id=dep.id).filter(month=month).filter(bound_tabel__type_id = 2).filter(year=year).filter(sup_check=1).order_by('employer')
                     print(items)
 
                 if items:
