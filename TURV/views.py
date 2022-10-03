@@ -1642,8 +1642,10 @@ def unload(request):
         deps = Department.objects.all().order_by('id')
 
     if month_ and year_:
-
-        tabels = Tabel.objects.filter(department__in=deps).filter(year=year_).filter(month=month_).filter(type_id=1).filter(iscorr=0).filter(sup_check=1)
+        if notulonl == '1':
+            tabels = Tabel.objects.filter(department__in=deps).filter(year=year_).filter(month=month_).filter(type_id=1).filter(iscorr=0).filter(sup_check=1).filter(unloaded=0)
+        else:
+            tabels = Tabel.objects.filter(department__in=deps).filter(year=year_).filter(month=month_).filter(type_id=1).filter(iscorr=0).filter(sup_check=1)
     else:
         tabels = []
 
@@ -2011,7 +2013,7 @@ def toxic_unload(request):
                 dn = transliterate(dn)
 
                 if notulonl == "1":
-                    items = TabelItem.objects.filter(employer__department_id=dep.id).filter(month=month).filter(year=year).filter(bound_tabel__unloaded=False).filter(bound_tabel__type_id = 2).filter(bound_tabel__sup_check=1).order_by('employer')
+                    items = TabelItem.objects.filter(employer__department_id=dep.id).filter(month=month).filter(year=year).filter(bound_tabel__unloaded=0).filter(bound_tabel__type_id = 2).filter(bound_tabel__sup_check=1).order_by('employer')
                     print(items)
                 else:
                     items = TabelItem.objects.filter(employer__department_id=dep.id).filter(month=month).filter(bound_tabel__type_id = 2).filter(year=year).filter(bound_tabel__sup_check=1).order_by('employer')
