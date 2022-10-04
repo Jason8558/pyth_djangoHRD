@@ -40,7 +40,8 @@ urlpatterns = [
     path('total/<str:month>/<str:year>/<int:dep>/', views.total_tabels, name='total_url'),
     path('total/open/', views.total_tabels_html, name='total_url_page'),
     path('correct/<int:id>', views.new_corr_tabel, name='correct'),
-    path('gettabels/<int:type>', views.tabels_json, name='gettabels')
+    path('gettabels/<int:type>', views.tabels_json, name='gettabels'),
+    path('gettabels/search/', views.tabels_json_search, name='gettabels_search')
 
 
 

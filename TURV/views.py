@@ -269,16 +269,155 @@ def tabels(request):
 
 def tabels_json(request, type):
     if request.user.is_authenticated:
+
         if type == 0:
             if access_check(request) == False:
                 deps = Department.objects.filter(user=request.user.id)
-                tabels = Tabel.objects.values('id', 'month', 'year', 'type__name', 'department', 'department__name', 'del_check', 'sup_check', 'paper_check', 'unloaded', 'res_officer', 'comm').filter(department_id__in=deps).filter(type=1).order_by('-year', '-month', 'department__name', 'id')
+                tabels = Tabel.objects.values('id', 'month', 'year', 'type__name', 'department', 'department__name', 'del_check', 'sup_check', 'paper_check', 'unloaded', 'res_officer', 'comm').filter(iscorr=0).filter(department_id__in=deps).filter(type=1).order_by('-year', '-month', 'department__name', 'id')
             else:
-                tabels = Tabel.objects.values('id', 'month', 'year', 'type__name', 'department', 'department__name', 'del_check', 'sup_check', 'paper_check', 'unloaded', 'res_officer', 'comm').filter(type=1).order_by('-year', '-month', 'department__name', 'id')
+                tabels = Tabel.objects.values('id', 'month', 'year', 'type__name', 'department', 'department__name', 'del_check', 'sup_check', 'paper_check', 'unloaded', 'res_officer', 'comm').filter(iscorr=0).filter(type=1).order_by('-year', '-month', 'department__name', 'id')
         else:
-            tabels = Tabel.objects.values('id', 'month', 'year', 'type__name', 'department', 'department__name', 'del_check', 'sup_check', 'paper_check', 'unloaded', 'res_officer', 'comm').filter(type=type).order_by('-year', '-month', 'department__name', 'id')
+            if type == 10:
+                if access_check(request) == False:
+                    deps = Department.objects.filter(user=request.user.id)
+                    tabels = Tabel.objects.values('id', 'month', 'year', 'type__name', 'department', 'department__name', 'del_check', 'sup_check', 'paper_check', 'unloaded', 'res_officer', 'comm').filter(iscorr=1).filter(department_id__in=deps).filter(type=1).order_by('-year', '-month', 'department__name', 'id')
+                else:
+                    tabels = Tabel.objects.values('id', 'month', 'year', 'type__name', 'department', 'department__name', 'del_check', 'sup_check', 'paper_check', 'unloaded', 'res_officer', 'comm').filter(iscorr=1).filter(type=1).order_by('-year', '-month', 'department__name', 'id')
+            else:
+                if access_check(request) == False:
+                    deps = Department.objects.filter(user=request.user.id)
+                    tabels = Tabel.objects.values('id', 'month', 'year', 'type__name', 'department', 'department__name', 'del_check', 'sup_check', 'paper_check', 'unloaded', 'res_officer', 'comm').filter(iscorr=0).filter(department_id__in=deps).filter(type=type).order_by('-year', '-month', 'department__name', 'id')
+                else:
+                    tabels = Tabel.objects.values('id', 'month', 'year', 'type__name', 'department', 'department__name', 'del_check', 'sup_check', 'paper_check', 'unloaded', 'res_officer', 'comm').filter(iscorr=0).filter(type=type).order_by('-year', '-month', 'department__name', 'id')
     tabels = list(tabels)
     return JsonResponse(tabels, safe=False)
+# ====================================================
+
+def tabels_json_search(request):
+
+    sq_period_month = request.GET.get('search_month', '')
+    sq_period_year = request.GET.get('search_year', '')
+    sq_dep = request.GET.get('t_tab_dep_search', '')
+    sq_check = request.GET.get('tab_supcheck','')
+    sq_user = request.GET.get('tab_user','')
+    sq_this_month = request.GET.get('this_month','')
+    sq_check_this_month = request.GET.get('chk_this_month','')
+    sq_type = request.GET.get('search_type', '')
+    sq_code = request.GET.get('search_code', '')
+
+    print(sq_dep)
+
+    # Алгоритм поиска
+    if access_check(request) == False:
+        allow_departments = Department.objects.filter(user=request.user.id)
+
+
+        if (sq_period_month) and (sq_period_year) and (sq_type):
+            if sq_type == 'c':
+                tabels = Tabel.objects.values('id', 'month', 'year', 'type__name', 'department', 'department__name', 'del_check', 'sup_check', 'paper_check', 'unloaded', 'res_officer', 'comm').filter(department_id__in=allow_departments).filter(year=sq_period_year).filter(del_check=0).filter(month=sq_period_month).filter(iscorr=1).order_by('-year', '-month', 'type__id')
+            else:
+                tabels = Tabel.objects.values('id', 'month', 'year', 'type__name', 'department', 'department__name', 'del_check', 'sup_check', 'paper_check', 'unloaded', 'res_officer', 'comm').filter(department_id__in=allow_departments).filter(year=sq_period_year).filter(del_check=0).filter(month=sq_period_month).filter(type_id=sq_type).order_by('-year', '-month', 'type__id')
+        else:
+            if (sq_period_month) and (sq_period_year):
+                tabels = Tabel.objects.values('id', 'month', 'year', 'type__name', 'department', 'department__name', 'del_check', 'sup_check', 'paper_check', 'unloaded', 'res_officer', 'comm').filter(department_id__in=allow_departments).filter(year=sq_period_year).filter(del_check=0).filter(month=sq_period_month).order_by('-year', '-month', 'type__id')
+            else:
+                if (sq_period_month):
+                    tabels = Tabel.objects.values('id', 'month', 'year', 'type__name', 'department', 'department__name', 'del_check', 'sup_check', 'paper_check', 'unloaded', 'res_officer', 'comm').filter(department_id__in=allow_departments).filter(month=sq_period_month).filter(del_check=0).order_by('-year', '-month', 'type__id')
+                else:
+                    if (sq_period_year):
+                        tabels = Tabel.objects.values('id', 'month', 'year', 'type__name', 'department', 'department__name', 'del_check', 'sup_check', 'paper_check', 'unloaded', 'res_officer', 'comm').filter(department_id__in=allow_departments).filter(year=sq_period_year).filter(del_check=0).order_by('-year', '-month', 'type__id')
+                    else:
+                        if (sq_dep):
+                            tabels = Tabel.objects.values('id', 'month', 'year', 'type__name', 'department', 'department__name', 'del_check', 'sup_check', 'paper_check', 'unloaded', 'res_officer', 'comm').filter(department_id=sq_dep).filter(del_check=0).order_by('-year', '-month', 'type__id')
+                        else:
+                            if (sq_type):
+                                if sq_type == 'c':
+                                    tabels = Tabel.objects.values('id', 'month', 'year', 'type__name', 'department', 'department__name', 'del_check', 'sup_check', 'paper_check', 'unloaded', 'res_officer', 'comm').filter(iscorr=1).filter(department_id__in=allow_departments).filter(del_check=0).order_by('-year', '-month', 'type__id')
+                                else:
+                                    tabels = Tabel.objects.values('id', 'month', 'year', 'type__name', 'department', 'department__name', 'del_check', 'sup_check', 'paper_check', 'unloaded', 'res_officer', 'comm').filter(type_id=sq_type).filter(department_id__in=allow_departments).filter(del_check=0).order_by('-year', '-month', 'type__id')
+                            else:
+                                if (sq_this_month):
+                                    tabels = Tabel.objects.values('id', 'month', 'year', 'type__name', 'department', 'department__name', 'del_check', 'sup_check', 'paper_check', 'unloaded', 'res_officer', 'comm').filter(day='0').filter(department_id__in=allow_departments).filter(year=year_).filter(del_check=0).filter(month=month_).order_by('-year', '-month', 'type__id')
+                                else:
+                                    if unite == True:
+                                        pag = 40
+                                        tabels = Tabel.objects.values('id', 'month', 'year', 'type__name', 'department', 'department__name', 'del_check', 'sup_check', 'paper_check', 'unloaded', 'res_officer', 'comm').filter(~Q(type_id=5)).filter(~Q(type_id=4)).filter(~Q(type_id=8)).filter(del_check=0).filter(department_id__in=allow_departments).order_by('-year', '-month',   'department__id' ,  'type__id')
+
+                                    else:
+                                        if is_atc == True:
+                                            pag = 40
+                                            tabels = Tabel.objects.values('id', 'month', 'year', 'type__name', 'department', 'department__name', 'del_check', 'sup_check', 'paper_check', 'unloaded', 'res_officer', 'comm').filter(~Q(type_id=8)).filter(department_id__in=allow_departments).filter(del_check=0).order_by('-year', '-month',   'department__id' , 'type__id')
+                                        else:
+                                            pag = 40
+                                            tabels = Tabel.objects.values('id', 'month', 'year', 'type__name', 'department', 'department__name', 'del_check', 'sup_check', 'paper_check', 'unloaded', 'res_officer', 'comm').filter(department_id__in=allow_departments).filter(del_check=0).order_by('-year', '-month',   'department__id' , 'type__id')
+
+
+
+    else:
+        # если у пользователя полные права, то выдаем все
+        deps = Department.objects.all().order_by('name')
+        # Алгоритм поиска
+        pag = 1000
+        if (sq_period_month) and (sq_period_year) and (sq_dep) and (sq_type):
+            if sq_type == 'c':
+                tabels = Tabel.objects.values('id', 'month', 'year', 'type__name', 'department', 'department__name', 'del_check', 'sup_check', 'paper_check', 'unloaded', 'res_officer', 'comm').filter(year=sq_period_year).filter(month=sq_period_month).filter(department_id=sq_dep).filter(iscorr=1).order_by('-year', '-month',   'department__id' , 'type__id')
+            else:
+
+                tabels = Tabel.objects.values('id', 'month', 'year', 'type__name', 'department', 'department__name', 'del_check', 'sup_check', 'paper_check', 'unloaded', 'res_officer', 'comm').filter(year=sq_period_year).filter(month=sq_period_month).filter(department_id=sq_dep).filter(type_id=sq_type).order_by('-year', '-month',   'department__id' , 'type__id')
+        else:
+            if (sq_period_month) and (sq_period_year) and (sq_dep):
+
+                tabels = Tabel.objects.values('id', 'month', 'year', 'type__name', 'department', 'department__name', 'del_check', 'sup_check', 'paper_check', 'unloaded', 'res_officer', 'comm').filter(year=sq_period_year).filter(month=sq_period_month).filter(department_id=sq_dep).order_by('-year', '-month',   'department__id' , 'type__id')
+            else:
+                if (sq_period_month) and (sq_period_year) and (sq_type):
+                    if sq_type == 'c':
+                        tabels = Tabel.objects.values('id', 'month', 'year', 'type__name', 'department', 'department__name', 'del_check', 'sup_check', 'paper_check', 'unloaded', 'res_officer', 'comm').filter(year=sq_period_year).filter(month=sq_period_month).filter(iscorr=1).order_by('-year', '-month',   'department__id' , 'type__id')
+                    else:
+                        tabels = Tabel.objects.values('id', 'month', 'year', 'type__name', 'department', 'department__name', 'del_check', 'sup_check', 'paper_check', 'unloaded', 'res_officer', 'comm').filter(year=sq_period_year).filter(month=sq_period_month).filter(type_id=sq_type).order_by('-year', '-month',   'department__id' , 'type__id')
+                else:
+                    if (sq_period_month) and (sq_period_year):
+
+                        tabels = Tabel.objects.values('id', 'month', 'year', 'type__name', 'department', 'department__name', 'del_check', 'sup_check', 'paper_check', 'unloaded', 'res_officer', 'comm').filter(year=sq_period_year).filter(month=sq_period_month).filter(year=sq_period_year).filter(day='0').order_by('-year', '-month',   'department__id' , 'type__id')
+                    else:
+
+                            if (sq_period_year) and (sq_dep):
+                                tabels = Tabel.objects.values('id', 'month', 'year', 'type__name', 'department', 'department__name', 'del_check', 'sup_check', 'paper_check', 'unloaded', 'res_officer', 'comm').filter(year=sq_period_year).filter(department_id=sq_dep).order_by('-year', '-month',   'department__id' , 'type__id')
+                            else:
+                                if (sq_period_month):
+                                    tabels = Tabel.objects.values('id', 'month', 'year', 'type__name', 'department', 'department__name', 'del_check', 'sup_check', 'paper_check', 'unloaded', 'res_officer', 'comm').filter(month=sq_period_month).order_by('-year', '-month',   'department__id' , 'type__id')
+                                else:
+                                    if (sq_period_year):
+                                        tabels = Tabel.objects.values('id', 'month', 'year', 'type__name', 'department', 'department__name', 'del_check', 'sup_check', 'paper_check', 'unloaded', 'res_officer', 'comm').filter(year=sq_period_year).order_by('-year', '-month',   'department__id' , 'type__id')
+                                    else:
+                                        if (sq_dep):
+                                            tabels = Tabel.objects.values('id', 'month', 'year', 'type__name', 'department', 'department__name', 'del_check', 'sup_check', 'paper_check', 'unloaded', 'res_officer', 'comm').filter(department_id=sq_dep).filter(day='0').order_by('-year', '-month',   'department__id' , 'type__id')
+                                        else:
+                                            if (sq_this_month):
+                                                tabels = Tabel.objects.values('id', 'month', 'year', 'type__name', 'department', 'department__name', 'del_check', 'sup_check', 'paper_check', 'unloaded', 'res_officer', 'comm').filter(year=year_).filter(month=month_).filter(day='0').order_by('-year', '-month',   'department__id' , 'type__id')
+                                            else:
+                                                if (sq_check_this_month):
+                                                    tabels = Tabel.objects.values('id', 'month', 'year', 'type__name', 'department', 'department__name', 'del_check', 'sup_check', 'paper_check', 'unloaded', 'res_officer', 'comm').filter(year=year_).filter(month=month_).filter(day='0').filter(sup_check= True).order_by('-year', '-month',   'department__id' , 'type__id')
+                                                else:
+                                                    if (sq_user):
+                                                        tabels = Tabel.objects.values('id', 'month', 'year', 'type__name', 'department', 'department__name', 'del_check', 'sup_check', 'paper_check', 'unloaded', 'res_officer', 'comm').filter(res_officer=sq_user).order_by('-year', '-month',   'department__id' , 'type__id')
+                                                    else:
+                                                        if (sq_type):
+                                                            if sq_type == 'c':
+                                                                tabels = Tabel.objects.values('id', 'month', 'year', 'type__name', 'department', 'department__name', 'del_check', 'sup_check', 'paper_check', 'unloaded', 'res_officer', 'comm').filter(iscorr=1).order_by('-year', '-month',   'department__id' , 'type__id')
+                                                            else:
+                                                                tabels = Tabel.objects.values('id', 'month', 'year', 'type__name', 'department', 'department__name', 'del_check', 'sup_check', 'paper_check', 'unloaded', 'res_officer', 'comm').filter(type_id=sq_type).order_by('-year', '-month',   'department__id' , 'type__id')
+                                                        else:
+                                                            if unite == True:
+                                                                pag = 40
+                                                                tabels = Tabel.objects.values('id', 'month', 'year', 'type__name', 'department', 'department__name', 'del_check', 'sup_check', 'paper_check', 'unloaded', 'res_officer', 'comm').filter(~Q(type_id=5)).filter(~Q(type_id=4)).filter(~Q(type_id=8)).order_by('-year', '-month',   'department__id' , 'type__id')
+
+                                                            else:
+                                                                pag = 40
+                                                                tabels = Tabel.objects.values('id', 'month', 'year', 'type__name', 'department', 'department__name', 'del_check', 'sup_check', 'paper_check', 'unloaded', 'res_officer', 'comm').filter(~Q(type_id=8)).filter(day='0').order_by('-year', '-month',   'department__id' , 'type__id')
+
+    tabels = list(tabels)
+    return JsonResponse(tabels, safe=False)
+
 
 def over_tabels(request):
  #Проверка на аутентификацию

@@ -47,14 +47,14 @@
       </ul>
       </li>
   {%endif%}
-      <li>Вид <span class='angle-down'>v</span>
+      <!-- <li>Вид <span class='angle-down'>v</span>
       <ul class="view">
       <li> <a  href="?this_month=1"> > Показать только за текущий месяц</a></li>
       {% if granted == 1%}
       <li><a  href="?chk_this_month=1"> > Показать проверенные за текущий месяц</a></li>
       {%endif%}
       </ul>
-      </li>
+      </li> -->
   {%if granted == 1 or is_atc%}
       <li>Дополнительные <span class='angle-down'>v</span>
       <ul class="view">
@@ -142,8 +142,9 @@ function Supchecked() {
     <p>ПОИСК</p>
   </div>
   <div class="fs-content">
+    <input type="text" id='search_code' placeholder="Код" value="">
 
-    <select class="" name="search_month">
+    <select class="" id="search_month" name="search_month">
       <option value="">Весь год</option>
       <option value="01">Январь</option>
       <option value="02">Февраль</option>
@@ -161,14 +162,14 @@ function Supchecked() {
 
   <input type="text" id="fs-year" placeholder="год..." name="search_year" value="">
 
-    <select class="" name="t_tab_dep_search">
+    <select class="" id="t_tab_dep_search" name="t_tab_dep_search">
       <option value="">Подразделение</option>
       {% for dep in deps%}
         <option value="{{dep.id}}">{{dep}}</option>
         {% endfor%}
     </select>
 
-    <select class="" name="search_type">
+    <select class="" id="search_type" name="search_type">
         <option value="">Вид</option>
       {%for t in type%}
         <option value="{{t.id}}">{{t.name}}</option>
@@ -178,7 +179,7 @@ function Supchecked() {
     </select>
 
     {% if granted == 1%}
-    <select class=""  name="tab_user">
+    <select class="" id="tab_user" name="tab_user">
       <option value="">Поиск по ответственному</option>
         {%for u in tab_users %}
         <option value="{{u.first_name}}">{{u.first_name}}</option>
@@ -187,9 +188,9 @@ function Supchecked() {
   {%endif%}
   </div>
   <div class="fs-buttons">
-  <input type="submit" name="" class="btn btn-dark" value="Найти">
+  <input type="button" onclick="gettabels_search('{{granted}}')" name="" class="btn btn-dark" value="Найти">
 
-  <a class="btn btn-outline-danger" href="/turv">Сбросить поиск</a>
+  <a class="btn btn-outline-danger" onclick="gettabels(0,'{{granted}}')">Сбросить поиск</a>
   </div>
   </form>
 </div>
@@ -197,7 +198,6 @@ function Supchecked() {
 <div class="tabandbuttons">
 
 <div class="button-block bb-main">
-  <h4>Виды табелей</h4>
   <button onclick="gettabels(0,'{{granted}}')"class="type-button">Основные</button>
   <button onclick="gettabels(2,'{{granted}}')" class="type-button toxic-row">Вредность</button>
   <button onclick="gettabels(5,'{{granted}}')" class="type-button over-row">Сверхурочка</button>
@@ -206,7 +206,7 @@ function Supchecked() {
   <button onclick="gettabels(6,'{{granted}}')" class="type-button standby-row">Дежурство</button>
   <button onclick="gettabels(8,'{{granted}}')" class="type-button nn-row">Ненормированность</button>
   <button onclick="gettabels(9,'{{granted}}')" class="type-button milk-row">Молоко</button>
-  <button onclick="gettabels(corr,'{{granted}}')" class="type-button">Корректировки</button>
+  <button onclick="gettabels(10,'{{granted}}')" class="type-button">Корректировки</button>
 
 </div>
 
@@ -248,7 +248,7 @@ function Supchecked() {
 </div>
 </div>
 </div>
-<nav  class="paginator" aria-label="Page navigation example">
+<!-- <nav  class="paginator" aria-label="Page navigation example">
   <ul class="pagination">
     <li class="page-item">
       <a class="page-link" href="#" aria-label="Previous">
@@ -277,7 +277,7 @@ function Supchecked() {
   </li>
   {%endif%}
   </ul>
-</nav>
+</nav> -->
 
 </div>
 
