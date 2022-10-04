@@ -4,7 +4,7 @@
 
 {%block header%}
     {% if granted == 1 or user.is_superuser%}<a href="/" class="btn btn-dark"> < Назад </a>{%endif%}
-    Табели учета рабочего времени. Всего: {{count}}.
+    Табели учета рабочего времени.
     <ul class="menu">
       <li>Меню <span class='angle-down'>v</span>
       <ul class="menu-main-ul">
@@ -215,7 +215,7 @@ function Supchecked() {
   <a class="btn btn-success btn-add"  href="{% url 'new_tabel_url' %}"  >+ Новый табель</a>
 <div class="tb-table">
 
-{%if tabels%}
+
 
 <table id="tabels-main-table" class="tabels-main-table">
   <thead class="thead-dark">
@@ -281,10 +281,6 @@ function Supchecked() {
 
 </div>
 
-{%else%}
-<h2>Табели не найдены</h2>
-{%endif%}
-</div>
 
 <script type="text/javascript">
   $('document').ready(function () {

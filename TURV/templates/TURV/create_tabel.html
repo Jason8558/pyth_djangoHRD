@@ -2,6 +2,27 @@
 {%load static%}
 {%block title%}{{b_tabel.type}} {{b_tabel.department}} {{month}} {{year}}{%endblock%}
 
+{%block head%}
+{% if b_tabel.type.id == 4%}
+<style media="screen">
+  thead {
+    background: #e79806 !important;
+  }
+</style>
+#ff5200
+{%endif%}
+
+{% if b_tabel.type.id == 5%}
+<style media="screen">
+  thead {
+    background: #ff5200 !important;
+  }
+</style>
+
+{%endif%}
+
+{%endblock%}
+
 {%block header%}
 <a class="btn btn-danger" onclick="window.close()"> ЗАКРЫТЬ  </a> |
 <span id="id_month" class="not-print" style="display:none">{{month}}</span>
