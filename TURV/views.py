@@ -336,20 +336,10 @@ def tabels_json_search(request):
                                 else:
                                     tabels = Tabel.objects.values('id', 'month', 'year', 'type__name', 'department', 'department__name', 'del_check', 'sup_check', 'paper_check', 'unloaded', 'res_officer', 'comm').filter(type_id=sq_type).filter(department_id__in=allow_departments).filter(del_check=0).order_by('-year', '-month', 'type__id')
                             else:
-                                if (sq_this_month):
-                                    tabels = Tabel.objects.values('id', 'month', 'year', 'type__name', 'department', 'department__name', 'del_check', 'sup_check', 'paper_check', 'unloaded', 'res_officer', 'comm').filter(day='0').filter(department_id__in=allow_departments).filter(year=year_).filter(del_check=0).filter(month=month_).order_by('-year', '-month', 'type__id')
+                                if (sq_code):
+                                    tabels = Tabel.objects.values('id', 'month', 'year', 'type__name', 'department', 'department__name', 'del_check', 'sup_check', 'paper_check', 'unloaded', 'res_officer', 'comm').filter(id=sq_code).order_by('-year', '-month',   'department__id' , 'type__id')
                                 else:
-                                    if unite == True:
-                                        pag = 40
-                                        tabels = Tabel.objects.values('id', 'month', 'year', 'type__name', 'department', 'department__name', 'del_check', 'sup_check', 'paper_check', 'unloaded', 'res_officer', 'comm').filter(~Q(type_id=5)).filter(~Q(type_id=4)).filter(~Q(type_id=8)).filter(del_check=0).filter(department_id__in=allow_departments).order_by('-year', '-month',   'department__id' ,  'type__id')
-
-                                    else:
-                                        if is_atc == True:
-                                            pag = 40
-                                            tabels = Tabel.objects.values('id', 'month', 'year', 'type__name', 'department', 'department__name', 'del_check', 'sup_check', 'paper_check', 'unloaded', 'res_officer', 'comm').filter(~Q(type_id=8)).filter(department_id__in=allow_departments).filter(del_check=0).order_by('-year', '-month',   'department__id' , 'type__id')
-                                        else:
-                                            pag = 40
-                                            tabels = Tabel.objects.values('id', 'month', 'year', 'type__name', 'department', 'department__name', 'del_check', 'sup_check', 'paper_check', 'unloaded', 'res_officer', 'comm').filter(department_id__in=allow_departments).filter(del_check=0).order_by('-year', '-month',   'department__id' , 'type__id')
+                                    tabels = Tabel.objects.values('id', 'month', 'year', 'type__name', 'department', 'department__name', 'del_check', 'sup_check', 'paper_check', 'unloaded', 'res_officer', 'comm').filter(~Q(type_id=8)).filter(day='0').order_by('-year', '-month',   'department__id' , 'type__id')
 
 
 
@@ -407,12 +397,9 @@ def tabels_json_search(request):
                                                             else:
                                                                 tabels = Tabel.objects.values('id', 'month', 'year', 'type__name', 'department', 'department__name', 'del_check', 'sup_check', 'paper_check', 'unloaded', 'res_officer', 'comm').filter(type_id=sq_type).order_by('-year', '-month',   'department__id' , 'type__id')
                                                         else:
-                                                            if unite == True:
-                                                                pag = 40
-                                                                tabels = Tabel.objects.values('id', 'month', 'year', 'type__name', 'department', 'department__name', 'del_check', 'sup_check', 'paper_check', 'unloaded', 'res_officer', 'comm').filter(~Q(type_id=5)).filter(~Q(type_id=4)).filter(~Q(type_id=8)).order_by('-year', '-month',   'department__id' , 'type__id')
-
+                                                            if (sq_code):
+                                                                tabels = Tabel.objects.values('id', 'month', 'year', 'type__name', 'department', 'department__name', 'del_check', 'sup_check', 'paper_check', 'unloaded', 'res_officer', 'comm').filter(id=sq_code).order_by('-year', '-month',   'department__id' , 'type__id')
                                                             else:
-                                                                pag = 40
                                                                 tabels = Tabel.objects.values('id', 'month', 'year', 'type__name', 'department', 'department__name', 'del_check', 'sup_check', 'paper_check', 'unloaded', 'res_officer', 'comm').filter(~Q(type_id=8)).filter(day='0').order_by('-year', '-month',   'department__id' , 'type__id')
 
     tabels = list(tabels)
