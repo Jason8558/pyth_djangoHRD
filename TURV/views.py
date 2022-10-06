@@ -188,7 +188,7 @@ def tabels_json_toxic(request, month, year, dep):
         month = '0'+ str(month)
     else:
         month = month
-    items = TabelItem.objects.values('employer__fullname', 'toxic_p', 'w_hours').filter(year=year).filter(month=month).filter(bound_tabel__department_id=dep)
+    items = TabelItem.objects.values('employer__fullname', 'toxic_p', 'w_hours').filter(year=year).filter(month=month).filter(bound_tabel__department_id=dep).filter(bound_tabel__type_id=2)
     items = list(items)
     return JsonResponse(items, safe=False)
 
