@@ -157,30 +157,49 @@ def tabels(request):
 # =========================================
 
 def tabels_json(request, type):
-    if request.user.is_authenticated:
-
-        if type == 0:
+    if type == 0:
+        if access_check(request) == False:
+            deps = Department.objects.filter(user=request.user.id)
+            tabels = Tabel.objects.values('id', 'month', 'year', 'type__name', 'department', 'department__name', 'del_check', 'sup_check', 'paper_check', 'unloaded', 'res_officer', 'comm').filter(iscorr=0).filter(department_id__in=deps).filter(type=1).order_by('-year', '-month', 'department__name', 'id')
+        else:
+            tabels = Tabel.objects.values('id', 'month', 'year', 'type__name', 'department', 'department__name', 'del_check', 'sup_check', 'paper_check', 'unloaded', 'res_officer', 'comm').filter(iscorr=0).filter(type=1).order_by('-year', '-month', 'department__name', 'id')
+    else:
+        if type == 10:
             if access_check(request) == False:
                 deps = Department.objects.filter(user=request.user.id)
-                tabels = Tabel.objects.values('id', 'month', 'year', 'type__name', 'department', 'department__name', 'del_check', 'sup_check', 'paper_check', 'unloaded', 'res_officer', 'comm').filter(iscorr=0).filter(department_id__in=deps).filter(type=1).order_by('-year', '-month', 'department__name', 'id')
+                tabels = Tabel.objects.values('id', 'month', 'year', 'type__name', 'department', 'department__name', 'del_check', 'sup_check', 'paper_check', 'unloaded', 'res_officer', 'comm').filter(iscorr=1).filter(department_id__in=deps).filter(type=1).order_by('-year', '-month', 'department__name', 'id')
             else:
-                tabels = Tabel.objects.values('id', 'month', 'year', 'type__name', 'department', 'department__name', 'del_check', 'sup_check', 'paper_check', 'unloaded', 'res_officer', 'comm').filter(iscorr=0).filter(type=1).order_by('-year', '-month', 'department__name', 'id')
+                tabels = Tabel.objects.values('id', 'month', 'year', 'type__name', 'department', 'department__name', 'del_check', 'sup_check', 'paper_check', 'unloaded', 'res_officer', 'comm').filter(iscorr=1).filter(type=1).order_by('-year', '-month', 'department__name', 'id')
         else:
-            if type == 10:
-                if access_check(request) == False:
-                    deps = Department.objects.filter(user=request.user.id)
-                    tabels = Tabel.objects.values('id', 'month', 'year', 'type__name', 'department', 'department__name', 'del_check', 'sup_check', 'paper_check', 'unloaded', 'res_officer', 'comm').filter(iscorr=1).filter(department_id__in=deps).filter(type=1).order_by('-year', '-month', 'department__name', 'id')
-                else:
-                    tabels = Tabel.objects.values('id', 'month', 'year', 'type__name', 'department', 'department__name', 'del_check', 'sup_check', 'paper_check', 'unloaded', 'res_officer', 'comm').filter(iscorr=1).filter(type=1).order_by('-year', '-month', 'department__name', 'id')
+            if access_check(request) == False:
+                deps = Department.objects.filter(user=request.user.id)
+                tabels = Tabel.objects.values('id', 'month', 'year', 'type__name', 'department', 'department__name', 'del_check', 'sup_check', 'paper_check', 'unloaded', 'res_officer', 'comm').filter(iscorr=0).filter(department_id__in=deps).filter(type=type).order_by('-year', '-month', 'department__name', 'id')
             else:
-                if access_check(request) == False:
-                    deps = Department.objects.filter(user=request.user.id)
-                    tabels = Tabel.objects.values('id', 'month', 'year', 'type__name', 'department', 'department__name', 'del_check', 'sup_check', 'paper_check', 'unloaded', 'res_officer', 'comm').filter(iscorr=0).filter(department_id__in=deps).filter(type=type).order_by('-year', '-month', 'department__name', 'id')
-                else:
-                    tabels = Tabel.objects.values('id', 'month', 'year', 'type__name', 'department', 'department__name', 'del_check', 'sup_check', 'paper_check', 'unloaded', 'res_officer', 'comm').filter(iscorr=0).filter(type=type).order_by('-year', '-month', 'department__name', 'id')
+                tabels = Tabel.objects.values('id', 'month', 'year', 'type__name', 'department', 'department__name', 'del_check', 'sup_check', 'paper_check', 'unloaded', 'res_officer', 'comm').filter(iscorr=0).filter(type=type).order_by('-year', '-month', 'department__name', 'id')
+
     tabels = list(tabels)
     return JsonResponse(tabels, safe=False)
+
+
 # ====================================================
+
+def tabels_json_toxic(request, month, year, dep):
+    if len(str(month)) != 2:
+        month = '0'+ str(month)
+    else:
+        month = month
+    items = TabelItem.objects.values('employer__fullname', 'toxic_p', 'w_hours').filter(year=year).filter(month=month).filter(bound_tabel__department_id=dep)
+    items = list(items)
+    return JsonResponse(items, safe=False)
+
+def deps_json(request,type):
+    deps = Department.objects.values('id', 'name', 'onescode').filter(notused=0).filter(conftype=type)
+    deps = list(deps)
+    return JsonResponse(deps, safe=False)
+
+
+
+
 
 def tabels_json_search(request):
 

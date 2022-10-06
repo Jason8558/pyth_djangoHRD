@@ -27,6 +27,7 @@ class Department(models.Model):
     name = models.CharField(verbose_name = 'Название подразделения', db_index=True, max_length=256)
     user = models.ManyToManyField(User, verbose_name = 'Табельщик')
     conftype = models.ManyToManyField('TabelType', verbose_name='Виды табелей для подразделения: ')
+    onescode = models.CharField(verbose_name= 'Код подразделения в 1С ',  max_length=256, blank=True, null=True)
     notused = models.BooleanField(default=False)
 
     class Meta:
