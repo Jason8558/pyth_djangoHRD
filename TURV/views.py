@@ -183,12 +183,18 @@ def tabels_json(request, type):
 
 # ====================================================
 
-def tabels_json_toxic(request, month, year, dep):
+def tabels_json_multi(request, type, month, year, dep):
     if len(str(month)) != 2:
         month = '0'+ str(month)
     else:
         month = month
-    items = TabelItem.objects.values('employer__fullname', 'toxic_p', 'w_hours').filter(year=year).filter(month=month).filter(bound_tabel__department_id=dep).filter(bound_tabel__type_id=2)
+
+    if type == 2:
+        items = TabelItem.objects.values('employer__fullname', 'toxic_p', 'w_hours').filter(year=year).filter(month=month).filter(bound_tabel__department_id=dep).filter(bound_tabel__type_id=2).filter(bound_tabel__sup_check=1).order_by('employer__fullname')
+
+    if type == 3:
+        items = TabelItem.objects.values('employer__fullname', 'auto__unite_p', 'employer__stand_worktime', 'w_hours', 'employer__positionOfPayment').filter(year=year).filter(month=month).filter(bound_tabel__department_id=dep).filter(bound_tabel__type_id=3).filter(bound_tabel__sup_check=1).order_by('employer__fullname')
+
     items = list(items)
     return JsonResponse(items, safe=False)
 
