@@ -552,8 +552,20 @@ switch (tt1) {
   break;
 
   case 'КМ':
-    s36 += parseFloat(h1)
-    work += 1
+  if (h1.length > 2) {
+    h_split = h1.split('/')
+
+
+      s36 += parseFloat(h_split[0])
+      s19 += parseFloat(h_split[1])
+
+
+    work += 1 }
+    else {
+      s36 += parseFloat(h1)
+      work += 1
+    }
+
   break;
 
   case 'К':
@@ -726,7 +738,7 @@ switch (tt1) {
       s38 += parseFloat(h1)
       work += 1
     }
-    console.log(s19);
+
   break;
 
   case 'Я/ЛЧ':
@@ -776,8 +788,19 @@ switch (tt2) {
   break;
 
   case 'КМ':
-    s36 += parseFloat(h2)
-    work += 1
+  if (h2.length > 2) {
+    h_split = h2.split('/')
+
+
+      s36 += parseFloat(h_split[0])
+      s19 += parseFloat(h_split[1])
+
+
+    work += 1 }
+    else {
+      s36 += parseFloat(h2)
+      work += 1
+    }
   break;
 
   case 'К':
@@ -997,8 +1020,19 @@ switch (tt3) {
   break;
 
   case 'КМ':
-    s36 += parseFloat(h3)
-    work += 1
+  if (h3.length > 2) {
+    h_split = h3.split('/')
+
+
+      s36 += parseFloat(h_split[0])
+      s19 += parseFloat(h_split[1])
+
+
+    work += 1 }
+    else {
+      s36 += parseFloat(h3)
+      work += 1
+    }
   break;
 
   case 'К':
@@ -1222,8 +1256,19 @@ switch (tt4) {
   break;
 
   case 'КМ':
-    s36 += parseFloat(h4)
-    work += 1
+  if (h4.length > 2) {
+    h_split = h4.split('/')
+
+
+      s36 += parseFloat(h_split[0])
+      s19 += parseFloat(h_split[1])
+
+
+    work += 1 }
+    else {
+      s36 += parseFloat(h4)
+      work += 1
+    }
   break;
 
   case 'К':
@@ -1447,8 +1492,19 @@ switch (tt5) {
   break;
 
   case 'КМ':
-    s36 += parseFloat(h5)
-    work += 1
+  if (h5.length > 2) {
+    h_split = h5.split('/')
+
+
+      s36 += parseFloat(h_split[0])
+      s19 += parseFloat(h_split[1])
+
+
+    work += 1 }
+    else {
+      s36 += parseFloat(h5)
+      work += 1
+    }
   break;
 
   case 'К':
@@ -1695,8 +1751,19 @@ switch (tt6) {
   break;
 
   case 'КМ':
-    s36 += parseFloat(h6)
-    work += 1
+  if (h6.length > 2) {
+    h_split = h6.split('/')
+
+
+      s36 += parseFloat(h_split[0])
+      s19 += parseFloat(h_split[1])
+
+
+    work += 1 }
+    else {
+      s36 += parseFloat(h6)
+      work += 1
+    }
   break;
 
   case 'К':
@@ -1919,8 +1986,19 @@ switch (tt7) {
   break;
 
   case 'КМ':
-    s36 += parseFloat(h7)
-    work += 1
+  if (h7.length > 2) {
+    h_split = h7.split('/')
+
+
+      s36 += parseFloat(h_split[0])
+      s19 += parseFloat(h_split[1])
+
+
+    work += 1 }
+    else {
+      s36 += parseFloat(h7)
+      work += 1
+    }
   break;
 
   case 'К':
@@ -2144,8 +2222,19 @@ switch (tt8) {
   break;
 
   case 'КМ':
-    s36 += parseFloat(h8)
-    work += 1
+  if (h8.length > 2) {
+    h_split = h8.split('/')
+
+
+      s36 += parseFloat(h_split[0])
+      s19 += parseFloat(h_split[1])
+
+
+    work += 1 }
+    else {
+      s36 += parseFloat(h8)
+      work += 1
+    }
   break;
 
   case 'К':
@@ -2388,8 +2477,19 @@ switch (tt9) {
   break;
 
   case 'КМ':
-    s36 += parseFloat(h9)
-    work += 1
+  if (h9.length > 2) {
+    h_split = h9.split('/')
+
+
+      s36 += parseFloat(h_split[0])
+      s19 += parseFloat(h_split[1])
+
+
+    work += 1 }
+    else {
+      s36 += parseFloat(h9)
+      work += 1
+    }
   break;
 
   case 'К':
@@ -2611,8 +2711,19 @@ switch (tt10) {
   break;
 
   case 'КМ':
-    s36 += parseFloat(h10)
-    work += 1
+  if (h10.length > 2) {
+    h_split = h10.split('/')
+
+
+      s36 += parseFloat(h_split[0])
+      s19 += parseFloat(h_split[1])
+
+
+    work += 1 }
+    else {
+      s36 += parseFloat(h10)
+      work += 1
+    }
   break;
 
   case 'К':
@@ -2834,8 +2945,19 @@ switch (tt11) {
   break;
 
   case 'КМ':
-    s36 += parseFloat(h11)
-    work += 1
+  if (h11.length > 2) {
+    h_split = h11.split('/')
+
+
+      s36 += parseFloat(h_split[0])
+      s19 += parseFloat(h_split[1])
+
+
+    work += 1 }
+    else {
+      s36 += parseFloat(h11)
+      work += 1
+    }
   break;
 
   case 'К':
@@ -3059,8 +3181,19 @@ switch (tt12) {
   break;
 
   case 'КМ':
-    s36 += parseFloat(h12)
-    work += 1
+  if (h12.length > 2) {
+    h_split = h12.split('/')
+
+
+      s36 += parseFloat(h_split[0])
+      s19 += parseFloat(h_split[1])
+
+
+    work += 1 }
+    else {
+      s36 += parseFloat(h12)
+      work += 1
+    }
   break;
 
   case 'К':
@@ -3282,8 +3415,19 @@ switch (tt13) {
   break;
 
   case 'КМ':
-    s36 += parseFloat(h13)
-    work += 1
+  if (h13.length > 2) {
+    h_split = h13.split('/')
+
+
+      s36 += parseFloat(h_split[0])
+      s19 += parseFloat(h_split[1])
+
+
+    work += 1 }
+    else {
+      s36 += parseFloat(h13)
+      work += 1
+    }
   break;
 
   case 'К':
@@ -3504,8 +3648,19 @@ switch (tt14) {
   break;
 
   case 'КМ':
-    s36 += parseFloat(h14)
-    work += 1
+  if (h14.length > 2) {
+    h_split = h14.split('/')
+
+
+      s36 += parseFloat(h_split[0])
+      s19 += parseFloat(h_split[1])
+
+
+    work += 1 }
+    else {
+      s36 += parseFloat(h14)
+      work += 1
+    }
   break;
 
   case 'К':
@@ -3725,8 +3880,19 @@ switch (tt15) {
   break;
 
   case 'КМ':
-    s36 += parseFloat(h15)
-    work += 1
+  if (h15.length > 2) {
+    h_split = h15.split('/')
+
+
+      s36 += parseFloat(h_split[0])
+      s19 += parseFloat(h_split[1])
+
+
+    work += 1 }
+    else {
+      s36 += parseFloat(h15)
+      work += 1
+    }
   break;
 
   case 'К':
@@ -3949,8 +4115,19 @@ switch (tt16) {
   break;
 
   case 'КМ':
-    s36 += parseFloat(h16)
-    work += 1
+  if (h16.length > 2) {
+    h_split = h16.split('/')
+
+
+      s36 += parseFloat(h_split[0])
+      s19 += parseFloat(h_split[1])
+
+
+    work += 1 }
+    else {
+      s36 += parseFloat(h16)
+      work += 1
+    }
   break;
 
   case 'К':
@@ -4172,8 +4349,19 @@ switch (tt17) {
   break;
 
   case 'КМ':
-    s36 += parseFloat(h17)
-    work += 1
+  if (h17.length > 2) {
+    h_split = h17.split('/')
+
+
+      s36 += parseFloat(h_split[0])
+      s19 += parseFloat(h_split[1])
+
+
+    work += 1 }
+    else {
+      s36 += parseFloat(h17)
+      work += 1
+    }
   break;
 
   case 'К':
@@ -4395,8 +4583,19 @@ switch (tt18) {
   break;
 
   case 'КМ':
-    s36 += parseFloat(h18)
-    work += 1
+  if (h18.length > 2) {
+    h_split = h18.split('/')
+
+
+      s36 += parseFloat(h_split[0])
+      s19 += parseFloat(h_split[1])
+
+
+    work += 1 }
+    else {
+      s36 += parseFloat(h18)
+      work += 1
+    }
   break;
 
   case 'К':
@@ -4617,8 +4816,19 @@ switch (tt19) {
   break;
 
   case 'КМ':
-    s36 += parseFloat(h19)
-    work += 1
+  if (h19.length > 2) {
+    h_split = h19.split('/')
+
+
+      s36 += parseFloat(h_split[0])
+      s19 += parseFloat(h_split[1])
+
+
+    work += 1 }
+    else {
+      s36 += parseFloat(h19)
+      work += 1
+    }
   break;
 
   case 'К':
@@ -4840,8 +5050,19 @@ switch (tt20) {
   break;
 
   case 'КМ':
-    s36 += parseFloat(h20)
-    work += 1
+  if (h20.length > 2) {
+    h_split = h20.split('/')
+
+
+      s36 += parseFloat(h_split[0])
+      s19 += parseFloat(h_split[1])
+
+
+    work += 1 }
+    else {
+      s36 += parseFloat(h20)
+      work += 1
+    }
   break;
 
   case 'К':
@@ -5062,8 +5283,19 @@ switch (tt21) {
   break;
 
   case 'КМ':
-    s36 += parseFloat(h21)
-    work += 1
+  if (h21.length > 2) {
+    h_split = h21.split('/')
+
+
+      s36 += parseFloat(h_split[0])
+      s19 += parseFloat(h_split[1])
+
+
+    work += 1 }
+    else {
+      s36 += parseFloat(h21)
+      work += 1
+    }
   break;
 
   case 'К':
@@ -5285,8 +5517,19 @@ switch (tt22) {
   break;
 
   case 'КМ':
-    s36 += parseFloat(h22)
-    work += 1
+  if (h22.length > 2) {
+    h_split = h22.split('/')
+
+
+      s36 += parseFloat(h_split[0])
+      s19 += parseFloat(h_split[1])
+
+
+    work += 1 }
+    else {
+      s36 += parseFloat(h22)
+      work += 1
+    }
   break;
 
   case 'К':
@@ -5509,8 +5752,19 @@ switch (tt23) {
   break;
 
   case 'КМ':
-    s36 += parseFloat(h23)
-    work += 1
+  if (h23.length > 2) {
+    h_split = h23.split('/')
+
+
+      s36 += parseFloat(h_split[0])
+      s19 += parseFloat(h_split[1])
+
+
+    work += 1 }
+    else {
+      s36 += parseFloat(h23)
+      work += 1
+    }
   break;
 
   case 'К':
@@ -5732,8 +5986,19 @@ switch (tt24) {
   break;
 
   case 'КМ':
-    s36 += parseFloat(h24)
-    work += 1
+  if (h24.length > 2) {
+    h_split = h24.split('/')
+
+
+      s36 += parseFloat(h_split[0])
+      s19 += parseFloat(h_split[1])
+
+
+    work += 1 }
+    else {
+      s36 += parseFloat(h24)
+      work += 1
+    }
   break;
 
   case 'К':
@@ -5954,8 +6219,19 @@ switch (tt25) {
   break;
 
   case 'КМ':
-    s36 += parseFloat(h25)
-    work += 1
+  if (h25.length > 2) {
+    h_split = h25.split('/')
+
+
+      s36 += parseFloat(h_split[0])
+      s19 += parseFloat(h_split[1])
+
+
+    work += 1 }
+    else {
+      s36 += parseFloat(h25)
+      work += 1
+    }
   break;
 
   case 'К':
@@ -6177,8 +6453,19 @@ switch (tt26) {
   break;
 
   case 'КМ':
-    s36 += parseFloat(h26)
-    work += 1
+  if (h26.length > 2) {
+    h_split = h26.split('/')
+
+
+      s36 += parseFloat(h_split[0])
+      s19 += parseFloat(h_split[1])
+
+
+    work += 1 }
+    else {
+      s36 += parseFloat(h26)
+      work += 1
+    }
   break;
 
   case 'К':
@@ -6400,8 +6687,19 @@ switch (tt27) {
   break;
 
   case 'КМ':
-    s36 += parseFloat(h27)
-    work += 1
+  if (h27.length > 2) {
+    h_split = h27.split('/')
+
+
+      s36 += parseFloat(h_split[0])
+      s19 += parseFloat(h_split[1])
+
+
+    work += 1 }
+    else {
+      s36 += parseFloat(h27)
+      work += 1
+    }
   break;
 
   case 'К':
@@ -6624,8 +6922,19 @@ switch (tt28) {
   break;
 
   case 'КМ':
-    s36 += parseFloat(h28)
-    work += 1
+  if (h28.length > 2) {
+    h_split = h28.split('/')
+
+
+      s36 += parseFloat(h_split[0])
+      s19 += parseFloat(h_split[1])
+
+
+    work += 1 }
+    else {
+      s36 += parseFloat(h28)
+      work += 1
+    }
   break;
 
   case 'К':
@@ -6847,8 +7156,19 @@ switch (tt29) {
   break;
 
   case 'КМ':
-    s36 += parseFloat(h29)
-    work += 1
+  if (h29.length > 2) {
+    h_split = h29.split('/')
+
+
+      s36 += parseFloat(h_split[0])
+      s19 += parseFloat(h_split[1])
+
+
+    work += 1 }
+    else {
+      s36 += parseFloat(h29)
+      work += 1
+    }
   break;
 
   case 'К':
@@ -7070,8 +7390,19 @@ switch (tt30) {
   break;
 
   case 'КМ':
-    s36 += parseFloat(h30)
-    work += 1
+  if (h30.length > 2) {
+    h_split = h30.split('/')
+
+
+      s36 += parseFloat(h_split[0])
+      s19 += parseFloat(h_split[1])
+
+
+    work += 1 }
+    else {
+      s36 += parseFloat(h30)
+      work += 1
+    }
   break;
 
   case 'К':
@@ -7293,8 +7624,19 @@ switch (tt31) {
   break;
 
   case 'КМ':
-    s36 += parseFloat(h31)
-    work += 1
+  if (h31.length > 2) {
+    h_split = h31.split('/')
+
+
+      s36 += parseFloat(h_split[0])
+      s19 += parseFloat(h_split[1])
+
+
+    work += 1 }
+    else {
+      s36 += parseFloat(h31)
+      work += 1
+    }
   break;
 
   case 'К':
