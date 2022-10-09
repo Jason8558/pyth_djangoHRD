@@ -37,14 +37,14 @@
 
 {%block scripts%}
   <script src="{% static 'TURV\js\Eighties.js' %}" charset="utf-8"></script>
-  <script src="{% static 'TURV\js\printtabel1.js' %}" charset="utf-8"></script>
+  <script src="{% static 'TURV\js\printtabel.js' %}" charset="utf-8"></script>
   <script src="{% static 'TURV\js\cookie.js' %}" charset="utf-8"></script>
     <link rel="stylesheet" href="{% static 'TURV\css\printwarning.css'%}">
   {%endblock%}
 
 {% block body %}
 <span id='tabel-type' style='display:none'>{{b_tabel.type_id}}</span>
-
+<span id='tabel-corr' style='display:none'>{{b_tabel.iscorr}}</span>
 <!-- <link rel="stylesheet" href="{% static 'TURV\css\tabel_print2.css'%}"> -->
 
 
@@ -171,7 +171,7 @@
 
   </div>
 
-  {% if b_tabel.iscorr == 0 and b_tabel.type_id == 1 %}
+  {% if b_tabel.iscorr == 0 %}
     <div class="t-corr">
       <a href="{% url 'correct' id=b_tabel.id%}">Корректировка</a>
     </div>
@@ -185,7 +185,10 @@
       {%endif%}
     {%else%}
       {% if granted == 1%}
+        {%if b_tabel.iscorr != 1%}
       <a class="btn btn-success btn-sm" href="{% url 'checked' id=b_tabel.id%}">Отметить как проверенный</a>
+        {%else%}
+        {%endif%}
       {%endif%}
 {%endif%}
 </div>
