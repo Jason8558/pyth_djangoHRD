@@ -106,7 +106,7 @@ def tabels(request):
         # Сообщения
         # Полный доступ
         meslist = []
-        messages = InfoMessages.objects.filter(viewin=1).order_by('-important','-id')
+        messages = InfoMessages.objects.filter(viewin=1).filter(active=1).order_by('-important','-id')
         if granted == True:
             # Проверяем на постоянные и непостояннные
             for mes in messages:
