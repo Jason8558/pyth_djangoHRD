@@ -215,6 +215,7 @@ class OrdersOnPersonnel_form(forms.ModelForm):
         fields = [
     'op_date',
     'op_dateOfInv',
+    'op_dateOfRes',
     'op_typeOfWork',
     'op_probation',
     'op_type',
@@ -230,6 +231,9 @@ class OrdersOnPersonnel_form(forms.ModelForm):
     attrs={'onchange':'sfio()'}
     ))
     op_dateOfInv = forms.CharField(label="Дата приема на работу" , required=False, widget=forms.TextInput(
+        attrs={'placeholder': 'Введите дату',  'type':'date', 'value':'01.01.0002'}))
+
+    op_dateOfRes = forms.CharField(label="Дата увольнения" , required=False, widget=forms.TextInput(
         attrs={'placeholder': 'Введите дату',  'type':'date', 'value':'01.01.0002'}))
 
     op_moveFrom = forms.CharField(label="Перевод с" , required=False, widget=forms.TextInput(
@@ -275,6 +279,11 @@ class OrdersOnPersonnel_form(forms.ModelForm):
             dateofInv = '0001-01-01'
         else:
             dateofInv = self.cleaned_data['op_dateOfInv']
+
+        if self.cleaned_data['op_dateOfRes'] == "":
+            dateofInv = '0001-01-01'
+        else:
+            dateofInv = self.cleaned_data['op_dateOfRes']
 
         if self.cleaned_data['op_moveFrom'] == "":
             moveFrom = '0001-01-01'

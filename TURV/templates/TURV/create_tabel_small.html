@@ -2,7 +2,37 @@
 {%load static%}
 {%block title%}{{b_tabel.type}} {{b_tabel.department}} {{month}} {{year}}{%endblock%}
 
+{%block head%}
+{% if b_tabel.type.id == 6%}
+<style media="screen">
+  thead {
+    background: brown !important;
+  }
+</style>
+{%endif%}
+
+{% if b_tabel.type.id == 3%}
+<style media="screen">
+  thead {
+    background: purple !important;
+  }
+</style>
+{%endif%}
+
+{% if b_tabel.type.id == 6%}
+<style media="screen">
+  thead {
+    background: yellow !important;
+  }
+</style>
+{%endif%}
+
+{%endblock%}
+
 {%block header%}
+
+
+
 <a class="btn btn-danger" onclick="window.close()"> ЗАКРЫТЬ  </a> |
 <span id="id_month" class="not-print" style="display:none">{{month}}</span>
 <span id="id_year" class="not-print" style="display:none">{{year}}</span>
@@ -16,13 +46,14 @@
 
 {%block scripts%}
   <script src="{% static 'TURV\js\Eighties.js' %}" charset="utf-8"></script>
-  <script src="{% static 'TURV\js\printtabel1.js' %}" charset="utf-8"></script>
+  <script src="{% static 'TURV\js\printtabel.js' %}" charset="utf-8"></script>
   <script src="{% static 'TURV\js\cookie.js' %}" charset="utf-8"></script>
     <link rel="stylesheet" href="{% static 'TURV\css\printwarning.css'%}">
   {%endblock%}
 
 {% block body %}
 <span id='tabel-type' style='display:none'>{{b_tabel.type_id}}</span>
+<span id='tabel-corr' style='display:none'>{{b_tabel.iscorr}}</span>
 <!-- <link rel="stylesheet" href="{% static 'TURV\css\tabel_print2.css'%}"> -->
 <div  class="container tabel_container">
 
@@ -78,6 +109,12 @@
 
   </div>
 
+  {% if b_tabel.iscorr == 0  %}
+    <div class="t-corr">
+      <a href="{% url 'correct' id=b_tabel.id%}">Корректировка</a>
+    </div>
+  {% endif %}
+
 <div class="sup_check not-print">
   {% if b_tabel.sup_check %}
     <h4 style="color: green;">✅ Проверен СУП</h4>
@@ -86,7 +123,10 @@
       {%endif%}
     {%else%}
       {% if granted == 1%}
-      <a class="btn btn-success btn-sm" href="{% url 'checked' id=b_tabel.id%}">Отметить как проверенный</a>
+      {%if b_tabel.iscorr != 1%}
+    <a class="btn btn-success btn-sm" href="{% url 'checked' id=b_tabel.id%}">Отметить как проверенный</a>
+      {%else%}
+      {%endif%}
       {%endif%}
 {%endif%}
 </div>
@@ -424,6 +464,7 @@
 <h3>Ответственный за составление табеля ________________________________________________________________________________________ __.__.20__ г.</h3>
 <h3>Руководитель структурного подразделения ________________________________________________________________________________________ __.__.20__ г..</h3>
 {% if b_tabel.type_id == 9%}
+<h3>Специалист охраны труда _________________________________________________________________________________________ ___.___.20___  г.</h3>
 {%else%}
 <h3>Специалист СУП ________________________________________________________________________________________ __.__.20__ г..</h3>
 {%endif%}

@@ -132,6 +132,7 @@ function all_on() {
 
 function closeAllFields() {
   $('#op_invite').css('display', 'none')
+  $('#op_resign').css('display', 'none')
   $('#op_probation').css('display', 'none')
   $('#op_typeOfWork').css('display','none')
   $('#op_moveFrom').css('display','none')
@@ -142,6 +143,11 @@ function inviteOnWork() {
   $('#op_invite').css('display', '')
   $('#op_probation').css('display', '')
   $('#op_typeOfWork').css('display','')
+
+}
+
+function ResignFromWork() {
+  $('#op_resign').css('display', '')
 
 }
 

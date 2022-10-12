@@ -4,7 +4,7 @@ $(document).ready(function()
 
 DrawDays()
 
-let vacs = ['ОТ','ОД','У','УД','Р','ОЖ','ДО','Б','Т','ПВ','Г','ПР','В','ОВ','НВ','ЗБ','НН','РП','НП','ВП','НБ','НО','НЗ','ДБ','ОЗ', 'К']
+let vacs = ['ОТ','ОД','У','УД','Р','ОЖ','ДО','Б','Т','ПВ','Г','ПР','В','ОВ','НВ','ЗБ','НН','РП','НП','ВП','НБ','НО','НЗ','ДБ','ОЗ', 'К', 'МБ' ]
 
   types_rows = $('.time_types')
   types_rows_nums = $('.time_types').children('.print-num')
@@ -47,6 +47,7 @@ let vacs = ['ОТ','ОД','У','УД','Р','ОЖ','ДО','Б','Т','ПВ','Г','
   let s33 = 0 //Опл. отр. от р. НО
   let s34 = 0 //Нет ЗП НЗ
   let s37 = 0 //ОЗ
+  let s39 = 0 //МБ
 
 
 // Убрать NONE
@@ -109,6 +110,7 @@ types_rows_nums[i].textContent = n
   s33 = 0
   s34 = 0
   s37 = 0
+  s39 = 0
   s6 = 0
   cells = types_rows[i].childNodes
 
@@ -220,6 +222,10 @@ types_rows_nums[i].textContent = n
           s37 +=1
         break;
 
+        case 'МБ':
+          s39 +=1
+        break;
+
         case 'К':
           s6 +=1
         break;
@@ -289,6 +295,8 @@ types_rows_nums[i].textContent = n
   vac_include[i].textContent +=  ' | ОЗ ' + s34}
   if (s37 != 0) {
   vac_include[i].textContent +=  ' | ОЗ ' + s37}
+  if (s39 != 0) {
+  vac_include[i].textContent +=  ' | МБ ' + s39}
 
 if ($('#tabel-type').text() != 1) {
   weekends[i].textContent = weekends[i].innerText

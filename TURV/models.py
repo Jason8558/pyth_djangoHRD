@@ -27,6 +27,7 @@ class Department(models.Model):
     name = models.CharField(verbose_name = 'Название подразделения', db_index=True, max_length=256)
     user = models.ManyToManyField(User, verbose_name = 'Табельщик')
     conftype = models.ManyToManyField('TabelType', verbose_name='Виды табелей для подразделения: ')
+    onescode = models.CharField(verbose_name= 'Код подразделения в 1С ',  max_length=256, blank=True, null=True)
     notused = models.BooleanField(default=False)
 
     class Meta:
@@ -207,6 +208,7 @@ class TabelItem(models.Model):
     sHours36 = models.IntegerField(verbose_name='Местная командировка', null = True, blank=True)
     sHours37 = models.IntegerField(verbose_name='Пенсионный', null = True, blank=True)
     sHours38 = models.IntegerField(verbose_name='Нерабочие оплачиваемые дни', null = True, blank=True)
+    sHours39 = models.IntegerField(verbose_name='Отсутствие по мобилизации', null = True, blank=True)
     w_days = models.IntegerField(verbose_name='Дней отработано', default=0, null = True, blank=True)
     # w_hours = models.IntegerField(verbose_name='Часов отработано', default=0, null = True, blank=True)
     w_hours = models.FloatField(verbose_name='Часов отработано', default=0, null = True, blank=True)

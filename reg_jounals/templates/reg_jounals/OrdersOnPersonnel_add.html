@@ -38,6 +38,7 @@
   <p>{{form.op_date.label}}:{{form.op_date}}</p>
   <p>{{form.op_type.label}}:{{form.op_type}}</p>
   <p id="op_invite">{{form.op_dateOfInv.label}}:{{form.op_dateOfInv}}</p>
+  <p id="op_resign">{{form.op_dateOfRes.label}}:{{form.op_dateOfRes}}</p>
   <p id="op_typeOfWork">{{form.op_typeOfWork.label}}:{{form.op_typeOfWork}}</p>
   <p id="op_probation">{{form.op_probation.label}}:{{form.op_probation}}</p>
   <p id="op_moveFrom">{{form.op_moveFrom.label}}:{{form.op_moveFrom}}</p>
@@ -98,6 +99,12 @@
         inviteOnWork()
       break;
 
+      case '2':
+        closeAllFields()
+        all_off()
+        ResignFromWork()
+      break;
+
       case '3':
         all_off()
         closeAllFields()
@@ -127,8 +134,14 @@ $("#id_op_typeOfWork").change(function(){
 
 $('#id_op_content').focus(function(){
 
+
+
   switch ($('#id_op_type option:selected').val()) {
       case '1':
+
+        invdate = $('#id_op_dateOfInv').val().split('-')
+        invdate = invdate[2] + '.' + invdate[1] + '.' + invdate[0]
+
         if ($('#id_op_probation').val()) {
           probation = ', с испытательным сроком ' + $('#id_op_probation').val() + ' мес.'
         }
@@ -136,7 +149,7 @@ $('#id_op_content').focus(function(){
           probation = ""
         }
 
-        text = 'Прием ' + $('#id_op_typeOfWork option:selected').text().toLowerCase() + ' на должность ' + $('#tab_pos option:selected').text().toLowerCase() + ' по ' + $('#tab_payment').val() + ' ступени, разряд(категория): ' + $('#tab_level').val() + probation
+        text = 'Прием c ' + invdate + ' ' + $('#id_op_typeOfWork option:selected').text().toLowerCase() + ' на должность ' + $('#tab_pos option:selected').text().toLowerCase() + ' по ' + $('#tab_payment').val() + ' ступени, разряд(категория): ' + $('#tab_level').val() + probation
 
       break;
 
@@ -151,7 +164,14 @@ $('#id_op_content').focus(function(){
           date_to = ''
         }
        text = 'Перевод ' + $('#id_op_typeOfWork option:selected').text().toLowerCase() + ' на должность ' + $('#tab_pos option:selected').text().toLowerCase() + ' c ' + date_from + date_to
+    break;
 
+    case '2':
+      dateres = $('#id_op_dateOfRes').val().split('-')
+      dateres = dateres[2] + '.' + dateres[1] + '.' + dateres[0]
+
+      text = 'Увольнение ' + dateres + ' по'
+    break;
 
     default:
 

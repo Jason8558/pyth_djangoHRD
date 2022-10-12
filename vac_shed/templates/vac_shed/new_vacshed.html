@@ -1,0 +1,101 @@
+{% extends "vac_shed/index.html" %}
+
+{%block title%}Новый график отпусков{% endblock %}
+{%block header%}Новый график отпусков{% endblock %}
+
+{%block body%}
+
+<div class="container ">
+
+{% if form.errors %}
+  {{form.errors}}
+{%endif%}
+
+<form class="vs-form" action="" method="post">
+  {%csrf_token%}
+
+  {{form.dep}}
+
+  <div class="newtabel-date">
+    {{form.year}}
+  </div>
+
+<div class="hide">
+{{form.department}}
+{{form.month}}
+
+<span id="label_{{field.name}}">{{field.name}}</span>{{field}}
+</div>
+
+  <input class="button accept" type="submit"  value="Создать" />
+  <a class="button cancel" id="nt-cancel" href="..">Отмена</a>
+</form>
+</div>
+
+<script type="text/javascript">
+$(document).ready(function() {
+
+$('#nt-cancel').attr('href', document.referrer)
+$("#id_year").attr('placeholder','Год')
+last = document.referrer.split('/')[4]
+
+if ($("#id_type option:selected").val() == '4' || $("#id_type option:selected").val() == '5'){
+  if ($("#id_department option:selected").val() == "3" || $("#id_department option:selected").val() == "2") {
+
+    $('#day').css('display','')
+}
+
+
+}
+else {
+$('#day').css('display','none')
+}
+
+switch (last) {
+    case 'vac':
+      $("#id_type option").remove()
+      $("#id_type").append('<option value="4">Выходные</option>')
+      $('#day').css('display','')
+    break;
+
+    case 'over':
+      $("#id_type option").remove()
+      $("#id_type").append('<option value="5">Сверхурочные</option>')
+      $('#day').css('display','')
+    break;
+
+    case 'nn':
+      $("#id_type option").remove()
+      $("#id_type").append('<option value="8">Ненормированность</option>')
+      // $('#day').css('display','')
+    break;
+
+}
+
+if (last == "vac") {
+
+  // $("#id_type option").filter(function() {return this.value == 4;}).prop('selected', true);
+
+
+}
+
+
+})
+
+
+$("#id_type").change(function() {
+    if ($("#id_type option:selected").val() == '4' || $("#id_type option:selected").val() == '5'){
+      if ($("#id_department option:selected").val() == "3" || $("#id_department option:selected").val() == "2") {
+
+        $('#day').css('display','')
+    }
+
+
+}
+else {
+  $('#day').css('display','none')
+}
+})
+</script>
+
+{%endblock%}

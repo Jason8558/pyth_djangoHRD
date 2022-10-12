@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+{%load static%}
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="shortcut icon" href="{% static 'vac_shed/img/favicon.ico'%}" type="image/x-icon">
+  <link rel="stylesheet" href="{% static 'vac_shed/css/style.css'%}">
+  <script src="{% static 'TURV\js\jquery-3.6.0.min.js'%}"  crossorigin="anonymous"></script>
+  <script src="{% static 'vac_shed\js\moment\moment.js'%}"  crossorigin="anonymous"></script>
+  <script src="{% static 'vac_shed\js\vs_main.js'%}"  crossorigin="anonymous"></script>
+  <script src="{% static 'TURV\js\build\date-ru-RU.js'%}" charset="utf-8"></script>
+  {%block script%}{%endblock%}
+ <title>{%block title%} Графики отпусков {%endblock%}</title>
+</head>
+<body>
+  <header>
+
+
+  {%block header%}
+  {%if granted == 1%}
+    <a href="/" class="button back"> < К журналам</a>
+  {%else%}
+    <a href="/turv" class="button back"> < К табелям</a>
+  {%endif%}
+
+  <div class="header-main">
+    <h1>Графики отпусков</h1>
+  </div>
+
+  {%endblock%}
+  <div class="header-user">  <h3 style='float:right;'>{{request.user.first_name}}</h3></div>
+
+    </header>
+  {%block body%}
+  <div class="container">
+    <a href="{% url 'new_vacshed_url'%}" class="button add">+Новый график</a>
+    {%if granted == 1%}
+    <a href="{%url 'global_url'%}" class="button add">Сформировать общий график</a>
+    {%else%}
+    {%endif%}
+    <table class="vs-table">
+      <thead>
+        <th scope="col">Код</th>
+        <th scope="col">Подразделение</th>
+        <th scope="col">Период</th>
+        <th scope="col">Утвержд. СУП</th>
+        <th scope="col">Ответственный</th>
+      </thead>
+      <tbody>
+        {% for s in vacsheds%}
+          <tr id="{{s.id}}" onclick="return window.open('{% url 'vacshed_create_url' vs=s.id%}')">
+            <td>{{s.id}}</td>
+            <td>{{s.dep.name}}</td>
+            <td>{{s.year}}</td>
+            {% if s.sup_check %}
+              <td>+</td>
+            {%else%}
+              <td>-</td>
+            {%endif%}
+            <td>{{s.res_officer}}</td>
+          </tr>
+          {%endfor%}
+      </tbody>
+
+
+    </table>
+
+
+
+
+
+  </div>
+
+
+  {%endblock%}
+
+</body>
+</html>
