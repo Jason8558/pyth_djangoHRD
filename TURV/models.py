@@ -40,8 +40,6 @@ class Department(models.Model):
 
 class Position(models.Model):
     name = models.CharField(verbose_name = 'Название должности', db_index=True, max_length=256)
-    vac_days = models.IntegerField(verbose_name = 'Максимально возможное кол-во дней', default=0)
-    cat = models.ForeignKey('Category', on_delete=models.CASCADE, default='2')
 
     class Meta:
         ordering = ['name']
