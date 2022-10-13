@@ -100,6 +100,12 @@
     {%endif%}
     <td>{{emp.sex}}</td>
 
+    {% if emp.mainworkplace %}
+    <td>✅</td>
+    {%else%}
+    <td>❌</td>
+    {%endif%}
+
 {%endif%}
 
   </tr>
