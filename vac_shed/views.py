@@ -160,6 +160,6 @@ def vacshed_updItem(request, id, type):
 
 def getemployers(request, dep):
     if request.user.is_authenticated:
-        emps = Employers.objects.filter(department_id=dep).filter(fired=0).values('id','fullname','position__name').order_by('fullname')
+        emps = Employers.objects.filter(department_id=dep).filter(fired=0).filter(mainworkplace=1).values('id','fullname','position__name').order_by('fullname')
         emps = list(emps)
         return JsonResponse(emps, safe=False)

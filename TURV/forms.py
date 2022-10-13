@@ -355,7 +355,7 @@ class Tabel_form(forms.ModelForm):
 class Employer_form(forms.ModelForm):
     class Meta:
         model = Employers
-        fields = ['fullname', 'sex', 'position', 'department', 'level', 'positionOfPayment', 'shift_personnel', 'stand_worktime', 'fired']
+        fields = ['fullname', 'sex', 'position', 'department', 'level', 'positionOfPayment', 'shift_personnel', 'stand_worktime', 'fired', 'mainworkplace']
 
     def saveFirst(self):
 
@@ -397,7 +397,8 @@ class Employer_form(forms.ModelForm):
             stand_worktime = self.cleaned_data['stand_worktime'],
             department = self.cleaned_data['department'],
             level = self.cleaned_data['level'],
-            positionOfPayment = self.cleaned_data['positionOfPayment']
+            positionOfPayment = self.cleaned_data['positionOfPayment'],
+            mainworkplace = self.cleaned_data['mainworkplace']
 
     )
         return new_employer

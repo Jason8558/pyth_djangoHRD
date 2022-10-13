@@ -13,6 +13,7 @@
 <form class="new_emp" action="" method="post">
 {% csrf_token %}
 <p class="fio">{{emp.fullname.label}}: {{emp.fullname}}</p>
+<p class="workplace">{{emp.mainworkplace.label}}: {{emp.mainworkplace}}</p>
   <p class="sex">{{emp.sex.label}}: {{emp.sex}}</p>
 <p>{{emp.position.label}}: {{emp.position}}</p>
 <p>{{emp.department.label}}:
