@@ -13,6 +13,7 @@ class Employers(models.Model):
     department = models.ForeignKey('Department', verbose_name='Подразделение', on_delete=models.CASCADE)
     level = models.CharField(verbose_name='Разряд/категория', max_length=256)
     positionOfPayment = models.CharField(verbose_name='Ступень оплаты', max_length=3)
+    mainworkplace = models.BooleanField(verbose_name='Основная специальность', default=False, blank=True)
 
     class Meta:
         ordering = ['fullname']
