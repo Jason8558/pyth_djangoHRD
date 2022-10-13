@@ -92,7 +92,7 @@ def getvacshed_json(request, vs):
 def vacshed_addItem(request,id):
     if request.user.is_authenticated:
         vacshed = VacantionShedule.objects.get(id=id)
-        employers = Employers.objects.filter(department_id=vacshed.dep_id)
+        employers = Employers.objects.filter(department_id=vacshed.dep_id).filter(fired=0)
         employers = list(employers)
         if request.method == 'GET':
             return render(request, 'vac_shed/new_item.html', context={'vacshed':vacshed})
