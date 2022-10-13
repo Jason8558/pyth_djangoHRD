@@ -51,7 +51,7 @@
     url = "/vacshed/getemps/" + {{vacshed.dep_id}}
 
     $.getJSON(url,  (data) => {
-      for (var i = 0; i < data.length; i++) {
+      for (var i = 0; i <= data.length; i++) {
         if (data[i].fullname != data[i+1].fullname) {
         $('#vac_emp').append('<option value=' + data[i].id + '>' + data[i].fullname + '</option>')}
       }
