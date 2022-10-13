@@ -1,8 +1,8 @@
 {% extends 'vac_shed/index.html'%}
 {%load static%}
-{%block title%}Добавить позицию в график{%endblock%}
+{%block title%}{{item.emp.fullname}} c {{item.dur_from}}{%endblock%}
 {%block script%}{%endblock%}
-{%block header%}  <div class="header-main"><a class="button back" href="/vacshed/create/{{item.bound_shed.id}}"> < НАЗАД</a><h1>Добавить позицию</h1></div>{%endblock%}
+{%block header%}  <div class="header-main"><a class="button back" href="/vacshed/create/{{item.bound_shed.id}}"> < НАЗАД</a><h1>Изменить позицию - {{item.emp.fullname}} период с {{item.dur_from}}</h1></div>{%endblock%}
 {% block body %}
 <div class="container">
   <form class="vs-form add" id='addform' action="{%url 'upditem_url' id=item.id type=type%}" method="post">
@@ -26,7 +26,7 @@
       <input id="per-date-from" type="date" name="per-date-from" value="{{item.date_from}}">
 
       <label for="per-date-to">по: </label>
-      <input id="per-date-to" onchange="change_per(0)" type="date" name="per-date-to" value="{{item.date_to}}">
+      <input id="per-date-to"  readonly type="date" name="per-date-to" value="{{item.date_to}}">
       <input id="per-days-count" onchange="change_days(0)" placeholder="Кол-во дней" type="text" name="per-days-count" value="">
     </div>
 
@@ -93,7 +93,7 @@
   function change_days(id){
 
     $('#per' + id + ' #per-date-to').val(end_count($('#per' + id + ' #per-date-from').val(), $('#per' + id + ' #per-days-count').val()))
-
+  celebrates($('#per' + id + ' #per-date-from').val(), $('#per' + id + ' #per-date-to').val(), id)
   }
 
   function vac_calc(date_from, date_to) {
