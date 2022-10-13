@@ -52,7 +52,7 @@
     <th scope="col">Разряд\категория</th>
     <th scope="col">Сменный персонал</th>
     <th scope="col">Пол</th>
-
+    <th scope="col">Основная специальность</th>
 
 
 
@@ -76,6 +76,12 @@
     <td>❌</td>
     {%endif%}
     <td>{{emp.sex}}</td>
+
+    {% if emp.mainworkplace %}
+    <td>✅</td>
+    {%else%}
+    <td>❌</td>
+    {%endif%}
 
   {%else%}
 
