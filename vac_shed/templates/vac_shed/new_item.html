@@ -26,7 +26,7 @@
       <input id="per-date-from" type="date" name="per-date-from" value="">
 
       <label for="per-date-to">по: </label>
-      <input id="per-date-to" onchange="change_per(0)" type="date" name="per-date-to" value="">
+      <input id="per-date-to" onchange="" type="date" name="per-date-to" readonly  disabled value="">
       <input id="per-days-count" onchange="change_days(0)" placeholder="Кол-во дней" type="text" name="per-days-count" value="">
     </div>
 
@@ -62,7 +62,7 @@
     $('#form-add-period').click(function(){
 
       id = id+1
-      newper = '<div id="per'+ id +'" class="vac-period">  <label for="per-date-from">Отпуск с: </label>  <input type="date" id="per-date-from" name="per-date-from" value="">     <label for="per-date-to">по: </label>   <input type="date" id="per-date-to" placeholder="Кол-во дней" onchange="change_per(' + id + ')" name="per-date-to" value="">     <input type="text" id="per-days-count" onchange="change_days(' + id + ')" name="per-days-count" value=""></div>'
+      newper = '<div id="per'+ id +'" class="vac-period">  <label for="per-date-from">Отпуск с: </label>  <input type="date" id="per-date-from" name="per-date-from" value="">     <label for="per-date-to">по: </label>   <input type="date" id="per-date-to" readonly disabled placeholder="Кол-во дней" onchange="change_per(' + id + ')" name="per-date-to" value="">     <input type="text" id="per-days-count" onchange="change_days(' + id + ')" name="per-days-count" value=""></div>'
       console.log(newper);
       $('#vac-form-periods').append(newper)
 
@@ -89,6 +89,8 @@
   function change_days(id){
 
     $('#per' + id + ' #per-date-to').val(end_count($('#per' + id + ' #per-date-from').val(), $('#per' + id + ' #per-days-count').val()))
+
+    celebrates($('#per' + id + ' #per-date-from').val(), $('#per' + id + ' #per-date-to').val(), id)
 
   }
 
