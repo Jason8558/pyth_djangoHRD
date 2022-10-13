@@ -169,6 +169,68 @@ if (day_to[0] == 0) {
 
   }
 
+  else {
+    switch (month_from) {
+      case '01':
+          for (var day of jan) {
+            if (day_from <= day && day_to >= day) {
+              total_celebrate = total_celebrate + 1
+              console.log(total_celebrate);
+            }
+          }
+        break;
+
+      case '02':
+          for (var day of feb) {
+          if (day_from <= day && day_to >= day) {
+              total_celebrate = total_celebrate + 1
+              console.log(total_celebrate);
+            }
+          }
+        break;
+
+        case '03':
+            for (var day of mar) {
+              if (day_from <= day && day_to >= day) {
+                total_celebrate = total_celebrate + 1
+                console.log(total_celebrate);
+              }
+            }
+          break;
+
+          case '05':
+          for (var day of may) {
+            if (day_from <= day && day_to >= day) {
+              total_celebrate = total_celebrate + 1
+              console.log(total_celebrate);
+            }
+          }
+          break;
+
+          case '06':
+          for (var day of jun) {
+          if (day_from <= day && day_to >= day) {
+              total_celebrate = total_celebrate + 1
+              console.log(total_celebrate);
+            }
+          }
+          break;
+
+          case '11':
+          for (var day of nov) {
+          if (day_from <= day && day_to >= day) {
+              total_celebrate = total_celebrate + 1
+              console.log(total_celebrate);
+            }
+          }
+          break;
+
+          default:
+
+        }
+
+  }
+
 date_to = Date.parse(date_to).addDays(parseInt(total_celebrate, 10));
 
 
