@@ -2,7 +2,7 @@
 {%load static%}
 {%block title%}Добавить позицию в график{%endblock%}
 {%block script%}{%endblock%}
-{%block header%}  <div class="header-main"><a class="button back" href="."> < НАЗАД</a><h1>Добавить позицию</h1></div>{%endblock%}
+{%block header%}  <div class="header-main"><a class="button back" href="/vacshed/create/{{vacshed.id}}/"> < НАЗАД</a><h1>Добавить позицию</h1></div>{%endblock%}
 {% block body %}
 <div class="container">
   <form class="vs-form add" id='addform' action="{% url 'additem_url' id=vacshed.id%}" method="post">
