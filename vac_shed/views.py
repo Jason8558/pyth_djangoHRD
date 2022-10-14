@@ -163,3 +163,9 @@ def getemployers(request, dep):
         emps = Employers.objects.filter(department_id=dep).filter(fired=0).filter(mainworkplace=1).values('id','fullname','position__name').order_by('fullname')
         emps = list(emps)
         return JsonResponse(emps, safe=False)
+
+def delitem(request, id):
+    if request.user.is_authenticated:
+        item = VacantionSheduleItem.objects.get(id=id)
+        item.delete()
+    return redirect('/vacshed/create/' + str(item.bound_shed_id) + '/')
