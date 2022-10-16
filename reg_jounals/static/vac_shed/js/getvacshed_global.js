@@ -3,9 +3,12 @@
 
 function getvacshed() {
   year = $('#vs-glob-year').val()
+  dep = $('#vs-glob-dep option:selected').val()
+  per = $('#vs-glob-per option:selected').val()
+
   $('.vs-table-create tbody').empty()
 
-  $.getJSON('/vacshed/global/' + year ,  (data) => {
+  $.getJSON('/vacshed/global/' + year + '/' + dep + '/' + per,  (data) => {
     rowspan = 0
     for (var i = 0; i < data.length; i++) {
 
@@ -51,7 +54,7 @@ function formrow(dep__name, id, emp, emp__fullname, emp__position__name, dur_fro
     days_count_move = ''
   }
 
-    row = '<tr id="'+ id + '_' + emp + '"><td class="dep' + emp + '">' + dep__name + '</td><td class="'+emp+'">' + emp__fullname + ' ' + emp__position__name + '</td><td>' + dur_from + '</td><td class="count_'+ emp + '">' + days_count + '</td><td>'+ move_from + ' - ' + move_to + '</td><td>'+ days_count_move +'</td><td class="totaldays'+emp+'"> </td><td class="child' + emp + '">'+child_year+'</td><td class="city' + emp + '">'+city+'</td></tr>'
+    row = '<tr id="'+ id + '_' + emp + '"><td class="dep' + emp + '">' + dep__name + '</td><td class="'+emp+'">' + emp__fullname + ' ' + emp__position__name + '</td><td>' + dur_from + '</td><td class="count_'+ emp + '">' + days_count + '</td><td>'+ move_from  + '</td><td>'+ days_count_move +'</td><td class="totaldays'+emp+'"> </td><td class="child' + emp + '">'+child_year+'</td><td class="city' + emp + '">'+city+'</td></tr>'
 
 
   return row

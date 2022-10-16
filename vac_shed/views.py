@@ -5,6 +5,7 @@ from TURV.models import Employers
 from TURV.models import Department
 from itertools import groupby
 from .forms import *
+from django.db.models import Sum, F, Case, When, Q
 
 
 def current_user(request):
@@ -54,15 +55,29 @@ def vacshed_new(request):
     else:
         return render(request, 'reg_jounals/no_auth.html')
 
-def vacshed_global_json(request, year):
+def vacshed_global_json(request, year, dep, per):
     if request.user.is_authenticated:
-        items = VacantionSheduleItem.objects.filter(bound_shed__year=year).values('id', 'bound_shed__dep__name' , 'emp', 'emp__fullname', 'dur_from', 'dur_to', 'days_count', 'move_from', 'move_to', 'child_year', 'days_count_move', 'city', 'emp__position__name').order_by('bound_shed__dep__name', 'emp', 'id', 'dur_from')
+        if dep !=0 and per != 0:
+            items_main = VacantionSheduleItem.objects.filter(bound_shed__year=year).filter(bound_shed__dep = dep).filter(dur_from__month=per).exclude(move_from__isnull=False).values('id', 'bound_shed__dep__name' , 'emp', 'emp__fullname', 'dur_from', 'dur_to', 'days_count', 'move_from', 'move_to', 'child_year', 'days_count_move', 'city', 'emp__position__name').order_by('bound_shed__dep__name', 'emp', 'id', 'dur_from')
+            items_move = VacantionSheduleItem.objects.filter(bound_shed__year=year).filter(bound_shed__dep = dep).filter(move_from__month=per).values('id', 'bound_shed__dep__name' , 'emp', 'emp__fullname', 'dur_from', 'dur_to', 'days_count', 'move_from', 'move_to', 'child_year', 'days_count_move', 'city', 'emp__position__name').order_by('bound_shed__dep__name', 'emp', 'id', 'dur_from')
+            items = items_main.union(items_move)
+        else:
+            if dep != 0:
+                items = VacantionSheduleItem.objects.filter(bound_shed__year=year).filter(bound_shed__dep = dep).values('id', 'bound_shed__dep__name' , 'emp', 'emp__fullname', 'dur_from', 'dur_to', 'days_count', 'move_from', 'move_to', 'child_year', 'days_count_move', 'city', 'emp__position__name').order_by('bound_shed__dep__name', 'emp', 'id', 'dur_from')
+            else:
+                if per != 0:
+                    items_main = VacantionSheduleItem.objects.filter(bound_shed__year=year).filter(dur_from__month=per).exclude(move_from__isnull=False).values('id', 'bound_shed__dep__name' , 'emp', 'emp__fullname', 'dur_from', 'dur_to', 'days_count', 'move_from', 'move_to', 'child_year', 'days_count_move', 'city', 'emp__position__name').order_by('bound_shed__dep__name', 'emp', 'id', 'dur_from')
+                    items_move = VacantionSheduleItem.objects.filter(bound_shed__year=year).filter(move_from__month=per).values('id', 'bound_shed__dep__name' , 'emp', 'emp__fullname', 'dur_from', 'dur_to', 'days_count', 'move_from', 'move_to', 'child_year', 'days_count_move', 'city', 'emp__position__name').order_by('bound_shed__dep__name', 'emp', 'id', 'dur_from')
+                    items = items_main.union(items_move)
+                else:
+                    items = VacantionSheduleItem.objects.filter(bound_shed__year=year).values('id', 'bound_shed__dep__name' , 'emp', 'emp__fullname', 'dur_from', 'dur_to', 'days_count', 'move_from', 'move_to', 'child_year', 'days_count_move', 'city', 'emp__position__name').order_by('bound_shed__dep__name', 'emp', 'id', 'dur_from')
         items = list(items)
         return JsonResponse(items, safe=False)
 
 def vacshed_global_create(request):
     if request.user.is_authenticated:
-        return render(request, 'vac_shed/vs-global.html')
+        deps = Department.objects.filter(notused=0)
+        return render(request, 'vac_shed/vs-global.html', context={'deps':deps})
 
 def vacsheds(request):
     if request.user.is_authenticated:

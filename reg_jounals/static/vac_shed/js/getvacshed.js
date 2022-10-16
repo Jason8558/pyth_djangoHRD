@@ -1,8 +1,6 @@
 // $(document).ready(function() {getvacshed()})
 
-function pussy() {
-  alert('Произошла пизда')
-}
+
 
 function getvacshed(granted) {
   id = document.location.href.split('/')[5]

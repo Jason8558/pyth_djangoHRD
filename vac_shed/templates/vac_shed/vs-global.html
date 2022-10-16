@@ -11,6 +11,31 @@
 
   <div class="vs-form global">
     <input type="text" name="vs-glob-year" id="vs-glob-year" placeholder="Введите год" value="">
+    <select id="vs-glob-dep" name="vs-glob-dep">
+      <option value="0">Подразделение</option>
+      {% for d in deps %}
+        <option value="{{d.id}}">{{d.name}}</option>
+      {%endfor%}
+    </select>
+
+
+
+    <select class="" id="vs-glob-per" name="vs-glob-per">
+      <option value="0">Месяц начала периода (переноса)</option>
+      <option value="1">Январь</option>
+      <option value="2">Февраль</option>
+      <option value="3">Март</option>
+      <option value="4">Апрель</option>
+      <option value="5">Май</option>
+      <option value="6">Июнь</option>
+      <option value="7">Июль</option>
+      <option value="8">Август</option>
+      <option value="9">Сентябрь</option>
+      <option value="10">Октябрь</option>
+      <option value="11">Ноябрь</option>
+      <option value="12">Декабрь</option>
+
+    </select>
     <input type="button" class="button" name="" onclick="getvacshed()" value="Сформировать">
     <a class="button print" href="#"> Печать графика </a>
   </div>

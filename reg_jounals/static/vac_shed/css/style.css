@@ -103,10 +103,13 @@ tbody tr:hover {
 display: flex;
 flex-direction: row;
 align-items: stretch;
-justify-content: space-around;
-box-sizing: content-box;
-width: 425px;
+justify-content: space-evenly;
+/* box-sizing: content-box; */
+width: 100%;
 margin: 0;
+box-shadow: 0px 0px 5px 2px black;
+flex-wrap: nowrap;
+align-content: center;
 }
 
 .global * {
