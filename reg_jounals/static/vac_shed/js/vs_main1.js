@@ -135,6 +135,15 @@ if (day_to[0] == 0) {
             }
           break;
 
+          case '04':
+              for (var day of mar) {
+                if (day_to >= day) {
+                  total_celebrate = total_celebrate + 1
+                  console.log(total_celebrate);
+                }
+              }
+            break;
+
           case '05':
           for (var day of may) {
             if (day_to >= day) {
@@ -154,6 +163,33 @@ if (day_to[0] == 0) {
           break;
 
           case '07':
+          for (var day of jun) {
+            if (day_to >= day) {
+              total_celebrate = total_celebrate + 1
+              console.log(total_celebrate);
+            }
+          }
+          break;
+
+          case '08':
+          for (var day of jun) {
+            if (day_to >= day) {
+              total_celebrate = total_celebrate + 1
+              console.log(total_celebrate);
+            }
+          }
+          break;
+
+          case '09':
+          for (var day of jun) {
+            if (day_to >= day) {
+              total_celebrate = total_celebrate + 1
+              console.log(total_celebrate);
+            }
+          }
+          break;
+
+          case '10':
           for (var day of jun) {
             if (day_to >= day) {
               total_celebrate = total_celebrate + 1
