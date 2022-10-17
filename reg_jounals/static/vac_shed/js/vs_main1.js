@@ -153,6 +153,15 @@ if (day_to[0] == 0) {
           }
           break;
 
+          case '07':
+          for (var day of jun) {
+            if (day_to >= day) {
+              total_celebrate = total_celebrate + 1
+              console.log(total_celebrate);
+            }
+          }
+          break;
+
           case '11':
           for (var day of nov) {
             if (day_to >= day) {
