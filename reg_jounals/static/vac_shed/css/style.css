@@ -4,6 +4,10 @@ margin: 0;
 padding: 0;
 box-sizing: border-box;}
 
+.not-print {
+  display: none;
+}
+
 select, input {
 border: 2px solid #ffff93;
 padding: 4px;
@@ -126,7 +130,7 @@ tbody tr:hover {
 }
 
 .cancel {
-  background: #ff7272;
-  /* border-color: #600101; */
-  border: 2px solid #600101;
+background: #ff7272;
+/* border-color: #600101; */
+border: 2px solid #600101;
 }

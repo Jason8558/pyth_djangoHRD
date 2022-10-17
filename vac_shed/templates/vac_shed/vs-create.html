@@ -1,13 +1,19 @@
 {% extends 'vac_shed/index.html'%}
 {%load static%}
 {%block title%}График №{{vacshed.id}}{%endblock%}
-{%block script%}<script src="{% static 'vac_shed/js/getvacshed.js'%}" charset="utf-8"></script>{%endblock%}
+{%block script%}<script src="{% static 'vac_shed/js/getvacshed.js'%}" charset="utf-8">
+
+</script>
+<script src="{% static 'vac_shed/js/print.js'%}" charset="utf-8">
+
+</script>
+{%endblock%}
 {%block header%}  <div class="header-main"><button type="button" onclick="window.close()" class="button" name="button">Закрыть</button><h1> График отпусков <span style="text-decoration: underline;">{{vacshed.dep.name}}</span> на {{vacshed.year}} год</h1></div>{%endblock%}
 {% block body %}
 <div class="container vs-create">
 
   <a class="button" href="{% url 'additem_url' id=vacshed.id%}"> + Добавить сотрудника в график</a>
-  <a class="button print" href="#"> Печать графика </a>
+  <a class="button print" onclick="print()" href="#"> Печать графика </a>
 <table class="vs-table-create">
   <thead>
     <th>Сотрудник</th>
@@ -21,6 +27,7 @@
     <th>Всего дней</th>
     <th>Иждивенец (год р-я)</th>
     <th>Проезд</th>
+    <th class="not-print sign">Ознакомлен</th>
   </thead>
   <tbody>
     {% for i in items %}
@@ -29,6 +36,7 @@
         <td></td>
         <td></td>
         <td></td>
+        <td class="not-print sign"> </td>
       </tr>
       {%endfor%}
   </tbody>
