@@ -13,7 +13,21 @@
 <div class="container vs-create">
 
   <a class="button" href="{% url 'additem_url' id=vacshed.id%}"> + Добавить сотрудника в график</a>
+  {% if granted %}
+    {% if vacshed.sup_check %}
+    <a class="button" id="checkon" href="#">Отменить утверждение</a>
+    {%else%}
+    <a class="button" id="checkof" href="#">Утвердить</a>
+    {%endif%}
+  {%endif%}
   <a class="button print" onclick="print()" href="#"> Печать графика </a>
+
+  {% if vacshed.sup_check%}
+    <span><span>✅</span> График утвержден </span>
+  {%else%}
+  {%endif%}
+
+
 <table class="vs-table-create">
   <thead>
     <th>Сотрудник</th>
@@ -22,6 +36,7 @@
     {% if granted %}
     <th>Перенос</th>
     <th>Дней после переноса</th>
+
     {% else %}
     {%endif%}
     <th>Всего дней</th>
@@ -44,8 +59,17 @@
 </div>
 
 <script type="text/javascript">
-  $(document).ready(function() {getvacshed({{granted}})
-set_onclick()
+  $(document).ready(function() {
+
+  getvacshed({{granted}},'{{vacshed.sup_check}}')
+
+
+
+
 })
-</script>
+
+
+
+    </script>
+
 {%endblock%}
