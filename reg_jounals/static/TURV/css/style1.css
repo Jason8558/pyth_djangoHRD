@@ -962,6 +962,10 @@ height: 251px;}
   border: 3px solid #5a9dff;
 width: 100%;}
 
+.emp {
+  text-align: left !important;
+}
+
 #id_intypes {
 
 height: 162px;}

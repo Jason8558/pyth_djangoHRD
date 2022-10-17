@@ -134,3 +134,7 @@ tbody tr:hover {
 /* border-color: #600101; */
 border: 2px solid #600101;
 }
+
+.emp {
+  text-align: left !important;
+}
