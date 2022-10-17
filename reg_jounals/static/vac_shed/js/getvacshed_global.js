@@ -54,7 +54,7 @@ function formrow(dep__name, id, emp, emp__fullname, emp__position__name, dur_fro
     days_count_move = ''
   }
 
-    row = '<tr id="'+ id + '_' + emp + '"><td class="dep' + emp + '">' + dep__name + '</td><td class="'+emp+'">' + emp__fullname + ' ' + emp__position__name + '</td><td>' + dur_from + '</td><td class="count_'+ emp + '">' + days_count + '</td><td>'+ move_from  + '</td><td>'+ days_count_move +'</td><td class="totaldays'+emp+'"> </td><td class="child' + emp + '">'+child_year+'</td><td class="city' + emp + '">'+city+'</td></tr>'
+    row = '<tr id="'+ id + '_' + emp + '"><td class="dep' + emp + '">' + dep__name + '</td><td class="'+emp+'">' + emp__fullname + ' ' + emp__position__name + '</td><td>' + dur_from + '</td><td class="count_'+ emp + '">' + days_count + '</td><td>'+ move_from  + '</td><td>'+ days_count_move +'</td><td class="totaldays'+emp+'"> </td><td class="child' + emp + '">'+child_year+'</td><td class="city' + emp + '">'+city+'</td><td class="not-print sign sign'+emp +'"</tr>'
 
 
   return row
@@ -67,6 +67,7 @@ function emp(rid,id){
   tchild = $('.child' + id)
   tcity = $('.city' + id)
   tdep = $('.dep' + id)
+  tsign = $('.sign' + id)
   console.log(tdays);
   length = rows_emp.length
 console.log(length);
@@ -79,6 +80,7 @@ console.log(length);
       tchild[0].rowSpan = rows_emp.length
       tcity[0].rowSpan = rows_emp.length
       tdep[0].rowSpan = rows_emp.length
+      tsign[0].rowSpan = rows_emp.length
       rows_emp[0].parentElement.style.borderTop = '2px solid black'
       totaldays = totaldays + parseInt(tdays[i].innerText)
 
@@ -87,6 +89,7 @@ console.log(length);
       tcity[i].remove()
       tchild[i].remove()
       tdep[i].remove()
+      tsign[i].remove()
     }
     tcell[0].innerText = totaldays+parseInt(tdays[0].innerText)
 

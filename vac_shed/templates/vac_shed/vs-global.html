@@ -1,7 +1,8 @@
 {% extends 'vac_shed/index.html'%}
 {%load static%}
 {%block title%}Общий график на {%endblock%}
-{%block script%}<script src="{% static 'vac_shed/js/getvacshed_global.js'%}" charset="utf-8"></script>{%endblock%}
+{%block script%}<script src="{% static 'vac_shed/js/getvacshed_global.js'%}" charset="utf-8"></script>
+<script src="{% static 'vac_shed/js/print.js'%}" charset="utf-8"></script>{%endblock%}
 {%block header%}  <div class="header-main"><button type="button" onclick="window.close()" class="button" name="button">Закрыть</button><h1> Общий график отпусков </h1></div>{%endblock%}
 {% block body %}
 
@@ -37,7 +38,7 @@
 
     </select>
     <input type="button" class="button" name="" onclick="getvacshed()" value="Сформировать">
-    <a class="button print" href="#"> Печать графика </a>
+    <a class="button print" onclick="print()" ref="#"> Печать графика </a>
   </div>
 
 
@@ -52,6 +53,7 @@
     <th>Всего дней</th>
     <th>Иждивенец (год р-я)</th>
     <th>Проезд</th>
+    <th class="not-print">Ознакомлен</th>
   </thead>
   <tbody>
     {% for i in items %}
