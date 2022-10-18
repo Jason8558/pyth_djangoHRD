@@ -1,4 +1,4 @@
-function print(){
+function print(dep, year){
 
 
   info = navigator.userAgent.split(' ')
@@ -17,13 +17,13 @@ function print(){
   WinPrint.document.write("<!DOCTYPE html>")
   WinPrint.document.write('<link rel="stylesheet" type="text/css" href="/static/TURV/css/tabel_print.css"> ')
   WinPrint.document.write('<link rel="stylesheet" href="/static/TURV/css/style1.css">')
-  WinPrint.document.write('<style>.not-print {display: block} !important </style>')
+  WinPrint.document.write('<style>.not-print {display: block !important} h1 {font-size: 19pt; text-align: center;}  </style>')
 
 
 
 
 WinPrint.document.write("<input onclick='window.print()' id='print_button' type='button' value='печать'>")
-
+  WinPrint.document.write("<h1> График отпусков "+ dep + " на " + year + "</h1>")
 
 
     rows = $(".vs-table-create tbody tr")
@@ -42,8 +42,9 @@ if (parts > 0) {
     for (var y = 0; y < parts-1; y++) {
 
         next = i+rcount
+
         WinPrint.document.write("<table class='vs-table-create' style='page-break-after: always; table-layout: fixed !important;'> <thead>")
-        WinPrint.document.write( $(".vs-table-create thead").html() + "<th class='sign'>Ознакомлен</th></thead><tbody>")
+        WinPrint.document.write( $(".vs-table-create thead").html() + "</thead><tbody>")
 
         for (var i = i; i < next; i++) {
 

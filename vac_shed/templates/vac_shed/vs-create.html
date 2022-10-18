@@ -20,7 +20,7 @@
     <a class="button" id="checkof" href="#">Утвердить</a>
     {%endif%}
   {%endif%}
-  <a class="button print" onclick="print()" href="#"> Печать графика </a>
+  <a class="button print" onclick="print('{{vacshed.dep.name}}','{{vacshed.year}}')" href="#"> Печать графика </a>
 
   {% if vacshed.sup_check%}
     <span><span>✅</span> График утвержден </span>
