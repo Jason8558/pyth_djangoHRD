@@ -174,11 +174,11 @@ if (day_to[0] == 0) {
           //
           // break;
 
-          case '09':
-
-              total_celebrate = total_celebrate + 1
-
-          break;
+          // case '09':
+          //
+          //     total_celebrate = total_celebrate + 1
+          //
+          // break;
 
           case '10':
 
