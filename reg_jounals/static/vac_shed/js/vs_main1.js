@@ -162,11 +162,12 @@ if (day_to[0] == 0) {
           }
           break;
 
-          // case '07':
-          //
-          //     total_celebrate = total_celebrate + 1
-          //
-          // break;
+          case '07':
+            if (month_from != '06') {
+
+              total_celebrate = total_celebrate + 1}
+
+          break;
 
           // case '08':
           //
