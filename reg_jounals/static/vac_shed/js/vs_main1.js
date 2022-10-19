@@ -171,7 +171,7 @@ if (day_to[0] == 0) {
 
 
           case '10':
-          if (month_from != '09' || month_from != '08' || month_from != '07' || month_from != '06' || month_from != '03' || month_from != '02' || month_from != '01') {
+          if (month_from != '09' && month_from != '08' && month_from != '07' && month_from != '06' && month_from != '03' && month_from != '02' && month_from != '01') {
 
               total_celebrate = total_celebrate + 1 }
 
@@ -264,6 +264,22 @@ date_to = Date.parse(date_to).addDays(parseInt(total_celebrate, 10));
 console.log($('per' + id + ' #per-date-to').val());
 
 $('#per' + id + ' #per-date-to').val(date_to.toString('yyyy-MM-dd'))
+
+
+
+}
+
+function celebrates_new(date_from, date_to, id) {
+
+  cel_months = [1,2,3,5,6,11]
+
+  jan = [1,2,3,4,5,6,7,8]
+  feb = [23]
+  mar = [8]
+  may = [1,9]
+  jun = [12]
+  nov = [4]
+
 
 
 
