@@ -83,7 +83,7 @@ def vacsheds(request):
     if request.user.is_authenticated:
         print(ugroup(request))
         if ugroup(request) == 1:
-            vacsheds = VacantionShedule.objects.all()
+            vacsheds = VacantionShedule.objects.all().order_by('year','dep__name')
         else:
             deps = Department.objects.filter(user=current_user(request)).values('id')
             vacsheds = VacantionShedule.objects.filter(dep__in=deps)
