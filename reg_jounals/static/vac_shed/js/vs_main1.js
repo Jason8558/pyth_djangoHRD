@@ -169,20 +169,9 @@ if (day_to[0] == 0) {
 
           break;
 
-          // case '08':
-          //
-          //     total_celebrate = total_celebrate + 1
-          //
-          // break;
-
-          // case '09':
-          //
-          //     total_celebrate = total_celebrate + 1
-          //
-          // break;
 
           case '10':
-          if (month_from != '09') {
+          if (month_from != '09' || month_from != '08' || month_from != '07' || month_from != '06' || month_from != '03' || month_from != '02' || month_from != '01') {
 
               total_celebrate = total_celebrate + 1 }
 
