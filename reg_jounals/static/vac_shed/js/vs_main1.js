@@ -271,6 +271,40 @@ $('#per' + id + ' #per-date-to').val(date_to.toString('yyyy-MM-dd'))
 
 function celebrates_new(date_from, date_to, id) {
 
+  date_from = date_from.split('-')[2] + '.' + date_from.split('-')[1] + '.' + date_from.split('-')[0]
+  date_to = date_to.split('-')[2] + '.' + date_to.split('-')[1] + '.' + date_to.split('-')[0]
+
+  day_from = date_from.split('.')[0]
+  month_from = date_from.split('.')[1]
+  year_from = date_from.split('.')[2]
+
+  day_to = date_to.split('.')[0]
+  month_to = date_to.split('.')[1]
+  year_to = date_to.split('.')[2]
+
+
+
+  if (day_from[0] == 0) {
+    day_from = day_from[1]
+  }
+
+  if (month_from[0] == 0) {
+    month_from = month_from[1]
+  }
+
+
+  if (day_to[0] == 0) {
+    day_to = day_to[1]
+  }
+
+  if (month_to[0] == 0) {
+    month_to = month_to[1]
+  }
+
+
+
+
+
   cel_months = [1,2,3,5,6,11]
 
   jan = [1,2,3,4,5,6,7,8]
@@ -280,7 +314,248 @@ function celebrates_new(date_from, date_to, id) {
   jun = [12]
   nov = [4]
 
+  total_celebrate = 0
 
 
+for (var m of cel_months) {
+  if (month_from == m) {
+    switch (month_from) {
+
+// Январь
+      case 1:
+        for (var day of jan) {
+          if (day_from <= day) {
+              total_celebrate = total_celebrate + 1
+          }
+        }
+
+        break;
+
+  // Февраль
+        case 2:
+          for (var day of feb) {
+            if (day_from <= day) {
+                total_celebrate = total_celebrate + 1
+            }
+          }
+
+          break;
+  // Март
+        case 3:
+          for (var day of mar) {
+            if (day_from <= day) {
+                total_celebrate = total_celebrate + 1
+            }
+          }
+
+          break;
+  // Май
+        case 5:
+          for (var day of may) {
+            if (day_from <= day) {
+                total_celebrate = total_celebrate + 1
+            }
+          }
+
+          break;
+
+  // Июнь
+        case 6:
+        for (var day of jun) {
+          if (day_from <= day) {
+            total_celebrate = total_celebrate + 1
+          }
+        }
+
+        break;
+
+  // Июнь
+        case 11:
+        for (var day of nov) {
+          if (day_from <= day) {
+            total_celebrate = total_celebrate + 1
+          }
+        }
+
+        break;
+
+    }
+  }
+
+}
+
+if (month_from != month_to) {
+  for (var i = month_from+1; i <= month_to; i++) {
+    for (var m of cel_months) {
+      if (i == m && i != month_to) {
+        switch (m) {
+
+    // Январь
+          case 1:
+          total_celebrate = total_celebrate + jan.length
+          break;
+
+      // Февраль
+            case 2:
+            total_celebrate = total_celebrate + feb.length
+            break;
+
+      // Март
+            case 3:
+            total_celebrate = total_celebrate + mar.length
+            break;
+      // Май
+            case 5:
+            total_celebrate = total_celebrate + may.length
+            break;
+
+      // Июнь
+            case 6:
+            total_celebrate = total_celebrate + jun.length
+            break;
+
+      // Ноябрь
+            case 11:
+            total_celebrate = total_celebrate + nov.length
+            break;
+
+        }
+
+      }
+else if (i == m && i == month_to) {
+  switch (month_to) {
+
+// Январь
+    case 1:
+      for (var day of jan) {
+        if (day_to >= day) {
+            total_celebrate = total_celebrate + 1
+        }
+      }
+
+      break;
+
+// Февраль
+      case 2:
+        for (var day of feb) {
+          if (day_to >= day) {
+              total_celebrate = total_celebrate + 1
+          }
+        }
+
+        break;
+// Март
+      case 3:
+        for (var day of mar) {
+          if (day_to >= day) {
+              total_celebrate = total_celebrate + 1
+          }
+        }
+
+        break;
+// Май
+      case 5:
+        for (var day of may) {
+          if (day_to >= day) {
+              total_celebrate = total_celebrate + 1
+          }
+        }
+
+        break;
+
+// Июнь
+      case 6:
+      for (var day of jun) {
+        if (day_to >= day) {
+          total_celebrate = total_celebrate + 1
+        }
+      }
+
+      break;
+
+// Июнь
+      case 11:
+      for (var day of nov) {
+        if (day_to >= day) {
+          total_celebrate = total_celebrate + 1
+        }
+      }
+
+      break;
+
+  }
+
+}
+
+    }
+  }
+}
+
+else {
+  switch (month_from) {
+    case 1:
+        for (var day of jan) {
+          if (day_from <= day && day_to >= day) {
+            total_celebrate = total_celebrate + 1
+            console.log(total_celebrate);
+          }
+        }
+      break;
+
+    case 2:
+        for (var day of feb) {
+        if (day_from <= day && day_to >= day) {
+            total_celebrate = total_celebrate + 1
+            console.log(total_celebrate);
+          }
+        }
+      break;
+
+      case 3:
+          for (var day of mar) {
+            if (day_from <= day && day_to >= day) {
+              total_celebrate = total_celebrate + 1
+              console.log(total_celebrate);
+            }
+          }
+        break;
+
+        case 5:
+        for (var day of may) {
+          if (day_from <= day && day_to >= day) {
+            total_celebrate = total_celebrate + 1
+            console.log(total_celebrate);
+          }
+        }
+        break;
+
+        case 6:
+        for (var day of jun) {
+        if (day_from <= day && day_to >= day) {
+            total_celebrate = total_celebrate + 1
+            console.log(total_celebrate);
+          }
+        }
+        break;
+
+        case 11:
+        for (var day of nov) {
+        if (day_from <= day && day_to >= day) {
+            total_celebrate = total_celebrate + 1
+            console.log(total_celebrate);
+          }
+        }
+        break;
+
+        default:
+
+      }
+}
+
+
+
+date_to = Date.parse(date_to).addDays(parseInt(total_celebrate, 10));
+
+$('#per' + id + ' #per-date-to').val(date_to.toString('yyyy-MM-dd'))
 
 }
