@@ -17,23 +17,46 @@
   <input type="text" name="child" placeholder="Год рождения" value="{{item.child_year}}">
 </div>
 {%else%}
+{%endif%}
 
+{%if type == 2%}
   <div id="vac-form-periods" class=".vac-form-periods">
 
     <div class="vac-period">
       <h4>Введите новые данные о периоде</h4>
       <label for="per-date-from">Отпуск с: </label>
-      <input id="per-date-from" type="date" name="per-date-from" value="{{item.date_from}}">
+      <input id="per-date-from" type="date" name="per-date-from" value="{{item.dur_from}}">
 
       <label for="per-date-to">по: </label>
-      <input id="per-date-to"  readonly type="date" name="per-date-to" value="{{item.date_to}}">
+      <input id="per-date-to"  readonly type="date" name="per-date-to" value="{{item.dur_to}}">
       <input id="per-days-count" onchange="change_days(0)" placeholder="Кол-во дней" type="text" name="per-days-count" value="">
     </div>
 
   </div>
+  {%else%}
+  {%endif%}
 
 
-{%endif%}
+  {%if type == 3%}
+    <div id="vac-form-periods" class=".vac-form-periods">
+      <h4>Оформление переноса периода: {{item.dur_from|date:"d.m.Y"}} по {{item.dur_to|date:"d.m.Y"}} кол-во дней: {{item.days_count}}</h4>
+      <div class="vac-period">
+        <h4>Введите данные о переносе</h4>
+        <label for="per-date-move-from">Отпуск с: </label>
+        <input id="per-date-from" type="date" name="per-date-move-from" value="">
+
+        <label for="per-date-move-to">по: </label>
+        <input id="per-date-to"  readonly type="date" name="per-date-move-to" value="">
+        <input id="per-days-count" onchange="change_days(0)" placeholder="Кол-во дней" type="text" name="per-days-move-count" value="">
+        <label for="move-reason">Основание переноса: </label>
+        <textarea name="move-reason" id="move-reason" rows="8" cols="80"></textarea>
+      </div>
+
+    </div>
+    {%else%}
+    {%endif%}
+
+
 <input class="button accept" type="submit" name="" value="Сохранить">
 <a href="{% url 'delitem_url' id=item.id%}" class="button cancel">Удалить период</a>
 

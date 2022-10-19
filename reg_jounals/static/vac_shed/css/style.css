@@ -8,7 +8,7 @@ box-sizing: border-box;}
   display: none;
 }
 
-select, input {
+select, input, textarea {
 border: 2px solid #ffff93;
 padding: 4px;
 background: #efefef;

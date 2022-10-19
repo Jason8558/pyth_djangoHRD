@@ -64,7 +64,7 @@ function formrow(id, emp, emp__fullname, emp__position__name, dur_from, dur_to, 
     row = '<tr class="vs_row" id="'+ id + '_' + emp + '"><td class="emp '+emp+'">' + emp__fullname + ' | ' + emp__position__name + '</td><td id="durfrom_'+ id +'_' + emp + '">' + dur_from + '</td><td class="count_'+ emp + '">' + days_count + '</td><td class="totaldays'+emp+'"> </td><td class="child' + emp + '">'+child_year+'</td><td id="city_'+ id + '" class="city city' + emp + '">'+city+'</td><td class="not-print sign sign'+ emp +'"></td></tr>'
   }
   else {
-    row = '<tr class="vs_row" id="'+ id + '_' + emp + '"><td class="emp '+emp+'">' + emp__fullname + ' | ' + emp__position__name + '</td><td id="durfrom_' + id + '_' + emp + '">' + dur_from + '</td><td class="count_'+ emp + '">' + days_count + '</td><td>'+ move_from + ' - ' + move_reason + '</td><td>'+ days_count_move +'</td><td class="totaldays'+emp+'"> </td><td class="child' + emp + '">'+child_year+'</td><td id="city_'+ id + '" class="city city' + emp + '">'+city+'</td><td class="not-print sign  sign'+ emp +'"></td></tr>'
+    row = '<tr class="vs_row" id="'+ id + '_' + emp + '"><td class="emp '+emp+'">' + emp__fullname + ' | ' + emp__position__name + '</td><td id="durfrom_' + id + '_' + emp + '">' + dur_from + '</td><td class="count_'+ emp + '">' + days_count + '</td><td id="movefrom' + id + '" class="movefrom">'+ move_from + ' - ' + move_reason + '</td><td class="movecount_'+ emp +'">'+ days_count_move +'</td><td class="totaldays'+emp+'"> </td><td class="child' + emp + '">'+child_year+'</td><td id="city_'+ id + '" class="city city' + emp + '">'+city+'</td><td class="not-print sign  sign'+ emp +'"></td></tr>'
   }
 
   return row
@@ -73,6 +73,7 @@ function formrow(id, emp, emp__fullname, emp__position__name, dur_from, dur_to, 
 function emp(rid,id,check,granted){
   rows_emp = $('.' + id)
   tdays = $('.count_' + id)
+  tmovedays = $('.movecount_' + id)
   tcell = $('.totaldays' + id)
   tchild = $('.child' + id)
   tcity = $('.city' + id)
@@ -92,13 +93,25 @@ function emp(rid,id,check,granted){
       rows_emp[0].parentElement.style.borderTop = '2px solid black'
       totaldays = totaldays + parseInt(tdays[i].innerText)
 
+      if (tmovedays[i].innerText) {
+        totaldays = totaldays - parseInt(tdays[i].innerText)
+        totaldays = totaldays + parseInt(tmovedays[i].innerText)
+      }
+
+
+
       rows_emp[i].remove()
       tcell[i].remove()
       tcity[i].remove()
       tchild[i].remove()
       tsign[i].remove()
     }
+
+
+
     tcell[0].innerText = totaldays+parseInt(tdays[0].innerText)
+    if (tmovedays[0].innerText) {
+    tcell[0].innerText = totaldays+parseInt(tmovedays[0].innerText)}
 
 
 
@@ -135,8 +148,12 @@ function set_onclick() {
     url2 = "/" + "vacshed" + "/" + "itemupd" + "/" + id + "/1'"
     click2 = "location.href = '" + url2
 
+    url3 = "/" + "vacshed" + "/" + "itemupd" + "/" + id + "/3'"
+    click3 = "location.href = '" + url3
+
     $('#durfrom_' + r.id).attr('onclick', click)
     $('#city_' + id).attr('onclick', click2)
+    $('#movefrom' + id).attr('onclick', click3)
   }
 }
 
