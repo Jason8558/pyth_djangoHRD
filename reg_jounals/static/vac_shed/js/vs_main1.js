@@ -162,37 +162,28 @@ if (day_to[0] == 0) {
           }
           break;
 
-          case '07':
-  
-              total_celebrate = total_celebrate + 1
+          // case '07':
+          //
+          //     total_celebrate = total_celebrate + 1
+          //
+          // break;
 
-          break;
-
-          case '08':
-          for (var day of jun) {
-            if (day_to >= day) {
-              total_celebrate = total_celebrate + 1
-              console.log(total_celebrate);
-            }
-          }
-          break;
+          // case '08':
+          //
+          //     total_celebrate = total_celebrate + 1
+          //
+          // break;
 
           case '09':
-          for (var day of jun) {
-            if (day_to >= day) {
+
               total_celebrate = total_celebrate + 1
-              console.log(total_celebrate);
-            }
-          }
+
           break;
 
           case '10':
-          for (var day of jun) {
-            if (day_to >= day) {
+
               total_celebrate = total_celebrate + 1
-              console.log(total_celebrate);
-            }
-          }
+
           break;
 
           case '11':
@@ -208,7 +199,7 @@ if (day_to[0] == 0) {
 
 
   }
-
+console.log(total_celebrate);
   }
 
   else {
