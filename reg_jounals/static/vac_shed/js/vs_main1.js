@@ -282,27 +282,28 @@ function celebrates_new(date_from, date_to, id) {
   month_to = date_to.split('.')[1]
   year_to = date_to.split('.')[2]
 
+console.log('one');
 
 
   if (day_from[0] == 0) {
-    day_from = day_from[1]
+    day_from = parseInt(day_from[1], 10)
   }
 
   if (month_from[0] == 0) {
-    month_from = month_from[1]
+    month_from = parseInt(month_from[1], 10)
   }
 
 
   if (day_to[0] == 0) {
-    day_to = day_to[1]
+    day_to = parseInt(day_to[1], 10)
   }
 
   if (month_to[0] == 0) {
-    month_to = month_to[1]
+    month_to = parseInt(month_to[1], 10)
   }
 
 
-
+console.log(month_to);
 
 
   cel_months = [1,2,3,5,6,11]
@@ -329,6 +330,8 @@ for (var m of cel_months) {
           }
         }
 
+            console.log(total_celebrate);
+
         break;
 
   // Февраль
@@ -338,7 +341,7 @@ for (var m of cel_months) {
                 total_celebrate = total_celebrate + 1
             }
           }
-
+    console.log(total_celebrate);
           break;
   // Март
         case 3:
@@ -347,7 +350,7 @@ for (var m of cel_months) {
                 total_celebrate = total_celebrate + 1
             }
           }
-
+    console.log(total_celebrate);
           break;
   // Май
         case 5:
@@ -385,10 +388,13 @@ for (var m of cel_months) {
 }
 
 if (month_from != month_to) {
-  for (var i = month_from+1; i <= month_to; i++) {
+  for (var i = parseInt(month_from, 10)+1; i <= month_to; i++) {
     for (var m of cel_months) {
+      console.log(m);
+        console.log(i);
       if (i == m && i != month_to) {
-        switch (m) {
+
+        switch (i) {
 
     // Январь
           case 1:
@@ -398,11 +404,13 @@ if (month_from != month_to) {
       // Февраль
             case 2:
             total_celebrate = total_celebrate + feb.length
+                console.log(total_celebrate);
             break;
 
       // Март
             case 3:
             total_celebrate = total_celebrate + mar.length
+                console.log(total_celebrate);
             break;
       // Май
             case 5:
@@ -442,7 +450,7 @@ else if (i == m && i == month_to) {
               total_celebrate = total_celebrate + 1
           }
         }
-
+    console.log(total_celebrate);
         break;
 // Март
       case 3:
