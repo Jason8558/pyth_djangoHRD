@@ -92,11 +92,12 @@ function emp(rid,id,check,granted){
       tsign[0].rowSpan = rows_emp.length
       rows_emp[0].parentElement.style.borderTop = '2px solid black'
       totaldays = totaldays + parseInt(tdays[i].innerText)
-
+if (tmovedays.length != 0) {
       if (tmovedays[i].innerText) {
         totaldays = totaldays - parseInt(tdays[i].innerText)
         totaldays = totaldays + parseInt(tmovedays[i].innerText)
       }
+    }
 
 
 
@@ -108,10 +109,12 @@ function emp(rid,id,check,granted){
     }
 
 
-
+if (tmovedays.length != 0) {
+  if (tmovedays[0].innerText) {
+  tcell[0].innerText = totaldays+parseInt(tmovedays[0].innerText)}
+}
     tcell[0].innerText = totaldays+parseInt(tdays[0].innerText)
-    if (tmovedays[0].innerText) {
-    tcell[0].innerText = totaldays+parseInt(tmovedays[0].innerText)}
+
 
 
 
