@@ -173,7 +173,7 @@ def vacshed_updItem(request, id, type):
                 item.days_count = ndayscount
                 item.save()
             else:
-                if type == 2:
+                if type == 1:
                     item.city = ncity
                     item.child_year = nchild
                     item.save()
