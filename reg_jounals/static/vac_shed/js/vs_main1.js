@@ -503,7 +503,7 @@ else {
   switch (month_from) {
     case 1:
         for (var day of jan) {
-          if (day_from >= day && day_to >= day) {
+          if (day_from <= day && day_to >= day) {
             total_celebrate = total_celebrate + 1
             console.log(total_celebrate);
           }
