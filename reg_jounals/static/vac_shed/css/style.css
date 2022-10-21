@@ -42,6 +42,9 @@ table {
   border-collapse: collapse;
 text-align: center;width: 100%;margin-top: 19px;}
 
+table tr {
+page-break-before: avoid;}
+
 thead {background:  #fdfd82; }
 tbody {background: white;}
 
@@ -137,4 +140,9 @@ tbody tr:hover {
 
 .emp {
   text-align: left !important;
+}
+
+@media print {
+  table {}
+  .container {}
 }

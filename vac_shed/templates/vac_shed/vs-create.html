@@ -7,6 +7,9 @@
 <script src="{% static 'vac_shed/js/print.js'%}" charset="utf-8">
 
 </script>
+
+<link rel="stylesheet" href="https://unpkg.com/gutenberg-css@0.6" media="print">
+<link rel="stylesheet" href="https://unpkg.com/gutenberg-css@0.6/dist/themes/oldstyle.min.css" media="print">
 {%endblock%}
 {%block header%}  <div class="header-main"><button type="button" onclick="window.close()" class="button" name="button">Закрыть</button><h1> График отпусков <span style="text-decoration: underline;">{{vacshed.dep.name}}</span> на {{vacshed.year}} год</h1></div>{%endblock%}
 {% block body %}
@@ -15,9 +18,9 @@
   <a class="button" href="{% url 'additem_url' id=vacshed.id%}"> + Добавить сотрудника в график</a>
   {% if granted %}
     {% if vacshed.sup_check %}
-    <a class="button" id="checkon" href="#">Отменить утверждение</a>
+    <a class="button" id="checkon" href="{% url 'check_url' id=vacshed.id%}">Отменить утверждение</a>
     {%else%}
-    <a class="button" id="checkof" href="#">Утвердить</a>
+    <a class="button" id="checkof"  href="{% url 'check_url' id=vacshed.id%}">Утвердить</a>
     {%endif%}
   {%endif%}
   <a class="button print" onclick="print('{{vacshed.dep.name}}','{{vacshed.year}}')" href="#"> Печать графика </a>

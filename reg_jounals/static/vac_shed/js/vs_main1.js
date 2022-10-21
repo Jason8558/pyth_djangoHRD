@@ -500,57 +500,66 @@ else if (i == m && i == month_to) {
 }
 
 else {
+  total_celebrate = 0
   switch (month_from) {
     case 1:
+      for (var i = day_from; i <= day_to; i++) {
         for (var day of jan) {
-          if (day_from <= day && day_to >= day) {
+          if (i == day) {
             total_celebrate = total_celebrate + 1
-            console.log(total_celebrate);
           }
         }
+      }
+
       break;
 
     case 2:
-        for (var day of feb) {
-        if (day_from >= day && day_to >= day) {
-            total_celebrate = total_celebrate + 1
-            console.log(total_celebrate);
-          }
-        }
+            for (var i = day_from; i <= day_to; i++) {
+              for (var day of feb) {
+                if (i == day) {
+                  total_celebrate = total_celebrate + 1
+                }
+              }
+            }
+
       break;
 
       case 3:
-          for (var day of mar) {
-            if (day_from >= day && day_to >= day) {
-              total_celebrate = total_celebrate + 1
-              console.log(total_celebrate);
+      for (var i = day_from; i <= day_to; i++) {
+        for (var day of mar) {
+          if (i == day) {
+            total_celebrate = total_celebrate + 1
+          }
+        }
+      }
+        break;
+
+        case 5:
+          for (var i = day_from; i <= day_to; i++) {
+            for (var day of may) {
+              if (i == day) {
+                total_celebrate = total_celebrate + 1
+              }
             }
           }
         break;
 
-        case 5:
-        for (var day of may) {
-          if (day_from >= day && day_to >= day) {
-            total_celebrate = total_celebrate + 1
-            console.log(total_celebrate);
-          }
-        }
-        break;
-
         case 6:
-        for (var day of jun) {
-        if (day_from >= day && day_to >= day) {
-            total_celebrate = total_celebrate + 1
-            console.log(total_celebrate);
+        for (var i = day_from; i <= day_to; i++) {
+          for (var day of jun) {
+            if (i == day) {
+              total_celebrate = total_celebrate + 1
+            }
           }
         }
         break;
 
         case 11:
-        for (var day of nov) {
-        if (day_from >= day && day_to >= day) {
-            total_celebrate = total_celebrate + 1
-            console.log(total_celebrate);
+        for (var i = day_from; i <= day_to; i++) {
+          for (var day of nov) {
+            if (i == day) {
+              total_celebrate = total_celebrate + 1
+            }
           }
         }
         break;

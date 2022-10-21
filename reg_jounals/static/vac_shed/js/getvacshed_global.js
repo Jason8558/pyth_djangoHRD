@@ -33,7 +33,7 @@ function formrow(dep__name, id, emp, emp__fullname, emp__position__name, dur_fro
 
   dur_to = dur_to.toString().split('-')
   dur_to = dur_to[2]+'.'+dur_to[1]+'.'+dur_to[0]
-  console.log(move_to);
+
   if (move_from == null) {
     move_from = ''
   }
@@ -68,14 +68,16 @@ function emp(rid,id){
   tcity = $('.city' + id)
   tdep = $('.dep' + id)
   tsign = $('.sign' + id)
-  console.log(tdays);
+
   length = rows_emp.length
-console.log(length);
+
   totaldays = 0
-  console.log(id + " " + length);
+
   if (length > 1) {
     for (var i = 1; i < length; i++) {
       rows_emp[0].rowSpan = rows_emp.length
+
+
       tcell[0].rowSpan = rows_emp.length
       tchild[0].rowSpan = rows_emp.length
       tcity[0].rowSpan = rows_emp.length
@@ -93,16 +95,20 @@ console.log(length);
     }
     tcell[0].innerText = totaldays+parseInt(tdays[0].innerText)
 
-
+    for (var re of rows_emp) {
+      if (re.rowSpan > 1) {
+        re.parentNode.classList.add('main-row')
+      }
+    }
 
 
 
   }
   else {
     rows_emp[0].parentElement.style.borderTop = '2px solid black'
-    // tcell[0].innerText = tdays[0].innerText
 
   }
+
 
 
 

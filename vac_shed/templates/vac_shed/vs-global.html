@@ -2,8 +2,10 @@
 {%load static%}
 {%block title%}Общий график на {%endblock%}
 {%block script%}<script src="{% static 'vac_shed/js/getvacshed_global.js'%}" charset="utf-8"></script>
-<script src="{% static 'vac_shed/js/print.js'%}" charset="utf-8"></script>{%endblock%}
-{%block header%}  <div class="header-main"><button type="button" onclick="window.close()" class="button" name="button">Закрыть</button><h1> Общий график отпусков </h1></div>{%endblock%}
+<script src="{% static 'vac_shed/js/print.js'%}" charset="utf-8"></script>
+<link rel="stylesheet" href="https://unpkg.com/gutenberg-css@0.6" media="print">
+<link rel="stylesheet" href="https://unpkg.com/gutenberg-css@0.6/dist/themes/oldstyle.min.css" media="print">{%endblock%}
+{%block header%}  <div class="header-main no-print"><button type="button" onclick="window.close()" class="button" name="button">Закрыть</button><h1> Общий график отпусков </h1></div>{%endblock%}
 {% block body %}
 
 
@@ -42,7 +44,7 @@
   </div>
 
 
-<table class="vs-table-create">
+<table class="vs-table-create avoid-break-inside">
   <thead>
     <th>Подразделение</th>
     <th>Сотрудник</th>
