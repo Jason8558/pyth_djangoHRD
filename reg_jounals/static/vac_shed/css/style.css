@@ -129,7 +129,7 @@ tbody tr:hover {
 }
 
 .print {
-
+  display: none;
 }
 
 .cancel {
@@ -143,6 +143,15 @@ tbody tr:hover {
 }
 
 @media print {
-  table {}
-  .container {}
+  table {page-break-before: avoid;
+  page-break-inside: auto  !important;}
+  .container {
+    width: 100%;
+}
+  .print {display: inherit !important;}
+
+  body {padding: 0 !important;}
+
+  h1 {font-family: sans-serif !important; }
+
 }

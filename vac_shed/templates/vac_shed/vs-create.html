@@ -4,29 +4,30 @@
 {%block script%}<script src="{% static 'vac_shed/js/getvacshed.js'%}" charset="utf-8">
 
 </script>
-<script src="{% static 'vac_shed/js/print.js'%}" charset="utf-8">
+<!-- <script src="{% static 'vac_shed/js/print.js'%}" charset="utf-8"> -->
 
-</script>
+<!-- </script> -->
 
 <link rel="stylesheet" href="https://unpkg.com/gutenberg-css@0.6" media="print">
 <link rel="stylesheet" href="https://unpkg.com/gutenberg-css@0.6/dist/themes/oldstyle.min.css" media="print">
 {%endblock%}
-{%block header%}  <div class="header-main"><button type="button" onclick="window.close()" class="button" name="button">Закрыть</button><h1> График отпусков <span style="text-decoration: underline;">{{vacshed.dep.name}}</span> на {{vacshed.year}} год</h1></div>{%endblock%}
+{%block header%}  <div class="header-main no-print"><button type="button" onclick="window.close()" class="button" name="button">Закрыть</button><h1> График отпусков <span style="text-decoration: underline;">{{vacshed.dep.name}}</span> на {{vacshed.year}} год</h1></div>{%endblock%}
 {% block body %}
+<h1 class="print">График отпусков {{vacshed.dep.name}} на {{vacshed.year}}г.</h1>
 <div class="container vs-create">
 
-  <a class="button" href="{% url 'additem_url' id=vacshed.id%}"> + Добавить сотрудника в график</a>
+  <a class="button no-print" href="{% url 'additem_url' id=vacshed.id%}"> + Добавить сотрудника в график</a>
   {% if granted %}
     {% if vacshed.sup_check %}
-    <a class="button" id="checkon" href="{% url 'check_url' id=vacshed.id%}">Отменить утверждение</a>
+    <a class="button no-print" id="checkon" href="{% url 'check_url' id=vacshed.id%}">Отменить утверждение</a>
     {%else%}
-    <a class="button" id="checkof"  href="{% url 'check_url' id=vacshed.id%}">Утвердить</a>
+    <a class="button no-print" id="checkof"  href="{% url 'check_url' id=vacshed.id%}">Утвердить</a>
     {%endif%}
   {%endif%}
-  <a class="button print" onclick="print('{{vacshed.dep.name}}','{{vacshed.year}}')" href="#"> Печать графика </a>
+  <a class="button no-print" onclick="window.print()" href="#"> Печать графика </a>
 
   {% if vacshed.sup_check%}
-    <span><span>✅</span> График утвержден </span>
+    <span class="no-print"><span>✅</span> График утвержден </span>
   {%else%}
   {%endif%}
 

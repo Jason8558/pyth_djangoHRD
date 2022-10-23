@@ -30,9 +30,11 @@
   </div>
 
   {%endblock%}
-  <div class="header-user">  <h3 style='float:right;'>{{request.user.first_name}}</h3></div>
+  <div class="header-user no-print">  <h3 style='float:right;'>{{request.user.first_name}}</h3></div>
 
     </header>
+
+
   {%block body%}
   <div class="container">
     <a href="{% url 'new_vacshed_url'%}" class="button add">+Новый график</a>
