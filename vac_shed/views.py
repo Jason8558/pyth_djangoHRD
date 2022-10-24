@@ -65,7 +65,7 @@ def vacshed_global_json(request, year, dep, per):
             if dep != 0:
                 items = VacantionSheduleItem.objects.filter(bound_shed__year=year).filter(bound_shed__dep = dep).values('id', 'bound_shed__dep__name' , 'emp__aup__name' ,'emp', 'emp__fullname', 'dur_from', 'dur_to', 'days_count', 'move_from', 'move_to', 'child_year', 'days_count_move', 'city', 'emp__position__name').order_by('bound_shed__dep__name', 'emp__fullname', 'id', 'dur_from')
                 items_aup = VacantionSheduleItem.objects.filter(bound_shed__year=year).filter(emp__aup_id = dep).values('id', 'bound_shed__dep__name' , 'emp__aup__name' , 'emp', 'emp__fullname', 'dur_from', 'dur_to', 'days_count', 'move_from', 'move_to', 'child_year', 'days_count_move', 'city', 'emp__position__name').order_by('bound_shed__dep__name', 'emp__fullname', 'id', 'dur_from')
-                items = items.union(items_aup)
+                items = items.union(items_aup).order_by('bound_shed__dep__name', 'emp__fullname', 'id', 'dur_from')
             else:
                 if per != 0:
                     items_main = VacantionSheduleItem.objects.filter(bound_shed__year=year).filter(dur_from__month=per).exclude(move_from__isnull=False).values('id', 'bound_shed__dep__name' , 'emp__aup__name' , 'emp', 'emp__fullname', 'dur_from', 'dur_to', 'days_count', 'move_from', 'move_to', 'child_year', 'days_count_move', 'city', 'emp__position__name').order_by('bound_shed__dep__name', 'emp', 'id', 'dur_from')
