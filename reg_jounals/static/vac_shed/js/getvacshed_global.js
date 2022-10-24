@@ -12,7 +12,7 @@ function getvacshed() {
     rowspan = 0
     for (var i = 0; i < data.length; i++) {
 
-      $('.vs-table-create tbody').append(formrow(data[i].bound_shed__dep__name, data[i].id, data[i].emp ,data[i].emp__fullname, data[i].emp__position__name, data[i].dur_from, data[i].dur_to, data[i].days_count, data[i].move_from, data[i].move_to, data[i].days_count_move, data[i].child_year, data[i].city))
+      $('.vs-table-create tbody').append(formrow(data[i].bound_shed__dep__name, data[i].emp__aup__name, data[i].id, data[i].emp ,data[i].emp__fullname, data[i].emp__position__name, data[i].dur_from, data[i].dur_to, data[i].days_count, data[i].move_from, data[i].move_to, data[i].days_count_move, data[i].child_year, data[i].city))
 
 
     }
@@ -27,7 +27,7 @@ function getvacshed() {
 
 }
 
-function formrow(dep__name, id, emp, emp__fullname, emp__position__name, dur_from, dur_to, days_count, move_from, move_to, days_count_move, child_year, city){
+function formrow(dep__name, aup__name, id, emp, emp__fullname, emp__position__name, dur_from, dur_to, days_count, move_from, move_to, days_count_move, child_year, city){
   dur_from = dur_from.toString().split('-')
   dur_from = dur_from[2]+'.'+dur_from[1]+'.'+dur_from[0]
 
@@ -54,7 +54,14 @@ function formrow(dep__name, id, emp, emp__fullname, emp__position__name, dur_fro
     days_count_move = ''
   }
 
-    row = '<tr id="'+ id + '_' + emp + '"><td class="dep' + emp + '">' + dep__name + '</td><td class="emp '+emp+'">' + emp__fullname + ' ' + emp__position__name + '</td><td>' + dur_from + '</td><td class="count_'+ emp + '">' + days_count + '</td><td>'+ move_from  + '</td><td>'+ days_count_move +'</td><td class="totaldays'+emp+'"> </td><td class="child' + emp + '">'+child_year+'</td><td class="city' + emp + '">'+city+'</td><td class="not-print sign sign'+emp +'"</tr>'
+  if (aup__name == null) {
+    aup__name = ""
+  }
+  else {
+    aup__name = "(" + aup__name + ")"
+  }
+
+    row = '<tr id="'+ id + '_' + emp + '"><td class="dep' + emp + '">' + dep__name + " " + aup__name + '</td><td class="emp '+emp+'">' + emp__fullname + ' ' + emp__position__name + '</td><td>' + dur_from + '</td><td class="count_'+ emp + '">' + days_count + '</td><td>'+ move_from  + '</td><td>'+ days_count_move +'</td><td class="totaldays'+emp+'"> </td><td class="child' + emp + '">'+child_year+'</td><td class="city' + emp + '">'+city+'</td><td class="not-print sign sign'+emp +'"</tr>'
 
 
   return row
