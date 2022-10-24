@@ -4,6 +4,7 @@
 function getvacshed() {
   year = $('#vs-glob-year').val()
   dep = $('#vs-glob-dep option:selected').val()
+  dep_name = $('#vs-glob-dep option:selected').text()
   per = $('#vs-glob-per option:selected').val()
 
   $('.vs-table-create tbody').empty()
@@ -12,7 +13,7 @@ function getvacshed() {
     rowspan = 0
     for (var i = 0; i < data.length; i++) {
 
-      $('.vs-table-create tbody').append(formrow(data[i].bound_shed__dep__name, data[i].emp__aup__name, data[i].id, data[i].emp ,data[i].emp__fullname, data[i].emp__position__name, data[i].dur_from, data[i].dur_to, data[i].days_count, data[i].move_from, data[i].move_to, data[i].days_count_move, data[i].child_year, data[i].city))
+      $('.vs-table-create tbody').append(formrow(data[i].emp__department__name, data[i].emp__aup__name, data[i].id, data[i].emp ,data[i].emp__fullname, data[i].emp__position__name, data[i].dur_from, data[i].dur_to, data[i].days_count, data[i].move_from, data[i].move_to, data[i].days_count_move, data[i].child_year, data[i].city))
 
 
     }
@@ -117,6 +118,7 @@ function emp(rid,id){
   }
 
 
-
+$('#ph-dep').text(dep_name)
+$('#ph-year').text(year)
 
 }

@@ -142,6 +142,26 @@ tbody tr:hover {
   text-align: left !important;
 }
 
+.cover {
+    float: right;
+    margin: 0px auto;
+    width: 100%;
+}
+
+.cover table {
+    float: right;
+    width: 592px;
+    margin-right: 20px;
+}
+
+.cover table * {
+    border: none !important;
+}
+
+#prof {
+    float: left;
+}
+
 @media print {
   table {page-break-before: avoid;
   page-break-inside: auto  !important;}
