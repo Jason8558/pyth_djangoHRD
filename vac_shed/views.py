@@ -91,6 +91,16 @@ def vacsheds(request):
     else:
         return redirect('/accounts/login/')
 
+def vacsheds_aup(request):
+    if request.user.is_authenticated:
+        deps = Department.objects.filter(is_aup=1).values('id')
+        vacsheds = VacantionShedule.objects.filter(dep__in=deps)
+        return render(request, 'vac_shed/aup-vs.html', context={'vacsheds':vacsheds, 'granted':ugroup(request)})
+    else:
+        return redirect('/accounts/login/')
+
+
+
 def vacshed_create(request,vs):
     if request.user.is_authenticated:
         granted = ugroup(request)
@@ -205,6 +215,8 @@ def vacshed_check(request,id):
 def getemployers(request, dep):
     if request.user.is_authenticated:
         emps = Employers.objects.filter(department_id=dep).filter(fired=0).filter(mainworkplace=1).values('id','fullname','position__name').order_by('fullname')
+        emps_aup = Employers.objects.filter(aup_id=dep).filter(fired=0).filter(mainworkplace=1).values('id','fullname','position__name').order_by('fullname')
+        emps = emps.union(emps_aup)
         emps = list(emps)
         return JsonResponse(emps, safe=False)
 

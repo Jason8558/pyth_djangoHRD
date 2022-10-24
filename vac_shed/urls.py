@@ -5,6 +5,7 @@ from . import views
 
 urlpatterns = [
 path('', views.vacsheds, name='vacshed_url'),
+path('aup/', views.vacsheds_aup, name='vacshed_aup_url'),
 path('new/', views.vacshed_new, name='new_vacshed_url'),
 path('create/<int:vs>/', views.vacshed_create, name='vacshed_create_url'),
 path('getvacshed/<int:vs>/', views.getvacshed_json, name='vacshed_json'),

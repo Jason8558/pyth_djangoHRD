@@ -355,7 +355,9 @@ class Tabel_form(forms.ModelForm):
 class Employer_form(forms.ModelForm):
     class Meta:
         model = Employers
-        fields = ['fullname', 'sex', 'position', 'department', 'level', 'positionOfPayment', 'shift_personnel', 'stand_worktime', 'fired', 'mainworkplace']
+        fields = ['fullname', 'sex', 'position', 'department', 'level', 'positionOfPayment', 'shift_personnel', 'stand_worktime', 'fired', 'mainworkplace', 'aup']
+
+    aup = forms.ModelChoiceField(required=False, queryset=Department.objects.filter(is_aup=1))
 
     def saveFirst(self):
 
@@ -398,7 +400,8 @@ class Employer_form(forms.ModelForm):
             department = self.cleaned_data['department'],
             level = self.cleaned_data['level'],
             positionOfPayment = self.cleaned_data['positionOfPayment'],
-            mainworkplace = self.cleaned_data['mainworkplace']
+            mainworkplace = self.cleaned_data['mainworkplace'],
+            aup = self.cleaned_data['aup']
 
     )
         return new_employer

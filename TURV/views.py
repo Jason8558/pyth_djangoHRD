@@ -1210,11 +1210,14 @@ def new_employer(request):
         user_ = request.user
         u_group = user_.groups.all()
         granted = False
+        aup_deps = []
         for group in u_group:
             if group.name == 'Сотрудник СУП':
                 granted = True
         if (request.user.is_superuser) or (granted == True):
             deps = Department.objects.all()
+            aup_deps = Department.objects.all().filter(is_aup=1)
+
         else:
             deps = Department.objects.all().filter(user=user_.id)
         emp_form = Employer_form()
@@ -1227,7 +1230,7 @@ def new_employer(request):
                 return redirect(loc)
     else:
         return render(request, 'reg_jounals/no_auth.html')
-    return render(request, 'TURV/new_employer.html', context={'emp':emp_form, 'deps':deps})
+    return render(request, 'TURV/new_employer.html', context={'emp':emp_form, 'deps':deps, 'aup_deps':aup_deps})
 
 def upd_employer(request, id):
     if request.user.is_authenticated:
