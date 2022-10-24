@@ -29,6 +29,7 @@ class Department(models.Model):
     user = models.ManyToManyField(User, verbose_name = 'Табельщик')
     conftype = models.ManyToManyField('TabelType', verbose_name='Виды табелей для подразделения: ')
     onescode = models.CharField(verbose_name= 'Код подразделения в 1С ',  max_length=256, blank=True, null=True)
+    is_aup = models.BooleanField(default=False)
     notused = models.BooleanField(default=False)
 
     class Meta:
