@@ -61,10 +61,10 @@ function formrow(id, emp, emp__fullname, emp__position__name, dur_from, dur_to, 
 
 
   if (granted == 0) {
-    row = '<tr class="vs_row" id="'+ id + '_' + emp + '"><td id="emp_' + emp + '" class="emp '+emp+'">' + emp__fullname + ' | ' + emp__position__name + '</td><td id="durfrom_'+ id +'_' + emp + '">' + dur_from + '</td><td class="count_'+ emp + '">' + days_count + '</td><td class="totaldays'+emp+'"> </td><td class="child' + emp + '">'+child_year+'</td><td id="city_'+ id + '" class="city city' + emp + '">'+city+'</td><td class="not-print sign sign'+ emp +'"></td></tr>'
+    row = '<tr class="vs_row" id="'+ id + '_' + emp + '"><td id="emp_' + emp + '" class="emp '+emp+'">' + emp__fullname + ' | ' + emp__position__name + '</td><td id="durfrom_'+ id +'_' + emp + '">' + dur_from + '</td><td class="count_'+ emp + '">' + days_count + '</td><td class="totaldays'+emp+'"> ' + days_count + '</td><td class="child' + emp + '">'+child_year+'</td><td id="city_'+ id + '" class="city city' + emp + '">'+city+'</td><td class="print print-sign sign sign'+ emp +'"></td></tr>'
   }
   else {
-    row = '<tr class="vs_row" id="'+ id + '_' + emp + '"><td id="emp_' + emp + '" class="emp '+emp+'">' + emp__fullname + ' | ' + emp__position__name + '</td><td id="durfrom_' + id + '_' + emp + '">' + dur_from + '</td><td class="count_'+ emp + '">' + days_count + '</td><td id="movefrom' + id + '" class="movefrom">'+ move_from + ' - ' + move_reason + '</td><td class="movecount_'+ emp +'">'+ days_count_move +'</td><td class="totaldays'+emp+'"> </td><td class="child' + emp + '">'+child_year+'</td><td id="city_'+ id + '" class="city city' + emp + '">'+city+'</td><td class="not-print sign  sign'+ emp +'"></td></tr>'
+    row = '<tr class="vs_row" id="'+ id + '_' + emp + '"><td id="emp_' + emp + '" class="emp '+emp+'">' + emp__fullname + ' | ' + emp__position__name + '</td><td id="durfrom_' + id + '_' + emp + '">' + dur_from + '</td><td class="count_'+ emp + '">' + days_count + '</td><td id="movefrom' + id + '" class="movefrom">'+ move_from + ' - ' + move_reason + '</td><td class="movecount_'+ emp +'">'+ days_count_move +'</td><td class="totaldays'+emp+'"> '+ days_count + ' </td><td class="child' + emp + '">'+child_year+'</td><td id="city_'+ id + '" class="city city' + emp + '">'+city+'</td><td class="print print-sign sign sign'+ emp +'"></td></tr>'
   }
 
   return row
