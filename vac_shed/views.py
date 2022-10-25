@@ -66,13 +66,13 @@ def vacshed_global_json(request, year, dep, per, emps):
                 items = VacantionSheduleItem.objects.filter(bound_shed__year=year).filter(emp__department_id = dep).values('id', 'emp__department__name' , 'emp__aup__name' ,'emp', 'emp__fullname', 'dur_from', 'dur_to', 'days_count', 'move_from', 'move_to', 'child_year', 'days_count_move', 'city', 'emp__position__name').order_by('emp__department__name', 'emp__fullname', 'id', 'dur_from')
                 items_aup = VacantionSheduleItem.objects.filter(bound_shed__year=year).filter(emp__aup_id = dep).values('id', 'emp__department__name' , 'emp__aup__name' , 'emp', 'emp__fullname', 'dur_from', 'dur_to', 'days_count', 'move_from', 'move_to', 'child_year', 'days_count_move', 'city', 'emp__position__name').order_by('emp__department__name', 'emp__fullname', 'id', 'dur_from')
 
-                items = items_aup.union(items).order_by('emp__department__name', 'emp__fullname', 'id', 'dur_from')
+                items = items_aup.union(items).order_by('emp__department__name','emp__aup__name', 'emp__fullname', 'id', 'dur_from')
                 print(items)
             else:
                 if per != 0:
                     items_main = VacantionSheduleItem.objects.filter(bound_shed__year=year).filter(dur_from__month=per).exclude(move_from__isnull=False).values('id', 'emp__department__name' , 'emp__aup__name' , 'emp', 'emp__fullname', 'dur_from', 'dur_to', 'days_count', 'move_from', 'move_to', 'child_year', 'days_count_move', 'city', 'emp__position__name').order_by('emp__department__name', 'emp', 'id', 'dur_from')
                     items_move = VacantionSheduleItem.objects.filter(bound_shed__year=year).filter(move_from__month=per).values('id', 'emp__department__name' , 'emp__aup__name' , 'emp', 'emp__fullname', 'dur_from', 'dur_to', 'days_count', 'move_from', 'move_to', 'child_year', 'days_count_move', 'city', 'emp__position__name').order_by('emp__department__name', 'emp', 'id', 'dur_from')
-                    items = items_main.union(items_move)
+                    items = items_main.union(items_move).order_by('emp__department__name', 'emp__fullname', 'id', 'dur_from')
                 else:
                     if emps != '0':
                         emps_ = []
