@@ -1,4 +1,5 @@
 from django import forms
+from django.forms import ValidationError
 from .models import *
 from django.contrib.auth.forms import AuthenticationForm
 import datetime as DT
@@ -325,6 +326,13 @@ class Tabel_form(forms.ModelForm):
         fields = ['year', 'month', 'department', 'del_check', 'sup_check', 'type', 'day', 'comm', 'corr']
 
     year = forms.CharField(label="Год (ТОЛЬКО 4 ЦИФРЫ!)", widget=forms.NumberInput(attrs={'maxlength':'4'}))
+
+    def clean(self):
+        super().clean()
+        exist_tabels = Tabel.objects.filter(year=self.cleaned_data['year']).filter(type=self.cleaned_data['type']).filter(month=self.cleaned_data['month']).filter(department=self.cleaned_data['department'])
+        if len(exist_tabels) > 0:
+            raise ValidationError("Основной табель на этот период уже существует!")
+
     def saveFirst(self, user_):
 
         next_id = int(Tabel.objects.latest('id').id) + 1
@@ -339,6 +347,7 @@ class Tabel_form(forms.ModelForm):
             addData = 'Табель: ' + str(self.cleaned_data['type'].name) + ' '  + str(self.cleaned_data['department'].name) + ' за: ' + str(self.cleaned_data['month']) + ' ' + str(self.cleaned_data['year']) ,
             link = '/turv/create/' + str(next_id),
             res_officer = user_)
+
 
         new_tabel = Tabel.objects.create(
             year = self.cleaned_data['year'],

@@ -786,6 +786,10 @@ def new_tabel(request):
                 user_ = request.user.first_name
                 tabel_form.saveFirst(user_)
                 last_tabel = Tabel.objects.latest('id')
+            else:
+                error_tabel = tabel_form.errors.as_text().split('*')[2]
+
+                return render(request, 'TURV/new_tabel.html', context={'form':tabel_form, 'deps':deps, 'error_tabel':error_tabel})
             if last_tabel.department_id == 2 or last_tabel.department_id == 3 or last_tabel.department_id == 26 or last_tabel.department_id == 40:
                 if last_tabel.type_id == 4:
                     return redirect('/turv/vac/')
