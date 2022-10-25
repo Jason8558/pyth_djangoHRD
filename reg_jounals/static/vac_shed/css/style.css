@@ -8,15 +8,15 @@ box-sizing: border-box;}
   display: none;
 }
 
-select, input, textarea {
-border: 2px solid #ffff93;
+select, input, textarea  {
+border: 2px solid #0d6efd;
 padding: 4px;
 background: #efefef;
 border-radius: 12px;
 }
 
 body {
- background: #ffffd7;
+ background: #e0edff ;
 }
 
 header {
@@ -27,8 +27,14 @@ header {
   justify-content: space-between;
   padding-top: 0.5rem;
   padding-bottom: 0.5rem;
-
-  background: #fdfd82;padding: 11px;border-radius: 17px;margin: 10px 10px;box-shadow: 0px 0px 5px 1px black;}
+  background: #e0edff;
+  border-radius: 17px;
+  border: 3px solid #0d6efd;
+  padding: 11px;
+  border-radius: 17px;
+  margin: 10px 10px;
+  box-shadow: 0px 0px 5px 1px black;
+  }
 
 header .header-main * {
   float: left;
@@ -45,20 +51,20 @@ text-align: center;width: 100%;margin-top: 19px;}
 table tr {
 page-break-before: avoid;}
 
-thead {background:  #fdfd82; }
+thead {background: #0d6efd;}
 tbody {background: white;}
 
 
-.button {background: #fdfd82;padding: 10px;/* margin: 0px; */text-decoration: none;text-transform: uppercase;color: black;border-radius: 9px;cursor: pointer;text-align: center;
+.button {background: #e0edff ;padding: 10px;/* margin: 0px; */text-decoration: none;text-transform: uppercase;color: black;border-radius: 9px;cursor: pointer;text-align: center;
 transition: 0.3s;}
 
 .button:hover{
 background: #3e3e00;
 color: white;
-box-shadow: 0px 0px 6px 2px yellow;
+box-shadow: 0px 0px 6px 2px #0d6efd;
 }
 
-.add {width: 100%;float: left;margin-bottom: 14px;background: lightgreen;}
+.add {width: 100%;float: left;margin-bottom: 14px;background: #2dbbff;}
 
 td,th {border: 1px solid black;}
 
@@ -70,13 +76,13 @@ tbody tr:hover {
   underline;
   transition: 0.3s;
   color: black;
-  /* border: 2px solid yellow; */
+  /* border: 2px solid #0d6efd; */
   }
 
 .vs-form {
 background: white;
 padding: 9px;
-border: 3px solid yellow;
+border: 3px solid #0d6efd;
 display: flex;
 flex-flow: column;
 justify-content: center;
@@ -160,6 +166,32 @@ tbody tr:hover {
 
 #prof {
     float: left;
+}
+
+#vs_glob_dep_chosen {
+
+}
+
+#vs_glob_dep_chosen .chosen-container-single .chosen-single {
+
+}
+
+.chosen-container-single .chosen-single {
+    height: 100% !important;
+    border: 2px solid #0d6efd !important;
+    padding: 4px !important;
+    background: #efefef !important;
+    border-radius: 12px !important;
+}
+
+.vs-glob-emp-cont {
+position: fixed;
+padding: 7px;
+background: white;
+border: 1px solid #0d6efd;
+right: 7px;
+z-index: 99;
+box-shadow: 0px 0px 10px 0px black;
 }
 
 @media print {
