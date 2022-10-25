@@ -113,6 +113,23 @@ def vacsheds_aup(request):
     else:
         return redirect('/accounts/login/')
 
+def vacshed_emp_info(request, year, emp):
+    if request.user.is_authenticated:
+        pers = VacantionSheduleItem.objects.filter(bound_shed__year=year).filter(emp_id=emp).values('id', 'bound_shed_id' ,'bound_shed__year', 'emp__fullname', 'dur_from', 'dur_to', 'days_count', 'move_from', 'move_to', 'move_reason', 'child_year', 'days_count_move', 'city')
+        city = ''
+        child = ''
+        vacshed = pers[0]['bound_shed_id']
+        emp = pers[0]['emp__fullname']
+        year = pers[0]['bound_shed__year']
+        if len(pers) > 1:
+            for per in pers:
+                if per['city']:
+                    city = per['city']
+                if per['child_year']:
+                    child = per['child_year']
+    return render(request, 'vac_shed/emp-period.html', context={'pers':pers, 'city':city, 'child':child, 'emp':emp, 'year':year, 'vacshed':vacshed})
+
+
 
 
 def vacshed_create(request,vs):

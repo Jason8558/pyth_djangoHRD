@@ -1,0 +1,33 @@
+{% extends 'vac_shed/index.html'%}
+{%load static%}
+{%block title%}{{emp}}{%endblock%}
+{%block script%}{%endblock%}
+{%block header%}  <div class="header-main"><a class="button back" href="/vacshed/create/{{vacshed}}/"> < НАЗАД</a><h1>{{emp}}</h1></div>{%endblock%}
+{% block body %}
+<div class="container">
+  <table>
+    <thead>
+    <tr>
+      <th colspan="2">Информация об отупске {{emp}} за {{year}}г.</th>
+    </tr>
+    <tr>
+      <th>Периоды</th><th>Переносы</th>
+    </tr>
+    </thead>
+    <tbody>
+      {% for per in pers %}
+      <tr>
+        <td>{{per.dur_from}} - {{per.dur_to}} | {{per.days_count}} д.</td><td>{%if per.move_from != None %} {{per.move_from}} - {{per.move_to}} | {{per.days_count_move}} д. {%endif%}</td>
+      </tr>
+      {%endfor%}
+      <tr>
+        <td colspan="2">Проезд: {{city}}</td>
+      </tr>
+      <tr>
+        <td colspan="2">Иждивенцы: {{child}}</td>
+      </tr>
+    </tbody>
+  </table>
+
+</div>
+{%endblock%}

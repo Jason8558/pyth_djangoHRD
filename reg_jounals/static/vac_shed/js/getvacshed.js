@@ -61,10 +61,10 @@ function formrow(id, emp, emp__fullname, emp__position__name, dur_from, dur_to, 
 
 
   if (granted == 0) {
-    row = '<tr class="vs_row" id="'+ id + '_' + emp + '"><td class="emp '+emp+'">' + emp__fullname + ' | ' + emp__position__name + '</td><td id="durfrom_'+ id +'_' + emp + '">' + dur_from + '</td><td class="count_'+ emp + '">' + days_count + '</td><td class="totaldays'+emp+'"> </td><td class="child' + emp + '">'+child_year+'</td><td id="city_'+ id + '" class="city city' + emp + '">'+city+'</td><td class="not-print sign sign'+ emp +'"></td></tr>'
+    row = '<tr class="vs_row" id="'+ id + '_' + emp + '"><td id="emp_' + emp + '" class="emp '+emp+'">' + emp__fullname + ' | ' + emp__position__name + '</td><td id="durfrom_'+ id +'_' + emp + '">' + dur_from + '</td><td class="count_'+ emp + '">' + days_count + '</td><td class="totaldays'+emp+'"> </td><td class="child' + emp + '">'+child_year+'</td><td id="city_'+ id + '" class="city city' + emp + '">'+city+'</td><td class="not-print sign sign'+ emp +'"></td></tr>'
   }
   else {
-    row = '<tr class="vs_row" id="'+ id + '_' + emp + '"><td class="emp '+emp+'">' + emp__fullname + ' | ' + emp__position__name + '</td><td id="durfrom_' + id + '_' + emp + '">' + dur_from + '</td><td class="count_'+ emp + '">' + days_count + '</td><td id="movefrom' + id + '" class="movefrom">'+ move_from + ' - ' + move_reason + '</td><td class="movecount_'+ emp +'">'+ days_count_move +'</td><td class="totaldays'+emp+'"> </td><td class="child' + emp + '">'+child_year+'</td><td id="city_'+ id + '" class="city city' + emp + '">'+city+'</td><td class="not-print sign  sign'+ emp +'"></td></tr>'
+    row = '<tr class="vs_row" id="'+ id + '_' + emp + '"><td id="emp_' + emp + '" class="emp '+emp+'">' + emp__fullname + ' | ' + emp__position__name + '</td><td id="durfrom_' + id + '_' + emp + '">' + dur_from + '</td><td class="count_'+ emp + '">' + days_count + '</td><td id="movefrom' + id + '" class="movefrom">'+ move_from + ' - ' + move_reason + '</td><td class="movecount_'+ emp +'">'+ days_count_move +'</td><td class="totaldays'+emp+'"> </td><td class="child' + emp + '">'+child_year+'</td><td id="city_'+ id + '" class="city city' + emp + '">'+city+'</td><td class="not-print sign  sign'+ emp +'"></td></tr>'
   }
 
   return row
@@ -140,9 +140,11 @@ function set_onclick() {
 
 
   rows = $('.vs_row')
+  year = $('#year').text()
 
   for (var r of rows) {
     id = r.id.split('_')[0]
+    emp_id = r.id.split('_')[1]
 
 
     url = "/" + "vacshed" + "/" + "itemupd" + "/" + id + "/2'"
@@ -154,14 +156,18 @@ function set_onclick() {
     url3 = "/" + "vacshed" + "/" + "itemupd" + "/" + id + "/3'"
     click3 = "location.href = '" + url3
 
+    url4 = "/" + "vacshed" + "/" + "empinfo" + "/" + year + "/" + emp_id + "/'"
+    click4 = "location.href = '" + url4
+
     $('#durfrom_' + r.id).attr('onclick', click)
     $('#city_' + id).attr('onclick', click2)
     $('#movefrom' + id).attr('onclick', click3)
+    $('#emp_' + emp_id).attr('onclick', click4)
   }
 }
 
 function unset_onclick() {
-  console.log('1l');
+
   rows = $('.vs_row')
 
   for (var r of rows) {
@@ -169,5 +175,6 @@ function unset_onclick() {
 
     $('#durfrom_' + r.id).attr('onclick', ' ')
     $('#city_' + id).attr('onclick', ' ')
+    $('#movefrom' + id).attr('onclick', '')
   }
 }
