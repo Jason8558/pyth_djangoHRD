@@ -168,8 +168,8 @@ tbody tr:hover {
     float: left;
 }
 
-#vs_glob_dep_chosen {
-
+#vs_glob_emp_chosen {
+width: 100% !important;
 }
 
 #vs_glob_dep_chosen .chosen-container-single .chosen-single {
@@ -188,10 +188,19 @@ tbody tr:hover {
 position: fixed;
 padding: 7px;
 background: white;
-border: 1px solid #0d6efd;
+border: 5px solid #0d6efd;
 right: 7px;
 z-index: 99;
 box-shadow: 0px 0px 10px 0px black;
+top: 173px;
+display: flex !important;
+flex-direction: column;
+width: 431px;
+justify-content: center;
+}
+
+.vs-glob-emp-cont * {
+    margin-bottom: 6px !important;
 }
 
 @media print {

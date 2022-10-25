@@ -70,7 +70,8 @@
       <option value="12">Декабрь</option>
 
     </select>
-<div class="vs-glob-emp-cont">
+    <button type="button" onclick="open_emps()" class="button" name="button">Подбор сотрудников</button>
+<div style="display:none !important;" id="vs-glob-emp-cont" class="vs-glob-emp-cont">
   <select id="vs-glob-emp" class="chosen-select" name="">
     <option value="0">Подбор сотрудников</option>
     {%for e in emps%}
@@ -78,8 +79,9 @@
     {%endfor%}
   </select>
   <input style="display:none;" readonly id='vs-glob-emp-id' type="text" name="vs-glob-emp" value="">
-  <button id="vs-glob-emp-btn" type="button" onclick="add_emp()" name="button">Добавить</button>
+  <button id="vs-glob-emp-btn" class="button" type="button" onclick="add_emp()" name="button">Добавить</button>
   <textarea readonly id='vs-glob-emp-name' name="name" rows="15" cols="80"></textarea>
+  <button type="button" class="button cancel" onclick="emps_close()" name="button">Закрыть</button>
 </div>
 
 

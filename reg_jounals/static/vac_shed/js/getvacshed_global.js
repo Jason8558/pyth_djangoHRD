@@ -57,7 +57,7 @@ console.log('if');
 
     })
   }
-
+emps_close()
 
 
 }
@@ -160,4 +160,14 @@ else {
 
 $('#ph-year').text(year)
 
+}
+
+function open_emps(){
+  if ($('#vs-glob-emp-cont').css('display') == 'none') {
+  $('#vs-glob-emp-cont').css('display', 'block')
+  }
+}
+
+function emps_close(){
+    $('#vs-glob-emp-cont').attr('style', 'display:none !important;')
 }
