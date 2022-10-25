@@ -13,7 +13,7 @@ path('itemadd/<int:id>', views.vacshed_addItem, name='additem_url'),
 path('itemupd/<int:id>/<int:type>', views.vacshed_updItem, name='upditem_url'),
 path('getemps/<int:dep>', views.getemployers, name='getemps_url'),
 path('global/', views.vacshed_global_create, name='global_url'),
-path('global/<str:year>/<int:dep>/<int:per>', views.vacshed_global_json, name='global_json_url'),
+path('global/<str:year>/<int:dep>/<int:per>/<str:emps>', views.vacshed_global_json, name='global_json_url'),
 path('delitem/<int:id>', views.delitem, name='delitem_url'),
 path('check/<int:id>', views.vacshed_check, name='check_url'),
 ]

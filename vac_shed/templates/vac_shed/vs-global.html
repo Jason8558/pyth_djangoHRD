@@ -2,7 +2,7 @@
 {%load static%}
 {%block title%}Общий график на {%endblock%}
 {%block script%}<script src="{% static 'vac_shed/js/getvacshed_global.js'%}" charset="utf-8"></script>
-<script src="{% static 'vac_shed/js/print.js'%}" charset="utf-8"></script>
+<!-- <script src="{% static 'vac_shed/js/print.js'%}" charset="utf-8"></script> -->
 <link rel="stylesheet" href="https://unpkg.com/gutenberg-css@0.6" media="print">
 <link rel="stylesheet" href="https://unpkg.com/gutenberg-css@0.6/dist/themes/oldstyle.min.css" media="print">{%endblock%}
 {%block header%}  <div class="header-main no-print"><button type="button" onclick="window.close()" class="button" name="button">Закрыть</button><h1> Общий график отпусков </h1></div>{%endblock%}
@@ -45,7 +45,7 @@
 
   <div class="vs-form global no-print">
     <input type="text" name="vs-glob-year" id="vs-glob-year" placeholder="Введите год" value="">
-    <select id="vs-glob-dep" name="vs-glob-dep">
+    <select id="vs-glob-dep" class="chosen-select" name="vs-glob-dep">
       <option value="0">Подразделение</option>
       {% for d in deps %}
         <option value="{{d.id}}">{{d.name}}</option>
@@ -70,8 +70,21 @@
       <option value="12">Декабрь</option>
 
     </select>
+<div class="vs-glob-emp-cont">
+  <select id="vs-glob-emp" class="chosen-select" name="">
+    <option value="0">Подбор сотрудников</option>
+    {%for e in emps%}
+      <option value="{{e.id}}">{{e.fullname}} - {{e.position.name}}</option>
+    {%endfor%}
+  </select>
+  <input style="display:none;" readonly id='vs-glob-emp-id' type="text" name="vs-glob-emp" value="">
+  <button id="vs-glob-emp-btn" type="button" onclick="add_emp()" name="button">Добавить</button>
+  <textarea readonly id='vs-glob-emp-name' name="name" rows="15" cols="80"></textarea>
+</div>
+
+
     <input type="button" class="button" name="" onclick="getvacshed()" value="Сформировать">
-    <a class="button print" onclick="print()" ref="#"> Печать графика </a>
+    <a class="button no-print" onclick="window.print()" ref="#"> Печать графика </a>
   </div>
 
 
@@ -86,7 +99,7 @@
     <th>Всего дней</th>
     <th>Иждивенец (год р-я)</th>
     <th>Проезд</th>
-    <th class="not-print">Ознакомлен</th>
+    <th class="print print-sign">Ознакомлен</th>
   </thead>
   <tbody>
     {% for i in items %}
@@ -102,7 +115,10 @@
 </table>
 </div>
 
-<script type="text/javascript">
 
-</script>
 {%endblock%}
+
+<script type="text/javascript">
+  $(document).ready(function(){
+}
+</script>

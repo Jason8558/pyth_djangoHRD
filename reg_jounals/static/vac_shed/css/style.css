@@ -163,12 +163,25 @@ tbody tr:hover {
 }
 
 @media print {
+  @page {
+    size: A4 landscape;
+
+
+
+  }
+
+  body {
+      zoom: 50%;
+  }
+
   table {page-break-before: avoid;
   page-break-inside: auto  !important;}
   .container {
     width: 100%;
 }
   .print {display: inherit !important;}
+
+  .print-sign {display: table-cell !important;}
 
   body {padding: 0 !important;}
 

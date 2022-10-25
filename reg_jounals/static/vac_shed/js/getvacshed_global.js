@@ -1,4 +1,14 @@
-// $(document).ready(function() {getvacshed()})
+$(document).ready(function() {  $(".chosen-select").chosen()})
+
+function add_emp (){
+
+  eid = $('#vs-glob-emp option:selected').val()
+  ename = $('#vs-glob-emp option:selected').text()
+
+  $('#vs-glob-emp-name').val( $('#vs-glob-emp-name').val() + ename + '\n')
+  $('#vs-glob-emp-id').val( $('#vs-glob-emp-id').val() + eid + ',')
+
+}
 
 
 function getvacshed() {
@@ -6,10 +16,15 @@ function getvacshed() {
   dep = $('#vs-glob-dep option:selected').val()
   dep_name = $('#vs-glob-dep option:selected').text()
   per = $('#vs-glob-per option:selected').val()
+  emps = $('#vs-glob-emp-id').val()
+
+  if (!emps) {
+
+console.log('if');
 
   $('.vs-table-create tbody').empty()
 
-  $.getJSON('/vacshed/global/' + year + '/' + dep + '/' + per,  (data) => {
+  $.getJSON('/vacshed/global/' + year + '/' + dep + '/' + per + "/0",  (data) => {
     rowspan = 0
     for (var i = 0; i < data.length; i++) {
 
@@ -22,7 +37,26 @@ function getvacshed() {
       emp(data[i].id,data[i].emp)
     }
 
-  })
+  })}
+  else {
+    console.log('else');
+    $('.vs-table-create tbody').empty()
+
+    $.getJSON('/vacshed/global/' + year + '/' + dep + '/' + per + '/' + emps,  (data) => {
+      rowspan = 0
+      for (var i = 0; i < data.length; i++) {
+
+        $('.vs-table-create tbody').append(formrow(data[i].emp__department__name, data[i].emp__aup__name, data[i].id, data[i].emp ,data[i].emp__fullname, data[i].emp__position__name, data[i].dur_from, data[i].dur_to, data[i].days_count, data[i].move_from, data[i].move_to, data[i].days_count_move, data[i].child_year, data[i].city))
+
+
+      }
+
+      for (var i = 0; i < data.length; i++) {
+        emp(data[i].id,data[i].emp)
+      }
+
+    })
+  }
 
 
 
@@ -62,7 +96,7 @@ function formrow(dep__name, aup__name, id, emp, emp__fullname, emp__position__na
     aup__name = "(" + aup__name + ")"
   }
 
-    row = '<tr id="'+ id + '_' + emp + '"><td class="dep' + emp + '">' + dep__name + " " + aup__name + '</td><td class="emp '+emp+'">' + emp__fullname + ' ' + emp__position__name + '</td><td>' + dur_from + '</td><td class="count_'+ emp + '">' + days_count + '</td><td>'+ move_from  + '</td><td>'+ days_count_move +'</td><td class="totaldays'+emp+'"> </td><td class="child' + emp + '">'+child_year+'</td><td class="city' + emp + '">'+city+'</td><td class="not-print sign sign'+emp +'"</tr>'
+    row = '<tr id="'+ id + '_' + emp + '"><td class="dep' + emp + '">' + dep__name + " " + aup__name + '</td><td class="emp '+emp+'">' + emp__fullname + ' ' + emp__position__name + '</td><td>' + dur_from + '</td><td class="count_'+ emp + '">' + days_count + '</td><td>'+ move_from  + '</td><td>'+ days_count_move +'</td><td class="totaldays'+emp+'"> </td><td class="child' + emp + '">'+child_year+'</td><td class="city' + emp + '">'+city+'</td><td class="print print-sign sign sign'+emp +'"</tr>'
 
 
   return row
@@ -117,8 +151,13 @@ function emp(rid,id){
 
   }
 
+if (dep != '0') {
+  $('#ph-dep').text(dep_name)
+}
+else {
+  $('#ph-dep').text('')
+}
 
-$('#ph-dep').text(dep_name)
 $('#ph-year').text(year)
 
 }
