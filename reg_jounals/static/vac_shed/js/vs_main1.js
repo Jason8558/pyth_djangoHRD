@@ -302,6 +302,11 @@ console.log('one');
     month_to = parseInt(month_to[1], 10)
   }
 
+day_from = parseInt(day_from, 10)
+month_from = parseInt(month_from, 10)
+day_to = parseInt(day_to, 10)
+month_to = parseInt(month_to, 10)
+
 
 console.log(month_to);
 
