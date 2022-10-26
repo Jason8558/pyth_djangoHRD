@@ -3,12 +3,25 @@ function gettabels(type, access) {
   $.getJSON('/turv/gettabels/' + type,  (data) => {
     $('#tabels-main-table tbody').empty()
 
+
+
     for (var i = 0; i < data.length; i++) {
-      if (access == 'True') {
-        $('#tabels-main-table tbody').append('<tr><td>' + data[i].id + '</td><td class="table-type">' + data[i].type__name + '</td><td>' + month_to_str(data[i].month) + ' ' + data[i].year +  '</td><td>' + data[i].department__name + '</td><td>' + data[i].res_officer + '</td><td>' + true_false(data[i].paper_check) + '</td><td>' +  true_false(data[i].sup_check) + '</td><td>' + true_false(data[i].unloaded) + '</td><td>' + data[i].comm + '</td></tr>')
+
+
+
+      if (data[i].del_check == true) {
+        color = 'color: red;'
       }
       else {
-        $('#tabels-main-table tbody').append('<tr><td>' + data[i].id + '</td><td class="table-type">' + data[i].type__name + '</td><td>' +  month_to_str(data[i].month) + ' ' + data[i].year +  '</td><td>' + data[i].department__name + '</td><td>' + true_false(data[i].sup_check) + '</td><td>' + data[i].comm + '</td></tr>')
+        color = ''
+      }
+
+
+      if (access == 'True') {
+        $('#tabels-main-table tbody').append('<tr style="'+color+'"><td>' + data[i].id + '</td><td class="table-type">' + data[i].type__name + '</td><td>' + month_to_str(data[i].month) + ' ' + data[i].year +  '</td><td>' + data[i].department__name + '</td><td>' + data[i].res_officer + '</td><td>' + true_false(data[i].paper_check) + '</td><td>' +  true_false(data[i].sup_check) + '</td><td>' + true_false(data[i].unloaded) + '</td><td>' + data[i].comm + '</td></tr>')
+      }
+      else {
+        $('#tabels-main-table tbody').append('<trstyle="'+color+'"><td>' + data[i].id + '</td><td class="table-type">' + data[i].type__name + '</td><td>' +  month_to_str(data[i].month) + ' ' + data[i].year +  '</td><td>' + data[i].department__name + '</td><td>' + true_false(data[i].sup_check) + '</td><td>' + data[i].comm + '</td></tr>')
       }
 
     }
@@ -153,11 +166,19 @@ function gettabels_search(access) {
     $('#tabels-main-table tbody').empty()
 
     for (var i = 0; i < data.length; i++) {
-      if (access == 'True') {
-        $('#tabels-main-table tbody').append('<tr><td>' + data[i].id + '</td><td class="table-type">' + data[i].type__name + '</td><td>' + month_to_str(data[i].month) + ' ' + data[i].year +  '</td><td>' + data[i].department__name + '</td><td>' + data[i].res_officer + '</td><td>' + true_false(data[i].paper_check) + '</td><td>' +  true_false(data[i].sup_check) + '</td><td>' + true_false(data[i].unloaded) + '</td><td>' + data[i].comm + '</td></tr>')
+      console.log(data[i].iscorr);
+      if (data[i].iscorr == true) {
+        iscorr = ' (корректировка)'
       }
       else {
-        $('#tabels-main-table tbody').append('<tr><td>' + data[i].id + '</td><td class="table-type">' + data[i].type__name + '</td><td>' +  month_to_str(data[i].month) + ' ' + data[i].year +  '</td><td>' + data[i].department__name + '</td><td>' + true_false(data[i].sup_check) + '</td><td>' + data[i].comm + '</td></tr>')
+        iscorr = ''
+      }
+
+      if (access == 'True') {
+        $('#tabels-main-table tbody').append('<tr><td>' + data[i].id + '</td><td class="table-type">' + data[i].type__name + iscorr + '</td><td>' + month_to_str(data[i].month) + ' ' + data[i].year +  '</td><td>' + data[i].department__name + '</td><td>' + data[i].res_officer + '</td><td>' + true_false(data[i].paper_check) + '</td><td>' +  true_false(data[i].sup_check) + '</td><td>' + true_false(data[i].unloaded) + '</td><td>' + data[i].comm + '</td></tr>')
+      }
+      else {
+        $('#tabels-main-table tbody').append('<tr><td>' + data[i].id + '</td><td class="table-type">' + data[i].type__name + iscorr + '</td><td>' +  month_to_str(data[i].month) + ' ' + data[i].year +  '</td><td>' + data[i].department__name + '</td><td>' + true_false(data[i].sup_check) + '</td><td>' + data[i].comm + '</td></tr>')
       }
 
     }
