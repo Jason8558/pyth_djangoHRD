@@ -330,7 +330,7 @@ class Tabel_form(forms.ModelForm):
     def clean(self):
         super().clean()
         exist_tabels = Tabel.objects.filter(year=self.cleaned_data['year']).filter(type_id=1).filter(month=self.cleaned_data['month']).filter(department=self.cleaned_data['department'])
-        if len(exist_tabels) > 0:
+        if len(exist_tabels) > 0 and self.cleaned_data['type'] == 1:
             raise ValidationError("Основной табель на этот период уже существует!")
 
     def saveFirst(self, user_):
