@@ -38,10 +38,7 @@
 {%if request.user.is_superuser  or granted == 1%}
       <li>Сервис <span class='angle-down'>v</span>
       <ul class="service">
-           <li><a  href="{% url 'unload'%}"> > Выгрузить для 1С</a></li>
-           <li><a  href="{% url 'toxic-unload'%}"> > Выгрузить вредность для 1С</a></li>
-           <li><a  href="{% url 'unite-unload'%}"> > Выгрузить совмещение для 1С</a></li>
-            <li><a  href="{% url 'milk-unload'%}"> > Выгрузить молоко для 1С</a></li>
+          <li><a href="{% url 'forload_url'%}">Показать готовые для выгрузки</a></li>
            <li><a  href="{% url 'del_tabel_url'%}"> > Удалить помеченные на удаление</a></li>
            <li><a  href="{% url 'overtime_url'%}"> > Обновить годовую норму времени сотрудников</a></li>
 
