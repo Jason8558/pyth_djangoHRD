@@ -398,6 +398,25 @@ def over_tabels(request):
     else:
         return redirect('/accounts/login/')
 
+def tabels_forload(request):
+    if request.user.is_authenticated and request.user.is_superuser:
+        if request.method == 'POST':
+            year = request.POST.get('fl-year', '')
+            month = request.POST.get('fl-month',  '')
+            print(year,month)
+
+
+            tabels = Tabel.objects.filter(month=str(month)).filter(year=str(year)).filter(type_id=1).filter(del_check=0).filter(sup_check=1).filter(iscorr=0)
+        # tabels = Tabel.objects.all()
+            return render(request, 'TURV/for-load.html', context={'tabels':tabels, 'count':len(tabels)})
+        else:
+            year =  datetime.date.today().year
+            month = datetime.date.today().month
+            tabels = Tabel.objects.filter(month=str(month)).filter(year=str(year)).filter(type_id=1).filter(del_check=0).filter(sup_check=1).filter(iscorr=0)
+            # tabels = Tabel.objects.all()
+            return render(request, 'TURV/for-load.html', context={'tabels':tabels, 'count':len(tabels)})
+    
+
 # =========================================
 
 def vac_tabels(request):
