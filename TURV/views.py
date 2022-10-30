@@ -206,10 +206,11 @@ def tabels_json_multi(request, type, month, year, dep):
     return JsonResponse(items, safe=False)
 
 def deps_json(request,type):
+
     if type != 0:
         deps = Department.objects.values('id', 'name', 'onescode').filter(notused=0).filter(conftype=type)
     else:
-        deps = Department.objects.values('id', 'name', 'onescode').filter(notused=0)
+        deps = Department.objects.values('id', 'name', 'onescode').filter(notused=0).filter(shift=1)
     deps = list(deps)
     return JsonResponse(deps, safe=False)
 
@@ -412,7 +413,7 @@ def tabels_forload(request):
         else:
             year =  datetime.date.today().year
             month = datetime.date.today().month
-            tabels = Tabel.objects.filter(month=str(month)).filter(year=str(year)).filter(type_id=1).filter(del_check=0).filter(sup_check=1).filter(iscorr=0).filter(shift=1)
+            tabels = Tabel.objects.filter(month=str(month)).filter(year=str(year)).filter(type_id=1).filter(del_check=0).filter(sup_check=1).filter(iscorr=0).filter(department__shift=1)
             # tabels = Tabel.objects.all()
             return render(request, 'TURV/for-load.html', context={'tabels':tabels, 'count':len(tabels)})
 
