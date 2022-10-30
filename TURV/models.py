@@ -32,6 +32,7 @@ class Department(models.Model):
     onescode = models.CharField(verbose_name= 'Код подразделения в 1С ',  max_length=256, blank=True, null=True)
     is_aup = models.BooleanField(default=False)
     notused = models.BooleanField(default=False)
+    shift = models.BooleanField(verbose_name="Подразделение содержит сменщиков", default=False)
 
     class Meta:
         ordering = ['name']
@@ -86,6 +87,7 @@ class Tabel(models.Model):
     comm = models.CharField(verbose_name='Комментарий (НЕОБЯЗАТЕЛЬНО)', max_length=256, default="", blank=True)
     iscorr = models.BooleanField(default=False)
     corr = models.ForeignKey('Tabel', verbose_name="Корректировка к ", db_index=True, on_delete=models.CASCADE, null=True, blank=True)
+
     res_officer = models.CharField(blank=True, editable=False,  max_length=256, help_text="Отвественный за составление табеля", verbose_name='Табельщик')
     class Meta:
         ordering = ['-year']
