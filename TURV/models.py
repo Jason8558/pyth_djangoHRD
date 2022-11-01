@@ -34,11 +34,35 @@ class Department(models.Model):
     notused = models.BooleanField(default=False)
     shift = models.BooleanField(verbose_name="Подразделение содержит сменщиков", default=False)
     is_filial = models.BooleanField(default=False)
+    dir = models.ForeignKey('Direction', verbose_name="Дирекция ", db_index=True, on_delete=models.CASCADE, default='')
+    union = models.ForeignKey('Union', verbose_name="Объединение ", db_index=True, on_delete=models.CASCADE, default='')
 
     class Meta:
         ordering = ['name']
         verbose_name = 'Подразделение'
         verbose_name_plural = 'Подразделения'
+
+    def __str__(self):
+        return self.name
+
+class Direction(models.Model):
+    name = models.CharField(verbose_name = 'Название дирекции', db_index=True, max_length=256)
+
+    class Meta:
+        ordering = ['name']
+        verbose_name = 'Дирекция'
+        verbose_name_plural = 'Дирекции'
+
+    def __str__(self):
+        return self.name
+
+class Union(models.Model):
+    name = models.CharField(verbose_name = 'Название объединения', db_index=True, max_length=256)
+
+    class Meta:
+        ordering = ['name']
+        verbose_name = 'Объединение'
+        verbose_name_plural = 'Объединения'
 
     def __str__(self):
         return self.name
