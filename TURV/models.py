@@ -33,6 +33,7 @@ class Department(models.Model):
     is_aup = models.BooleanField(default=False)
     notused = models.BooleanField(default=False)
     shift = models.BooleanField(verbose_name="Подразделение содержит сменщиков", default=False)
+    is_filial = models.BooleanField(default=False)
 
     class Meta:
         ordering = ['name']

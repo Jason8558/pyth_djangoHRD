@@ -55,7 +55,7 @@ def vacshed_new(request):
     else:
         return render(request, 'reg_jounals/no_auth.html')
 
-def vacshed_global_json(request, year, dep, per, emps):
+def vacshed_global_json(request, year, dep, per, emps, fil_only):
     if request.user.is_authenticated:
         if dep !=0 and per != 0:
             items_main = VacantionSheduleItem.objects.filter(bound_shed__year=year).filter(bound_shed__dep = dep).filter(dur_from__month=per).exclude(move_from__isnull=False).values('id', 'emp__department__name' , 'emp__aup__name' , 'emp', 'emp__fullname', 'dur_from', 'dur_to', 'days_count', 'move_from', 'move_to', 'child_year', 'days_count_move', 'city', 'emp__position__name').order_by('emp__department__name', 'emp', 'id', 'dur_from')
@@ -83,7 +83,10 @@ def vacshed_global_json(request, year, dep, per, emps):
                         items = VacantionSheduleItem.objects.filter(bound_shed__year=year).filter(emp_id__in=emps_).values('id', 'emp__department__name' , 'emp__aup__name' , 'emp', 'emp__fullname', 'dur_from', 'dur_to', 'days_count', 'move_from', 'move_to', 'child_year', 'days_count_move', 'city', 'emp__position__name').order_by('emp__department__name', 'emp', 'id', 'dur_from')
 
                     else:
-                        items = VacantionSheduleItem.objects.filter(bound_shed__year=year).values('id', 'emp__department__name' , 'emp__aup__name' , 'emp', 'emp__fullname', 'dur_from', 'dur_to', 'days_count', 'move_from', 'move_to', 'child_year', 'days_count_move', 'city', 'emp__position__name').order_by('emp__department__name', 'emp', 'id', 'dur_from')
+                        if fil_only != 0:
+                            items = VacantionSheduleItem.objects.filter(bound_shed__year=year).filter(bound_shed__dep__is_filial=1).values('id', 'emp__department__name' , 'emp__aup__name' , 'emp', 'emp__fullname', 'dur_from', 'dur_to', 'days_count', 'move_from', 'move_to', 'child_year', 'days_count_move', 'city', 'emp__position__name').order_by('emp__department__name', 'emp__department__aup__name', 'emp', 'id', 'dur_from')
+                        else:
+                            items = VacantionSheduleItem.objects.filter(bound_shed__year=year).filter(bound_shed__dep__is_filial=0).values('id', 'emp__department__name' , 'emp__aup__name' , 'emp', 'emp__fullname', 'dur_from', 'dur_to', 'days_count', 'move_from', 'move_to', 'child_year', 'days_count_move', 'city', 'emp__position__name').order_by('emp__department__name', 'emp__aup__name', 'emp', 'id', 'dur_from')
         items = list(items)
         return JsonResponse(items, safe=False)
 
