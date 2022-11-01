@@ -412,13 +412,13 @@ def tabels_forload(request):
             print(year,month)
 
 
-            tabels = Tabel.objects.filter(month=str(month)).filter(year=str(year)).filter(type_id=1).filter(del_check=0).filter(sup_check=1).filter(iscorr=0).filter(department__shift=1)
+            tabels = Tabel.objects.filter(month=str(month)).filter(year=str(year)).filter(type_id=1).filter(del_check=0).filter(sup_check=1).filter(iscorr=0).filter(department__shift=1).filter(unloaded=0)
         # tabels = Tabel.objects.all()
             return render(request, 'TURV/for-load.html', context={'tabels':tabels, 'count':len(tabels)})
         else:
             year =  datetime.date.today().year
             month = datetime.date.today().month
-            tabels = Tabel.objects.filter(month=str(month)).filter(year=str(year)).filter(type_id=1).filter(del_check=0).filter(sup_check=1).filter(iscorr=0).filter(department__shift=1)
+            tabels = Tabel.objects.filter(month=str(month)).filter(year=str(year)).filter(type_id=1).filter(del_check=0).filter(sup_check=1).filter(iscorr=0).filter(department__shift=1).filter(unloaded=0)
             # tabels = Tabel.objects.all()
             return render(request, 'TURV/for-load.html', context={'tabels':tabels, 'count':len(tabels)})
 
