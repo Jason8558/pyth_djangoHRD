@@ -11,9 +11,9 @@
   {%csrf_token%}
 
   {% if form.errors %}
-  {% for error in form.errors%}
-    {{error}}
-    {%endfor%}
+
+  <p style="color: red;">{{error_tabel}}</p>  
+
     {%endif%}
   {{form.type.label}}{{form.type}}
 

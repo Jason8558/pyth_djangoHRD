@@ -17,14 +17,21 @@ function getvacshed() {
   dep_name = $('#vs-glob-dep option:selected').text()
   per = $('#vs-glob-per option:selected').val()
   emps = $('#vs-glob-emp-id').val()
+  check = $('#vs-glob-fil').is(':checked')
+  if (check == true) {
+    check = 1
+  }
+  else {
+    check = 0
+  }
 
   if (!emps) {
 
-console.log('if');
+document.title = 'График отпусков на ' + year + ' год'
 
   $('.vs-table-create tbody').empty()
 
-  $.getJSON('/vacshed/global/' + year + '/' + dep + '/' + per + "/0",  (data) => {
+  $.getJSON('/vacshed/global/' + year + '/' + dep + '/' + per + "/0/" + check ,  (data) => {
     rowspan = 0
     for (var i = 0; i < data.length; i++) {
 
@@ -39,10 +46,10 @@ console.log('if');
 
   })}
   else {
-    console.log('else');
+
     $('.vs-table-create tbody').empty()
 
-    $.getJSON('/vacshed/global/' + year + '/' + dep + '/' + per + '/' + emps,  (data) => {
+    $.getJSON('/vacshed/global/' + year + '/' + dep + '/' + per + '/' + emps + '/0',  (data) => {
       rowspan = 0
       for (var i = 0; i < data.length; i++) {
 
@@ -96,7 +103,7 @@ function formrow(dep__name, aup__name, id, emp, emp__fullname, emp__position__na
     aup__name = "(" + aup__name + ")"
   }
 
-    row = '<tr id="'+ id + '_' + emp + '"><td class="dep' + emp + '">' + dep__name + " " + aup__name + '</td><td class="emp '+emp+'">' + emp__fullname + ' ' + emp__position__name + '</td><td>' + dur_from + '</td><td class="count_'+ emp + '">' + days_count + '</td><td>'+ move_from  + '</td><td>'+ days_count_move +'</td><td class="totaldays'+emp+'">' + days_count +  '</td><td class="child' + emp + '">'+child_year+'</td><td class="city' + emp + '">'+city+'</td><td class="print print-sign sign sign'+emp +'"</tr>'
+    row = '<tr id="'+ id + '_' + emp + '"><td class="dep' + emp + '">' + dep__name + " " + aup__name + '</td><td class="emp '+emp+'">' + emp__fullname + ' ' + emp__position__name + '</td><td>' + dur_from + '</td><td class="count_'+ emp + '">' + days_count + '</td><td>'+ move_from  + '</td><td>'+ days_count_move +'</td><td class="totaldays'+emp+'">' + days_count +  '</td><td class="child' + emp + '">'+child_year+'</td><td class="city' + emp + '">'+city+'</td> <td class="print print-sign sign sign'+emp +'"></td></tr>'
 
 
   return row
@@ -120,12 +127,13 @@ function emp(rid,id){
       rows_emp[0].rowSpan = rows_emp.length
 
 
+
       tcell[0].rowSpan = rows_emp.length
       tchild[0].rowSpan = rows_emp.length
       tcity[0].rowSpan = rows_emp.length
       tdep[0].rowSpan = rows_emp.length
       tsign[0].rowSpan = rows_emp.length
-      rows_emp[0].parentElement.style.borderTop = '2px solid black'
+      // rows_emp[0].parentElement.style.borderTop = '2px solid black'
       totaldays = totaldays + parseInt(tdays[i].innerText)
 
       rows_emp[i].remove()
