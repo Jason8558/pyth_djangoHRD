@@ -12,6 +12,7 @@ function add_emp (){
 
 
 function getvacshed() {
+    $('#loading').css('display', '')
   year = $('#vs-glob-year').val()
   dep = $('#vs-glob-dep option:selected').val()
   dep_name = $('#vs-glob-dep option:selected').text()
@@ -43,7 +44,8 @@ document.title = 'График отпусков на ' + year + ' год'
     for (var i = 0; i < data.length; i++) {
       emp(data[i].id,data[i].emp)
     }
-
+    $('#loading').css('display', 'none')
+    $('#vs-global-table').css('display', '')
   })}
   else {
 
@@ -61,7 +63,8 @@ document.title = 'График отпусков на ' + year + ' год'
       for (var i = 0; i < data.length; i++) {
         emp(data[i].id,data[i].emp)
       }
-
+      $('#loading').css('display', 'none')
+      $('#vs-global-table').css('display', '')
     })
   }
 emps_close()
