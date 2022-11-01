@@ -34,8 +34,8 @@ class Department(models.Model):
     notused = models.BooleanField(default=False)
     shift = models.BooleanField(verbose_name="Подразделение содержит сменщиков", default=False)
     is_filial = models.BooleanField(default=False)
-    dir = models.ForeignKey('Direction', verbose_name="Дирекция ", db_index=True, on_delete=models.CASCADE, default='')
-    union = models.ForeignKey('Union', verbose_name="Объединение ", db_index=True, on_delete=models.CASCADE, default='')
+    dir = models.ForeignKey('Direction', verbose_name="Дирекция ", db_index=True, on_delete=models.CASCADE, blank=True, null=True, default='')
+    union = models.ForeignKey('Union', verbose_name="Объединение ", db_index=True, on_delete=models.CASCADE, blank=True, null=True, default='')
 
     class Meta:
         ordering = ['name']
