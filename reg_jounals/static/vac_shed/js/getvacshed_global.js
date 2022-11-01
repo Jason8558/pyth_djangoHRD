@@ -27,7 +27,7 @@ function getvacshed() {
 
   if (!emps) {
 
-
+document.title = 'График отпусков на ' + year + ' год'
 
   $('.vs-table-create tbody').empty()
 
@@ -46,7 +46,7 @@ function getvacshed() {
 
   })}
   else {
-    console.log('else');
+
     $('.vs-table-create tbody').empty()
 
     $.getJSON('/vacshed/global/' + year + '/' + dep + '/' + per + '/' + emps,  (data) => {
@@ -126,7 +126,7 @@ function emp(rid,id){
     for (var i = 1; i < length; i++) {
       rows_emp[0].rowSpan = rows_emp.length
 
-      console.log(tsign[0]);
+
 
       tcell[0].rowSpan = rows_emp.length
       tchild[0].rowSpan = rows_emp.length
