@@ -504,7 +504,8 @@ def order_on_personnel(request):
 
 def nr_OrderOnPersonnel(request):
     if request.user.is_authenticated:
-        tab_deps = TDep.objects.all()
+        tab_deps = TDep.objects.all().filter(is_aup=0)
+        tab_subdeps = TDep.objects.filter(is_aup=1)
         tab_pos = TPos.objects.all()
         order_form = OrdersOnPersonnel_form()
         depts = Departments.objects.all()
@@ -523,6 +524,7 @@ def nr_OrderOnPersonnel(request):
             tname = request.POST.get('short_fio','')
             tpos = request.POST.get('tab_pos','')
             tdep = request.POST.get('dep_for_tabel','')
+            tsdep = request.POST.get('subdep_for_tabel','')
             tlvl = request.POST.get('tab_level','')
             tpay = request.POST.get('tab_payment','')
             twork = request.POST.get('tab_work', '')
@@ -538,6 +540,7 @@ def nr_OrderOnPersonnel(request):
                 if tname and tpos and tdep and tlvl and tpay and twork:
                     tpos_ = TPos.objects.get(id=tpos)
                     tdep_ = TDep.objects.get(id=tdep)
+                    tsdep_ = TDep.objects.get(id=tsdep)
                     print(twork)
                     if twork == '1':
                         year_ = str(DT.datetime.now().year) + "-01-01"
@@ -558,6 +561,7 @@ def nr_OrderOnPersonnel(request):
                     level = tlvl,
                     positionOfPayment = tpay,
                     department = tdep_,
+                    aup = tsdep_,
                     position = tpos_,
                     shift_personnel = twork,
                     stand_worktime = wtime,
@@ -568,7 +572,7 @@ def nr_OrderOnPersonnel(request):
                 return redirect('../orders_on_personnel/')
     else:
         return render(request, 'reg_jounals/no_auth.html')
-    return render(request, 'reg_jounals/OrdersOnPersonnel_add.html', context={'form':order_form, 'depts':depts, 'next_num':order_next_num_, 'tab_deps':tab_deps, 'tab_pos':tab_pos})
+    return render(request, 'reg_jounals/OrdersOnPersonnel_add.html', context={'form':order_form, 'depts':depts, 'next_num':order_next_num_, 'tab_deps':tab_deps, 'tab_subdeps':tab_subdeps, 'tab_pos':tab_pos})
 
 def upd_OrderOnPersonnel(request, id):
     if request.user.is_authenticated:

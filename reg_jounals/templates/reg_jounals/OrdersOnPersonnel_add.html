@@ -63,6 +63,12 @@
     <option value="{{dep.id}}">{{dep.name}}</option>
     {%endfor%}
     </select></p>
+    <label for="subdep_for_tabel">Подчиненное подразделение табельного учета(если есть):</label>
+    <p><select class="" name="subdep_for_tabel" disabled>
+    {% for dep in tab_subdeps %}
+    <option value="{{dep.id}}">{{dep.name}}</option>
+    {%endfor%}
+    </select></p>
     <p><label for="tab_level">Разряд\категория:</label></p>
     <p><input type="text" id="tab_level" name="tab_level" value="" disabled required></p>
     <p><label for="tab_payment">Ступень оплаты:</label></p>
