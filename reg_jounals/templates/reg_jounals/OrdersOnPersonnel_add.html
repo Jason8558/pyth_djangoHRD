@@ -65,6 +65,7 @@
     </select></p>
     <label for="subdep_for_tabel">Подчиненное подразделение табельного учета(если есть):</label>
     <p><select class="" name="subdep_for_tabel" disabled>
+      <option value="">---</option>
     {% for dep in tab_subdeps %}
     <option value="{{dep.id}}">{{dep.name}}</option>
     {%endfor%}
