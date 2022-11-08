@@ -594,46 +594,51 @@ width: 50%;
 
 .new_emp {
 
-display: grid !important;
+  display: flex;
+  flex-direction: column;
 
-/* grid-template-areas:
+  grid-template-columns: 1fr;
+
+  grid-template-rows: repeat(5, 50px);
+
+  width: 699px;
+
+  margin: 0 auto;
+
+  background: white;
+
+  border: 6px solid #5a9dff;
+
+  padding: 2%;
 
 
-'fio pos'
 
+  row-gap: 5px;
 
-'dep dep'
+  border-radius: 4px;
 
+  box-shadow: 0px 0px 4px 1px black;
+}
 
-'level pop'
+.ef-block {
+    display: flex;
+    flex-direction: column;
+    background: lightgray;
+    padding: 14px;
+    box-shadow: 0px 0px 5px 1px black;
+    margin-bottom: 6px;
+}
 
+.ef-block h5{
+  text-align: center;
+  border-bottom: 1px solid black;}
 
-'shift wtime'
+.ef-block p {
+  margin-bottom: 6px;
+}
 
-
-'buttons buttons'; */
-
-grid-template-columns: 1fr;
-
-grid-template-rows: repeat(5, 50px);
-
-width: 699px;
-
-margin: 0 auto;
-
-background: white;
-
-border: 6px solid #5a9dff;
-
-padding: 2%;
-
-/* grid-gap: 3px; */
-
-row-gap: 5px;
-
-border-radius: 4px;
-
-box-shadow: 0px 0px 4px 1px black;
+.ef-block p select {
+  width: 100%
 }
 
 .new_emp .pop input {
