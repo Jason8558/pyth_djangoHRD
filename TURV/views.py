@@ -196,8 +196,9 @@ def tabels_json_multi(request, type, month, year, dep):
         items = TabelItem.objects.values('employer__fullname', 'auto__unite_p', 'employer__stand_worktime', 'w_hours', 'employer__positionOfPayment').filter(year=year).filter(month=month).filter(bound_tabel__department_id=dep).filter(bound_tabel__type_id=3).filter(bound_tabel__sup_check=1).order_by('employer__fullname')
 
     if type == 9:
-        items = TabelItem.objects.values('employer__fullname', 'w_hours').filter(year=year).filter(month=month).filter(bound_tabel__department_id=dep).filter(bound_tabel__type_id=9).filter(bound_tabel__del_check=0).order_by('employer__fullname')
-
+        items_main = TabelItem.objects.values('employer__fullname', 'w_hours').filter(year=year).filter(month=month).filter(employer__department_id=dep).filter(bound_tabel__type_id=9).filter(bound_tabel__del_check=0).order_by('employer__fullname')
+        items_sub = TabelItem.objects.values('employer__fullname', 'w_hours').filter(year=year).filter(month=month).filter(employer__aup_id=dep).filter(bound_tabel__type_id=9).filter(bound_tabel__del_check=0).order_by('employer__fullname')
+        items = items_main.union(items_sub).values('employer__fullname', 'w_hours').order_by('employer__fullname')
     if type == 1:
         items = TabelItem.objects.values('employer__fullname','employer__position__name','hours1','hours2','hours3','hours4','hours5','hours6','hours7','hours8','hours9','hours10','hours11','hours12','hours13','hours14','hours15','hours16','hours17','hours18','hours19', 'hours20','hours21','hours22','hours23','hours24','hours25','hours26','hours27','hours28','hours29','hours30','hours31','type_time1','type_time2','type_time3','type_time4','type_time5','type_time6','type_time7','type_time8','type_time9','type_time10','type_time11','type_time12','type_time13','type_time14','type_time15','type_time16','type_time17','type_time18','type_time19','type_time20','type_time21','type_time22','type_time23','type_time24','type_time25','type_time26','type_time27','type_time28','type_time29','type_time30','type_time31', 'bound_tabel_id').filter(bound_tabel__year=year).filter(bound_tabel__month=month).filter(bound_tabel__department_id=dep).filter(bound_tabel__type_id=1).filter(bound_tabel__del_check=0).filter(bound_tabel__sup_check=1).order_by('employer__fullname')
 
