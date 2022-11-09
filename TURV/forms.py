@@ -367,34 +367,36 @@ class Employer_form(forms.ModelForm):
         fields = ['fullname', 'sex', 'position', 'department', 'level', 'positionOfPayment', 'shift_personnel', 'stand_worktime', 'fired', 'mainworkplace', 'aup']
 
     aup = forms.ModelChoiceField(required=False, queryset=Department.objects.filter(is_aup=1))
+    fullname = forms.CharField(label="ФИО сотрудника" , required=True, widget=forms.TextInput(
+        attrs={'placeholder': 'Введите ФИО (только фамилия и инициалы)',  'type':'text', 'onchange':'setfullname()'}))
 
     def saveFirst(self):
 
-        #  Приводим ФИО сотрудника в надлежащий вид
-        fullname = self.cleaned_data['fullname'].split(' ')
-
-        for l in fullname:
-            if ' ' in fullname:
-                fullname.remove(' ')
-
-        lastname = fullname[0]
-
-        for l in fullname:
-            if lastname in fullname:
-                fullname.remove(lastname)
-
-        for l in fullname:
-            if '.' in fullname:
-                fullname.remove('.')
-
-        for l in fullname:
-            if l != '':
-                secondname = l.split('.')
-                if len(secondname) > 0:
-                    firstname = secondname[0]
-                    middlename = secondname[1]
-
-        fullname = str(lastname.capitalize() + ' ' + firstname[0].upper() + '.' + secondname[1].upper() + '.')
+        # #  Приводим ФИО сотрудника в надлежащий вид
+        # fullname = self.cleaned_data['fullname'].split(' ')
+        #
+        # for l in fullname:
+        #     if ' ' in fullname:
+        #         fullname.remove(' ')
+        #
+        # lastname = fullname[0]
+        #
+        # for l in fullname:
+        #     if lastname in fullname:
+        #         fullname.remove(lastname)
+        #
+        # for l in fullname:
+        #     if '.' in fullname:
+        #         fullname.remove('.')
+        #
+        # for l in fullname:
+        #     if l != '':
+        #         secondname = l.split('.')
+        #         if len(secondname) > 0:
+        #             firstname = secondname[0]
+        #             middlename = secondname[1]
+        #
+        # fullname = str(lastname.capitalize() + ' ' + firstname[0].upper() + '.' + secondname[1].upper() + '.')
         #  =====================================================
 
 

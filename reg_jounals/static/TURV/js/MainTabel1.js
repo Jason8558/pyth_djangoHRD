@@ -7989,3 +7989,37 @@ function row_highlight_off(r_id) {
 function message() {
 
 }
+
+function setfullname() {
+  fname = $('#id_fullname').val()
+  fname = fname.split(' ')
+  nfname = []
+  for (var el of fname) {
+    if (el != ''){
+      nfname.push(el)
+    }
+  }
+
+if (nfname.length > 2) {
+
+first_name = nfname[1]
+second_name = nfname[0]
+patronim = nfname[2]
+
+fname = second_name + ' ' + first_name[0] + '.' + patronim[0] + '.'
+
+$('#id_fullname').val(fname)
+
+}
+else if (nfname.length <= 2) {
+
+  second_name = nfname[0]
+  first_name = nfname[1].split('.')[0]
+  patronim = nfname[1].split('.')[1]
+
+  fname = second_name + ' ' + first_name[0] + '.' + patronim[0] + '.'
+
+  $('#id_fullname').val(fname)
+}
+
+}
