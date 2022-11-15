@@ -540,7 +540,11 @@ def nr_OrderOnPersonnel(request):
                 if tname and tpos and tdep and tlvl and tpay and twork:
                     tpos_ = TPos.objects.get(id=tpos)
                     tdep_ = TDep.objects.get(id=tdep)
-                    tsdep_ = TDep.objects.get(id=tsdep)
+                    print(tsdep)
+                    if tsdep != '0':
+                        tsdep_ = TDep.objects.get(id=tsdep)
+                    else:
+                        tsdep_= None
                     print(twork)
                     if twork == '1':
                         year_ = str(DT.datetime.now().year) + "-01-01"
@@ -568,6 +572,7 @@ def nr_OrderOnPersonnel(request):
                     fired = 0
                     )
                     new_emp.save()
+                    print(new_emp)
 
                 return redirect('../orders_on_personnel/')
     else:

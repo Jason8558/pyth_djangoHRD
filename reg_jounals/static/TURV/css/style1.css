@@ -925,8 +925,10 @@ width: 399px;}
 .fs-intabel > .fs-content  {display: flex;border-bottom: 1px solid black;padding: 4px;}
 
 .fs-employers {
-
-width: 656px;margin-bottom: 7px;margin: 7px auto;}
+width: 911px;
+margin-bottom: 7px;
+margin: 7px auto;
+}
 
 .fs-employers > .fs-content {display: flex;justify-content: space-around;}
 
