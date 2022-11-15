@@ -402,7 +402,7 @@ class Employer_form(forms.ModelForm):
 
 
         new_employer = Employers.objects.create(
-            fullname  = fullname,
+            fullname  = self.cleaned_data['fullname'],
             sex = self.cleaned_data['sex'],
             position = self.cleaned_data['position'],
             shift_personnel = self.cleaned_data['shift_personnel'],
