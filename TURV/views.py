@@ -14,6 +14,7 @@ from itertools import groupby
 from reg_jounals.models import logs, logs_event
 from django.contrib.auth.models import *
 import json
+from .additions import total_tabels
 
 def w_close(request):
     return render(request, 'TURV/close.html')
@@ -84,7 +85,7 @@ def tabels(request):
         unite = False
         is_atc = False
         answers = len(FeedBack.objects.filter(mes_from_id=request.user.id).filter(~Q(answer=None)).filter(~Q(answer='')).filter(answer_readed=0))
-
+        hi()
 
         # Определение текущего месяца и года
         now = datetime.datetime.now()
@@ -1374,21 +1375,28 @@ def edit_autos(request,id):
                 form.save()
                 return redirect('/turv/autos')
 
-def total_tabels(request, month, year, dep):
-    # if request.user.is_authenticated:
-    dict = {}
-    types = TabelType.objects.all()
-    deps = Department.objects.all().filter(notused=0).order_by('name')
-    tabels = Tabel.objects.filter(month=month).filter(year=year).filter(department_id=dep).filter(day='0').filter(del_check=0).filter(iscorr=0).values('department__name','department_id','type_id', 'sup_check', 'paper_check')
-    print(tabels)
-    tabels = list(tabels)
-    return JsonResponse(tabels, safe=False)
+# def total_tabels(request, month, year, dep):
+#     # if request.user.is_authenticated:
+#     dict = {}
+#     types = TabelType.objects.all()
+#     deps = Department.objects.all().filter(notused=0).order_by('name')
+#     tabels = Tabel.objects.filter(month=month).filter(year=year).filter(department_id=dep).filter(day='0').filter(del_check=0).filter(iscorr=0).values('department__name','department_id','type_id', 'sup_check', 'paper_check')
+#     print(tabels)
+#     tabels = list(tabels)
+#     return JsonResponse(tabels, safe=False)
 
 def total_tabels_html(request):
     if request.user.is_authenticated:
-        deps = Department.objects.all().filter(notused=0)
+        deps = Department.objects.all().filter(notused=0).filter(is_aup=0)
 
-        return render(request, 'TURV/total.html', context={'deps':deps})
+        if request.method == 'POST':
+            month = request.POST.get('total-month')
+            year = request.POST.get('total-year')
+            table = total_tabels(deps, month, year)
+            list(table)
+            return JsonResponse(table, safe=False)
+        else:
+            return render(request, 'TURV/total.html', context={'deps':deps})
 
 
 # =========== Выгрузка ======

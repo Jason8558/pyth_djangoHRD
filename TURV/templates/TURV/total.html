@@ -13,7 +13,8 @@
 {% block body %}
 
 <div class="container" id="total-container">
-  <div class="total-params">
+  <form class="total-params" action="{% url 'total_url_page'%}" method="post">
+    {% csrf_token %}
   <select id="total-month" class="" name="total-month">
     <option value="01">Январь</option>
     <option value="02">Февраль</option>
@@ -28,9 +29,11 @@
     <option value="11">Ноябрь</option>
     <option value="12">Декабрь</option>
   </select>
-  <input id="total-year" maxlength="4" type="text" name="" value="" placeholder="год">
-  <button type="button" class="btn btn-success" onclick="get_total()"name="button">Сформировать свод</button>
-</div>
+  <input id="total-year" maxlength="4" type="text" name="total-year" value="" placeholder="год">
+  <input type="submit" class="btn btn-success" name="" value="Сформировать свод">
+
+</form>
+{{table}}
 <table id="total-table">
 
   <thead>
