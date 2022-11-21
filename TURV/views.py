@@ -85,7 +85,7 @@ def tabels(request):
         unite = False
         is_atc = False
         answers = len(FeedBack.objects.filter(mes_from_id=request.user.id).filter(~Q(answer=None)).filter(~Q(answer='')).filter(answer_readed=0))
-        hi()
+    
 
         # Определение текущего месяца и года
         now = datetime.datetime.now()
