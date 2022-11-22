@@ -52,7 +52,7 @@ document.title = 'График отпусков на ' + year + ' год'
 
     $('.vs-table-create tbody').empty()
 
-    $.getJSON('/vacshed/global/' + year + '/' + dep + '/' + per + '/' + emps + '/0',  (data) => {
+    $.getJSON('/vacshed/global/' + year + '/' + dep + '/' + per + '/' + emps + '/0/0',  (data) => {
       rowspan = 0
       for (var i = 0; i < data.length; i++) {
 
