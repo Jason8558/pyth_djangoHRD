@@ -1,0 +1,31 @@
+{% extends 'shift_shed/index.html'%}
+{%block header%}Графики сменности{%endblock%}
+{%block body%}
+  <div class="container">
+
+    <a class="button add" href="{% url 'ss-create'%}">создать график</a>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Код</th>
+          <th>Год</th>
+          <th>Подразделение</th>
+          <th>Проверен</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for s in ss %}
+          <tr>
+            <td>{{s.id}}</td>
+            <td>{{s.year}}</td>
+            <td>{{s.dep.name}}</td>
+            <td>{{s.checked}}</td>
+          </tr>
+        {%endfor%}
+      </tbody>
+    </table>
+
+  </div>
+
+ {%endblock%}
