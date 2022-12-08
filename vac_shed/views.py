@@ -79,7 +79,7 @@ def vacshed_global_json(request, year, dep, per, emps, fil_only, terr, pos):
                 else:
                     if pos != '':
 
-                        items =  VacantionSheduleItem.objects.values('id', 'emp__department__name' , 'emp__aup__name' ,'emp', 'emp__fullname', 'dur_from', 'dur_to', 'days_count', 'move_from', 'move_to', 'child_year', 'days_count_move', 'city', 'emp__position__name').filter(bound_shed__year=year).filter(emp__position__name__contains=pos)
+                        items =  VacantionSheduleItem.objects.values('id', 'emp__department__name' , 'emp__aup__name' ,'emp', 'emp__fullname', 'dur_from', 'dur_to', 'days_count', 'move_from', 'move_to', 'child_year', 'days_count_move', 'city', 'emp__position__name').filter(bound_shed__year=year).filter(emp__position__name__icontains=pos)
 
                     else:
                         if emps != '0':
