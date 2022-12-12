@@ -21,6 +21,12 @@ function getvacshed() {
   check = $('#vs-glob-fil').is(':checked')
   terr = $('#vs-glob-terr').val()
   pos = $('#vs-glob-pos').val()
+
+  if (pos == '') {
+    pos = 0
+  }
+  
+
   if (check == true) {
     check = 1
   }
