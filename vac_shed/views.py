@@ -5,6 +5,7 @@ from TURV.models import Employers
 from TURV.models import Department
 from itertools import groupby
 from .forms import *
+
 from django.db.models import Sum, F, Case, When, Q
 
 

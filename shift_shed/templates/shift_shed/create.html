@@ -5,8 +5,9 @@
 {%block header%}Создать график{%endblock%}
 {%block body%}
 <div class="container">
-  <form class="" action="index.html" method="post">
-
+  {{form.errors}}
+  <form id="ss-create-form" action="{% url 'ss-create'%}" method="post">
+{%csrf_token%}
 
 <section class="main">
   <h2>Укажите год и подразделение</h2>

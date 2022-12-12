@@ -4,7 +4,7 @@ function getemps() {
 
 
   $.getJSON('/shift_shed/getemps/' + dep ,  (data) => {
-    $('#id_emps').empty()
+    // $('#id_emps').empty()
 
     for (var i = 0; i < data.length; i++) {
 
@@ -32,4 +32,5 @@ function form_submit() {
     console.log(emp);
     $('#id_emps_list').val(  $('#id_emps_list').val() + emp.innerText+',')
   }
+  $('#ss-create-form').submit()
 }
