@@ -57,18 +57,22 @@ def vacshed_new(request):
 
 def vacshed_global_json(request, year, dep, per, emps, fil_only, terr, pos):
     if request.user.is_authenticated:
+        print(pos)
         if dep !=0 and per != 0:
             items_main = VacantionSheduleItem.objects.filter(bound_shed__year=year).filter(emp__department_id = dep).filter(dur_from__month=per).exclude(move_from__isnull=False).values('id', 'emp__department__name' , 'emp__aup__name' , 'emp', 'emp__fullname', 'dur_from', 'dur_to', 'days_count', 'move_from', 'move_to', 'child_year', 'days_count_move', 'city', 'emp__position__name').order_by('emp__department__dir__name', 'emp__department__union__name', 'emp__aup__name', 'emp__department__name', 'emp', 'id', 'dur_from')
             items_move = VacantionSheduleItem.objects.filter(bound_shed__year=year).filter(emp__department_id = dep).filter(move_from__month=per).values('id', 'emp__department__name' , 'emp__aup__name' , 'emp', 'emp__fullname', 'dur_from', 'dur_to', 'days_count', 'move_from', 'move_to', 'child_year', 'days_count_move', 'city', 'emp__position__name').order_by('emp__department__dir__name', 'emp__department__union__name', 'emp__aup__name', 'emp__department__name',  'emp', 'id', 'dur_from')
             items = items_main.union(items_move).order_by('emp__department__dir__name', 'emp__department__union__name', 'emp__aup__name', 'emp__department__name',  'emp', 'id', 'dur_from')
-
+            print('1')
         else:
+
             if dep != 0:
                 items = VacantionSheduleItem.objects.filter(bound_shed__year=year).filter(emp__department_id = dep).values('id', 'emp__department__name' , 'emp__aup__name' ,'emp', 'emp__fullname', 'dur_from', 'dur_to', 'days_count', 'move_from', 'move_to', 'child_year', 'days_count_move', 'city', 'emp__position__name').order_by('emp__department__dir__name', 'emp__department__union__name', 'emp__aup__name', 'emp__department__name',  'emp', 'id', 'dur_from')
                 items_aup = VacantionSheduleItem.objects.filter(bound_shed__year=year).filter(emp__aup_id = dep).values('id', 'emp__department__name' , 'emp__aup__name' , 'emp', 'emp__fullname', 'dur_from', 'dur_to', 'days_count', 'move_from', 'move_to', 'child_year', 'days_count_move', 'city', 'emp__position__name').order_by('emp__department__dir__name', 'emp__department__union__name', 'emp__aup__name', 'emp__department__name',  'emp', 'id', 'dur_from')
                 items = items_aup.union(items).order_by('emp__department__name','emp__aup__name', 'emp__fullname', 'id', 'dur_from')
+                print('2')
                 if dep == 4:
                     items = VacantionSheduleItem.objects.filter(bound_shed__year=year).filter(emp__department_id__in = [4,31]).values('id', 'emp__department__name' , 'emp__aup__name' ,'emp', 'emp__fullname', 'dur_from', 'dur_to', 'days_count', 'move_from', 'move_to', 'child_year', 'days_count_move', 'city', 'emp__position__name').order_by('emp__department__dir__name', 'emp__department__union__name', 'emp__aup__name', 'emp__department__name',  'emp', 'id', 'dur_from')
+                    print('3')
             else:
                 if dep != 0:
                     items = VacantionSheduleItem.objects.filter(bound_shed__year=year).filter(emp__department_id = dep).values('id', 'emp__department__name' , 'emp__aup__name' ,'emp', 'emp__fullname', 'dur_from', 'dur_to', 'days_count', 'move_from', 'move_to', 'child_year', 'days_count_move', 'city', 'emp__position__name').order_by('emp__department__dir__name', 'emp__department__union__name', 'emp__aup__name', 'emp__department__name',  'emp', 'id', 'dur_from')
@@ -76,11 +80,12 @@ def vacshed_global_json(request, year, dep, per, emps, fil_only, terr, pos):
                     items = items_aup.union(items).order_by('emp__department__name','emp__aup__name', 'emp__fullname', 'id', 'dur_from')
                     if dep == 4:
                         items = VacantionSheduleItem.objects.filter(bound_shed__year=year).filter(emp__department_id__in = [4,31]).values('id', 'emp__department__name' , 'emp__aup__name' ,'emp', 'emp__fullname', 'dur_from', 'dur_to', 'days_count', 'move_from', 'move_to', 'child_year', 'days_count_move', 'city', 'emp__position__name').order_by('emp__department__dir__name', 'emp__department__union__name', 'emp__aup__name', 'emp__department__name',  'emp', 'id', 'dur_from')
+                        print('4')
                 else:
-                    if pos != '':
+                    if pos != '0':
 
                         items =  VacantionSheduleItem.objects.values('id', 'emp__department__name' , 'emp__aup__name' ,'emp', 'emp__fullname', 'dur_from', 'dur_to', 'days_count', 'move_from', 'move_to', 'child_year', 'days_count_move', 'city', 'emp__position__name').filter(bound_shed__year=year).filter(emp__position__name__icontains=pos)
-
+                        print('5')
                     else:
                         if emps != '0':
                             emps_ = []
@@ -89,20 +94,23 @@ def vacshed_global_json(request, year, dep, per, emps, fil_only, terr, pos):
                                     print(e+'/n')
                                     emps_.append(int(e))
                             items = VacantionSheduleItem.objects.filter(bound_shed__year=year).filter(emp_id__in=emps_).values('id', 'emp__department__name' , 'emp__aup__name' , 'emp', 'emp__fullname', 'dur_from', 'dur_to', 'days_count', 'move_from', 'move_to', 'child_year', 'days_count_move', 'city', 'emp__position__name').order_by('emp__department__dir__name', 'emp__department__union__name', 'emp__aup__name', 'emp__department__name',  'emp', 'id', 'dur_from')
-
+                            print('6')
                         else:
                             if terr == 1:
                                 items = VacantionSheduleItem.objects.filter(bound_shed__year=year).filter(~Q(emp__department__name__contains='Елизово')).filter(bound_shed__dep__is_filial=0).values('id', 'emp__department__name' , 'emp__aup__name' , 'emp', 'emp__fullname', 'dur_from', 'dur_to', 'days_count', 'move_from', 'move_to', 'child_year', 'days_count_move', 'city', 'emp__position__name').order_by('emp__department__dir__name', 'emp__department__union__name', 'emp__aup__name', 'emp__department__name',  'emp', 'id', 'dur_from')
+                                print('7')
                             else:
                                 if terr == 2:
                                     items = VacantionSheduleItem.objects.filter(bound_shed__year=year).filter(Q(emp__department__name__contains='Елизово') | Q(emp__aup__name__contains='Елизово') ).values('id', 'emp__department__name' , 'emp__aup__name' , 'emp', 'emp__fullname', 'dur_from', 'dur_to', 'days_count', 'move_from', 'move_to', 'child_year', 'days_count_move', 'city', 'emp__position__name').order_by('emp__department__dir__name', 'emp__department__union__name', 'emp__aup__name', 'emp__department__name',  'emp', 'id', 'dur_from')
+                                    print('8')
                                 else:
                                     if fil_only != 0:
                                         items = VacantionSheduleItem.objects.filter(bound_shed__year=year).filter(bound_shed__dep__is_filial=1).values('id', 'emp__department__name' , 'emp__aup__name' , 'emp', 'emp__fullname', 'dur_from', 'dur_to', 'days_count', 'move_from', 'move_to', 'child_year', 'days_count_move', 'city', 'emp__position__name').order_by('emp__department__dir__name', 'emp__department__union__name', 'emp__aup__name', 'emp__department__name',  'emp', 'id', 'dur_from')
+                                        print('9')
                                     else:
                                         items = VacantionSheduleItem.objects.filter(bound_shed__year=year).filter(bound_shed__dep__is_filial=0).values('id', 'emp__department__name' , 'emp__aup__name' , 'emp', 'emp__fullname', 'dur_from', 'dur_to', 'days_count', 'move_from', 'move_to', 'child_year', 'days_count_move', 'city', 'emp__position__name').order_by('emp__department__dir__name', 'emp__department__union__name', 'emp__aup__name', 'emp__department__name',  'emp', 'id', 'dur_from')
-
-
+                                        print('10')
+                                
         items = list(items)
         return JsonResponse(items, safe=False)
 
