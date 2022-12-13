@@ -200,7 +200,7 @@ class TabelItem(models.Model):
 #Итоги видов времени
     sHours1 = models.FloatField(verbose_name='Явки (Я)', help_text='Явки', null = True, blank=True)
     sHours2 = models.FloatField(verbose_name='Ночные (Н)', null = True, blank=True)
-    sHours3 = models.IntegerField(verbose_name='Работа в выходные и празд. (РВ)', null = True, blank=True)
+    sHours3 = models.FloatField(verbose_name='Работа в выходные и празд. (РВ)', null = True, blank=True)
     sHours4 = models.FloatField(verbose_name='Сверхурочные (С)', null = True, blank=True)
     sHours5 = models.IntegerField(verbose_name='Вахтовый метод (ВМ)', null = True, blank=True)
     sHours6 = models.IntegerField(verbose_name='Служебная командировка (К)', null = True, blank=True)
@@ -221,7 +221,7 @@ class TabelItem(models.Model):
     sHours21 = models.IntegerField(verbose_name='Невыходы на время исполнения гос. ил общ. обязанностей (Г)', null = True, blank=True)
     sHours22 = models.IntegerField(verbose_name='Прогулы (ПР)', null = True, blank=True)
     sHours23 = models.IntegerField(verbose_name='Работа в режиме неполного рабочего времени (НС)', null = True, blank=True)
-    sHours24 = models.IntegerField(verbose_name='Выходные (В)', null = True, blank=True)
+    sHours24 = models.FloatField(verbose_name='Выходные (В)', null = True, blank=True)
     sHours25 = models.IntegerField(verbose_name='Дополнительные выходные оплачиваемые (ОВ)', null = True, blank=True)
     sHours26 = models.IntegerField(verbose_name='Дополнительные выходные неоплачиваемые (НВ)', null = True, blank=True)
     sHours27 = models.IntegerField(verbose_name='Забастовка (ЗБ)', null = True, blank=True)
