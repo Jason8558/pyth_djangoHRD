@@ -56,8 +56,13 @@
       {%endfor%}
     </select>
     <input type="text" name="vs-glob-pos" id="vs-glob-pos" placeholder="Должность" value="">
-    <label for="vs-glob-fil">Только филиалы</label>
-    <input type="checkbox" id="vs-glob-fil" name="vs-glob-fil" value="0">
+    <select id="vs-glob-fil" name="vs-glob-fil">
+      <option value="0">Без филиалов</option>
+      <option value="1">Все филиалы</option>
+      <option value="2">Центральный</option>
+      <option value="3">Быстринский</option>
+    </select>
+
 
     <select class="" id="vs-glob-terr" name="vs-glob-terr">
       <option value="0">ЕМР + ПКГО</option>

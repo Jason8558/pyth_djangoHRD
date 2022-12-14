@@ -18,21 +18,21 @@ function getvacshed() {
   dep_name = $('#vs-glob-dep option:selected').text()
   per = $('#vs-glob-per option:selected').val()
   emps = $('#vs-glob-emp-id').val()
-  check = $('#vs-glob-fil').is(':checked')
+  check = $('#vs-glob-fil option:selected').val()
   terr = $('#vs-glob-terr').val()
   pos = $('#vs-glob-pos').val()
 
   if (pos == '') {
     pos = 0
   }
-  
 
-  if (check == true) {
-    check = 1
-  }
-  else {
-    check = 0
-  }
+
+  // if (check == true) {
+  //   check = 1
+  // }
+  // else {
+  //   check = 0
+  // }
 
   if (!emps) {
 
