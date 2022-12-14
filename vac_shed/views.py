@@ -74,13 +74,23 @@ def vacshed_global_json(request, year, dep, per, emps, fil_only, terr, pos):
                     items = VacantionSheduleItem.objects.filter(bound_shed__year=year).filter(emp__department_id__in = [4,31]).values('id', 'emp__department__name' , 'emp__aup__name' ,'emp', 'emp__fullname', 'dur_from', 'dur_to', 'days_count', 'move_from', 'move_to', 'child_year', 'days_count_move', 'city', 'emp__position__name').order_by('emp__department__dir__name', 'emp__department__union__name', 'emp__aup__name', 'emp__department__name',  'emp', 'id', 'dur_from')
                     print('3')
             else:
-                if dep != 0:
-                    items = VacantionSheduleItem.objects.filter(bound_shed__year=year).filter(emp__department_id = dep).values('id', 'emp__department__name' , 'emp__aup__name' ,'emp', 'emp__fullname', 'dur_from', 'dur_to', 'days_count', 'move_from', 'move_to', 'child_year', 'days_count_move', 'city', 'emp__position__name').order_by('emp__department__dir__name', 'emp__department__union__name', 'emp__aup__name', 'emp__department__name',  'emp', 'id', 'dur_from')
-                    items_aup = VacantionSheduleItem.objects.filter(bound_shed__year=year).filter(emp__aup_id = dep).values('id', 'emp__department__name' , 'emp__aup__name' , 'emp', 'emp__fullname', 'dur_from', 'dur_to', 'days_count', 'move_from', 'move_to', 'child_year', 'days_count_move', 'city', 'emp__position__name').order_by('emp__department__dir__name', 'emp__department__union__name', 'emp__aup__name', 'emp__department__name',  'emp', 'id', 'dur_from')
-                    items = items_aup.union(items).order_by('emp__department__name','emp__aup__name', 'emp__fullname', 'id', 'dur_from')
-                    if dep == 4:
-                        items = VacantionSheduleItem.objects.filter(bound_shed__year=year).filter(emp__department_id__in = [4,31]).values('id', 'emp__department__name' , 'emp__aup__name' ,'emp', 'emp__fullname', 'dur_from', 'dur_to', 'days_count', 'move_from', 'move_to', 'child_year', 'days_count_move', 'city', 'emp__position__name').order_by('emp__department__dir__name', 'emp__department__union__name', 'emp__aup__name', 'emp__department__name',  'emp', 'id', 'dur_from')
-                        print('4')
+                if per != 0:
+
+                    if terr == 1:
+                            items_main = VacantionSheduleItem.objects.filter(bound_shed__year=year).filter(dur_from__month=per).exclude(move_from__isnull=False).filter(~Q(emp__department__name__contains='Елизово') | ~Q(emp__aup__name__contains='Елизово') ).values('id', 'emp__department__name' , 'emp__aup__name' , 'emp', 'emp__fullname', 'dur_from', 'dur_to', 'days_count', 'move_from', 'move_to', 'child_year', 'days_count_move', 'city', 'emp__position__name').order_by('emp__department__dir__name', 'emp__department__union__name', 'emp__aup__name', 'emp__department__name',  'emp', 'id', 'dur_from')
+                            items_move = VacantionSheduleItem.objects.filter(bound_shed__year=year).filter(~Q(emp__department__name__contains='Елизово') | ~Q(emp__aup__name__contains='Елизово') ).filter(move_from__month=per).values('id', 'emp__department__name' , 'emp__aup__name' , 'emp', 'emp__fullname', 'dur_from', 'dur_to', 'days_count', 'move_from', 'move_to', 'child_year', 'days_count_move', 'city', 'emp__position__name').order_by('emp__department__dir__name', 'emp__department__union__name', 'emp__aup__name', 'emp__department__name',  'emp', 'id', 'dur_from')
+                            items = items_main.union(items_move).order_by('emp__department__dir__name', 'emp__department__union__name', 'emp__aup__name', 'emp__department__name',  'emp', 'id', 'dur_from')
+                    else:
+                        if terr == 2:
+                            items_main = VacantionSheduleItem.objects.filter(bound_shed__year=year).filter(dur_from__month=per).exclude(move_from__isnull=False).filter(Q(emp__department__name__contains='Елизово') | Q(emp__aup__name__contains='Елизово') ).values('id', 'emp__department__name' , 'emp__aup__name' , 'emp', 'emp__fullname', 'dur_from', 'dur_to', 'days_count', 'move_from', 'move_to', 'child_year', 'days_count_move', 'city', 'emp__position__name').order_by('emp__department__dir__name', 'emp__department__union__name', 'emp__aup__name', 'emp__department__name',  'emp', 'id', 'dur_from')
+                            items_move = VacantionSheduleItem.objects.filter(bound_shed__year=year).filter(Q(emp__department__name__contains='Елизово') | Q(emp__aup__name__contains='Елизово') ).filter(move_from__month=per).values('id', 'emp__department__name' , 'emp__aup__name' , 'emp', 'emp__fullname', 'dur_from', 'dur_to', 'days_count', 'move_from', 'move_to', 'child_year', 'days_count_move', 'city', 'emp__position__name').order_by('emp__department__dir__name', 'emp__department__union__name', 'emp__aup__name', 'emp__department__name',  'emp', 'id', 'dur_from')
+                            items = items_main.union(items_move).order_by('emp__department__dir__name', 'emp__department__union__name', 'emp__aup__name', 'emp__department__name',  'emp', 'id', 'dur_from')
+
+                        else:
+                            if terr == 0:
+                                items = VacantionSheduleItem.objects.filter(bound_shed__year=year).filter(dur_from__month = per).values('id', 'emp__department__name' , 'emp__aup__name' ,'emp', 'emp__fullname', 'dur_from', 'dur_to', 'days_count', 'move_from', 'move_to', 'child_year', 'days_count_move', 'city', 'emp__position__name').order_by('emp__department__dir__name', 'emp__department__union__name', 'emp__aup__name', 'emp__department__name',  'emp', 'id', 'dur_from')
+
+
                 else:
                     if pos != '0':
 
@@ -106,7 +116,7 @@ def vacshed_global_json(request, year, dep, per, emps, fil_only, terr, pos):
                                 else:
                                     if fil_only == 3:
                                         items = VacantionSheduleItem.objects.filter(bound_shed__year=year).filter(emp__department_id=40).values('id', 'emp__department__name' , 'emp__aup__name' , 'emp', 'emp__fullname', 'dur_from', 'dur_to', 'days_count', 'move_from', 'move_to', 'child_year', 'days_count_move', 'city', 'emp__position__name').order_by('emp__department__dir__name', 'emp__department__union__name', 'emp__aup__name', 'emp__department__name',  'emp', 'id', 'dur_from')
-                                        items_ess = VacantionSheduleItem.objects.filter(bound_shed__year=year).filter(emp__aup_id__gte=64,emp__aup_id__lte=65).values('id', 'emp__department__name' , 'emp__aup__name' , 'emp', 'emp__fullname', 'dur_from', 'dur_to', 'days_count', 'move_from', 'move_to', 'child_year', 'days_count_move', 'city', 'emp__position__name').order_by('emp__department__dir__name', 'emp__department__union__name', 'emp__aup__name', 'emp__department__name',  'emp', 'id', 'dur_from')
+                                        items_ess = VacantionSheduleItem.objects.filter(bound_shed__year=year).filter(emp__aup_id__in=[64,65]).values('id', 'emp__department__name' , 'emp__aup__name' , 'emp', 'emp__fullname', 'dur_from', 'dur_to', 'days_count', 'move_from', 'move_to', 'child_year', 'days_count_move', 'city', 'emp__position__name').order_by('emp__department__dir__name', 'emp__department__union__name', 'emp__aup__name', 'emp__department__name',  'emp', 'id', 'dur_from')
                                         items = items_ess.union(items).order_by('emp__department__name','emp__aup__name', 'emp__fullname', 'id', 'dur_from')
                                     else:
                                         if fil_only == 2:
