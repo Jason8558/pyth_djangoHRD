@@ -212,6 +212,11 @@ for (var field of checkfields) {
       errors = 0
     }
   }
+  for (var field of checkfields) {
+    if (/,/.test(field.value)) {
+      field.value = field.value.replace(',','.')
+    }
+  }
   if (errors == 1) {
     $('.errors').text("Ошибка заполнения! Проверьте поля, выделенные красным.")
   $('.errors').css('display','block')
@@ -228,10 +233,10 @@ for (var field of checkfields) {
     }
     }
 if ($('#tabel-type').text() != 1 && $('#tabel-type').text() != 4 && $('#tabel-type').text() != 5 && $('#tabel-type').text() != 6){
-    checkfields = $('.dig_code')
+    checkfields = $('.dig_hours')
     errors = 0
     for (var field of checkfields) {
-      if (field.value == 'Я/ЛЧ' || field.value == 'Я/Н') {
+      if (/[a-zа-яё]/i.test(field.value))  {
         field.style.background = 'red'
         errors = errors + 1
       }
@@ -241,8 +246,14 @@ if ($('#tabel-type').text() != 1 && $('#tabel-type').text() != 4 && $('#tabel-ty
           errors = 0
         }
       }
+
+    for (var field of checkfields) {
+      if (/,/.test(field.value)) {
+        field.value = field.value.replace(',','.')
+      }
+    }
       if (errors >= 1) {
-        $('.errors').text("Ошибка заполнения! В табеле вредности коды 'ЛЧ' и 'Н' указывать не нужно!")
+        $('.errors').text("Ошибка заполнения! В табеле вредности проставлять буквы не требуется!")
       $('.errors').css('display','block')
       $('.errors').css('position','absolute')
       $('.tItem_submit').prop('type','button')
