@@ -16,11 +16,15 @@
 
     <table id="prof">
       <thead>
-        <th colspan="3">Мнение выборного профсоюзного органа от</th>
+        <th colspan="3">Председатель профсоюзного комитета КГУП "Камчатский водоканал"</th>
       </thead>
       <tbody>
         <tr>
-            <td colspan="2">______ _______ ______ г. № _____ </td><td> учтено</td>
+            <td colspan="2">_________________________ </td><th> Пустовит Т.А. </th>
+        </tr>
+
+        <tr>
+            <td colspan="3">______ _______ ______ г.</td>
         </tr>
 
       </tbody>
@@ -32,7 +36,7 @@
       </thead>
       <tbody>
         <tr>
-          <td>Директор предприятия</td><td>_________________________</td><td>Супрун А.С.</td>
+          <th>Директор КГУП "Камчатский водоканал"</th><td>______________</td><th>Супрун А.С.</th>
         </tr>
         <tr>
           <td colspan="3">______ _______ ______ г.</td>
@@ -52,8 +56,13 @@
       {%endfor%}
     </select>
     <input type="text" name="vs-glob-pos" id="vs-glob-pos" placeholder="Должность" value="">
-    <label for="vs-glob-fil">Только филиалы</label>
-    <input type="checkbox" id="vs-glob-fil" name="vs-glob-fil" value="0">
+    <select id="vs-glob-fil" name="vs-glob-fil">
+      <option value="0">Без филиалов</option>
+      <option value="1">Все филиалы</option>
+      <option value="2">Центральный</option>
+      <option value="3">Быстринский</option>
+    </select>
+
 
     <select class="" id="vs-glob-terr" name="vs-glob-terr">
       <option value="0">ЕМР + ПКГО</option>
@@ -126,6 +135,17 @@
       {%endfor%}
   </tbody>
 </table>
+
+<table class="print cover" id="footer">
+  <tbody>
+    <tr>
+      <td>Руководитель СУП</td>
+      <td>_______________________________________________________</td>
+      <td>Бондарчук Е.В.</td>
+    </tr>
+  </tbody>
+</table>
+
 </div>
 <script type="text/javascript">
 

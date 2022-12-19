@@ -18,15 +18,21 @@ function getvacshed() {
   dep_name = $('#vs-glob-dep option:selected').text()
   per = $('#vs-glob-per option:selected').val()
   emps = $('#vs-glob-emp-id').val()
-  check = $('#vs-glob-fil').is(':checked')
+  check = $('#vs-glob-fil option:selected').val()
   terr = $('#vs-glob-terr').val()
   pos = $('#vs-glob-pos').val()
-  if (check == true) {
-    check = 1
+
+  if (pos == '') {
+    pos = 0
   }
-  else {
-    check = 0
-  }
+
+
+  // if (check == true) {
+  //   check = 1
+  // }
+  // else {
+  //   check = 0
+  // }
 
   if (!emps) {
 
@@ -53,7 +59,7 @@ document.title = 'График отпусков на ' + year + ' год'
 
     $('.vs-table-create tbody').empty()
 
-    $.getJSON('/vacshed/global/' + year + '/' + dep + '/' + per + '/' + emps + '/0',  (data) => {
+    $.getJSON('/vacshed/global/' + year + '/' + dep + '/' + per + '/' + emps + '/0/0/0',  (data) => {
       rowspan = 0
       for (var i = 0; i < data.length; i++) {
 

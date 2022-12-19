@@ -156,7 +156,7 @@ tbody tr:hover {
 
 .cover table {
     float: right;
-    width: 592px;
+    width: 686px;
     margin-right: 20px;
 }
 
@@ -211,12 +211,21 @@ width: 100% !important;
 
   }
 
+  #footer {
+    margin-top: 35px;
+}
+
+    #footer td {
+    border: none;
+}
+
   body {
       zoom: 50%;
   }
 
   table {page-break-before: avoid;
-  page-break-inside: auto  !important;}
+  page-break-inside: auto  !important;
+  border-bottom: none !important}
   .container {
     width: 100%;
 }
