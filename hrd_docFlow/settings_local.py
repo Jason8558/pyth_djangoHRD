@@ -110,6 +110,7 @@ AUTHENTICATION_BACKENDS = (
 # Application definition
 
 INSTALLED_APPS = [
+'shift_shed',
 'vac_shed',
     'TURV',
     'reg_jounals',
