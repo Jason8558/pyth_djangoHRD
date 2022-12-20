@@ -31,7 +31,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
-# Baseline LDAP configuration.
+# # Baseline LDAP configuration.
 # AUTH_LDAP_SERVER_URI = "ldap://172.16.8.10"
 # AUTH_LDAP_AUTHORIZE_ALL_USERS = True
 # AUTH_LDAP_PERMIT_EMPTY_PASSWORD = True
@@ -53,19 +53,19 @@ ALLOWED_HOSTS = ['*']
 #     ldap.SCOPE_SUBTREE, "(objectClass=group)"
 # )
 # AUTH_LDAP_GROUP_TYPE = GroupOfNamesType(name_attr="cn")
-#
-# # Simple group restrictions
-# # AUTH_LDAP_REQUIRE_GROUP - если определено DN для этой настройки, то требуется присутсвие пользователя в этой группе
-# # в противном случае пользовталю будет отказано в аутентификации
-# # таким образом указываем, что для того чтобы пользователь был аутентифицирован он обязан находится в группе "active"
-# # AUTH_LDAP_REQUIRE_GROUP = "dc=pvk,dc=local"
-#
-# # AUTH_LDAP_DENY_GROUP - если определено DN для этой настройки, то в случае члентсва пользователя в этой группе
-# # ему будет отказано в аутентификации
-# # AUTH_LDAP_DENY_GROUP = "cn=disabled,ou=Groups,ou=Django,dc=company,dc=ru"
-#
-# # Populate the Django user from the LDAP directory.
-# # Указываем как переносить данные из AD в стандартный профиль пользователя Django
+
+# Simple group restrictions
+# AUTH_LDAP_REQUIRE_GROUP - если определено DN для этой настройки, то требуется присутсвие пользователя в этой группе
+# в противном случае пользовталю будет отказано в аутентификации
+# таким образом указываем, что для того чтобы пользователь был аутентифицирован он обязан находится в группе "active"
+# AUTH_LDAP_REQUIRE_GROUP = "dc=pvk,dc=local"
+
+# AUTH_LDAP_DENY_GROUP - если определено DN для этой настройки, то в случае члентсва пользователя в этой группе
+# ему будет отказано в аутентификации
+# AUTH_LDAP_DENY_GROUP = "cn=disabled,ou=Groups,ou=Django,dc=company,dc=ru"
+
+# Populate the Django user from the LDAP directory.
+# Указываем как переносить данные из AD в стандартный профиль пользователя Django
 # AUTH_LDAP_USER_ATTR_MAP = {
 #     "username": "sAMAccountName",
 #     "first_name": "cn",
@@ -107,12 +107,10 @@ AUTHENTICATION_BACKENDS = (
      # 'django_auth_ldap.backend.LDAPBackend',
 )
 
-
 # Application definition
 
 INSTALLED_APPS = [
 'vac_shed',
-        'shift_shed',
     'TURV',
     'reg_jounals',
     'django.contrib.admin',
@@ -170,7 +168,7 @@ WSGI_APPLICATION = 'hrd_docFlow.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'hrd_docflow_test',
+        'NAME': 'hrd_docflow',
         'USER': 'hrd_user',
         'PASSWORD': 'hrdpassword',
         'HOST': '172.16.23.38',
@@ -231,6 +229,5 @@ STATIC_URL = '/static/'
 
 STATICFILES_DIRS = [
     BASE_DIR / "static",
-    
 
 ]
