@@ -353,8 +353,8 @@ switch (month_from) {
 
 
 
-date_to = Date.parse(date_to).addDays(parseInt(total_celebrate, 10));
-
+date_to = Date.parse(date_to).addDays(parseInt(total_celebrate, 10)+1);
+console.log(date_to);
 date_to_str = date_to.toString('yyyy-MM-dd')
 
 console.log(date_to);
