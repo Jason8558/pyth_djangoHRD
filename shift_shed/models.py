@@ -67,5 +67,5 @@ class ShiftShedItem(models.Model):
         verbose_name_plural = 'Сотрудники в графиках'
 
     def __str__(self):
-        doc_fullname = str(self.employer) + ' ' + str(self.month) + '  ' + str(self.year)
+        doc_fullname = str(self.employer) + ' ' + str(self.month) + '  ' + str(self.bound_shed.year)
         return doc_fullname

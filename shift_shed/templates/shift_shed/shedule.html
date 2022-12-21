@@ -42,16 +42,26 @@
       </tr>
     </thead>
     <tbody>
+
       {% for s in shedule %}
+
+
       {% if s.month == key%}
       <tr id="{{s.month_s.emp.id}}">
-        <td>{{s.emp.fullname}}</td>
-        {% for day in days %}
-          {% for d in s.days %}
-            {% if d == day%}
-            <td id=day_{{day}}>от</td>
+        <td>{{s.employer.fullname}}{{s.employer.position.name|truncatechars:15}}</td>
+
+        {% for day in s.days %}
+          {% for k,v in day.items%}
+            {%if v != None%}
+              <td id=day>{{v}}</td>
+            {%else%}
+              <td id=day>X</td>
             {%endif%}
+
+
           {%endfor%}
+
+
         {%endfor%}
 
       </tr>
