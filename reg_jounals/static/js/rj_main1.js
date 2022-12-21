@@ -355,6 +355,105 @@ switch (month_from) {
 
 date_to = Date.parse(date_to).addDays(parseInt(total_celebrate, 10));
 
+date_to_str = date_to.toString('yyyy-MM-dd')
+
+console.log(date_to);
+
+day_to = date_to_str.split('-')[2]
+
+
+
+if (day_to[0] == '0') {
+  day_to = parseInt(day_to[1], 10)
+  console.log('!');
+}
+
+month_to = date_to_str.split('-')[1]
+if (month_to[0] == '0') {
+  month_to = parseInt(month_to[1], 10)
+
+}
+
+console.log('mt');
+console.log(month_to);
+console.log('dt');
+console.log(day_to);
+
+
+
+
+total_celebrate = 0
+switch (month_to) {
+  case 1:
+
+      for (var day of jan) {
+        if (day_to == day) {
+          date_to = Date.parse(date_to).addDays(1);
+        }
+      }
+
+
+    break;
+
+  case 2:
+      for (var day of feb) {
+        if (day_to == day) {
+          date_to = Date.parse(date_to).addDays(1);
+        }
+      }
+
+    break;
+
+    case 3:
+      console.log("1111");
+      for (var day of mar) {
+        if (day_to == day) {
+          console.log(date_to.toString('yyyy-MM-dd'));
+          date_to = Date.parse(date_to).addDays(1);
+          console.log(date_to.toString('yyyy-MM-dd'));
+        }
+      }
+
+      break;
+
+      case 5:
+
+          for (var day of may) {
+            if (day_to == day) {
+              date_to = Date.parse(date_to).addDays(1);
+            }
+          }
+
+      break;
+
+      case 6:
+
+        for (var day of jun) {
+          if (day_to == day) {
+            date_to = Date.parse(date_to).addDays(1);
+          }
+        }
+
+      break;
+
+      case 11:
+
+        for (var day of nov) {
+          if (day_to == day) {
+            date_to = Date.parse(date_to).addDays(1);
+          }
+        }
+
+      break;
+
+      default:
+
+    }
+
+    console.log(date_to);
+
+
+
 $('#id_dur_to').val(date_to.toString('yyyy-MM-dd'))
 
 }
