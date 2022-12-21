@@ -16,7 +16,7 @@
       </thead>
       <tbody>
         {% for s in ss %}
-          <tr>
+          <tr onclick="return window.open('/shift_shed/shedule/{{s.id}}')">
             <td>{{s.id}}</td>
             <td>{{s.year}}</td>
             <td>{{s.dep.name}}</td>
