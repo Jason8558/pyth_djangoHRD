@@ -10,6 +10,12 @@
 </div>
 <form action="{% url 'employment_history' %}">
   <input type="search" name="eh_search" placeholder="Поиск по ФИО...">
+  <select id="eh_search_type" name="eh_search_type">
+    <option value="">Все</option>
+    <option value="0">Электронные</option>
+    <option value="1">Бумажные</option>
+
+  </select>
   <button class="btn btn-sm btn-dark" type="submit" name="" value="Найти">Найти</button>
 </form>
 <a class="btn btn-success btn-lg m-bottom btn-add " href="{%url 'employment_history_add_url'%}"> + Добавить</a>

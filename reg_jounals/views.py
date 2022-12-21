@@ -570,7 +570,7 @@ def nr_OrderOnPersonnel(request):
                     fired = 0
                     )
                     new_emp.save()
-            
+
 
                 return redirect('../orders_on_personnel/')
     else:
@@ -686,14 +686,34 @@ def employment_history(request):
     if request.user.is_authenticated:
 
         search_query = request.GET.get('eh_search','')
+        search_type = request.GET.get('eh_search_type','')
+
         if search_query:
             histories = EmploymentHistory.objects.filter(eh_employer__icontains=search_query)
             p_orders = Paginator(histories, 10)
             page_number = request.GET.get('page', 1)
         else:
-            histories = EmploymentHistory.objects.all().order_by('-id')
-            p_orders = Paginator(histories, 10)
-            page_number = request.GET.get('page', 1)
+            if search_type:
+                if search_type == '0':
+                    print(search_type)
+                    histories = EmploymentHistory.objects.filter(eh_isdigital=1)
+                    p_orders = Paginator(histories, 1000)
+                else:
+                    pass
+
+                if search_type == '1':
+                    histories = EmploymentHistory.objects.filter(eh_isdigital=0)
+                    p_orders = Paginator(histories, 1000)
+                else:
+                    pass
+            else:
+                histories = EmploymentHistory.objects.all()
+                p_orders = Paginator(histories, 10)
+
+
+
+
+        page_number = request.GET.get('page', 1)
         page = p_orders.get_page(page_number)
         count = len(histories)
         return render(request, 'reg_jounals/employment_history.html', context={'histories':page, 'count':count})
