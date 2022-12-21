@@ -168,7 +168,7 @@ WSGI_APPLICATION = 'hrd_docFlow.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'hrd_docflow',
+        'NAME': 'hrd_docflow_test',
         'USER': 'hrd_user',
         'PASSWORD': 'hrdpassword',
         'HOST': '172.16.23.38',
