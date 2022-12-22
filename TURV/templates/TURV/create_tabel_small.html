@@ -483,6 +483,16 @@
   }
 </script>
 
+{% if not b_tabel.sup_check %}
+<script type="text/javascript">
+  $(document).ready(function() {
 
+  $('#correct').attr('href','')
+  $('#correct').attr('onclick', 'alert(" ВНИМАНИЕ! На табель, не провернный сотрудником СУП корректировки делать запрещено! Пожалуйста, внесите корректеровки в текущий табель")')
+
+  })
+
+</script>
+{% endif%}
 
 {%endblock%}

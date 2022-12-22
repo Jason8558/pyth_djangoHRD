@@ -173,7 +173,7 @@
 
   {% if b_tabel.iscorr == 0 %}
     <div class="t-corr">
-      <a href="{% url 'correct' id=b_tabel.id%}">Корректировка</a>
+      <a id="correct" href="{% url 'correct' id=b_tabel.id%}">Корректировка</a>
     </div>
   {% endif %}
 
@@ -647,6 +647,15 @@
   <h1 style="color:red;">ДЛЯ ПЕЧАТИ ТАБЕЛЯ НАЖМИТЕ ЖЕЛТУЮ КНОПКУ ПЕЧАТЬ, КОТОРАЯ НАХОДИТСЯ ВЫШЕ ОСНОВНОЙ ТАБЛИЦЫ ТАБЕЛЯ!</h1>
 </div>
 
+{% if not b_tabel.sup_check %}
+<script type="text/javascript">
+  $(document).ready(function() {
 
+  $('#correct').attr('href','')
+  $('#correct').attr('onclick', 'alert(" ВНИМАНИЕ! На табель, не провернный сотрудником СУП корректировки делать запрещено! Пожалуйста, внесите корректеровки в текущий табель")')
 
+  })
+
+</script>
+{% endif%}
 {%endblock%}
