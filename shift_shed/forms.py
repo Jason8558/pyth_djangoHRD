@@ -29,19 +29,27 @@ class ShiftShed_form(forms.ModelForm):
         shed = ShiftShedModel.objects.latest('id')
         for m in months:
             for s in shedule:
-                print(s)
+
                 if m == s['month']:
                     ShiftShedItem.objects.create(
                     employer = s['emp'],
                     bound_shed = shed,
                     month = s['month']
                     )
-
                     ss_item = ShiftShedItem.objects.latest('id')
                     for day in s['days']:
                          setattr(ss_item, 'day_'+str(day), 'ОТ')
-
                     ss_item.save()
+
+                # else:
+                #     ShiftShedItem.objects.create(
+                #     employer = s['emp'],
+                #     bound_shed = shed,
+                #     month = m
+                #     )
+
+        
+
         return new_shed
 
 

@@ -8,7 +8,9 @@
     <ul class="menu">
       <li>Меню <span class='angle-down'>v</span>
       <ul class="menu-main-ul">
-
+        {% if granted == 1%}
+        <li><a href="{% url 'ss-main'%}"> > Графики сменности</a></li>
+        {%endif%}
         <li><a href="{% url 'vacshed_url' %}">График отпусков</a>
 
         </li>

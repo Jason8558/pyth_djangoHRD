@@ -23,7 +23,7 @@ def ss_create(request):
             form.fields['dep'].queryset = Department.objects.filter(user=request.user)
             form.fields['emps'].queryset = Employers.objects.filter(department=form['dep'].value())
             if form.is_valid():
-                print('here')
+
                 form.saveAll()
                 return redirect('/shift_shed/')
             else:
@@ -44,4 +44,14 @@ def ss_shedule(request, id):
             days.append(i)
         months = {'1':'Январь','2':"Февраль",'3':"Март",'4':"Апрель",'5':"Май",'6':"Июнь",'7':"Июль",'8':"Август",'9':"Сентябрь",'10':"Октябрь",'11':"Ноябрь",'12':"Декабрь"}
         shedule = addition_shedform(id)
+
         return render(request, 'shift_shed/shedule.html', context={'shedule':shedule, 'months':months, 'days':days})
+
+def ss_edit(request,shed,month,year):
+    if request.user.is_authenticated:
+
+
+        items = addition_formforedit(shed, month)
+        months = {'1':'Январь','2':"Февраль",'3':"Март",'4':"Апрель",'5':"Май",'6':"Июнь",'7':"Июль",'8':"Август",'9':"Сентябрь",'10':"Октябрь",'11':"Ноябрь",'12':"Декабрь"}
+        return render(request, 'shift_shed/edit.html', context={'items':items, 'year':year, 'month':months
+        [str(month)]})
