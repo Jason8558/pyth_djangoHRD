@@ -24,6 +24,7 @@ urlpatterns = [
     path('vacshed/', include('vac_shed.urls')),
     path('turv/', include('TURV.urls')),
     path('shift_shed/', include('shift_shed.urls')),
+    path('work_cal/', include('work_cal.urls')),
     path('vacshed/', include('vac_shed.urls')),
     path('accounts/login/', views.LoginView.as_view(template_name="registration/login.html",authentication_form=UserLoginForm),name='login'),
     path('accounts/', include('django.contrib.auth.urls'))]
