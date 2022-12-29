@@ -139,7 +139,12 @@ for (var i = parseInt(month_from, 10)+1; i <= month_to; i++) {
 
     }
   }
+  date_to = Date.parse(date_to).addDays(parseInt(total_celebrate, 10)+1);
 }
+else {
+  date_to = Date.parse(date_to).addDays(parseInt(total_celebrate, 10));
+}
+
 
   if (month_to < month_from) {
   for (var i = 1; i <= month_to; i++) {
@@ -164,9 +169,6 @@ for (var i = parseInt(month_from, 10)+1; i <= month_to; i++) {
 date_to = Date.parse(date_to).addDays(parseInt(total_celebrate, 10));
 }
 
-else {
-  date_to = Date.parse(date_to).addDays(parseInt(total_celebrate, 10)+1);
-}
 
 
 
