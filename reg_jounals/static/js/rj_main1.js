@@ -40,14 +40,14 @@ function duration() {
   days = $('#id_days_count').val()
 
   days2 = $('#id_days_count2').val()
-console.log(days2);
+
 if (days) {
   date_to = Date.parse(date_from_new).addDays(parseInt(days, 10) - 1)}
 else {
     date_to = Date.parse(date_from_new).addDays(parseInt(days2, 10))
 }
 
-console.log(date_to.toString('yyyy-MM-dd'));
+
 date_to = date_to.toString('yyyy-MM-dd')
 
 date_from = date_from.split('-')[2] + '.' + date_from.split('-')[1] + '.' + date_from.split('-')[0]
@@ -85,377 +85,99 @@ day_to = parseInt(day_to, 10)
 month_to = parseInt(month_to, 10)
 
 
-console.log(month_to);
 
 
-cel_months = [1,2,3,5,6,11]
 
-jan = [1,2,3,4,5,6,7,8]
-feb = [23]
-mar = [8]
-may = [1,9]
-jun = [12]
-nov = [4]
+
+
+
+  $.getJSON('/work_cal/' + year_to ,  (data) => {
+    calendar = []
+    for (var i = 0; i < data.length; i++) {
+      calendar.push({
+        'month':data[i].month,
+        'days':data[i].days
+      })
+    }
+    console.log(calendar);
+
+
+
 
 total_celebrate = 0
 
-
-for (var m of cel_months) {
-if (month_from == m) {
-  switch (month_from) {
-
-// Январь
-    case 1:
-      for (var day of jan) {
-        if (day_from <= day) {
-            total_celebrate = total_celebrate + 1
-        }
-      }
-
-          console.log(total_celebrate);
-
-      break;
-
-// Февраль
-      case 2:
-        for (var day of feb) {
-          if (day_from <= day) {
-              total_celebrate = total_celebrate + 1
-          }
-        }
-  console.log(total_celebrate);
-        break;
-// Март
-      case 3:
-        for (var day of mar) {
-          if (day_from <= day) {
-              total_celebrate = total_celebrate + 1
-          }
-        }
-  console.log(total_celebrate);
-        break;
-// Май
-      case 5:
-        for (var day of may) {
-          if (day_from <= day) {
-              total_celebrate = total_celebrate + 1
-          }
-        }
-
-        break;
-
-// Июнь
-      case 6:
-      for (var day of jun) {
-        if (day_from <= day) {
+for (var rec of calendar) {
+  if (month_from == rec.month) {
+    days = rec.days.split(',')
+    for (var day of days) {
+      if (day_from <= day) {
           total_celebrate = total_celebrate + 1
-        }
       }
-
-      break;
-
-// Июнь
-      case 11:
-      for (var day of nov) {
-        if (day_from <= day) {
-          total_celebrate = total_celebrate + 1
-        }
-      }
-
-      break;
-
+    }
   }
-}
-
 }
 
 if (month_from != month_to) {
 for (var i = parseInt(month_from, 10)+1; i <= month_to; i++) {
-  for (var m of cel_months) {
-    console.log(m);
-      console.log(i);
-    if (i == m && i != month_to) {
+  for (var rec of calendar) {
 
-      switch (i) {
-
-  // Январь
-        case 1:
-        total_celebrate = total_celebrate + jan.length
-        break;
-
-    // Февраль
-          case 2:
-          total_celebrate = total_celebrate + feb.length
-              console.log(total_celebrate);
-          break;
-
-    // Март
-          case 3:
-          total_celebrate = total_celebrate + mar.length
-              console.log(total_celebrate);
-          break;
-    // Май
-          case 5:
-          total_celebrate = total_celebrate + may.length
-          break;
-
-    // Июнь
-          case 6:
-          total_celebrate = total_celebrate + jun.length
-          break;
-
-    // Ноябрь
-          case 11:
-          total_celebrate = total_celebrate + nov.length
-          break;
-
-      }
-
-    }
-else if (i == m && i == month_to) {
-switch (month_to) {
-
-// Январь
-  case 1:
-    for (var day of jan) {
-      if (day_to >= day) {
-          total_celebrate = total_celebrate + 1
-      }
+    if (i == rec.month && i != month_to) {
+      days = rec.days.split(',')
+      total_celebrate = total_celebrate + days.length
     }
 
-    break;
-
-// Февраль
-    case 2:
-      for (var day of feb) {
-        if (day_to >= day) {
-            total_celebrate = total_celebrate + 1
-        }
-      }
-  console.log(total_celebrate);
-      break;
-// Март
-    case 3:
-      for (var day of mar) {
-        if (day_to >= day) {
-            total_celebrate = total_celebrate + 1
-        }
-      }
-
-      break;
-// Май
-    case 5:
-      for (var day of may) {
-        if (day_to >= day) {
-            total_celebrate = total_celebrate + 1
-        }
-      }
-
-      break;
-
-// Июнь
-    case 6:
-    for (var day of jun) {
-      if (day_to >= day) {
-        total_celebrate = total_celebrate + 1
-      }
+    else if (i == rec.month && i == month_to) {
+      console.log('wtf');
+       days = rec.days.split(',')
+       for (var day of days) {
+         if (day <= day_to) {
+           total_celebrate = total_celebrate + 1
+         }
+       }
     }
 
-    break;
 
-// Июнь
-    case 11:
-    for (var day of nov) {
-      if (day_to >= day) {
-        total_celebrate = total_celebrate + 1
-      }
     }
-
-    break;
-
+  }
 }
 
-}
+  if (month_to < month_from) {
+  for (var i = 1; i <= month_to; i++) {
+    for (var rec of calendar) {
+
+      if (i == rec.month && i != month_to) {
+        days = rec.days.split(',')
+        total_celebrate = total_celebrate + days.length
+      }
+      else if (i == rec.month && i == month_to) {
+        console.log('wtf');
+         days = rec.days.split(',')
+         for (var day of days) {
+           if (day <= day_to) {
+             total_celebrate = total_celebrate + 1
+           }
+         }
+      }
 
   }
 }
+date_to = Date.parse(date_to).addDays(parseInt(total_celebrate, 10));
 }
 
 else {
-total_celebrate = 0
-switch (month_from) {
-  case 1:
-    for (var i = day_from; i <= day_to; i++) {
-      for (var day of jan) {
-        if (i == day) {
-          total_celebrate = total_celebrate + 1
-        }
-      }
-    }
-
-    break;
-
-  case 2:
-          for (var i = day_from; i <= day_to; i++) {
-            for (var day of feb) {
-              if (i == day) {
-                total_celebrate = total_celebrate + 1
-              }
-            }
-          }
-
-    break;
-
-    case 3:
-    for (var i = day_from; i <= day_to; i++) {
-      for (var day of mar) {
-        if (i == day) {
-          total_celebrate = total_celebrate + 1
-        }
-      }
-    }
-      break;
-
-      case 5:
-        for (var i = day_from; i <= day_to; i++) {
-          for (var day of may) {
-            if (i == day) {
-              total_celebrate = total_celebrate + 1
-            }
-          }
-        }
-      break;
-
-      case 6:
-      for (var i = day_from; i <= day_to; i++) {
-        for (var day of jun) {
-          if (i == day) {
-            total_celebrate = total_celebrate + 1
-          }
-        }
-      }
-      break;
-
-      case 11:
-      for (var i = day_from; i <= day_to; i++) {
-        for (var day of nov) {
-          if (i == day) {
-            total_celebrate = total_celebrate + 1
-          }
-        }
-      }
-      break;
-
-      default:
-
-    }
+  date_to = Date.parse(date_to).addDays(parseInt(total_celebrate, 10)+1);
 }
 
 
 
-date_to = Date.parse(date_to).addDays(parseInt(total_celebrate, 10)+1);
-console.log(date_to);
-date_to_str = date_to.toString('yyyy-MM-dd')
-
-console.log(date_to);
-
-day_to = date_to_str.split('-')[2]
 
 
 
-if (day_to[0] == '0') {
-  day_to = parseInt(day_to[1], 10)
-  console.log('!');
-}
-
-month_to = date_to_str.split('-')[1]
-if (month_to[0] == '0') {
-  month_to = parseInt(month_to[1], 10)
-
-}
-
-console.log('mt');
-console.log(month_to);
-console.log('dt');
-console.log(day_to);
-
-
-
-
-total_celebrate = 0
-switch (month_to) {
-  case 1:
-
-      for (var day of jan) {
-        if (day_to == day) {
-          date_to = Date.parse(date_to).addDays(1);
-        }
-      }
-
-
-    break;
-
-  case 2:
-      for (var day of feb) {
-        if (day_to == day) {
-          date_to = Date.parse(date_to).addDays(1);
-        }
-      }
-
-    break;
-
-    case 3:
-      console.log("1111");
-      for (var day of mar) {
-        if (day_to == day) {
-          console.log(date_to.toString('yyyy-MM-dd'));
-          date_to = Date.parse(date_to).addDays(1);
-          console.log(date_to.toString('yyyy-MM-dd'));
-        }
-      }
-
-      break;
-
-      case 5:
-
-          for (var day of may) {
-            if (day_to == day) {
-              date_to = Date.parse(date_to).addDays(1);
-            }
-          }
-
-      break;
-
-      case 6:
-
-        for (var day of jun) {
-          if (day_to == day) {
-            date_to = Date.parse(date_to).addDays(1);
-          }
-        }
-
-      break;
-
-      case 11:
-
-        for (var day of nov) {
-          if (day_to == day) {
-            date_to = Date.parse(date_to).addDays(1);
-          }
-        }
-
-      break;
-
-      default:
-
-    }
-
-    console.log(date_to);
 
 
 
 $('#id_dur_to').val(date_to.toString('yyyy-MM-dd'))
-
+  })
 }
 // --------------------------------------------------------------------------------------------------------
 
