@@ -1,7 +1,7 @@
 {% extends "reg_jounals/index.html" %}
 
 {%block title%}Добавить запись{% endblock %}
-{%block header%}Изменить запись - Удостоверение № {{ind.number}}{% endblock %}
+{%block header%}{%block logo%}{{block.super}}{%endblock%}Изменить запись - Удостоверение № {{ind.number}}{% endblock %}
 
 {%block content%}
 {% if form.errors%}

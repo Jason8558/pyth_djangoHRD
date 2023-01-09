@@ -3,7 +3,7 @@
 {%block title%}Изменить запись{% endblock %}
 {%load static%}
 
-{%block header%}Трудовая книжка №{{history.eh_number}} - {{history.eh_employer}}{% endblock %}
+{%block header%}{%block logo%}{{block.super}}{%endblock%}Трудовая книжка №{{history.eh_number}} - {{history.eh_employer}}{% endblock %}
 
 {%block content%}
 <style media="screen">

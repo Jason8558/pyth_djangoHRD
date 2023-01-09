@@ -3,7 +3,7 @@
 
 
 {%block title%}Изменить запись{% endblock %}
-{%block header%}{{item.fio}} в приказе {{item.bound_order.order_number}}{% endblock %}
+{%block header%}{%block logo%}{{block.super}}{%endblock%}{{item.fio}} в приказе {{item.bound_order.order_number}}{% endblock %}
 
 {%block content%}
 

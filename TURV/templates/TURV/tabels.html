@@ -3,6 +3,8 @@
 {%block title%}Табели{% endblock %}
 
 {%block header%}
+{%block logo%}{{block.super}}{%endblock%}
+  <span class="left-side">
     {% if granted == 1 or user.is_superuser%}<a href="/" class="btn btn-dark"> < Назад </a>{%endif%}
     Табели учета рабочего времени.
     <ul class="menu">
@@ -93,7 +95,7 @@
 
 
 
-
+</span>
 
 
 

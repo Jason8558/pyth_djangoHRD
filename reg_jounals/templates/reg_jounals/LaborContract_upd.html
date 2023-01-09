@@ -1,7 +1,7 @@
 {% extends "reg_jounals/index.html" %}
 
 {%block title%}Трудовой договор №{{order.op_number}}{% endblock %}
-{%block header%}Изменить запись - Трудовой договор № {{order.lc_number}}{% endblock %}
+{%block header%}{%block logo%}{{block.super}}{%endblock%}Изменить запись - Трудовой договор № {{order.lc_number}}{% endblock %}
 
 {%block content%}
 

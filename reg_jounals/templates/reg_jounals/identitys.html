@@ -1,7 +1,7 @@
 {%extends "reg_jounals/index.html" %}
 
 {%block title%}Удостоверения{%endblock%}
-{%block header%}<a class="btn btn-dark" href="../">< назад</a> Журнал регистрации удостоверений. Всего: {{count}}.  {%endblock%}
+{%block header%}{%block logo%}{{block.super}}{%endblock%}<a class="btn btn-dark" href="../">< назад</a> Журнал регистрации удостоверений. Всего: {{count}}.  {%endblock%}
 {%block content%}
 <div id="frame_" class="frame idents">
   <iframe id="iframe" class="iidents" src="" width="" height=""></iframe>

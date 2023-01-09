@@ -1,7 +1,7 @@
 {%extends "reg_jounals/index.html" %}
 
 {%block title%}Приказ № {{order.order_number}}{%endblock%}
-{%block header%} <a id="close" class="btn btn-dark" href="/orders_on_vacation_new/"> < назад</a> Приказ на отпуск № {{order.order_number}} от {{order.order_date}}. Людей в приказе: {{count}}  <input type="button" id="sure_btn" class="btn btn-danger" onclick="OpenSureDialog();" value="Удалить приказ"> {%endblock%}
+{%block header%}{%block logo%}{{block.super}}{%endblock%} <a id="close" class="btn btn-dark" href="/orders_on_vacation_new/"> < назад</a> Приказ на отпуск № {{order.order_number}} от {{order.order_date}}. Людей в приказе: {{count}}  <input type="button" id="sure_btn" class="btn btn-danger" onclick="OpenSureDialog();" value="Удалить приказ"> {%endblock%}
 {%block content%}
 <div id="sure" style="display: none;" class="yousure">
   <p>Вы уверены? <span style="color: red;"><b>ЭТО ДЕЙСТВИЕ НЕОБРАТИМО</b></span></p>

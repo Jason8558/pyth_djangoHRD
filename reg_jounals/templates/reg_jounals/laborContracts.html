@@ -1,7 +1,7 @@
 {%extends "reg_jounals/index.html" %}
 
 {%block title%}Трудовые договоры{%endblock%}
-{%block header%} <a class="btn btn-dark" href="../"> < назад</a> Журнал регистрации трудовых договоров. Всего: {{count}}.  {%endblock%}
+{%block header%}{%block logo%}{{block.super}}{%endblock%}<a class="btn btn-dark" href="../"> < назад</a> Журнал регистрации трудовых договоров. Всего: {{count}}.  {%endblock%}
 {%block content%}
 <div id="frame_" class="frame">
   <iframe id="iframe" src="" width="" height=""></iframe>

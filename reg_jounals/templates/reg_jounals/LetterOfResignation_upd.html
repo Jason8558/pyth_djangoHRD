@@ -1,7 +1,7 @@
 {% extends "reg_jounals/index.html" %}
 
 {%block title%}Добавить запись{% endblock %}
-{%block header%}Изменить запись - Заявление на увольнение № {{letter.id}} от {{letter.lor_date}}{% endblock %}
+{%block header%}{%block logo%}{{block.super}}{%endblock%}Изменить запись - Заявление на увольнение № {{letter.id}} от {{letter.lor_date}}{% endblock %}
 
 {%block content%}
 

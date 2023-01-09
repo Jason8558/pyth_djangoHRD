@@ -15,6 +15,11 @@ box-shadow: 0px 0px 4px 1px #0d6efd;
 transition: 0.3s;
 }
 
+header img {
+  width: 70px;
+}
+
+
 .btn-outline-danger {
     color: #dc3545;
     border-color: #dc3545;

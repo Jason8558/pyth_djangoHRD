@@ -1,7 +1,7 @@
 {% extends "reg_jounals/index.html" %}
 
 {%block title%}Добавить запись{% endblock %}
-{%block header%}Изменить запись - Приказ {{order.oom_number}} от {{order.oom_date}}{% endblock %}
+{%block header%}{%block logo%}{{block.super}}{%endblock%}Изменить запись - Приказ {{order.oom_number}} от {{order.oom_date}}{% endblock %}
 
 {%block content%}
 

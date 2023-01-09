@@ -1,7 +1,7 @@
 {% extends "reg_jounals/index.html" %}
 
 {%block title%}{{document.doc_type}} № {{document.id}}{% endblock %}
-{%block header%}Изменить запись - {{document.doc_type}} № {{document.id}} от {{document.doc_date}}{% endblock %}
+{%block header%}{%block logo%}{{block.super}}{%endblock%}Изменить запись - {{document.doc_type}} № {{document.id}} от {{document.doc_date}}{% endblock %}
 
 {%block content%}
 

@@ -1,7 +1,7 @@
 {% extends "reg_jounals/index.html" %}
 
 {%block title%}Приказ №{{order.bt_number}} {% endblock %}
-{%block header%}Изменить запись - Приказ о командировке №{{order.bt_number}}{% endblock %}
+{%block header%}{%block logo%}{{block.super}}{%endblock%}Изменить запись - Приказ о командировке №{{order.bt_number}}{% endblock %}
 
 {%block content%}
 

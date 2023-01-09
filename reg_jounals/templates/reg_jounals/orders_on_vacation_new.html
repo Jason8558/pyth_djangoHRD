@@ -1,7 +1,7 @@
 {%extends "reg_jounals/index.html" %}
 
 {%block title%}Приказы на отпуск{%endblock%}
-{%block header%} <a class="btn btn-dark" href="../"> < Назад</a> Журнал регистрации приказов на отпуск. Всего: {{count}}.  {%endblock%}
+{%block header%}{%block logo%}{{block.super}}{%endblock%} <a class="btn btn-dark" href="../"> < Назад</a> Журнал регистрации приказов на отпуск. Всего: {{count}}.  {%endblock%}
 {%block content%}
 <div id="frame_" class="frame vacantion">
   <iframe id="iframe" src="" width="" height=""></iframe>

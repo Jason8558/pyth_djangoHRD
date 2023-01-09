@@ -1,7 +1,7 @@
 {% extends "reg_jounals/index.html" %}
 
 {%block title%}Добавить запись{% endblock %}
-{%block header%}Добавить запись - Приказ о командировке{% endblock %}
+{%block header%}{%block logo%}{{block.super}}{%endblock%}Добавить запись - Приказ о командировке{% endblock %}
 
 {%block content%}
 
@@ -19,7 +19,7 @@
   <p>{{form.bt_dep.label}}{{form.bt_dep}}</p>
   <p>{{form.bt_place.label}}{{form.bt_place}}</p>
   <p class="p_unite"><span>{{form.bt_dur_from.label}}{{form.bt_dur_from}}</span><span>{{form.bt_dur_to.label}}{{form.bt_dur_to}}</span></p>
-  
+
 
 
   <input class="btn btn-success" type="submit" value="Добавить" />

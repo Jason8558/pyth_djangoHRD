@@ -37,6 +37,10 @@ header {
 
 }
 
+header img {
+  width: 70px;
+}
+
 
 .navbar-light .navbar-brand {
     color: rgb(0 0 0) !important;
