@@ -29,6 +29,7 @@ class VacantionSheduleItem(models.Model):
     city = models.CharField(verbose_name='Проезд: ', null=True, blank=True, max_length=254, default='')
     days_count = models.IntegerField(verbose_name="Количество дней")
     days_count_move = models.IntegerField(verbose_name='Кол-во дней после переноса ', null=True, blank=True)
+    comm = models.CharField(verbose_name='Комментарий', null=True, blank=True, max_length=256)
 
     class Meta:
         ordering = ['-bound_shed__year']

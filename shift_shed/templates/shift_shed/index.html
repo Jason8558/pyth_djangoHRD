@@ -21,6 +21,7 @@
 <body>
   <header>
     <div class="header-main">
+      {%block logo%}<img src="{% static 'img/IMG_5826.PNG'%}" alt="">{%endblock%}
       <h1> {%block header%} {%endblock%}</h1>
       <h3>{{request.user.first_name}}</h3>
     </div>

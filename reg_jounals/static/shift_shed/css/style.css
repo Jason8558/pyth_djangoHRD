@@ -28,7 +28,7 @@ body {
 
 header {
     /* margin: 1%; */
-    height: 25px;
+    height: 72px;
     width: 92%;
     margin FONT-WEIGHT: 100;
     margin: 1% auto;
@@ -39,6 +39,11 @@ header {
     display: flex;
     flex-flow: row;
 }
+
+header img {
+  width: 61px;
+}
+
 
 header h3 {}
 header .header-main {
@@ -52,7 +57,7 @@ header .header-main {
 
 .container {
     margin: 1% auto;
-    width: 935px;
+    width: 1402px;
 }
 
 table {border-collapse: collapse;text-align: center;width: 100%;}
@@ -73,6 +78,12 @@ tbody tr {
   cursor: pointer;
 }
 
+.shed-edit-table input {
+
+}
+
+.shift-table tbody tr:hover {background: #80b1f9;/* color: white; */}
+
 .button {
     margin: 2% auto;
     width: 100%;
@@ -87,6 +98,16 @@ tbody tr {
     float: left;
     text-align: center;
     padding: 9px;
+    text-decoration: none;
+    color: black;
+    transition: 0.3s;
+}
+
+.button:hover {
+    color: white;
+    background: #008bc8;
+    box-shadow: 0px 0px 6px 1px black;
+    transition: 0.3s;
 }
 
 .secondary {

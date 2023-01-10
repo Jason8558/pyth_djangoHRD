@@ -45,7 +45,9 @@ def ss_shedule(request, id):
         months = {'1':'Январь','2':"Февраль",'3':"Март",'4':"Апрель",'5':"Май",'6':"Июнь",'7':"Июль",'8':"Август",'9':"Сентябрь",'10':"Октябрь",'11':"Ноябрь",'12':"Декабрь"}
         shedule = addition_shedform(id)
 
-        return render(request, 'shift_shed/shedule.html', context={'shedule':shedule, 'months':months, 'days':days})
+        shed_info = ShiftShedModel.objects.get(id=id)
+
+        return render(request, 'shift_shed/shedule.html', context={'shedule':shedule, 'shed_info':shed_info, 'months':months, 'days':days, 'id':id})
 
 def ss_edit(request,shed,month,year):
     if request.user.is_authenticated:
