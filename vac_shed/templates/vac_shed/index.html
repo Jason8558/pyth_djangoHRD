@@ -22,6 +22,7 @@
 
 
   {%block header%}
+
   {%if granted == 1%}
     <a href="/" class="button back"> < К журналам</a>
   {%else%}
@@ -29,6 +30,7 @@
   {%endif%}
 
   <div class="header-main">
+    {%block logo%}<img src="{% static 'img/IMG_5826.PNG'%}" alt="">{%endblock%}
     <h1>Графики отпусков</h1>
   </div>
 

@@ -40,6 +40,10 @@ header .header-main * {
   float: left;
 }
 
+header img {
+  width: 39px;
+}
+
 .container {width: 700px;margin: 0px auto;margin-top: 24px;}
 
 .vs-create {width: 85%;}

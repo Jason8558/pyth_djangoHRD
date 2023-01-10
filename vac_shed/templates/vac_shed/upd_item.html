@@ -56,6 +56,15 @@
     {%else%}
     {%endif%}
 
+    {%if type == 4%}
+      <div id="vac-form-periods" class=".vac-form-periods">
+        <h4>Добавить комментарий: {{item.dur_from|date:"d.m.Y"}} по {{item.dur_to|date:"d.m.Y"}} кол-во дней: {{item.days_count}}</h4>
+        <textarea name="comm" rows="8" cols="80">{{item.comm}}</textarea>
+
+      </div>
+      {%else%}
+      {%endif%}
+
 
 <input class="button accept" type="submit" name="" value="Сохранить">
 <a href="{% url 'delitem_url' id=item.id%}" class="button cancel">Удалить период</a>

@@ -9,7 +9,7 @@ function getvacshed(granted,check) {
     rowspan = 0
     for (var i = 0; i < data.length; i++) {
 
-      $('.vs-table-create tbody').append(formrow(data[i].id, data[i].emp ,data[i].emp__fullname, data[i].emp__position__name, data[i].dur_from, data[i].dur_to, data[i].days_count, data[i].move_from, data[i].move_to, data[i].move_reason, data[i].days_count_move, data[i].child_year, data[i].city, granted))
+      $('.vs-table-create tbody').append(formrow(data[i].id, data[i].emp ,data[i].emp__fullname, data[i].emp__position__name, data[i].dur_from, data[i].dur_to, data[i].days_count, data[i].move_from, data[i].move_to, data[i].move_reason, data[i].days_count_move, data[i].child_year, data[i].city, granted, data[i].comm))
 
 
     }
@@ -24,7 +24,7 @@ function getvacshed(granted,check) {
 
 }
 
-function formrow(id, emp, emp__fullname, emp__position__name, dur_from, dur_to, days_count, move_from, move_to, move_reason, days_count_move, child_year, city, granted){
+function formrow(id, emp, emp__fullname, emp__position__name, dur_from, dur_to, days_count, move_from, move_to, move_reason, days_count_move, child_year, city, granted, comm){
   dur_from = dur_from.toString().split('-')
   dur_from = dur_from[2]+'.'+dur_from[1]+'.'+dur_from[0]
 
@@ -55,6 +55,11 @@ function formrow(id, emp, emp__fullname, emp__position__name, dur_from, dur_to, 
     move_reason = ''
   }
 
+  if (comm == null) {
+    comm = ''
+  }
+
+
 
 
 
@@ -64,7 +69,7 @@ function formrow(id, emp, emp__fullname, emp__position__name, dur_from, dur_to, 
     row = '<tr class="vs_row" id="'+ id + '_' + emp + '"><td id="emp_' + emp + '" class="emp '+emp+'">' + emp__fullname + ' | ' + emp__position__name + '</td><td id="durfrom_'+ id +'_' + emp + '">' + dur_from + '</td><td class="count_'+ emp + '">' + days_count + '</td><td class="totaldays'+emp+'"> ' + days_count + '</td><td class="child' + emp + '">'+child_year+'</td><td id="city_'+ id + '" class="city city' + emp + '">'+city+'</td><td class="print print-sign sign sign'+ emp +'"></td></tr>'
   }
   else {
-    row = '<tr class="vs_row" id="'+ id + '_' + emp + '"><td id="emp_' + emp + '" class="emp '+emp+'">' + emp__fullname + ' | ' + emp__position__name + '</td><td id="durfrom_' + id + '_' + emp + '">' + dur_from + '</td><td class="count_'+ emp + '">' + days_count + '</td><td id="movefrom' + id + '" class="movefrom">'+ move_from + ' - ' + move_reason + '</td><td class="movecount_'+ emp +'">'+ days_count_move +'</td><td class="totaldays'+emp+'"> '+ days_count + ' </td><td class="child' + emp + '">'+child_year+'</td><td id="city_'+ id + '" class="city city' + emp + '">'+city+'</td><td class="print print-sign sign sign'+ emp +'"></td></tr>'
+    row = '<tr class="vs_row" id="'+ id + '_' + emp + '"><td id="emp_' + emp + '" class="emp '+emp+'">' + emp__fullname + ' | ' + emp__position__name + '</td><td id="durfrom_' + id + '_' + emp + '">' + dur_from + '</td><td class="count_'+ emp + '">' + days_count + '</td><td id="movefrom' + id + '" class="movefrom">'+ move_from + ' - ' + move_reason + '</td><td class="movecount_'+ emp +'">'+ days_count_move +'</td><td id="comm_' + id + '"  class="comm">'+ comm +'</td><td class="totaldays'+emp+'"> '+ days_count + ' </td><td class="child' + emp + '">'+child_year+'</td><td id="city_'+ id + '" class="city city' + emp + '">'+city+'</td><td class="print print-sign sign sign'+ emp +'"></td></tr>'
   }
 
   return row
@@ -159,10 +164,14 @@ function set_onclick() {
     url4 = "/" + "vacshed" + "/" + "empinfo" + "/" + year + "/" + emp_id + "/'"
     click4 = "location.href = '" + url4
 
+    url5 = "/" + "vacshed" + "/" + "itemupd" + "/" + id + "/4'"
+    click5 = "location.href = '" + url5
+
     $('#durfrom_' + r.id).attr('onclick', click)
     $('#city_' + id).attr('onclick', click2)
     $('#movefrom' + id).attr('onclick', click3)
     $('#emp_' + emp_id).attr('onclick', click4)
+    $('#comm_' + id).attr('onclick', click5)
   }
 }
 

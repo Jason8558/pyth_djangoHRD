@@ -206,7 +206,7 @@ def vacshed_create(request,vs):
 
 def getvacshed_json(request, vs):
     if request.user.is_authenticated:
-        items = VacantionSheduleItem.objects.filter(bound_shed=vs).values('id', 'emp', 'emp__fullname', 'dur_from', 'dur_to', 'days_count', 'move_from', 'move_to', 'move_reason', 'child_year', 'days_count_move', 'city', 'emp__position__name').order_by('emp', 'dur_from')
+        items = VacantionSheduleItem.objects.filter(bound_shed=vs).values('id', 'emp', 'emp__fullname', 'dur_from', 'dur_to', 'days_count', 'move_from', 'move_to', 'move_reason', 'child_year', 'days_count_move', 'city', 'emp__position__name', 'comm').order_by('emp', 'dur_from')
         items = list(items)
         return JsonResponse(items, safe=False)
 
@@ -267,6 +267,8 @@ def vacshed_updItem(request, id, type):
         daysmove = request.POST.get('per-days-move-count')
         movereason = request.POST.get('move-reason')
 
+        comm = request.POST.get('comm')
+
 
         item = VacantionSheduleItem.objects.get(id=id)
         if request.method == 'GET':
@@ -290,6 +292,10 @@ def vacshed_updItem(request, id, type):
                         item.move_reason = movereason
                         item.days_count_move = daysmove
                         item.save()
+                    else:
+                        if type == 4:
+                            item.comm = comm
+                            item.save()
             return redirect('/vacshed/create/' + str(item.bound_shed.id) + '/')
 
 def vacshed_check(request,id):
