@@ -103,7 +103,7 @@ function formrow(dep__name, aup__name, id, emp, emp__fullname, emp__position__na
     move_to = move_to[2]+'.'+move_to[1]+'.'+move_to[0]
   }
 
-  if (comm = null) {
+  if (comm == null) {
     comm = ''
   }
 
