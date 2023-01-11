@@ -112,6 +112,7 @@ class Tabel(models.Model):
     comm = models.CharField(verbose_name='Комментарий (НЕОБЯЗАТЕЛЬНО)', max_length=256, default="", blank=True)
     iscorr = models.BooleanField(default=False)
     corr = models.ForeignKey('Tabel', verbose_name="Корректировка к ", db_index=True, on_delete=models.CASCADE, null=True, blank=True)
+    half_month_check = models.BooleanField(verbose_name='Половина месяца заполнена', default=False, blank=True) 
 
     res_officer = models.CharField(blank=True, editable=False,  max_length=256, help_text="Отвественный за составление табеля", verbose_name='Табельщик')
     class Meta:
