@@ -35,6 +35,7 @@ urlpatterns = [
     path('unite-unload/', views.unite_unload, name='unite-unload'),
     path('milk-unload/', views.milk_unload, name='milk-unload'),
     path('checked/<int:id>', views.tabel_sup_check, name='checked'),
+    path('half_month/<int:id>', views.tabel_half_month_check, name='half_month'),
     path('paper/<int:id>', views.tabel_paper_check, name='paper_checked'),
     path('comm/<int:id>/', views.upd_comm, name='comm'),
     path('overtime/', views.upd_norma, name='overtime_url'),
@@ -45,7 +46,7 @@ urlpatterns = [
     path('correct/<int:id>', views.new_corr_tabel, name='correct'),
     path('gettabels/<int:type>', views.tabels_json, name='gettabels'),
     path('gettabels/search/', views.tabels_json_search, name='gettabels_search'),
-    path('gettabels/<int:type>/<int:month>/<int:year>/<str:dep>/', views.tabels_json_multi, name='gettabels_multi'),
+    path('gettabels/<int:type>/<int:month>/<int:year>/<str:dep>/<int:half_month>', views.tabels_json_multi, name='gettabels_multi'),
     path('getdeps/<int:type>/', views.deps_json, name='getdeps')
 
 

@@ -18,10 +18,10 @@ function gettabels(type, access) {
 
 
       if (access == 'True') {
-        $('#tabels-main-table tbody').append('<tr style="'+color+'"><td>' + data[i].id + '</td><td class="table-type">' + data[i].type__name + '</td><td>' + month_to_str(data[i].month) + ' ' + data[i].year +  '</td><td>' + data[i].department__name + '</td><td>' + data[i].res_officer + '</td><td>' + true_false(data[i].paper_check) + '</td><td>' +  true_false(data[i].sup_check) + '</td><td>' + true_false(data[i].unloaded) + '</td><td>' + data[i].comm + '</td></tr>')
+        $('#tabels-main-table tbody').append('<tr style="'+color+'"><td>' + data[i].id + '</td><td class="table-type">' + data[i].type__name + '</td><td>' + month_to_str(data[i].month) + ' ' + data[i].year +  '</td><td>' + data[i].department__name + '</td><td>' + data[i].res_officer + '</td><td>' + true_false(data[i].paper_check) + '</td><td>' +  true_false(data[i].sup_check) + '</td><td>'+ true_false(data[i].half_month_check)+'</td><td>' + true_false(data[i].unloaded) + '</td><td>' + data[i].comm + '</td></tr>')
       }
       else {
-        $('#tabels-main-table tbody').append('<tr style="'+color+'"><td>' + data[i].id + '</td><td class="table-type">' + data[i].type__name + '</td><td>' +  month_to_str(data[i].month) + ' ' + data[i].year +  '</td><td>' + data[i].department__name + '</td><td>' + true_false(data[i].sup_check) + '</td><td>' + data[i].comm + '</td></tr>')
+        $('#tabels-main-table tbody').append('<tr style="'+color+'"><td>' + data[i].id + '</td><td class="table-type">' + data[i].type__name + '</td><td>' +  month_to_str(data[i].month) + ' ' + data[i].year +  '</td><td>' + data[i].department__name + '</td><td>' + true_false(data[i].sup_check) + '</td><td>'+ true_false(data[i].half_month_check)+'</td><td>' + data[i].comm + '</td></tr>')
       }
 
     }
@@ -175,10 +175,10 @@ function gettabels_search(access) {
       }
 
       if (access == 'True') {
-        $('#tabels-main-table tbody').append('<tr><td>' + data[i].id + '</td><td class="table-type">' + data[i].type__name + iscorr + '</td><td>' + month_to_str(data[i].month) + ' ' + data[i].year +  '</td><td>' + data[i].department__name + '</td><td>' + data[i].res_officer + '</td><td>' + true_false(data[i].paper_check) + '</td><td>' +  true_false(data[i].sup_check) + '</td><td>' + true_false(data[i].unloaded) + '</td><td>' + data[i].comm + '</td></tr>')
+        $('#tabels-main-table tbody').append('<tr><td>' + data[i].id + '</td><td class="table-type">' + data[i].type__name + iscorr + '</td><td>' + month_to_str(data[i].month) + ' ' + data[i].year +  '</td><td>' + data[i].department__name + '</td><td>' + data[i].res_officer + '</td><td>' + true_false(data[i].paper_check) + '</td><td>' +  true_false(data[i].sup_check) + '</td><td>'+ true_false(data[i].half_month_check)+'</td><td>' + true_false(data[i].unloaded) + '</td><td>' + data[i].comm + '</td></tr>')
       }
       else {
-        $('#tabels-main-table tbody').append('<tr><td>' + data[i].id + '</td><td class="table-type">' + data[i].type__name + iscorr + '</td><td>' +  month_to_str(data[i].month) + ' ' + data[i].year +  '</td><td>' + data[i].department__name + '</td><td>' + true_false(data[i].sup_check) + '</td><td>' + data[i].comm + '</td></tr>')
+        $('#tabels-main-table tbody').append('<tr><td>' + data[i].id + '</td><td class="table-type">' + data[i].type__name + iscorr + '</td><td>' +  month_to_str(data[i].month) + ' ' + data[i].year +  '</td><td>' + data[i].department__name + '</td><td>' + true_false(data[i].sup_check) + '</td><td>'+ true_false(data[i].half_month_check)+'</td><td>' + data[i].comm + '</td></tr>')
       }
 
     }

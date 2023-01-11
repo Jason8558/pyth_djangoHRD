@@ -177,6 +177,15 @@
     </div>
   {% endif %}
 
+
+  <div class="hm-check">
+    {% if b_tabel.half_month_check %}
+    <a id="h-check" href="{% url 'half_month' id=b_tabel.id%}">1/2 месяца не заполнена</a>
+    {%else%}
+    <a id="h-check" href="{% url 'half_month' id=b_tabel.id%}">1/2 месяца заполнена</a>
+    {%endif%}
+  </div>
+
 <div class="sup_check not-print">
   {% if b_tabel.sup_check %}
     <h4 style="color: green;">✅ Проверен СУП</h4>
