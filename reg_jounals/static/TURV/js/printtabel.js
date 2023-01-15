@@ -144,7 +144,7 @@ switch (month) {
       }
       if (inf.indexOf('Firefox') >-1 ) {
         browser = "Firefox"
-        rcount = 50
+        rcount = 40
       }
     }
 
