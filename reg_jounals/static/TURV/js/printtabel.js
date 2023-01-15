@@ -140,11 +140,11 @@ switch (month) {
     for (var inf of info) {
       if (inf.indexOf('Chrome') >-1) {
         browser = "Chrome"
-        rcount = 45
+        rcount = 65
       }
       if (inf.indexOf('Firefox') >-1 ) {
         browser = "Firefox"
-        rcount = 45
+        rcount = 65
       }
     }
 
