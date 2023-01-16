@@ -56,6 +56,7 @@
   <h5 id="position"></h5>
   <h5 id="level"></h5>
   <h5 id="payment"></h5>
+  <h5 id="sex"></h5>
   <h5 id="shift"></h5>
   <span id="n_time_span">Норма времени</span><h5 id="n_time"></h5>
   </div>
@@ -183,6 +184,7 @@
   </div>
   <p style='display: none;'>{{tabel.toxic_p}}{{tabel.auto}}</p>
   <div class="tabel_buttons">
+    <button type="button" onclick="auto_fill_upd()" class="btn btn-warning" name="button">Автозаполнение</button>
     <button type="button" onclick="Tabel();" class="btn btn-outline-dark" name="button">Пересчитать</button>
 
     <input type="button" onclick="Tabel();"  class="btn btn-success tItem_submit" name="" value="Пересчитать и сохранить">

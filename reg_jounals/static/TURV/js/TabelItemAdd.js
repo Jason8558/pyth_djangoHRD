@@ -420,7 +420,7 @@ function ReSelectEmp() {
 emp_info()
   }
 
-function auto_fill() {
+function auto_fill(type) {
   month_  = $('#id_month').text()
   year_ = $('#id_year').text()
   let rMonth = 0
@@ -485,6 +485,7 @@ function auto_fill() {
   shift = emp_select[5]
   console.log(shift);
   if (shift == 'False') {
+    if (type == 0) {
 
 
   for (var i = 0; i < days_count; i++) {
@@ -512,6 +513,34 @@ function auto_fill() {
 
     }
 
+  }}
+  else {
+    for (var i = 0; i < 15; i++) {
+      hours[i].value = '8'
+      if (sex == 'Ж' && codes[i+1].value == 'В' && codes[i].value != 'В' ) {
+        if ($('#tabel-type').text() != 2) {
+        codes[i].value = 'Я/ЛЧ'
+        hours[i].value = '4/4'}
+        else {
+          codes[i].value = 'Я'
+          hours[i].value = '4'
+        }
+      }
+
+      switch (codes[i].value) {
+
+      case 'В':
+      codes[i].value = 'В'
+      break;
+
+      case '':
+      codes[i].value = 'Я'
+      break;
+      default:
+
+      }
+
+    }
   }
 }
 else {
