@@ -424,17 +424,26 @@ def tabels_forload(request):
         if request.method == 'POST':
             year = request.POST.get('fl-year', '')
             month = request.POST.get('fl-month',  '')
-            print(year,month)
+            half = request.POST.get('fl-half','')
 
-
-            tabels = Tabel.objects.filter(month=str(month)).filter(year=str(year)).filter(type_id=1).filter(del_check=0).filter(sup_check=1).filter(iscorr=0).filter(department__shift=1).filter(unloaded=0)
+            if half:
+                tabels = Tabel.objects.filter(month=str(month)).filter(year=str(year)).filter(type_id=1).filter(del_check=0).filter(sup_check=0).filter(iscorr=0).filter(department__shift=1).filter(unloaded=0).filter(half_month_check=1)
+            else:
+                tabels = Tabel.objects.filter(month=str(month)).filter(year=str(year)).filter(type_id=1).filter(del_check=0).filter(sup_check=1).filter(iscorr=0).filter(department__shift=1).filter(unloaded=0)
         # tabels = Tabel.objects.all()
             return render(request, 'TURV/for-load.html', context={'tabels':tabels, 'count':len(tabels)})
         else:
             year =  datetime.date.today().year
+
             month = datetime.date.today().month
-            tabels = Tabel.objects.filter(month=str(month)).filter(year=str(year)).filter(type_id=1).filter(del_check=0).filter(sup_check=1).filter(iscorr=0).filter(department__shift=1).filter(unloaded=0)
+            if len(str(month)) == 1:
+                month = '0' + str(month)
+            else:
+                month = month
+
+            tabels = Tabel.objects.filter(month=month).filter(year=year).filter(type_id=1).filter(del_check=0).filter(sup_check=1).filter(iscorr=0).filter(department__shift=1).filter(unloaded=0)
             # tabels = Tabel.objects.all()
+            print(tabels)
             return render(request, 'TURV/for-load.html', context={'tabels':tabels, 'count':len(tabels)})
 
 
