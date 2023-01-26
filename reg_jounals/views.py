@@ -689,25 +689,25 @@ def employment_history(request):
         search_type = request.GET.get('eh_search_type','')
 
         if search_query:
-            histories = EmploymentHistory.objects.filter(eh_employer__icontains=search_query)
+            histories = EmploymentHistory.objects.filter(eh_employer__icontains=search_query).order_by('-eh_dateOfInv')
             p_orders = Paginator(histories, 10)
             page_number = request.GET.get('page', 1)
         else:
             if search_type:
                 if search_type == '0':
                     print(search_type)
-                    histories = EmploymentHistory.objects.filter(eh_isdigital=1)
+                    histories = EmploymentHistory.objects.filter(eh_isdigital=1).order_by('-eh_dateOfInv')
                     p_orders = Paginator(histories, 1000)
                 else:
                     pass
 
                 if search_type == '1':
-                    histories = EmploymentHistory.objects.filter(eh_isdigital=0)
+                    histories = EmploymentHistory.objects.filter(eh_isdigital=0).order_by('-eh_dateOfInv')
                     p_orders = Paginator(histories, 1000)
                 else:
                     pass
             else:
-                histories = EmploymentHistory.objects.all()
+                histories = EmploymentHistory.objects.all().order_by('-eh_dateOfInv')
                 p_orders = Paginator(histories, 10)
 
 
