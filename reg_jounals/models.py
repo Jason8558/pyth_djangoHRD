@@ -137,7 +137,7 @@ class OrdersOnPersonnel(models.Model):
     op_res_officer = models.CharField(blank=True, editable=False,  max_length=256, help_text="Сотрудник, который внес документ в систему ", verbose_name='Ответственный сотрудник')
 
     class Meta:
-        ordering = ["id"]
+        ordering = ["-op_date"]
         verbose_name = 'Приказ по личному составу'
         verbose_name_plural = 'Приказы по личному составу'
 
