@@ -180,9 +180,10 @@
 
   <div class="hm-check">
     {% if b_tabel.half_month_check %}
-    <a id="h-check" href="{% url 'half_month' id=b_tabel.id%}">1/2 месяца не заполнена</a>
+    <h4 style="color: green;">✅ 1\2 готова</h4>
+    <a id="h-check" class="btn btn-danger btn-sm" href="{% url 'half_month' id=b_tabel.id%}">Снять поментку о заполнении 1\2</a>
     {%else%}
-    <a id="h-check" href="{% url 'half_month' id=b_tabel.id%}">1/2 месяца заполнена</a>
+    <a id="h-check" class="btn btn-success btn-sm" href="{% url 'half_month' id=b_tabel.id%}">Поставить отметку о заполнении 1\2 месяца</a>
     {%endif%}
   </div>
 
