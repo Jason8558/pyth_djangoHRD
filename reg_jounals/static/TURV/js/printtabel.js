@@ -9,7 +9,7 @@ function print(year, month, dep) {
     }
     if (inf.indexOf('Firefox') >-1 ) {
       browser = "Firefox"
-      rcount = 56
+      rcount = 54
     }
   }
 
