@@ -1,10 +1,12 @@
 {% extends "reg_jounals/index.html" %}
-
+{%load static%}
 
 
 {%block title%}Новый сотрудник в приказе{% endblock %}
-{%block header%}Добавить сотрудника в приказ{% endblock %}
-
+{%block header%}{%block logo%}{{block.super}}{%endblock%}Добавить сотрудника в приказ{% endblock %}
+{%block script%}
+  <script src="{% static 'js/rj_test.js'%}"></script>
+{%endblock%}
 {%block content%}
 
 {% if form.errors%}

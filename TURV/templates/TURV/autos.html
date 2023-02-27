@@ -2,16 +2,17 @@
 
 {%block title%}Автотранспорт{% endblock %}
 
-{%block header%}  <a class="btn btn-dark" href=".."> < Назад </a> | Автотранспорт. Всего: {{count}}.{%endblock%}
+{%block header%} <div class="tabel-header-info refs"> <a class="btn btn-dark" href=".."> < Назад </a> | Автотранспорт. Всего: {{count}} </div>{%endblock%}
 
 {% block body %}
 
-<form  class="f_search"  action="{% url 'autos_list'%}" >
-<p><u>ПОИСК: </u></p>
+<form  class="f_search fs-autos fs-inline"  action="{% url 'autos_list'%}" >
+<h5>ПОИСК:</h5>
+<div class="fs-content">
   <input type="text" name="car" placeholder="Поиск по номеру" value="">
 
     <input class="btn btn-dark"type="submit" name="" value="Найти">
-
+  </div>
 </form>
 
 <div class="container">

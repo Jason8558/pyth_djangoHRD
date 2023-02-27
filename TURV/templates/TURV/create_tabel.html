@@ -24,7 +24,11 @@
 {%endblock%}
 
 {%block header%}
-<a class="btn btn-danger" onclick="window.close()"> ЗАКРЫТЬ  </a> |
+
+<div class="tabel-header-info">
+
+<a class="btn btn-danger" onclick="window.close()"> ЗАКРЫТЬ  </a> 
+<span class="tabel-header-text">
 <span id="id_month" class="not-print" style="display:none">{{month}}</span>
 <span id="id_year" class="not-print" style="display:none">{{year}}</span>
 
@@ -32,7 +36,8 @@
 <span><b>{{b_tabel.department}}</b></span>
 за: <b><span class="field_month">{{month}}</span> {{year}} г.</b>
 Всего сотрудников в табеле: {{count}}
-
+</span>
+</div>
 {%endblock%}
 
 {%block scripts%}

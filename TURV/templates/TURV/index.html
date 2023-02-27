@@ -31,15 +31,12 @@
 
 </head>
 <header>
+<div class="header-nav">
+  {% block header %}
+ 
 
-
-<nav class="navbar navbar-light  print">
-  <div class="container-fluid">
-    <span class="navbar-brand mb-0 h1">{%block header%}{%block logo%}<img src="{% static 'img/IMG_5826.PNG'%}" alt="">{%endblock%}Табели учета рабочего времени{%endblock%}  <span class="logout">{{user.first_name}} {% if request.user.is_superuser%}   <a style="color:black;" href="/admin/">| Войти в админ-панель</a><span id="version"> v2.5 </span>{%endif%} <a href="{% url 'logout'%}" class="btn btn-outline-danger">Выход</a></span></span>
-  </div>
-</nav>
-
-
+{%endblock%}
+</div>
 </header>
 <body>
   {%block body%}{%endblock%}

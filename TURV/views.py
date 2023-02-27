@@ -259,32 +259,32 @@ def tabels_json_search(request):
 
         if (sq_period_month) and (sq_period_year) and (sq_type):
             if sq_type == 'c':
-                tabels = Tabel.objects.values('id', 'month', 'year', 'type__name', 'department', 'department__name', 'del_check', 'sup_check', 'paper_check', 'unloaded', 'res_officer', 'comm', 'iscorr').filter(department_id__in=allow_departments).filter(year=sq_period_year).filter(del_check=0).filter(month=sq_period_month).filter(iscorr=1).order_by('-year', '-month', 'type__id')
+                tabels = Tabel.objects.values('id', 'month', 'year', 'type__name', 'department', 'department__name', 'del_check', 'sup_check', 'paper_check', 'unloaded', 'res_officer', 'comm', 'iscorr', 'half_month_check').filter(department_id__in=allow_departments).filter(year=sq_period_year).filter(del_check=0).filter(month=sq_period_month).filter(iscorr=1).order_by('-year', '-month', 'type__id')
             else:
-                tabels = Tabel.objects.values('id', 'month', 'year', 'type__name', 'department', 'department__name', 'del_check', 'sup_check', 'paper_check', 'unloaded', 'res_officer', 'comm', 'iscorr').filter(department_id__in=allow_departments).filter(year=sq_period_year).filter(del_check=0).filter(month=sq_period_month).filter(type_id=sq_type).order_by('-year', '-month', 'type__id')
+                tabels = Tabel.objects.values('id', 'month', 'year', 'type__name', 'department', 'department__name', 'del_check', 'sup_check', 'paper_check', 'unloaded', 'res_officer', 'comm', 'iscorr', 'half_month_check').filter(department_id__in=allow_departments).filter(year=sq_period_year).filter(del_check=0).filter(month=sq_period_month).filter(type_id=sq_type).order_by('-year', '-month', 'type__id')
         else:
             if (sq_period_month) and (sq_period_year):
-                tabels = Tabel.objects.values('id', 'month', 'year', 'type__name', 'department', 'department__name', 'del_check', 'sup_check', 'paper_check', 'unloaded', 'res_officer', 'comm', 'iscorr').filter(department_id__in=allow_departments).filter(year=sq_period_year).filter(del_check=0).filter(month=sq_period_month).order_by('-year', '-month', 'type__id')
+                tabels = Tabel.objects.values('id', 'month', 'year', 'type__name', 'department', 'department__name', 'del_check', 'sup_check', 'paper_check', 'unloaded', 'res_officer', 'comm', 'iscorr', 'half_month_check').filter(department_id__in=allow_departments).filter(year=sq_period_year).filter(del_check=0).filter(month=sq_period_month).order_by('-year', '-month', 'type__id')
             else:
                 if (sq_period_month):
-                    tabels = Tabel.objects.values('id', 'month', 'year', 'type__name', 'department', 'department__name', 'del_check', 'sup_check', 'paper_check', 'unloaded', 'res_officer', 'comm', 'iscorr').filter(department_id__in=allow_departments).filter(month=sq_period_month).filter(del_check=0).order_by('-year', '-month', 'type__id')
+                    tabels = Tabel.objects.values('id', 'month', 'year', 'type__name', 'department', 'department__name', 'del_check', 'sup_check', 'paper_check', 'unloaded', 'res_officer', 'comm', 'iscorr', 'half_month_check').filter(department_id__in=allow_departments).filter(month=sq_period_month).filter(del_check=0).order_by('-year', '-month', 'type__id')
                 else:
                     if (sq_period_year):
-                        tabels = Tabel.objects.values('id', 'month', 'year', 'type__name', 'department', 'department__name', 'del_check', 'sup_check', 'paper_check', 'unloaded', 'res_officer', 'comm', 'iscorr').filter(department_id__in=allow_departments).filter(year=sq_period_year).filter(del_check=0).order_by('-year', '-month', 'type__id')
+                        tabels = Tabel.objects.values('id', 'month', 'year', 'type__name', 'department', 'department__name', 'del_check', 'sup_check', 'paper_check', 'unloaded', 'res_officer', 'comm', 'iscorr', 'half_month_check').filter(department_id__in=allow_departments).filter(year=sq_period_year).filter(del_check=0).order_by('-year', '-month', 'type__id')
                     else:
                         if (sq_dep):
-                            tabels = Tabel.objects.values('id', 'month', 'year', 'type__name', 'department', 'department__name', 'del_check', 'sup_check', 'paper_check', 'unloaded', 'res_officer', 'comm', 'iscorr').filter(department_id=sq_dep).filter(del_check=0).order_by('-year', '-month', 'type__id')
+                            tabels = Tabel.objects.values('id', 'month', 'year', 'type__name', 'department', 'department__name', 'del_check', 'sup_check', 'paper_check', 'unloaded', 'res_officer', 'comm', 'iscorr', 'half_month_check').filter(department_id=sq_dep).filter(del_check=0).order_by('-year', '-month', 'type__id')
                         else:
                             if (sq_type):
                                 if sq_type == 'c':
-                                    tabels = Tabel.objects.values('id', 'month', 'year', 'type__name', 'department', 'department__name', 'del_check', 'sup_check', 'paper_check', 'unloaded', 'res_officer', 'comm', 'iscorr').filter(iscorr=1).filter(department_id__in=allow_departments).filter(del_check=0).order_by('-year', '-month', 'type__id')
+                                    tabels = Tabel.objects.values('id', 'month', 'year', 'type__name', 'department', 'department__name', 'del_check', 'sup_check', 'paper_check', 'unloaded', 'res_officer', 'comm', 'iscorr', 'half_month_check').filter(iscorr=1).filter(department_id__in=allow_departments).filter(del_check=0).order_by('-year', '-month', 'type__id')
                                 else:
-                                    tabels = Tabel.objects.values('id', 'month', 'year', 'type__name', 'department', 'department__name', 'del_check', 'sup_check', 'paper_check', 'unloaded', 'res_officer', 'comm', 'iscorr').filter(type_id=sq_type).filter(department_id__in=allow_departments).filter(del_check=0).order_by('-year', '-month', 'type__id')
+                                    tabels = Tabel.objects.values('id', 'month', 'year', 'type__name', 'department', 'department__name', 'del_check', 'sup_check', 'paper_check', 'unloaded', 'res_officer', 'comm', 'iscorr', 'half_month_check').filter(type_id=sq_type).filter(department_id__in=allow_departments).filter(del_check=0).order_by('-year', '-month', 'type__id')
                             else:
                                 if (sq_code):
-                                    tabels = Tabel.objects.values('id', 'month', 'year', 'type__name', 'department', 'department__name', 'del_check', 'sup_check', 'paper_check', 'unloaded', 'res_officer', 'comm', 'iscorr').filter(id=sq_code).order_by('-year', '-month',   'department__id' , 'type__id')
+                                    tabels = Tabel.objects.values('id', 'month', 'year', 'type__name', 'department', 'department__name', 'del_check', 'sup_check', 'paper_check', 'unloaded', 'res_officer', 'comm', 'iscorr', 'half_month_check').filter(id=sq_code).order_by('-year', '-month',   'department__id' , 'type__id')
                                 else:
-                                    tabels = Tabel.objects.values('id', 'month', 'year', 'type__name', 'department', 'department__name', 'del_check', 'sup_check', 'paper_check', 'unloaded', 'res_officer', 'comm', 'iscorr').filter(~Q(type_id=8)).filter(day='0').order_by('-year', '-month',   'department__id' , 'type__id')
+                                    tabels = Tabel.objects.values('id', 'month', 'year', 'type__name', 'department', 'department__name', 'del_check', 'sup_check', 'paper_check', 'unloaded', 'res_officer', 'comm', 'iscorr', 'half_month_check').filter(~Q(type_id=8)).filter(day='0').order_by('-year', '-month',   'department__id' , 'type__id')
 
 
 
@@ -295,57 +295,57 @@ def tabels_json_search(request):
         pag = 1000
         if (sq_period_month) and (sq_period_year) and (sq_dep) and (sq_type):
             if sq_type == 'c':
-                tabels = Tabel.objects.values('id', 'month', 'year', 'type__name', 'department', 'department__name', 'del_check', 'sup_check', 'paper_check', 'unloaded', 'res_officer', 'comm', 'iscorr').filter(year=sq_period_year).filter(month=sq_period_month).filter(department_id=sq_dep).filter(iscorr=1).order_by('-year', '-month',   'department__id' , 'type__id')
+                tabels = Tabel.objects.values('id', 'month', 'year', 'type__name', 'department', 'department__name', 'del_check', 'sup_check', 'paper_check', 'unloaded', 'res_officer', 'comm', 'iscorr', 'half_month_check').filter(year=sq_period_year).filter(month=sq_period_month).filter(department_id=sq_dep).filter(iscorr=1).order_by('-year', '-month',   'department__id' , 'type__id')
             else:
 
-                tabels = Tabel.objects.values('id', 'month', 'year', 'type__name', 'department', 'department__name', 'del_check', 'sup_check', 'paper_check', 'unloaded', 'res_officer', 'comm', 'iscorr').filter(year=sq_period_year).filter(month=sq_period_month).filter(department_id=sq_dep).filter(type_id=sq_type).order_by('-year', '-month',   'department__id' , 'type__id')
+                tabels = Tabel.objects.values('id', 'month', 'year', 'type__name', 'department', 'department__name', 'del_check', 'sup_check', 'paper_check', 'unloaded', 'res_officer', 'comm', 'iscorr', 'half_month_check').filter(year=sq_period_year).filter(month=sq_period_month).filter(department_id=sq_dep).filter(type_id=sq_type).order_by('-year', '-month',   'department__id' , 'type__id')
         else:
             if (sq_period_month) and (sq_period_year) and (sq_dep):
 
-                tabels = Tabel.objects.values('id', 'month', 'year', 'type__name', 'department', 'department__name', 'del_check', 'sup_check', 'paper_check', 'unloaded', 'res_officer', 'comm', 'iscorr').filter(year=sq_period_year).filter(month=sq_period_month).filter(department_id=sq_dep).order_by('-year', '-month',   'department__id' , 'type__id')
+                tabels = Tabel.objects.values('id', 'month', 'year', 'type__name', 'department', 'department__name', 'del_check', 'sup_check', 'paper_check', 'unloaded', 'res_officer', 'comm', 'iscorr', 'half_month_check').filter(year=sq_period_year).filter(month=sq_period_month).filter(department_id=sq_dep).order_by('-year', '-month',   'department__id' , 'type__id')
             else:
                 if (sq_period_month) and (sq_period_year) and (sq_type):
                     if sq_type == 'c':
-                        tabels = Tabel.objects.values('id', 'month', 'year', 'type__name', 'department', 'department__name', 'del_check', 'sup_check', 'paper_check', 'unloaded', 'res_officer', 'comm', 'iscorr').filter(year=sq_period_year).filter(month=sq_period_month).filter(iscorr=1).order_by('-year', '-month',   'department__id' , 'type__id')
+                        tabels = Tabel.objects.values('id', 'month', 'year', 'type__name', 'department', 'department__name', 'del_check', 'sup_check', 'paper_check', 'unloaded', 'res_officer', 'comm', 'iscorr', 'half_month_check').filter(year=sq_period_year).filter(month=sq_period_month).filter(iscorr=1).order_by('-year', '-month',   'department__id' , 'type__id')
                     else:
-                        tabels = Tabel.objects.values('id', 'month', 'year', 'type__name', 'department', 'department__name', 'del_check', 'sup_check', 'paper_check', 'unloaded', 'res_officer', 'comm', 'iscorr').filter(year=sq_period_year).filter(month=sq_period_month).filter(type_id=sq_type).order_by('-year', '-month',   'department__id' , 'type__id')
+                        tabels = Tabel.objects.values('id', 'month', 'year', 'type__name', 'department', 'department__name', 'del_check', 'sup_check', 'paper_check', 'unloaded', 'res_officer', 'comm', 'iscorr', 'half_month_check').filter(year=sq_period_year).filter(month=sq_period_month).filter(type_id=sq_type).order_by('-year', '-month',   'department__id' , 'type__id')
                 else:
                     if (sq_period_month) and (sq_period_year):
 
-                        tabels = Tabel.objects.values('id', 'month', 'year', 'type__name', 'department', 'department__name', 'del_check', 'sup_check', 'paper_check', 'unloaded', 'res_officer', 'comm', 'iscorr').filter(year=sq_period_year).filter(month=sq_period_month).filter(year=sq_period_year).filter(day='0').order_by('-year', '-month',   'department__id' , 'type__id')
+                        tabels = Tabel.objects.values('id', 'month', 'year', 'type__name', 'department', 'department__name', 'del_check', 'sup_check', 'paper_check', 'unloaded', 'res_officer', 'comm', 'iscorr', 'half_month_check').filter(year=sq_period_year).filter(month=sq_period_month).filter(year=sq_period_year).filter(day='0').order_by('-year', '-month',   'department__id' , 'type__id')
                     else:
 
                             if (sq_period_year) and (sq_dep):
-                                tabels = Tabel.objects.values('id', 'month', 'year', 'type__name', 'department', 'department__name', 'del_check', 'sup_check', 'paper_check', 'unloaded', 'res_officer', 'comm', 'iscorr').filter(year=sq_period_year).filter(department_id=sq_dep).order_by('-year', '-month',   'department__id' , 'type__id')
+                                tabels = Tabel.objects.values('id', 'month', 'year', 'type__name', 'department', 'department__name', 'del_check', 'sup_check', 'paper_check', 'unloaded', 'res_officer', 'comm', 'iscorr', 'half_month_check').filter(year=sq_period_year).filter(department_id=sq_dep).order_by('-year', '-month',   'department__id' , 'type__id')
                             else:
                                 if (sq_period_month):
-                                    tabels = Tabel.objects.values('id', 'month', 'year', 'type__name', 'department', 'department__name', 'del_check', 'sup_check', 'paper_check', 'unloaded', 'res_officer', 'comm', 'iscorr').filter(month=sq_period_month).order_by('-year', '-month',   'department__id' , 'type__id')
+                                    tabels = Tabel.objects.values('id', 'month', 'year', 'type__name', 'department', 'department__name', 'del_check', 'sup_check', 'paper_check', 'unloaded', 'res_officer', 'comm', 'iscorr', 'half_month_check').filter(month=sq_period_month).order_by('-year', '-month',   'department__id' , 'type__id')
                                 else:
                                     if (sq_period_year):
-                                        tabels = Tabel.objects.values('id', 'month', 'year', 'type__name', 'department', 'department__name', 'del_check', 'sup_check', 'paper_check', 'unloaded', 'res_officer', 'comm', 'iscorr').filter(year=sq_period_year).order_by('-year', '-month',   'department__id' , 'type__id')
+                                        tabels = Tabel.objects.values('id', 'month', 'year', 'type__name', 'department', 'department__name', 'del_check', 'sup_check', 'paper_check', 'unloaded', 'res_officer', 'comm', 'iscorr', 'half_month_check').filter(year=sq_period_year).order_by('-year', '-month',   'department__id' , 'type__id')
                                     else:
                                         if (sq_dep):
-                                            tabels = Tabel.objects.values('id', 'month', 'year', 'type__name', 'department', 'department__name', 'del_check', 'sup_check', 'paper_check', 'unloaded', 'res_officer', 'comm', 'iscorr').filter(department_id=sq_dep).filter(day='0').order_by('-year', '-month',   'department__id' , 'type__id')
+                                            tabels = Tabel.objects.values('id', 'month', 'year', 'type__name', 'department', 'department__name', 'del_check', 'sup_check', 'paper_check', 'unloaded', 'res_officer', 'comm', 'iscorr', 'half_month_check').filter(department_id=sq_dep).filter(day='0').order_by('-year', '-month',   'department__id' , 'type__id')
                                         else:
                                             if (sq_this_month):
-                                                tabels = Tabel.objects.values('id', 'month', 'year', 'type__name', 'department', 'department__name', 'del_check', 'sup_check', 'paper_check', 'unloaded', 'res_officer', 'comm', 'iscorr').filter(year=year_).filter(month=month_).filter(day='0').order_by('-year', '-month',   'department__id' , 'type__id')
+                                                tabels = Tabel.objects.values('id', 'month', 'year', 'type__name', 'department', 'department__name', 'del_check', 'sup_check', 'paper_check', 'unloaded', 'res_officer', 'comm', 'iscorr', 'half_month_check').filter(year=year_).filter(month=month_).filter(day='0').order_by('-year', '-month',   'department__id' , 'type__id')
                                             else:
                                                 if (sq_check_this_month):
-                                                    tabels = Tabel.objects.values('id', 'month', 'year', 'type__name', 'department', 'department__name', 'del_check', 'sup_check', 'paper_check', 'unloaded', 'res_officer', 'comm', 'iscorr').filter(year=year_).filter(month=month_).filter(day='0').filter(sup_check= True).order_by('-year', '-month',   'department__id' , 'type__id')
+                                                    tabels = Tabel.objects.values('id', 'month', 'year', 'type__name', 'department', 'department__name', 'del_check', 'sup_check', 'paper_check', 'unloaded', 'res_officer', 'comm', 'iscorr', 'half_month_check').filter(year=year_).filter(month=month_).filter(day='0').filter(sup_check= True).order_by('-year', '-month',   'department__id' , 'type__id')
                                                 else:
                                                     if (sq_user):
-                                                        tabels = Tabel.objects.values('id', 'month', 'year', 'type__name', 'department', 'department__name', 'del_check', 'sup_check', 'paper_check', 'unloaded', 'res_officer', 'comm', 'iscorr').filter(res_officer=sq_user).order_by('-year', '-month',   'department__id' , 'type__id')
+                                                        tabels = Tabel.objects.values('id', 'month', 'year', 'type__name', 'department', 'department__name', 'del_check', 'sup_check', 'paper_check', 'unloaded', 'res_officer', 'comm', 'iscorr', 'half_month_check').filter(res_officer=sq_user).order_by('-year', '-month',   'department__id' , 'type__id')
                                                     else:
                                                         if (sq_type):
                                                             if sq_type == 'c':
-                                                                tabels = Tabel.objects.values('id', 'month', 'year', 'type__name', 'department', 'department__name', 'del_check', 'sup_check', 'paper_check', 'unloaded', 'res_officer', 'comm', 'iscorr').filter(iscorr=1).order_by('-year', '-month',   'department__id' , 'type__id')
+                                                                tabels = Tabel.objects.values('id', 'month', 'year', 'type__name', 'department', 'department__name', 'del_check', 'sup_check', 'paper_check', 'unloaded', 'res_officer', 'comm', 'iscorr', 'half_month_check').filter(iscorr=1).order_by('-year', '-month',   'department__id' , 'type__id')
                                                             else:
-                                                                tabels = Tabel.objects.values('id', 'month', 'year', 'type__name', 'department', 'department__name', 'del_check', 'sup_check', 'paper_check', 'unloaded', 'res_officer', 'comm', 'iscorr').filter(type_id=sq_type).order_by('-year', '-month',   'department__id' , 'type__id')
+                                                                tabels = Tabel.objects.values('id', 'month', 'year', 'type__name', 'department', 'department__name', 'del_check', 'sup_check', 'paper_check', 'unloaded', 'res_officer', 'comm', 'iscorr', 'half_month_check').filter(type_id=sq_type).order_by('-year', '-month',   'department__id' , 'type__id')
                                                         else:
                                                             if (sq_code):
-                                                                tabels = Tabel.objects.values('id', 'month', 'year', 'type__name', 'department', 'department__name', 'del_check', 'sup_check', 'paper_check', 'unloaded', 'res_officer', 'comm', 'iscorr').filter(id=sq_code).order_by('-year', '-month',   'department__id' , 'type__id')
+                                                                tabels = Tabel.objects.values('id', 'month', 'year', 'type__name', 'department', 'department__name', 'del_check', 'sup_check', 'paper_check', 'unloaded', 'res_officer', 'comm', 'iscorr', 'half_month_check').filter(id=sq_code).order_by('-year', '-month',   'department__id' , 'type__id')
                                                             else:
-                                                                tabels = Tabel.objects.values('id', 'month', 'year', 'type__name', 'department', 'department__name', 'del_check', 'sup_check', 'paper_check', 'unloaded', 'res_officer', 'comm', 'iscorr').filter(~Q(type_id=8)).filter(day='0').order_by('-year', '-month',   'department__id' , 'type__id')
+                                                                tabels = Tabel.objects.values('id', 'month', 'year', 'type__name', 'department', 'department__name', 'del_check', 'sup_check', 'paper_check', 'unloaded', 'res_officer', 'comm', 'iscorr', 'half_month_check').filter(~Q(type_id=8)).filter(day='0').order_by('-year', '-month',   'department__id' , 'type__id')
 
     tabels = list(tabels)
     return JsonResponse(tabels, safe=False)
@@ -427,9 +427,9 @@ def tabels_forload(request):
             half = request.POST.get('fl-half','')
 
             if half:
-                tabels = Tabel.objects.filter(month=str(month)).filter(year=str(year)).filter(type_id=1).filter(del_check=0).filter(sup_check=0).filter(iscorr=0).filter(department__shift=1).filter(unloaded=0).filter(half_month_check=1)
+                tabels = Tabel.objects.filter(month=str(month)).filter(year=str(year)).filter(type_id=1).filter(del_check=0).filter(sup_check=0).filter(iscorr=0).filter(department__shift=1).filter(unloaded=0).filter(half_month_check=1).order_by('department__name')
             else:
-                tabels = Tabel.objects.filter(month=str(month)).filter(year=str(year)).filter(type_id=1).filter(del_check=0).filter(sup_check=1).filter(iscorr=0).filter(department__shift=1).filter(unloaded=0)
+                tabels = Tabel.objects.filter(month=str(month)).filter(year=str(year)).filter(type_id=1).filter(del_check=0).filter(sup_check=1).filter(iscorr=0).filter(department__shift=1).filter(unloaded=0).order_by('department__name')
         # tabels = Tabel.objects.all()
             return render(request, 'TURV/for-load.html', context={'tabels':tabels, 'count':len(tabels)})
         else:
@@ -1193,6 +1193,7 @@ def employers_list(request):
         sq_emp = request.GET.get('emp', '')
         sq_dep = request.GET.get('emp_dep', '')
         sq_shift = request.GET.get('emp_shift', '')
+        sq_fired = request.GET.get('emp_fired','')
 
         if (granted == False):
             deps = Department.objects.all().filter(user=user_.id)
@@ -1202,52 +1203,61 @@ def employers_list(request):
             # Алгоритм поиска
             pag = 1000
             if (sq_emp):
-                employers = Employers.objects.all().filter(department_id__in=allow_departments).filter(fullname__icontains=sq_emp)
+                employers = Employers.objects.all().filter(department_id__in=allow_departments).filter(fullname__icontains=sq_emp).filter(fired=False) 
             else:
                 if (sq_dep) and (sq_shift):
                     if (sq_shift == 1):
-                        employers = Employers.objects.all().filter(department_id=sq_dep).filter(shift_personnel=True)
+                        employers = Employers.objects.all().filter(department_id=sq_dep).filter(shift_personnel=True).filter(fired=False) 
                     else:
 
-                        employers = Employers.objects.all().filter(department_id=sq_dep).filter(shift_personnel=False)
+                        employers = Employers.objects.all().filter(department_id=sq_dep).filter(shift_personnel=False).filter(fired=False) 
                 else:
                     if (sq_dep):
-                        employers = Employers.objects.all().filter(department_id=sq_dep)
+                        if (sq_fired):
+                            employers = Employers.objects.all().filter(department_id=sq_dep).filter(fired=True) 
+                        else:
+                            employers = Employers.objects.all().filter(department_id=sq_dep).filter(fired=False)
                     else:
                         if (sq_shift == '1'):
-                                employers = Employers.objects.all().filter(department_id__in=allow_departments).filter(shift_personnel=True)
+                                employers = Employers.objects.all().filter(department_id__in=allow_departments).filter(shift_personnel=True).filter(fired=False) 
                         else:
                             if (sq_shift == '2'):
-                                employers = Employers.objects.all().filter(department_id__in=allow_departments).filter(shift_personnel=False)
+                                employers = Employers.objects.all().filter(department_id__in=allow_departments).filter(shift_personnel=False).filter(fired=False) 
                             else:
-                                pag = 50
-                                employers = Employers.objects.all().filter(department_id__in=allow_departments)
+                                if (sq_fired):
+                                   employers = Employers.objects.all().filter(department_id__in=allow_departments).filter(fired=True)
+                                else: 
+                                    pag = 50
+                                    employers = Employers.objects.all().filter(department_id__in=allow_departments).filter(fired=False) 
 
         else:
             deps = Department.objects.all()
             # Алгоритм поиска
             pag = 1000
             if (sq_emp):
-                employers = Employers.objects.all().filter(fullname__icontains=sq_emp)
+                employers = Employers.objects.all().filter(fullname__icontains=sq_emp).filter(fired=False) 
             else:
                 if (sq_dep) and (sq_shift):
                     if (sq_shift == 1):
-                        employers = Employers.objects.all().filter(department_id=sq_dep).filter(shift_personnel=True)
+                        employers = Employers.objects.all().filter(department_id=sq_dep).filter(shift_personnel=True).filter(fired=False) 
                     else:
 
-                        employers = Employers.objects.all().filter(department_id=sq_dep).filter(shift_personnel=False)
+                        employers = Employers.objects.all().filter(department_id=sq_dep).filter(shift_personnel=False).filter(fired=False) 
                 else:
                     if (sq_dep):
-                        employers = Employers.objects.all().filter(department_id=sq_dep)
+                        employers = Employers.objects.all().filter(department_id=sq_dep).filter(fired=False) 
                     else:
                         if (sq_shift == '1'):
-                                employers = Employers.objects.all().filter(shift_personnel=True)
+                                employers = Employers.objects.all().filter(shift_personnel=True).filter(fired=False) 
                         else:
                             if (sq_shift == '2'):
-                                employers = Employers.objects.all().filter(shift_personnel=False)
+                                employers = Employers.objects.all().filter(shift_personnel=False).filter(fired=False) 
                             else:
-                                pag = 50
-                                employers = Employers.objects.all()
+                                if (sq_fired):
+                                  employers = Employers.objects.all().filter(shift_personnel=False).filter(fired=True)
+                                else:
+                                    pag = 50
+                                    employers = Employers.objects.all().filter(fired=False) 
 
 
 
@@ -1325,7 +1335,10 @@ def del_employer(request, id):
 def positions_list(request):
     if request.user.is_authenticated:
         positions = Position.objects.all().order_by('name')
-        return render(request, 'TURV/positions.html', context={'positions':positions})
+        p_pos = Paginator(positions, 20)
+        page_number = request.GET.get('page', 1)
+        page = p_pos.get_page(page_number)
+        return render(request, 'TURV/positions.html', context={'positions':page})
     else:
         return render(request, 'reg_jounals/no_auth.html')
 

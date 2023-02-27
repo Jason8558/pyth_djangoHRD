@@ -166,7 +166,7 @@ function gettabels_search(access) {
     $('#tabels-main-table tbody').empty()
 
     for (var i = 0; i < data.length; i++) {
-      console.log(data[i].iscorr);
+      console.log(data[i].half_month_check);
       if (data[i].iscorr == true) {
         iscorr = ' (корректировка)'
       }

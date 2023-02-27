@@ -4,98 +4,20 @@
 
 {%block header%}
 {%block logo%}{{block.super}}{%endblock%}
-  <span class="left-side">
-    {% if granted == 1 or user.is_superuser%}<a href="/" class="btn btn-dark"> < Назад </a>{%endif%}
-    Табели учета рабочего времени.
-    <ul class="menu">
-      <li>Меню <span class='angle-down'>v</span>
-      <ul class="menu-main-ul">
-        {% if granted == 1%}
-        <li><a href="{% url 'ss-main'%}"> > Графики сменности</a></li>
-        {%endif%}
-        <li><a href="{% url 'vacshed_url' %}">График отпусков</a>
 
-        </li>
-
-
-      <li>Справочники <span class='angle-down'>v</span>
-      <ul class="sprav">
-        <li><a href="{% url 'emp_list'%}"> > Сотрудники</a></li>
-        {% if granted == 1%}
-        <li><a href="{% url 'pos_list'%}"> > Должности</a></li>
-        {%endif%}
-        {% if granted == 1 or unite == 1%}
-        <li><a href="{% url 'autos_list'%}"> > Автотранспорт</a></li>
-        {%endif%}
-      </ul>
-      </li>
-      <li>Информация <span class='angle-down'>v</span>
-      <ul class="info">
-        <li><a target="_blank" href="https://docs.google.com/document/d/1Z439AZgEkRSZErC1wrBpQE9ajGD-OPZIZOkNI08mPSg/edit?usp=sharing"> > Инструкция пользователя</a></li>
-        {% if user.is_superuser%}
-        <li><a target="_blank" href="https://docs.google.com/document/d/1MWZ-9vxpc1lO9-VJu_Idzoy7S3Vg8mqFRPYfTSCwzxA/edit?usp=sharing"> > Инструкция администратора</a></li>
-        {%endif%}
-
-      </ul>
-      </li>
-      <li><a href="/turv/feedbacks/">Оставить обращение</a></li>
-{%if request.user.is_superuser  or granted == 1%}
-      <li>Сервис <span class='angle-down'>v</span>
-      <ul class="service">
-          <li><a href="{% url 'forload_url'%}">Показать готовые для выгрузки</a></li>
-           <li><a  href="{% url 'del_tabel_url'%}"> > Удалить помеченные на удаление</a></li>
-           <li><a  href="{% url 'overtime_url'%}"> > Обновить годовую норму времени сотрудников</a></li>
+    {% if granted == 1 or user.is_superuser%}<a href="/" class="btn btn-dark"> < Назад </a>{%endif%} <h3>Табели учета рабочего времени</h3>
+    
+   {%if user.is_superuser%} <a class="header-a" href="/admin">{{user.first_name}} </a> {%else%} <h4>{{user.first_name}} </h4>{%endif%}
+     
 
 
 
 
-      </ul>
-      </li>
-  {%endif%}
-      <!-- <li>Вид <span class='angle-down'>v</span>
-      <ul class="view">
-      <li> <a  href="?this_month=1"> > Показать только за текущий месяц</a></li>
-      {% if granted == 1%}
-      <li><a  href="?chk_this_month=1"> > Показать проверенные за текущий месяц</a></li>
-      {%endif%}
-      </ul>
-      </li> -->
-  {%if granted == 1 or is_atc%}
-      <li>Дополнительные <span class='angle-down'>v</span>
-      <ul class="view">
-        {%if granted == 1%}
-            <li><a href="{% url 'over-tabels_url' %}">Сверхурочка АТЦ</a></li>
-            <li><a href="{% url 'vac-tabels_url' %}">Выходные АТЦ</a></li>
-            <li><a href="{% url 'nn-tabels_url' %}">Ненормированность АТЦ</a></li>
-        {%else%}
-            <li><a href="{% url 'over-tabels_url' %}">Сверхурочка</a></li>
-            <li><a href="{% url 'vac-tabels_url' %}">Выходные</a></li>
-            <li><a href="{% url 'nn-tabels_url' %}">Ненормированность</a></li>
-        {%endif%}
-  {%endif%}
-      </ul>
-      </li>
-      {% if granted == 1 %}
-      <li>Функции и отчеты <span class='angle-down'>v</span>
-      <ul class="additional">
-           <li><a  href="{% url 'total_url_page' %}"> > Сформировать свод</a></li>
-           <li><a  href="{% url 'messages_list'%}"> > Система оповещения пользователей</a></li>
 
-      </ul>
-      </li>
-      {% endif %}
+  
+    
 
 
-
-
-  </ul>
-
-  </li>
-    </ul>
-
-
-
-</span>
 
 
 
@@ -103,6 +25,9 @@
 {%endblock%}
 
 {% block body %}
+
+
+
 <script type="text/javascript">
 function Supchecked() {
 
@@ -121,7 +46,78 @@ function Supchecked() {
 
 
 <div class="container main">
-
+  <div class="subheader"><ul class="menu">
+    
+    
+      
+      {% if granted == 1%}
+      <li><a href="{% url 'ss-main'%}">Графики сменности</a></li>
+      {%endif%}
+      <li><a href="{% url 'vacshed_url' %}">График отпусков</a>
+  
+      </li>
+  
+  
+    <li>Справочники <span class='angle-down'>v</span>
+    <ul class="sprav">
+      <li><a href="{% url 'emp_list'%}"> > Сотрудники</a></li>
+      {% if granted == 1%}
+      <li><a href="{% url 'pos_list'%}"> > Должности</a></li>
+      {%endif%}
+      {% if granted == 1 or unite == 1%}
+      <li><a href="{% url 'autos_list'%}"> > Автотранспорт</a></li>
+      {%endif%}
+    </ul>
+    </li>
+    <li>Информация <span class='angle-down'>v</span>
+    <ul class="info">
+      <li><a target="_blank" href="https://docs.google.com/document/d/1Z439AZgEkRSZErC1wrBpQE9ajGD-OPZIZOkNI08mPSg/edit?usp=sharing"> > Инструкция пользователя</a></li>
+      {% if user.is_superuser%}
+      <li><a target="_blank" href="https://docs.google.com/document/d/1MWZ-9vxpc1lO9-VJu_Idzoy7S3Vg8mqFRPYfTSCwzxA/edit?usp=sharing"> > Инструкция администратора</a></li>
+      {%endif%}
+  
+    </ul>
+    </li>
+    <!-- <li><a href="/turv/feedbacks/">Оставить обращение</a></li> -->
+  {%if request.user.is_superuser  or granted == 1%}
+    <li>Сервис <span class='angle-down'>v</span>
+    <ul class="service">
+        <li><a href="{% url 'forload_url'%}">Показать готовые для выгрузки</a></li>
+         <li><a  href="{% url 'del_tabel_url'%}"> > Удалить помеченные на удаление</a></li>
+         <li><a  href="{% url 'overtime_url'%}"> > Обновить годовую норму времени сотрудников</a></li>
+  
+  
+  
+  
+    </ul>
+    </li>
+  {%endif%}
+  
+  {%if granted == 1 or is_atc%}
+    <li>Дополнительные <span class='angle-down'>v</span>
+    <ul class="view">
+      {%if granted == 1%}
+          <li><a href="{% url 'over-tabels_url' %}">Сверхурочка АТЦ</a></li>
+          <li><a href="{% url 'vac-tabels_url' %}">Выходные АТЦ</a></li>
+          <li><a href="{% url 'nn-tabels_url' %}">Ненормированность АТЦ</a></li>
+      {%else%}
+          <li><a href="{% url 'over-tabels_url' %}">Сверхурочка</a></li>
+          <li><a href="{% url 'vac-tabels_url' %}">Выходные</a></li>
+          <li><a href="{% url 'nn-tabels_url' %}">Ненормированность</a></li>
+      {%endif%}
+  {%endif%}
+    </ul>
+    </li>
+    {% if granted == 1 %}
+    <li>Функции и отчеты <span class='angle-down'>v</span>
+    <ul class="additional">
+         <li><a  href="{% url 'total_url_page' %}"> > Сформировать свод</a></li>
+         <li><a  href="{% url 'messages_list'%}"> > Система оповещения пользователей</a></li>
+  
+        </li>
+      </ul>
+      {% endif %}
+    </div>
   <div class="info-block ib-main">
 
   <div class="info-window iw-main">

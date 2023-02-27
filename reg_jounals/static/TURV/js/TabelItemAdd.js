@@ -477,7 +477,7 @@ function auto_fill(type) {
 
 
   days_count = Date.getDaysInMonth(year_, rMonth)
-
+  days_count = days_count
   emp_select = $('#id_employer option:selected').text().split(",")
   codes = $('.dig_code')
   hours = $('.dig_hours')
@@ -487,10 +487,12 @@ function auto_fill(type) {
   if (shift == 'False') {
     if (type == 0) {
 
-
-  for (var i = 0; i < days_count; i++) {
+      console.log(days_count);
+  for (var i = 0; i < days_count-1; i++) {
     hours[i].value = '8'
-    if (sex == 'Ж' && codes[i+1].value == 'В' && codes[i].value != 'В' ) {
+    if (codes[i+1].value !== undefined) {
+    if (sex == 'Ж' && codes[i+1].value == 'В' && codes[i].value != 'В') {
+
       if ($('#tabel-type').text() != 2) {
       codes[i].value = 'Я/ЛЧ'
       hours[i].value = '4/4'}
@@ -498,7 +500,7 @@ function auto_fill(type) {
         codes[i].value = 'Я'
         hours[i].value = '4'
       }
-    }
+    }}
 
     switch (codes[i].value) {
 

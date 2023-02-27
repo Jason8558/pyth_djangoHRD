@@ -2,7 +2,7 @@
 
 {%block title%}Сотрудники{% endblock %}
 
-{%block header%}  <a class="btn btn-dark" href=".."> < Назад </a> | Сотрудники. Всего: {{count}}.{%endblock%}
+{%block header%}  <div class="tabel-header-info refs"> <a class="btn btn-dark" href=".."> < Назад </a> | Сотрудники. Всего: {{count}} </div>{%endblock%}
 
 {% block body %}
 
@@ -10,8 +10,8 @@
 
 <div class="container">
 
-  <form  class="f_search fs-employers"  action="{% url 'emp_list'%}" >
-  <p><u>ПОИСК: </u></p>
+  <form  class="f_search fs-employers fs-inline"  action="{% url 'emp_list'%}" >
+  <h5>ПОИСК:</h5> 
   <div class="fs-content">
     <input type="text" name="emp" placeholder="Поиск по ФИО..." value="">
 
@@ -30,6 +30,7 @@
         <option value="2">Дневные</option>
       </select>
   <input class="btn btn-dark"type="submit" name="" value="Найти">
+  <a href="?&emp_fired=1" class="btn btn-outline-danger">Уволенные</a>
 </div>
 
 
