@@ -120,32 +120,12 @@ function Supchecked() {
     </div>
   <div class="info-block ib-main">
 
-  <div class="info-window iw-main">
-    <p class="info-window-head">информация</p>
-    {%if answers%}
-      <p class="answers"><a href="/turv/feedbacks/" >На Ваше обращение получен ответ! Нажмите чтобы открыть</a></p>
-    {%endif%}
-    <div class="iw-content">
 
-      {% for mes in messages  %}
 
-        {% if mes.mestype == '1' %}
-          <h5 style="text-align: left !important; {% if mes.important %}color: red;{% endif %} !important">{% if mes.important %}!ВАЖНО!{% endif %}{{mes.text}}</h5>
-        {% else %}
-          <h5 class="iw-movevac-h5" style="text-align: left !important; color:blue; cursor:pointer;" onmouseout="closemovevac()" onmouseover="showmovevac('{{mes.text}}')">Перенос отпусков!</h5>
-      {% endif %}
-      {% endfor %}
-    </div>
-    <div style="display:none;" class="iw-movevac" id="iw-movevac">
-      <p></p>
-    </div>
-  </div>
-
-  <form action="" class="f_search fs-main">
-  <div class="fs-head">
-    <p>ПОИСК</p>
-  </div>
+  <form action="" class="f_search fs-main fs-inline">
+ 
   <div class="fs-content">
+    <h5>ФИЛЬТР И ПОИСК</h5>
     <input type="text" id='search_code' placeholder="Код" value="">
 
     <select class="" id="search_month" name="search_month">
@@ -190,11 +170,12 @@ function Supchecked() {
         {%endfor%}
     </select>
   {%endif%}
-  </div>
-  <div class="fs-buttons">
   <input type="button" onclick="gettabels_search('{{granted}}')" name="" class="btn btn-dark" value="Найти">
 
-  <a class="btn btn-outline-danger" onclick="gettabels(0,'{{granted}}')">Сбросить поиск</a>
+  <a class="btn btn-outline-danger" onclick="gettabels(0,'{{granted}}')">Сбросить</a>
+  </div>
+  <div class="fs-buttons">
+
   </div>
   </form>
 </div>
