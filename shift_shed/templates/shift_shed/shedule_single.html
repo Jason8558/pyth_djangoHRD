@@ -1,0 +1,125 @@
+{% extends 'shift_shed/index.html'%}
+{%block title%}{{month}}{%endblock%}
+{%block header%}График № {{id}} - {{month}} - {{item.bound_shed.year}} г. {%endblock%}
+{%block body%}
+<div class="container">
+  <a href="{% url 'ss-additem' shed=shed month=month_dig %}" class="button">+ Занести сотрудника в график</a>
+
+  <table class="shift-table">
+    <thead>
+      <tr>
+        <th>Сотрудник</th>
+        <th>1</th>
+        <th>2</th>
+        <th>3</th>
+        <th>4</th>
+        <th>5</th>
+        <th>6</th>
+        <th>7</th>
+        <th>8</th>
+        <th>9</th>
+        <th>10</th>
+        <th>11</th>
+        <th>12</th>
+        <th>13</th>
+        <th>14</th>
+        <th>15</th>
+        <th>16</th>
+        <th>17</th>
+        <th>18</th>
+        <th>19</th>
+        <th>20</th>
+        <th>21</th>
+        <th>22</th>
+        <th>23</th>
+        <th>24</th>
+        <th>25</th>
+        <th>26</th>
+        <th>27</th>
+        <th>28</th>
+        <th>29</th>
+        <th>30</th>
+        <th>31</th>
+        <th>Факт</th>
+        <th>Праздники</th>
+        <th>Норма</th>
+        <th>Отклонение(+,-)</th>
+      </tr>
+    </thead>
+    <tbody>
+
+
+
+
+      {% for item in items %}
+      <tr >
+        <td>{{item.employer.fullname}}|{{item.employer.position.name}}</td>
+
+        {% for days in item.days%}
+          <td class="shed-days">{{days.1}}</td>
+          <td class="shed-days">{{days.2}}</td>
+          <td class="shed-days">{{days.3}}</td>
+          <td class="shed-days">{{days.4}}</td>
+          <td class="shed-days">{{days.5}}</td>
+          <td class="shed-days">{{days.6}}</td>
+          <td class="shed-days">{{days.7}}</td>
+          <td class="shed-days">{{days.8}}</td>
+          <td class="shed-days">{{days.9}}</td>
+          <td class="shed-days">{{days.10}}</td>
+          <td class="shed-days">{{days.11}}</td>
+          <td class="shed-days">{{days.12}}</td>
+          <td class="shed-days">{{days.13}}</td>
+          <td class="shed-days">{{days.14}}</td>
+          <td class="shed-days">{{days.15}}</td>
+          <td class="shed-days">{{days.16}}</td>
+          <td class="shed-days">{{days.17}}</td>
+          <td class="shed-days">{{days.18}}</td>
+          <td class="shed-days">{{days.19}}</td>
+          <td class="shed-days">{{days.20}}</td>
+          <td class="shed-days">{{days.21}}</td>
+          <td class="shed-days">{{days.22}}</td>
+          <td class="shed-days">{{days.23}}</td>
+          <td class="shed-days">{{days.24}}</td>
+          <td class="shed-days">{{days.25}}</td>
+          <td class="shed-days">{{days.26}}</td>
+          <td class="shed-days">{{days.27}}</td>
+          <td class="shed-days">{{days.28}}</td>
+          <td class="shed-days">{{days.29}}</td>
+          <td class="shed-days">{{days.30}}</td>
+          <td class="shed-days">{{days.31}}</td>
+        {%endfor%}
+
+    
+
+
+    
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+
+      </tr>
+  {%endfor%}
+    </tbody>
+  </table>
+
+</div>
+
+<script>
+
+$('document').ready(function () {
+ days = $('.shed-days')
+
+ for (day of days) {
+   if (day.innerText == 'None') {
+     day.innerText = 'X'
+   }
+ } 
+})
+
+
+
+</script>
+
+{%endblock%}
+

@@ -3,9 +3,9 @@
 {%block header%}График № {{id}} - {{shed_info.dep}} - {{shed_info.year}} г. {%endblock%}
 {%block body%}
 <div class="container">
-  <a href="#" class="button">+ Добавить сотрудника в график</a>
+
 {% for key, value in months.items %}
-<h3>{{value}}</h3>
+<a href="{% url 'ss-edit' year=shed_info.year month=key shed=id %}">{{value}}</a>
   <table class="shift-table">
     <thead>
       <tr>
