@@ -488,17 +488,18 @@ function auto_fill(type) {
     if (type == 0) {
 
       console.log(days_count);
-  for (var i = 0; i < days_count-1; i++) {
+  for (var i = 0; i <= days_count; i++) {
     hours[i].value = '8'
-    if (codes[i+1].value !== undefined) {
-    if (sex == 'Ж' && codes[i+1].value == 'В' && codes[i].value != 'В') {
+    
+    if (i != 0) {
+    if (sex == 'Ж' && codes[i-1].value != 'В' && codes[i].value == 'В') {
 
       if ($('#tabel-type').text() != 2) {
-      codes[i].value = 'Я/ЛЧ'
-      hours[i].value = '4/4'}
+      codes[i-1].value = 'Я/ЛЧ'
+      hours[i-1].value = '4/4'}
       else {
-        codes[i].value = 'Я'
-        hours[i].value = '4'
+        codes[i-1].value = 'Я'
+        hours[i-1].value = '4'
       }
     }}
 
