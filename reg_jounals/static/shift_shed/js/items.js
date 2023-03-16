@@ -12,6 +12,7 @@ function get_emp_info(id){
          $('#position').text(data[0].position__name)
          $('#level').text('Разряд/категория: ' + data[0].level)
          $('#payment').text('Ст.опл: ' + data[0].positionOfPayment)
+         
 
         })
 

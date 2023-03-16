@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from django.http import HttpResponse, JsonResponse
+from django.http import HttpResponse, JsonResponse, FileResponse
 from .models import *
 from .forms import *
 from django.shortcuts import redirect
@@ -11,7 +11,14 @@ from .forms import last_doc
 from TURV.models import Department as TDep
 from TURV.models import Position as TPos
 from TURV.models import Employers as TEmps
+import io
+from reportlab.lib.pagesizes import A4
+from reportlab.pdfbase import pdfmetrics
+from reportlab.pdfbase.ttfonts import TTFont
+from reportlab.pdfgen import canvas
 from TURV.models import Overtime as TOt
+from reportlab.lib.styles import ParagraphStyle
+from reportlab.platypus import Paragraph
 
 def get_user_name(request):
     username = request.user.first_name
@@ -34,6 +41,80 @@ def index(request):
         return render(request, 'reg_jounals/index.html', context={'user_io':user_io})
     else:
         return redirect('/accounts/login/')
+
+def form_pdf(request):
+    # Create the HttpResponse object with the appropriate PDF headers.
+    response = HttpResponse(content_type='application/pdf')
+    response['Content-Disposition'] = 'filename="somefilename.pdf"'
+
+    buffer = io.BytesIO()
+    p = canvas.Canvas(buffer, pagesize=A4)
+    pdfmetrics.registerFont(TTFont('FreeSans', 'ZenAntiqueSoft-Regular.ttf'))
+    for i in range(0,3):
+        p.setFont('FreeSans', 20)
+        p.drawString(150, 600, 'КГУП "Камчатский водоканал"')
+        p.setFont('FreeSans', 14)
+        my_Style=ParagraphStyle('My Para style',
+            fontName='FreeSans',
+            # backColor='#F1F1F1',
+            fontSize=12,
+            # borderColor='#FFFF00',
+            # borderWidth=2,
+            # borderPadding=(20,20,20),
+            leading=20,
+            alignment=1
+)
+        ptext = """За добросовестный труд, 
+        высокий профессионализм, значительный вклад в развитие    водопроводно-канализационного хозяйства и в честь профессионального праздника День работников бытового обслуживания населения 
+                            и жилищно-коммунального хозяйства"""
+        p1 = Paragraph(ptext, my_Style)
+        
+        p1.wrapOn(p,350,50)
+        p1.drawOn(p,130,470)
+        
+        p.setFont('FreeSans', 22)
+        p.drawString(210, 450, 'НАГРАЖДАЕТСЯ')
+
+        ptext = """юрисконсульт по закупкам контрактной службы правового управления"""
+        p1 = Paragraph(ptext, my_Style)
+        
+        p1.wrapOn(p,350,50)
+        p1.drawOn(p,130,370)
+
+        my_Style=ParagraphStyle('My Para style',
+        fontName='FreeSans',
+        # backColor='#F1F1F1',
+        fontSize=20,
+        # borderColor='#FFFF00',
+        # borderWidth=2,
+        # borderPadding=(20,20,20),
+        leading=20,
+        alignment=1
+        )
+        ptext = """Иванов Иван Иванович"""
+        p1 = Paragraph(ptext, my_Style)
+        
+        p1.wrapOn(p,350,50)
+        p1.drawOn(p,130,300)
+
+        p.setFont('FreeSans', 19)
+        p.drawString(100, 160, 'Директор')
+        p.drawString(400, 160, 'Супрун А.С.')
+
+        # Close the PDF object cleanly.
+        p.showPage()
+    
+
+    
+  
+    p.save()
+
+    # Get the value of the BytesIO buffer and write it to the response.
+    pdf = buffer.getvalue()
+    buffer.close()
+    response.write(pdf)
+    return response
+
 
 def logfile(request):
     if request.user.is_authenticated:

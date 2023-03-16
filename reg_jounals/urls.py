@@ -63,4 +63,5 @@ urlpatterns = [
     path('getusername/', views.get_user_name, name='getusername_url'),
     path('logs/', views.logs_, name='logs_url'),
     path('reports/', views.reports, name='reports_url'),
+    path('getpdf/', views.form_pdf, name='form-pdf')
      ]
