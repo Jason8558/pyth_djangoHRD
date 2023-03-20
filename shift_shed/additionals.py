@@ -174,7 +174,9 @@ def addition_formforedit(id, month):
         'month':item.month,
         'fact':item.fact,
         'celeb':item.celeb,
-        'days':days
+        'days':days,
+        'norma':item.norma,
+        'deviation':item.deviation
         })
 
     return edit_items
