@@ -3,7 +3,7 @@
 {%block scripts%}<script src="{% static 'shift_shed\js\items.js' %}" charset="utf-8"></script>
 <link rel="stylesheet" href="{% static 'shift_shed\css\style.css' %}">
 {%endblock%}
-{%block title%}Заполнение сотрудника{%endblock%}
+{%block title%}{{shed.dep.name}}{%endblock%}
 
 {%block header%} <h2>Добавить сотрудника в график за {{month}} </h2> {%endblock%}
 
@@ -122,7 +122,7 @@
 {%endif%}
 
 <div class="nt_body">
-<form class="" action="" onsubmit="alert('Сотрудник добавлен!')" method="post">
+<form id="shed-item-form" class="" action="" onsubmit="alert('Сотрудник добавлен!')" method="post">
   {%csrf_token%}
 
 
@@ -155,9 +155,9 @@
 
   <div class="results">
     <p><span>Факт</span>{{form.fact}}</p>
-    <p id="p_n_time"><span>Норма времени</span><span id="n_time"></span></p>
+    <p id="p_n_time"><span>Норма времени</span>{{form.norma}}</p>
     <p><span>Праздники</span>{{form.celeb}}</p>
-    <p><span>Отклонение (+,-)</span></p>
+    <p><span>Отклонение (+,-)</span>{{form.deviation}}</p>
   </div>
 </div>
 
@@ -279,7 +279,7 @@
     {%endif%}
   <button type="button" onclick="calculate();" class="btn btn-outline-dark" name="button">Расчитать</button>
 
-  <input type="button" onclick="Tabel();" class="btn btn-success tItem_submit" name="" value="Расчитать и добавить">
+  <input type="button" onclick="send_submit()" class="btn btn-success tItem_submit" name="" value="Расчитать и добавить">
   </div>
 
 

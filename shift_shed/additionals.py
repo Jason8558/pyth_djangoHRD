@@ -124,6 +124,8 @@ def addition_shedform(id):
         'month':item.month,
         'fact':item.fact,
         'celeb':item.celeb,
+        'norma':item.norma,
+        'deviation':item.deviation,
         'days':days
         })
 

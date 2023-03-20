@@ -77,7 +77,13 @@ def ss_item_add(request, shed, month):
         if request.method == 'GET':
             form = SS_AddItem_form(request.GET)
             form.fields['employer'].queryset = Employers.objects.filter(department=current_shed.dep).filter(fired=0).filter(mainworkplace=1)
-
+        else:
+            form = SS_AddItem_form(request.POST)
+            if form.is_valid():
+                form.saveFirst(shed,month)
+                return redirect('/shift_shed/shedule/' + str(shed))
+            else:
+                print(form.errors.as_text)
 
         return render(request, 'shift_shed/new_shed_item.html', context={'emps':items, 'shed':current_shed, 'month':months
         [str(month)], 'month_dig':month, 'form':form})

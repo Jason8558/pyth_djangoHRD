@@ -16,9 +16,9 @@ class ShiftShedModel(models.Model):
         return 'График сменности' + str(self.dep.name) + ' на ' + str(self.year) + 'г.'
 
 class ShiftShedItem(models.Model):
-    bound_shed = models.ForeignKey('ShiftShedModel', verbose_name='Св. график', db_index=True, on_delete=models.CASCADE)
+    bound_shed = models.ForeignKey('ShiftShedModel', verbose_name='Св. график', db_index=True, on_delete=models.CASCADE, blank=True)
     employer = models.ForeignKey('TURV.Employers', verbose_name='Сотрудник', db_index=True, on_delete=models.CASCADE)
-    month = models.CharField(verbose_name='Месяц', db_index=True, max_length=256)
+    month = models.CharField(verbose_name='Месяц', db_index=True, max_length=256, blank=True)
 
 
 
@@ -60,6 +60,7 @@ class ShiftShedItem(models.Model):
     fact = models.FloatField(verbose_name='Факт. часов', help_text='Фактические часы', null = True, blank=True)
     celeb = models.FloatField(verbose_name='Праздничные', null = True, blank=True)
     deviation = models.FloatField(verbose_name='Отклонение', null = True, default=0, blank=True)
+    norma = models.FloatField(verbose_name='Норма', null = True, default=0, blank=True)
 
     class Meta:
         ordering = ['employer']

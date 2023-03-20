@@ -54,7 +54,8 @@ class ShiftShed_form(forms.ModelForm):
 class SS_AddItem_form(forms.ModelForm):
     class Meta:
         model = ShiftShedItem
-        fields = ['employer',
+        fields = ['bound_shed',
+            'employer',
     'month',
     'day_1',
     'day_2',
@@ -88,7 +89,9 @@ class SS_AddItem_form(forms.ModelForm):
     'day_30',
     'day_31',
     'fact',
-    'celeb']
+    'celeb',
+    'deviation',
+    'norma']
     
     day_1 = forms.CharField(required=False, widget=forms.TextInput(attrs={'placeholder': 'ОТ\Ч', 'class': 'dig_code', 'type':'text'}))
     day_2 = forms.CharField(required=False, widget=forms.TextInput(attrs={'placeholder': 'ОТ\Ч', 'class': 'dig_code', 'type':'text'}))
@@ -121,3 +124,53 @@ class SS_AddItem_form(forms.ModelForm):
     day_29 = forms.CharField(required=False, widget=forms.TextInput(attrs={'placeholder': 'ОТ\Ч', 'class': 'dig_code', 'type':'text'}))
     day_30 = forms.CharField(required=False, widget=forms.TextInput(attrs={'placeholder': 'ОТ\Ч', 'class': 'dig_code', 'type':'text'}))
     day_31 = forms.CharField(required=False, widget=forms.TextInput(attrs={'placeholder': 'ОТ\Ч', 'class': 'dig_code', 'type':'text'}))
+
+    def saveFirst(self,shed, month):
+       
+       if self.cleaned_data['deviation'] == '':
+           dev = 0
+       else:
+           dev = self.cleaned_data['deviation']
+
+       new_item = ShiftShedItem.objects.create (
+            bound_shed_id = shed,
+            month = month,
+            employer = self.cleaned_data['employer'],
+            day_1 = self.cleaned_data['day_1'],
+            day_2 = self.cleaned_data['day_2'],
+            day_3 = self.cleaned_data['day_3'],
+            day_4 = self.cleaned_data['day_4'],
+            day_5 = self.cleaned_data['day_5'],
+            day_6 = self.cleaned_data['day_6'],
+            day_7 = self.cleaned_data['day_7'],
+            day_8 = self.cleaned_data['day_8'],
+            day_9 = self.cleaned_data['day_9'],
+            day_10 = self.cleaned_data['day_10'],
+            day_11 = self.cleaned_data['day_11'],
+            day_12 = self.cleaned_data['day_12'],
+            day_13 = self.cleaned_data['day_13'],
+            day_14 = self.cleaned_data['day_14'],
+            day_15 = self.cleaned_data['day_15'],
+            day_16 = self.cleaned_data['day_16'],
+            day_17 = self.cleaned_data['day_17'],
+            day_18 = self.cleaned_data['day_18'],
+            day_19 = self.cleaned_data['day_19'],
+            day_20 = self.cleaned_data['day_20'],
+            day_21 = self.cleaned_data['day_21'],
+            day_22 = self.cleaned_data['day_22'],
+            day_23 = self.cleaned_data['day_23'],
+            day_24 = self.cleaned_data['day_24'],
+            day_25 = self.cleaned_data['day_25'],
+            day_26 = self.cleaned_data['day_26'],
+            day_27 = self.cleaned_data['day_27'],
+            day_28 = self.cleaned_data['day_28'],
+            day_29 = self.cleaned_data['day_29'],
+            day_30 = self.cleaned_data['day_30'],
+            day_31 = self.cleaned_data['day_31'],
+            fact = self.cleaned_data['fact'],
+            celeb = self.cleaned_data['celeb'],
+
+            deviation = dev,
+            norma = self.cleaned_data['norma']
+
+        )
