@@ -81,7 +81,8 @@ def ss_item_add(request, shed, month):
             form = SS_AddItem_form(request.POST)
             if form.is_valid():
                 form.saveFirst(shed,month)
-                return redirect('/shift_shed/shedule/' + str(shed))
+                return render(request, 'shift_shed/new_shed_item.html', context={'emps':items, 'shed':current_shed, 'month':months
+        [str(month)], 'month_dig':month, 'form':form})
             else:
                 print(form.errors.as_text)
 
