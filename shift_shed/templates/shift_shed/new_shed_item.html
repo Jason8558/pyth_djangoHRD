@@ -1,11 +1,16 @@
 {% extends "TURV/index.html" %}
 {%load static%}
-{%block scripts%}<script src="{% static 'shift_shed\js\items.js' %}" charset="utf-8"></script>{%endblock%}
+{%block scripts%}<script src="{% static 'shift_shed\js\items.js' %}" charset="utf-8"></script>
+<link rel="stylesheet" href="{% static 'shift_shed\css\style.css' %}">
+{%endblock%}
 {%block title%}Заполнение сотрудника{%endblock%}
 
 {%block header%} <h2>Добавить сотрудника в график за {{month}} </h2> {%endblock%}
 
 {%block body%}
+
+
+
 <span id='tabel-type' style='display:none'>{{b_tabel.type_id}}</span>
 <style media="screen">
   #t_emps_chosen {
@@ -51,7 +56,7 @@
 
   {% for emp in emps %}
 
-  <tr id={{emp.id}} onclick="get_emp_info({{emp.id}})">
+  <tr id={{emp.id}} onclick="get_emp_info({{emp.id}}, {{month_dig}}, {{shed.year}})">
     <td class='id-fio'>{{emp.fullname}}</td>
     <td>{{emp.position}}</td>
     <td>{{emp.level}}</td>
@@ -145,12 +150,12 @@
   <h5 id="level"></h5>
   <h5 id="payment"></h5>
   <h5 id="shift"></h5>
-  <span id="n_time_span">Норма времени</span><h5 id="n_time"></h5>
+ 
   </div>
 
   <div class="results">
     <p><span>Факт</span>{{form.fact}}</p>
-    <p id="norm"><span>Норма</span></p>
+    <p id="p_n_time"><span>Норма времени</span><span id="n_time"></span></p>
     <p><span>Праздники</span>{{form.celeb}}</p>
     <p><span>Отклонение (+,-)</span></p>
   </div>
@@ -272,7 +277,7 @@
     <button type="button" class="btn btn-warning " onclick='auto_fill(1)' name="t_auto_fill_half">Автозаполнение 1/2</button>
     {%else%}
     {%endif%}
-  <button type="button" onclick="Tabel();" class="btn btn-outline-dark" name="button">Расчитать</button>
+  <button type="button" onclick="calculate();" class="btn btn-outline-dark" name="button">Расчитать</button>
 
   <input type="button" onclick="Tabel();" class="btn btn-success tItem_submit" name="" value="Расчитать и добавить">
   </div>

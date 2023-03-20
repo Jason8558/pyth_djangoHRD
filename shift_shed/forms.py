@@ -18,39 +18,37 @@ class ShiftShed_form(forms.ModelForm):
         attrs={'onclick': 'getemps()'}))
     # emps_list = forms.CharField(required=False, widget=forms.TextInput(attrs={'class':'hidden_field'}))
 
-    def saveAll(self):
-        months = [1,2,3,4,5,6,7,8,9,10,11,12]
-        new_shed = ShiftShedModel.objects.create(
-        year = self.cleaned_data['year'],
-        dep = self.cleaned_data['dep']
-        )
-        emps = self.cleaned_data['emps_list'].split(',')
-        shedule = addition_sheditem(emps, self.cleaned_data['year'])
-        shed = ShiftShedModel.objects.latest('id')
-        for m in months:
-            for s in shedule:
+    def save(self, commit: bool = ...) -> any:
+        return super().save(commit)
 
-                if m == s['month']:
-                    ShiftShedItem.objects.create(
-                    employer = s['emp'],
-                    bound_shed = shed,
-                    month = s['month']
-                    )
-                    ss_item = ShiftShedItem.objects.latest('id')
-                    for day in s['days']:
-                         setattr(ss_item, 'day_'+str(day), 'ОТ')
-                    ss_item.save()
 
-                # else:
-                #     ShiftShedItem.objects.create(
-                #     employer = s['emp'],
-                #     bound_shed = shed,
-                #     month = m
-                #     )
+    # def saveAll(self):
+    #     months = [1,2,3,4,5,6,7,8,9,10,11,12]
+    #     new_shed = ShiftShedModel.objects.create(
+    #     year = self.cleaned_data['year'],
+    #     dep = self.cleaned_data['dep']
+    #     )
+    #     emps = self.cleaned_data['emps_list'].split(',')
+    #     shedule = addition_sheditem(emps, self.cleaned_data['year'])
+    #     shed = ShiftShedModel.objects.latest('id')
+    #     for m in months:
+    #         for s in shedule:
+
+    #             if m == s['month']:
+    #                 ShiftShedItem.objects.create(
+    #                 employer = s['emp'],
+    #                 bound_shed = shed,
+    #                 month = s['month']
+    #                 )
+    #                 ss_item = ShiftShedItem.objects.latest('id')
+    #                 for day in s['days']:
+    #                      setattr(ss_item, 'day_'+str(day), 'ОТ')
+    #                 ss_item.save()
+
 
         
 
-        return new_shed
+        # return new_shed
 
 
 class SS_AddItem_form(forms.ModelForm):
@@ -91,3 +89,35 @@ class SS_AddItem_form(forms.ModelForm):
     'day_31',
     'fact',
     'celeb']
+    
+    day_1 = forms.CharField(required=False, widget=forms.TextInput(attrs={'placeholder': 'ОТ\Ч', 'class': 'dig_code', 'type':'text'}))
+    day_2 = forms.CharField(required=False, widget=forms.TextInput(attrs={'placeholder': 'ОТ\Ч', 'class': 'dig_code', 'type':'text'}))
+    day_3 = forms.CharField(required=False, widget=forms.TextInput(attrs={'placeholder': 'ОТ\Ч', 'class': 'dig_code', 'type':'text'}))
+    day_4 = forms.CharField(required=False, widget=forms.TextInput(attrs={'placeholder': 'ОТ\Ч', 'class': 'dig_code', 'type':'text'}))
+    day_5 = forms.CharField(required=False, widget=forms.TextInput(attrs={'placeholder': 'ОТ\Ч', 'class': 'dig_code', 'type':'text'}))
+    day_6 = forms.CharField(required=False, widget=forms.TextInput(attrs={'placeholder': 'ОТ\Ч', 'class': 'dig_code', 'type':'text'}))
+    day_7 = forms.CharField(required=False, widget=forms.TextInput(attrs={'placeholder': 'ОТ\Ч', 'class': 'dig_code', 'type':'text'}))
+    day_8 = forms.CharField(required=False, widget=forms.TextInput(attrs={'placeholder': 'ОТ\Ч', 'class': 'dig_code', 'type':'text'}))
+    day_9 = forms.CharField(required=False, widget=forms.TextInput(attrs={'placeholder': 'ОТ\Ч', 'class': 'dig_code', 'type':'text'}))
+    day_10 = forms.CharField(required=False, widget=forms.TextInput(attrs={'placeholder': 'ОТ\Ч', 'class': 'dig_code', 'type':'text'}))
+    day_11 = forms.CharField(required=False, widget=forms.TextInput(attrs={'placeholder': 'ОТ\Ч', 'class': 'dig_code', 'type':'text'}))
+    day_12 = forms.CharField(required=False, widget=forms.TextInput(attrs={'placeholder': 'ОТ\Ч', 'class': 'dig_code', 'type':'text'}))
+    day_13 = forms.CharField(required=False, widget=forms.TextInput(attrs={'placeholder': 'ОТ\Ч', 'class': 'dig_code', 'type':'text'}))
+    day_14 = forms.CharField(required=False, widget=forms.TextInput(attrs={'placeholder': 'ОТ\Ч', 'class': 'dig_code', 'type':'text'}))
+    day_15 = forms.CharField(required=False, widget=forms.TextInput(attrs={'placeholder': 'ОТ\Ч', 'class': 'dig_code', 'type':'text'}))
+    day_16 = forms.CharField(required=False, widget=forms.TextInput(attrs={'placeholder': 'ОТ\Ч', 'class': 'dig_code', 'type':'text'}))
+    day_17 = forms.CharField(required=False, widget=forms.TextInput(attrs={'placeholder': 'ОТ\Ч', 'class': 'dig_code', 'type':'text'}))
+    day_18 = forms.CharField(required=False, widget=forms.TextInput(attrs={'placeholder': 'ОТ\Ч', 'class': 'dig_code', 'type':'text'}))
+    day_19 = forms.CharField(required=False, widget=forms.TextInput(attrs={'placeholder': 'ОТ\Ч', 'class': 'dig_code', 'type':'text'}))
+    day_20 = forms.CharField(required=False, widget=forms.TextInput(attrs={'placeholder': 'ОТ\Ч', 'class': 'dig_code', 'type':'text'}))
+    day_21 = forms.CharField(required=False, widget=forms.TextInput(attrs={'placeholder': 'ОТ\Ч', 'class': 'dig_code', 'type':'text'}))
+    day_22 = forms.CharField(required=False, widget=forms.TextInput(attrs={'placeholder': 'ОТ\Ч', 'class': 'dig_code', 'type':'text'}))
+    day_23 = forms.CharField(required=False, widget=forms.TextInput(attrs={'placeholder': 'ОТ\Ч', 'class': 'dig_code', 'type':'text'}))
+    day_24 = forms.CharField(required=False, widget=forms.TextInput(attrs={'placeholder': 'ОТ\Ч', 'class': 'dig_code', 'type':'text'}))
+    day_25 = forms.CharField(required=False, widget=forms.TextInput(attrs={'placeholder': 'ОТ\Ч', 'class': 'dig_code', 'type':'text'}))
+    day_26 = forms.CharField(required=False, widget=forms.TextInput(attrs={'placeholder': 'ОТ\Ч', 'class': 'dig_code', 'type':'text'}))
+    day_27 = forms.CharField(required=False, widget=forms.TextInput(attrs={'placeholder': 'ОТ\Ч', 'class': 'dig_code', 'type':'text'}))
+    day_28 = forms.CharField(required=False, widget=forms.TextInput(attrs={'placeholder': 'ОТ\Ч', 'class': 'dig_code', 'type':'text'}))
+    day_29 = forms.CharField(required=False, widget=forms.TextInput(attrs={'placeholder': 'ОТ\Ч', 'class': 'dig_code', 'type':'text'}))
+    day_30 = forms.CharField(required=False, widget=forms.TextInput(attrs={'placeholder': 'ОТ\Ч', 'class': 'dig_code', 'type':'text'}))
+    day_31 = forms.CharField(required=False, widget=forms.TextInput(attrs={'placeholder': 'ОТ\Ч', 'class': 'dig_code', 'type':'text'}))

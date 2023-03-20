@@ -1,10 +1,11 @@
 {% extends 'shift_shed/index.html'%}
 {%block title%}{{shed_info.dep}} - {{shed_info.year}} г.{%endblock%}
-{%block header%}График № {{id}} - {{shed_info.dep}} - {{shed_info.year}} г. {%endblock%}
+{%block header%} <a class="btn-outline-danger" href="/shift_shed">< Назад</a> График № {{id}} - {{shed_info.dep}} - {{shed_info.year}} г. {%endblock%}
 {%block body%}
 <div class="container">
 
 {% for key, value in months.items %}
+<div class="shed-month">
 <a href="{% url 'ss-edit' year=shed_info.year month=key shed=id %}">{{value}}</a>
   <table class="shift-table">
     <thead>
@@ -79,6 +80,7 @@
       {%endfor%}
     </tbody>
   </table>
+</div>
   {%endfor%}
   </div>
 {%endblock%}

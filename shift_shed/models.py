@@ -59,7 +59,7 @@ class ShiftShedItem(models.Model):
 #Итоги времени
     fact = models.FloatField(verbose_name='Факт. часов', help_text='Фактические часы', null = True, blank=True)
     celeb = models.FloatField(verbose_name='Праздничные', null = True, blank=True)
-
+    deviation = models.FloatField(verbose_name='Отклонение', null = True, default=0, blank=True)
 
     class Meta:
         ordering = ['employer']

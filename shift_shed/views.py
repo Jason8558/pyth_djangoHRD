@@ -1,11 +1,15 @@
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
 from .models import *
 from .forms import *
 from TURV.models import TabelItem
 from TURV.models import Department
 from TURV.models import Employers
+from TURV.models import Overtime
+from vac_shed.models import VacantionSheduleItem
 from .additionals import *
 from django.http import HttpResponse, JsonResponse
+from django.db.models import Q
 
 def ss_main(request):
     if request.user.is_authenticated:
@@ -22,10 +26,10 @@ def ss_create(request):
         if request.method == 'POST':
             form = ShiftShed_form(request.POST)
             form.fields['dep'].queryset = Department.objects.filter(user=request.user)
-            form.fields['emps'].queryset = Employers.objects.filter(department=form['dep'].value())
+            # form.fields['emps'].queryset = Employers.objects.filter(department=form['dep'].value())
             if form.is_valid():
 
-                form.saveAll()
+                form.save()
                 return redirect('/shift_shed/')
             else:
                 return render(request, 'shift_shed/create.html', context={'form':form})
@@ -76,4 +80,39 @@ def ss_item_add(request, shed, month):
 
 
         return render(request, 'shift_shed/new_shed_item.html', context={'emps':items, 'shed':current_shed, 'month':months
-        [str(month)], 'form':form})
+        [str(month)], 'month_dig':month, 'form':form})
+
+@login_required   
+def ss_get_vacantions(request,emp, month, year):
+    v_items = VacantionSheduleItem.objects.filter(emp_id=emp).filter(bound_shed__year=year).filter(Q(dur_from__month=month) | Q(dur_to__month=month))
+    emp_ = Employers.objects.get(id=emp)
+    if emp_.sex == 'М':
+        norm = Overtime.objects.get(year__year=year).value_m
+    else:
+        norm = Overtime.objects.get(year__year=year).value_w 
+
+    print(norm)
+
+    days = list()
+    vac_info = list()
+    for item in v_items:
+        if int(str(item.dur_to).split('-')[1]) == int(str(item.dur_from).split('-')[1]):
+            # m_range = calendar.monthrange(int(year),int(month))
+            for i in range(int(str(item.dur_from).split('-')[2]), int(str(item.dur_to).split('-')[2])+1):
+                days.append(i)
+        else:
+            if int(str(item.dur_from).split('-')[1]) == int(month):
+                m_end = calendar.monthrange(int(year), int(month))
+                for i in range (int(str(item.dur_from).split('-')[2]), m_end[1]+1):
+                    days.append(i)
+            
+            if int(str(item.dur_to).split('-')[1]) == int(month):
+                for i in range (1, int(str(item.dur_to).split('-')[2])+1):
+                    days.append(i)
+    vac_info.append({
+        'emp':emp,
+        'days':days,
+        'norm':norm
+    })
+
+    return JsonResponse(vac_info, safe=False)
