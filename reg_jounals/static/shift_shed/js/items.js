@@ -60,7 +60,7 @@ function calculate() {
         $('#id_deviation').val(dev)
     }
     else {
-        $('#n_time').text(fact)
+        $('#id_norma').text(fact)
         $('#id_deviation').val(0)
     }
 
