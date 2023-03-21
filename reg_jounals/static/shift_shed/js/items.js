@@ -6,13 +6,13 @@ $(document).ready( function() {
 })
 
 function get_emp_info(id, month, year){
-
+    fact = 0
     codes = $('.dig_code')
 
     for (const code of codes) {
        code.value = '' 
     }
-
+    
     $.getJSON('/shift_shed/getemps/single/' + id,  (data) => {
          console.log(data[0]); 
          $('#id_employer').val(data[0].id) 
@@ -20,7 +20,7 @@ function get_emp_info(id, month, year){
          $('#position').text(data[0].position__name)
          $('#level').text('Разряд/категория: ' + data[0].level)
          $('#payment').text('Ст.опл: ' + data[0].positionOfPayment)
-
+         
         })
     
     // month = $('#month').val()
@@ -32,8 +32,8 @@ function get_emp_info(id, month, year){
              $('#id_day_'+day).val('ОТ')
            }
         
-       
         $('#id_norma').val(data[0].norm)
+        
 
     })
     
@@ -60,13 +60,14 @@ function calculate() {
         $('#id_deviation').val(dev)
     }
     else {
-        $('#id_norma').text(fact)
+        $('#id_norma').val(fact)
         $('#id_deviation').val(0)
     }
 
     
 
     $('#id_fact').val(fact)
+    
 }
 
 function send_submit() {

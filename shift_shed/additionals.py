@@ -1,5 +1,6 @@
 from vac_shed.models import VacantionSheduleItem
 from shift_shed.models import ShiftShedItem
+from django.db.models import Avg, Count, Min, Sum
 from TURV.models import Employers
 import datetime
 import calendar
@@ -180,3 +181,23 @@ def addition_formforedit(id, month):
         })
 
     return edit_items
+
+def additional_formtotal(shed):
+    emps = ShiftShedItem.objects.filter(bound_shed_id=shed).filter(month=1).values('employer').order_by('employer')
+    total = list()
+    for emp in emps:
+        totals = ShiftShedItem.objects.filter(employer=emp['employer']).filter(bound_shed_id=shed).aggregate(s_fact=Sum('fact'), s_celeb=Sum('celeb'), s_norma=Sum('norma'), s_dev=Sum('deviation'))
+        if totals['s_dev'] > 120 or totals['s_dev'] < 0:
+            color = 'red'
+        else:
+            color = ''
+        
+        total.append({
+            'emp':Employers.objects.get(id=emp['employer']),
+            'color':color,
+            's_fact':totals['s_fact'],
+            's_celeb':totals['s_celeb'],
+            's_norma':totals['s_norma'],
+            's_dev':totals['s_dev']
+        })
+    return total

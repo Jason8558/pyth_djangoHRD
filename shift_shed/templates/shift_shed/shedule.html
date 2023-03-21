@@ -55,7 +55,7 @@
 
       {% if s.month == key%}
       <tr id="{{s.month_s.emp.id}}">
-        <td>{{s.employer.fullname}}{{s.employer.position.name|truncatechars:15}}</td>
+        <td>{{s.employer.fullname}}|{{s.employer.position.name|truncatechars:15}}</td>
 
         {% for day in s.days %}
           {% for k,v in day.items%}
@@ -81,6 +81,34 @@
     </tbody>
   </table>
 </div>
+
   {%endfor%}
+  <div>
+    <h3>Итоги</h3>
+    <table class="total">
+      <thead>
+        <tr>
+          <th>Сотрудник</th>
+          <th>Факт ч.</th>
+          <th>Норма ч.</th>
+          <th>Праздн. ч.</th>
+          <th>Откл.</th>
+          <th>Ознакомлен</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for item in total %}
+          <tr style="background: {{item.color}};">
+            <td>{{item.emp.fullname}}|{{item.emp.position.name|truncatechars:15}}</td>
+            <td>{{item.s_fact}}</td>
+            <td>{{item.s_norma}}</td>
+            <td>{{item.s_celeb}}</td>
+            <td>{{item.s_dev|floatformat:-2}}</td>
+            <td></td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
   </div>
 {%endblock%}

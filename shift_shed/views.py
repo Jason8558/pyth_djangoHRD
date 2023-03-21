@@ -55,10 +55,11 @@ def ss_shedule(request, id):
             days.append(i)
         months = {'1':'Январь','2':"Февраль",'3':"Март",'4':"Апрель",'5':"Май",'6':"Июнь",'7':"Июль",'8':"Август",'9':"Сентябрь",'10':"Октябрь",'11':"Ноябрь",'12':"Декабрь"}
         shedule = addition_shedform(id)
+        total = additional_formtotal(id)
 
         shed_info = ShiftShedModel.objects.get(id=id)
 
-        return render(request, 'shift_shed/shedule.html', context={'shedule':shedule, 'shed_info':shed_info, 'months':months, 'days':days, 'id':id})
+        return render(request, 'shift_shed/shedule.html', context={'shedule':shedule, 'shed_info':shed_info, 'months':months, 'days':days, 'id':id, 'total':total})
 
 def ss_edit(request,shed,month,year):
     if request.user.is_authenticated:
@@ -81,8 +82,7 @@ def ss_item_add(request, shed, month):
             form = SS_AddItem_form(request.POST)
             if form.is_valid():
                 form.saveFirst(shed,month)
-                return render(request, 'shift_shed/new_shed_item.html', context={'emps':items, 'shed':current_shed, 'month':months
-        [str(month)], 'month_dig':month, 'form':form})
+                return redirect
             else:
                 print(form.errors.as_text)
 
@@ -123,3 +123,6 @@ def ss_get_vacantions(request,emp, month, year):
     })
 
     return JsonResponse(vac_info, safe=False)
+
+
+
