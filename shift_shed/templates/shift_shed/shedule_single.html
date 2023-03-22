@@ -52,7 +52,7 @@
 
 
       {% for item in items %}
-      <tr >
+      <tr onclick= "return location.href = '{% url 'ss-upditem' id=item.id %}';">
         <td>{{item.employer.fullname}}|{{item.employer.position.name}}</td>
 
         {% for days in item.days%}

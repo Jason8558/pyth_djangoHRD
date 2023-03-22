@@ -41,6 +41,8 @@ function get_emp_info(id, month, year){
 }
 
 function calculate() {
+    $('#id_norma').val(parseFloat($('#main_norma').text().replace(',','.')))
+    console.log(parseFloat($('#main_norma').text()));
     have_vacaton = false
     fact = 0
     codes = $('.dig_code')

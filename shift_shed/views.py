@@ -90,6 +90,19 @@ def ss_item_add(request, shed, month):
         return render(request, 'shift_shed/new_shed_item.html', context={'emps':items, 'shed':current_shed, 'month':months
         [str(month)], 'month_dig':month, 'form':form})
 
+@login_required
+def ss_item_upd(request, id):
+    item = ShiftShedItem.objects.get(id=id)
+    emp = Employers.objects.get(id=item.employer.id)
+    if emp.sex == 'М':
+        norma = Overtime.objects.filter(year__year=item.bound_shed.year)[0].value_m
+    else:
+        norma = Overtime.objects.filter(year__year=item.bound_shed.year)[0].value_w
+    
+    if request.method == 'GET':
+        form = SS_AddItem_form(instance=item)
+        return render(request, 'shift_shed/upd_shed_item.html', context={'item':item, 'form':form, 'main_norma':norma})
+
 @login_required   
 def ss_get_vacantions(request,emp, month, year):
     v_items = VacantionSheduleItem.objects.filter(emp_id=emp).filter(bound_shed__year=year).filter(Q(dur_from__month=month) | Q(dur_to__month=month))
@@ -124,6 +137,11 @@ def ss_get_vacantions(request,emp, month, year):
     })
 
     return JsonResponse(vac_info, safe=False)
+
+# @login_required
+# def ss_get_norma(request, sex):
+#     if sex == 'М':
+#         norma = Overtime.objects.filter()
 
 
 

@@ -1,0 +1,239 @@
+{% extends "shift_shed/index.html" %}
+{%load static%}
+{%block scripts%}<script src="{% static '/shift_shed/js/items.js' %}" charset="utf-8"></script>{%endblock%}
+{%block title%}{{item.employer.fullname}}{%endblock%}
+
+{%block header%}<a class="btn btn-dark" href="/turv/create/{{b_tabel}}">< Назад</a> | <span class="hide" id="id_month">{{month}}</span>Табель за <span  class='field_month'>{{month}}</span> <span id='id_year'>{{year}}</span> г. - <span class="fullname"></span>{%endblock%}
+
+{%block body%}
+<span id='tabel-type' style='display:none'>{{type}}</span>
+<div class="alert alert-danger errors" role="alert">
+
+</div>
+<div  class="container shed_item_upd">
+
+ <ul class="in_tabel_list hide">
+   {% for emp in in_tabel %}
+   <li>{{emp.employer}}</li>
+   {%endfor%}
+ </ul>
+
+
+
+{% if tabel.errors%}
+
+<div class="alert alert-danger mt-5" role="alert">
+{{tabel.errors}}
+</div>
+{%endif%}
+
+<div class="nt_body">
+<form class="" action="" method="post">
+  {%csrf_token%}
+
+
+
+ 
+<div class="nt_text_employer">
+  <div class="nt_emp_info">
+
+  <h2 class="fullname">{{item.employer.fullname}}</h2>
+  <h5 id="position">Должность: <span>{{item.employer.position}}</span></h5>
+  <h5 id="level">Кат\Разр: <span>{{item.employer.level}}</span></h5>
+  <h5 id="payment">Ст. опл. <span>{{item.employer.positionOfPayment}}</span></h5>
+  <h5 id="sex">Пол: <span>{{item.employer.sex}}</span></h5>
+  <h5 id="sex">Общая норма: <span id="main_norma">{{main_norma}}</span></h5>
+  <h5 id="shift"></h5>
+  
+  </div>
+
+  <div class="results">
+    
+    <p><span>{{form.fact.label}}</span>{{form.fact}}</p>
+    <p><span>{{form.norma.label}}</span>{{form.norma}}</p>
+    <p><span>{{form.deviation.label}}</span>{{form.deviation}}</p>
+    <p><span>{{tabel.v_days.label}}</span>{{tabel.v_days}}</p>
+    <p><span>{{tabel.sHours35.label}}</span>{{tabel.sHours35}}</p>
+    <p><span>{{tabel.sHours4.label}}</span>{{tabel.sHours4}}</p>
+
+  </div>
+</div>
+
+  <div class="nt_body_times">
+
+    <div>
+      <span>1</span>
+      {{form.day_1}}
+    </div>
+    
+    <div>
+      <span>2</span>
+      {{form.day_2}}
+    </div>
+    
+    <div>
+      <span>3</span>
+      {{form.day_3}}
+    </div>
+
+    <div>
+      <span>4</span>
+      {{form.day_4}}
+    </div>
+
+    <div>
+      <span>5</span>
+      {{form.day_5}}
+    </div>
+    
+    <div>
+      <span>6</span>
+      {{form.day_6}}
+    </div>
+
+    <div>
+      <span>7</span>
+      {{form.day_7}}
+    </div>
+
+    <div>
+      <span>8</span>
+      {{form.day_8}}
+    </div>
+
+    <div>
+      <span>9</span>
+      {{form.day_9}}
+    </div>
+
+    <div>
+      <span>10</span>
+      {{form.day_10}}
+    </div>
+    
+    <div>
+      <span>11</span>
+      {{form.day_11}}
+    </div>
+
+    <div>
+      <span>12</span>
+      {{form.day_12}}
+    </div>
+
+    <div>
+      <span>13</span>
+      {{form.day_13}}
+    </div>
+
+    <div>
+      <span>14</span>
+      {{form.day_14}}
+    </div>
+
+    <div>
+      <span>15</span>
+      {{form.day_15}}
+    </div>
+
+    <div>
+      <span>16</span>
+      {{form.day_16}}
+    </div>
+
+    <div>
+      <span>17</span>
+      {{form.day_17}}
+    </div>
+
+    <div>
+      <span>18</span>
+      {{form.day_18}}
+    </div>
+
+    <div>
+      <span>19</span>
+      {{form.day_19}}
+    </div>
+
+    <div>
+      <span>20</span>
+      {{form.day_20}}
+    </div>
+
+    <div>
+      <span>21</span>
+      {{form.day_21}}
+    </div>
+
+    <div>
+      <span>22</span>
+      {{form.day_22}}
+    </div>
+
+    <div>
+      <span>23</span>
+      {{form.day_23}}
+    </div>
+
+    <div>
+      <span>24</span>
+      {{form.day_24}}
+    </div>
+
+    <div>
+      <span>25</span>
+      {{form.day_25}}
+    </div>
+
+    <div>
+      <span>26</span>
+      {{form.day_26}}
+    </div>
+
+    <div>
+      <span>27</span>
+      {{form.day_27}}
+    </div>
+
+    <div>
+      <span>28</span>
+      {{form.day_28}}
+    </div>
+
+    <div>
+      <span>29</span>
+      {{form.day_29}}
+    </div>
+
+    <div>
+      <span>30</span>
+      {{form.day_30}}
+    </div>
+
+    <div>
+      <span>31</span>
+      {{form.day_31}}
+    </div>
+
+
+ 
+  </div>
+  <p style='display: none;'>{{tabel.toxic_p}}{{tabel.auto}}</p>
+  <div class="shed_item_buttons">
+    
+    <button type="button" onclick="calculate();" class="button secondary" name="button">Пересчитать</button>
+
+    <input type="button" onclick="Tabel();"  class="button" name="" value="Пересчитать и сохранить">
+    <a  class="button delete" href="{% url 'tabel_delItem_url' id=item.id%}">Удалить из этого графика</a>
+  </div>
+</div>
+
+
+
+
+
+</form>
+</div>
+</div>
+{%endblock%}

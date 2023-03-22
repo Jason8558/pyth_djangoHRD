@@ -8,6 +8,6 @@ path('getemps/single/<int:id>', views.ss_get_emp_single, name='ss-emp'),
 path('shedule/<int:id>', views.ss_shedule, name='ss-shedule'),
 path('edit/<int:shed>/<int:month>/<int:year>', views.ss_edit, name='ss-edit'),
 path('shedule/additem/<int:shed>/<int:month>', views.ss_item_add, name='ss-additem'),
-path('getvac/<int:emp>/<int:year>/<int:month>', views.ss_get_vacantions, name='ss-getvac')
-
+path('getvac/<int:emp>/<int:year>/<int:month>', views.ss_get_vacantions, name='ss-getvac'),
+path('shedule/upditem/<int:id>', views.ss_item_upd, name='ss-upditem')
 ]

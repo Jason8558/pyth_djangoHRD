@@ -171,6 +171,7 @@ def addition_formforedit(id, month):
         '31':item.day_31
         })
         edit_items.append({
+        'id':item.id,
         'employer':item.employer,
         'month':item.month,
         'fact':item.fact,
