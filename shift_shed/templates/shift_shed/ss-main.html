@@ -1,7 +1,7 @@
 {% extends 'shift_shed/index.html'%}
-{%block header%}Графики сменности{%endblock%}
+{%block header%}{% if user.is_superuser %} <a href="/">К журналам</a> {%else%} <a href="/turv"></a> {%endif%} Графики сменности{%endblock%}
 {%block body%}
-  <div class="container">
+  <div class="container short">
 
     <a class="button add" href="{% url 'ss-create'%}">создать график</a>
 

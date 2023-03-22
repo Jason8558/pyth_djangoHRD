@@ -50,6 +50,7 @@ def ss_get_emp_single(request, id):
 def ss_shedule(request, id):
     if request.user.is_authenticated:
         # emps = [2709,37,207,227]
+        
         days = []
         for i in range(1,32):
             days.append(i)
@@ -64,11 +65,11 @@ def ss_shedule(request, id):
 def ss_edit(request,shed,month,year):
     if request.user.is_authenticated:
 
-        
+        shed_info = ShiftShedModel.objects.get(id=shed)
         items = addition_formforedit(shed, month)
         months = {'1':'Январь','2':"Февраль",'3':"Март",'4':"Апрель",'5':"Май",'6':"Июнь",'7':"Июль",'8':"Август",'9':"Сентябрь",'10':"Октябрь",'11':"Ноябрь",'12':"Декабрь"}
         return render(request, 'shift_shed/shedule_single.html', context={'items':items, 'year':year, 'month':months
-        [str(month)], 'month_dig':month, 'shed':shed})
+        [str(month)], 'month_dig':month, 'shed':shed, 'shed_info':shed_info})
 
 def ss_item_add(request, shed, month):
     if request.user.is_authenticated:
