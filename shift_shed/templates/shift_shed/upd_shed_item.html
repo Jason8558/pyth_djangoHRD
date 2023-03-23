@@ -3,7 +3,7 @@
 {%block scripts%}<script src="{% static '/shift_shed/js/items.js' %}" charset="utf-8"></script>{%endblock%}
 {%block title%}{{item.employer.fullname}}{%endblock%}
 
-{%block header%}<a class="btn btn-dark" href="/turv/create/{{b_tabel}}">< Назад</a> | <span class="hide" id="id_month">{{month}}</span>Табель за <span  class='field_month'>{{month}}</span> <span id='id_year'>{{year}}</span> г. - <span class="fullname"></span>{%endblock%}
+{%block header%}<a class="btn btn-dark" href="/turv/create/{{b_tabel}}">< Назад</a> | <span>Редактировать запись</span>{%endblock%}
 
 {%block body%}
 <span id='tabel-type' style='display:none'>{{type}}</span>
@@ -28,7 +28,7 @@
 {%endif%}
 
 <div class="nt_body">
-<form class="" action="" method="post">
+<form id="shed-item-form-upd" action="" method="post">
   {%csrf_token%}
 
 
@@ -52,7 +52,7 @@
     <p><span>{{form.fact.label}}</span>{{form.fact}}</p>
     <p><span>{{form.norma.label}}</span>{{form.norma}}</p>
     <p><span>{{form.deviation.label}}</span>{{form.deviation}}</p>
-    <p><span>{{tabel.v_days.label}}</span>{{tabel.v_days}}</p>
+    <p><span>{{form.celeb.label}}</span>{{form.celeb}}</p>
     <p><span>{{tabel.sHours35.label}}</span>{{tabel.sHours35}}</p>
     <p><span>{{tabel.sHours4.label}}</span>{{tabel.sHours4}}</p>
 
@@ -224,7 +224,7 @@
     
     <button type="button" onclick="calculate();" class="button secondary" name="button">Пересчитать</button>
 
-    <input type="button" onclick="Tabel();"  class="button" name="" value="Пересчитать и сохранить">
+    <input type="button" onclick="send_submit()"  class="button" name="" value="Пересчитать и сохранить">
     <a  class="button delete" href="{% url 'tabel_delItem_url' id=item.id%}">Удалить из этого графика</a>
   </div>
 </div>
@@ -236,4 +236,10 @@
 </form>
 </div>
 </div>
+{%if form.errors%}
+  {% for error in form.errors %}
+    <p>{{error}}</p>
+  {% endfor %}
+{% endif %}
+
 {%endblock%}

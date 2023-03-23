@@ -102,6 +102,14 @@ def ss_item_upd(request, id):
     if request.method == 'GET':
         form = SS_AddItem_form(instance=item)
         return render(request, 'shift_shed/upd_shed_item.html', context={'item':item, 'form':form, 'main_norma':norma})
+    if request.method == 'POST':
+        form = SS_AddItem_form(request.POST, instance=item)
+        if form.is_valid():
+            form.save()
+            return redirect ('/shift_shed/shedule/' + str(item.bound_shed.id))
+        else:
+            return render(request, 'shift_shed/upd_shed_item.html', context={'item':item, 'form':form, 'main_norma':norma})
+        
 
 @login_required   
 def ss_get_vacantions(request,emp, month, year):

@@ -138,9 +138,12 @@ color: red;
 }
 
 .delete:hover {
-background: #ffbdbd;
-color: black;
-}
+
+background: #ffbdbd;
+
+color: black;
+
+}
 
 section h2, h3 {
   text-align: center;
@@ -254,9 +257,28 @@ justify-content: space-between;
     box-shadow: 0px 0px 7px 1px #979595;
 }
 
-.nt_emp_info {}
+.nt_emp_info {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
 
 .results {}
+
+.results p {
+    display: flex;
+    width: 250px;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 5px;
+}
+
+.results p input {
+    width: 58px;
+    text-align: center;
+    height: 31px;
+}
 
 .shed_item_buttons {
     background: white;
@@ -277,4 +299,6 @@ justify-content: space-between;
     margin: 4px auto;
 }
 
-.shed_item_upd {}
+.shed_item_upd {
+    width: 795px;
+}
