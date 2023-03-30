@@ -36,15 +36,29 @@ function get_emp_info(id, month, year){
         
 
     })
+
+    get_celeb(year, month)
     
    
 }
 
+function get_celeb(year,month) {
+    $.getJSON('/work_cal/' + year + '/' + month,  (data) => {
+        
+        for (const day of data[0].days.split(',')) {
+            $('#id_day_' + day).css('background', 'blue')
+        }
+        
+       })
+}
+
 function calculate() {
+    if (document.location.href.split('/')[5] != 'additem') {
     $('#id_norma').val(parseFloat($('#main_norma').text().replace(',','.')))
- 
+    }
     have_vacaton = false
     fact = 0
+    celebs = 0
     codes = $('.dig_code')
     for (const code of codes) {
         console.log(code.value);
@@ -54,6 +68,12 @@ function calculate() {
        if (code.value == 'ОТ') {
         have_vacaton = true
        }
+
+       if (code.style.backgroundColor == 'blue') {
+        if (code.value != '') {
+        celebs = celebs + parseInt(code.value)}
+       }
+
     }
 
     if (have_vacaton == false) {
@@ -66,9 +86,12 @@ function calculate() {
         $('#id_deviation').val(0)
     }
 
+    console.log(celebs);
+
     
 
     $('#id_fact').val(fact)
+    $('#id_celeb').val(celebs)
     
 }
 

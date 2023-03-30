@@ -12,6 +12,10 @@
 </div>
 <div  class="container shed_item_upd">
 
+
+    
+ 
+
  <ul class="in_tabel_list hide">
    {% for emp in in_tabel %}
    <li>{{emp.employer}}</li>
@@ -30,7 +34,12 @@
 <div class="nt_body">
 <form id="shed-item-form-upd" action="" method="post">
   {%csrf_token%}
-
+  
+  <div class="hide">
+  {{form.bound_shed}}
+  {{form.employer}}
+  {{form.month}}
+</div>
 
 
  
@@ -236,10 +245,16 @@
 </form>
 </div>
 </div>
+
+<script>
+  $(document).ready(function (){
+    $("#id_employer").val({{item.employer.id}})
+  })
+</script>
+
 {%if form.errors%}
-  {% for error in form.errors %}
-    <p>{{error}}</p>
-  {% endfor %}
+  {{ form.errors }}
+    
 {% endif %}
 
 {%endblock%}

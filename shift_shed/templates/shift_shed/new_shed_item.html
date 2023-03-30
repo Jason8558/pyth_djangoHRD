@@ -76,7 +76,7 @@
 </div>
 
 
-<div id="tabel_item" class="tabel_item">
+<div id="tabel_item" class="shed_item add">
 
 
  <!-- <ul class="in_tabel_list">
@@ -142,14 +142,15 @@
     {{form.employer}}
 
   </div>
-<div class="nt_text_employer">
+<div class="nt_text_employer add-emp">
   <div class="nt_emp_info">
   <h5 class="btn btn-link" style="font-size: 1.25rem; padding:0;" id="fullname"><span id="sex"></span></h5>
-  <h5>Пол: </h5>
+  <h5 id="sex">Пол: </h5>
   <h5 id="position"></h5>
   <h5 id="level"></h5>
   <h5 id="payment"></h5>
   <h5 id="shift"></h5>
+  <h5><span id="main_norma">{{main_norma}}</span></h5>
  
   </div>
 
@@ -161,7 +162,7 @@
   </div>
 </div>
 
-  <div class="nt_body_times">
+  <div class="nt_body_times add-emp">
     <div class="first_half">
 
     <span>1</span>
@@ -271,15 +272,15 @@
     {{form.day_30}}
     {{form.day_31}}
   </div>
-  <div class="tabel_buttons">
+  <div class="shed_item_buttons buttons-add">
     {% if b_tabel.type_id == 1%}
-    <button type="button" class="btn btn-warning " onclick='auto_fill(0)' name="t_auto_fill">Автозаполнение</button>
-    <button type="button" class="btn btn-warning " onclick='auto_fill(1)' name="t_auto_fill_half">Автозаполнение 1/2</button>
+    <button type="button" class="button btn-warning " onclick='auto_fill(0)' name="t_auto_fill">Автозаполнение</button>
+    <button type="button" class="button btn-warning " onclick='auto_fill(1)' name="t_auto_fill_half">Автозаполнение 1/2</button>
     {%else%}
     {%endif%}
-  <button type="button" onclick="calculate();" class="btn btn-outline-dark" name="button">Расчитать</button>
+  <button type="button" onclick="calculate();" class="button btn-outline-dark" name="button">Расчитать</button>
 
-  <input type="button" onclick="send_submit()" class="btn btn-success tItem_submit" name="" value="Расчитать и добавить">
+  <input type="button" onclick="send_submit()" class="button sItem_submit" name="" value="Расчитать и добавить">
   </div>
 
 

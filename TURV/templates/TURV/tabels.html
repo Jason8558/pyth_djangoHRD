@@ -50,13 +50,12 @@ function Supchecked() {
     
     
       
-      {% if granted == 1%}
-      <li><a href="{% url 'ss-main'%}">Графики сменности</a></li>
-      {%endif%}
-      <li><a href="{% url 'vacshed_url' %}">График отпусков</a>
-  
-      </li>
-  
+    <li>Графики <span class='angle-down'>v</span>
+      <ul class="sprav">
+        <li><a href="{% url 'ss-main'%}">Графики сменности</a></li>
+        
+        <li><a href="{% url 'vacshed_url' %}">График отпусков</a></li>
+      </ul>
   
     <li>Справочники <span class='angle-down'>v</span>
     <ul class="sprav">

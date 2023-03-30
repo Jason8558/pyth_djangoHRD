@@ -20,7 +20,11 @@
             <td>{{s.id}}</td>
             <td>{{s.year}}</td>
             <td>{{s.dep.name}}</td>
-            <td>{{s.checked}}</td>
+            {% if s.cheked %}
+            <td>✅</td>
+          {%else%}
+            <td>❌</td>
+          {%endif%}
           </tr>
         {%endfor%}
       </tbody>

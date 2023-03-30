@@ -70,3 +70,17 @@ class ShiftShedItem(models.Model):
     def __str__(self):
         doc_fullname = str(self.employer) + ' ' + str(self.month) + '  ' + str(self.bound_shed.year)
         return doc_fullname
+
+class ResEmloyee(models.Model):
+    dep = models.ManyToManyField('TURV.department', verbose_name='Подразделения', db_index=True, blank=False)
+    emp = models.ForeignKey('TURV.employers', verbose_name='ФИО руководителя', db_index=True, on_delete=models.CASCADE, blank=False)
+    pos = models.CharField(verbose_name='Полная должность', blank=False, max_length=250)
+
+    class Meta:
+        ordering = ['emp']
+        verbose_name = 'Согласующие руководители'
+    def __str__(self):
+            return self.emp.fullname
+
+
+

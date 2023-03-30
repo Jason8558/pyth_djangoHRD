@@ -174,3 +174,4 @@ class SS_AddItem_form(forms.ModelForm):
             norma = self.cleaned_data['norma']
 
         )
+    

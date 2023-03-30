@@ -87,7 +87,7 @@ tbody tr {
 
 }
 
-.shift-table tbody tr:hover {background: #80b1f9;/* color: white; */}
+table tbody tr:hover {background: #80b1f9;/* color: white; */}
 
 .button {
     margin: 2% auto;
@@ -106,6 +106,25 @@ tbody tr {
     text-decoration: none;
     color: black;
     transition: 0.3s;
+}
+
+.button-bar {
+    display: flex;
+    flex-direction: row;
+    border-radius: 14px;
+    height: 58px;
+    background: white;
+    padding: 9px;
+    box-shadow: 0px 0px 4px 1px #999999;
+    align-content: center;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+.button-bar .button {
+    width: auto;
+    margin: 0;
+    margin-right: 12px;
 }
 
 .button:hover {
@@ -236,6 +255,8 @@ justify-content: space-between;
     /* border: 1px solid; */
 }
 
+.add {}
+
 .nt_body_times div input{
     width: 48px;
     height: 31px;
@@ -256,6 +277,8 @@ justify-content: space-between;
     /* box-shadow: 0px 0px 2px 1px black; */
     box-shadow: 0px 0px 7px 1px #979595;
 }
+
+.add-emp {float: initial;width: 820px;}
 
 .nt_emp_info {
     display: flex;
@@ -280,6 +303,10 @@ justify-content: space-between;
     height: 31px;
 }
 
+.shed_item {
+    width: 867px;
+}
+
 .shed_item_buttons {
     background: white;
     padding: 5px;
@@ -301,4 +328,33 @@ justify-content: space-between;
 
 .shed_item_upd {
     width: 795px;
+}
+
+.buttons-add {
+    box-shadow: none;
+    width: 100%;
+    display: flex !important;
+    flex-direction: row !important;
+    justify-content: flex-start;
+}
+
+.buttons-add .button {
+
+width: unset;
+
+height: unset;
+
+background: white;
+
+border: 1px solid;
+}
+
+.buttons-add .sItem_submit {
+    background: lightgreen;
+}
+
+.hide {
+    visibility: hidden;
+    height: -1px;
+    width: -1px;
 }
