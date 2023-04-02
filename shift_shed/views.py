@@ -275,7 +275,7 @@ def ss_print(request, id):
     ])
     for item in items:
         data.append([
-        item.employer.fullname + '|' + item.employer.position.name,
+        item.employer.fullname + '|' + item.employer.position.name[:8],
         item.day_1,
         item.day_2,
         item.day_3,
@@ -316,7 +316,7 @@ def ss_print(request, id):
     for row, values in enumerate(data):
         for column, value in enumerate(values):
             style.append(['FONTNAME',(0,0),(column,row),'FreeSans'])
-            style.append(['FONTSIZE',(column,row),(column,row),6])
+            style.append(['FONTSIZE',(column,row),(column,row),5])
 
     table.setStyle(TableStyle(style))
 
@@ -370,7 +370,7 @@ def ss_print(request, id):
     ])
     for item in items:
         data.append([
-        item.employer.fullname + '|' + item.employer.position.name,
+        item.employer.fullname + '|' + item.employer.position.name[:8],
         item.day_1,
         item.day_2,
         item.day_3,
@@ -411,7 +411,7 @@ def ss_print(request, id):
     for row, values in enumerate(data):
         for column, value in enumerate(values):
             style.append(['FONTNAME',(0,0),(column,row),'FreeSans'])
-            style.append(['FONTSIZE',(column,row),(column,row),6])
+            style.append(['FONTSIZE',(column,row),(column,row),5])
 
     table.setStyle(TableStyle(style))
 
@@ -473,7 +473,7 @@ def ss_print(request, id):
         ])
         for item in items:
             data.append([
-            item.employer.fullname + '|' + item.employer.position.name,
+            item.employer.fullname + '|' + item.employer.position.name[:8],
             item.day_1,
             item.day_2,
             item.day_3,
@@ -514,7 +514,7 @@ def ss_print(request, id):
         for row, values in enumerate(data):
             for column, value in enumerate(values):
                 style.append(['FONTNAME',(0,0),(column,row),'FreeSans'])
-                style.append(['FONTSIZE',(column,row),(column,row),6])
+                style.append(['FONTSIZE',(column,row),(column,row),5])
 
         table.setStyle(TableStyle(style))
 
@@ -569,7 +569,7 @@ def ss_print(request, id):
         ])
         for item in items:
             data.append([
-            item.employer.fullname + '|' + item.employer.position.name,
+            item.employer.fullname + '|' + item.employer.position.name[:8],
             item.day_1,
             item.day_2,
             item.day_3,
@@ -610,7 +610,7 @@ def ss_print(request, id):
         for row, values in enumerate(data):
             for column, value in enumerate(values):
                 style.append(['FONTNAME',(column,row),(column,row),'FreeSans'])
-                style.append(['FONTSIZE',(column,row),(column,row),6])
+                style.append(['FONTSIZE',(column,row),(column,row),5])
 
         table.setStyle(TableStyle(style))
 
@@ -618,7 +618,7 @@ def ss_print(request, id):
         p.drawString(350, 320, cal[str(mgroup[1])])
 
         table.wrapOn(p, 100, 100)
-        table.wrapOn(p, 100, 100)
+        table.wrapOn(p, 50, 100)
         table.drawOn(p, 30, 100)
 
         p.showPage()
@@ -637,7 +637,7 @@ def ss_print(request, id):
     ])
 
     for rec in total:
-        total_table.append([rec['emp'].fullname, rec['s_fact'], rec['s_celeb'], rec['s_norma'], "%.2f" % rec['s_dev']])
+        total_table.append([rec['emp'].fullname + '|' + item.employer.position.name[:8], rec['s_fact'], rec['s_celeb'], rec['s_norma'], "%.2f" % rec['s_dev']])
     
     table = Table(total_table)
 
@@ -652,7 +652,7 @@ def ss_print(request, id):
     p.drawString(370, 570, 'ИТОГИ')
 
     table.wrapOn(p, 100, 100)
-    table.wrapOn(p, 100, 100)
+    table.wrapOn(p, 50, 100)
     table.drawOn(p, 270, 370)
 
     p.drawString(100, 300, "СОГЛАСОВАНО:" )
