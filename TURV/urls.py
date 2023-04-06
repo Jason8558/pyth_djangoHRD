@@ -16,6 +16,7 @@ urlpatterns = [
     path('additem/<int:id>', views.tabel_additem, name='tabel_addItem_url'),
     path('upditem/<int:id>', views.tabel_upditem, name='tabel_updItem_url'),
     path('delitem/<int:id>', views.tabel_delitem, name='tabel_delItem_url'),
+    path('getitem/<int:tab>/<int:emp>', views.tabel_getitem, name='tabel_getItem_url'),
     path('employers/', views.employers_list, name='emp_list'),
     path('employers/new', views.new_employer, name='emp_new'),
     path('employers/upd/<int:id>', views.upd_employer, name='emp_upd'),

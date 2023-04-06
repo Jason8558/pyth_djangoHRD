@@ -1,8 +1,13 @@
 // ВЫВОД ИНФОРМАЦИИ О СОТРУДНИКЕ
 
+$(document).ready(function(){
+  year = $('#tabel-year').text()
+  month = $('#tabel-month').text()
+  
+  get_celeb(year, month)
+})
 
-
-function emp_info(e_id) {
+function emp_info(e_id,  tab, corr, month, year) {
   $('#id_employer').css('display', 'none')
 
   emp_val = $('#t_emps option:selected').val().toString()
@@ -34,6 +39,7 @@ function emp_info(e_id) {
     $('#n_time').text(emp_select[6])
       $('#n_time_span').css('display','block')
   }
+  
 }
 // ------------------------------------------------------------------------
 $(document).ready(function(){
@@ -461,4 +467,19 @@ function auto_fill() {
 else {
   alert('Для сотрудников, работающих в сменном режиме, автозаполнение недоступно!')
 }
+}
+
+function get_from_tabel(id) {
+
+}
+
+function get_celeb(year,month) {
+  $.getJSON('/work_cal/' + year + '/' + month,  (data) => {
+      
+      for (const day of data[0].days.split(',')) {
+          $('#id_type_time' + day).css('background', 'blue')
+          $('#id_hours' + day).css('background', 'blue')
+      }
+      
+     })
 }

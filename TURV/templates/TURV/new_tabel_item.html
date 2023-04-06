@@ -7,6 +7,8 @@
 
 {%block body%}
 <span id='tabel-type' style='display:none'>{{b_tabel.type_id}}</span>
+<span id='tabel-year' style='display:none'>{{b_tabel.year}}</span>
+<span id='tabel-month' style='display:none'>{{b_tabel.month}}</span>
 <style media="screen">
   #t_emps_chosen {
     display:none;
@@ -52,7 +54,7 @@
   {% for emp in emps %}
   {% if emp.fired%}
   {%else%}
-  <tr id={{emp.id}} onclick="emp_info({{emp.id}})">
+  <tr id={{emp.id}} onclick="emp_info({{emp.id}}, {{b_tabel.id}}, '{{b_tabel.iscorr}}', {{b_tabel.month}}, {{b_tabel.year}})">
     <td class='id-fio'>{{emp.fullname}}</td>
     <td>{{emp.position}}</td>
     <td>{{emp.level}}</td>

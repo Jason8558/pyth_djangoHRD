@@ -1,10 +1,15 @@
 
 
 // ВЫВОД ИНФОРМАЦИИ О СОТРУДНИКЕ
+$(document).ready(function(){
+  year = $('#tabel-year').text()
+  month = $('#tabel-month').text()
+  
+  get_celeb(year, month)
+})
 
 
-
-function emp_info(e_id) {
+function emp_info(e_id, tab, corr, month, year) {
   $('#id_employer').css('display', 'none')
 
   emp_val = $('#t_emps option:selected').val().toString()
@@ -36,6 +41,16 @@ function emp_info(e_id) {
     $('#n_time').text(emp_select[6])
       $('#n_time_span').css('display','block')
   }
+
+  
+
+  if (corr == 'True') {
+  get_main_tabel_item(tab, e_id ) }
+  
+  else {
+    get_vacantion(e_id, month, year)
+  }
+
 }
 // ------------------------------------------------------------------------
 $(document).ready(function(){
@@ -549,4 +564,69 @@ function auto_fill(type) {
 else {
   alert('Для сотрудников, работающих в сменном режиме, автозаполнение недоступно!')
 }
+}
+
+function get_main_tabel_item(tab, emp) {
+    item = []
+  $.getJSON('/turv/getitem/'+ tab + '/' + emp,  (data) => {
+    item = data[0]
+    for (let i = 1; i < 32; i++) {
+      $('#id_type_time'+i).val(item['tt'+i])
+      $('#id_hours'+i).val(item['h'+1])
+      
+    }
+
+
+    
+   })
+
+  
+}
+
+function get_vacantion(emp, month, year) {
+
+  codes = $('.dig_code')
+  hours = $('.dig_hours')
+
+  for (let i = 0; i < codes.length; i++) {
+
+    if (codes[i].value != 'В') {
+
+    codes[i].value = ''
+    hours[i].value = '' }
+    
+  }
+
+  $.getJSON('/shift_shed/getvac/' + emp + '/' + year + '/' + month, (data) => {
+    
+    codes = $('.dig_code')
+    hours = $('.dig_hours')
+
+    for (let i = 0; i < codes.length; i++) {
+      if (codes[i].style.background == 'lightgreen') {
+        codes[i].value = 'В'
+        hours[i].value = '8'
+      }
+    }
+    
+    
+    for (const day of data[0].days) {
+         $('#id_type_time'+day).val('ОТ')
+         $('#id_hours'+day).val('8')
+       }
+     
+
+})
+
+}
+
+function get_celeb(year,month) {
+  $.getJSON('/work_cal/' + year + '/' + month,  (data) => {
+      
+      for (const day of data[0].days.split(',')) {
+          $('#id_type_time' + day).css('background', 'blue')
+          $('#id_hours' + day).css('background', 'blue')
+      }
+      
+     })
 }

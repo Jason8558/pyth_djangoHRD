@@ -14,6 +14,7 @@ from itertools import groupby
 from reg_jounals.models import logs, logs_event
 from django.contrib.auth.models import *
 import json
+from django.contrib.auth.decorators import login_required
 
 def w_close(request):
     return render(request, 'TURV/close.html')
@@ -1079,6 +1080,8 @@ def tabel_sup_check(request, id):
     return redirect('/turv/create/' + str(id))
 
 def tabel_delitem(request, id):
+
+
     if request.user.is_authenticated:
         item = TabelItem.objects.get(id__iexact=id)
         num = item.bound_tabel.id
@@ -1086,6 +1089,83 @@ def tabel_delitem(request, id):
         item.delete()
         return redirect(dest)
 
+@login_required
+def tabel_getitem(request, emp, tab):
+    this_tabel = Tabel.objects.get(id=tab)
+    main_tabel = Tabel.objects.get(id=this_tabel.corr_id)
+    items = TabelItem.objects.filter(bound_tabel=main_tabel.id).filter(employer=emp)
+    item = items[0]
+    table = list()
+    table.append({
+        'id':item.id,
+        'tt1':item.type_time1,
+        'tt2':item.type_time2,
+        'tt3':item.type_time3,
+        'tt4':item.type_time4,
+        'tt5':item.type_time5,
+        'tt6':item.type_time6,
+        'tt7':item.type_time7,
+        'tt8':item.type_time8,
+        'tt9':item.type_time9,
+        'tt10':item.type_time10,
+        'tt11':item.type_time11,
+        'tt12':item.type_time12,
+        'tt13':item.type_time13,
+        'tt14':item.type_time14,
+        'tt15':item.type_time15,
+        'tt16':item.type_time16,
+        'tt17':item.type_time17,
+        'tt18':item.type_time18,
+        'tt19':item.type_time19,
+        'tt20':item.type_time20,
+        'tt21':item.type_time21,
+        'tt22':item.type_time22,
+        'tt23':item.type_time23,
+        'tt24':item.type_time24,
+        'tt25':item.type_time25,
+        'tt26':item.type_time26,
+        'tt27':item.type_time27,
+        'tt28':item.type_time28,
+        'tt29':item.type_time29,
+        'tt30':item.type_time30,
+        'tt31':item.type_time31,
+        'h1':item.hours1,
+        'h2':item.hours2,
+        'h3':item.hours3,
+        'h4':item.hours4,
+        'h5':item.hours5,
+        'h6':item.hours6,
+        'h7':item.hours7,
+        'h8':item.hours8,
+        'h9':item.hours9,
+        'h10':item.hours10,
+        'h11':item.hours11,
+        'h12':item.hours12,
+        'h13':item.hours13,
+        'h14':item.hours14,
+        'h15':item.hours15,
+        'h16':item.hours16,
+        'h17':item.hours17,
+        'h18':item.hours18,
+        'h19':item.hours19,
+        'h20':item.hours20,
+        'h21':item.hours21,
+        'h22':item.hours22,
+        'h23':item.hours23,
+        'h24':item.hours24,
+        'h25':item.hours25,
+        'h26':item.hours26,
+        'h27':item.hours27,
+        'h28':item.hours28,
+        'h29':item.hours29,
+        'h30':item.hours30,
+        'h31':item.hours31,
+        'wdays':item.w_days,
+        'whours':item.w_hours,
+        'vdays':item.v_days,
+        'vhours':item.v_hours
+    })
+    return JsonResponse(table, safe=False)
 # =============================================
 
 # Справочники ---------------------------------
