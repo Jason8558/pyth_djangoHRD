@@ -1,3 +1,31 @@
+function check_only(month, year) {
+
+
+
+rows = $('#tabels-main-table tbody tr')
+
+if ($('#check_only').is(':checked') == true) {
+
+
+
+for (const row of rows) {
+ 
+  if (row.childNodes[2].innerText == month_to_str(month) + ' ' + year.toString() && row.childNodes[6].innerText == '✅') {
+    row.style.display = ''
+  }
+  else {
+    row.style.display = 'none'
+  }
+}
+}
+else {
+  for (const row of rows) {
+    row.style.display = ''}
+}
+}
+
+
+
 function gettabels(type, access) {
 
   $.getJSON('/turv/gettabels/' + type,  (data) => {
