@@ -197,6 +197,10 @@ function Supchecked() {
 <div class="table-block tb-main">
 
   <a class="btn btn-success btn-add"  href="{% url 'new_tabel_url' %}"  >+ Новый табель</a>
+
+  <label for="check_only">Только проверенные на текущий месяц: </label><input type="checkbox" onclick="check_only('{{month_}}',{{year_}})" name="check_only" id="check_only">
+
+
 <div class="tb-table">
 
 
