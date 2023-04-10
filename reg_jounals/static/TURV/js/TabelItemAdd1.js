@@ -520,16 +520,18 @@ function auto_fill(type) {
 
     switch (codes[i].value) {
 
-    case 'В':
-    codes[i].value = 'В'
-    break;
+      case 'В':
+      if (codes[i].style.visibility != 'hidden') {
+      codes[i].value = 'В'}
+      break;
 
-    case '':
-    codes[i].value = 'Я'
-    break;
-    default:
+      case '':
+        if (codes[i].style.visibility != 'hidden') {
+      codes[i].value = 'Я'}
+      break;
+      default:
 
-    }
+      }
 
   }}
   else {
@@ -548,11 +550,13 @@ function auto_fill(type) {
       switch (codes[i].value) {
 
       case 'В':
-      codes[i].value = 'В'
+      if (codes[i].style.visibility != 'hidden') {
+      codes[i].value = 'В'}
       break;
 
       case '':
-      codes[i].value = 'Я'
+        if (codes[i].style.visibility != 'hidden') {
+      codes[i].value = 'Я'}
       break;
       default:
 
