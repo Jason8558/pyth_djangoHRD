@@ -155,6 +155,99 @@ def tabels(request):
     else:
         return redirect('/accounts/login/')
 
+@login_required
+def tabels_new(request):
+
+        # Переменные
+    type = TabelType.objects.all()
+    group = Group.objects.get(name__icontains='Табельщик')
+    tab_users = group.user_set.all().order_by('first_name')
+    sq_period_month = request.GET.get('search_month', '')
+    sq_period_year = request.GET.get('search_year', '')
+    sq_dep = request.GET.get('t_tab_dep_search', '')
+    sq_check = request.GET.get('tab_supcheck','')
+    sq_user = request.GET.get('tab_user','')
+    sq_this_month = request.GET.get('this_month','')
+    sq_check_this_month = request.GET.get('chk_this_month','')
+    sq_type = request.GET.get('search_type', '')
+    user_ = request.user
+    u_group = user_.groups.all()
+    is_ro = 0
+    granted = 0
+    unite = False
+    is_atc = False
+    answers = len(FeedBack.objects.filter(mes_from_id=request.user.id).filter(~Q(answer=None)).filter(~Q(answer='')).filter(answer_readed=0))
+
+
+    # Определение текущего месяца и года
+    now = datetime.datetime.now()
+    if len(str(now.month)) == 1:
+        month_ = str(0) + str(now.month)
+    else:
+        month_ = now.month
+    year_ = now.year
+
+    # Проверка на права пользователя
+    for group in u_group:
+        if (group.name == 'Сотрудник СУП') or (group.name == 'Сотрудник РО'):
+            granted = True
+
+    if request.user.is_superuser:
+        granted = True
+
+
+    # Сообщения
+    # Полный доступ
+    meslist = []
+    messages = InfoMessages.objects.filter(viewin=1).filter(active=1).order_by('-important','-id')
+    if granted == True:
+        # Проверяем на постоянные и непостояннные
+        for mes in messages:
+            if mes.always:
+                meslist.append(mes.id)
+            else:
+                if mes.dfrom <= datetime.datetime.now().date() and mes.dfrom >= datetime.datetime.now().date():
+                    meslist.append(mes.id)
+        messages = messages.filter(id__in=meslist)
+
+    else:
+        deps = Department.objects.all().filter(user=user_.id)
+        allow_departments = []
+        for dep in deps:
+            allow_departments.append(dep.id)
+        for mes in messages:
+            if mes.alldeps:
+                meslist.append(mes.id)
+            else:
+                if mes.deps.filter(id__in=allow_departments):
+                    meslist.append(mes.id)
+        messages = messages.filter(id__in=meslist)
+
+
+
+    if (granted == False):
+        # если пользователь только с правами на определенные подразделения, собираем их тут:
+        deps = Department.objects.all().filter(user=user_.id).filter(is_aup=0)
+        allow_departments = []
+        for dep in deps:
+
+            allow_departments.append(dep.id)
+            # если совмещение, то выдаем список автотранспорта
+            if (dep.id == 3) or (dep.id == 2) or (dep.id == 26) or (dep.id == 40):
+                unite = True
+
+            if (dep.id == 3) or (dep.id == 2):
+                is_atc = True
+    else:
+        deps = Department.objects.all().order_by('name').filter(is_aup=0)
+
+
+
+    return render(request, 'TURV/tabels_new.html', context={'answers':answers, 'type':type, 'tab_users':tab_users, 'deps':deps, 'granted':granted, 'ro':is_ro, 'month_':month_, "year_":year_, 'unite':unite, 'is_atc':is_atc, 'messages':messages})
+
+
+
+
 # =========================================
 
 def tabels_json(request, type):
@@ -163,20 +256,21 @@ def tabels_json(request, type):
             deps = Department.objects.filter(user=request.user.id)
             tabels = Tabel.objects.values('id', 'month', 'year', 'type__name', 'department', 'department__name', 'del_check', 'sup_check', 'paper_check', 'unloaded', 'res_officer', 'comm', 'iscorr', 'half_month_check').filter(iscorr=0).filter(department_id__in=deps).filter(type=1).order_by('-year', '-month', 'department__name', 'id')
         else:
-            tabels = Tabel.objects.values('id', 'month', 'year', 'type__name', 'department', 'department__name', 'del_check', 'sup_check', 'paper_check', 'unloaded', 'res_officer', 'comm', 'iscorr', 'half_month_check').filter(iscorr=0).filter(type=1).order_by('-year', '-month', 'department__name', 'id')
+             tabels = Tabel.objects.values('id', 'month', 'year', 'type__name', 'department', 'department__name', 'del_check', 'sup_check', 'paper_check', 'unloaded', 'res_officer', 'comm', 'iscorr', 'half_month_check').filter(iscorr=0).filter(type=1).order_by('-year', '-month', 'department__name', 'id')
+            # tabels = Tabel.objects.values('id', 'month', 'year', 'type__name', 'department', 'department__name', 'del_check', 'sup_check', 'paper_check', 'unloaded', 'res_officer', 'comm', 'iscorr', 'half_month_check').filter(iscorr=0).filter(type=1).order_by('-year', '-month', 'department__name', 'id')
     else:
         if type == 10:
             if access_check(request) == False:
                 deps = Department.objects.filter(user=request.user.id)
-                tabels = Tabel.objects.values('id', 'month', 'year', 'type__name', 'department', 'department__name', 'del_check', 'sup_check', 'paper_check', 'unloaded', 'res_officer', 'comm', 'iscorr').filter(iscorr=1).filter(department_id__in=deps).order_by('-year', '-month', 'department__name', 'id')
+                tabels = Tabel.objects.values('id', 'month', 'year', 'type__name', 'department', 'department__name', 'del_check', 'sup_check', 'paper_check', 'unloaded', 'res_officer', 'comm', 'iscorr','half_month_check').filter(iscorr=1).filter(department_id__in=deps).order_by('-year', '-month', 'department__name', 'id')
             else:
-                tabels = Tabel.objects.values('id', 'month', 'year', 'type__name', 'department', 'department__name', 'del_check', 'sup_check', 'paper_check', 'unloaded', 'res_officer', 'comm', 'iscorr').filter(iscorr=1).order_by('-year', '-month', 'department__name', 'id')
+                tabels = Tabel.objects.values('id', 'month', 'year', 'type__name', 'department', 'department__name', 'del_check', 'sup_check', 'paper_check', 'unloaded', 'res_officer', 'comm', 'iscorr','half_month_check').filter(iscorr=1).order_by('-year', '-month', 'department__name', 'id')
         else:
             if access_check(request) == False:
                 deps = Department.objects.filter(user=request.user.id)
-                tabels = Tabel.objects.values('id', 'month', 'year', 'type__name', 'department', 'department__name', 'del_check', 'sup_check', 'paper_check', 'unloaded', 'res_officer', 'comm', 'iscorr').filter(iscorr=0).filter(department_id__in=deps).filter(type=type).order_by('-year', '-month', 'department__name', 'id')
+                tabels = Tabel.objects.values('id', 'month', 'year', 'type__name', 'department', 'department__name', 'del_check', 'sup_check', 'paper_check', 'unloaded', 'res_officer', 'comm', 'iscorr','half_month_check').filter(iscorr=0).filter(department_id__in=deps).filter(type=type).order_by('-year', '-month', 'department__name', 'id')
             else:
-                tabels = Tabel.objects.values('id', 'month', 'year', 'type__name', 'department', 'department__name', 'del_check', 'sup_check', 'paper_check', 'unloaded', 'res_officer', 'comm', 'iscorr').filter(iscorr=0).filter(type=type).order_by('-year', '-month', 'department__name', 'id')
+                tabels = Tabel.objects.values('id', 'month', 'year', 'type__name', 'department', 'department__name', 'del_check', 'sup_check', 'paper_check', 'unloaded', 'res_officer', 'comm', 'iscorr','half_month_check').filter(iscorr=0).filter(type=type).order_by('-year', '-month', 'department__name', 'id')
 
     tabels = list(tabels)
     return JsonResponse(tabels, safe=False)
@@ -250,8 +344,6 @@ def tabels_json_search(request):
     sq_check_this_month = request.GET.get('chk_this_month','')
     sq_type = request.GET.get('search_type', '')
     sq_code = request.GET.get('search_code', '')
-
-    print(sq_dep)
 
     # Алгоритм поиска
     if access_check(request) == False:
