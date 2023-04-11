@@ -394,7 +394,7 @@ def order_of_BTrip(request):
                 p_orders = Paginator(orders, 1000)
                 page_number = request.GET.get('page', 1)
             else:
-                orders = OrdersOfBTrip.objects.all().order_by('-bt_date')
+                orders = OrdersOfBTrip.objects.all().order_by('-bt_date', '-id')
                 p_orders = Paginator(orders, 20)
                 page_number = request.GET.get('page', 1)
 
