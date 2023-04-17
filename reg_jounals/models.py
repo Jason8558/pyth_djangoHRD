@@ -30,7 +30,7 @@ class LetterOfResignation(models.Model):
     lor_position = models.CharField(max_length=256, help_text="Введите должность увольняемого сотрудника", verbose_name="Должность")
     lor_departament = models.ForeignKey('Departments', on_delete=models.CASCADE, verbose_name="Подразделение ", default="1")
     lor_dateOfRes = models.DateField(help_text="Введите дату увольнения", verbose_name="Дата увольнения", db_index=True)
-    lor_additionalData = models.CharField(blank=True, null=True, default="", max_length=256, help_text="Введите примечание", verbose_name="Примечание")
+    lor_additionalData = models.CharField(blank=True, null=True, max_length=256, help_text="Введите примечание", verbose_name="Примечание")
     lor_itemOfRes = models.ForeignKey('ItemOfResignation', on_delete=models.CASCADE, verbose_name="Основание увольнения", null=True, blank=True)
     lor_res_officer = models.CharField(blank=True, editable=False,  max_length=256, help_text="Сотрудник, который внес документ в систему ", verbose_name='Ответственный сотрудник')
 
@@ -310,7 +310,7 @@ class logs(models.Model):
     doc_date = models.DateField(verbose_name="Дата документа", db_index=True, default='2000-01-01')
     link = models.CharField(verbose_name = 'Ссылка', max_length=256, default='')
     year = models.CharField(verbose_name = 'Год', max_length=4, blank=True)
-    addData = models.CharField(verbose_name = 'Дополнительная информация', max_length=256, blank=True)
+    addData = models.CharField(verbose_name = 'Дополнительная информация', max_length=256, blank=True, null=True)
     res_officer = models.CharField(verbose_name = 'Ответственный', max_length=256, blank=True)
 
     class Meta:
