@@ -31,6 +31,7 @@ class LetterOfResignation(models.Model):
     lor_departament = models.ForeignKey('Departments', on_delete=models.CASCADE, verbose_name="Подразделение ", default="1")
     lor_dateOfRes = models.DateField(help_text="Введите дату увольнения", verbose_name="Дата увольнения", db_index=True)
     lor_additionalData = models.CharField(blank=True, null=True, default="", max_length=256, help_text="Введите примечание", verbose_name="Примечание")
+    lor_itemOfRes = models.ForeignKey('ItemOfResignation', on_delete=models.CASCADE, verbose_name="Основание увольнения", null=True, blank=True)
     lor_res_officer = models.CharField(blank=True, editable=False,  max_length=256, help_text="Сотрудник, который внес документ в систему ", verbose_name='Ответственный сотрудник')
 
     class Meta:
@@ -41,6 +42,17 @@ class LetterOfResignation(models.Model):
     def __str__(self):
         letter_fullname = "Заявление на увольнение" + ' №' + str(self.lor_number) + ' от ' + str(self.lor_date) + ' ' + str(self.lor_employee)
         return letter_fullname
+
+class ItemOfResignation(models.Model):
+    name = models.CharField(help_text="Введите основание увольнения", max_length=200, verbose_name="Основание увольнения")
+    class Meta:
+        ordering = ['name']
+        verbose_name = 'Основание увольнения'
+        verbose_name_plural = 'Основания увольнения'
+
+    def __str__(self):
+        name = self.name
+        return name
 
 class LetterOfInvite(models.Model):
     loi_date = models.DateField(help_text="Введите дату поступления заявления", verbose_name="Дата поступления заявления", db_index=True)

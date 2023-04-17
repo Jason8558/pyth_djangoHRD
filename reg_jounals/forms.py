@@ -16,6 +16,7 @@ class LetterOfResignation_form(forms.ModelForm):
         'lor_departament',
         'lor_dateOfRes',
         'lor_position',
+        'lor_itemOfRes',
         'lor_additionalData']
 
 
@@ -63,6 +64,7 @@ class LetterOfResignation_form(forms.ModelForm):
         lor_departament = self.cleaned_data['lor_departament'],
         lor_dateOfRes = self.cleaned_data['lor_dateOfRes'],
         lor_additionalData = self.cleaned_data['lor_additionalData'],
+        lor_itemOfRes = self.cleaned_data['lor_itemOfRes'],
         lor_res_officer = user_
         )
 
