@@ -199,7 +199,12 @@ def vacshed_emp_info(request, year, emp):
 
 def vacshed_create(request,vs):
     if request.user.is_authenticated:
-        granted = ugroup(request)
+        granted = 0
+        for group in request.user.groups.all():
+            if group.name == "Руководитель СУП":
+                granted = 1
+        if request.user.is_superuser:
+            granted = 1
         vacshed = VacantionShedule.objects.get(id=vs)
 
         return render(request, 'vac_shed/vs-create.html', context={'vacshed':vacshed, 'granted':granted})
