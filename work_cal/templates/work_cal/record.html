@@ -1,0 +1,125 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script
+  src="{% static 'TURV\js\jquery-3.6.0.min.js'%}"
+
+  crossorigin="anonymous"></script>
+    <title>Заполнение производственного календаря</title>
+   {% block css %} <link rel="stylesheet" href="{% static 'TURV\css\style1.css' %}"> {% endblock %}
+</head>
+<body>
+    {% block header %}
+    <header>
+        <h1>Заполнение производственного календаря</h1>
+    </header>
+    {% endblock %}
+
+    {% block body %}
+    {{errs}}
+
+
+    <div class="container">
+        
+            <form action="" method="post">
+                {% csrf_token %}
+                <p><span>Год - </span><span>{{form.year}}</span></p>
+            <div class="fields">
+                
+                <p><span>Январь</span>{{form.jan}}</p>
+                <p><span>Февраль</span>{{form.feb}}</p>
+                <p><span>Март</span>{{form.mar}}</p>
+                <p><span>Апрель</span>{{form.apr}}</p>
+                <p><span>Май</span>{{form.may}}</p>
+                <p><span>Июнь</span>{{form.jun}}</p>
+                <p><span>Июль</span>{{form.jul}}</p>
+                <p><span>Август</span>{{form.aug}}</p>
+                <p><span>Сентябрь</span>{{form.sep}}</p>
+                <p><span>Октябрь</span>{{form.oct}}</p>
+                <p><span>Ноябрь</span>{{form.nov}}</p>
+                <p><span>Декабрь</span>{{form.dec}}</p>
+        
+                
+                
+
+            </div>
+            
+            <div class="buttons">
+                <input type="submit" class='btn success' value="Сохранить">
+                <a class='btn cancel' href="/work_cal/"> Отмена </a>
+            </div>
+        </form>
+    </div>
+    {% endblock %}
+</body>
+</html>
+
+<style>
+    * {
+        font-family: sans-serif;
+
+    }
+
+    table {border-collapse: collapse;}
+
+    form .fields p input {
+        width: 96px;
+    }
+
+    form .fields p {
+        display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    }
+    
+    .container {
+    
+        width: 377px;
+        margin: 0 auto;
+        margin-top: 54px;
+    }
+
+    .fields {
+        padding: 25px;
+        background: white;
+        box-shadow: 0px 0px 6px 1px black;
+    }
+
+    .buttons {
+        padding: 6px;
+        margin-top: 6px;
+        display: flex;
+        background: white;
+        border: 3px solid #4d75ff;
+        justify-content: space-between;
+    }
+
+    .btn {
+        background: none;
+        outline: none;
+        border: 1px solid black;
+        text-decoration: none;
+        color: black;
+        font-size: 13pt;
+        padding: 3px;
+        cursor: pointer;
+    }
+
+    .cancel {
+        background: red;
+    }
+
+    #areyousure {    width: 351px;
+    text-align: center;
+    background: pink;
+    padding: 12px;
+    position: absolute;
+    left: 305px;
+    top: 412px;}
+</style>
+
