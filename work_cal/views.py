@@ -86,13 +86,13 @@ def get_cal_html(request, year):
             })
     return render(request, 'work_cal/getcal.html', context={'cal':calendar, 'year':year})
 
-class WorkCalAPI(APIView):
-    def get(self, request):
-        queryset = WorkCalendarRecord.objects.all().values()
-        return Response({'cal':list(queryset)})
+# class WorkCalAPI(APIView):
+#     def get(self, request):
+#         queryset = WorkCalendarRecord.objects.all().values()
+#         return Response({'cal':list(queryset)})
     
-    def post(self, request):
-        return Response({'i can by myself flowers':'write my name in a sand'})
+#     def post(self, request):
+#         return Response({'i can by myself flowers':'write my name in a sand'})
 
        
         
