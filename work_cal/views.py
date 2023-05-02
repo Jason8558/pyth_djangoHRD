@@ -3,10 +3,7 @@ from django.http import HttpResponse, JsonResponse
 from .models import *
 from .forms import *
 from django.contrib.auth.decorators import login_required
-from rest_framework import generics
-from rest_framework.views import APIView
-from rest_framework.response import Response
-from .serializers import *
+
 
 def get_cal(request, year):
     if request.user.is_authenticated:
