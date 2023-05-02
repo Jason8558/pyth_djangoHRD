@@ -25,7 +25,7 @@ def get_month(request, year, month):
 def new_record(request):
     if request.method == 'GET':
         form = work_cal_form(request.GET)
-        return render(request, 'work_cal/record.html', context={'form':form})
+        return render(request, 'work_cal\record.html', context={'form':form})
     else:
         form = work_cal_form(request.POST)
         if form.is_valid():
