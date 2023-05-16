@@ -3,6 +3,8 @@
   padding: 0;
   box-sizing: border-box;
   font-family: sans-serif;
+  /* display: flex; */
+  /* flex-direction: column; */
 }
 
 input[type=text], input[type=number], input[type=date], select {
@@ -57,7 +59,11 @@ header .header-main {
 
 .container {
     margin: 1% auto;
-    width: 1402px;
+    width: 669px;
+}
+
+.big {
+    width: 1230px;
 }
 
 .short {
@@ -188,6 +194,14 @@ display: flex;
 justify-content: space-around;
 
 margin: 1% auto;
+
+flex-direction: column;
+
+width: 330px;
+}
+
+.main div * {
+    width: 100%;
 }
 
 .shed-month {
@@ -358,3 +372,11 @@ border: 1px solid;
     height: -1px;
     width: -1px;
 }
+
+.error {
+    background: pink;
+    padding: 11px;
+    border: 2px solid red;
+}
+
+.error p {}

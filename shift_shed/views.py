@@ -7,6 +7,7 @@ from TURV.models import Department
 from TURV.models import Employers
 from TURV.models import Overtime
 from vac_shed.models import VacantionSheduleItem
+from work_cal.models import WorkCalendarRecord
 from .additionals import *
 from django.http import HttpResponse, JsonResponse
 from django.db.models import Q
@@ -21,9 +22,21 @@ from reportlab.lib.styles import ParagraphStyle
 from reportlab.platypus import Paragraph
 
 
+def granted(request):
+    granted = 0
+    if request.user.is_superuser:
+        granted = 1
+    for group in request.user.groups.all():
+        if group.name == 'Сотрудник СУП':
+            granted = 1
+    return granted
+
 def ss_main(request):
     if request.user.is_authenticated:
-        ss = ShiftShedModel.objects.all()
+        if granted(request) == 1:
+            ss = ShiftShedModel.objects.all()
+        else:
+            ss = ShiftShedModel.objects.filter(dep__user=request.user)
 
         return render(request, 'shift_shed/ss-main.html', context={'ss':ss})
 
@@ -37,13 +50,21 @@ def ss_create(request):
             form = ShiftShed_form(request.POST)
             form.fields['dep'].queryset = Department.objects.filter(user=request.user)
             # form.fields['emps'].queryset = Employers.objects.filter(department=form['dep'].value())
-            if form.is_valid():
 
-                form.save()
-                return redirect('/shift_shed/')
+            
+            if form.is_valid():
+                cal = WorkCalendarRecord.objects.filter(year=form.cleaned_data.get('year'))
+                over = Overtime.objects.filter(year__year=form.cleaned_data.get('year'))
+                if cal and over:
+                    form.save()
+                    return redirect('/shift_shed/')
+                else:
+                    error = '<p> Невозомжно создать график на ' + form.cleaned_data.get('year') + ' год, так как в систему не занесен производственный календарь и нормы времени!</p> <p> Обратитесь в Службу управления персоналом</p>'
+                    return render(request, 'shift_shed/create.html', context={'form':form, 'error':error})
+
             else:
                 return render(request, 'shift_shed/create.html', context={'form':form})
-
+          
 
 def ss_get_employers(request, dep):
     if request.user.is_authenticated:
