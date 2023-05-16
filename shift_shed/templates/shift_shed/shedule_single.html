@@ -2,7 +2,7 @@
 {%block title%}{{month}}{%endblock%}
 {%block header%} <a href="/shift_shed/shedule/{{shed_info.id}}">Назад</a>  График № {{shed_info.id}} - {{month}} - {{shed_info.year}} г. {%endblock%}
 {%block body%}
-<div class="container big">
+<div class="container">
   <a href="{% url 'ss-additem' shed=shed month=month_dig %}" class="button">+ Занести сотрудника в график</a>
 
   <table class="shift-table">

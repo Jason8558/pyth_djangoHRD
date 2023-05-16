@@ -5,7 +5,7 @@
 {%block header%}Создать график{%endblock%}
 {%block body%}
 <div class="container">
-
+  {{form.errors}}
   <form id="ss-create-form" action="{% url 'ss-create'%}" method="post">
 {%csrf_token%}
 
@@ -13,19 +13,11 @@
   <h2>Укажите год и подразделение</h2>
   <div class="">
     <p>{{form.dep.label}}{{form.dep}}</p>
-
     <p>{{form.year.label}}{{form.year}}</p>
-
     <input type="button" onclick="form_submit()" class='button' name="" value="СОЗДАТЬ">
   </div>
 
 </section>
-
-{% if error %}
-  <div class="error">
-    {{error | safe}}
-  </div>
-{%endif%}
 <!-- <section class="employers">
   <h2>Внесите сотрудников в график</h2>
   <p>{{form.emps}}</p>
