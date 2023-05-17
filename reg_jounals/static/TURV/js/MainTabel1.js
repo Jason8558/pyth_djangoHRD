@@ -775,6 +775,15 @@ switch (tt1) {
     s2 += parseFloat(h1_[1])
     work += 1
   break;
+
+  case 'КМ/Н':
+    h1_ = h1.split('/')
+
+    s36 += parseFloat(h1_[0])
+    s2 += parseFloat(h1_[1])
+    work += 1
+  break;
+
 }
 
 switch (tt2) {
@@ -1005,6 +1014,14 @@ switch (tt2) {
     h2_ = h2.split('/')
     s3 += parseFloat(h2_[0])
     s2 += parseFloat(h2_[1])
+    work += 1
+  break;
+
+  case 'КМ/Н':
+    h1_ = h2.split('/')
+
+    s36 += parseFloat(h1_[0])
+    s2 += parseFloat(h1_[1])
     work += 1
   break;
 }
@@ -1243,6 +1260,14 @@ switch (tt3) {
     s2 += parseFloat(h3_[1])
     work += 1
   break;
+
+  case 'КМ/Н':
+    h1_ = h3.split('/')
+
+    s36 += parseFloat(h1_[0])
+    s2 += parseFloat(h1_[1])
+    work += 1
+  break;
 }
 
 switch (tt4) {
@@ -1477,6 +1502,14 @@ switch (tt4) {
 
     s3 += parseFloat(h4_[0])
     s2 += parseFloat(h4_[1])
+    work += 1
+  break;
+
+  case 'КМ/Н':
+    h1_ = h4.split('/')
+
+    s36 += parseFloat(h1_[0])
+    s2 += parseFloat(h1_[1])
     work += 1
   break;
 }
@@ -1738,6 +1771,14 @@ switch (tt5) {
     s2 += parseFloat(h5_[1])
     work += 1
   break;
+
+  case 'КМ/Н':
+    h1_ = h5.split('/')
+
+    s36 += parseFloat(h1_[0])
+    s2 += parseFloat(h1_[1])
+    work += 1
+  break;
 }
 
 switch (tt6) {
@@ -1971,6 +2012,14 @@ switch (tt6) {
 
     s3 += parseFloat(h6_[0])
     s2 += parseFloat(h6_[1])
+    work += 1
+  break;
+  
+  case 'КМ/Н':
+    h1_ = h6.split('/')
+
+    s36 += parseFloat(h1_[0])
+    s2 += parseFloat(h1_[1])
     work += 1
   break;
 }
@@ -2208,6 +2257,14 @@ switch (tt7) {
     s2 += parseFloat(h7_[1])
     work += 1
 
+  break;
+
+  case 'КМ/Н':
+    h1_ = h7.split('/')
+
+    s36 += parseFloat(h1_[0])
+    s2 += parseFloat(h1_[1])
+    work += 1
   break;
 }
 
@@ -2464,6 +2521,14 @@ switch (tt8) {
     s2 += parseFloat(h8_[1])
     work += 1
   break;
+
+  case 'КМ/Н':
+    h1_ = h8.split('/')
+
+    s36 += parseFloat(h1_[0])
+    s2 += parseFloat(h1_[1])
+    work += 1
+  break;
 }
 
 switch (tt9) {
@@ -2698,6 +2763,14 @@ switch (tt9) {
     s2 += parseFloat(h9_[1])
     work += 1
   break;
+
+  case 'КМ/Н':
+    h1_ = h9.split('/')
+
+    s36 += parseFloat(h1_[0])
+    s2 += parseFloat(h1_[1])
+    work += 1
+  break;
 }
 
 switch (tt10) {
@@ -2930,6 +3003,14 @@ switch (tt10) {
     h10_ = h10.split('/')
     s3 += parseFloat(h10_[0])
     s2 += parseFloat(h10_[1])
+    work += 1
+  break;
+
+  case 'КМ/Н':
+    h1_ = h10.split('/')
+
+    s36 += parseFloat(h1_[0])
+    s2 += parseFloat(h1_[1])
     work += 1
   break;
 }
@@ -3168,6 +3249,14 @@ switch (tt11) {
 
 
   break;
+
+  case 'КМ/Н':
+    h1_ = h11.split('/')
+
+    s36 += parseFloat(h1_[0])
+    s2 += parseFloat(h1_[1])
+    work += 1
+  break;
 }
 
 switch (tt12) {
@@ -3400,6 +3489,14 @@ switch (tt12) {
     h12_ = h12.split('/')
     s3 += parseFloat(h12_[0])
     s2 += parseFloat(h12_[1])
+    work += 1
+  break;
+
+  case 'КМ/Н':
+    h1_ = h12.split('/')
+
+    s36 += parseFloat(h1_[0])
+    s2 += parseFloat(h1_[1])
     work += 1
   break;
 }
@@ -3635,6 +3732,14 @@ switch (tt13) {
     s2 += parseFloat(h13_[1])
     work += 1
   break;
+
+  case 'КМ/Н':
+    h1_ = h13.split('/')
+
+    s36 += parseFloat(h1_[0])
+    s2 += parseFloat(h1_[1])
+    work += 1
+  break;
 }
 
 switch (tt14) {
@@ -3865,6 +3970,14 @@ switch (tt14) {
     h14_ = h14.split('/')
     s3 += parseFloat(h14_[0])
     s2 += parseFloat(h14_[1])
+    work += 1
+  break;
+
+  case 'КМ/Н':
+    h1_ = h14.split('/')
+
+    s36 += parseFloat(h1_[0])
+    s2 += parseFloat(h1_[1])
     work += 1
   break;
 }
@@ -4102,6 +4215,14 @@ switch (tt15) {
     s2 += parseFloat(h15_[1])
     work += 1
   break;
+
+  case 'КМ/Н':
+    h1_ = h15.split('/')
+
+    s36 += parseFloat(h1_[0])
+    s2 += parseFloat(h1_[1])
+    work += 1
+  break;
 }
 
 switch (tt16) {
@@ -4334,6 +4455,14 @@ switch (tt16) {
     h16_ = h16.split('/')
     s3 += parseFloat(h16_[0])
     s2 += parseFloat(h16_[1])
+    work += 1
+  break;
+
+  case 'КМ/Н':
+    h1_ = h16.split('/')
+
+    s36 += parseFloat(h1_[0])
+    s2 += parseFloat(h1_[1])
     work += 1
   break;
 }
@@ -4570,6 +4699,14 @@ switch (tt17) {
     s2 += parseFloat(h17_[1])
     work += 1
   break;
+
+  case 'КМ/Н':
+    h1_ = h17.split('/')
+
+    s36 += parseFloat(h1_[0])
+    s2 += parseFloat(h1_[1])
+    work += 1
+  break;
 }
 
 switch (tt18) {
@@ -4801,6 +4938,14 @@ switch (tt18) {
     h18_ = h18.split('/')
     s3 += parseFloat(h18_[0])
     s2 += parseFloat(h18_[1])
+    work += 1
+  break;
+
+  case 'КМ/Н':
+    h1_ = h18.split('/')
+
+    s36 += parseFloat(h1_[0])
+    s2 += parseFloat(h1_[1])
     work += 1
   break;
 }
@@ -5037,6 +5182,14 @@ switch (tt19) {
     s2 += parseFloat(h19_[1])
     work += 1
   break;
+
+  case 'КМ/Н':
+    h1_ = h19.split('/')
+
+    s36 += parseFloat(h1_[0])
+    s2 += parseFloat(h1_[1])
+    work += 1
+  break;
 }
 
 switch (tt20) {
@@ -5268,6 +5421,14 @@ switch (tt20) {
     h20_ = h20.split('/')
     s3 += parseFloat(h20_[0])
     s2 += parseFloat(h20_[1])
+    work += 1
+  break;
+
+  case 'КМ/Н':
+    h1_ = h20.split('/')
+
+    s36 += parseFloat(h1_[0])
+    s2 += parseFloat(h1_[1])
     work += 1
   break;
 }
@@ -5502,6 +5663,14 @@ switch (tt21) {
     h21_ = h21.split('/')
     s3 += parseFloat(h21_[0])
     s2 += parseFloat(h21_[1])
+    work += 1
+  break;
+
+  case 'КМ/Н':
+    h1_ = h21.split('/')
+
+    s36 += parseFloat(h1_[0])
+    s2 += parseFloat(h1_[1])
     work += 1
   break;
 }
@@ -5739,6 +5908,14 @@ switch (tt22) {
     s2 += parseFloat(h22_[1])
     work += 1
   break;
+
+  case 'КМ/Н':
+    h1_ = h22.split('/')
+
+    s36 += parseFloat(h1_[0])
+    s2 += parseFloat(h1_[1])
+    work += 1
+  break;
 }
 
 switch (tt23) {
@@ -5973,6 +6150,14 @@ switch (tt23) {
     s2 += parseFloat(h23_[1])
     work += 1
   break;
+
+  case 'КМ/Н':
+    h1_ = h23.split('/')
+
+    s36 += parseFloat(h1_[0])
+    s2 += parseFloat(h1_[1])
+    work += 1
+  break;
 }
 
 switch (tt24) {
@@ -6204,6 +6389,14 @@ switch (tt24) {
     h24_ = h24.split('/')
     s3 += parseFloat(h24_[0])
     s2 += parseFloat(h24_[1])
+    work += 1
+  break;
+
+  case 'КМ/Н':
+    h1_ = h24.split('/')
+
+    s36 += parseFloat(h1_[0])
+    s2 += parseFloat(h1_[1])
     work += 1
   break;
 }
@@ -6440,6 +6633,14 @@ switch (tt25) {
     s2 += parseFloat(h25_[1])
     work += 1
   break;
+
+  case 'КМ/Н':
+    h1_ = h25.split('/')
+
+    s36 += parseFloat(h1_[0])
+    s2 += parseFloat(h1_[1])
+    work += 1
+  break;
 }
 
 switch (tt26) {
@@ -6672,6 +6873,14 @@ switch (tt26) {
     h26_ = h26.split('/')
     s3 += parseFloat(h26_[0])
     s2 += parseFloat(h26_[1])
+    work += 1
+  break;
+
+  case 'КМ/Н':
+    h1_ = h26.split('/')
+
+    s36 += parseFloat(h1_[0])
+    s2 += parseFloat(h1_[1])
     work += 1
   break;
 }
@@ -6909,6 +7118,14 @@ switch (tt27) {
     s2 += parseFloat(h27_[1])
     work += 1
   break;
+
+  case 'КМ/Н':
+    h1_ = h27.split('/')
+
+    s36 += parseFloat(h1_[0])
+    s2 += parseFloat(h1_[1])
+    work += 1
+  break;
 }
 
 switch (tt28) {
@@ -7141,6 +7358,14 @@ switch (tt28) {
     h28_ = h28.split('/')
     s3 += parseFloat(h28_[0])
     s2 += parseFloat(h28_[1])
+    work += 1
+  break;
+
+  case 'КМ/Н':
+    h1_ = h28.split('/')
+
+    s36 += parseFloat(h1_[0])
+    s2 += parseFloat(h1_[1])
     work += 1
   break;
 }
@@ -7377,6 +7602,14 @@ switch (tt29) {
     s2 += parseFloat(h29_[1])
     work += 1
   break;
+
+  case 'КМ/Н':
+    h1_ = h29.split('/')
+
+    s36 += parseFloat(h1_[0])
+    s2 += parseFloat(h1_[1])
+    work += 1
+  break;
 }
 
 switch (tt30) {
@@ -7611,6 +7844,16 @@ switch (tt30) {
     s2 += parseFloat(h30_[1])
     work += 1
   break;
+  
+  case 'КМ/Н':
+    h1_ = h30.split('/')
+
+    s36 += parseFloat(h1_[0])
+    s2 += parseFloat(h1_[1])
+    work += 1
+  break;
+
+  
 }
 
 switch (tt31) {
@@ -7843,6 +8086,14 @@ switch (tt31) {
     h31_ = h31.split('/')
     s3 += parseFloat(h31_[0])
     s2 += parseFloat(h31_[1])
+    work += 1
+  break;
+
+  case 'КМ/Н':
+    h1_ = h31.split('/')
+
+    s36 += parseFloat(h1_[0])
+    s2 += parseFloat(h1_[1])
     work += 1
   break;
 }
