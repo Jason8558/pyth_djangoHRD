@@ -11,7 +11,7 @@
 
 {% block body %}
 <div class="container">
-<form action="{% url 'forload_url'%} " class="f_search" method="post">
+<form action="{% url 'forload_url'%} " class="f_search fs-forload fs-inline" method="post">
   {% csrf_token %}
   <select class="" id="search_month" name="fl-month">
     <option value="">Текущие</option>
@@ -30,8 +30,11 @@
   </select>
 
 <input type="text" id="fs-year" placeholder="год..." name="fl-year" value="">
-<input type="checkbox" name="fl-half" value="1">
-<button type="submit" name="button">Получить</button>
+<p>
+<label for="fl-half">Для аванса: </label>
+<input type="checkbox" name="fl-half" value="1"> </p>
+<button type="submit" class="btn btn-success" name="button">Получить</button>
+<button class="btn btn-outline-warning" onclick="window.print()">Печать</button>
 </form>
 
 <table>

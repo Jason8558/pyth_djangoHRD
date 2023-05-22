@@ -1062,6 +1062,38 @@ align-items: center;
   font-size: 13pt !important;
 }
 
+.fs-forload {
+    width: 643px;
+    margin-bottom: 13px;
+}
+
+.fs-forload input, .fs-forload button {
+    margin-left: 5px;
+}
+
+.fs-forload p {
+  
+width: 322px;
+  
+border: none;
+  
+/* background: aliceblue; */
+  
+padding: 0px;
+  
+margin: 0;
+}
+
+.fs-forload #search_month {
+
+width: 303px;
+}
+
+.fs-forload #fs-year {
+  
+width: 99px;
+}
+
 .info-block {
 
 display: flex;
@@ -1198,6 +1230,21 @@ height: 162px;}
 /* -------------- */
 
 /* media */
+
+@media print {
+ header {
+  display: none;
+  
+ }
+ .f_search {
+  display: none;
+ }
+
+ .container {
+  max-width: 1800px !important;
+ }
+}
+
 
 @media (max-width: 1400px) {
   .fs-intabel {
