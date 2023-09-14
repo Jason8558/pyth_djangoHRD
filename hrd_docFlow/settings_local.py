@@ -176,7 +176,7 @@ DATABASES = {
         'NAME': 'hrd_docflow_test',
         'USER': 'hrd_user',
         'PASSWORD': 'hrdpassword',
-        'HOST': '172.16.23.38',
+        'HOST': 'localhost',
         # 'HOST': 'localhost',   # Or an IP Address that your DB is hosted on
         'PORT': '3306',
     }
