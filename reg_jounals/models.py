@@ -289,6 +289,19 @@ class NewOrdersOnVacation_item(models.Model):
     def __str__(self):
         return self.fio
 
+class inviteCheckin_model(models.Model):
+    checkinDate = models.DateTimeField(blank=False, help_text="Введите дату записи на прием", verbose_name="Время записи на прием")
+    citizen = models.CharField(blank=False, max_length=150, verbose_name="ФИО гражданина (гражданки)")
+    cancelled = models.BooleanField(default=False, verbose_name="Запись отменена")
+
+    class Meta:
+        ordering = ['checkinDate']
+        verbose_name = 'Запись на прием'
+        verbose_name_plural = 'Журнал записей на прием'
+    
+    def __str__(self):
+        return self.citizen + " на " + str(self.checkinDate)
+
 class logs_event(models.Model):
     name = models.CharField(max_length=256, verbose_name="Имя события", db_index=True)
 

@@ -63,4 +63,7 @@ urlpatterns = [
     path('getusername/', views.get_user_name, name='getusername_url'),
     path('logs/', views.logs_, name='logs_url'),
     path('reports/', views.reports, name='reports_url'),
+    path('invite_checkin/new', views.invite_checkin, name='invite_checkin_new'),
+    path('invite_checkin/<int:count>', views.invite_checkin_get, name='invite_checkin_new'),
+    path('invite_checkin/cancel/<int:id>', views.invite_checkin_cancel, name='invite_checkin_cancel')
      ]

@@ -4,19 +4,24 @@
   {%load static%}
   <link rel="stylesheet" href="{% static 'css/style1.css'%}">
   <link rel="stylesheet" href="{% static 'css/VacList.css'%}">
+  <link rel="stylesheet" href="{% static 'css/bootstrap.min.css'%}">
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
 
   <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
   <link rel="shortcut icon" href="{% static 'img/favicon.ico'%}" type="image/x-icon">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
+  
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Exo+2:ital,wght@0,400;1,200&display=swap" rel="stylesheet">
   {%block addstyles%}{%endblock%}
 
-  <script src="https://code.jquery.com/jquery-3.6.0.min.js"  charset="utf-8"></script>
+
+  <script
+  src="{% static 'TURV\js\jquery-3.6.0.min.js'%}"
+
+  crossorigin="anonymous"></script>
   <script src="{% static 'TURV\js\build\date-ru-RU.js'%}" charset="utf-8"></script>
   <script src="{% static 'js/rj_main1.js'%}"></script>
   <!-- <script src="{% static 'js/forLists.js'%}"></script> -->
@@ -24,7 +29,7 @@
   <script src="{% static 'js/op_print.js'%}"></script>
   <!-- <script src="{% static 'js/date.js'%}"></script> -->
   {%block script%}{%endblock%}
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
+
   <title>{%block title%}КДО{%endblock%}</title>
 </head>
 <body>
@@ -47,6 +52,8 @@
     <a class="btn btn-dark" href="{% url 'logs_url' %}">Журналы событий</a>
     <a class="btn btn-dark" href="{% url 'reports_url'%}">Отчетность</a>
     <a class="btn btn-dark" href="/work_cal">Производственный календарь</a>
+    <a class="btn btn-dark" href="/admin">Удаление данных</a>
+    <button onclick="GetRecords(5)" class="btn btn-dark">Запись на прием</button>
 
     </div>
 
@@ -54,6 +61,7 @@
     <div class="date-calc-nav">
 
       <button class="btn btn-danger" onclick="close_vac_calc()" type="button" name="">Закрыть</button>
+ 
     </div>
     <div id="subtr" class="date-calc-div date-calc-subtr">
       <label for="d-calc-first">Начальная дата: </label> <input type="date" id="id_dur_from" name="d-calc-first" value="">
@@ -65,6 +73,50 @@
 
   </div>
 
+  <div class="popup" id="checkin">
+    <div class="date-calc-nav">
+
+      <button class="btn btn-danger" onclick="javascript: $('#checkin').css('display', 'none')" type="button" name="">Закрыть</button>
+      
+    </div>
+
+    <div class="popup-content">
+      <label for="checkinDate">Время записи</label> <input type="datetime-local" name="checkinDate" id="checkinDate">
+      <label for="citizen">ФИО</label> <input type="text" name="citizen" id="citizen" >
+
+
+    </div>
+
+    <div class="popup-buttons">
+      <button onclick="CheckInForInvite()" class="btn btn-success">
+        Записать
+      </button>
+      <a href="#" onclick="GetRecords(0)">показать все записи</a>
+
+    </div>
+
+    <div class="invite-records">
+      <table id="invite-records-table">
+        <thead>
+          <th>Время</th>
+          <th>Фио</th>
+          <th> - - - </th>
+        </thead>
+        <tbody>
+          <tr>
+            <td></td>
+            <td></td>
+            <td><a href="#">Отменить</a></td>
+          </tr>
+
+        </tbody>
+      </table>
+    </div>
+
+  </div>
+
+
+
     <h1 style="text-align: center;
     margin-top: 13px;
     font-size: 27pt;
@@ -73,7 +125,7 @@
 
     ">Добро пожаловать, {{user_io}} </h1>
 
-
+  <div class="main_container">
     <div class="container_grid">
       <!-- <a href="//172.16.23.38:8082" class="btn btn-info main_button old_vac" ><img src="{% static 'img/regrepl.png' %}" alt="">Штатное замещение</a> -->
       <!-- <a href="/vacshed/" class="btn btn-info main_button old_vac" ><img src="{% static 'img/regrepl.png' %}" alt="">Графики отпусков</a> -->
@@ -87,12 +139,30 @@
       <a href="{%url 'resignation'%}" class="btn btn-info main_button"><img src="{% static 'img/reinsign.png' %}" alt="">Заявления на увольнение</a>
       <a href="{%url 'invite'%}" class="btn btn-info main_button"><img src="{% static 'img/invite.png' %}" alt="">Заявления на прием</a>
       <a href="{%url 'employment_history'%}" class="btn btn-info main_button"><img src="{% static 'img/history.png' %}" alt="">Трудовые книжки</a>
-      <a href="{%url 'sick_regs'%}" class="btn btn-info main_button"><img src="{% static 'img/cross.png' %}" alt="">Реестры больничных листов</a>
+      <!-- <a href="{%url 'sick_regs'%}" class="btn btn-info main_button"><img src="{% static 'img/cross.png' %}" alt="">Реестры больничных листов</a> -->
       <a href="{%url 'identity'%}" class="btn btn-info main_button"><img src="{% static 'img/card.png' %}" alt="">Удостоверения</a>
       <a href="{%url 'tabels_url'%}"  class="btn btn-info  main_button"><img src="{% static 'TURV/img/tabel.png' %}" alt="">Табели учета рабочего времени</a>
       <a href="{%url 'vacshed_url'%}"  class="btn btn-info  main_button"><img src="{% static 'vac_shed/img/vacshed.png' %}" alt="">График отпусков</a>
+      {% if user.is_superuser %}
       <a href="{%url 'ss-main'%}"  class="btn btn-info  main_button"><img src="{% static 'shift_shed/img/favicon.ico' %}" alt="">Графики сменности</a>
+      {% endif %}
 
+    </div>
+
+    <div class="info-window">
+      <h4 style="text-align: center;">Записи на прием <a href="#" onclick="GetRecords(5)"> + </a></h4> 
+      <div id="checkins">
+        <table>
+          <thead>
+            <tr colspan="2"></tr>
+            <tr>
+              <th>Дата</th>
+              <th>ФИО</th>
+            </tr>
+          </thead>
+        </table>
+      </div>
+    </div>
     </div>
     {%endblock%}
   </div>

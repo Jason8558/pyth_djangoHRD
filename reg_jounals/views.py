@@ -12,6 +12,8 @@ from TURV.models import Department as TDep
 from TURV.models import Position as TPos
 from TURV.models import Employers as TEmps
 from TURV.models import Overtime as TOt
+from django.contrib.auth.decorators import login_required
+import json
 
 def get_user_name(request):
     username = request.user.first_name
@@ -1197,3 +1199,50 @@ def reports(request):
 
         else:
             return render(request, 'reg_jounals/reports.html', context={'deps':deps})
+
+# @login_required        
+def invite_checkin(request):
+    message = 'standby'
+    if request.method == 'POST':
+        data = json.loads(request.body)
+        dinvite = data['checkinDate']
+        citizen = data['citizen']
+        
+        dinvite = dinvite.split('T')
+        new_record = inviteCheckin_model.objects.create(
+            checkinDate =  str(dinvite[0]) + " " + str(dinvite[1]),
+            citizen = citizen
+        )
+        
+        new_record.checkinDate = dinvite
+
+        if new_record.pk:
+            message = "Запись создана" + str(new_record.checkinDate)
+        else:
+            message = "Ошибка"
+    return JsonResponse(message, safe=False)
+
+def invite_checkin_cancel(request, id):
+    record = inviteCheckin_model.objects.get(id=id)
+
+    if record.cancelled == 0:
+        record.cancelled = 1
+        record.save()
+        message = "Запись отменена"
+    else:
+        record.cancelled = 0
+        record.save()
+        message = "Запись возобновлена"
+    return JsonResponse(message, safe=False)
+
+
+
+def invite_checkin_get(request, count):
+    if count == 0:
+        records = inviteCheckin_model.objects.filter(cancelled=False).order_by('-checkinDate').values()
+    else:
+        records = inviteCheckin_model.objects.filter(cancelled = 0).filter(checkinDate__gte = DT.datetime.now()).order_by('-checkinDate').values()[:count]
+
+    records = list(records)
+    
+    return JsonResponse(records, safe=False)
