@@ -1,9 +1,9 @@
 {% extends "TURV/index.html" %}
 {%load static%}
 {%block scripts%}{%if b_tabel.type.id == 1%}<script src="{% static 'TURV\js\TabelItemAdd1.js' %}" charset="utf-8"></script>{%else%}<script src="{% static 'TURV\js\TabelItemAddSmall.js' %}" charset="utf-8"></script>{%endif%}{%endblock%}
-{%block title%}Заполнение сотрудника{%endblock%}
+{%block title%}Заполнение данных о р. времени{%endblock%}
 
-{%block header%}<a class="btn btn-dark" href="/turv/create/{{b_tabel.id}}">< Назад</a> | <span class="hide" id="id_month">{{month}}</span>Табель за <span  class='field_month'>{{month}}</span> <span id='id_year'>{{year}}</span> г.{%endblock%}
+{%block header%}<a class="btn btn-dark" href="/turv/create/{{b_tabel.id}}">< Назад</a> | <div class="header-text"><span class="hide" id="id_month">{{month}}</span>Табель <span style="text-transform: lowercase; font-weight: bold;">{{b_tabel.type}}</span> за <span  class='field_month'>{{month}}</span> <span id='id_year'>{{year}}</span> г.</div> {%endblock%}
 
 {%block body%}
 <span id='tabel-type' style='display:none'>{{b_tabel.type_id}}</span>
@@ -29,7 +29,7 @@
 
 
   <div style="grid-area:text;" class="ti-search">
-    <h4 style=" text-align:center">Выберите сотрудника из списка</h4>
+    <h4 style=" text-align:center">Выберите работника из списка</h4>
     <p><input id="tis-input" type="text" name="" placeholder="введите строку для поиска и нажмите ENTER" value="">
     <button type="button" class="btn btn-outline-danger" id="tis-clear" name="button">Очистить</button></p>
 
@@ -129,7 +129,7 @@
 {%endif%}
 
 <div class="nt_body">
-<form class="" action="" onsubmit="alert('Сотрудник добавлен!')" method="post">
+<form class="" action="" onsubmit="alert('Работник добавлен!')" method="post">
   {%csrf_token%}
 
 

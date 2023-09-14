@@ -14,7 +14,7 @@ class ShiftShed_form(forms.ModelForm):
         fields = ['dep', 'year']
     # emps = forms.ModelChoiceField(required=True, queryset=Employers.objects.none(),widget=forms.Select(
     #     attrs={'class': 'chosen-select'}))
-    dep = forms.ModelChoiceField(required=True, queryset=Department.objects.none(), widget=forms.Select(
+    dep = forms.ModelChoiceField(required=True, label="Подразделение: ", queryset=Department.objects.none(), widget=forms.Select(
         attrs={'onclick': 'getemps()'}))
     # emps_list = forms.CharField(required=False, widget=forms.TextInput(attrs={'class':'hidden_field'}))
 

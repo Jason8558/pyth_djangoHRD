@@ -3,9 +3,10 @@ from django.db import models
 
 
 class ShiftShedModel(models.Model):
-    year = models.CharField(verbose_name='Год', max_length=4, null=False, blank=False)
+    year = models.CharField(verbose_name='Год: ', max_length=4, null=False, blank=False)
     dep = models.ForeignKey('TURV.department', verbose_name='Подразделение', on_delete=models.CASCADE)
     checked = models.BooleanField(verbose_name='Проверен', default=0)
+    comment = models.CharField(verbose_name='Комментарий', max_length=200, blank=True, default='')
     del_check = models.BooleanField(verbose_name='Пометка удаления', default=0)
 
     class Meta:

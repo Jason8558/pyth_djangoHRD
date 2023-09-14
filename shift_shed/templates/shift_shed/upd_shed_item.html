@@ -1,11 +1,21 @@
 {% extends "shift_shed/index.html" %}
 {%load static%}
-{%block scripts%}<script src="{% static '/shift_shed/js/items.js' %}" charset="utf-8"></script>{%endblock%}
-{%block title%}{{item.employer.fullname}}{%endblock%}
+{%block scripts%}
+<script src="{% static 'TURV\js\build\date-ru-RU.js'%}" charset="utf-8"></script>
+<script src="{% static '/shift_shed/js/items.js' %}" charset="utf-8"></script>
 
-{%block header%}<a class="btn btn-dark" href="/turv/create/{{b_tabel}}">< Назад</a> | <span>Редактировать запись</span>{%endblock%}
+{%endblock%}
+{%block title%}{{item.employer.fullname}}{%endblock%}
+{%block button%}<a class="close" href="/shift_shed/edit/{{item.bound_shed.id}}/{{item.month}}/{{item.bound_shed.year}}">< назад</a>{%endblock%} 
+{%block header%}<span>Редактировать запись</span>{%endblock%}
 
 {%block body%}
+
+<div class="hidden">
+  <span id="year">{{item.bound_shed.year}}</span>
+  <span id="month">{{item.month}}</span>
+</div>
+
 <span id='tabel-type' style='display:none'>{{type}}</span>
 <div class="alert alert-danger errors" role="alert">
 
@@ -35,7 +45,7 @@
 <form id="shed-item-form-upd" action="" method="post">
   {%csrf_token%}
   
-  <div class="hide">
+  <div class="hidden">
   {{form.bound_shed}}
   {{form.employer}}
   {{form.month}}
@@ -210,17 +220,17 @@
       {{form.day_28}}
     </div>
 
-    <div>
+    <div id="d29">
       <span>29</span>
       {{form.day_29}}
     </div>
 
-    <div>
+    <div id="d30">
       <span>30</span>
       {{form.day_30}}
     </div>
 
-    <div>
+    <div id="d31">
       <span>31</span>
       {{form.day_31}}
     </div>
@@ -233,8 +243,8 @@
     
     <button type="button" onclick="calculate();" class="button secondary" name="button">Пересчитать</button>
 
-    <input type="button" onclick="send_submit()"  class="button" name="" value="Пересчитать и сохранить">
-    <a  class="button delete" href="{% url 'tabel_delItem_url' id=item.id%}">Удалить из этого графика</a>
+    <input type="button" onclick="send_submit()"  class="button btn-add" name="" value="Пересчитать и сохранить">
+    <a  class="button delete" href="{% url 'ss-removeitem' id=item.id%}">Удалить из этого графика</a>
   </div>
 </div>
 

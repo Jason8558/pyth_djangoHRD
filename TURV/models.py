@@ -266,9 +266,9 @@ class Category(models.Model):
 
 
 class Overtime(models.Model):
-    year = models.DateField(verbose_name='Период', db_index=True)
-    value_m = models.FloatField(verbose_name='Значение_мужчины', default=0)
-    value_w = models.FloatField(verbose_name='Значение_женщины', default=0)
+    year = models.DateField(verbose_name='Период (первое число года)', db_index=True)
+    value_m = models.FloatField(verbose_name='Норма времени для мужчин', default=0)
+    value_w = models.FloatField(verbose_name='Норма времени для женщин', default=0)
 
     class Meta:
         ordering = ['-year']

@@ -248,7 +248,7 @@ def tabels_new(request):
 
 
 
-# =========================================
+# =========================================А
 
 def tabels_json(request, type):
     if type == 0:
@@ -306,10 +306,15 @@ def tabels_json_multi(request, type, month, year, dep, half_month):
 
 def deps_json(request,type):
 
-    if type != 0:
-        deps = Department.objects.values('id', 'name', 'onescode').filter(notused=0).filter(conftype=type)
+
+    if type == 2:
+        deps = Department.objects.values('id', 'name', 'onescode').filter(notused=0).filter(is_aup=0)
     else:
-        deps = Department.objects.values('id', 'name', 'onescode').filter(notused=0).filter(shift=1)
+    
+        if type == 0:
+            deps = Department.objects.values('id', 'name', 'onescode').filter(notused=0).filter(shift=1)
+        else:
+            deps = Department.objects.values('id', 'name', 'onescode').filter(notused=0).filter(conftype=type)
     deps = list(deps)
     return JsonResponse(deps, safe=False)
 
@@ -520,7 +525,7 @@ def tabels_forload(request):
             half = request.POST.get('fl-half','')
 
             if half:
-                tabels = Tabel.objects.filter(month=str(month)).filter(year=str(year)).filter(type_id=1).filter(del_check=0).filter(sup_check=0).filter(iscorr=0).filter(department__shift=1).filter(unloaded=0).filter(half_month_check=1).order_by('department__name')
+                tabels = Tabel.objects.filter(month=str(month)).filter(year=str(year)).filter(type_id=1).filter(del_check=0).filter(sup_check=0).filter(iscorr=0).filter(unloaded=0).filter(half_month_check=1).order_by('department__name')
             else:
                 tabels = Tabel.objects.filter(month=str(month)).filter(year=str(year)).filter(type_id=1).filter(del_check=0).filter(sup_check=1).filter(iscorr=0).filter(department__shift=1).filter(unloaded=0).order_by('department__name')
         # tabels = Tabel.objects.all()
@@ -534,7 +539,7 @@ def tabels_forload(request):
             else:
                 month = month
 
-            tabels = Tabel.objects.filter(month=month).filter(year=year).filter(type_id=1).filter(del_check=0).filter(sup_check=1).filter(iscorr=0).filter(department__shift=1).filter(unloaded=0)
+            tabels = Tabel.objects.filter(month=month).filter(year=year).filter(type_id=1).filter(del_check=0).filter(sup_check=1).filter(iscorr=0).filter(department__shift=1).filter(unloaded=0).order_by('department__name')
             # tabels = Tabel.objects.all()
             print(tabels)
             return render(request, 'TURV/for-load.html', context={'tabels':tabels, 'count':len(tabels)})
@@ -1114,6 +1119,7 @@ def tabel_upditem(request, id):
             month = item.bound_tabel.month
             department = item.bound_tabel.department
             type = item.bound_tabel.type_id
+            bound_form.fields['employer'].queryset = Employers.objects.filter(department=item.bound_tabel.department)
             if type != 1 and type != 4 and type != 5 and type != 6:
                 return render(request, 'TURV/upd_tabel_itemSmall.html', context={'tabel':bound_form, 'item':item, 'b_tabel':item.bound_tabel.id, 'year':year, 'month':month, 'type':type})
             else:
@@ -1128,8 +1134,7 @@ def tabel_upditem(request, id):
                 tabelItem_form.save()
                 loc = '/turv/create/'+str(item.bound_tabel.id)
                 return redirect(loc)
-            else:
-                print(tabelItem_form.errors)
+
     else:
         return render(request, 'reg_jounals/no_auth.html')
 
@@ -2513,6 +2518,20 @@ def upd_norma(request):
         norms = Overtime.objects.all()
 
         return render(request, 'TURV/overtime.html', context={'norms':norms})
+
+@login_required
+def add_norma(request):
+    if request.method == "GET":
+        form = OvertimeUpdate_form()
+        return render(request, 'TURV/new_overtime.html', context={'form':form})
+    if request.method == "POST":
+        form = OvertimeUpdate_form(request.POST)
+        if form.is_valid():
+            form.saveFirst()
+            return redirect('/turv/overtime/')
+        else:
+            return render(request, 'TURV/new_overtime.html', context={'form':form, 'errors':form.errors.as_text()})
+
 
 def new_norma(request):
     if request.user.is_authenticated:

@@ -1,9 +1,10 @@
 {% extends 'shift_shed/index.html'%}
 {%block title%}{{month}}{%endblock%}
-{%block header%} <a href="/shift_shed/shedule/{{shed_info.id}}">Назад</a>  График № {{shed_info.id}} - {{month}} - {{shed_info.year}} г. {%endblock%}
+{%block button%}<a class="close" href="/shift_shed/shedule/{{shed_info.id}}"> < назад</a>{%endblock%} 
+{%block header%}  График № {{shed_info.id}} - {{month}} - {{shed_info.year}} г. {%endblock%}
 {%block body%}
 <div class="container">
-  <a href="{% url 'ss-additem' shed=shed month=month_dig %}" class="button">+ Занести сотрудника в график</a>
+  <a href="{% url 'ss-additem' shed=shed month=month_dig %}" class="button btn-add">Заполнить график</a>
 
   <table class="shift-table">
     <thead>
@@ -93,10 +94,10 @@
 
 
     
-        <td>{{item.fact}}</td>
-        <td>{{item.celeb}}</td>
-        <td>{{item.norma}}</td>
-        <td>{{item.deviation}}</td>
+        <td>{{item.fact|floatformat:-2}}</td>
+        <td>{{item.celeb|floatformat:-2}}</td>
+        <td>{{item.norma|floatformat:-2}}</td>
+        <td>{{item.deviation|floatformat:-2}}</td>
 
       </tr>
   {%endfor%}

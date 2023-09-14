@@ -4,10 +4,10 @@
 
 {%block header%}
 {%block logo%}{{block.super}}{%endblock%}
-
+    <div class="header-text" id="ht-main">
     {% if granted == 1 or user.is_superuser%}<a href="/" class="btn btn-dark"> < Назад </a>{%endif%} <h3>Табели учета рабочего времени</h3>
     
-   {%if user.is_superuser%} <a class="header-a" href="/admin">{{user.first_name}} </a> {%else%} <h4>{{user.first_name}} </h4>{%endif%}
+   {%if user.is_superuser%} <a class="header-a" href="/admin">{{user.first_name}} </a> {%else%} <h4>{{user.first_name}} </h4>{%endif%}</div>
      
 
 
@@ -52,14 +52,14 @@ function Supchecked() {
       
     <li>Графики <span class='angle-down'>v</span>
       <ul class="sprav">
-        <li><a href="{% url 'ss-main'%}">Графики сменности</a></li>
+        <li><a href="{% url 'ss-main'%}"> > Графики сменности</a></li>
         
-        <li><a href="{% url 'vacshed_url' %}">График отпусков</a></li>
+        <li><a href="{% url 'vacshed_url' %}"> > График отпусков</a></li>
       </ul>
   
     <li>Справочники <span class='angle-down'>v</span>
     <ul class="sprav">
-      <li><a href="{% url 'emp_list'%}"> > Сотрудники</a></li>
+      <li><a href="{% url 'emp_list'%}"> > Работники</a></li>
       {% if granted == 1%}
       <li><a href="{% url 'pos_list'%}"> > Должности</a></li>
       {%endif%}
@@ -78,10 +78,10 @@ function Supchecked() {
     </ul>
     </li>
     <!-- <li><a href="/turv/feedbacks/">Оставить обращение</a></li> -->
-  {%if request.user.is_superuser  or granted == 1%}
+  {%if request.user.is_superuser %}
     <li>Сервис <span class='angle-down'>v</span>
     <ul class="service">
-        <li><a href="{% url 'forload_url'%}">Показать готовые для выгрузки</a></li>
+        <li><a href="{% url 'forload_url'%}"> > Показать готовые для выгрузки</a></li>
          <li><a  href="{% url 'del_tabel_url'%}"> > Удалить помеченные на удаление</a></li>
          <li><a  href="{% url 'overtime_url'%}"> > Обновить годовую норму времени сотрудников</a></li>
   
@@ -108,13 +108,13 @@ function Supchecked() {
     </ul>
     </li>
     {% if granted == 1 %}
-    <li>Функции и отчеты <span class='angle-down'>v</span>
+    <!-- <li>Функции и отчеты <span class='angle-down'>v</span>
     <ul class="additional">
          <li><a  href="{% url 'total_url_page' %}"> > Сформировать свод</a></li>
          <li><a  href="{% url 'messages_list'%}"> > Система оповещения пользователей</a></li>
   
         </li>
-      </ul>
+      </ul> -->
       {% endif %}
     </div>
   <div class="info-block ib-main">
@@ -210,7 +210,7 @@ function Supchecked() {
   <tr class="tr-header">
     <th scope="col">Код</th>
     <th  scope="col">Вид</th>
-    <th scope="col">Период составления</th>
+    <th scope="col">Период</th>
     <th scope="col">Подразделение</th>
     {% if granted == 1 or user.is_superuser%}
     <th scope="col">Ответственный</th>

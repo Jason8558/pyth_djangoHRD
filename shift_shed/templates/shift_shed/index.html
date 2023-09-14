@@ -12,6 +12,7 @@
   src="{% static 'TURV\js\jquery-3.6.0.min.js'%}"
 
   crossorigin="anonymous"></script>
+  <script src="{% static 'TURV\js\build\date-ru-RU.js'%}" charset="utf-8"></script>
   <script src="{% static 'TURV\js\chosen\chosen.jquery.js'%}" charset="utf-8"></script>
     <script src="{% static 'TURV\js\chosen\chosen.jquery.min.js'%}" charset="utf-8"></script>
 
@@ -20,9 +21,9 @@
   <title>{%block title%}Графики сменности{%endblock%}</title>
 </head>
 <body>
-  <header>
+  <header class="noprint">
     <div class="header-main">
-      {%block logo%}<img src="{% static 'img/IMG_5826.PNG'%}" alt="">{%endblock%}
+      {%block logo%} <div class="logo"><img src="{% static 'img/IMG_5826.PNG'%}" alt="">{%block button%}{%endblock%}</div>  {%endblock%}
       <h1> {%block header%} {%endblock%}</h1>
       <h3>{{request.user.first_name}}</h3>
     </div>

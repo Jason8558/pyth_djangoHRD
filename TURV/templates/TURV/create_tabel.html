@@ -27,7 +27,7 @@
 
 <div class="tabel-header-info">
 
-<a class="btn btn-danger" onclick="window.close()"> ЗАКРЫТЬ  </a> 
+<a class="btn btn-danger" onclick="set_zero_cookie(); window.close()"> ЗАКРЫТЬ  </a> 
 <span class="tabel-header-text">
 <span id="id_month" class="not-print" style="display:none">{{month}}</span>
 <span id="id_year" class="not-print" style="display:none">{{year}}</span>
@@ -425,9 +425,9 @@
       <tr id="{{item.id}}" onmouseleave="row_highlight_off({{item.id}})" onmouseover="row_highlight({{item.id}})" class="time_types">
         {%else%}
           {% if item.bound_tabel.iscorr%}
-          <tr style="background:lightyellow;" id="{{item.id}}"  onmouseleave="row_highlight_off({{item.id}})" onclick="return location.href = '{% url 'tabel_updItem_url' id=item.id%}' "  onmouseover="row_highlight({{item.id}})" class="time_types">
+          <tr style="background:lightyellow;" id="{{item.id}}"  onmouseleave="row_highlight_off({{item.id}})" onclick=" set_cookie(); return location.href = '{% url 'tabel_updItem_url' id=item.id%}';"  onmouseover="row_highlight({{item.id}})" class="time_types">
           {%else%}
-          <tr id="{{item.id}}"  onmouseleave="row_highlight_off({{item.id}})" onclick="return location.href = '{% url 'tabel_updItem_url' id=item.id%}' "  onmouseover="row_highlight({{item.id}})" class="time_types">
+          <tr id="{{item.id}}"  onmouseleave="row_highlight_off({{item.id}})" onclick="set_cookie(); return location.href = '{% url 'tabel_updItem_url' id=item.id%}' "  onmouseover="row_highlight({{item.id}})" class="time_types">
           {%endif%}
         {%endif%}
     {%endif%}

@@ -120,11 +120,20 @@ def addition_shedform(id):
 
 
         })
+
+        
+        
+        if item.celeb == None:
+            celeb = '0,0'
+        else:
+            celeb = item.celeb
+      
         table_items.append({
+        'id': item.id,
         'employer':item.employer,
         'month':item.month,
         'fact':item.fact,
-        'celeb':item.celeb,
+        'celeb':celeb,
         'norma':item.norma,
         'deviation':item.deviation,
         'days':days

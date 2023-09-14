@@ -40,7 +40,7 @@ header {
 .header-nav  {
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    justify-content: flex-start;
 }
 
 .header-nav h3 {
@@ -819,13 +819,19 @@ box-shadow: 0px 0px 5px 1px black !important;
 
 .table_top_buttons {
 
-display: grid;
+display: flex;
 
 grid-gap: 0px;
 
 grid-template-columns: 50% 50%;
 
 margin-bottom: 17px;
+
+flex-direction: row;
+
+justify-content: space-around;
+
+align-items: center;
 }
 
 .table_top_buttons button {
@@ -846,10 +852,14 @@ box-shadow: none;
 
 #add_overtime {
 
+margin: 0;
+
+width: 50%;
 }
 
 #upd_overtime {
 
+margin-right: 0;
 }
 
 #ot_container {
@@ -1062,6 +1072,38 @@ align-items: center;
   font-size: 13pt !important;
 }
 
+.fs-forload {
+    width: 643px;
+    margin-bottom: 13px;
+}
+
+.fs-forload input, .fs-forload button {
+    margin-left: 5px;
+}
+
+.fs-forload p {
+  
+width: 322px;
+  
+border: none;
+  
+/* background: aliceblue; */
+  
+padding: 0px;
+  
+margin: 0;
+}
+
+.fs-forload #search_month {
+
+width: 303px;
+}
+
+.fs-forload #fs-year {
+  
+width: 99px;
+}
+
 .info-block {
 
 display: flex;
@@ -1195,9 +1237,31 @@ height: 162px;}
     border: 3px solid #4d75ff;
     border-radius: 17px;
 }
+
+#ht-main {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
 /* -------------- */
 
 /* media */
+
+@media print {
+ header {
+  display: none;
+  
+ }
+ .f_search {
+  display: none;
+ }
+
+ .container {
+  max-width: 1800px !important;
+ }
+}
+
 
 @media (max-width: 1400px) {
   .fs-intabel {

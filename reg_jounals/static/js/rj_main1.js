@@ -1,3 +1,6 @@
+$(document).ready(function () {GetRecordsHomeScreen()})
+today = new Date()
+
 $('#next_num').click(function() {
   alert('alert!')
 })
@@ -283,4 +286,148 @@ function MoveOnOtherWork() {
   $('#op_typeOfWork').css('display','')
   $('#op_moveFrom').css('display','')
   $('#tab_pos').prop('disabled', false)
+}
+
+// Запись на прием
+
+function CheckInForInvite() {
+      cookies = document.cookie.split(';')
+      console.log(cookies);
+      for (const c of cookies) {
+        if (c.split('=')[0] == 'csrftoken') {
+          csrf = c.split('=')[1]
+        }
+      }
+      // Определяем функцию которая принимает в качестве параметров url и данные которые необходимо обработать:
+      const postData = async (url = '', data = {}) => {
+      // Формируем запрос
+      const response = await fetch(url, {
+      // Метод, если не указывать, будет использоваться GET
+      method: 'POST',
+      // Заголовок запроса
+      headers: {
+      'Content-Type': 'application/json',
+      'X-CSRFToken': csrf,
+
+      },
+      // Данные
+      body: JSON.stringify(data)
+      });
+      return response.json(); 
+}
+
+
+
+
+checkdatetime = $('#checkinDate').val()
+citizen = $('#citizen').val()
+
+postData('/invite_checkin/new', {'checkinDate': checkdatetime, 'citizen': citizen })
+ 
+  .then((data) => {
+    alert(data); 
+  });
+
+  setTimeout(GetRecords(5), 1000);
+
+}
+
+function GetRecords(count) {
+
+  $('#invite-records-table tbody').remove()
+  $('#checkin').css('display','block')
+  $('#invite-records-table').append('<tbody>')
+  $.getJSON('/invite_checkin/' + count,  (data) => {
+   
+    for (let i = 0; i < data.length; i++) {
+     
+      new_date = Date.parse(data[i].checkinDate)
+      style = ''
+      
+      if (data[i].cancelled == true) {
+        style = 'text-decoration: line-through;'
+      }
+
+      if (new_date.toString("dd.MM.yy") == today.toString("dd.MM.yy")) {
+        style = 'background: lightgreen;'
+
+      }
+      
+      console.log(new_date.toString("dd.MM.yy") + " " + today.toString("dd.MM.yy") );
+
+      $('#invite-records-table').append('<tr style="'+ style +'" id="' + data[i].id + '"><td>' + new_date.toString("dd.MM.yy HH:mm") + '</td><td>' + data[i].citizen + '</td><td onclick="SetRecordCancelled('+ data[i].id +')">Отменить</td></tr>')
+   
+    }
+
+  })
+  $('#invite-records-table').append('</tbody>')  
+
+  GetRecordsHomeScreen()
+
+}
+
+function GetRecordsHomeScreen() {
+  $('#checkins table tbody').remove()
+  $('#checkins table').append('<tbody>')
+
+  $.getJSON('/invite_checkin/15',  (data) => {
+
+    
+   
+    for (let i = 0; i < data.length; i++) {
+      
+      new_date = Date.parse(data[i].checkinDate)
+      style = ''
+      
+      if (data[i].cancelled == true) {
+        style = 'text-decoration: line-through;'
+      }
+
+      if (new_date.toString("dd.MM.yy") == today.toString("dd.MM.yy")) {
+        style = 'background: lightgreen;'
+        console.log('1');
+      }
+
+      
+      $('#checkins table tbody').append('<tr style="'+ style +'" id="' + data[i].id + '"><td>' + new_date.toString('dd.MM.yy HH:mm') + '</td><td>' + data[i].citizen + '</td></tr>')
+   
+    }
+
+  })
+  $('#checkins table').append('</tbody>')  
+}
+
+function SetRecordCancelled(recid) {
+  cookies = document.cookie.split(';')
+      console.log(cookies);
+      for (const c of cookies) {
+        if (c.split('=')[0] == 'csrftoken') {
+          csrf = c.split('=')[1]
+        }
+      }
+      // Определяем функцию которая принимает в качестве параметров url и данные которые необходимо обработать:
+      const postData = async (url = '', data = {}) => {
+      // Формируем запрос
+      const response = await fetch(url, {
+      // Метод, если не указывать, будет использоваться GET
+      method: 'GET',
+      // Заголовок запроса
+      headers: {
+      'Content-Type': 'application/json',
+      'X-CSRFToken': csrf,
+
+      }});
+      // Данные
+      // body: JSON.stringify(data)
+      // });
+       return response.json(); 
+    }
+      postData('/invite_checkin/cancel/' + recid, {})
+ 
+    .then((data) => {
+      alert(data); 
+    });
+
+    setTimeout(GetRecords(5), 1000);
+
 }

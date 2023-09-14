@@ -1,9 +1,10 @@
 {% extends 'shift_shed/index.html'%}
-{%block header%}{% if user.is_superuser %} <a href="/">К журналам</a> {%else%} <a href="/turv"></a> {%endif%} Графики сменности{%endblock%}
+{%block button%}{% if user.is_superuser %} <a class="close" href="/">К журналам</a> {%else%} <a href="/turv">К табелям</a> {%endif%}{%endblock%}
+{%block header%} Графики сменности{%endblock%}
 {%block body%}
   <div class="container short">
 
-    <a class="button add" href="{% url 'ss-create'%}">создать график</a>
+    <a class="button btn-add" href="{% url 'ss-create'%}">создать график</a>
 
     <table>
       <thead>
@@ -11,6 +12,7 @@
           <th>Код</th>
           <th>Год</th>
           <th>Подразделение</th>
+          <th>Комментарий</th>
           <th>Проверен</th>
         </tr>
       </thead>
@@ -20,7 +22,8 @@
             <td>{{s.id}}</td>
             <td>{{s.year}}</td>
             <td>{{s.dep.name}}</td>
-            {% if s.cheked %}
+            <td>{{s.comment}}</td>
+            {% if s.checked %}
             <td>✅</td>
           {%else%}
             <td>❌</td>

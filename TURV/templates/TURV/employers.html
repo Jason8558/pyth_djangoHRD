@@ -1,8 +1,8 @@
 {% extends 'TURV/index.html'%}
 
-{%block title%}Сотрудники{% endblock %}
+{%block title%}Работники{% endblock %}
 
-{%block header%}  <div class="tabel-header-info refs"> <a class="btn btn-dark" href=".."> < Назад </a> | Сотрудники. Всего: {{count}} </div>{%endblock%}
+{%block header%}  <div class="tabel-header-info refs"> <a class="btn btn-dark" href=".."> < Назад </a> | Работники. Всего: {{count}} </div>{%endblock%}
 
 {% block body %}
 
@@ -37,7 +37,7 @@
 
   </form>
 
-  <a class="btn btn-success btn-add"  href="{% url 'emp_new'%}"  >+ Новый сотрудник</a>
+  <a class="btn btn-success btn-add"  href="{% url 'emp_new'%}"  >+ Добавить работника</a>
 
 {%if employers%}
 
@@ -51,9 +51,9 @@
     <th scope="col">Подразделение</th>
     <th scope="col">Ступень оплаты</th>
     <th scope="col">Разряд\категория</th>
-    <th scope="col">Сменный персонал</th>
+    <th scope="col">Сменщик</th>
     <th scope="col">Пол</th>
-    <th scope="col">Основная специальность</th>
+    <th scope="col">Осн. специальность</th>
 
 
 
@@ -142,7 +142,7 @@
 </nav>
 
 {%else%}
-<h2>Сотрудники не найдены</h2>
+<h2>Работники не найдены</h2>
 {%endif%}
 </div>
 {%endblock%}

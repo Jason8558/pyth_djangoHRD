@@ -41,6 +41,7 @@ urlpatterns = [
     path('comm/<int:id>/', views.upd_comm, name='comm'),
     path('overtime/', views.upd_norma, name='overtime_url'),
     path('overtime/upd', views.new_norma, name='overtime_new_url'),
+    path('overtime/add', views.add_norma, name='overtime-add'),
     path('close/', views.w_close, name='close_url'),
     path('total/<str:month>/<str:year>/<int:dep>/', views.total_tabels, name='total_url'),
     path('total/open/', views.total_tabels_html, name='total_url_page'),

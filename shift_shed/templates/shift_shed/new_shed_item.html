@@ -5,11 +5,14 @@
 {%endblock%}
 {%block title%}{{shed.dep.name}}{%endblock%}
 
-{%block header%} <a href="/shift_shed/shedule/{{shed.id}}">Назад</a> <h2>Добавить сотрудника в график за {{month}} </h2> {%endblock%}
+{%block header%} <a class="close" href="/shift_shed/shedule/{{shed.id}}">< назад</a> <h2>Добавить сотрудника в график за <span style="text-transform: lowercase; font-weight: bold;"> {{month}} </span> </h2> {%endblock%}
 
 {%block body%}
 
-
+<div class="hidden">
+  <span id="year">{{shed.year}}</span>
+  <span id="month">{{month_dig}}</span>
+</div>
 
 <span id='tabel-type' style='display:none'>{{b_tabel.type_id}}</span>
 <style media="screen">
@@ -218,59 +221,69 @@
 
 <div class="second_half">
 
-    <span>16</span>
-    <span>17</span>
-    <span>18</span>
-    <span>19</span>
-    <span>20</span>
-    <span>21</span>
-    <span>22</span>
-    <span>23</span>
-    <span>24</span>
-    <span>25</span>
-    <span>26</span>
-    <span>27</span>
-    <span>28</span>
-    <span id="day29">29</span>
-    <span id="day30">30</span>
-    <span id="day31">31</span>
+    <span>16
+      {{form.day_16}}
+    </span>
+    <span>17
+      {{form.day_17}}</span>
+    <span>18
+      {{form.day_18}}</span>
+    <span>19
+      {{form.day_19}}</span>
+    <span>20
+      {{form.day_20}}
+    </span>
+    <span>21
+      {{form.day_21}}
+    </span>
+    <span>22
+      {{form.day_22}}
+    </span>
+    <span>23
+      {{form.day_23}}
+    </span>
+    <span>24
+      {{form.day_24}}
+    </span>
+    <span>25
+      {{form.day_25}}
+    </span>
+    <span>26
+      {{form.day_26}}
+    </span>
+    <span>27
+      {{form.day_27}}
+    </span>
+    <span>28
+      {{form.day_28}}
+    </span>
+    <span id="d29">29
+    {{form.day_29}}
+
+    </span>
+    <span id="d30">30
+      {{form.day_30}}
+    </span>
+    <span id="d31">31
+      {{form.day_31}}
+    </span>
 
 
-    <!-- {{tabel.type_time16}}
-    {{tabel.type_time17}}
-    {{tabel.type_time18}}
-    {{tabel.type_time19}}
-    {{tabel.type_time20}}
-    {{tabel.type_time21}}
-    {{tabel.type_time22}}
-    {{tabel.type_time23}}
-    {{tabel.type_time24}}
-    {{tabel.type_time25}}
-    {{tabel.type_time26}}
-    {{tabel.type_time27}}
-    {{tabel.type_time28}}
-    {{tabel.type_time29}}
-    {{tabel.type_time30}}
-    {{tabel.type_time31}} -->
+   
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     
 
-
-    {{form.day_16}}
-    {{form.day_17}}
-    {{form.day_18}}
-    {{form.day_19}}
-    {{form.day_20}}
-    {{form.day_21}}
-    {{form.day_22}}
-    {{form.day_23}}
-    {{form.day_24}}
-    {{form.day_25}}
-    {{form.day_26}}
-    {{form.day_27}}
-    {{form.day_28}}
-    {{form.day_29}}
-    {{form.day_30}}
-    {{form.day_31}}
+  
   </div>
   <div class="shed_item_buttons buttons-add">
     {% if b_tabel.type_id == 1%}

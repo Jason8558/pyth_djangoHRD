@@ -491,3 +491,20 @@ class FeedBack_form(forms.ModelForm):
 
         )
         return new_feedback
+
+class OvertimeUpdate_form(forms.ModelForm):
+    class Meta:
+        model = Overtime
+        fields = ['year', 'value_m', 'value_w']
+    
+    year = forms.DateField(label="Период" , widget=forms.TextInput(
+        attrs={'placeholder': 'Введите дату', 'type':'date'}))
+    
+    def saveFirst(self):
+        new_overtime = Overtime.objects.create(
+            year = self.cleaned_data['year'],
+            value_m = self.cleaned_data['value_m'],
+            value_w = self.cleaned_data['value_w']
+        )
+
+        return new_overtime

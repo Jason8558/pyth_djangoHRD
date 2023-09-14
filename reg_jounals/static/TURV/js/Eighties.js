@@ -2,6 +2,7 @@ $(document).ready(function()
 
 {
 
+
 DrawDays()
 
 let vacs = ['ОТ','ОД','У','УД','Р','ОЖ','ДО','Б','Т','ПВ','Г','ПР','В','ОВ','НВ','ЗБ','НН','РП','НП','ВП','НБ','НО','НЗ','ДБ','ОЗ', 'К', 'МБ' ]
@@ -437,4 +438,28 @@ $('#cover_to').text(days_count + "." + month_ + "." + year_)
 $('#cover_today').text(Date.today().toString("dd.MM.yyyy"))
 $('.tabel').css('display', '')
 // ---------------------------------------------------------
+get_cookie() 
 })
+
+function set_cookie() {
+  current_offset = window.pageYOffset
+
+  document.cookie = "tab_offset=" + current_offset.toString()
+
+
+}
+
+function set_zero_cookie() {
+  document.cookie = "tab_offset=0"
+}
+
+function get_cookie() {
+  cookies = document.cookie.split(';')
+  
+  for (let cok of cookies) {
+    if (cok.split('=')[0] == 'tab_offset') {
+        window.scrollTo(0,cok.split('=')[1])
+    }
+  }
+  
+}

@@ -3,7 +3,7 @@
 {%block scripts%}<script src="{% static 'TURV\js\TabelItemUpdate2.js' %}" charset="utf-8"></script>{%endblock%}
 {%block title%}{{item.employer.fullname}}{%endblock%}
 
-{%block header%}<a class="btn btn-dark" href="/turv/create/{{b_tabel}}">< Назад</a> | <span class="hide" id="id_month">{{month}}</span>Табель за <span  class='field_month'>{{month}}</span> <span id='id_year'>{{year}}</span> г. - <span class="fullname"></span>{%endblock%}
+{%block header%}<a class="btn btn-dark" href="/turv/create/{{b_tabel}}">< Назад</a> | <span class="hide" id="id_month">{{month}}</span> <div class="header-text">Табель <span style="text-transform: lowercase; font-weight: bold;">{{item.bound_tabel.type}} </span>за <span  class='field_month'>{{month}}</span> <span id='id_year'>{{year}}</span> г. - <span class="fullname"></span></div>{%endblock%}
 
 {%block body%}
 <span id='tabel-type' style='display:none'>{{type}}</span>
