@@ -466,6 +466,9 @@ margin-top: 13px;
 }
 
 @media print {
+    @page {
+        orientation: landscape;
+    }
     .noprint {
         display: none !important;
     }
