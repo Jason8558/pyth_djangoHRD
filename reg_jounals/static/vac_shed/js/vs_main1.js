@@ -282,8 +282,6 @@ function celebrates_new(date_from, date_to, id) {
   month_to = date_to.split('.')[1]
   year_to = date_to.split('.')[2]
 
-console.log('one');
-
 
   if (day_from[0] == 0) {
     day_from = parseInt(day_from[1], 10)
@@ -306,9 +304,6 @@ day_from = parseInt(day_from, 10)
 month_from = parseInt(month_from, 10)
 day_to = parseInt(day_to, 10)
 month_to = parseInt(month_to, 10)
-
-
-console.log(month_to);
 
 
   cel_months = [1,2,3,5,6,11]
@@ -575,8 +570,23 @@ else {
 }
 
 
+//Проверка на високосный февраль
+Date.prototype.daysInMonth = function() {
+  return 30 - new Date(this.getFullYear(), this.getMonth(), 32).getDate();
+};
 
 date_to = Date.parse(date_to).addDays(parseInt(total_celebrate, 10));
+
+date_to = date_to.toString('yyyy-MM-dd')
+
+  if (date_to.split('-')[1] == 2 && date_to.split('-')[2] >= 23) {
+  days_in_feb = new Date(year_from,2,30).daysInMonth()
+  if (days_in_feb == 29) {
+    date_to = Date.parse(date_to).addDays(1)
+  }
+}
+
+ 
 
 $('#per' + id + ' #per-date-to').val(date_to.toString('yyyy-MM-dd'))
 
