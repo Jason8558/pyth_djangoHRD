@@ -577,14 +577,16 @@ Date.prototype.daysInMonth = function() {
 
 date_to = Date.parse(date_to).addDays(parseInt(total_celebrate, 10));
 
-date_to = date_to.toString('yyyy-MM-dd')
-
-  if (date_to.split('-')[1] == 2 && date_to.split('-')[2] >= 23) {
-  days_in_feb = new Date(year_from,2,30).daysInMonth()
-  if (days_in_feb == 29) {
-    date_to = Date.parse(date_to).addDays(1)
+if (month_from != month_to) {
+  date_to = date_to.toString('yyyy-MM-dd')
+  
+    if (date_to.split('-')[1] == 2 && date_to.split('-')[2] >= 23) {
+    days_in_feb = new Date(year_from,2,30).daysInMonth()
+    if (days_in_feb == 29) {
+      date_to = Date.parse(date_to).addDays(1)
+    }
   }
-}
+  }
 
  
 
