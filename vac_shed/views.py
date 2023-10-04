@@ -217,7 +217,7 @@ def getvacshed_json(request, vs):
 def vacshed_addItem(request,id):
     if request.user.is_authenticated:
         vacshed = VacantionShedule.objects.get(id=id)
-        employers = Employers.objects.filter(department_id=vacshed.dep_id).filter(fired=0)
+        employers = Employers.objects.filter(department_id=vacshed.dep_id).filter(fired=0).order_by('fullname')
         employers = list(employers)
         if request.method == 'GET':
             return render(request, 'vac_shed/new_item.html', context={'vacshed':vacshed})
@@ -322,7 +322,7 @@ def getemployers(request, dep):
     if request.user.is_authenticated:
         emps = Employers.objects.filter(department_id=dep).filter(fired=0).filter(mainworkplace=1).values('id','fullname','position__name').order_by('fullname')
         emps_aup = Employers.objects.filter(aup_id=dep).filter(fired=0).filter(mainworkplace=1).values('id','fullname','position__name').order_by('fullname')
-        emps = emps.union(emps_aup)
+        emps = emps.union(emps_aup).order_by('fullname')
         emps = list(emps)
         return JsonResponse(emps, safe=False)
 
