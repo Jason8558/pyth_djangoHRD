@@ -108,9 +108,9 @@
 
 
           {%endfor%}
-          <td class="table-itogs">{{s.fact}}</td>
-          <td class="table-itogs">{{s.norma}}</td>
-          <td class="table-itogs">{{s.celeb}}</td>
+          <td class="table-itogs">{{s.fact|floatformat:-2}}</td>
+          <td class="table-itogs">{{s.norma|floatformat:-2}}</td>
+          <td class="table-itogs">{{s.celeb|floatformat:-2}}</td>
           <td class="table-itogs">{{s.deviation|floatformat:-2}}</td>
 
         </tr>
@@ -138,9 +138,9 @@
           {% for item in total %}
             <tr style="background: {{item.color}};">
               <td>{{item.emp.fullname}}|{{item.emp.position.name|truncatechars:15}}</td>
-              <td>{{item.s_fact}}</td>
-              <td>{{item.s_norma}}</td>
-              <td>{{item.s_celeb}}</td>
+              <td>{{item.s_fact|floatformat:-2}}</td>
+              <td>{{item.s_norma|floatformat:-2}}</td>
+              <td>{{item.s_celeb|floatformat:-2}}</td>
               <td>{{item.s_dev|floatformat:-2}}</td>
               <td></td>
             </tr>
