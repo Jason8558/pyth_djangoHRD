@@ -2,7 +2,7 @@ from django.urls import path
 from . import views
 
 urlpatterns = [
-path('<str:year>', views.get_cal, name='wc-get'),
+path('<str:year>/', views.get_cal, name='wc-get'),
 path('<str:year>/html/', views.get_cal_html, name='wc-get-html'),
 path('<str:year>/html/upd', views.upd_record, name='wc-upd'),
 path('<str:year>/html/clear', views.clear, name='wc-clear'),
