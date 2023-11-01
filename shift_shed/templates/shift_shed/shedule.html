@@ -27,7 +27,7 @@
     
   </div>
 </div>
-<h1 class="shedule-head print"> График сменности работников {{shed_info.dep}} за {{shed_info.year}} г.</h1>
+<h1 class="shedule-head print"> График сменности работников {{shed_info.dep}} ({{shed_info.comment}}) за {{shed_info.year}} г.</h1>
 <div class="button-bar noprint">
   <form action="{% url 'ss-changecomm' id=shed_info.id %}" class="ss-form-in-bar">
     <input type="text" name="shedule-comment" id="shedule-comment" placeholder="введите комментарий" value="{{shed_info.comment}}">
