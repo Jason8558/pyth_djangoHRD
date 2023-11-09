@@ -509,6 +509,7 @@ function auto_fill(type) {
     if (i != 0) {
     if (sex == 'Ж' && codes[i-1].value != 'В' && codes[i].value == 'В') {
 
+    if (codes[i].value != "ОТ") {
       if ($('#tabel-type').text() != 2) {
       codes[i-1].value = 'Я/ЛЧ'
       hours[i-1].value = '4/4'}
@@ -521,8 +522,11 @@ function auto_fill(type) {
     switch (codes[i].value) {
 
       case 'В':
-      if (codes[i].style.visibility != 'hidden') {
-      codes[i].value = 'В'}
+      if (codes[i].value != "ОТ") {
+        if (codes[i].style.visibility != 'hidden') {
+          codes[i].value = 'В'
+      }
+    }
       break;
 
       case '':
@@ -533,7 +537,7 @@ function auto_fill(type) {
 
       }
 
-  }}
+  }
   else {
     for (var i = 0; i < 15; i++) {
       hours[i].value = '8'
@@ -563,10 +567,10 @@ function auto_fill(type) {
       }
 
     }
-  }
-}
+  }}
+}}
 else {
-  alert('Для сотрудников, работающих в сменном режиме, автозаполнение недоступно!')
+  alert('Для работников, со сменным режимом работы, автозаполнение недоступно!')
 }
 }
 
@@ -601,7 +605,7 @@ function get_vacantion(emp, month, year) {
     
   }
 
-  $.getJSON('/shift_shed/getvac/' + emp + '/' + year + '/' + month, (data) => {
+  $.getJSON('/vacshed/getvac/' + emp + '/' + year + '/' + month, (data) => {
     
     codes = $('.dig_code')
     hours = $('.dig_hours')
@@ -633,4 +637,4 @@ function get_celeb(year,month) {
       }
       
      })
-}
+    }

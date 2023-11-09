@@ -40,7 +40,7 @@ function get_emp_info(id, month, year){
     // month = $('#month').val()
     // year = $('#year').val()
 
-    $.getJSON('/shift_shed/getvac/' + id + '/' + year + '/' + month, (data) => {
+    $.getJSON('/vacshed/getvac/' + id + '/' + year + '/' + month, (data) => {
         
         for (const day of data[0].days) {
              $('#id_day_'+day).val('ОТ')

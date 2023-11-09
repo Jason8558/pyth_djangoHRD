@@ -11,14 +11,14 @@ from .additionals import *
 from django.http import HttpResponse, JsonResponse
 from django.db.models import Q
 from io import BytesIO
-from reportlab.pdfgen import canvas
-from reportlab.lib.pagesizes import A4, landscape
-from reportlab.platypus import SimpleDocTemplate, Table, TableStyle
-from reportlab.lib import colors
-from reportlab.pdfbase import pdfmetrics
-from reportlab.pdfbase.ttfonts import TTFont
-from reportlab.lib.styles import ParagraphStyle
-from reportlab.platypus import Paragraph
+# from reportlab.pdfgen import canvas
+# from reportlab.lib.pagesizes import A4, landscape
+# from reportlab.platypus import SimpleDocTemplate, Table, TableStyle
+# from reportlab.lib import colors
+# from reportlab.pdfbase import pdfmetrics
+# from reportlab.pdfbase.ttfonts import TTFont
+# from reportlab.lib.styles import ParagraphStyle
+# from reportlab.platypus import Paragraph
 
 
 def access_check(request):
@@ -161,64 +161,70 @@ def ss_item_remove(request, id):
     item.delete()
     return redirect('/shift_shed/edit/' + str(item.bound_shed.id) + '/' + str(item.month) + '/' + str(item.bound_shed.year) )        
 
-@login_required   
-def ss_get_vacantions(request,emp, month, year):
-    v_items = VacantionSheduleItem.objects.filter(emp_id=emp).filter(bound_shed__year=year)
-    print(v_items)
-    emp_ = Employers.objects.get(id=emp)
-    if emp_.sex == 'М':
-        norm = Overtime.objects.get(year__year=year).value_m
-    else:
-        norm = Overtime.objects.get(year__year=year).value_w 
+# # получаем отпуск выбранного работника
+# @login_required   
+# def ss_get_vacantions(request,emp, month, year):
+#     v_items = VacantionSheduleItem.objects.filter(emp_id=emp).filter(bound_shed__year=year)
+#     print(v_items)
+#     emp_ = Employers.objects.get(id=emp)
+#     if emp_.sex == 'М':
+#         norm = Overtime.objects.get(year__year=year).value_m
+#     else:
+#         norm = Overtime.objects.get(year__year=year).value_w 
 
-    print(norm)
+#     print(norm)
 
-    days = list()
-    vac_info = list()
-    for item in v_items:
-        m_from = int(str(item.dur_from).split('-')[1])
-        m_to = int(str(item.dur_to).split('-')[1])
-        y_from = int(str(item.dur_from).split('-')[2])
-        y_to = int(str(item.dur_to).split('-')[2])
+#     days = list()
+#     vac_info = list()
+#     for item in v_items:
+#         m_from = int(str(item.dur_from).split('-')[1])
+#         m_to = int(str(item.dur_to).split('-')[1])
+#         y_from = int(str(item.dur_from).split('-')[0])
+#         y_to = int(str(item.dur_to).split('-')[0])
         
-
-        if int(str(item.dur_to).split('-')[1]) == int(str(item.dur_from).split('-')[1]):
-            if m_from == month:
+#     if y_from == y_to: #если не переходит на след. год
+#         if int(str(item.dur_to).split('-')[1]) == int(str(item.dur_from).split('-')[1]):
+#             if m_from == month:
             
-                for i in range(int(str(item.dur_from).split('-')[2]), int(str(item.dur_to).split('-')[2])+1):
-                    print(i)
-                    days.append(i)
-        else:
-            duration = m_to - m_from
+#                 for i in range(int(str(item.dur_from).split('-')[2]), int(str(item.dur_to).split('-')[2])+1):
+#                     print(i)
+#                     days.append(i)
+#         else:
+#             duration = m_to - m_from
 
-            for i in range(m_from, m_to):
+#             for i in range(m_from, m_to):
                 
-                if i == month and month != m_from and month != m_to:
+#                 if i == month and month != m_from and month != m_to:
             
-                    for i in range (1, calendar.monthrange(int(year), int(month))[1]+1):
-                        days.append(i)
+#                     for i in range (1, calendar.monthrange(int(year), int(month))[1]+1):
+#                         days.append(i)
         
-                if int(str(item.dur_from).split('-')[1]) == int(month):
+#                 if int(str(item.dur_from).split('-')[1]) == int(month):
               
-                    m_end = calendar.monthrange(int(year), int(month))
-                    for i in range (int(str(item.dur_from).split('-')[2]), m_end[1]+1):
-                        days.append(i)
+#                     m_end = calendar.monthrange(int(year), int(month))
+#                     for i in range (int(str(item.dur_from).split('-')[2]), m_end[1]+1):
+#                         days.append(i)
                 
-                if int(str(item.dur_to).split('-')[1]) == int(month):
+#                 if int(str(item.dur_to).split('-')[1]) == int(month):
              
-                    for i in range (1, int(str(item.dur_to).split('-')[2])+1):
-                        days.append(i)
-        
+#                     for i in range (1, int(str(item.dur_to).split('-')[2])+1):
+#                         days.append(i)
+#     else:
+#         if m_from == month:
+
+#             for i in range(int(str(item.dur_from).split('-')[2]), ):
+                
+#                 days.append(i)    
 
                    
             
-    vac_info.append({
-        'emp':emp,
-        'days':days,
-        'norm':norm
-    })
+#     vac_info.append({
+#         'emp':emp,
+#         'days':days,
+#         'norm':norm
+#     })
 
-    return JsonResponse(vac_info, safe=False)
+#     return JsonResponse(vac_info, safe=False)
 
 
 @login_required

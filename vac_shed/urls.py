@@ -17,4 +17,5 @@ path('global/<str:year>/<int:dep>/<int:per>/<str:emps>/<int:fil_only>/<int:terr>
 path('delitem/<int:id>', views.delitem, name='delitem_url'),
 path('check/<int:id>', views.vacshed_check, name='check_url'),
 path('empinfo/<str:year>/<int:emp>/', views.vacshed_emp_info, name='emp_info_url'),
+path('getvac/<int:emp>/<int:year>/<int:month>', views.vacshed_get_vacantions, name='vacshed-getvac'),
 ]
