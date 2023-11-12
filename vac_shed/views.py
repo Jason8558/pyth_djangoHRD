@@ -332,11 +332,12 @@ def vacshed_get_vacantions(request,emp, month, year):
     days = list()
     vac_info = list()
     for item in v_items:
-        m_from = int(str(item.dur_from).split('-')[1])
-        m_to = int(str(item.dur_to).split('-')[1])
-        y_from = int(str(item.dur_from).split('-')[0])
-        y_to = int(str(item.dur_to).split('-')[0])
-        
+        m_from      = int(str(item.dur_from).split('-')[1])
+        m_to        = int(str(item.dur_to).split('-')[1])
+        y_from      = int(str(item.dur_from).split('-')[0])
+        y_to        = int(str(item.dur_to).split('-')[0])
+        d_from      = int(str(item.dur_from).split('-')[2])
+        d_to        = int(str(item.dur_to).split('-')[2])
         if y_from == y_to: #если не переходит на след. год
             if int(str(item.dur_to).split('-')[1]) == int(str(item.dur_from).split('-')[1]):
                 if m_from == month:
@@ -365,11 +366,19 @@ def vacshed_get_vacantions(request,emp, month, year):
                         for i in range (1, int(str(item.dur_to).split('-')[2])+1):
                             days.append(i)
         else:
-            if m_from == month:
+            
+            for i in range(m_from, 13):
+                if i == month:
 
-                for i in range(int(str(item.dur_from).split('-')[2]), calendar.monthrange(y_from, m_from)[1]+1):
-                    
-                    days.append(i)    
+                    for day in range(d_from, calendar.monthrange(y_from, month)[1]+1):
+                        days.append(day)
+                    break
+                else:
+                    for day in range(1, calendar.monthrange(y_from, i)[1]+1):
+                        days.append(day)
+
+
+   
 
                    
             
