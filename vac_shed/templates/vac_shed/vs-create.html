@@ -16,7 +16,17 @@
 <h1 class="print">График отпусков {{vacshed.dep.name}} на <span id="year">{{vacshed.year}}</span>г.</h1>
 <div class="container vs-create">
 
-  <a class="button no-print" href="{% url 'additem_url' id=vacshed.id%}"> + Добавить сотрудника в график</a>
+  {% if granted %}
+    <a class="button no-print" href="{% url 'additem_url' id=vacshed.id%}"> + Добавить сотрудника в график</a>
+  {%else%}
+    {% if vacshed.sup_check %}
+    {%else%}
+      <a class="button no-print" href="{% url 'additem_url' id=vacshed.id%}"> + Добавить сотрудника в график</a>
+    {%endif%}
+  {%endif%}
+  
+  
+  
   {% if granted %}
     {% if vacshed.sup_check %}
     <a class="button no-print" id="checkon" href="{% url 'check_url' id=vacshed.id%}">Отменить утверждение</a>
