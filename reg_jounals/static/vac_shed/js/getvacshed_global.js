@@ -1,5 +1,35 @@
 $(document).ready(function() {  $(".chosen-select").chosen()})
 
+
+
+
+function comment_print_visible() {
+  cells = $(".commentary")
+
+  if ($("#set_comment_print")[0].checked) {
+
+  for (const cell of cells) {
+   
+    cell.className += ' no-print'
+
+  }
+}
+
+else {
+
+  for (const cell of cells) {
+    
+    new_cn = cell.className.split(' ')[0]
+    
+    cell.className = new_cn
+
+  }
+
+}
+
+}
+
+
 function add_emp (){
 
   eid = $('#vs-glob-emp option:selected').val()
@@ -26,6 +56,7 @@ function getvacshed() {
     pos = 0
   }
 
+  $('#comment_print_switch')[0].style.display = ""
 
   // if (check == true) {
   //   check = 1
@@ -118,7 +149,7 @@ function formrow(dep__name, aup__name, id, emp, emp__fullname, emp__position__na
     aup__name = "(" + aup__name + ")"
   }
 
-    row = '<tr id="'+ id + '_' + emp + '"><td class="dep' + emp + '">' + dep__name + " " + aup__name + '</td><td class="emp '+emp+'">' + emp__fullname + ' ' + emp__position__name + '</td><td>' + dur_from + '</td><td class="count_'+ emp + '">' + days_count + '</td><td>'+ move_from  + '</td><td>'+ days_count_move +'</td><td id="' + id +'">'+comm+'</td><td class="totaldays'+emp+'">' + days_count +  '</td><td class="child' + emp + '">'+child_year+'</td><td class="city' + emp + '">'+city+'</td> <td class="print print-sign sign sign'+emp +'"></td></tr>'
+    row = '<tr id="'+ id + '_' + emp + '"><td class="dep' + emp + '">' + dep__name + " " + aup__name + '</td><td class="emp '+emp+'">' + emp__fullname + ' ' + emp__position__name + '</td><td>' + dur_from + '</td><td class="count_'+ emp + '">' + days_count + '</td><td>'+ move_from  + '</td><td>'+ days_count_move +'</td><td class="commentary" id="' + id +'">'+comm+'</td><td class="totaldays'+emp+'">' + days_count +  '</td><td class="child' + emp + '">'+child_year+'</td><td class="city' + emp + '">'+city+'</td> <td class="print print-sign sign sign'+emp +'"></td></tr>'
 
 
   return row
@@ -194,3 +225,4 @@ function open_emps(){
 function emps_close(){
     $('#vs-glob-emp-cont').attr('style', 'display:none !important;')
 }
+
