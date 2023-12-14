@@ -435,59 +435,59 @@ function ReSelectEmp() {
 emp_info()
   }
 
-function auto_fill(type) {
+  function auto_fill(type) {
   month_  = $('#id_month').text()
   year_ = $('#id_year').text()
   let rMonth = 0
 
   switch (month_) {
-  case '01':
+    case '01':
     rMonth = 0
-  break;
+    break;
 
-  case '02':
+    case '02':
     rMonth = 1
-  break;
+    break;
 
-  case '03':
+    case '03':
     rMonth = 2
-  break;
+    break;
 
-  case '04':
+    case '04':
     rMonth = 3
-  break;
+    break;
 
-  case '05':
+    case '05':
     rMonth = 4
-  break;
+    break;
 
-  case '06':
+    case '06':
     rMonth = 5
-  break;
+    break;
 
-  case '07':
+    case '07':
     rMonth = 6
-  break;
+    break;
 
-  case '08':
+    case '08':
     rMonth = 7
-  break;
+    break;
 
-  case '09':
+    case '09':
     rMonth = 8
-  break;
+    break;
 
-  case '10':
+    case '10':
     rMonth = 9
-  break;
+    break;
 
-  case '11':
+    case '11':
     rMonth = 10
-  break;
+    break;
 
-  case '12':
+    case '12':
     rMonth = 11
-  break;
+    break;
   }
 
 
@@ -499,80 +499,90 @@ function auto_fill(type) {
   sex = $('#sex').text()
   shift = emp_select[5]
   console.log(shift);
-  if (shift == 'False') {
-    if (type == 0) {
+  if (shift == 'False') { //Проверка на режим работы (сменный - автозаполнение не сработает)
+    if (type == 0) { // Проверка на вид автозаполнения 1 - половина месяца, 0 - полный месяц
 
-      console.log(days_count);
-  for (var i = 0; i <= days_count; i++) {
-    hours[i].value = '8'
-    
-    if (i != 0) {
-    if (sex == 'Ж' && codes[i-1].value != 'В' && codes[i].value == 'В') {
 
-    if (codes[i].value != "ОТ") {
-      if ($('#tabel-type').text() != 2) {
-      codes[i-1].value = 'Я/ЛЧ'
-      hours[i-1].value = '4/4'}
-      else {
-        codes[i-1].value = 'Я'
-        hours[i-1].value = '4'
-      }
-    }}
+      for (var i = 0; i <= days_count; i++) {
+        hours[i].value = '8'
 
-    switch (codes[i].value) {
+        if (i != 0) { 
+            if (sex == 'Ж' && codes[i-1].value != 'В' && codes[i].value == 'В') { // Если заполняемый работник - женщина, то ставим ЯЛЧ по пятницам
 
-      case 'В':
-      if (codes[i].value != "ОТ") {
-        if (codes[i].style.visibility != 'hidden') {
-          codes[i].value = 'В'
-      }
-    }
-      break;
-
-      case '':
-        if (codes[i].style.visibility != 'hidden') {
-      codes[i].value = 'Я'}
-      break;
-      default:
-
-      }
-
-  }
-  else {
-    for (var i = 0; i < 15; i++) {
-      hours[i].value = '8'
-      if (sex == 'Ж' && codes[i+1].value == 'В' && codes[i].value != 'В' ) {
-        if ($('#tabel-type').text() != 2) {
-        codes[i].value = 'Я/ЛЧ'
-        hours[i].value = '4/4'}
-        else {
-          codes[i].value = 'Я'
-          hours[i].value = '4'
+            if (codes[i].value != "ОТ") { //Если не отпуск
+              
+              if ($('#tabel-type').text() != 2) { //Если табель основной
+                codes[i-1].value = 'Я/ЛЧ'
+                hours[i-1].value = '4/4'
+              }
+              
+              else { //Для маленьких ставим 4 часа явки
+                codes[i-1].value = 'Я'
+                hours[i-1].value = '4'
+              }
+            }
         }
+
+          switch (codes[i].value) {
+
+            case 'В':  //Обрабатываем выставленный по умолчанию выходные
+              if (codes[i].value != "ОТ") { // Если не отпуск
+                if (codes[i].style.visibility != 'hidden') {
+                  codes[i].value = 'В'
+                }
+              }
+              break;
+
+            case '':
+              if (codes[i].style.visibility != 'hidden') { //Если не скрытое число месяца
+                codes[i].value = 'Я'
+              }
+              break;
+              default:
+
+        }}}
+
+      }
+    else { //Если заполнение половины месяца
+      for (var i = 0; i < 15; i++) {
+        hours[i].value = '8'
+        
+        if (sex == 'Ж' && codes[i+1].value == 'В' && codes[i].value != 'В' ) { //Если табель основной
+          if ($('#tabel-type').text() != 2) {
+            codes[i].value = 'Я/ЛЧ'
+            hours[i].value = '4/4'
+          }
+          
+          else { //Для маленьких табелей ставим 4 часа явки
+            codes[i].value = 'Я'
+            hours[i].value = '4'
+          }
       }
 
       switch (codes[i].value) {
 
-      case 'В':
-      if (codes[i].style.visibility != 'hidden') {
-      codes[i].value = 'В'}
-      break;
+        case 'В':
+          if (codes[i].style.visibility != 'hidden') {
+            codes[i].value = 'В'
+          }
+          break;
 
-      case '':
-        if (codes[i].style.visibility != 'hidden') {
-      codes[i].value = 'Я'}
-      break;
-      default:
+        case '':
+          if (codes[i].style.visibility != 'hidden') {
+            codes[i].value = 'Я'
+          }
+          break;
+          default:
 
       }
 
+
+    }}
     }
-  }}
-}}
-else {
-  alert('Для работников, со сменным режимом работы, автозаполнение недоступно!')
-}
-}
+  else {
+    alert('Для работников, со сменным режимом работы, автозаполнение недоступно!')
+  }
+  }
 
 function get_main_tabel_item(tab, emp) {
     item = []
