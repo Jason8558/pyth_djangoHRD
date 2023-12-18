@@ -257,17 +257,23 @@ justify-content: center;
 }
 
 .colums {
-display: flex;
-flex-direction: row;
-justify-content: space-around;
+
+display: flex;
+
+flex-direction: row;
+
+justify-content: space-around;
 }
 
 .graph_col {display: flex;flex-direction: column;align-items: center;}
 
 .col_color {
-background: red;
-/* height: 100px; */
-width: 100%;
+
+background: red;
+
+/* height: 100px; */
+
+width: 100%;
 }
 
 .col_days {}
@@ -304,7 +310,7 @@ justify-content: center;
 
   body {padding: 0 !important;}
 
-  h1 {font-family: sans-serif !important; }
+  h1,h3 {font-family: sans-serif !important; }
 
   header {display: none;}
 
