@@ -51,10 +51,14 @@ nav {
 }
 
 .cover .cover-tables table{
-width: 366px !important;
-float: right !important;
-margin-bottom: 0;
-margin-right: 47px;
+
+width: 366px !important;
+
+float: right !important;
+
+margin-bottom: 0;
+
+margin-right: 47px;
 }
 
 .cover img {
@@ -84,19 +88,23 @@ table  .for-print {
 } */
 
 .thin-itogo {
-width: 36px;
+
+width: 36px;
 }
 
 .num {
-width: 18px;
+
+width: 18px;
 }
 
 .include {
-width: 60px;
+
+width: 60px;
 }
 
 .vac-include {
-font-size: 10px;
+
+font-size: 10px;
 }
 
 .cover {
@@ -104,16 +112,20 @@ table  .for-print {
 }
 
 .head-hours {
-width: 40px !important;
+
+width: 40px !important;
 }
 
 .wide-itogs {
-width: 46px;
-/* font-size: 1px !important; */
+
+width: 46px;
+
+/* font-size: 1px !important; */
 }
 
 td {
   font-weight: 700 !important;
+  word-wrap: break-word; /* не забыть убрать эту херню! */
   /* border: 2px solid black !important; */
   font-size: 11pt;
 }
