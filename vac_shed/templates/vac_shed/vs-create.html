@@ -72,6 +72,26 @@
   </tbody>
 </table>
 
+<div class="basic-border no-print no-display" id="context-menu-container">
+  <!-- <a id="context-menu-edit" href="#">Купить билет</a>
+  <a id="context-menu-move" href="#">Перенести отпуск</a> -->
+  <input type="button" id="context-menu-cancel" value="Отменить отпуск">
+</div>
+
+<div class="vs-form basic-border no-print no-display" id="cancel-reason-container">
+  <h3>Причина отмены отпуска</h3>
+
+    <input type="text" name="cancel-reason-input" id="cancel-reason-input">
+    <input id="cancel-reason-submit" type="button" value="Подтвердить">
+  
+</div>
+
+<div class="vs-form noprint no-display" id="cancel-reason-accept-container">
+  <h3>Вы уверены, что хотите отменить отпуск?</h3>
+  <input id="cancel-reason-accept" type="button" value="Да">
+  <input id="cancel-reason-decline" onclick="close_all_forms()" type="button" value="Нет">
+</div>
+
 <div style="margin-top: 92px;" class="print">
   <h3>Руководитель СУП   ________________________________________   Е.В. Бондарчук</h3>
 </div>

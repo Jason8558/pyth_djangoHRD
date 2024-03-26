@@ -302,6 +302,29 @@ def vacshed_updItem(request, id, type):
                             item.save()
             return redirect('/vacshed/create/' + str(item.bound_shed.id) + '/')
 
+@login_required
+def vacshed_cancel_vacation(request, id):
+    vac_item = VacantionSheduleItem.objects.get(id=id)
+
+    comm = request.POST.get('incoming')
+    
+    if vac_item.cancelled:
+        vac_item.cancelled      = False
+        vac_item.move_reason    = ''
+        message                 = 'Отпуск восстановлен'
+        cancel_state            = 0
+    else:
+        vac_item.cancelled      = True
+        vac_item.move_reason    = 'Отпуск отменен'
+        message                 = 'Отпуск отменен'
+        cancel_state            = 1
+    
+    vac_item.comm = comm
+
+    vac_item.save()
+    
+    return JsonResponse({"message":message, "cancel_state":cancel_state})
+
 def vacshed_check(request,id):
     if request.user.is_authenticated:
         vacshed = VacantionShedule.objects.get(id=id)
