@@ -6,6 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <link rel="shortcut icon" href="{% static 'vac_shed/img/favicon.ico'%}" type="image/x-icon">
+  <link rel="stylesheet" href="{% static 'css/main.css'%}">
   <link rel="stylesheet" href="{% static 'vac_shed/css/style.css'%}">
   <!-- <link rel="stylesheet" href="{% static 'vac_shed/css/bootstrap.css'%}"> -->
   <script src="{% static 'TURV\js\jquery-3.6.0.min.js'%}"  crossorigin="anonymous"></script>
@@ -47,42 +48,80 @@
 
   {%block body%}
   <div class="container">
-    <a href="{% url 'new_vacshed_url'%}" class="button add">+Новый график</a>
-    {%if granted == 1%}
-    <a href="{%url 'global_url'%}" class="button add">Сформировать общий график</a>
-    <a href="{%url 'vacshed_aup_url'%}" class="button add">Графики АУП</a>
-    {%else%}
-    {%endif%}
-    <table class="vs-table">
-      <thead>
-        <th scope="col">Код</th>
-        <th scope="col">Подразделение</th>
-        <th scope="col">Период</th>
-        <th scope="col">Утвержд. СУП</th>
-        <th scope="col">Ответственный</th>
-      </thead>
-      <tbody>
-        {% for s in vacsheds%}
-          <tr id="{{s.id}}" onclick="return window.open('{% url 'vacshed_create_url' vs=s.id%}')">
-            <td>{{s.id}}</td>
-            <td>{{s.dep.name}}</td>
-            <td>{{s.year}}</td>
-            {% if s.sup_check %}
-              <td>✅</td>
-            {%else%}
-              <td>❌</td>
-            {%endif%}
-            <td>{{s.res_officer}}</td>
-          </tr>
-          {%endfor%}
-      </tbody>
+    
+    <div id="vac_shed-main-buttons-panel" class="standart-menu buttons-panel">
+      
+      <div class="standart-menu-submenu-container">
+          <img src="{% static '/img/menu-burger.png' %}" alt="">
+
+      </div>
+     
+      <div class="standart-menu-submenu-container">
+        <img src="{% static '/img/filter.png' %}" alt="">
+
+      </div>      
+
+      <a href="{% url 'new_vacshed_url'%}" class="button add">+Новый график</a>
+      {%if granted == 1%}
+      <a href="{%url 'global_url'%}" class="button add">Сформировать общий график</a>
+      <a href="{%url 'vacshed_aup_url'%}" class="button add">Графики АУП</a>
+      {%else%}
+      {%endif%}
+    
+    </div>
+
+    <!-- поисковая панель -->
+    <div id="vac_shed-search-panel" class="search-panel">
+      
+      <div class="search-panel-header">
+        <h4>Фильтр: </h4>
+      </div>
+
+      <div class="search-panel-input-group">
+        <label for="search-department">Подразделение: </label>
+        <select name="search-department" id="search-department">
+          <option value="0">Плейсхолдер</option>
+        </select>
+      </div>
+
+      <div class="search-panel-input-group">
+        <label for="search-year">Год: </label>
+        <input type="text" name="search-year" id="search-year">
+      </div>
 
 
-    </table>
+
+    </div>
+    <!-- 1 -->
+     
+    <div class="list-container">
+        <table class="vs-table">
+          <thead>
+            <th scope="col">Код</th>
+            <th scope="col">Подразделение</th>
+            <th scope="col">Период</th>
+            <th scope="col">Утвержд. СУП</th>
+            <th scope="col">Ответственный</th>
+          </thead>
+          <tbody>
+            {% for s in vacsheds%}
+              <tr id="{{s.id}}" onclick="return window.open('{% url 'vacshed_create_url' vs=s.id%}')">
+                <td>{{s.id}}</td>
+                <td>{{s.dep.name}}</td>
+                <td>{{s.year}}</td>
+                {% if s.sup_check %}
+                  <td>✅</td>
+                {%else%}
+                  <td>❌</td>
+                {%endif%}
+                <td>{{s.res_officer}}</td>
+              </tr>
+              {%endfor%}
+          </tbody>
 
 
-
-
+        </table>
+    </div>
 
   </div>
 

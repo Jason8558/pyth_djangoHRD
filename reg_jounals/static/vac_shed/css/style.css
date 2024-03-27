@@ -75,6 +75,10 @@ header img {
 
 .container {width: 700px;margin: 0px auto;margin-top: 24px;}
 
+#vac_shed-main-buttons-panel {
+
+}
+
 .vs-create {width: 85%;}
 
 table {
@@ -88,19 +92,11 @@ thead {background: #0d6efd;}
 tbody {background: white;}
 
 
-.button {background: #e0edff ;padding: 10px;/* margin: 0px; */text-decoration: none;text-transform: uppercase;color: black;border-radius: 9px;cursor: pointer;text-align: center;
-transition: 0.3s;}
 
-.button:hover{
 
-background: #3e3e00;
 
-color: white;
 
-box-shadow: 0px 0px 6px 2px #0d6efd;
-}
 
-.add {width: 100%;float: left;margin-bottom: 14px;background: #2dbbff;}
 
 td,th {border: 1px solid black;padding: 3px;}
 

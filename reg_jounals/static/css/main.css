@@ -1,0 +1,96 @@
+
+:root {
+    --color-background-primary: #e0edff;
+    --color-background-secondary: #0d6efd; 
+    --color-background-panels: #0d6efd; 
+    --color-button-main: #2dbbff;
+
+  }
+
+
+/* Контейнеры */
+
+.list-container {
+
+overflow: scroll;
+    
+height: 657px;
+}
+
+/* Блоки и панели */
+
+.header {
+
+}
+
+.standart-menu {background-color: var(--color-background-secondary);margin-bottom: 1rem;height: 2.5rem;padding: 5px;display: flex;flex-direction: row;align-items: center;justify-content: space-evenly;}
+
+.standart-menu .standart-menu-submenu-container {
+    height: 100%; 
+}
+
+.standart-menu .standart-menu-submenu-container img {
+    height: 100%;
+    cursor: pointer;
+}
+
+.search-panel {
+    background-color: var(--color-background-panels);
+    position: absolute;
+    height: 202px;
+    width: 366px;
+    padding: 9px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.search-panel .search-panel-header {
+/* position: absolute; */
+/* height: 126px; */
+}
+
+.search-panel .search-panel-input-group {
+display: flex;
+flex-direction: row;
+align-items: center;
+justify-content: space-between;
+width: 100%;
+}
+
+.buttons-panel {
+
+}
+
+/* ---------------------- */
+
+/* кнопки */
+
+a {
+    text-decoration: none;
+    color: black;
+}
+
+.button {
+    
+}
+
+.standart-menu .button {
+ 
+}
+
+.add {
+
+    
+    }
+
+
+
+
+
+
+/* ----- */
+.inline {
+    display: flex;
+    flex-flow: row;
+}
