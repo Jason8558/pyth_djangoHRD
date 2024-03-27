@@ -4,9 +4,18 @@
     --color-background-secondary: #0d6efd; 
     --color-background-panels: #0d6efd; 
     --color-button-main: #2dbbff;
-
+    --color-button-add: lightgreen;
+    --color-button-cancel: rgb(255, 108, 108);
+    
   }
 
+
+
+/* Таблицы */
+
+tbody tr:hover {
+    background-color: var(--color-button-main);
+}
 
 /* Контейнеры */
 
@@ -19,9 +28,19 @@ height: 657px;
 
 /* Блоки и панели */
 
-.header {
 
-}
+    header {
+        position: relative;
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: space-between;
+        padding-top: 0.5rem;
+        padding-bottom: 0.5rem;
+        background: var(--color-background-panels);
+        padding: 11px;
+         }
+
 
 .standart-menu {background-color: var(--color-background-secondary);margin-bottom: 1rem;height: 2.5rem;padding: 5px;display: flex;flex-direction: row;align-items: center;justify-content: space-evenly;}
 
@@ -34,28 +53,43 @@ height: 657px;
     cursor: pointer;
 }
 
-.search-panel {
-    background-color: var(--color-background-panels);
+.standart-panel {
+    background-color: var(--color-background-primary);
     position: absolute;
     height: 202px;
     width: 366px;
     padding: 9px;
     display: flex;
+    justify-content: space-around;
     flex-direction: column;
     align-items: flex-start;
 }
 
-.search-panel .search-panel-header {
-/* position: absolute; */
-/* height: 126px; */
+.search .search-panel-header {
+    width: 100%;
 }
 
-.search-panel .search-panel-input-group {
-display: flex;
-flex-direction: row;
-align-items: center;
-justify-content: space-between;
-width: 100%;
+.search .search-panel-header h4 {
+    text-transform: uppercase;
+    text-align: center;
+    width: 100%;
+}
+
+.search .search-panel-input-group {
+
+display: flex;
+
+flex-direction: row;
+
+align-items: center;
+
+justify-content: space-between;
+
+width: 100%;
+}
+
+.search .search-panel-input-group input[type=button] {
+    width: 100%;
 }
 
 .buttons-panel {
@@ -70,6 +104,59 @@ a {
     text-decoration: none;
     color: black;
 }
+
+.button {
+    background: none;
+    outline: none;
+    text-decoration: none;
+    border: none;
+    cursor: pointer;
+    text-transform: uppercase; 
+    transition: 0.1s;
+
+}
+
+.add:hover {
+    color: var(--color-button-add) !important;
+    transition: 0.1s;
+    font-weight: bold;
+    text-decoration: underline;
+}
+
+.back:hover {
+    color: var(--color-background-primary) !important; 
+    transition: 0.1s;
+    font-weight: bold;
+    text-decoration: underline;  
+}
+
+.cancel:hover {
+    color: var(--color-button-cancel) !important; 
+    transition: 0.1s;
+    font-weight: bold;
+    text-decoration: underline;  
+}
+
+.button:hover {
+    /* color: black !important;  */
+    transition: 0.1s;
+    font-weight: bold;
+    text-decoration: underline;  
+}
+
+.standart-menu .menu-button-dropdown-container {
+    cursor: pointer;
+}
+
+.standart-menu .menu-button-dropdown-container .menu-button-dropdown {}
+   
+
+.standart-menu .menu-button-dropdown-container::after {
+    content: '>';
+    transform: rotate(90);
+}
+
+
 
 .button {
     

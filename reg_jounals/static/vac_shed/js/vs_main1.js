@@ -674,10 +674,22 @@ function close_all_forms() {
   context_menu_container          = document.getElementById('context-menu-container')
   cancel_reason_container         = document.getElementById('cancel-reason-container')
   cancel_reason_accept_container  = document.getElementById('cancel-reason-accept-container')
+  additional_menu_panel           = document.getElementById('vacshed-additional-menu-panel')
+  vacshed_search_panel            = document.getElementById('vac_shed-search-panel')
 
-  context_menu_container.style.display            = 'none'
-  cancel_reason_container.style.display           = 'none'
-  cancel_reason_accept_container.style.display    = 'none'
+  try {
+    context_menu_container.style.display            = 'none'
+  } catch (error) {
+    
+  }
+  
+  try {cancel_reason_container.style.display = 'none'} catch (error) {}
+  try {cancel_reason_accept_container.style.display = 'none'} catch (error) {}
+  try {additional_menu_panel.style.display = 'none'} catch (error) {}
+  try {vacshed_search_panel.style.display  = 'none'} catch (error) {}   
+  
+  
+  
 
 }
 
@@ -716,50 +728,111 @@ function unset_higlight(el) {
 
 }
 
-// отправка комментария с отменой отпуска с помощью AJAX
+
 
 function send_cancel_request(id, el) {
+  // отправка комментария с отменой отпуска с помощью AJAX
+  //получить куку
 
-//получить куку
+  csrf_cookie = document.cookie.split(";")
 
-csrf_cookie = document.cookie.split(";")
-
-for (const csrf_cook of csrf_cookie) {
-  csrf_cook_ = csrf_cook.split('=')
-  if (csrf_cook_[0] = 'csrftoken') {
-    csrf_token = csrf_cook_[1]
+  for (const csrf_cook of csrf_cookie) {
+    csrf_cook_ = csrf_cook.split('=')
+    if (csrf_cook_[0] = 'csrftoken') {
+      csrf_token = csrf_cook_[1]
+    }
   }
+
+  cancel_reason = document.getElementById('cancel-reason-input').value
+
+  $.ajax({
+    type: "POST",
+    url: "/vacshed/itemupd/cancelvac/" + id,
+    data: {'incoming': cancel_reason, 'csrfmiddlewaretoken': csrf_token},
+    dataType: "json",
+    success: (data) => { //в случае успеха переписываем поля таблицы на клиенте
+      move_reason_field   = el.parentNode.getElementsByClassName('movefrom')[0]
+      comm_field          = el.parentNode.getElementsByClassName('comm')[0]
+
+      if (data.cancel_state == 1) { // Получаем состояние (1 - отменен, 0 - восстановлен)
+        move_reason_field.innerText = 'Отменен'
+      }
+      else {
+        move_reason_field.innerText = '' 
+      }
+      
+      comm_field = cancel_reason
+    },
+
+    error: function() { // в случае факапа выводим сообщение
+      alert('Что то пошло не так')
+    }
+
+
+  });
+
+  document.getElementById('cancel-reason-input').value = ''
+
 }
 
-cancel_reason = document.getElementById('cancel-reason-input').value
+function open_additional_menu(el) {
+  // открыть доп меню
+  close_all_forms()
 
-$.ajax({
-  type: "POST",
-  url: "/vacshed/itemupd/cancelvac/" + id,
-  data: {'incoming': cancel_reason, 'csrfmiddlewaretoken': csrf_token},
-  dataType: "json",
-  success: (data) => { //в случае успеха переписываем поля таблицы на клиенте
-    move_reason_field   = el.parentNode.getElementsByClassName('movefrom')[0]
-    comm_field          = el.parentNode.getElementsByClassName('comm')[0]
+  additional_menu_panel = document.getElementById('vacshed-additional-menu-panel')
 
-    if (data.cancel_state == 1) { // Получаем состояние (1 - отменен, 0 - восстановлен)
-      move_reason_field.innerText = 'Отменен'
-    }
-    else {
-      move_reason_field.innerText = '' 
-    }
+  coords = el.getBoundingClientRect()
+
+  additional_menu_panel.style.display   = 'flex'
+  additional_menu_panel.style.position  = 'absolute'
+  additional_menu_panel.style.top       = (Number(coords.top) + 40) + 'px'
+  additional_menu_panel.style.left      = coords.left + 'px'
+  additional_menu_panel.style.height    = '67px' 
+
+  additional_menu_panel.addEventListener('mouseleave', (vsp) => {
+    close_all_forms()
+  })
+
+  el.onclick = function() {
     
-    comm_field = cancel_reason
-  },
+    if (additional_menu_panel.style.display == 'none') {
+      additional_menu_panel.style.display = 'flex'}
+    else {
+      additional_menu_panel.style.display = 'none'
+      
+    }
 
-  error: function() { // в случае факапа выводим сообщение
-    alert('Что то пошло не так')
   }
+ 
 
+ //el.onclick = 'open_additional_menu(this)'
 
-});
+}
 
-document.getElementById('cancel-reason-input').value = ''
+function open_search_menu(el) {
+  // открыть меню поиска
+
+  vacshed_search_panel = document.getElementById('vac_shed-search-panel')
+
+  coords = el.getBoundingClientRect()
+
+  vacshed_search_panel.style.display    = 'flex'
+  vacshed_search_panel.style.position   = 'absolute'
+  vacshed_search_panel.style.top        = (Number(coords.top) + 40) + 'px'
+  vacshed_search_panel.style.left       = coords.left + 'px'
+  vacshed_search_panel.style.height     = '142px' 
+
+  vacshed_search_panel.addEventListener('mouseleave', (vsp) => {
+    close_all_forms()
+  })
+
+  el.onclick = function() {
+    if (vacshed_search_panel.style.display == 'none') {
+      vacshed_search_panel.style.display = 'flex'}
+    else {
+      vacshed_search_panel.style.display = 'none'
+    }
+  }
 
 }
 

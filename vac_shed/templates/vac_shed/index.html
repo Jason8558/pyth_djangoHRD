@@ -34,7 +34,7 @@
 
   <div class="header-main">
     {%block logo%}<img src="{% static 'img/IMG_5826.PNG'%}" alt="">{%endblock%}
-    <h1>Графики отпусков</h1>
+    <h1>ИС "СУП". Графики отпусков</h1>
   </div>
   
   
@@ -49,29 +49,45 @@
   {%block body%}
   <div class="container">
     
-    <div id="vac_shed-main-buttons-panel" class="standart-menu buttons-panel">
+    <div id="vac_shed-main-menu" class="standart-menu">
       
+      <a href="{% url 'new_vacshed_url'%}" class="button add">Новый график</a>
+      {%if granted == 1%}
       <div class="standart-menu-submenu-container">
-          <img src="{% static '/img/menu-burger.png' %}" alt="">
+          <img onclick="open_additional_menu(this)" src="{% static '/img/menu-burger.png' %}" alt="">
 
       </div>
-     
-      <div class="standart-menu-submenu-container">
-        <img src="{% static '/img/filter.png' %}" alt="">
-
-      </div>      
-
-      <a href="{% url 'new_vacshed_url'%}" class="button add">+Новый график</a>
-      {%if granted == 1%}
-      <a href="{%url 'global_url'%}" class="button add">Сформировать общий график</a>
-      <a href="{%url 'vacshed_aup_url'%}" class="button add">Графики АУП</a>
+      <!-- <div class="menu-button-dropdown-container">
+        <input type="button" class="button" value="Дополнительно">
+      </div> -->
+  
       {%else%}
       {%endif%}
+     
+      <div id="vacshed-filter-menu" class="standart-menu-submenu-container">
+        <img src="{% static '/img/filter.png' %}" onclick="open_search_menu(this)" alt="">
+
+      </div> 
+      
+   
+
+      
+      
+
+      
     
     </div>
 
+    <!-- панель доп меню -->
+    <div id="vacshed-additional-menu-panel" class="standart-panel" style="display: none;">
+      <a href="{%url 'global_url'%}" class="button ">Сформировать общий график</a> 
+      <a href="{%url 'vacshed_aup_url'%}" class="button ">Графики АУП</a>
+    </div>
+    <!-- ----------------------------- -->
+    
+    
     <!-- поисковая панель -->
-    <div id="vac_shed-search-panel" class="search-panel">
+    <div id="vac_shed-search-panel" class="standart-panel search" style="display: none;">
       
       <div class="search-panel-header">
         <h4>Фильтр: </h4>
@@ -81,12 +97,20 @@
         <label for="search-department">Подразделение: </label>
         <select name="search-department" id="search-department">
           <option value="0">Плейсхолдер</option>
+          {% for dep in deps_for_filter %}
+            <option value="{{dep.id}}">{{dep.name}}</option>
+          {% endfor %}
         </select>
       </div>
 
       <div class="search-panel-input-group">
         <label for="search-year">Год: </label>
         <input type="text" name="search-year" id="search-year">
+      </div>
+
+      <div class="search-panel-input-group">
+        <input class="button add" type="button" value="Применить">
+        <input class="button cancel" type="button" value="Сбросить">
       </div>
 
 
@@ -100,7 +124,7 @@
             <th scope="col">Код</th>
             <th scope="col">Подразделение</th>
             <th scope="col">Период</th>
-            <th scope="col">Утвержд. СУП</th>
+            <th scope="col">Утв-н. СУП</th>
             <th scope="col">Ответственный</th>
           </thead>
           <tbody>
