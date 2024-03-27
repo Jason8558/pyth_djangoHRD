@@ -20,7 +20,7 @@
  <title>{%block title%} Графики отпусков {%endblock%}</title>
 </head>
 <body>
-  <header>
+  <header class="no-print">
 
 
   {%block header%}
@@ -35,9 +35,12 @@
     {%block logo%}<img src="{% static 'img/IMG_5826.PNG'%}" alt="">{%endblock%}
     <h1>Графики отпусков</h1>
   </div>
-
+  
+  
+  
   {%endblock%}
-  <div class="header-user no-print">  <h3 style='float:right;'>{{request.user.first_name}}</h3></div>
+
+    <div class="header-user no-print">  <h3 style='float:right;'>{{request.user.first_name}}</h3></div>
 
     </header>
 

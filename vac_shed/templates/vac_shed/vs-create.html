@@ -11,7 +11,16 @@
 <link rel="stylesheet" href="https://unpkg.com/gutenberg-css@0.6" media="print">
 <link rel="stylesheet" href="https://unpkg.com/gutenberg-css@0.6/dist/themes/oldstyle.min.css" media="print">
 {%endblock%}
-{%block header%}  <div class="header-main no-print"><button type="button" onclick="window.close()" class="button" name="button">Закрыть</button><h1> График отпусков <span style="text-decoration: underline;">{{vacshed.dep.name}}</span> на {{vacshed.year}} год</h1></div>{%endblock%}
+
+{%block header%}  
+
+  <button type="button" onclick="window.close()" class="button" name="button">Закрыть</button>
+  <h1> График отпусков {{vacshed.dep.name}} на {{vacshed.year}} год</h1>
+
+
+{%endblock%}
+
+
 {% block body %}
 <h1 class="print">График отпусков {{vacshed.dep.name}} на <span id="year">{{vacshed.year}}</span>г.</h1>
 <div class="container vs-create">
