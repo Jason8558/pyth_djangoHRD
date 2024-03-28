@@ -18,18 +18,19 @@ class VacantionShedule(models.Model):
         return name
 
 class VacantionSheduleItem(models.Model):
-    bound_shed = models.ForeignKey('VacantionShedule', on_delete=models.CASCADE)
-    emp = models.ForeignKey('TURV.Employers', on_delete = models.CASCADE, verbose_name="Сотрудник")
-    dur_from = models.DateField(verbose_name="Период с")
-    dur_to = models.DateField(verbose_name="Период по")
-    move_from = models.DateField(verbose_name='Перенос с: ', null=True, blank=True)
-    move_to = models.DateField(verbose_name='перенос по: ', null=True, blank=True)
-    move_reason = models.TextField(help_text="Введите основание переноса", verbose_name="Основание переноса", default='')
-    child_year = models.CharField(verbose_name='Год рож-я иждивенца: ', null=True, blank=True, max_length=4, default='')
-    city = models.CharField(verbose_name='Проезд: ', null=True, blank=True, max_length=254, default='')
-    days_count = models.IntegerField(verbose_name="Количество дней")
-    days_count_move = models.IntegerField(verbose_name='Кол-во дней после переноса ', null=True, blank=True)
-    comm = models.CharField(verbose_name='Комментарий', null=True, blank=True, max_length=256)
+    bound_shed          = models.ForeignKey('VacantionShedule', on_delete=models.CASCADE)
+    emp                 = models.ForeignKey('TURV.Employers', on_delete = models.CASCADE, verbose_name="Сотрудник")
+    dur_from            = models.DateField(verbose_name="Период с")
+    dur_to              = models.DateField(verbose_name="Период по")
+    move_from           = models.DateField(verbose_name='Перенос с: ', null=True, blank=True)
+    move_to             = models.DateField(verbose_name='перенос по: ', null=True, blank=True)
+    move_reason         = models.TextField(help_text="Введите основание переноса", verbose_name="Основание переноса", default='')
+    child_year          = models.CharField(verbose_name='Год рож-я иждивенца: ', null=True, blank=True, max_length=4, default='')
+    city                = models.CharField(verbose_name='Проезд: ', null=True, blank=True, max_length=254, default='')
+    days_count          = models.IntegerField(verbose_name="Количество дней")
+    days_count_move     = models.IntegerField(verbose_name='Кол-во дней после переноса ', null=True, blank=True)
+    comm                = models.CharField(verbose_name='Комментарий', null=True, blank=True, max_length=256)
+    cancelled           = models.BooleanField(verbose_name='Отменен', default=False)
 
     class Meta:
         ordering = ['-bound_shed__year']

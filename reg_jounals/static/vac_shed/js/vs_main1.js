@@ -593,3 +593,249 @@ if (month_from != month_to) {
 $('#per' + id + ' #per-date-to').val(date_to.toString('yyyy-MM-dd'))
 
 }
+
+//Контекстное меню
+
+function show_context_menu(el, id) {
+  
+  coords = el.getBoundingClientRect()
+
+  
+  
+  context_menu_button             = document.getElementById('context-menu-cancel')
+  context_menu_container          = document.getElementById('context-menu-container')
+  cancel_reason_container         = document.getElementById('cancel-reason-container')
+  cancel_reason_accept_container  = document.getElementById('cancel-reason-accept-container')
+  cancel_reason_submit            = document.getElementById('cancel-reason-submit')
+  cancel_reason_accept            = document.getElementById('cancel-reason-accept')
+  
+  coords_top = Number(coords.top) + 20
+  coords_top = coords_top + 'px'
+
+
+  el.addEventListener('contextmenu', (e) => {
+    e.preventDefault(); //убирает стандартное контекстное меню
+
+    // позиционирует само меню
+    context_menu_container.style.display    = 'block'
+    context_menu_container.style.position   = 'fixed'
+    context_menu_container.style.top        = coords_top
+    context_menu_container.style.left       = coords.left + 'px'
+  });
+
+  window.addEventListener('scroll', (w) => {
+    close_all_forms()
+  })
+
+  counter = 0
+
+  context_menu_button.onclick = function() {
+    //вызывает форму ввода комментария
+
+    context_menu_container.style.display    = 'none'
+
+    cancel_reason_container.style.display    = 'flex'
+    cancel_reason_container.style.position   = 'fixed'
+    cancel_reason_container.style.top        = coords_top
+    cancel_reason_container.style.left       = coords.left + 'px'
+
+ 
+  }
+
+  cancel_reason_submit.onclick = function() {
+    //вызывает форму подтверждения
+
+    cancel_reason_accept_container.style.display    = 'flex'
+    cancel_reason_accept_container.style.position   = 'fixed'
+    cancel_reason_accept_container.style.top        = coords_top
+    cancel_reason_accept_container.style.left       = coords.left + 'px'    
+
+  }
+
+  cancel_reason_accept.onclick = function() {
+    //производит ПОСТ запрос с отменой
+
+    send_cancel_request(id, el)
+    close_all_forms()
+
+  }
+
+
+
+
+
+
+
+}
+
+function close_all_forms() {
+  //Закрывает все формы и диалоги
+
+  context_menu_container          = document.getElementById('context-menu-container')
+  cancel_reason_container         = document.getElementById('cancel-reason-container')
+  cancel_reason_accept_container  = document.getElementById('cancel-reason-accept-container')
+  additional_menu_panel           = document.getElementById('vacshed-additional-menu-panel')
+  vacshed_search_panel            = document.getElementById('vac_shed-search-panel')
+
+  try {
+    context_menu_container.style.display            = 'none'
+  } catch (error) {
+    
+  }
+  
+  try {cancel_reason_container.style.display = 'none'} catch (error) {}
+  try {cancel_reason_accept_container.style.display = 'none'} catch (error) {}
+  try {additional_menu_panel.style.display = 'none'} catch (error) {}
+  try {vacshed_search_panel.style.display  = 'none'} catch (error) {}   
+  
+  
+  
+
+}
+
+//подсветка 
+
+previous_color = '' //сюда заносим предыдущий цвет строки, так как отмененный период выделен красным
+
+//выделяет основные данные
+function set_higlight_main(el) {
+  hgl_els = el.parentNode.getElementsByClassName('clr_higlight_main')
+
+  for (const hgl of hgl_els) {
+    hgl.style.background = 'lightblue'
+  }
+}
+
+//выделяет период
+function set_higlight_period(el) {
+  hgl_els = el.parentNode.getElementsByClassName('clr_higlight_period')
+
+  previous_color = hgl_els[0].style.background
+
+  for (const hgl of hgl_els) {
+    hgl.style.background = 'lightgreen'
+  }
+
+
+}
+
+function unset_higlight(el) {
+  hgl_els = el.parentNode.childNodes
+
+  for (const hgl of hgl_els) {
+    hgl.style.background = 'none'
+  }
+
+}
+
+
+
+function send_cancel_request(id, el) {
+  // отправка комментария с отменой отпуска с помощью AJAX
+  //получить куку
+
+  csrf_cookie = document.cookie.split(";")
+
+  for (const csrf_cook of csrf_cookie) {
+    csrf_cook_ = csrf_cook.split('=')
+    if (csrf_cook_[0] = 'csrftoken') {
+      csrf_token = csrf_cook_[1]
+    }
+  }
+
+  cancel_reason = document.getElementById('cancel-reason-input').value
+
+  $.ajax({
+    type: "POST",
+    url: "/vacshed/itemupd/cancelvac/" + id,
+    data: {'incoming': cancel_reason, 'csrfmiddlewaretoken': csrf_token},
+    dataType: "json",
+    success: (data) => { //в случае успеха переписываем поля таблицы на клиенте
+      move_reason_field   = el.parentNode.getElementsByClassName('movefrom')[0]
+      comm_field          = el.parentNode.getElementsByClassName('comm')[0]
+
+      if (data.cancel_state == 1) { // Получаем состояние (1 - отменен, 0 - восстановлен)
+        move_reason_field.innerText = 'Отменен'
+      }
+      else {
+        move_reason_field.innerText = '' 
+      }
+      
+      comm_field = cancel_reason
+    },
+
+    error: function() { // в случае факапа выводим сообщение
+      alert('Что то пошло не так')
+    }
+
+
+  });
+
+  document.getElementById('cancel-reason-input').value = ''
+
+}
+
+function open_additional_menu(el) {
+  // открыть доп меню
+  close_all_forms()
+
+  additional_menu_panel = document.getElementById('vacshed-additional-menu-panel')
+
+  coords = el.getBoundingClientRect()
+
+  additional_menu_panel.style.display   = 'flex'
+  additional_menu_panel.style.position  = 'absolute'
+  additional_menu_panel.style.top       = (Number(coords.top) + 40) + 'px'
+  additional_menu_panel.style.left      = coords.left + 'px'
+  additional_menu_panel.style.height    = '67px' 
+
+  additional_menu_panel.addEventListener('mouseleave', (vsp) => {
+    close_all_forms()
+  })
+
+  el.onclick = function() {
+    
+    if (additional_menu_panel.style.display == 'none') {
+      additional_menu_panel.style.display = 'flex'}
+    else {
+      additional_menu_panel.style.display = 'none'
+      
+    }
+
+  }
+ 
+
+ //el.onclick = 'open_additional_menu(this)'
+
+}
+
+function open_search_menu(el) {
+  // открыть меню поиска
+
+  vacshed_search_panel = document.getElementById('vac_shed-search-panel')
+
+  coords = el.getBoundingClientRect()
+
+  vacshed_search_panel.style.display    = 'flex'
+  vacshed_search_panel.style.position   = 'absolute'
+  vacshed_search_panel.style.top        = (Number(coords.top) + 40) + 'px'
+  vacshed_search_panel.style.left       = coords.left + 'px'
+  vacshed_search_panel.style.height     = '142px' 
+
+  vacshed_search_panel.addEventListener('mouseleave', (vsp) => {
+    close_all_forms()
+  })
+
+  el.onclick = function() {
+    if (vacshed_search_panel.style.display == 'none') {
+      vacshed_search_panel.style.display = 'flex'}
+    else {
+      vacshed_search_panel.style.display = 'none'
+    }
+  }
+
+}
+
+
+
+
