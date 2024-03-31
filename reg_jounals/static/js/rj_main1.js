@@ -251,13 +251,13 @@ $('#short_fio').val(new_fio)
 }
 
 function all_off() {
-  $('.to_tabel input, .to_tabel select').prop('disabled', true)
+  $('.tabel-stage-input').prop('disabled', true)
 
 
 }
 
 function all_on() {
-  $('.to_tabel input, .to_tabel select').prop('disabled', false)
+  $('.tabel-stage-input').prop('disabled', false)
 
 }
 
@@ -268,12 +268,14 @@ function closeAllFields() {
   $('#op_typeOfWork').css('display','none')
   $('#op_moveFrom').css('display','none')
   $('#op_moveTo').css('display','none')
+  $('#tab_pos').css('display','none')
 }
 
 function inviteOnWork() {
   $('#op_invite').css('display', '')
   $('#op_probation').css('display', '')
   $('#op_typeOfWork').css('display','')
+  $('#tab_pos').css('display','')
 
 }
 

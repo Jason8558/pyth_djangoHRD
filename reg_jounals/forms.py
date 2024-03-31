@@ -229,7 +229,7 @@ class OrdersOnPersonnel_form(forms.ModelForm):
 
     op_date = forms.CharField(label="Дата приказа" , widget=forms.TextInput(
         attrs={'placeholder': 'Введите дату',  'type':'date'}))
-    op_emloyer = forms.CharField(label='ФИО сотрудника', widget=forms.TextInput(
+    op_emloyer = forms.CharField(label='ФИО сотрудника (полностью!)*', widget=forms.TextInput(
     attrs={'onchange':'sfio()'}
     ))
     op_dateOfInv = forms.CharField(label="Дата приема на работу" , required=False, widget=forms.TextInput(
