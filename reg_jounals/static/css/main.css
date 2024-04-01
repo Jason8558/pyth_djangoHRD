@@ -319,6 +319,55 @@ a {
     transform: rotate(90);
 }
 
+.standart-form {
+
+    width: 100%;
+
+    position: static;
+
+    height: max-content;
+}
+
+.standart-form .standart-form-header {
+    width: 100%;
+}
+
+.standart-form .standart-form-header * {
+    text-align: center;
+    width: 100%;
+    border-bottom: 1px solid black;
+}
+
+.standart-form .standart-form-input-group p {
+    margin: 0;
+}
+
+.standart-form .standart-form-input-group p span {
+    margin-right: 1rem;
+}
+
+.standart-form .inline {}
+
+.standart-form .inline p {
+    margin-right: 0.5rem;
+}
+
+.standart-form .standart-form-stage-panel {
+
+    height: 243px;
+
+    display: flex;
+
+    flex-direction: column;
+
+    justify-content: space-around;
+
+    align-items: stretch;
+
+    width: 100%;
+}
+
+
 
 
 .button {}
