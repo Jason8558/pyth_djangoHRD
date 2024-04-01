@@ -395,27 +395,19 @@ box-shadow: 0px 0px 11px -2px black;
     text-align: center;
   }
 
-  table .tr-header
+  /* table .tr-header
   {
     background: #34f6ff !important;
 
-  }
+  } */
 
   table #selected_rec:hover {
     background: #a7e3ff !important;
   }
 
 
-  table tr:nth-child(even) {
-    background: #cff6ff;
-  }
 
-  table tbody tr:hover {
-    color: #a600f7;
-    /* color: white; */
-    text-decoration: underline;
-    /* font-weight: bold; */
-  }
+
 
   table tr:focus  {
       background-color: #eceb4a !important;

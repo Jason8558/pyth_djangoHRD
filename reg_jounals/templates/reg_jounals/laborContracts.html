@@ -1,7 +1,7 @@
 {%extends "reg_jounals/index.html" %}
-
+{%load static%}
 {%block title%}Трудовые договоры{%endblock%}
-{%block header%}{%block logo%}{{block.super}}{%endblock%}<a class="btn btn-dark" href="../"> < назад</a> Журнал регистрации трудовых договоров. Всего: {{count}}.  {%endblock%}
+{%block header%}<a class="button back" href="../"> < назад</a>{%block logo%}{{block.super}}{%endblock%} Журнал регистрации трудовых договоров. Всего: {{count}}.  {%endblock%}
 {%block content%}
 <div id="frame_" class="frame">
   <iframe id="iframe" src="" width="" height=""></iframe>
@@ -11,24 +11,44 @@
 
 <div class="standart-menu">
 
+  <a class="button add" href="{%url 'labor_contracts_add_url'%}"> + Добавить</a>
+
+  <div class="standart-menu-submenu-container">
+    <img src="{% static '/img/filter.png' %}" onclick="open_search_menu(this, 'labor-contract-search-menu')" alt="">
+
+  </div> 
+
 </div>
 
-<form class="standart-form" action="{% url 'labor_contracts' %}">
+<form id="labor-contract-search-menu" class="standart-panel search panel" style="display: none;"
+  action="{% url 'labor_contracts' %}">
+  <div class="search-panel-input-group">
+    <input type="text" name="labor-contract-search-fio" placeholder="ФИО">
+  </div>
 
-  <select class="" name="lc_search">
+  <div class="search-panel-input-group">
+    <select class="" name="lc_search">
       <option value="">Поиск по подразделению</option>
-    {% for dep in deps%}
-        <option value="{{dep.id}}">{{dep.dep_name}}</option>
-    {% endfor%}
-  </select>
+      {% for dep in deps%}
+      <option value="{{dep.id}}">{{dep.dep_name}}</option>
+      {% endfor%}
+    </select>
+  </div>
 
-  <input type="date" placeholder="Период с:" name="dur-from" value="">
-  <input type="date" placeholder="по:" name="dur-to" value="">
-
-  <button class="btn btn-sm btn-dark" type="submit" name="" value="Найти">Найти</button>
+  <div class="search-panel-input-group">
+    <input type="date" placeholder="Период с:" name="dur-from" value="">
+    <input type="date" placeholder="по:" name="dur-to" value="">
+  </div>
+  
+  <div class="search-panel-input-group">
+    <button class="button add" type="submit" name="" value="Найти">Найти</button>
+    <button class="button cancel"  name="" value="Найти">Сбросить</button>
+  </div>
 </form>
+
+
 <!-- <button class="btn btn-success btn-lg m-bottom btn-add " type="button" name="button" onclick="open_frame_new()"> + Добавить</button> -->
-<a class="btn btn-success btn-lg m-bottom btn-add " href="{%url 'labor_contracts_add_url'%}"> + Добавить</a>
+<!-- <a class="btn btn-success btn-lg m-bottom btn-add " href="{%url 'labor_contracts_add_url'%}"> + Добавить</a> -->
 {% if orders %}
 <table>
   <thead class="thead-dark">

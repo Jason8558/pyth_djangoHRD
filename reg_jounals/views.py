@@ -610,6 +610,13 @@ def LaborContracts(request):
         search_query = request.GET.get('lc_search','')
         dfrom = request.GET.get('dur-from','')
         dto = request.GET.get('dur-to','')
+        search_query_fio = request.GET.get('labor-contract-search-fio')
+        
+        if search_query_fio:
+            contracts = LaborContract.objects.filter(lc_emloyer__icontains = search_query_fio).order_by('-id')
+            p_orders = Paginator(contracts, 1000)
+            page_number = request.GET.get('page', 1)
+
         if dfrom and dto and search_query:
             contracts = LaborContract.objects.filter(lc_date__range=(dfrom,dto)).filter(lc_dep_id=search_query).order_by('-id')
             p_orders = Paginator(contracts, 1000)

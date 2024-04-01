@@ -433,3 +433,32 @@ function SetRecordCancelled(recid) {
     setTimeout(GetRecords(5), 1000);
 
 }
+
+
+// --------------------------------------------------------------------
+
+function open_search_menu(el, smid) {
+  // открыть меню поиска
+   search_menu = document.getElementById(smid)
+   
+   coords = el.getBoundingClientRect()
+
+   search_menu.style.display    = 'flex'
+   search_menu.style.position   = 'absolute'
+   search_menu.style.top        = (Number(coords.top) + 35) + 'px'
+   search_menu.style.left       = coords.left + 'px'
+  //  search_menu.style.height     = 'max-content' 
+  
+   search_menu.addEventListener('mouseleave', (sm) => {
+    close_all_panels()
+   })
+
+}
+
+function close_all_panels() {
+  panels = document.getElementsByClassName('panel')
+
+  for (const panel of panels) {
+    panel.style.display = 'none'
+  }
+}
