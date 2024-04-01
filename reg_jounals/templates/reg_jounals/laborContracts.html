@@ -8,7 +8,12 @@
   <button type="button" class="btn btn-success" onclick="send_submit()" name="button">Сохранить</button>
   <button type="button" onclick="close_frame()"class="btn btn-outline-danger" name="button">Отмена</button>
 </div>
-<form action="{% url 'labor_contracts' %}">
+
+<div class="standart-menu">
+
+</div>
+
+<form class="standart-form" action="{% url 'labor_contracts' %}">
 
   <select class="" name="lc_search">
       <option value="">Поиск по подразделению</option>
