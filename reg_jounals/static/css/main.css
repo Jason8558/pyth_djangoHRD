@@ -24,6 +24,8 @@ a {
 
 /* Поля ввода */
 
+
+
 input[type=text],
 input[type=number],
 input[type=date],
@@ -56,6 +58,10 @@ tbody tr:hover {
 table tr:nth-child(even) {
     background: var(--color-background-primary);
   }
+
+table .table-non-wrap {
+    text-wrap: nowrap;
+}
 
 
 /* Контейнеры */
@@ -146,6 +152,7 @@ header {
 
 .search .search-panel-input-group input[type=button],
 .search .search-panel-input-group input[type=text],
+.search .search-panel-input-group input[type=search],
 .search .search-panel-input-group select {
     width: 100%;
 }

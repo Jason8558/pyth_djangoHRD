@@ -21,7 +21,7 @@
 
 </div>
 
-<form id="orders-on-others-search-menu" class="standart-panel search panel" action="{% url 'orders_on_others' %}">
+<form id="orders-on-others-search-menu" class="standart-panel search panel" style="display: none;" action="{% url 'orders_on_others' %}">
   <div class="search-panel-input-group">
     <input type="text" name="orders-on-others-search-number" placeholder="Номер">
   </div>
@@ -48,6 +48,7 @@
   
   <div class="search-panel-input-group">
     <button class="button add" type="submit" name="" value="Найти">Найти</button>
+    <a class="button cancel" >Сбросить</a>
   </div>
   
 </form>

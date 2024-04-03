@@ -1,20 +1,49 @@
 {%extends "reg_jounals/index.html" %}
+{%load static%}
 
 {%block title%}Исходящие документы{%endblock%}
-{%block header%} {%block logo%}{{block.super}}{%endblock%} <a class="btn btn-dark" href="../"> < назад</a> Журнал регистрации исходящих документов. Всего: {{count}}. {%endblock%}
+{%block header%} <a class="button back" href="../"> < назад</a> {%block logo%}{{block.super}}{%endblock%}  Журнал регистрации исходящих документов. {%endblock%}
 {%block content%}
 <div id="frame_" class="frame">
   <iframe id="iframe" src="" width="" height=""></iframe>
   <button type="button" class="btn btn-success" onclick="send_submit()" name="button">Сохранить</button>
   <button type="button" onclick="close_frame()"class="btn btn-outline-danger" name="button">Отмена</button>
 </div>
-<form action="{% url 'outbound' %}">
-  <span>Поиск по периоду:</span>
-  <input type="date" id="search_date" name="doc_search_from" placeholder="C">
-  <input type="date" id="search_date2" name="doc_search_to" placeholder="По">
-  <button class="btn btn-sm btn-dark" type="submit" name="" value="Найти">Найти</button>
+
+<div class="standart-menu">
+  <a class="button add" href="{% url 'doc_outbound_add_url' %}"> + Добавить</a>
+
+  <div class="standart-menu-submenu-container">
+    <img src="{% static '/img/filter.png' %}" onclick="open_search_menu(this, 'outbound-documents-search-menu')"
+      alt="">
+
+  </div>
+
+</div>
+
+<form id="outbound-documents-search-menu" class="standart-panel search panel" style="display: none;" action="{% url 'outbound' %}">
+  <div class="search-panel-input-group">
+    <input type="text" placeholder="Вид документа" name="outbound-documents-search-type">
+  </div>
+
+  <div class="search-panel-input-group">
+    <input type="text" placeholder="Адресат" name="outbound-documents-search-destination">
+  </div>
+  
+  <div class="search-panel-input-group">
+    <div class="search-panel-input-group-header">
+      <h5>Период: </h5>
+    </div>
+    <input type="date" id="search_date" name="doc_search_from" placeholder="C">
+    <input type="date" id="search_date2" name="doc_search_to" placeholder="По">
+  </div>
+  <div class="search-panel-input-group">
+    <button class="button add" type="submit" name="" value="Найти">Найти</button>
+    <a class="button cancel" href=".">Сбросить</a>
+  </div>
 </form>
-<a class="btn btn-success btn-lg m-bottom btn-add " href="{% url 'doc_outbound_add_url' %}"> + Добавить</a>
+
+
 <!-- <button class="btn btn-success btn-lg m-bottom btn-add " type="button" name="button" onclick="open_frame_new()"> + Добавить</button> -->
 {% if documents %}
 <table>
@@ -40,7 +69,7 @@
     <td id="type">{{doc.doc_type}}</td>
     <td id="dest">{{doc.doc_dest}}</td>
     <td id="content">{{doc.doc_additionalData}}</td>
-    <td id="res_officer">{{doc.doc_res_officer}}</td>
+    <td class="table-res-employer" id="res_officer">{{doc.doc_res_officer}}</td>
 </tr>
   {%endfor%}
 </table>

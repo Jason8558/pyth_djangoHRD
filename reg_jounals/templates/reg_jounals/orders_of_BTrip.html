@@ -1,85 +1,129 @@
 {%extends "reg_jounals/index.html" %}
-
+{% load static %}
 {%block title%}Приказы о командировках{%endblock%}
-{%block header%}{%block logo%}{{block.super}}{%endblock%} <a class="btn btn-dark" href="../"> < назад</a> Журнал регистрации приказов о командировках. Всего: {{count}}.  {%endblock%}
-{%block content%}
-<div id="frame_" class="frame">
-  <iframe id="iframe" src="" width="" height=""></iframe>
-  <button type="button" class="btn btn-success" onclick="send_submit()" name="button">Сохранить</button>
-  <button type="button" onclick="close_frame()"class="btn btn-outline-danger" name="button">Отмена</button>
-</div>
-<form action="{% url 'orders_of_BTrip' %}">
-  <input type="search" name="bt_search" placeholder="Поиск по ФИО..">
-  <select class="" name="bt_search_dep">
-    <option value="">Выберите подразделения для поиска</option>
-    {%for dep in deps%}
-      <option value="{{dep.id}}">{{dep}}</option>
-    {%endfor%}
-  </select>
-  <button class="btn btn-sm btn-dark" type="submit" name="" value="Найти">Найти</button>
-</form>
-<a class="btn btn-success btn-lg m-bottom btn-add " href="{%url 'orders_of_BTrip_add_url'%}"> + Добавить</a>
-{% if orders %}
-<table>
-  <thead class="thead-dark">
-  <tr class="tr-header">
+{%block header%}<a class="button back" href="../">
+  < назад</a>{%block logo%}{{block.super}}{%endblock%} Журнал регистрации приказов о командировках.{%endblock%}
+    {%block content%}
 
-    <th scope="col">Дата приказа</th>
-    <th scope="col">Номер</th>
-    <th scope="col">Место назначения</th>
-    <th scope="col">Командируемый сотрудник</th>
-    <th scope="col">Подразделение</th>
-    <th scope="col">Ответственный сотрудник</th>
+    <div class="standart-menu">
+      <a class="button add" href="{%url 'orders_of_BTrip_add_url'%}"> + Добавить</a>
+
+      <div class="standart-menu-submenu-container">
+        <img src="{% static '/img/filter.png' %}"
+          onclick="open_search_menu(this, 'orders-of-buisness-trip-search-menu')" alt="">
+
+      </div>
+
+    </div>
+
+    <form id="orders-of-buisness-trip-search-menu"  class="standart-panel search panel"
+      action="{% url 'orders_of_BTrip' %}">
+      <div class="search-panel-input-group">
+        <input type="search" name="orders-of-buisness-trip-search-number" placeholder="Номер">
+      </div>
+
+      <div class="search-panel-input-group">
+        <input type="search" name="orders-of-buisness-trip-search-destination" placeholder="Место назначения">
+      </div>
+
+      <div class="search-panel-input-group">
+        <input type="search" name="bt_search" placeholder="ФИО">
+      </div>
+
+      <div class="search-panel-input-group">
+        <div class="search-panel-input-group-header">
+          <h5>Период: </h5>
+        </div>
+        <input type="date" name="orders-of-buisness-trip-search-from" id="">
+        <input type="date" name="orders-of-buisness-trip-search-to" id="">
+      </div>
+
+      <div class="search-panel-input-group">
+        <div class="search-panel-input-group-header">
+          <h5>Приказ от: </h5>
+        </div>
+        <input type="date" name="orders-of-buisness-trip-search-date" id="">
+      </div>
 
 
-  </tr>
-  </thead>
+   
+      <div class="search-panel-input-group">
+        <select class="" name="bt_search_dep">
+          <option value="">Подразделение</option>
+          {%for dep in deps%}
+          <option value="{{dep.id}}">{{dep}}</option>
+          {%endfor%}
+        </select>
+      </div>
+     
+      <div class="search-panel-input-group">
+        <button class="button add" type="submit" name="" value="Найти">Найти</button>
+        <a class="button cancel" href=".">Сбросить</a>
+      </div>
+    </form>
 
-  {%for order in orders%}
+    {% if orders %}
+    <table>
+      <thead class="thead-dark">
+        <tr class="tr-header">
 
-<tr onclick="return location.href = '{% url 'orders_of_BTrip_upd_url' id=order.id%}' ">
-<!-- <tr id="{{order.id}}" onclick="open_for_upd({{order.id}})"> -->
+          <th scope="col">Дата приказа</th>
+          <th scope="col">Номер</th>
+          <th scope="col">Место назначения</th>
+          <th scope="col">Командируемый сотрудник</th>
+          <th scope="col">Подразделение</th>
+          <th scope="col">Ответственный сотрудник</th>
 
-    <td id="date">{{order.bt_date|date:"d.m.Y"}}</td>
-    <td id="number">{{order.bt_number}}</td>
-    <td id="place">{{order.bt_place}}</td>
-    <td id="employer">{{order.bt_emloyer}}</td>
-    <td id="dep">{{order.bt_dep}}</td>
-    <td id="res_officer">{{order.bt_res_officer}}</td>
 
-</tr>
-  {%endfor%}
-</table>
+        </tr>
+      </thead>
 
-<nav  class="paginator" aria-label="Page navigation example">
-  <ul class="pagination">
-    {%if orders.has_previous%}
+      {%for order in orders%}
+
+      <tr onclick="return location.href = '{% url 'orders_of_BTrip_upd_url' id=order.id%}' ">
+        <!-- <tr id="{{order.id}}" onclick="open_for_upd({{order.id}})"> -->
+
+        <td id="date">{{order.bt_date|date:"d.m.Y"}}</td>
+        <td id="number">{{order.bt_number}}</td>
+        <td id="place">{{order.bt_place}}</td>
+        <td id="employer">{{order.bt_emloyer}}</td>
+        <td id="dep">{{order.bt_dep}}</td>
+        <td id="res_officer">{{order.bt_res_officer}}</td>
+
+      </tr>
+      {%endfor%}
+    </table>
+
+    <nav class="paginator" aria-label="Page navigation example">
+      <ul class="pagination">
+        {%if orders.has_previous%}
         <li class="page-item">
           <a class="page-link" aria-label="previous" href="?page=1">
-              <span aria-hidden="true">Первая</span></a>
+            <span aria-hidden="true">Первая</span></a>
         </li>
         <li class="page-item">
           <a class="page-link" href='?page={{orders.previous_page_number}}' aria-label="previous">
-    <span aria-hidden="true">{{orders.previous_page_number}}</span>
+            <span aria-hidden="true">{{orders.previous_page_number}}</span>
           </a>
         </li>
-  {%endif%}
+        {%endif%}
 
-   <li class="page-item active"><a class="page-link" href="">{{ orders.number }}</a></li>
+        <li class="page-item active"><a class="page-link" href="">{{ orders.number }}</a></li>
 
-{%if orders.has_next%}
-    <li class="page-item">
-      <a class="page-link" href='?page={{orders.next_page_number}}' aria-label="Next">{{orders.next_page_number}}</a>
-      </li>
-  {%endif%}
+        {%if orders.has_next%}
+        <li class="page-item">
+          <a class="page-link" href='?page={{orders.next_page_number}}'
+            aria-label="Next">{{orders.next_page_number}}</a>
+        </li>
+        {%endif%}
 
-  <li class="page-item">
-  <a class="page-link" href="?page={{ orders.paginator.num_pages }}">Последняя</a>
-  </li>
-</ul>
-</nav>
+        <li class="page-item">
+          <a class="page-link" href="?page={{ orders.paginator.num_pages }}">Последняя</a>
+        </li>
+      </ul>
+    </nav>
 
-{%else%}
-<h2>Записей нет</h2>
-{%endif%}
-{%endblock%}
+    {%else%}
+    <h2>Записей нет</h2>
+    {%endif%}
+    {%endblock%}
