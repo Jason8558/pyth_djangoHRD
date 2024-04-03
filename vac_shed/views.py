@@ -398,9 +398,9 @@ def vacshed_get_vacantions(request,emp, month, year):
                     for day in range(d_from, calendar.monthrange(y_from, month)[1]+1):
                         days.append(day)
                     break
-                else:
-                    for day in range(1, calendar.monthrange(y_from, i)[1]+1):
-                        days.append(day)
+                # else:
+                #     for day in range(1, calendar.monthrange(y_from, i)[1]+1):
+                #         days.append(day)
 
 
    
