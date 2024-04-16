@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from TURV.models import Employers
 
 # Create your models here.
 
@@ -147,6 +148,8 @@ class OrdersOnPersonnel(models.Model):
     op_selected = models.BooleanField(verbose_name="Выделить в списке", default=False)
     op_lastcheck = models.BooleanField(verbose_name="Последний проверенный", default=False)
     op_res_officer = models.CharField(blank=True, editable=False,  max_length=256, help_text="Сотрудник, который внес документ в систему ", verbose_name='Ответственный сотрудник')
+
+    bound_employer = models.ForeignKey('TURV.Employers', on_delete=models.CASCADE, verbose_name='Связанный работник', null=True)
 
     class Meta:
         ordering = ["-op_date"]
