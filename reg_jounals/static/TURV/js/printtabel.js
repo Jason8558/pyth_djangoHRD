@@ -161,7 +161,7 @@ switch (month) {
       WinPrint.document.write(".percent {background: lightgray; text-decoration: underline !important;}")
     WinPrint.document.write("</style>")
 
-    WinPrint.document.write('<link rel="stylesheet" type="text/css" href="/static/TURV/css/tabel_print.css"> ')
+    WinPrint.document.write('<link rel="stylesheet" type="text/css" href="/static/TURV/css/tabel_print_.css"> ')
     // WinPrint.document.write('<link rel="stylesheet" href="/static/TURV/css/style1.css">')
 
 
