@@ -5,6 +5,7 @@ from TURV.models import Employers
 from TURV.models import Department, Overtime
 from itertools import groupby
 from .forms import *
+from .search import *
 import calendar
 from django.db.models import Sum, F, Case, When, Q
 from django.contrib.auth.decorators import login_required
@@ -166,12 +167,29 @@ def vacsheds(request):
     if request.user.is_authenticated:
         
         print(ugroup(request))
-        if ugroup(request) == 1:
-            vacsheds = VacantionShedule.objects.all().exclude(dep__is_aup=1).order_by('year','dep__name')
-            deps_for_filter = Department.objects.filter(notused=0).filter(is_aup=0).order_by('name')
+       
+       
+
+        if int(request.GET.get('search-sign','0')) == 1:
+            search_request = {
+                'department':   request.GET.get('search-department',''),
+                'year':         request.GET.get('search-year','') }
+
+               
+            vacsheds = main_search(search_request)
+            if ugroup(request) == 1:
+                deps_for_filter = Department.objects.filter(notused=0).filter(is_aup=0).order_by('name')
+            else:
+                deps_for_filter = Department.objects.filter(user=current_user(request))
+            
         else:
-            deps_for_filter = Department.objects.filter(user=current_user(request))
-            vacsheds = VacantionShedule.objects.filter(dep__in=deps_for_filter)
+            if ugroup(request) == 1:
+                vacsheds = VacantionShedule.objects.all().exclude(dep__is_aup=1).order_by('year','dep__name')
+                deps_for_filter = Department.objects.filter(notused=0).filter(is_aup=0).order_by('name')
+            else:
+                deps_for_filter = Department.objects.filter(user=current_user(request))
+                vacsheds = VacantionShedule.objects.filter(dep__in=deps_for_filter)
+       
         return render(request, 'vac_shed/index.html', context={'vacsheds':vacsheds, 'granted':ugroup(request), 'deps_for_filter':deps_for_filter})
     else:
         return redirect('/accounts/login/')

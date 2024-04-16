@@ -21,6 +21,8 @@
     <form id="orders-on-personnel-search-menu" class="standart-panel search panel" style="display: none;"
       action="{% url 'orders_on_personnel' %}">
 
+      <input type="hidden" name="search-sign" value="1">
+
       <div class="search-panel-input-group">
         <input name="orders-on-personnel-search-number" type="text" placeholder="Номер">
       </div>
@@ -34,6 +36,11 @@
           {%endfor%}
       
         </select>
+      </div>
+
+      
+      <div class="search-panel-input-group">
+        <input name="orders-on-personnel-search-content" type="text" placeholder="Содержание">
       </div>
 
       <div class="search-panel-input-group">
@@ -53,9 +60,6 @@
         </select>
       </div>
 
-      <div class="search-panel-input-group">
-        <input name="orders-on-personnel-search-content" type="text" placeholder="Содержание">
-      </div>
 
      
       <div class="search-panel-input-group">

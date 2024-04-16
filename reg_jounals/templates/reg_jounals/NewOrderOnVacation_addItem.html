@@ -15,21 +15,34 @@
 {{form.errors}}
 </div>
 {%endif%}
-<form id="vacation" class="add_form" action="" method="post">
+<form id="vacation" class="standart-form standart-panel search" action="" method="post">
   {% csrf_token %}
 
-  <p>{{form.fio.label}}{{form.fio}}</p>
-  <p>{{form.dep.label}}{{form.dep}}</p>
-  <p class="p_unite"><span>{{form.dur_from.label}}{{form.dur_from}} </span> <span>{{form.dur_to.label}}{{form.dur_to}}</span></p>
+  <div class="standart-form-input-group inline">
+    <p>{{form.fio.label}}:{{form.fio}}</p>
+    <p>{{form.dep.label}}:{{form.dep}}</p>
+  </div>
+ 
+  
+    <div class="standart-form-input-group inline">
+      <p><span>Начало:</span>{{form.dur_from}} </p>
+      <p><span>Окончание:</span>{{form.dur_to}}</p>
+      <p><span>{{form.vac_type.label}}:</span>{{form.vac_type}}</p>
+      <p><span>Дни:</span>{{form.days_count}}</p>
+    </div>
+   
+    <div class="standart-form-input-group"> 
+      
+      <p>{{form.comm.label}}{{form.comm}}</p>
+    </div>
 
-  <p class="p_unite"><span>{{form.days_count.label}}{{form.days_count}}</span> <span>{{form.vac_type.label}}{{form.vac_type}}</span></p>
+  
+  
 
-  <p>{{form.comm.label}}{{form.comm}}</p>
-
-
- <input class="btn btn-success" onclick="" type="submit" value="Добавить сотрудника в приказ" />
-
-  <a class="btn btn-outline-danger" href="/orders_on_vacation_new/">Отмена</a>
+    <div class="standart-form-input-group inline">
+      <input class="button add" onclick="" type="submit" value="Добавить" />
+       <a class="button add" href="/orders_on_vacation_new/{{order_id}}/create">Отмена</a>
+    </div>
 </form>
 
 {%endblock%}

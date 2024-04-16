@@ -1,7 +1,7 @@
 {%extends "reg_jounals/index.html" %}
 {%load static%}
 {%block title%}Приказы на отпуск{%endblock%}
-{%block header%}<a class="button back" href="../"> < Назад</a>{%block logo%}{{block.super}}{%endblock%}  Журнал регистрации приказов на отпуск. Всего: {{count}}.  {%endblock%}
+{%block header%}<a class="button back" href="../"> < Назад</a>{%block logo%}{{block.super}}{%endblock%}  Журнал регистрации приказов на отпуск.  {%endblock%}
 {%block content%}
 <div id="frame_" class="frame vacantion">
   <iframe id="iframe" src="" width="" height=""></iframe>
@@ -24,15 +24,14 @@
 <form id="orders-of-vacations-search-menu" style="display: none;" class="standart-panel search panel" action="{% url 'orders_on_vacation_new' %}">
   <div class="search-panel-input-group">
     <input type="search" name="vac_search" placeholder="ФИО">
-  </div>
-
-  <div class="search-panel-input-group">
     <input type="search" name="orders-of-vacation-search-type" placeholder="Вид отпуска">
   </div>
+ 
 
-
-  
   <div class="search-panel-input-group">
+    <div class="search-panel-input-group-header">
+      <h5>Период документа:</h5>
+    </div>
     <input type="date" placeholder="Период с:" name="orders-of-vacation-search-date-from" value="">
     <input type="date" placeholder="по:"name="orders-of-vacation-search-date-to"  value="">
   </div>
@@ -41,6 +40,7 @@
 
   <div class="search-panel-input-group">
     <select class="" name="vac_dep_search">
+      <option value="">Подразделение</option>
       {% for dep in deps%}
       <option value="{{dep.id}}">{{dep.dep_name}}</option>
       {%endfor%}
@@ -51,6 +51,9 @@
     <button class="button add" type="submit" name="" value="Найти">Найти</button>
     <a class="button cancel"  name="">Сбросить</a>
   </div>
+
+  <input type="hidden" name="search-sign" value="1">
+
 </form>
 
 {% if orders %}

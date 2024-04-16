@@ -1,18 +1,26 @@
 {%extends "reg_jounals/index.html" %}
 
 {%block title%}Приказ № {{order.order_number}}{%endblock%}
-{%block header%}{%block logo%}{{block.super}}{%endblock%} <a id="close" class="btn btn-dark" href="/orders_on_vacation_new/"> < назад</a> Приказ на отпуск № {{order.order_number}} от {{order.order_date}}. Людей в приказе: {{count}}  <input type="button" id="sure_btn" class="btn btn-danger" onclick="OpenSureDialog();" value="Удалить приказ"> {%endblock%}
+{%block header%}<a id="close" class="button back" href="/orders_on_vacation_new/"> < назад</a>{%block logo%}{{block.super}}{%endblock%}  Приказ на отпуск № {{order.order_number}} от {{order.order_date}}. {%endblock%}
 {%block content%}
-<div id="sure" style="display: none;" class="yousure">
-  <p>Вы уверены? <span style="color: red;"><b>ЭТО ДЕЙСТВИЕ НЕОБРАТИМО</b></span></p>
-  <a class="btn btn-outline-danger" style="width: 332px;" href="{% url 'orders_on_vacation_new_del' id=order.id%}">Да</a>
+<div id="sure" style="display: none;" class="standart-panel search panel">
+  
+  <div class="search-panel-header"><p>Вы уверены? <span style="color: red;"><b>ЭТО ДЕЙСТВИЕ НЕОБРАТИМО</b></span></p></div>
+  
+  <div class="search-panel-input-group">
+    <a class="button add"  href="{% url 'orders_on_vacation_new_del' id=order.id%}">Да</a>
+    <a class="button cancel" href="#">Нет </a>
+  </div>
+</div>
+
+<div class="standart-menu">
+
+  <a class="button add" href="{% url 'new_order_on_vacation_addItem' order_id=order.id %}">Добавить работника</a>
+  <input type="button" class="button" value="Заполнить по графику">
+  <input type="button" id="sure_btn" class="button cancel" onclick="open_search_menu(this, 'sure');" value="Удалить приказ">
 
 </div>
-<div id="frame_" class="frame vacantion">
-  <iframe id="iframe" src="" width="" height=""></iframe>
-  <button type="button" class="btn btn-success" onclick="send_submit()" name="button">Сохранить</button>
-  <button type="button" onclick="close_frame()"class="btn btn-outline-danger" name="button">Отмена</button>
-</div>
+
 
 
 {% if items %}
@@ -29,7 +37,7 @@
     <th scope="col">Дней отпуска</th>
     <th scope="col">Вид отпуска</th>
     <th scope="col">Примечание</th>
-    <th scope="col"></th>
+
 
 
 
@@ -38,7 +46,7 @@
 
   {%for item in items %}
 
-<tr id="{{item.id}}" onclick="return location.href = '{% url 'new_order_on_vacation_updItem' id=item.id%}' ">
+<tr id="{{item.id}}" oncontextmenu="show_context_menu(this, '{{item.id}}', 27)" onclick="return location.href = '{% url 'new_order_on_vacation_updItem' id=item.id%}' ">
 <!-- <tr id="{{item.id}}" onclick="open_for_upd({{item.id}})"> -->
 
 
@@ -49,14 +57,28 @@
     <td id="days">{{item.days_count}}</td>
     <td id="type">{{item.vac_type}}</td>
     <td id="comm">{{item.comm}}</td>
-    <td ><a class="btn btn-sm btn-danger btn-delete"href="{% url 'new_order_on_vacation_delItem' id=item.id%}">Удалить</a></td>
+
 </tr>
   {%endfor%}
 
 </table>
 
 {%endif%}
-<a class="btn btn-success btn-lg m-bottom btn-sm btn-add print" href="{% url 'new_order_on_vacation_addItem' order_id=order.id %}"> + Добавить сотрудника в приказ</a>
+
+<div class="standart-panel panel standart-context-menu no-display"  id="context-menu-container">
+  <input type="button" class="button cancel" id="context-menu-cancel" value="Удалить из приказа">
+</div>
+
+<div id="cancel-reason-accept-container" style="display: none;" class="standart-panel  search panel">
+  
+  <div class="search-panel-header"><p>Вы уверены? <span style="color: red;"><b>ЭТО ДЕЙСТВИЕ НЕОБРАТИМО</b></span></p></div>
+  
+  <div class="search-panel-input-group">
+    <a class="button add" id="cancel-accept" href="">Да</a>
+    <a class="button cancel" onclick="close_all_panels()" href="#">Нет </a>
+  </div>
+</div>
+
 <!-- <button type="button" id="btn-add" class="btn btn-success btn-sm m-bottom btn-add " onclick="open_frame_new()" > + Добавить</button> -->
 <!-- <script type="text/javascript">
   prev = document.referrer

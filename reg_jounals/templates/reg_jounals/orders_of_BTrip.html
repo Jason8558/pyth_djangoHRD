@@ -18,17 +18,15 @@
 
     <form id="orders-of-buisness-trip-search-menu"  class="standart-panel search panel"
       action="{% url 'orders_of_BTrip' %}">
-      <div class="search-panel-input-group">
-        <input type="search" name="orders-of-buisness-trip-search-number" placeholder="Номер">
-      </div>
-
-      <div class="search-panel-input-group">
-        <input type="search" name="orders-of-buisness-trip-search-destination" placeholder="Место назначения">
-      </div>
+      
+      <input type="hidden" name="search-sign" value="1">
 
       <div class="search-panel-input-group">
         <input type="search" name="bt_search" placeholder="ФИО">
+        <input type="search" name="orders-of-buisness-trip-search-destination" placeholder="Место назначения">
       </div>
+
+
 
       <div class="search-panel-input-group">
         <div class="search-panel-input-group-header">
@@ -37,14 +35,6 @@
         <input type="date" name="orders-of-buisness-trip-search-from" id="">
         <input type="date" name="orders-of-buisness-trip-search-to" id="">
       </div>
-
-      <div class="search-panel-input-group">
-        <div class="search-panel-input-group-header">
-          <h5>Приказ от: </h5>
-        </div>
-        <input type="date" name="orders-of-buisness-trip-search-date" id="">
-      </div>
-
 
    
       <div class="search-panel-input-group">
@@ -56,6 +46,7 @@
         </select>
       </div>
      
+
       <div class="search-panel-input-group">
         <button class="button add" type="submit" name="" value="Найти">Найти</button>
         <a class="button cancel" href=".">Сбросить</a>

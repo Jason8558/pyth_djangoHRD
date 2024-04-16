@@ -212,7 +212,7 @@ function select_calc_mode_dur() {
 
 // Открытия диалога при удалении документа из журнала ------------------------------------------------------
 function OpenSureDialog() {
-  document.getElementById('sure_btn').style.display = "none";
+  //document.getElementById('sure_btn').style.display = "none";
   document.getElementById('sure').style.display = "block";
 }
 // =========================================================================================================
@@ -251,13 +251,25 @@ $('#short_fio').val(new_fio)
 }
 
 function all_off() {
-  $('.tabel-stage-input').prop('disabled', true)
+ 
 
+  inputs = document.getElementsByClassName('tabel-stage-input')
+  for (const input of inputs) {
+    input.disabled = true
+  }
 
+  document.getElementById('stage-container-2').classList.add('stage-container-disabled')
 }
 
 function all_on() {
-  $('.tabel-stage-input').prop('disabled', false)
+  
+
+  inputs = document.getElementsByClassName('tabel-stage-input')
+  for (const input of inputs) {
+    input.disabled = false
+  }
+
+
 
 }
 
@@ -269,6 +281,14 @@ function closeAllFields() {
   $('#op_moveFrom').css('display','none')
   $('#op_moveTo').css('display','none')
   $('#tab_pos').css('display','none')
+
+  form_footer   = document.getElementById('personnel-footer')
+  panel_stage_1 = document.getElementById('personnel-stage-1')
+  panel_stage_1.append(form_footer)
+
+
+  document.getElementById('personnel-next-switch').style.display = "none"
+  document.getElementById('personnel-prev-switch').style.display = "none"
 }
 
 function inviteOnWork() {
@@ -276,6 +296,13 @@ function inviteOnWork() {
   $('#op_probation').css('display', '')
   $('#op_typeOfWork').css('display','')
   $('#tab_pos').css('display','')
+
+  form_footer   = document.getElementById('personnel-footer')
+  panel_stage_2 = document.getElementById('personnel-stage-2')
+  panel_stage_2.append(form_footer)
+
+  document.getElementById('personnel-next-switch').style.display = "flex"
+  document.getElementById('stage-container-2').classList.remove('stage-container-disabled')
 
 }
 
@@ -287,7 +314,10 @@ function ResignFromWork() {
 function MoveOnOtherWork() {
   $('#op_typeOfWork').css('display','')
   $('#op_moveFrom').css('display','')
-  $('#tab_pos').prop('disabled', false)
+ 
+  $('#tab_pos').css('display','')
+  $('#tab_pos_select').prop('disabled', false)
+  
 }
 
 // Запись на прием
@@ -437,6 +467,63 @@ function SetRecordCancelled(recid) {
 
 // --------------------------------------------------------------------
 
+function show_context_menu(el, id, top) {
+  // Меню удаления работника из приказа на отпуск
+  
+  coords = el.getBoundingClientRect()
+
+  
+  
+  context_menu_button             = document.getElementById('context-menu-cancel')
+  context_menu_container          = document.getElementById('context-menu-container')
+  cancel_reason_container         = document.getElementById('cancel-reason-container')
+  cancel_reason_accept_container  = document.getElementById('cancel-reason-accept-container')
+  cancel_reason_submit            = document.getElementById('cancel-submit')
+  cancel_reason_accept            = document.getElementById('cancel-accept')
+  
+  coords_top = Number(coords.top) + Number(top)
+  coords_top = coords_top + 'px'
+
+
+  el.addEventListener('contextmenu', (e) => {
+    e.preventDefault(); //убирает стандартное контекстное меню
+
+    // позиционирует само меню
+    context_menu_container.style.display    = 'flex'
+    context_menu_container.style.position   = 'fixed'
+    context_menu_container.style.top        = coords_top
+    context_menu_container.style.left       = coords.left + 'px'
+  });
+
+
+
+  counter = 0
+
+  context_menu_button.onclick = function() {
+    //вызывает форму подтверждения
+
+    cancel_reason_accept_container.style.display    = 'flex'
+    cancel_reason_accept_container.style.position   = 'fixed'
+    cancel_reason_accept_container.style.top        = coords_top
+    cancel_reason_accept_container.style.left       = coords.left + 'px'  
+    cancel_reason_accept_container.style.width      = 143 + 'px'
+    cancel_reason_accept_container.style.height     = 134 + 'px'
+    
+    cancel_reason_accept.href = "/orders_on_vacation_new/delItem/" + id
+
+    cancel_reason_accept_container.onmouseleave = function () {
+      close_all_panels()
+    }
+
+  }
+
+  cancel_reason_accept.onclick = function() {
+    //производит ПОСТ запрос с отменой
+ 
+
+  }
+}
+
 function open_search_menu(el, smid) {
   // открыть меню поиска
    search_menu = document.getElementById(smid)
@@ -461,4 +548,30 @@ function close_all_panels() {
   for (const panel of panels) {
     panel.style.display = 'none'
   }
+}
+
+function change_stage_panel(prev_panel, next_panel, prev_switch, next_switch, stage_numbers) {
+  // Меняет панель этапа заполнения формы
+  prev_panel  = document.getElementById(prev_panel)
+  next_panel  = document.getElementById(next_panel)
+    // переключатели
+  prev_switch = document.getElementById(prev_switch)
+  next_switch = document.getElementById(next_switch)
+    // указатели
+  stage_numbers = stage_numbers.split(':')
+  
+  if (stage_numbers.length > 0) {
+    stage_1 = document.getElementById(stage_numbers[0])
+    stage_2 = document.getElementById(stage_numbers[1])
+  }
+
+  
+  stage_1.classList.remove('stage-container-active')
+  stage_2.classList.add('stage-container-active')
+
+  prev_panel.style.display  = 'none'
+  next_switch.style.display = 'none'
+  
+  next_panel.style.display  = 'flex'
+  prev_switch.style.display = 'flex'
 }

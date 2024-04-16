@@ -1,7 +1,7 @@
 {%extends "reg_jounals/index.html" %}
 {%load static%}
 {%block title%}Трудовые договоры{%endblock%}
-{%block header%}<a class="button back" href="../"> < назад</a>{%block logo%}{{block.super}}{%endblock%} Журнал регистрации трудовых договоров. Всего: {{count}}.  {%endblock%}
+{%block header%}<a class="button back" href="../"> < назад</a>{%block logo%}{{block.super}}{%endblock%} Журнал регистрации трудовых договоров.  {%endblock%}
 {%block content%}
 <div id="frame_" class="frame">
   <iframe id="iframe" src="" width="" height=""></iframe>
@@ -22,6 +22,9 @@
 
 <form id="labor-contract-search-menu" class="standart-panel search panel" style="display: none;"
   action="{% url 'labor_contracts' %}">
+  
+  <input type="hidden" name="search-sign" value="1">
+  
   <div class="search-panel-input-group">
     <input type="text" name="labor-contract-search-fio" placeholder="ФИО">
   </div>
@@ -36,6 +39,9 @@
   </div>
 
   <div class="search-panel-input-group">
+    <div class="search-panel-input-group-header">
+      <h5>Период: </h5>
+    </div>
     <input type="date" placeholder="Период с:" name="dur-from" value="">
     <input type="date" placeholder="по:" name="dur-to" value="">
   </div>

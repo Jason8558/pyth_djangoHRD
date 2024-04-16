@@ -142,9 +142,8 @@
       <a href="{%url 'identity'%}" class="btn btn-info main_button"><img src="{% static 'img/card.png' %}" alt="">Удостоверения</a>
       <a href="{%url 'tabels_url'%}"  class="btn btn-info  main_button"><img src="{% static 'TURV/img/tabel.png' %}" alt="">Табели учета рабочего времени</a>
       <a href="{%url 'vacshed_url'%}"  class="btn btn-info  main_button"><img src="{% static 'vac_shed/img/vacshed.png' %}" alt="">График отпусков</a>
-      {% if user.is_superuser %}
       <a href="{%url 'ss-main'%}"  class="btn btn-info  main_button"><img src="{% static 'shift_shed/img/favicon.ico' %}" alt="">Графики сменности</a>
-      {% endif %}
+      
 
     </div>
 

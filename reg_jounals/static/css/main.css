@@ -22,6 +22,7 @@ a {
 
 
 
+
 /* Поля ввода */
 
 
@@ -43,6 +44,8 @@ select {
     outline: none;
 
     border-bottom: 1px solid var(--color-button-main);
+
+    line-height: normal;
 }
 
 /* Таблицы */
@@ -121,6 +124,8 @@ header {
     align-items: flex-start;
 }
 
+
+
 .search {
     border-bottom:  1px solid var(--color-background-secondary);
     border-left:    1px solid var(--color-background-secondary);
@@ -170,21 +175,66 @@ header {
 
 .standart-form {
 
-    width: 100%;
-
+    width: 50%;
+    
     position: static;
-
+    
     height: max-content;
-}
+    
+    display: flex;
+    
+    flex-direction: column;
+    
+    align-content: space-between;
+    
+    justify-content: space-around;
+    
+    margin: auto;
+    
+    align-items: center;
+    
+    border: 1px solid var(--color-background-secondary);
 
-.standart-form .standart-form-header {
-    width: 100%;
-}
+    }
+    
+    .standart-form .standart-form-header {
+        width: 100%;
+    }
+    
+    .standart-form .standart-form-header * {
+        text-align: center;
+        width: 100%;
+        border-bottom: 1px solid black;
+    }
+    
+    
+    
+    .standart-form .inline {}
+    
+    .standart-form .inline p {
+        margin-right: 0.5rem;
+    }
+    
+    .standart-form .standart-form-stage-panel {
+    
+        height: 243px;
+    
+        display: flex;
+    
+        flex-direction: column;
+    
+        justify-content: space-around;
+    
+        align-items: stretch;
+    
+        width: 100%;
+    }
+    
 
-.standart-form .standart-form-header * {
-    text-align: center;
+.standart-form .standart-form-input-group {
+    display: flex;
+    flex-direction: column;
     width: 100%;
-    border-bottom: 1px solid black;
 }
 
 .standart-form .standart-form-input-group p {
@@ -195,15 +245,28 @@ header {
     margin-right: 1rem;
 }
 
+.standart-form .standart-form-input-group p textarea,
+.standart-form .standart-form-input-group p select,
+.standart-form .standart-form-input-group p input[type=text],
+.standart-form .standart-form-input-group p input[type=date],
+.standart-form .standart-form-input-group p textarea {
+    width: 100% !important;
+}
+
+.standart-form .standart-form-footer {
+    width: 100%;
+}
+
 .standart-form .inline {}
 
 .standart-form .inline p {
     margin-right: 0.5rem;
+    width: 100%;
 }
 
 .standart-form .standart-form-stage-panel {
 
-    height: 243px;
+    height: min-content;
 
     display: flex;
 
@@ -256,10 +319,32 @@ header {
     background: white;
 }
 
+
+
 .form-stages .stage-container .stage-number h3 {
     margin: 0;
     width: 100%;
     text-align: center;
+}
+
+.stage-container-disabled .stage-number {
+    color: lightgray;
+    border-color: lightslategray !important;
+}
+
+
+.stage-container-disabled .stage-name  {
+    color: lightgray;
+}
+
+.stage-container-active .stage-number {
+    color: var(--color-button-main);
+    border-color: lightslategray !important;
+}
+
+
+.stage-container-active .stage-name  {
+    color: var(--color-button-main);
 }
 
 .form-stages-container {
@@ -276,15 +361,30 @@ header {
 
 .form-stages-container .form-stages-container-next-stage {
 
-    width: 52px;
+width: 52px;
 
-    background-color: var(--color-background-primary);
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+background-color: var(--color-background-primary);
 
+display: flex;
 
+flex-direction: column;
+
+justify-content: center;
+
+align-items: center;
+
+cursor: pointer;
+}
+
+.form-stages-container .form-stages-container-next-stage:hover {
+    
+box-shadow: 0px 0px 7px 1px var(--color-button-main);
+    
+transition: 0.2s;
+}
+
+.back .form-stages-container-next-stage-icon {
+    transform: rotate(180deg);
 }
 
 .form-stages-container .form-stages-container-next-stage .form-stages-container-next-stage-icon {
@@ -344,6 +444,14 @@ a {
     text-decoration: underline;
 }
 
+.standart-context-menu {
+    height: 38px;
+    width: max-content;
+    border: 2px solid var(--color-background-panels);
+    padding: 0;
+    display: flex; 
+}
+
 .standart-menu .menu-button-dropdown-container {
     cursor: pointer;
 }
@@ -356,62 +464,14 @@ a {
     transform: rotate(90);
 }
 
-.standart-form {
-
-    width: 100%;
-
-    position: static;
-
-    height: max-content;
-}
-
-.standart-form .standart-form-header {
-    width: 100%;
-}
-
-.standart-form .standart-form-header * {
-    text-align: center;
-    width: 100%;
-    border-bottom: 1px solid black;
-}
-
-.standart-form .standart-form-input-group p {
-    margin: 0;
-}
-
-.standart-form .standart-form-input-group p span {
-    margin-right: 1rem;
-}
-
-.standart-form .inline {}
-
-.standart-form .inline p {
-    margin-right: 0.5rem;
-}
-
-.standart-form .standart-form-stage-panel {
-
-    height: 243px;
-
-    display: flex;
-
-    flex-direction: column;
-
-    justify-content: space-around;
-
-    align-items: stretch;
-
-    width: 100%;
-}
 
 
 
 
-.button {}
 
 .standart-menu .button {}
 
-.add {}
+
 
 
 
@@ -420,8 +480,16 @@ a {
 
 /* ----- */
 .inline {
-    display: flex;
+    display: flex !important;
     flex-flow: row;
+    align-items: flex-end;
+    flex-direction: row !important;
+    justify-content: space-between;
+    align-content: center;
+}
+
+.no-display {
+    display: none;
 }
 
 /* шрифты */

@@ -22,6 +22,9 @@
 </div>
 
 <form id="outbound-documents-search-menu" class="standart-panel search panel" style="display: none;" action="{% url 'outbound' %}">
+
+  <input type="hidden" name="search-sign" value="1">
+
   <div class="search-panel-input-group">
     <input type="text" placeholder="Вид документа" name="outbound-documents-search-type">
   </div>

@@ -12,6 +12,7 @@ from TURV.models import Department as TDep
 from TURV.models import Position as TPos
 from TURV.models import Employers as TEmps
 from TURV.models import Overtime as TOt
+from .search import *
 from django.contrib.auth.decorators import login_required
 import json
 
@@ -51,8 +52,19 @@ def outbound_docs(request):
         auth = request.user.is_authenticated
         date_from = request.GET.get('doc_search_from','')
         date_to = request.GET.get('doc_search_to', '')
-        if date_from and date_to:
-            documents = OutBoundDocument.objects.filter(doc_date__range=(date_from, date_to)).order_by('doc_date')
+        
+        search_query = {
+            'document_type':            6,
+            'outbound_document_type':   request.GET.get('outbound-documents-search-type',''),
+            'name':                    '',
+            'destination':              request.GET.get('outbound-documents-search-destination', ''),
+            'period_from':              request.GET.get('orders-of-buisness-trip-search-from',''),
+            'period_to':                request.GET.get('orders-of-buisness-trip-search-to',''),
+            'department':               ''
+        }
+       
+        if int(request.GET.get('search-sign', '0')) == 1:
+            documents = search(search_query)
             p_documents = Paginator(documents, 1000)
             page_number = request.GET.get('page', 1)
 
@@ -60,12 +72,11 @@ def outbound_docs(request):
             documents = OutBoundDocument.objects.all().order_by('-id')
             p_documents = Paginator(documents, 20)
             page_number = request.GET.get('page', 1)
+        
         page = p_documents.get_page(page_number)
-        count = len(documents)
-        method = str(request.method)
-        usr = str(request.user.first_name)
         i = 0
-        return render(request, 'reg_jounals/outbound_docs.html', context={'documents':page, 'count':count, 'auth':auth, 'i':i})
+
+        return render(request, 'reg_jounals/outbound_docs.html', context={'documents':page,'auth':auth, 'i':i})
     else:
         return render(request, 'reg_jounals/no_auth.html')
 
@@ -114,9 +125,21 @@ def del_OutBoundDocument(request, id):
 # Заявления на увольнения -----------------------
 def letter_of_resignation(request):
     if request.user.is_authenticated:
-        search_query = request.GET.get('lor_search','')
-        if search_query:
-            letters = LetterOfResignation.objects.filter(lor_employee__icontains=search_query)
+        
+        deps = Departments.objects.all().order_by('dep_name')
+
+        if int(request.GET.get('search-sign', '0')) == 1:
+            search_query = {
+                'document_type':    9,
+                'name':             request.GET.get('lor_search', ''),
+                'period_from':      request.GET.get('letters-of-resignation-search-from',''),
+                'period_to':        request.GET.get('letters-of-resignation-search-to',''),
+                'resignation_from': request.GET.get('letters-of-resignation-search-date-of-resigantion-from',''),
+                'resignation_to':   request.GET.get('letters-of-resignation-search-date-of-resigantion-to',''),
+                'department':       request.GET.get('letters-of-resignation-search-department','')
+            }
+            
+            letters = search(search_query)
             p_letters = Paginator(letters, 1000)
             page_number = request.GET.get('page', 1)
 
@@ -124,10 +147,11 @@ def letter_of_resignation(request):
             letters = LetterOfResignation.objects.all().order_by('-id')
             p_letters = Paginator(letters, 20)
             page_number = request.GET.get('page', 1)
+       
         page = p_letters.get_page(page_number)
         count = len(letters)
 
-        return render(request, 'reg_jounals/letters_of_resignation.html', context={'letters':page, 'count':count})
+        return render(request, 'reg_jounals/letters_of_resignation.html', context={'letters':page, 'deps':deps})
     else:
         return render(request, 'reg_jounals/no_auth.html')
 
@@ -179,21 +203,31 @@ def del_LetterOfResignation(request, id):
 # Заявления на прием ------------------------------
 def letter_of_invite(request):
         if request.user.is_authenticated:
-            search_query = request.GET.get('loi_search','')
-            if search_query:
-                letters = LetterOfInvite.objects.filter(loi_employee__icontains=search_query)
-                p_letters = Paginator(letters, 1000)
-                page_number = request.GET.get('page', 1)
+            
+            deps = Departments.objects.all()
 
+            if int(request.GET.get('search-sign', '0')) == 1:
+                search_query = {
+                    'document_type':    3,
+                    'name':             request.GET.get('loi_search', ''),
+                    'period_from':      request.GET.get('letters-of-invite-search-from',''),
+                    'period_to':        request.GET.get('letters-of-invite-search-to',''),
+                    'department':       request.GET.get('letters-of-invite-search-department','')
+                }
+
+                letters = search(search_query)
+                p_letters = Paginator(letters, 10000)
+                page_number = request.GET.get('page', 1)
+                page = p_letters.get_page(page_number)
             else:
                 letters = LetterOfInvite.objects.all().order_by('-id')
                 p_letters = Paginator(letters, 20)
                 page_number = request.GET.get('page', 1)
-            page = p_letters.get_page(page_number)
-            count = len(letters)
+                page = p_letters.get_page(page_number)
+                count = len(letters)
 
 
-            return render(request, 'reg_jounals/letters_of_invite.html', context={'letters':page, 'count':count})
+            return render(request, 'reg_jounals/letters_of_invite.html', context={'letters':page, 'deps':deps})
         else:
             return render(request, 'reg_jounals/no_auth.html')
 
@@ -245,36 +279,33 @@ def order_other_matters(request):
     if request.user.is_authenticated:
         group = Group.objects.get(name__icontains='Сотрудник СУП')
         users = group.user_set.all()
-        for user in users:
-            print(user.first_name)
 
         res_users = User.objects.all()
-        date_from = request.GET.get('oom_search_from','')
-        date_to = request.GET.get('oom_search_to', '')
-        res_seacrh = request.GET.get('oom_search_res','')
-        if date_from and date_to and res_seacrh:
-            orders = OrdersOnOtherMatters.objects.filter(oom_date__range=(date_from, date_to)).filter(oom_res_officer__icontains=res_seacrh).order_by('oom_date')
+       
+        if int(request.GET.get('search-sign', '0')) == 1:
+            search_query = {
+                'document_type':                    5,
+                'name':                             request.GET.get('orders-on-others-search-number',''),
+                'department':                       '',
+                'period_from':                      request.GET.get('oom_search_from',''),
+                'period_to':                        request.GET.get('oom_search_to',''),
+                'orders_of_others_res_officier':    request.GET.get('oom_search_res', ''),
+                'content':                          request.GET.get('orders-on-others-search-content', '')
+             }
+           
+            orders = search(search_query)
             p_orders = Paginator(orders, 1000)
             page_number = request.GET.get('page', 1)
 
+        
         else:
-            if res_seacrh:
-                orders = OrdersOnOtherMatters.objects.filter(oom_res_officer__icontains=res_seacrh).order_by('-id')
-                p_orders = Paginator(orders, 1000)
-                page_number = request.GET.get('page', 1)
-            else:
-                if date_from and date_to:
-                    orders = OrdersOnOtherMatters.objects.filter(oom_date__range=(date_from, date_to)).order_by('oom_date')
-                    p_orders = Paginator(orders, 1000)
-                    page_number = request.GET.get('page', 1)
-                else:
-                    orders = OrdersOnOtherMatters.objects.all().order_by('-id')
-                    p_orders = Paginator(orders, 20)
-                    page_number = request.GET.get('page', 1)
+            orders = OrdersOnOtherMatters.objects.all().order_by('-id')
+            p_orders = Paginator(orders, 20)
+            page_number = request.GET.get('page', 1)
+        
         page = p_orders.get_page(page_number)
-
-        count = len(orders)
-        return render(request, 'reg_jounals/orders_on_others.html', context={'orders':page, 'count':count, 'res_users':users})
+        
+        return render(request, 'reg_jounals/orders_on_others.html', context={'orders':page,'res_users':users})
     else:
         return render(request, 'reg_jounals/no_auth.html')
 
@@ -384,24 +415,24 @@ def del_OrderOnVacation(request, id):
 def order_of_BTrip(request):
     if request.user.is_authenticated:
         deps = Departments.objects.all()
-        search_query = request.GET.get('bt_search','')
-        search_query_dep = request.GET.get('bt_search_dep','')
-        if search_query:
-            orders = OrdersOfBTrip.objects.filter(bt_emloyer__icontains=search_query)
+        search_query = {
+            'document_type':    2,
+            'name':             request.GET.get('bt_search', ''),
+            'destination':      request.GET.get('orders-of-buisness-trip-search-destination',''),
+            'period_from':      request.GET.get('orders-of-buisness-trip-search-from',''),
+            'period_to':        request.GET.get('orders-of-buisness-trip-search-to',''),
+            'department':       request.GET.get('bt_search_dep','')
+        }
+       
+        if int(request.GET.get('search-sign', '0')) == 1:
+            orders = search(search_query)
             p_orders = Paginator(orders, 1000)
-            page_number = request.GET.get('page', 1)
+            page_number = request.GET.get('page',1)
+
         else:
-            if search_query_dep:
-                orders = OrdersOfBTrip.objects.filter(bt_dep_id=search_query_dep)
-                p_orders = Paginator(orders, 1000)
-                page_number = request.GET.get('page', 1)
-            else:
-                orders = OrdersOfBTrip.objects.all().order_by('-bt_date', '-id')
-                p_orders = Paginator(orders, 20)
-                page_number = request.GET.get('page', 1)
-
-
-
+            orders = OrdersOfBTrip.objects.all().order_by('-bt_date', '-id')
+            p_orders = Paginator(orders, 20)
+            page_number = request.GET.get('page', 1)
 
         page = p_orders.get_page(page_number)
         count = len(orders)
@@ -467,40 +498,32 @@ def del_OrderOfBTrip(request, id):
 # Приказы по личному составу ----------------
 def order_on_personnel(request):
     if request.user.is_authenticated:
-        search_query = request.GET.get('op_search','')
-        date_from = request.GET.get('op_search_from','')
-        date_to = request.GET.get('op_search_to', '')
-        event = request.GET.get('op_event','')
-        events = OrdersOnPersonnelTypes.objects.all()
 
-        if date_from and date_to and event:
-            orders = OrdersOnPersonnel.objects.filter(op_date__range=(date_from, date_to)).filter(op_type__id = event).order_by('-op_date')
+        events = OrdersOnPersonnelTypes.objects.all()
+        
+        if int(request.GET.get('search-sign', '0')) == 1:
+            search_query = {
+                'document_type':                7,
+                'orders_on_personnel_number':   request.GET.get('orders-on-personnel-search-number', ''),
+                'name':                         request.GET.get('op_search', ''),
+                'content':                      request.GET.get('orders-on-personnel-search-content',''),
+                'orders_on_personnel_event':    request.GET.get('op_event', ''),
+                'period_from':                  request.GET.get('op_search_from',''),
+                'period_to':                    request.GET.get('op_search_to',''),
+                'department':                   request.GET.get('orders-on-personnel-search-department','')
+            }
+       
+        
+            orders = search(search_query)
             p_orders = Paginator(orders, 1000)
             page_number = request.GET.get('page', 1)
         else:
-
-            if date_from and date_to:
-                orders = OrdersOnPersonnel.objects.filter(op_date__range=(date_from, date_to)).order_by('-op_date')
-                p_orders = Paginator(orders, 1000)
-                page_number = request.GET.get('page', 1)
-            else:
-                if search_query:
-                    orders = OrdersOnPersonnel.objects.filter(op_emloyer__icontains=search_query).order_by('-id')
-                    p_orders = Paginator(orders, 1000)
-                    page_number = request.GET.get('page', 1)
-                else:
-                    if event:
-                        orders = OrdersOnPersonnel.objects.filter(op_type__id = event).order_by('-op_date')
-                        p_orders = Paginator(orders, 1000)
-                        page_number = request.GET.get('page', 1)
-
-                    else:
-                        orders = OrdersOnPersonnel.objects.all().order_by('-id')
-                        p_orders = Paginator(orders, 20)
-                        page_number = request.GET.get('page', 1)
+            orders = OrdersOnPersonnel.objects.all().order_by('-id')
+            p_orders = Paginator(orders, 20)
+            page_number = request.GET.get('page', 1)
+        
         page = p_orders.get_page(page_number)
-        count = len(orders)
-        return render(request, 'reg_jounals/orders_on_personnel.html', context={'orders':page, 'count':count, 'events':events})
+        return render(request, 'reg_jounals/orders_on_personnel.html', context={'orders':page,'events':events})
     else:
         return render(request, 'reg_jounals/no_auth.html')
 
@@ -607,40 +630,29 @@ def del_OrderOnPersonnel(request, id):
 # Трудовые договоры ---------------------------
 def LaborContracts(request):
     if request.user.is_authenticated:
-        search_query = request.GET.get('lc_search','')
-        dfrom = request.GET.get('dur-from','')
-        dto = request.GET.get('dur-to','')
-        search_query_fio = request.GET.get('labor-contract-search-fio')
-        
-        if search_query_fio:
-            contracts = LaborContract.objects.filter(lc_emloyer__icontains = search_query_fio).order_by('-id')
-            p_orders = Paginator(contracts, 1000)
-            page_number = request.GET.get('page', 1)
+      
 
-        if dfrom and dto and search_query:
-            contracts = LaborContract.objects.filter(lc_date__range=(dfrom,dto)).filter(lc_dep_id=search_query).order_by('-id')
+        if int(request.GET.get('search-sign', '0')) == 1:
+            search_query = {
+            'document_type':    8,
+            'name':             request.GET.get('labor-contract-search-fio', ''),
+            'period_from':      request.GET.get('dur-from',''),
+            'period_to':        request.GET.get('dur-to',''),
+            'department':       request.GET.get('lc_search','')
+            }
+       
+            contracts = search(search_query)
             p_orders = Paginator(contracts, 1000)
             page_number = request.GET.get('page', 1)
         else:
-            if search_query:
-                contracts = LaborContract.objects.filter(lc_dep_id=search_query).order_by('-id')
-                p_orders = Paginator(contracts, 1000)
-                page_number = request.GET.get('page', 1)
-            else:
-                if dfrom and dto:
-                    contracts = LaborContract.objects.filter(lc_date__range=(dfrom,dto)).order_by('-id')
-                    p_orders = Paginator(contracts, 1000)
-                    page_number = request.GET.get('page', 1)
-
-                else:
-                    contracts = LaborContract.objects.all().order_by('-id')
-                    p_orders = Paginator(contracts, 20)
-                    page_number = request.GET.get('page', 1)
+            contracts = LaborContract.objects.all().order_by('-id')
+            p_orders = Paginator(contracts, 20)
+            page_number = request.GET.get('page', 1)
+       
         deps = Departments.objects.all()
-
         page = p_orders.get_page(page_number)
-        count = len(contracts)
-        return render(request, 'reg_jounals/laborContracts.html', context={'orders':page, 'count':count, 'deps':deps})
+
+        return render(request, 'reg_jounals/laborContracts.html', context={'orders':page,'deps':deps})
     else:
         return render(request, 'reg_jounals/no_auth.html')
 
@@ -693,39 +705,30 @@ def del_LaborContract(request, id):
 # Трудовые книжки -------------------------------
 def employment_history(request):
     if request.user.is_authenticated:
+       
+        deps = Departments.objects.all().order_by('dep_name')
 
-        search_query = request.GET.get('eh_search','')
-        search_type = request.GET.get('eh_search_type','')
-
-        if search_query:
-            histories = EmploymentHistory.objects.filter(eh_employer__icontains=search_query).order_by('-eh_dateOfInv')
+        search_query = {
+            'document_type':                4,
+            'name':                         request.GET.get('eh_search', ''),
+            'employment_history_type':      request.GET.get('eh_search_type',''),
+            'period_from':                  request.GET.get('employment-history-search-date-invite-from',''),
+            'period_to':                    request.GET.get('employment-history-search-date-invite-to',''),
+            'department':                   request.GET.get('employment-history-search-department','')
+        }
+       
+        if int(request.GET.get('search-sign', '0')) == 1:
+            histories = search(search_query)
+            p_orders = Paginator(histories, 1000)
+            page_number = request.GET.get('page', 1)
+            page = p_orders.get_page(page_number)
+        else:
+            histories = EmploymentHistory.objects.all().order_by('-eh_dateOfInv')
             p_orders = Paginator(histories, 10)
             page_number = request.GET.get('page', 1)
-        else:
-            if search_type:
-                if search_type == '0':
-                    print(search_type)
-                    histories = EmploymentHistory.objects.filter(eh_isdigital=1).order_by('-eh_dateOfInv')
-                    p_orders = Paginator(histories, 1000)
-                else:
-                    pass
+            page = p_orders.get_page(page_number)
 
-                if search_type == '1':
-                    histories = EmploymentHistory.objects.filter(eh_isdigital=0).order_by('-eh_dateOfInv')
-                    p_orders = Paginator(histories, 1000)
-                else:
-                    pass
-            else:
-                histories = EmploymentHistory.objects.all().order_by('-eh_dateOfInv')
-                p_orders = Paginator(histories, 10)
-
-
-
-
-        page_number = request.GET.get('page', 1)
-        page = p_orders.get_page(page_number)
-        count = len(histories)
-        return render(request, 'reg_jounals/employment_history.html', context={'histories':page, 'count':count})
+        return render(request, 'reg_jounals/employment_history.html', context={'histories':page, 'deps':deps})
     else:
         return render(request, 'reg_jounals/no_auth.html')
 
@@ -886,27 +889,29 @@ def new_order_on_vacation(request):
         items = ""
         orders = []
         deps = Departments.objects.all()
-        search_query = request.GET.get('vac_search','')
-        sq_dep = request.GET.get('vac_dep_search','')
-        if search_query:
 
-            items = NewOrdersOnVacation_item.objects.filter(fio__icontains=search_query)
-            items_count = len(items)
-            return render(request, 'reg_jounals/vac_search.html', context={'orders':orders, 'items':items, 'search_query':search_query, 'items_count':items_count})
+        
+        if int(request.GET.get('search-sign', '0')) == 1:
+            search_query = {
+                'document_type': 1,
+                'name':request.GET.get('vac_search', ''),
+                'vacation_type':request.GET.get('orders-of-vacation-search-type', ''),
+                'period_from':request.GET.get('orders-of-vacation-search-date-from','0001-01-01'),
+                'period_to':request.GET.get('orders-of-vacation-search-date-to', '3999-12-31'),
+                'department':request.GET.get('vac_dep_search','')
+            }
+
+            page = search(search_query)
+            return render(request, 'reg_jounals/vac_search.html', context={'items':page, 'search_query':search_query['name']})
         else:
-            if sq_dep:
-                dep = Departments.objects.get(id=sq_dep)
-                items = NewOrdersOnVacation_item.objects.filter(dep=sq_dep).order_by('-bound_order__order_date')
-
-                items_count = len(items)
-                return render(request, 'reg_jounals/vac_search.html', context={'orders':orders, 'items':items, 'search_query':dep.dep_name, 'items_count':items_count})
-            else:
-                orders = NewOrdersOnVacation.objects.all().order_by('-id')
-                count = len(orders)
-                p_orders = Paginator(orders, 30)
-                page_number = request.GET.get('page', 1)
-                page = p_orders.get_page(page_number)
-                return render(request, 'reg_jounals/orders_on_vacation_new.html', context={'orders':page, 'count':count, 'deps':deps})
+            orders = NewOrdersOnVacation.objects.all().order_by('-id')
+            p_orders = Paginator(orders, 20)
+            page_number = request.GET.get('page', 1)
+            page = p_orders.get_page(page_number)
+            
+        
+            return render(request, 'reg_jounals/orders_on_vacation_new.html', context={'orders':page, 'deps':deps})
+      
     else:
         return render(request, 'reg_jounals/no_auth.html')
 
@@ -998,24 +1003,27 @@ def identitys(request):
         deps = Departments.objects.all()
         search_query = request.GET.get('ident_search','')
         sq_dep = request.GET.get('ident_dep_search','')
-        if search_query:
-            ident = Identity.objects.all().order_by('-id').filter(employer__icontains=search_query)
-            p_ident = Paginator(ident, 200)
+    
+        if int(request.GET.get('search-sign', '0')) == 1:
+            search_query = {
+                'document_type':    10,
+                'name':             request.GET.get('ident_search', ''),
+                'period_from':      request.GET.get('identity-search-date-from',''),
+                'period_to':        request.GET.get('identity-search-date-to',''),
+                'department':       request.GET.get('ident_dep_search','')
+            }
+            ident = search(search_query)
+            p_ident = Paginator(ident, 1000)
             page_number = request.GET.get('page', 1)
-            page = p_ident.get_page(page_number)
+  
         else:
-            if sq_dep:
-                ident = Identity.objects.all().order_by('-id').filter(department_id=sq_dep)
-                p_ident = Paginator(ident, 200)
-                page_number = request.GET.get('page', 1)
-                page = p_ident.get_page(page_number)
-            else:
-                ident = Identity.objects.all().order_by('-id')
-                p_ident = Paginator(ident, 20)
-                page_number = request.GET.get('page', 1)
-                page = p_ident.get_page(page_number)
-        count = len(ident)
-        return render(request, 'reg_jounals/identitys.html', context={'idents':page, 'count':count, 'deps':deps})
+            ident = Identity.objects.all().order_by('-id')
+            p_ident = Paginator(ident, 20)
+            page_number = request.GET.get('page', 1)
+        
+        page = p_ident.get_page(page_number)
+
+        return render(request, 'reg_jounals/identitys.html', context={'idents':page, 'deps':deps})
     else:
         return render(request, 'reg_jounals/no_auth.html')
 

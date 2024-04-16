@@ -1,7 +1,7 @@
 {%extends "reg_jounals/index.html" %}
 {%load static%}
 {%block title%}Приказы по другим вопросам{%endblock%}
-{%block header%}<a class="button back" href="../"> < Назад</a>{%block logo%}{{block.super}}{%endblock%}  Журнал регистрации приказов по другим вопросам. Всего: {{count}}.  {%endblock%}
+{%block header%}<a class="button back" href="../"> < Назад</a>{%block logo%}{{block.super}}{%endblock%}  Журнал регистрации приказов по другим вопросам.  {%endblock%}
 {%block content%}
 
 <!-- <div id="frame_" class="frame">
@@ -21,7 +21,11 @@
 
 </div>
 
-<form id="orders-on-others-search-menu" class="standart-panel search panel" style="display: none;" action="{% url 'orders_on_others' %}">
+<form id="orders-on-others-search-menu" class="standart-panel search panel" style="display: none;"
+  action="{% url 'orders_on_others' %}">
+  
+  <input type="hidden" name="search-sign" value="1">
+  
   <div class="search-panel-input-group">
     <input type="text" name="orders-on-others-search-number" placeholder="Номер">
   </div>
@@ -39,18 +43,20 @@
     <input type="date" id="search_date2" name="oom_search_to" placeholder="По">
   </div>
   
-  <select class="" name="oom_search_res">
-    <option value="">Поиск по ответственному сотруднику</option>
-    {%for u in res_users %}
-    <option value="{{u.first_name}}">{{u.first_name}}</option>
-    {%endfor%}
-  </select>
-  
+  <div class="search-panel-input-group">
+    <select class="" name="oom_search_res">
+      <option value="">Поиск по ответственному сотруднику</option>
+      {%for u in res_users %}
+      <option value="{{u.first_name}}">{{u.first_name}}</option>
+      {%endfor%}
+    </select>
+  </div>
+
   <div class="search-panel-input-group">
     <button class="button add" type="submit" name="" value="Найти">Найти</button>
-    <a class="button cancel" >Сбросить</a>
+    <a class="button cancel">Сбросить</a>
   </div>
-  
+
 </form>
 
 
@@ -77,7 +83,7 @@
 
     <td id="date">{{order.oom_date|date:"d.m.Y"}}</td>
     <td id="number">{{order.oom_number}}</td>
-    <td id="content">{{order.oom_content}}</td>
+    <td id="content">{{order.oom_content | truncatechars:40}}</td>
     <td id="res_officer">{{order.oom_res_officer}}</td>
 
 </tr>

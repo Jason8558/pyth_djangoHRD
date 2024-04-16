@@ -27,7 +27,7 @@
 </style>
 
 <div class="standart-panel form-stages">
-  <div class="stage-container">
+  <div id="stage-container-1" class="stage-container stage-container-active">
     <div class="stage-number">
       <h3>1</h3>
     </div>
@@ -36,8 +36,8 @@
     </div>
   </div>
 
-  <div class="stage-container">
-    <div class="stage-number">
+  <div  id="stage-container-2" class="stage-container stage-container-disabled">
+    <div class="stage-number ">
       <h3>2</h3>
     </div>
     <div class="stage-name">
@@ -47,6 +47,15 @@
 
 </div>
 <div class="form-stages-container">
+
+  <div class="form-stages-container-next-stage back"
+    onclick="change_stage_panel('personnel-stage-2', 'personnel-stage-1', 'personnel-next-switch', 'personnel-prev-switch', 'stage-container-2:stage-container-1' )" id="personnel-prev-switch">
+    <div class="form-stages-container-next-stage-icon">
+      <img src="{% static 'img/arrow-next.png' %}" alt="">
+    </div>
+  </div>
+
+
   <form class="standart-panel standart-form personnel" action="" method="post">
     {% csrf_token %}
 
@@ -55,14 +64,15 @@
       <h4>Номер приказа <span id='next_num'>{{next_num}}ЛС</span></h4>
     </div>
 
-    <div class="standart-form-stage-panel" id="oreder-personnel-stage-panel">
+    <div class="standart-form-stage-panel" id="personnel-stage-1">
       <div class="standart-form-input-group inline">
         <p id="order-of-personell-name-field"><span>{{form.op_emloyer.label}}:</span>{{form.op_emloyer}}</p>
-        <p><span>{{form.op_type.label}}:</span>{{form.op_type}}</p>
         <p><span>{{form.op_date.label}}:</span>{{form.op_date}}</p>
+        <p><span>{{form.op_type.label}}:</span>{{form.op_type}}</p>
       </div>
       <div class="standart-form-input-group inline">
         <p><span>{{form.op_dep.label}}:</span>{{form.op_dep}}</p>
+        <p id="op_resign"><span>{{form.op_dateOfRes.label}}:</span>{{form.op_dateOfRes}}</p>
 
 
       </div>
@@ -74,77 +84,91 @@
       <div class="standart-form-input-group inline">
         <p id="op_invite"><span>{{form.op_dateOfInv.label}}:</span>{{form.op_dateOfInv}}</p>
         <p id="tab_pos"><span><label for="tab_pos">Должность:</label></span><select class="tabel-stage-input"
-            name="tab_pos" disabled>
+            name="tab_pos" id="tab_pos_select" disabled>
             {% for pos in tab_pos %}
             <option value="{{pos.id}}">{{pos.name}}</option>
             {%endfor%}
           </select></p>
-        <p id="op_resign"><span>{{form.op_dateOfRes.label}}:</span>{{form.op_dateOfRes}}</p>
+       
         <p id="op_typeOfWork"><span>{{form.op_typeOfWork.label}}:</span>{{form.op_typeOfWork}}</p>
         <p id="op_probation"><span>{{form.op_probation.label}}:</span>{{form.op_probation}}</p>
         <p id="op_moveFrom"><span>{{form.op_moveFrom.label}}:</span>{{form.op_moveFrom}}</p>
         <p id="op_moveTo"><span>{{form.op_moveTo.label}}:</span>{{form.op_moveTo}}</p>
       </div>
+      
+      <div class="standart-form-footer" id="personnel-footer">
+        <div class="standart-form-input-group">
+          <p>{{form.op_content.label}}:{{form.op_content}}</p>
+        </div>
+
+
+
+        <div class="standart-form-input-group inline">
+          <input class="button add" type="submit" value="Добавить" />
+          <a class="button cancel" href=".">Отмена</a>
+        </div>
+      </div>
+    </div>
+
+
+    <div style="display: none;" id="personnel-stage-2" class="standart-form-stage-panel">
+
+      <div class="standart-form-input-group inline">
+        <p><span>ФИО:</span><input type="text" name="short_fio" id='short_fio' value="" disabled required></p>
+        <p><span>Пол:</span>
+          <select class="tabel-stage-input" name="tab_sex" disabled>
+            <option value="М">М</option>
+            <option value="Ж">Ж</option>
+
+          </select>
+        </p>
+      </div>
+
+      <div class="standart-form-input-group inline">
+        <p><span>Подразделение таб. учета:</span><select class="tabel-stage-input" name="dep_for_tabel" disabled>
+            {% for dep in tab_deps %}
+            <option value="{{dep.id}}">{{dep.name}}</option>
+            {%endfor%}
+          </select></p>
+
+
+        <p><span>Подчиненное подразделение:</span><select class="tabel-stage-input" name="subdep_for_tabel" disabled>
+            <option value="0">---</option>
+            {% for dep in tab_subdeps %}
+            <option value="{{dep.id}}">{{dep.name}}</option>
+            {%endfor%}
+          </select></p>
+      </div>
+
+      <div class="standart-form-input-group inline">
+
+        <p><span>Разряд(категория):</span><input class="tabel-stage-input" type="text" id="tab_level" name="tab_level" value="" disabled required>
+        </p>
+        <p><span>Ст. оплаты:</span><input type="text" class="tabel-stage-input" id="tab_payment" name="tab_payment" id="" disabled required></p>
+
+        <p><span>Реж. работы</span><select  class="tabel-stage-input" name="tab_work" disabled>
+            <option value="0">Дневной</option>
+            <option value="1">Сменный</option>
+          </select></p>
+      </div>
+
+
+
 
 
     </div>
 
-    <div style="display: none;" class="to_tabel">
-      <h4>Табельный учет</h4>
-      <label for="short_fio">ФИО:</label>
-      <p><input type="text" name="short_fio" id='short_fio' value="" disabled required></p>
-      <p><label for="tab_pos">Должность:</label></p>
-      <p><select class="" id="tab_pos" name="tab_pos" disabled>
-          {% for pos in tab_pos %}
-          <option value="{{pos.id}}">{{pos.name}}</option>
-          {%endfor%}
-        </select></p>
-      <label for="dep_for_tabel">Подразделение табельного учета:</label>
-      <p><select class="" name="dep_for_tabel" disabled>
-          {% for dep in tab_deps %}
-          <option value="{{dep.id}}">{{dep.name}}</option>
-          {%endfor%}
-        </select></p>
-      <label for="subdep_for_tabel">Подчиненное подразделение табельного учета(если есть):</label>
-      <p><select class="" name="subdep_for_tabel" disabled>
-          <option value="0">---</option>
-          {% for dep in tab_subdeps %}
-          <option value="{{dep.id}}">{{dep.name}}</option>
-          {%endfor%}
-        </select></p>
-      <p><label for="tab_level">Разряд\категория:</label></p>
-      <p><input type="text" id="tab_level" name="tab_level" value="" disabled required></p>
-      <p><label for="tab_payment">Ступень оплаты:</label></p>
-      <p><input type="text" id="tab_payment" name="tab_payment" id="" disabled required></p>
-      <p><label for="tab_work">Режим работы:</label></p>
-      <p><select class="" name="tab_work" disabled>
-          <option value="0">Дневной</option>
-          <option value="1">Сменный</option>
-
-        </select></p>
-      <p><label for="tab_sex">Пол:</label></p>
-      <p><select class="" name="tab_sex" disabled>
-          <option value="М">М</option>
-          <option value="Ж">Ж</option>
-
-        </select></p>
-    </div>
 
 
 
-    <p>{{form.op_content.label}}:{{form.op_content}}</p>
 
-    <div class="standart-form-input-group inline">
-      <input class="button add" type="submit" value="Добавить" />
-      <a class="button cancel" href=".">Отмена</a>
-    </div>
   </form>
-
-  <div class="form-stages-container-next-stage">
+  <div class="form-stages-container-next-stage"  style="display: none;" id="personnel-next-switch" onclick="change_stage_panel('personnel-stage-1', 'personnel-stage-2', 'personnel-prev-switch', 'personnel-next-switch', 'stage-container-1:stage-container-2' )">
     <div class="form-stages-container-next-stage-icon">
-        <img src="{% static 'img/arrow-next.png' %}" alt="">
+      <img src="{% static 'img/arrow-next.png' %}" alt="">
     </div>
   </div>
+
 </div>
 
 

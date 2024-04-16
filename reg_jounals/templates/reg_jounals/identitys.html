@@ -1,25 +1,52 @@
 {%extends "reg_jounals/index.html" %}
-
+{% load static %}
 {%block title%}Удостоверения{%endblock%}
-{%block header%}{%block logo%}{{block.super}}{%endblock%}<a class="btn btn-dark" href="../">< назад</a> Журнал регистрации удостоверений. Всего: {{count}}.  {%endblock%}
+{%block header%}<a class="button back" href="../">< назад</a>{%block logo%}{{block.super}}{%endblock%}Журнал регистрации удостоверений.{%endblock%}
 {%block content%}
-<div id="frame_" class="frame idents">
-  <iframe id="iframe" class="iidents" src="" width="" height=""></iframe>
-  <button type="button" class="btn btn-success" onclick="send_submit()" name="button">Сохранить</button>
-  <button type="button" onclick="close_frame()"class="btn btn-outline-danger" name="button">Отмена</button>
+
+<div class="standart-menu">
+  <a class="button add" href="{% url 'identity_add_url'%}">Добавить</a>
+
+
+  <div class="standart-menu-submenu-container">
+    <img src="{% static '/img/filter.png' %}" onclick="open_search_menu(this, 'identitys-search-menu')"
+      alt="">
+  </div>
+
 </div>
-<form action="{% url 'identity' %}">
-  <input type="search" name="ident_search" placeholder="Поиск по ФИО..">
-  <select class="" name="ident_dep_search">
-    <option value="">Выберите подразделения для поиска</option>
-    {%for dep in deps%}
+
+<form id="identitys-search-menu" style="display: none;" class="standart-panel search panel" action="{% url 'identity' %}">
+  
+  <input type="hidden" name="search-sign" value="1">
+  
+  <div class="search-panel-input-group">
+    <input type="search" name="ident_search" placeholder="ФИО">
+  </div>
+  
+  <div class="search-panel-input-group">
+    <div class="search-panel-input-group-header">
+      <h5>Период:</h5>
+    </div>
+    <input type="date" name="identity-search-date-from" id="">
+    <input type="date" name="identity-search-date-to" id="">
+  </div>
+
+  <div class="search-panel-input-group">
+    <select class="" name="ident_dep_search">
+      <option value="">Подразделение</option>
+      {%for dep in deps%}
       <option value="{{dep.id}}">{{dep}}</option>
-    {%endfor%}
-  </select>
-  <button class="btn btn-sm btn-dark" type="submit" name="" value="Найти">Найти</button>
+      {%endfor%}
+    </select>
+  </div>
+  
+  <div class="search-panel-input-group">
+    <button class="button add" type="submit" name="" value="Найти">Найти</button>
+    <a href="." class="button cancel">Сбросить</a>
+  </div>
+
 </form>
-<!-- <button class="btn btn-success btn-lg m-bottom btn-add " type="button" name="button" onclick="open_frame_new()"> + Добавить</button> -->
-<a class="btn btn-success btn-lg m-bottom btn-add" href="{% url 'identity_add_url'%}"> + Добавить</a>
+
 {% if idents %}
 <table>
   <thead class="thead-dark">

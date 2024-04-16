@@ -87,35 +87,27 @@
     
     
     <!-- поисковая панель -->
-    <div id="vac_shed-search-panel" class="standart-panel search" style="display: none;">
+    <form id="vac_shed-search-panel" class="standart-panel search" style="display: none;" action="{% url 'vacshed_url'%}">
       
-      <div class="search-panel-header">
-        <h4>Фильтр: </h4>
-      </div>
+      <input type="hidden" name="search-sign" value="1">
 
-      <div class="search-panel-input-group">
-        <label for="search-department">Подразделение: </label>
+      <div class="search-panel-input-group inline">
         <select name="search-department" id="search-department">
-          <option value="0">Плейсхолдер</option>
+          <option value="">Подразделение</option>
           {% for dep in deps_for_filter %}
             <option value="{{dep.id}}">{{dep.name}}</option>
           {% endfor %}
         </select>
+      
+        <input type="text" name="search-year" placeholder="Год" id="search-year">
       </div>
 
       <div class="search-panel-input-group">
-        <label for="search-year">Год: </label>
-        <input type="text" name="search-year" id="search-year">
+        <input class="button add" type="submit" value="Применить">
+        <a class="button cancel" href="." >Сбросить</a>
       </div>
 
-      <div class="search-panel-input-group">
-        <input class="button add" type="button" value="Применить">
-        <input class="button cancel" type="button" value="Сбросить">
-      </div>
-
-
-
-    </div>
+    </form>
     <!-- 1 -->
      
     <div class="list-container">

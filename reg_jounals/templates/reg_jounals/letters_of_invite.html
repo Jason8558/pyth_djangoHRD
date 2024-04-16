@@ -18,6 +18,9 @@
     </div>
 
     <form style="display: none;" id="letters-of-invite-search-menu" class="standart-panel search panel" action="{% url 'invite' %}">
+      
+      <input type="hidden" name="search-sign" value="1">
+      
       <div class="search-panel-input-group">
         <input type="search" name="loi_search" placeholder="ФИО">
       </div>
@@ -28,13 +31,6 @@
         </div>
         <input type="date" name="letters-of-invite-search-from" id="">
         <input type="date" name="letters-of-invite-search-to" id="">
-      </div>
-
-      <div class="search-panel-input-group">
-        <div class="search-panel-input-group-header">
-          <h5>Дата приема на работу:</h5>
-        </div>
-        <input type="date" name="letters-of-invite-search-date-invite" id="">
       </div>
 
       <div class="search-panel-input-group">
@@ -78,7 +74,7 @@
         <td id="number">{{let.loi_number}}</td>
         <td id="date">{{let.loi_date|date:"d.m.Y"}}</td>
         <td class="table-non-wrap" id="emloyer">{{let.loi_employee}}</td>
-        <td class="table-non-wrap" id="pos">{{let.loi_position}}</td>
+        <td class="table-non-wrap" id="pos">{{let.loi_position | truncatechars:15}} </td>
         <td class="table-non-wrap" id="dep">{{let.loi_department}}</td>
         <td id="dateofinv">{{let.loi_dateOfInv|date:"d.m.Y"}}</td>
         <td class="table-non-wrap" id="res_officer">{{let.loi_res_officer}}</td>

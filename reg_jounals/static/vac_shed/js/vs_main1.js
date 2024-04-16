@@ -818,9 +818,9 @@ function open_search_menu(el) {
 
   vacshed_search_panel.style.display    = 'flex'
   vacshed_search_panel.style.position   = 'absolute'
-  vacshed_search_panel.style.top        = (Number(coords.top) + 40) + 'px'
+  vacshed_search_panel.style.top        = (Number(coords.top) + 30) + 'px'
   vacshed_search_panel.style.left       = coords.left + 'px'
-  vacshed_search_panel.style.height     = '142px' 
+  vacshed_search_panel.style.height     = '81px' 
 
   vacshed_search_panel.addEventListener('mouseleave', (vsp) => {
     close_all_forms()
