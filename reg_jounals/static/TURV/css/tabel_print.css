@@ -125,7 +125,7 @@ width: 46px;
 
 td {
   font-weight: 700 !important;
-  word-wrap: break-word; /* не забыть убрать эту херню! */
+  /* word-wrap: break-word; не забыть убрать эту херню! */
   /* border: 2px solid black !important; */
   font-size: 11pt;
 }

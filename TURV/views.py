@@ -518,7 +518,7 @@ def over_tabels(request):
         return redirect('/accounts/login/')
 
 def tabels_forload(request):
-    if request.user.is_authenticated and request.user.is_superuser:
+    if request.user.is_authenticated:
         if request.method == 'POST':
             year = request.POST.get('fl-year', '')
             month = request.POST.get('fl-month',  '')
