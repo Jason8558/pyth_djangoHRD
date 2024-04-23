@@ -1,6 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
-from TURV.models import Employers
+from TURV.models import Employers, Department as TURV_departments
 
 # Create your models here.
 
@@ -143,13 +143,15 @@ class OrdersOnPersonnel(models.Model):
     op_moveFrom = models.DateField(default='0001-01-01', blank=True, null=True, help_text="Введите начало периода перевода", verbose_name="Перевод с:", db_index=True)
     op_moveTo = models.DateField(default='0001-01-01', blank=True, null=True, help_text="Введите окончания периода перевода", verbose_name="по:", db_index=True)
     op_dep = models.ForeignKey('Departments', on_delete=models.CASCADE,  verbose_name="Подразделение ", default="1")
-    op_emloyer = models.CharField(max_length=256, help_text="Введите ФИО сотрудника", verbose_name="ФИО сотрудника", db_index=True)
+    op_emloyer = models.CharField(max_length=256, help_text="Введите ФИО сотрудника", verbose_name="ФИО сотрудника", db_index=True, null=True)
     op_content = models.TextField(help_text="Введите содержание", verbose_name="Содержание приказа")
     op_selected = models.BooleanField(verbose_name="Выделить в списке", default=False)
     op_lastcheck = models.BooleanField(verbose_name="Последний проверенный", default=False)
     op_res_officer = models.CharField(blank=True, editable=False,  max_length=256, help_text="Сотрудник, который внес документ в систему ", verbose_name='Ответственный сотрудник')
 
-    bound_employer = models.ForeignKey('TURV.Employers', on_delete=models.CASCADE, verbose_name='Связанный работник', null=True)
+    bound_employer              = models.ForeignKey('TURV.Employers', on_delete=models.CASCADE, verbose_name='Связанный работник', null=True)
+    grounds_for_resignation     = models.ForeignKey('ItemOfResignation', on_delete=models.CASCADE, verbose_name="Основание увольнения", null=True, blank=True)
+    department                  = models.ForeignKey('TURV.Department', on_delete=models.CASCADE, verbose_name='Подразделение', null=True)
 
     class Meta:
         ordering = ["-op_date"]

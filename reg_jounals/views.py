@@ -15,6 +15,7 @@ from TURV.models import Overtime as TOt
 from .search import *
 from django.contrib.auth.decorators import login_required
 import json
+from .additionals import create_or_update_employer
 
 def get_user_name(request):
     username = request.user.first_name
@@ -529,12 +530,12 @@ def order_on_personnel(request):
 
 def nr_OrderOnPersonnel(request):
     if request.user.is_authenticated:
-        tab_deps = TDep.objects.all().filter(is_aup=0)
-        tab_subdeps = TDep.objects.filter(is_aup=1)
-        tab_pos = TPos.objects.all()
-        order_form = OrdersOnPersonnel_form()
-        depts = Departments.objects.all()
-        orders = OrdersOnPersonnel.objects.all().order_by('id')
+        tab_deps        = TDep.objects.all().filter(is_aup=0)
+        tab_subdeps     = TDep.objects.filter(is_aup=1)
+        tab_pos         = TPos.objects.all()
+        order_form      = OrdersOnPersonnel_form()
+        depts           = Departments.objects.all()
+        orders          = OrdersOnPersonnel.objects.all().order_by('id')
 
         order_count = len(orders)
         if order_count == 0:
@@ -545,56 +546,36 @@ def nr_OrderOnPersonnel(request):
             order_next_num_ = int(order_prev_num[:cut_symb]) + 1
 
         if request.method == "POST":
-            # -----------------------------------------
-            tname = request.POST.get('short_fio','')
-            tpos = request.POST.get('tab_pos','')
-            tdep = request.POST.get('dep_for_tabel','')
-            tsdep = request.POST.get('subdep_for_tabel','')
-            tlvl = request.POST.get('tab_level','')
-            tpay = request.POST.get('tab_payment','')
-            twork = request.POST.get('tab_work', '')
-            tsex = request.POST.get('tab_sex','')
+            
+            bound_employer  = request.POST.get('order-of-personell-bound-employer-field', '')
+            department      = request.POST.get('dep_for_tabel','')
 
+            emp_info = {
+                'fullname':         request.POST.get('short_fio',''),
+                'position':         request.POST.get('tab_pos',''),
+                'department':       department,
+                'sub_department':   request.POST.get('subdep_for_tabel',''),
+                'level':            request.POST.get('tab_level',''),
+                'payment_level':    request.POST.get('tab_payment',''),
+                'shift':            request.POST.get('tab_work', ''),
+                'sex':              request.POST.get('tab_sex','')  
 
-            # -----------------------------------------
-            order_form =OrdersOnPersonnel_form(request.POST)
+            }
+   
+            order_form = OrdersOnPersonnel_form(request.POST)
             if order_form.is_valid():
-                user_ = request.user.first_name
-                order_form.saveFirst(user_)
+                user_       = request.user.first_name
+                new_order   = order_form.saveFirst(user_, bound_employer, department)
+                
 
-                if tname and tpos and tdep and tlvl and tpay and twork:
-                    tpos_ = TPos.objects.get(id=tpos)
-                    tdep_ = TDep.objects.get(id=tdep)
-                    if tsdep != '0':
-                        tsdep_ = TDep.objects.get(id=tsdep)
-                    else:
-                        tsdep_= None
-                    if twork == '1':
-                        year_ = str(DT.datetime.now().year) + "-01-01"
-                        print(year_)
-                        wtime = TOt.objects.get(year=year_)
-                        print(wtime.year)
-                        if tsex == "М":
-                            wtime = wtime.value_m
-                        else:
-                            wtime = wtime.value_w
+                if emp_info['fullname'] and emp_info['position'] and emp_info['department'] and emp_info['level'] and emp_info['payment_level'] and emp_info['shift']:
 
-                    else:
-                        wtime = 0
+                    
+                    new_emp = create_or_update_employer(0,emp_info)
 
-                    new_emp = TEmps.objects.create(
-                    fullname = tname,
-                    sex = tsex,
-                    level = tlvl,
-                    positionOfPayment = tpay,
-                    department = tdep_,
-                    aup = tsdep_,
-                    position = tpos_,
-                    shift_personnel = twork,
-                    stand_worktime = wtime,
-                    fired = 0
-                    )
-                    new_emp.save()
+                    if new_emp:
+                        new_order.bound_employer = new_emp
+                        new_order.save()
 
 
                 return redirect('../orders_on_personnel/')
@@ -607,13 +588,35 @@ def upd_OrderOnPersonnel(request, id):
         if request.method == "GET":
             order = OrdersOnPersonnel.objects.get(id__iexact=id)
             bound_form = OrdersOnPersonnel_form(instance=order)
-            return render(request, 'reg_jounals/OrdersOnPersonnel_upd.html', context={'form':bound_form, 'order':order})
+            bound_employer = order.bound_employer
+            deps = TDep.objects.filter(notused=0)
+            positions = TPos.objects.all().order_by('name')
+            return render(request, 'reg_jounals/OrdersOnPersonnel_upd.html', context={'form':bound_form, 'order':order, 'employer':bound_employer, 'tab_deps':deps.filter(is_aup=0), 'tab_subdeps':deps.filter(is_aup=1), 'tab_pos':positions})
         else:
             order = OrdersOnPersonnel.objects.get(id__iexact=id)
             bound_form = OrdersOnPersonnel_form(request.POST, instance=order)
+
             if bound_form.is_valid():
                 user_ = request.user.first_name
                 new_obj = bound_form.save()
+
+                if order.bound_employer:
+                    # Обновить информацию о работнике в приказе
+                    emp_info = {
+                    'fullname':         request.POST.get('short_fio',''),
+                    'position':         request.POST.get('tab_pos',''),
+                    'department':       request.POST.get('dep_for_tabel',''),
+                    'sub_department':   request.POST.get('subdep_for_tabel',''),
+                    'level':            request.POST.get('tab_level',''),
+                    'payment_level':    request.POST.get('tab_payment',''),
+                    'shift':            request.POST.get('tab_work', ''),
+                    'sex':              request.POST.get('tab_sex','')  
+
+                    }
+
+                    if emp_info['fullname'] and emp_info['position'] and emp_info['department'] and emp_info['level'] and emp_info['payment_level'] and emp_info['shift']:
+                        create_or_update_employer(order.bound_employer_id,emp_info)
+                
                 return redirect('/orders_on_personnel')
             else:
                 ers = bound_form.errors.as_data()
@@ -621,6 +624,9 @@ def upd_OrderOnPersonnel(request, id):
                 for e in ers.keys():
                     print(str(e) + ' ' + str(ers.get(e)))
                 return render(request, 'reg_jounals/OrdersOnPersonnel_upd.html', context={'form':bound_form, 'order':order})
+
+
+
 def del_OrderOnPersonnel(request, id):
     if request.user.is_authenticated:
         order = OrdersOnPersonnel.objects.get(id__iexact=id)

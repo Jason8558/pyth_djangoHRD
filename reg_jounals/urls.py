@@ -1,5 +1,6 @@
 from django.urls import path
 from . import views
+from .additionals import *
 
 urlpatterns = [
     path('', views.index, name='index'),
@@ -65,5 +66,6 @@ urlpatterns = [
     path('reports/', views.reports, name='reports_url'),
     path('invite_checkin/new', views.invite_checkin, name='invite_checkin_new'),
     path('invite_checkin/<int:count>', views.invite_checkin_get, name='invite_checkin_new'),
-    path('invite_checkin/cancel/<int:id>', views.invite_checkin_cancel, name='invite_checkin_cancel')
+    path('invite_checkin/cancel/<int:id>', views.invite_checkin_cancel, name='invite_checkin_cancel'),
+    path('api/get_employers/<int:department_id>', get_employers_from_department, name='api_employers')
      ]

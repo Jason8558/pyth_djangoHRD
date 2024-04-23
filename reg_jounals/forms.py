@@ -3,6 +3,7 @@ from django.core.exceptions import NON_FIELD_ERRORS
 from .models import *
 from django.contrib.auth.forms import AuthenticationForm
 import datetime as DT
+from TURV.models import Employers, Department as TURVDepartment
 
 def last_doc(dname):
     ld = dname.objects.latest("id")
@@ -215,6 +216,9 @@ class OrdersOnPersonnel_form(forms.ModelForm):
     class Meta:
         model = OrdersOnPersonnel
         fields = [
+    # 'department',
+    'grounds_for_resignation',
+    'bound_employer',
     'op_date',
     'op_dateOfInv',
     'op_dateOfRes',
@@ -227,10 +231,12 @@ class OrdersOnPersonnel_form(forms.ModelForm):
     'op_lastcheck',
     'op_selected']
 
+    # grounds_for_resignation = forms.ChoiceField(widget=forms.Select(attrs={'id':''}))
+
     op_date = forms.CharField(label="Дата приказа" , widget=forms.TextInput(
         attrs={'placeholder': 'Введите дату',  'type':'date'}))
-    op_emloyer = forms.CharField(label='ФИО сотрудника (полностью!)*', widget=forms.TextInput(
-    attrs={'onchange':'sfio()'}
+    op_emloyer = forms.CharField(label='ФИО сотрудника (полностью!)*', required=False, widget=forms.TextInput(
+    attrs={'onchange':'sfio()', 'required':False}
     ))
     op_dateOfInv = forms.CharField(label="Дата приема на работу" , required=False, widget=forms.TextInput(
         attrs={'placeholder': 'Введите дату',  'type':'date', 'value':'01.01.0002'}))
@@ -245,13 +251,18 @@ class OrdersOnPersonnel_form(forms.ModelForm):
         attrs={'placeholder': 'Введите дату',  'type':'date'}))
 
 
+
     # op_type = forms.ChoiceField(label='Вид приказа: ', widget=forms.Select(attrs={
     # 'onselect':'lock_fields()' }))
 
-    def saveFirst(self, user_):
-        current_doc = last_doc(OrdersOnPersonnel)
-        orders = OrdersOnPersonnel.objects.all().order_by('id')
-        order_count = len(orders)
+    def saveFirst(self, user_, bound_employer_id:int, department_id:int):
+        if bound_employer_id != "":
+           bound_employer_id = Employers.objects.get(id=bound_employer_id) 
+        
+        current_doc     = last_doc(OrdersOnPersonnel)
+        orders          = OrdersOnPersonnel.objects.all().order_by('id')
+        order_count     = len(orders)
+        
         if order_count == 0:
             order_next_num_ = 1
         else:
@@ -263,19 +274,18 @@ class OrdersOnPersonnel_form(forms.ModelForm):
                 order_next_num_ = int(order_prev_num[:cut_symb]) + 1
 
         next_id = int(OrdersOnPersonnel.objects.latest('id').id) + 1
+        
         logs.objects.create(
-        date = DT.datetime.now(),
-        event = logs_event.objects.get(id=1),
-        doc_id = next_id,
-        type = 'Приказ по личному составу',
-        number = str(order_next_num_) + 'ЛС',
-        doc_date = self.cleaned_data['op_date'],
-        addData = '',
-        link = '/orders_on_personnel/' + str(next_id) + '/upd',
+        date        = DT.datetime.now(),
+        event       = logs_event.objects.get(id=1),
+        doc_id      = next_id,
+        type        = 'Приказ по личному составу',
+        number      = str(order_next_num_) + 'ЛС',
+        doc_date    = self.cleaned_data['op_date'],
+        addData     = '',
+        link        = '/orders_on_personnel/' + str(next_id) + '/upd',
         res_officer = user_
         )
-
-        print('date is ' + str(self.cleaned_data['op_dateOfInv']))
 
         if self.cleaned_data['op_dateOfInv'] == "":
             dateofInv = '0001-01-01'
@@ -283,9 +293,9 @@ class OrdersOnPersonnel_form(forms.ModelForm):
             dateofInv = self.cleaned_data['op_dateOfInv']
 
         if self.cleaned_data['op_dateOfRes'] == "":
-            dateofInv = '0001-01-01'
+            dateofRes = '0001-01-01'
         else:
-            dateofInv = self.cleaned_data['op_dateOfRes']
+            dateofRes = self.cleaned_data['op_dateOfRes']
 
         if self.cleaned_data['op_moveFrom'] == "":
             moveFrom = '0001-01-01'
@@ -298,18 +308,22 @@ class OrdersOnPersonnel_form(forms.ModelForm):
             moveTo = self.cleaned_data['op_moveTo']
 
         new_order = OrdersOnPersonnel.objects.create(
-            op_date  = self.cleaned_data['op_date'],
-            op_type = self.cleaned_data['op_type'],
-            op_dateOfInv = dateofInv,
-            op_typeOfWork = self.cleaned_data['op_typeOfWork'],
-            op_probation = self.cleaned_data['op_probation'],
-            op_moveFrom = moveFrom,
-            op_moveTo = moveTo,
-            op_number  = str(order_next_num_)+"ЛС",
-            op_dep = self.cleaned_data['op_dep'],
-            op_content = self.cleaned_data['op_content'],
-            op_emloyer = self.cleaned_data['op_emloyer'],
-            op_res_officer = user_
+            department                  = TURVDepartment.objects.get(id=department_id),
+            bound_employer              = bound_employer_id,
+            grounds_for_resignation     = self.cleaned_data['grounds_for_resignation'],
+            op_date                     = self.cleaned_data['op_date'],
+            op_type                     = self.cleaned_data['op_type'],
+            op_dateOfInv                = dateofInv,
+            op_dateOfRes                = dateofRes,
+            op_typeOfWork               = self.cleaned_data['op_typeOfWork'],
+            op_probation                = self.cleaned_data['op_probation'],
+            op_moveFrom                 = moveFrom,
+            op_moveTo                   = moveTo,
+            op_number                   = str(order_next_num_)+"ЛС",
+            op_dep                      = self.cleaned_data['op_dep'],
+            op_content                  = self.cleaned_data['op_content'],
+            op_emloyer                  = self.cleaned_data['op_emloyer'],
+            op_res_officer              = user_
         )
 
         return new_order

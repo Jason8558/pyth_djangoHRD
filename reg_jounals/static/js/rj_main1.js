@@ -243,11 +243,25 @@ else {
 //Сокращение имени
 
 function sfio() {
-fio = $('#id_op_emloyer').val().split(" ")
-name = fio[1]
-patronymic = fio[2]
-new_fio = fio[0] + " " + name[0] + "." + patronymic[0] + "."
-$('#short_fio').val(new_fio)
+  fio = $('#id_op_emloyer').val().split(" ")
+  if (fio.length == 2) {
+    // если ввели сразу сокращенно
+    second_name = fio[0]
+    initials = fio[1]
+    new_fio = second_name + " " + initials
+  }
+  else {
+    first_name = fio[1]
+    patronymic = fio[2]
+    new_fio = fio[0] + " " + first_name[0] + "." + patronymic[0] + "."
+  }
+  
+  $('#short_fio').val(new_fio)
+  fio_update_field = document.getElementById('order-of-personnel-update-fullname')
+
+  if (fio_update_field) {
+    fio_update_field.innerText = new_fio
+  }
 }
 
 function all_off() {
@@ -281,7 +295,11 @@ function closeAllFields() {
   $('#op_moveFrom').css('display','none')
   $('#op_moveTo').css('display','none')
   $('#tab_pos').css('display','none')
+  // $('#id_grounds_for_resignation').css('display', 'none')
 
+  document.getElementById('id_grounds_for_resignation').parentNode.style.display = 'none'
+  
+  
   form_footer   = document.getElementById('personnel-footer')
   panel_stage_1 = document.getElementById('personnel-stage-1')
   panel_stage_1.append(form_footer)
@@ -289,6 +307,10 @@ function closeAllFields() {
 
   document.getElementById('personnel-next-switch').style.display = "none"
   document.getElementById('personnel-prev-switch').style.display = "none"
+  
+  bound_employer_field = document.getElementById('order-of-personell-bound-employer-field')
+  bound_employer_field.parentNode.style.display = 'none'
+  bound_employer_field.disabled = true
 }
 
 function inviteOnWork() {
@@ -304,10 +326,32 @@ function inviteOnWork() {
   document.getElementById('personnel-next-switch').style.display = "flex"
   document.getElementById('stage-container-2').classList.remove('stage-container-disabled')
 
+  bound_employer_field = document.getElementById('order-of-personell-bound-employer-field')
+  bound_employer_field.parentNode.style.display = 'none'
+  bound_employer_field.disabled = true
+
+  document.getElementById('order-of-personell-name-field').style.display = 'block'
+
 }
 
 function ResignFromWork() {
   $('#op_resign').css('display', '')
+  document.getElementById('id_grounds_for_resignation').parentNode.style.display = ''
+  document.getElementById('id_grounds_for_resignation').disabled = false
+  
+  bound_employer_field = document.getElementById('order-of-personell-bound-employer-field')
+  bound_employer_field.parentNode.style.display = 'flex'
+  bound_employer_field.disabled = false
+
+  employer_text_field = document.getElementById('id_op_emloyer')
+  employer_text_field.disabled = true
+  employer_text_field.parentNode.style.display = 'none'
+
+  
+
+  get_employers_from_department(document.getElementById('dep_for_tabel').value,'order-of-personell-bound-employer-field')
+
+
 
 }
 
@@ -574,4 +618,34 @@ function change_stage_panel(prev_panel, next_panel, prev_switch, next_switch, st
   
   next_panel.style.display  = 'flex'
   prev_switch.style.display = 'flex'
+}
+
+function get_employers_from_department(department_id, employers_field) {
+  department = department_id
+  employers_field = document.getElementById(employers_field)
+  // Отправляем запрос на сервер
+  $.ajax({
+    type: "GET",
+    url: "/api/get_employers/" + department, 
+    data: {},
+    dataType: "json",
+    success: (data) => { //в случае успеха чистим поле и выводим список работников
+      employers_field.innerHTML = ''
+
+      for (const employer of data) {
+        var opt = document.createElement('option');
+        opt.value = employer.id;
+        opt.innerHTML = employer.fullname;
+        employers_field.appendChild(opt);
+      }
+
+    },
+
+    error: function() { // в случае факапа выводим сообщение
+      alert('Что то пошло не так')
+    }
+
+
+  });
+
 }

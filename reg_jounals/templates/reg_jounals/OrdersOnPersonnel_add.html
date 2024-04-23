@@ -67,12 +67,21 @@
     <div class="standart-form-stage-panel" id="personnel-stage-1">
       <div class="standart-form-input-group inline">
         <p id="order-of-personell-name-field"><span>{{form.op_emloyer.label}}:</span>{{form.op_emloyer}}</p>
+        <p style="display: none;"> <span>Работник: </span> <select name="order-of-personell-bound-employer-field" id="order-of-personell-bound-employer-field" disabled>
+          <option value="">Работник</option>
+        </select></p>
         <p><span>{{form.op_date.label}}:</span>{{form.op_date}}</p>
         <p><span>{{form.op_type.label}}:</span>{{form.op_type}}</p>
       </div>
       <div class="standart-form-input-group inline">
-        <p><span>{{form.op_dep.label}}:</span>{{form.op_dep}}</p>
+        <!-- <p><span>{{form.op_dep.label}}:</span>{{form.op_dep}}</p> -->
+        <p><span>Подразделение:</span><select onchange="get_employers_from_department(this.value, 'order-of-personell-bound-employer-field')"  id="dep_for_tabel" name="dep_for_tabel" required>
+          {% for dep in tab_deps %}
+          <option value="{{dep.id}}">{{dep.name}}</option>
+          {%endfor%}
+        </select></p>
         <p id="op_resign"><span>{{form.op_dateOfRes.label}}:</span>{{form.op_dateOfRes}}</p>
+        <p><span>Основание увольнения:</span>{{form.grounds_for_resignation}}</p>
 
 
       </div>
@@ -114,7 +123,7 @@
     <div style="display: none;" id="personnel-stage-2" class="standart-form-stage-panel">
 
       <div class="standart-form-input-group inline">
-        <p><span>ФИО:</span><input type="text" name="short_fio" id='short_fio' value="" disabled required></p>
+        <p><span>ФИО:</span><p id="order-of-personnel-update-fullname"></p><input type="hidden" name="short_fio" id='short_fio' value=""></p>
         <p><span>Пол:</span>
           <select class="tabel-stage-input" name="tab_sex" disabled>
             <option value="М">М</option>
@@ -125,11 +134,7 @@
       </div>
 
       <div class="standart-form-input-group inline">
-        <p><span>Подразделение таб. учета:</span><select class="tabel-stage-input" name="dep_for_tabel" disabled>
-            {% for dep in tab_deps %}
-            <option value="{{dep.id}}">{{dep.name}}</option>
-            {%endfor%}
-          </select></p>
+
 
 
         <p><span>Подчиненное подразделение:</span><select class="tabel-stage-input" name="subdep_for_tabel" disabled>
@@ -175,6 +180,7 @@
 
 <script type="text/javascript">
   $('document').ready(function () {
+    document.getElementById('id_grounds_for_resignation').classList.add('tabel-stage-input')
     closeAllFields()
   })
   document.getElementById('id_op_type').onchange = function () {
@@ -256,9 +262,10 @@
 
       case '2':
         dateres = $('#id_op_dateOfRes').val().split('-')
+        grounds_for_resignation = document.getElementById('id_grounds_for_resignation')
         dateres = dateres[2] + '.' + dateres[1] + '.' + dateres[0]
 
-        text = 'Увольнение ' + dateres + ' по'
+        text = 'Увольнение ' + dateres + ' на основании ' + grounds_for_resignation.options[grounds_for_resignation.options.selectedIndex].text
         break;
 
       default:

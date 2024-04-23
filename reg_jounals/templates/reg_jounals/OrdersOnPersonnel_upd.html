@@ -1,5 +1,5 @@
 {% extends "reg_jounals/index.html" %}
-
+{% load static%}
 
 {%block title%}Приказ №{{order.op_number}}{% endblock %}
 {%block header%}{%block logo%}{{block.super}}{%endblock%}Изменить запись - Приказ №{{order.op_number}}{% endblock %}
@@ -8,6 +8,10 @@
 
 {% if form.errors%}
 
+<script>
+
+
+</script>
 
 <div class="alert alert-danger mt-5" role="alert">
 {{form.errors}}
@@ -21,50 +25,281 @@
     width: 9%;
   }
 </style>
-<form class="add_form personnel" action="" method="post" style="grid-template-areas: none !important; grid-gap: 14px;">
-  {% csrf_token %}
-
-  <p>{{form.op_selected.label}}:{{form.op_selected}} {{form.op_lastcheck.label}}:{{form.op_lastcheck}}</p>
-
-  <p>{{form.op_date.label}}:{{form.op_date}}</p>
-  <p>{{form.op_type.label}}:{{form.op_type}}</p>
-  <p id="op_invite">{{form.op_dateOfInv.label}}:{{form.op_dateOfInv}}</p>
-  <p id="op_typeOfWork">{{form.op_typeOfWork.label}}:{{form.op_typeOfWork}}</p>
-  <p id="op_probation">{{form.op_probation.label}}:{{form.op_probation}}</p>
-  <p id="op_moveFrom">{{form.op_moveFrom.label}}:{{form.op_moveFrom}}</p>
-  <p id="op_moveTo">{{form.op_moveTo.label}}:{{form.op_moveTo}}</p>
-  <p>{{form.op_emloyer.label}}:{{form.op_emloyer}}</p>
-  <p>{{form.op_dep.label}}:{{form.op_dep}}</p>
-  <p>{{form.op_content.label}}:{{form.op_content}}</p>
-
-<div class="buttons" style="grid-area:auto">
-  <input class="btn btn-success" type="submit" value="Сохранить" />
-
-
-    <a id="close" class="btn btn-outline-danger"  href="..">Закрыть</a>
+<div class="standart-panel form-stages">
+  <div id="stage-container-1" class="stage-container stage-container-active">
+    <div class="stage-number">
+      <h3>1</h3>
+    </div>
+    <div class="stage-name">
+      <h5>Основная информация</h5>
+    </div>
   </div>
 
-</form>
+  <div  id="stage-container-2" class="stage-container stage-container-disabled">
+    <div class="stage-number ">
+      <h3>2</h3>
+    </div>
+    <div class="stage-name">
+      <h5>Табельный учет</h5>
+    </div>
+  </div>
+
+</div>
+<div class="form-stages-container">
+
+  <div class="form-stages-container-next-stage back"
+    onclick="change_stage_panel('personnel-stage-2', 'personnel-stage-1', 'personnel-next-switch', 'personnel-prev-switch', 'stage-container-2:stage-container-1' )" id="personnel-prev-switch">
+    <div class="form-stages-container-next-stage-icon">
+      <img src="{% static 'img/arrow-next.png' %}" alt="">
+    </div>
+  </div>
+
+
+  <form class="standart-panel standart-form personnel" action="" method="post">
+    {% csrf_token %}
+
+
+    <div class="standart-form-header">
+      <h4>{{employer.fullname}}</h4>
+    </div>
+
+    <div class="standart-form-stage-panel" id="personnel-stage-1">
+      <div class="standart-form-input-group inline">
+        <p> <span>Работник: </span> <select name="order-of-personell-bound-employer-field" id="order-of-personell-bound-employer-field">
+          <option value="">Работник</option>
+        </select></p>
+        <p id="order-of-personell-name-field"><span>{{form.op_emloyer.label}}:</span>{{form.op_emloyer}}</p>
+        <p><span>{{form.op_date.label}}:</span>{{form.op_date}}</p>
+        <p><span>{{form.op_type.label}}:</span>{{form.op_type}}</p>
+      </div>
+      <div class="standart-form-input-group inline">
+        <p><span>{{form.op_dep.label}}:</span>{{form.op_dep}}</p>
+        <p id="op_resign"><span>{{form.op_dateOfRes.label}}:</span>{{form.op_dateOfRes}}</p>
+
+
+      </div>
+      <!-- <p>{{form.op_selected.label}}:{{form.op_selected}} {{form.op_lastcheck.label}}:{{form.op_lastcheck}}</p> -->
+
+
+
+
+      <div class="standart-form-input-group inline">
+        <p id="op_invite"><span>{{form.op_dateOfInv.label}}:</span>{{form.op_dateOfInv}}</p>
+        <p id="tab_pos"><span><label for="tab_pos">Должность:</label></span><select class="tabel-stage-input"
+            name="tab_pos" id="tab_pos_select" disabled>
+            {% for pos in tab_pos %}
+            <option value="{{pos.id}}">{{pos.name}}</option>
+            {%endfor%}
+          </select></p>
+       
+        <p id="op_typeOfWork"><span>{{form.op_typeOfWork.label}}:</span>{{form.op_typeOfWork}}</p>
+        <p id="op_probation"><span>{{form.op_probation.label}}:</span>{{form.op_probation}}</p>
+        <p id="op_moveFrom"><span>{{form.op_moveFrom.label}}:</span>{{form.op_moveFrom}}</p>
+        <p id="op_moveTo"><span>{{form.op_moveTo.label}}:</span>{{form.op_moveTo}}</p>
+      </div>
+      
+      <div class="standart-form-footer" id="personnel-footer">
+        <div class="standart-form-input-group">
+          <p>{{form.op_content.label}}:{{form.op_content}}</p>
+        </div>
+
+
+
+        <div class="standart-form-input-group inline">
+          <input class="button add" type="submit" value="Сохранить" />
+          <a class="button cancel" href=".">Отмена</a>
+        </div>
+      </div>
+    </div>
+
+
+    <div style="display: none;" id="personnel-stage-2" class="standart-form-stage-panel">
+
+      <div class="standart-form-input-group inline">
+        <input type="hidden" name="short_fio" id='short_fio' value="{{employer.fullname}}" required>
+        <p><h5 id="order-of-personnel-update-fullname">{{employer.fullname}}</h5></p>
+        <p><span>Пол:</span>
+          <select class="tabel-stage-input" name="tab_sex" id="tab_sex" disabled>
+            <option value="М">М</option>
+            <option value="Ж">Ж</option>
+
+          </select>
+        </p>
+      </div>
+
+      <div class="standart-form-input-group inline">
+        <p><span>Подразделение таб. учета:</span><select class="tabel-stage-input" id="dep_for_tabel" name="dep_for_tabel" disabled>
+            {% for dep in tab_deps %}
+            <option value="{{dep.id}}">{{dep.name}}</option>
+            {%endfor%}
+          </select></p>
+
+
+        <p><span>Подчиненное подразделение:</span><select class="tabel-stage-input" name="subdep_for_tabel" disabled>
+            <option value="0">---</option>
+            {% for dep in tab_subdeps %}
+            <option value="{{dep.id}}">{{dep.name}}</option>
+            {%endfor%}
+          </select></p>
+      </div>
+
+      <div class="standart-form-input-group inline">
+
+        <p><span>Разряд(категория):</span><input class="tabel-stage-input" type="text" id="tab_level" name="tab_level" value="{{employer.level}}" disabled required>
+        </p>
+        <p><span>Ст. оплаты:</span><input type="text" class="tabel-stage-input" id="tab_payment" name="tab_payment" value="{{employer.positionOfPayment}}" id="" disabled required></p>
+
+        <p><span>Реж. работы</span><select  class="tabel-stage-input" name="tab_work" id="tab_work" disabled>
+            <option value="0">Дневной</option>
+            <option value="1">Сменный</option>
+          </select></p>
+      </div>
+
+
+
+
+
+    </div>
+
+
+
+
+
+  </form>
+  <div class="form-stages-container-next-stage"  style="display: none;" id="personnel-next-switch" onclick="change_stage_panel('personnel-stage-1', 'personnel-stage-2', 'personnel-prev-switch', 'personnel-next-switch', 'stage-container-1:stage-container-2' )">
+    <div class="form-stages-container-next-stage-icon">
+      <img src="{% static 'img/arrow-next.png' %}" alt="">
+    </div>
+  </div>
+
+</div>
+
+
 
 <script type="text/javascript">
-  prev = document.referrer
-  $('#close').attr('href', prev)
+  $('document').ready(function () {
 
-  $('document').ready(function(){
-    closeAllFields()
+    order_type = parseInt('{{order.op_type.id}}', 10)
+
+    console.log('{{employer.shift_personnel}}');
+
+    switch (order_type) {
+      case 1:
+        document.getElementById('dep_for_tabel').value = '{{employer.department.id}}'
+        
+        if ('{{employer.shift_personnel}}' == 'True') {
+          document.getElementById('tab_work').value = 1
+        }
+        else {
+          document.getElementById('tab_work').value = 0
+        }
+       
+        document.getElementById('tab_sex').value = '{{employer.sex}}'
+        document.getElementById('tab_pos_select').value = '{{employer.position.id}}'
+     
+        closeAllFields()
+        all_on()
+        inviteOnWork()
+
+        break;
+    
+  }})
+  
+  
+  
+  document.getElementById('id_op_type').onchange = function () {
+
     switch ($('#id_op_type option:selected').val()) {
       case '1':
-          inviteOnWork()
+        closeAllFields()
+        all_on()
+        inviteOnWork()
+        break;
+
+      case '2':
+        closeAllFields()
+        all_off()
+        ResignFromWork()
         break;
 
       case '3':
-          MoveOnOtherWork()
-      break;
+        all_off()
+        closeAllFields()
+        MoveOnOtherWork()
+
+        break;
+
+
+      default:
+        all_off()
+        closeAllFields()
+
+    }
+
+
+  }
+
+  $("#id_op_typeOfWork").change(function () {
+    if (($('#id_op_typeOfWork option:selected').val() == "Временно") && ($('#id_op_type option:selected').val() == 3)) {
+      $('#op_moveTo').css('display', '')
+    }
+    else {
+      $('#op_moveTo').css('display', 'none')
+    }
+
+  })
+
+  $('#id_op_content').focus(function () {
+    // формирует содержание приказа
+
+
+    switch ($('#id_op_type option:selected').val()) {
+      case '1':
+
+        invdate = $('#id_op_dateOfInv').val().split('-')
+        invdate = invdate[2] + '.' + invdate[1] + '.' + invdate[0]
+
+        if ($('#id_op_probation').val()) {
+          probation = ', с испытательным сроком ' + $('#id_op_probation').val() + ' мес.'
+        }
+        else {
+          probation = ""
+        }
+
+        text = 'Прием c ' + invdate + ' ' + $('#id_op_typeOfWork option:selected').text().toLowerCase() + ' на должность ' + $('#tab_pos option:selected').text().toLowerCase() + ' по ' + $('#tab_payment').val() + ' ступени, разряд(категория): ' + $('#tab_level').val() + probation
+
+        break;
+
+      case '3':
+        date_from = $('#id_op_moveFrom').val().split('-')
+        date_from = date_from[2] + '.' + date_from[1] + '.' + date_from[0]
+
+        if ($('#id_op_moveTo').val()) {
+          date_to = $('#id_op_moveTo').val().split('-')
+          date_to = ' по ' + date_to[2] + '.' + date_to[1] + '.' + date_to[0]
+        }
+        else {
+          date_to = ''
+        }
+        text = 'Перевод ' + $('#id_op_typeOfWork option:selected').text().toLowerCase() + ' на должность ' + $('#tab_pos option:selected').text().toLowerCase() + ' c ' + date_from + date_to
+        break;
+
+      case '2':
+        dateres = $('#id_op_dateOfRes').val().split('-')
+        dateres = dateres[2] + '.' + dateres[1] + '.' + dateres[0]
+
+        text = 'Увольнение ' + dateres + ' по'
+        break;
 
       default:
 
     }
+
+    $('#id_op_content').val(text)
+
   })
+
+
 </script>
 
 {%endblock%}

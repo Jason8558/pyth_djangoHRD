@@ -96,7 +96,7 @@
       {%if order.op_selected %}
 
       <tr style="background: #f9dd89;"
-        ondblclick="return location.href = '{% url 'orders_on_personnel_upd_url' id=order.id%}' ">
+        onclick="return location.href = '{% url 'orders_on_personnel_upd_url' id=order.id%}' ">
         <!-- <tr id="{{order.id}}" style="background: #f9dd89;" class="t_row" ondblclick="open_for_upd({{order.id}})"> -->
         {%else%}
         {%if order.op_lastcheck %}
@@ -104,7 +104,7 @@
         ondblclick="return location.href = '{% url 'orders_on_personnel_upd_url' id=order.id%}' ">
         <!-- <tr id="{{order.id}}"  class="t_row" ondblclick="open_for_upd({{order.id}})"> -->
         {%else%}
-      <tr ondblclick="return location.href = '{% url 'orders_on_personnel_upd_url' id=order.id%}' ">
+      <tr onclick="return location.href = '{% url 'orders_on_personnel_upd_url' id=order.id%}' ">
         {%endif%}
         {%endif%}
         <td><input type="checkbox" class="for_print" name="forprint" value=""></td>
