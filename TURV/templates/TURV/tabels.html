@@ -78,20 +78,23 @@ function Supchecked() {
     </ul>
     </li>
     <!-- <li><a href="/turv/feedbacks/">Оставить обращение</a></li> -->
-
+    {% if granted %}
     <li>Сервис <span class='angle-down'>v</span>
     <ul class="service">
+        
         <li><a href="{% url 'forload_url'%}"> > Показать готовые для выгрузки</a></li>
+        
         {%if request.user.is_superuser %}
          <li><a  href="{% url 'del_tabel_url'%}"> > Удалить помеченные на удаление</a></li>
          <li><a  href="{% url 'overtime_url'%}"> > Обновить годовую норму времени сотрудников</a></li>
-  
+         {%endif%}
   
   
   
     </ul>
     </li>
-  {%endif%}
+  
+  {% endif %}
   
   {%if granted == 1 or is_atc%}
     <li>Дополнительные <span class='angle-down'>v</span>
@@ -108,6 +111,7 @@ function Supchecked() {
   {%endif%}
     </ul>
     </li>
+   
     {% if granted == 1 %}
     <!-- <li>Функции и отчеты <span class='angle-down'>v</span>
     <ul class="additional">
