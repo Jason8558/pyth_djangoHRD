@@ -3,7 +3,13 @@
 
 
 {%block title%}Изменить запись{% endblock %}
-{%block header%}{%block logo%}{{block.super}}{%endblock%}{{item.fio}} в приказе {{item.bound_order.order_number}}{% endblock %}
+{%block header%}{%block logo%}{{block.super}}{%endblock%} 
+  {% if item.bound_employer %}
+    {{item.bound_employer.fullname}}
+  {% else %}
+    {{item.fio}}
+  {%endif%}
+{% endblock %}
 
 {%block content%}
 
@@ -17,8 +23,17 @@
   {% csrf_token %}
 
   <div class="standart-form-input-group inline">
-    <p>{{form.fio.label}}:{{form.fio}}</p>
-    <p>{{form.dep.label}}:{{form.dep}}</p>
+    
+    <p><span>Работник: </span><select name="vacation-item-employer-field" id="vacation-item-employer-field">
+
+    </select></p>
+    
+    <p><span>Подразделение: </span><select onchange="get_employers_from_department(this.value, 'vacation-item-employer-field')" name="vacation-item-department-field" id="vacation-item-department-field">
+      {% for dep in deps %}
+        <option value="{{dep.id}}">{{dep.name}}</option>
+      {% endfor %}
+    </select></p>
+  
   </div>
  
   
@@ -44,8 +59,15 @@
 </form>
 
 <script type="text/javascript">
+    (function(){
+    document.getElementById('vacation-item-department-field').value = '{{item.department_new_id}}'
+    get_employers_from_department('{{item.department_new_id}}', 'vacation-item-employer-field')
+    setTimeout(function(){document.getElementById('vacation-item-employer-field').value = '{{item.bound_employer_id}}'}, 500)
+  })()
   prev = document.referrer
   $('#close').attr('href', prev)
+
+
 </script>
 
 {%endblock%}

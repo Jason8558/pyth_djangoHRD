@@ -19,8 +19,17 @@
   {% csrf_token %}
 
   <div class="standart-form-input-group inline">
-    <p>{{form.fio.label}}:{{form.fio}}</p>
-    <p>{{form.dep.label}}:{{form.dep}}</p>
+    
+    <p><span>Работник: </span><select name="vacation-item-employer-field" id="vacation-item-employer-field">
+
+    </select></p>
+    
+    <p><span>Подразделение: </span><select onchange="get_employers_from_department(this.value, 'vacation-item-employer-field')" name="vacation-item-department-field" id="vacation-item-department-field">
+      {% for dep in deps %}
+        <option value="{{dep.id}}">{{dep.name}}</option>
+      {% endfor %}
+    </select></p>
+  
   </div>
  
   
@@ -44,5 +53,11 @@
        <a class="button add" href="/orders_on_vacation_new/{{order_id}}/create">Отмена</a>
     </div>
 </form>
+
+<script>
+  (function(){
+    get_employers_from_department(document.getElementById('vacation-item-department-field').value, 'vacation-item-employer-field')
+  })()
+</script>
 
 {%endblock%}

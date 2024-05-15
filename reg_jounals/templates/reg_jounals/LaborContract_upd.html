@@ -1,54 +1,77 @@
 {% extends "reg_jounals/index.html" %}
 
-{%block title%}Трудовой договор №{{order.op_number}}{% endblock %}
-{%block header%}{%block logo%}{{block.super}}{%endblock%}Изменить запись - Трудовой договор № {{order.lc_number}}{% endblock %}
+{%block title%}Изменить запись{% endblock %}
+{%block header%}{%block logo%}{{block.super}}{%endblock%}Изменить запись{% endblock %}
 
 {%block content%}
-
-
+<!--  -->
 {% if form.errors%}
 
-<div class="alert alert-danger mt-5" role="alert">
+<div class="alert alert-danger mt-5" id="form_error" role="alert">
 {{form.errors}}
 </div>
 {%endif%}
-<form class="add_form" action="" method="post">
+<form class="standart-form standart-panel " action="" method="post">
   {% csrf_token %}
+  <div class="standart-form-header">
+    <h4>Номер договора: <span id="next_num">{{order.lc_number}}</span></h4>
+  </div>
+  
+  <div class="standart-form-input-group inline">
+    <p><span>Работник: </span><select name="labor-contract-employer-field" id="labor-contract-employer-field">
 
-  <p class="p_unite"><span>{{form.lc_date.label}}{{form.lc_date}}</span><span>{{form.lc_dateOfInv.label}}{{form.lc_dateOfInv}}</span></p>
-  <p>{{form.lc_emloyer.label}}{{form.lc_emloyer}}</p>
-  <p class="p_unite"> <span> {{form.lc_pos.label}} <select id="sel_pos" class="" name="">
-    {%for p in pos %}
-    <option value="{{p}}">{{p}}</option>
-    {%endfor%}
-  </select></span> <span>{{form.lc_dep.label}}{{form.lc_dep}}</span></p>
-  <p class="hide_field">{{form.lc_pos}}</p>
-  <p>{{form.lc_workCond.label}}{{form.lc_workCond}}</p>
+    </select></p>
+    <p><span>{{form.lc_date.label}}:</span> {{form.lc_date}}</p> 
+  </div>
+
+  <div class="standart-form-input-group inline">
+    <p><span>Подразделение: </span><select onchange="get_employers_from_department(this.value, 'labor-contract-employer-field')" name="labor-contract-department-field" id="labor-contract-department-field">
+      {% for dep in deps%}
+        <option value="{{dep.id}}">{{dep.name}}</option>
+      {%endfor%}
+    </select></p>
+    
+    <p> <span> {{form.lc_pos.label}}: </span> <select id="sel_pos" class="" name="">
+      {%for p in pos %}
+      <option value="{{p.id}}">{{p}}</option>
+      {%endfor%}
+    </select>
+
+    <p><span>{{form.lc_dateOfInv.label}}:</span> {{form.lc_dateOfInv}}</p>
+  </div>
 
 
-  <input class="btn btn-success" type="submit" value="Сохранить" />
-  <a id="close" class="btn btn-outline-danger" href="..">Отмена</a>
+
+ 
+
+<div class="standart-form-input-group">
+  <p><span>{{form.lc_workCond.label}}: </span>{{form.lc_workCond}}</p>
+</div>
+  
+
+
+
+<div class="standart-form-input-group inline">
+  <input class="button add" type="submit" value="Добавить" />
+  <a class="button cancel" href="..">Отмена</a>
+</div>
+
 </form>
 
 <script type="text/javascript">
-  $(document).ready(function(){
+  (function(){
+    get_employers_from_department('{{order.department_id}}', 'labor-contract-employer-field')
 
-    $('#sel_pos option').filter(function() {
-      return ($(this).val() == $('#id_lc_pos').val()); //To select Blue
-    }).prop('selected', true);
+    document.getElementById('labor-contract-department-field').value  = '{{order.department_id}}'
+    document.getElementById('sel_pos').value                          = '{{order.position_id}}'
+  
+  })()
 
-  })
+$('#sel_pos').change(function() {
+  $('#id_lc_pos').val('')
 
-  prev = document.referrer
-
-  $('#close').attr('href', prev)
-
-  $('#sel_pos').change(function() {
-    $('#id_lc_pos').val('')
-
-    $('#id_lc_pos').val($('#sel_pos option:selected').text())
-  })
-
+  $('#id_lc_pos').val($('#sel_pos option:selected').text())
+})
 </script>
 
 {%endblock%}

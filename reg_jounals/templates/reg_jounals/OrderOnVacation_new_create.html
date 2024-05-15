@@ -49,14 +49,27 @@
 <tr id="{{item.id}}" oncontextmenu="show_context_menu(this, '{{item.id}}', 27)" onclick="return location.href = '{% url 'new_order_on_vacation_updItem' id=item.id%}' ">
 <!-- <tr id="{{item.id}}" onclick="open_for_upd({{item.id}})"> -->
 
-
-    <td id="name">{{item.fio}}</td>
-    <td id="dep">{{item.dep}}</td>
+    {% if item.bound_employer%}
+      <td id="name">{{item.bound_employer.fullname}}</td>
+    {%else%}
+      <td id="name">{{item.fio}}</td>
+    {%endif%}
+    
+    {% if item.department_new %}
+      <td id="dep">{{item.department_new}}</td>
+    {% else %}
+      <td id="dep">{{item.dep}}</td>
+    {% endif %}
+    
     <td id="from">{{item.dur_from|date:"d.m.Y"}}</td>
     <td id="to">{{item.dur_to|date:"d.m.Y"}}</td>
     <td id="days">{{item.days_count}}</td>
     <td id="type">{{item.vac_type}}</td>
-    <td id="comm">{{item.comm}}</td>
+    {% if item.comm %}
+      <td id="comm">{{item.comm}}</td>
+    {% else %}
+      <td id="comm"></td>
+    {% endif %}
 
 </tr>
   {%endfor%}

@@ -80,6 +80,8 @@
           <option value="{{dep.id}}">{{dep.name}}</option>
           {%endfor%}
         </select></p>
+        <p><span>Нет подразделения:</span><input onchange="set_field_state(this, 'dep_for_tabel')" type="checkbox" name="order-of-personnel-no-department" id="order-of-personnel-no-department"></p>
+        <p><span>Нет работника:</span><input onchange="set_field_state(this, 'order-of-personell-bound-employer-field'); " type="checkbox" name="order-of-personnel-no-employer" id="order-of-personnel-no-employer"></p>
         <p id="op_resign"><span>{{form.op_dateOfRes.label}}:</span>{{form.op_dateOfRes}}</p>
         <p><span>Основание увольнения:</span>{{form.grounds_for_resignation}}</p>
 
@@ -181,7 +183,9 @@
 <script type="text/javascript">
   $('document').ready(function () {
     document.getElementById('id_grounds_for_resignation').classList.add('tabel-stage-input')
+    document.getElementById('id_op_emloyer').classList.add('tabel-stage-input')
     closeAllFields()
+    OtherOrder()
   })
   document.getElementById('id_op_type').onchange = function () {
 
@@ -202,7 +206,13 @@
         all_off()
         closeAllFields()
         MoveOnOtherWork()
-
+        break;
+      
+      case '4':
+        all_off()
+        closeAllFields()
+        OtherOrder()
+        
         break;
 
 
@@ -276,6 +286,15 @@
 
   })
 
+  function set_field_state(el, field_id) {
+    field = document.getElementById(field_id)
+    if (el.checked) {
+      field.disabled = true
+    }
+    else {
+      field.disabled = false
+    }
+  }
 
 </script>
 {%endblock%}

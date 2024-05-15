@@ -33,7 +33,7 @@
     <select class="" name="lc_search">
       <option value="">Поиск по подразделению</option>
       {% for dep in deps%}
-      <option value="{{dep.id}}">{{dep.dep_name}}</option>
+      <option value="{{dep.id}}">{{dep.name}}</option>
       {% endfor%}
     </select>
   </div>
@@ -80,8 +80,19 @@
 
     <td id="date">{{order.lc_date|date:"d.m.Y"}}</td>
     <td id="number">{{order.lc_number}}</td>
-    <td id="emloyer">{{order.lc_emloyer}}</td>
-    <td id="dep">{{order.lc_dep}}</td>
+    
+    {%if order.bound_employer %}
+      <td id="emloyer">{{order.bound_employer.fullname}}</td>
+    {%else%}
+      <td id="emloyer">{{order.lc_emloyer}}</td>
+    {%endif%}
+    
+    {% if order.department %}
+      <td id="dep">{{order.department}}</td>
+    {%else%}
+      <td id="dep">{{order.lc_dep}}</td>
+    {%endif%}
+    
     <td id="dateInv">{{order.lc_dateOfInv|date:"d.m.Y"}}</td>
     <td id="res_officer">{{order.lc_res_officer}}</td>
 

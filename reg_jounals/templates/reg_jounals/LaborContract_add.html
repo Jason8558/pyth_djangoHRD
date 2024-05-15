@@ -11,27 +11,58 @@
 {{form.errors}}
 </div>
 {%endif%}
-<form class="add_form" action="" method="post">
+<form class="standart-form standart-panel " action="" method="post">
   {% csrf_token %}
-  <h5>Номер договора: <span id="next_num">{{next_num}}</span>({{year_}})</h5>
-  <p class="p_unite"><span>{{form.lc_date.label}}{{form.lc_date}}</span><span>{{form.lc_dateOfInv.label}}{{form.lc_dateOfInv}}</span></p>
-  <p>{{form.lc_emloyer.label}}{{form.lc_emloyer}}</p>
-  <p class="p_unite"> <span> {{form.lc_pos.label}} <select id="sel_pos" class="" name="">
-    {%for p in pos %}
-    <option value="{{p.id}}">{{p}}</option>
-    {%endfor%}
-  </select></span> <span>{{form.lc_dep.label}}{{form.lc_dep}}</span></p>
-  <p class="hide_field">{{form.lc_pos}}</p>
-  <p>{{form.lc_workCond.label}}{{form.lc_workCond}}</p>
+  <div class="standart-form-header">
+    <h4>Номер договора: <span id="next_num">{{next_num}}</span>({{year_}})</h4>
+  </div>
+  
+  <div class="standart-form-input-group inline">
+    <p><span>Работник: </span><select name="labor-contract-employer-field" id="labor-contract-employer-field">
+
+    </select></p>
+    <p><span>{{form.lc_date.label}}:</span> {{form.lc_date}}</p> 
+  </div>
+
+  <div class="standart-form-input-group inline">
+    <p><span>Подразделение: </span><select onchange="get_employers_from_department(this.value, 'labor-contract-employer-field')" name="labor-contract-department-field" id="labor-contract-department-field">
+      {% for dep in deps%}
+        <option value="{{dep.id}}">{{dep.name}}</option>
+      {%endfor%}
+    </select></p>
+    
+    <p> <span> {{form.lc_pos.label}}: </span> <select id="sel_pos" class="" name="sel_pos">
+      {%for p in pos %}
+      <option value="{{p.id}}">{{p}}</option>
+      {%endfor%}
+    </select>
+
+    <p><span>{{form.lc_dateOfInv.label}}:</span> {{form.lc_dateOfInv}}</p>
+  </div>
 
 
 
+ 
 
-  <input class="btn btn-success" type="submit" value="Добавить" />
-  <a class="btn btn-outline-danger" href=".">Отмена</a>
+<div class="standart-form-input-group">
+  <p><span>{{form.lc_workCond.label}}: </span>{{form.lc_workCond}}</p>
+</div>
+  
+
+
+
+<div class="standart-form-input-group inline">
+  <input class="button add" type="submit" value="Добавить" />
+  <a class="button cancel" href=".">Отмена</a>
+</div>
+
 </form>
 
 <script type="text/javascript">
+  (function(){
+    get_employers_from_department(document.getElementById('labor-contract-department-field').value, 'labor-contract-employer-field')
+  })()
+
 $('#sel_pos').change(function() {
   $('#id_lc_pos').val('')
 

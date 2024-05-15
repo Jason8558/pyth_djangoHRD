@@ -69,8 +69,17 @@
 
     <td id="number">{{ident.number}}</td>
     <td id="date">{{ident.date_giving|date:"d.m.Y"}}</td>
-    <td id="fio">{{ident.employer}}</td>
-    <td id="dep">{{ident.department}}</td>
+    {% if ident.bound_employer %}
+      <td id="fio">{{ident.bound_employer.fullname}}</td>
+    {% else %}
+      <td id="fio">{{ident.employer}}</td>
+    {% endif %}
+
+    {% if ident.department_new %}
+      <td id="dep">{{ident.department_new}}</td>
+    {% else %}
+      <td id="dep">{{ident.department_old}}</td>
+    {% endif %}
     <td id="res_officer">{{ident.res_officer}}</td>
 
 </tr>

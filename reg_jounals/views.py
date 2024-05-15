@@ -127,7 +127,7 @@ def del_OutBoundDocument(request, id):
 def letter_of_resignation(request):
     if request.user.is_authenticated:
         
-        deps = Departments.objects.all().order_by('dep_name')
+        deps = TDep.objects.filter(notused=0).filter(is_aup=0).order_by('name')
 
         if int(request.GET.get('search-sign', '0')) == 1:
             search_query = {
@@ -158,9 +158,9 @@ def letter_of_resignation(request):
 
 def nr_LetterOfResignation(request):
     if request.user.is_authenticated:
-        pos = TPos.objects.all()
+        # pos = TPos.objects.all()
         letter_form = LetterOfResignation_form()
-        depts = Departments.objects.all()
+        deps = TDep.objects.filter(notused=0).filter(is_aup=0)
         letters = LetterOfResignation.objects.all()
         letters_count = len(letters)
         if letters_count == 0:
@@ -168,31 +168,50 @@ def nr_LetterOfResignation(request):
         else:
             letter_prev_num = letters[letters_count - 1].lor_number
             letter_next_num_ = int(letter_prev_num) + 1
+        
         if request.method == "POST":
+            # получаем нестандартные реквизиты
+            bound_employer  = get_employer_from_db(request.POST.get('resignation-employer-field', ''))
+            department      = get_department_from_db(request.POST.get('resignation-department-field', ''))
+            # position        = get_position_from_db(request.POST.get('resignation-position-field', ''))
+
             letter_form = LetterOfResignation_form(request.POST)
             if letter_form.is_valid():
                 user_ = request.user.first_name
-                letter_form.saveFirst(user_)
+                letter_form.saveFirst(user_,bound_employer, department)
                 return redirect('../letters_of_resignation/')
         else:
 
-            return render(request, 'reg_jounals/LetterOfResignation_add.html', context={'form':letter_form, 'next_num':letter_next_num_, 'pos':pos})
+            return render(request, 'reg_jounals/LetterOfResignation_add.html', context={'form':letter_form, 'next_num':letter_next_num_, 'deps':deps})
     else:
         return render(request, 'reg_jounals/no_auth.html')
 
 def upd_LetterOfResignation(request, id):
     if request.user.is_authenticated:
-        pos = TPos.objects.all()
+        deps = TDep.objects.filter(notused=0).filter(is_aup=0)
+        letter = LetterOfResignation.objects.get(id__iexact=id)
+       
         if request.method == "GET":
-            letter = LetterOfResignation.objects.get(id__iexact=id)
+            
             bound_form = LetterOfResignation_form(instance=letter)
-            return render(request, 'reg_jounals/LetterOfResignation_upd.html', context={'form':bound_form, 'letter':letter, 'pos':pos})
+            return render(request, 'reg_jounals/LetterOfResignation_upd.html', context={'form':bound_form, 'letter':letter, 'deps':deps})
         else:
-            letter = LetterOfResignation.objects.get(id__iexact=id)
+            updated_bound_employer  = get_employer_from_db(request.POST.get('resignation-employer-field', ''))
+            updated_department      = get_department_from_db(request.POST.get('resignation-department-field', ''))
+            
             bound_form = LetterOfResignation_form(request.POST, instance=letter)
             if bound_form.is_valid():
                 user_ = request.user.first_name
                 new_obj = bound_form.save()
+
+                if updated_bound_employer != new_obj.bound_employer:
+                    new_obj.bound_employer = updated_bound_employer
+                    new_obj.save()
+                
+                if updated_department != new_obj.department:
+                    new_obj.department = updated_department
+                    new_obj.save()
+
                 return redirect('/letters_of_resignation')
 
 def del_LetterOfResignation(request, id):
@@ -205,7 +224,7 @@ def del_LetterOfResignation(request, id):
 def letter_of_invite(request):
         if request.user.is_authenticated:
             
-            deps = Departments.objects.all()
+            deps = TDep.objects.filter(notused=0).filter(is_aup=0)
 
             if int(request.GET.get('search-sign', '0')) == 1:
                 search_query = {
@@ -234,24 +253,41 @@ def letter_of_invite(request):
 
 def upd_LetterOfInvite(request, id):
     if request.user.is_authenticated:
-        pos = TPos.objects.all()
+        pos     = TPos.objects.all()
+        deps    = TDep.objects.filter(notused=0).filter(is_aup=0)
+        letter  = LetterOfInvite.objects.get(id__iexact=id)
+        
         if request.method == "GET":
-            letter = LetterOfInvite.objects.get(id__iexact=id)
+            
             bound_form = LetterOfInvite_form(instance=letter)
-            return render(request, 'reg_jounals/LetterOfInvite_upd.html', context={'form':bound_form, 'letter':letter, 'pos':pos})
+            return render(request, 'reg_jounals/LetterOfInvite_upd.html', context={'form':bound_form, 'letter':letter, 'pos':pos, 'deps':deps})
         else:
-            letter = LetterOfInvite.objects.get(id__iexact=id)
+            
             bound_form = LetterOfInvite_form(request.POST, instance=letter)
+
+            updated_department  = get_department_from_db(request.POST.get('invite-department-field', ''))
+            updated_position    = get_position_from_db(request.POST.get('sel_pos',''))
+
             if bound_form.is_valid():
                 user_ = request.user.first_name
                 new_obj = bound_form.save()
+
+                if updated_department != new_obj.department:
+                    new_obj.department = updated_department
+                    new_obj.save()
+                
+                if updated_position != new_obj.position:
+                    new_obj.position = updated_position
+                    new_obj.save()               
+
+
                 return redirect('/letters_of_invite')
 
 def nr_LetterOfInvite(request):
     if request.user.is_authenticated:
         pos = TPos.objects.all()
         letter_form = LetterOfInvite_form()
-        depts = Departments.objects.all()
+        deps = TDep.objects.filter(notused=0).filter(is_aup=0)
         letters = LetterOfInvite.objects.all()
         letters_count = len(letters)
         if letters_count == 0:
@@ -261,11 +297,15 @@ def nr_LetterOfInvite(request):
             letter_next_num_ = int(letter_prev_num) + 1
         if request.method == 'POST':
             letter_form = LetterOfInvite_form(request.POST)
+            
+            department  = get_department_from_db(request.POST.get('invite-department-field',''))
+            position    = get_position_from_db(request.POST.get('sel_pos', ''))
+
             if letter_form.is_valid():
                 user_ = request.user.first_name
-                letter_form.saveFirst(user_)
+                letter_form.saveFirst(user_, department, position)
                 return redirect('../letters_of_invite/')
-        return render(request, 'reg_jounals/LetterOfInvite_add.html', context={'form':letter_form, 'next_num':letter_next_num_, 'pos':pos})
+        return render(request, 'reg_jounals/LetterOfInvite_add.html', context={'form':letter_form, 'next_num':letter_next_num_, 'pos':pos, 'deps':deps})
     else:
         return render(request, 'reg_jounals/no_auth.html')
 
@@ -415,7 +455,8 @@ def del_OrderOnVacation(request, id):
 # Приказы о командировках -----------------
 def order_of_BTrip(request):
     if request.user.is_authenticated:
-        deps = Departments.objects.all()
+        deps = Departments.objects.filter(is_aup=0).filter(notused=0)
+        
         search_query = {
             'document_type':    2,
             'name':             request.GET.get('bt_search', ''),
@@ -444,7 +485,7 @@ def order_of_BTrip(request):
 def nr_OrderOfBTrip(request):
     if request.user.is_authenticated:
         order_form = OrdersOfBTrip_form()
-        depts = Departments.objects.all()
+        deps = TDep.objects.filter(notused=0).filter(is_aup=0)
         orders = OrdersOfBTrip.objects.all()
         order_count = len(orders)
         if order_count == 0:
@@ -455,15 +496,19 @@ def nr_OrderOfBTrip(request):
             order_next_num_ = int(order_prev_num[:cut_symb]) + 1
 
         if request.method == "POST":
-            order_form =OrdersOfBTrip_form(request.POST)
+            order_form      = OrdersOfBTrip_form(request.POST)
+            
+            bound_employer  = request.POST.get('order-of-btrip-bound-employer-field',   '')
+            department      = request.POST.get('order-of-btrip-department',             '')  
+
             if order_form.is_valid():
                 user_ = request.user.first_name
-                order_form.saveFirst(user_)
+                order_form.saveFirst(user_, bound_employer, department)
                 return redirect('../orders_of_BTrip/')
 
     else:
         return render(request, 'reg_jounals/no_auth.html')
-    return render(request, 'reg_jounals/OrdersOfBTrip_add.html', context={'form':order_form, 'depts':depts, 'next_num':order_next_num_})
+    return render(request, 'reg_jounals/OrdersOfBTrip_add.html', context={'form':order_form, 'deps':deps, 'next_num':order_next_num_})
 
 def get_ordersBtrip(request):
     if request.user.is_authenticated:
@@ -474,15 +519,29 @@ def get_ordersBtrip(request):
 def upd_OrderOfBTrip(request, id):
     if request.user.is_authenticated:
         if request.method == "GET":
+            deps = TDep.objects.filter(notused=0).filter(is_aup=0)
             order = OrdersOfBTrip.objects.get(id=id)
             bound_form = OrdersOfBTrip_form(instance=order)
-            return render(request, 'reg_jounals/OrdersOfBTrip_upd.html', context={'form':bound_form, 'order':order})
+            return render(request, 'reg_jounals/OrdersOfBTrip_upd.html', context={'form':bound_form, 'order':order, 'deps':deps})
         else:
             order = OrdersOfBTrip.objects.get(id=id)
             bound_form = OrdersOfBTrip_form(request.POST, instance=order)
+
+            updated_bound_employer  = request.POST.get('order-of-btrip-bound-employer-field',   '')
+            updated_department      = request.POST.get('order-of-btrip-department',             '')
+
             if bound_form.is_valid():
                 user_ = request.user.first_name
                 new_obj = bound_form.save()
+
+                if new_obj.bound_employer_id != updated_bound_employer:
+                    new_obj.bound_employer = get_employer_from_db(updated_bound_employer)
+                    new_obj.save()
+                
+                if new_obj.department != updated_department:
+                    new_obj.department = get_department_from_db(updated_department)
+                    new_obj.save()                   
+
                 return redirect('/orders_of_BTrip')
 
 
@@ -499,7 +558,7 @@ def del_OrderOfBTrip(request, id):
 # Приказы по личному составу ----------------
 def order_on_personnel(request):
     if request.user.is_authenticated:
-
+        deps = TDep.objects.filter(notused=0).filter(is_aup=0)
         events = OrdersOnPersonnelTypes.objects.all()
         
         if int(request.GET.get('search-sign', '0')) == 1:
@@ -524,7 +583,7 @@ def order_on_personnel(request):
             page_number = request.GET.get('page', 1)
         
         page = p_orders.get_page(page_number)
-        return render(request, 'reg_jounals/orders_on_personnel.html', context={'orders':page,'events':events})
+        return render(request, 'reg_jounals/orders_on_personnel.html', context={'orders':page,'events':events, 'deps':deps})
     else:
         return render(request, 'reg_jounals/no_auth.html')
 
@@ -549,7 +608,16 @@ def nr_OrderOnPersonnel(request):
             
             bound_employer  = request.POST.get('order-of-personell-bound-employer-field', '')
             department      = request.POST.get('dep_for_tabel','')
+            no_department   = request.POST.get('order-of-personnel-no-department', '')
+            no_employer     = request.POST.get('order-of-personnel-no-employer', '')
 
+            if no_department:
+                department = ''
+                bound_employer = ''
+            
+            if no_employer:
+                bound_employer = ''
+           
             emp_info = {
                 'fullname':         request.POST.get('short_fio',''),
                 'position':         request.POST.get('tab_pos',''),
@@ -571,7 +639,7 @@ def nr_OrderOnPersonnel(request):
                 if emp_info['fullname'] and emp_info['position'] and emp_info['department'] and emp_info['level'] and emp_info['payment_level'] and emp_info['shift']:
 
                     
-                    new_emp = create_or_update_employer(0,emp_info)
+                    new_emp = create_or_update_employer(request, 0,emp_info)
 
                     if new_emp:
                         new_order.bound_employer = new_emp
@@ -596,11 +664,30 @@ def upd_OrderOnPersonnel(request, id):
             order = OrdersOnPersonnel.objects.get(id__iexact=id)
             bound_form = OrdersOnPersonnel_form(request.POST, instance=order)
 
+            updated_bound_employer  = request.POST.get('order-of-personell-bound-employer-field','')
+            updated_department      = request.POST.get('dep_for_tabel', '')
+
             if bound_form.is_valid():
                 user_ = request.user.first_name
                 new_obj = bound_form.save()
+                
+                if new_obj.bound_employer_id != updated_bound_employer:
+                    if updated_bound_employer:
+                        new_obj.bound_employer = TEmps.objects.get(id=updated_bound_employer)
+                    else:
+                        new_obj.bound_employer = None
+                    new_obj.save()
+               
+                if new_obj.department_id != updated_department:
+                    if updated_department:
+                        new_obj.department_id = TDep.objects.get(id=updated_department)
+                    else:
+                        new_obj.department_id = None
+                    new_obj.save()
+                
 
-                if order.bound_employer:
+
+                if order.bound_employer and order.op_type == 1:
                     # Обновить информацию о работнике в приказе
                     emp_info = {
                     'fullname':         request.POST.get('short_fio',''),
@@ -655,7 +742,7 @@ def LaborContracts(request):
             p_orders = Paginator(contracts, 20)
             page_number = request.GET.get('page', 1)
        
-        deps = Departments.objects.all()
+        deps = TDep.objects.filter(notused=0).filter(is_aup=0)
         page = p_orders.get_page(page_number)
 
         return render(request, 'reg_jounals/laborContracts.html', context={'orders':page,'deps':deps})
@@ -666,40 +753,67 @@ def nr_LaborContract(request):
     if request.user.is_authenticated:
         pos = TPos.objects.all()
         order_form = LaborContract_form()
-        depts = Departments.objects.all()
+        deps = TDep.objects.filter(is_aup=0).filter(notused=0)
         orders = LaborContract.objects.all()
         year_ = str(DT.date.today().year)
         year_ = year_[2:]
         orders_count = len(orders)
+        
         if orders_count == 0:
             order_next_num_ = 1
         else:
             order_prev_num = orders[orders_count - 1].lc_number
             cut_symb = (len(str(order_prev_num)) - 4)
             order_next_num_ = int(order_prev_num[:cut_symb]) + 1
+        
         if request.method == "POST":
+            
+            bound_employer      = get_employer_from_db(request.POST.get('labor-contract-employer-field', ''))
+            department          = get_department_from_db(request.POST.get('labor-contract-department-field', ''))
+            position            = get_position_from_db(request.POST.get('sel_pos', ''))  
+
             order_form = LaborContract_form(request.POST)
             if order_form.is_valid():
                 user_ = request.user.first_name
-                order_form.saveFirst(user_, year_)
+                order_form.saveFirst(user_, year_, bound_employer, department, position)
                 return redirect('../laborContracts/')
     else:
         return render(request, 'reg_jounals/no_auth.html')
-    return render(request, 'reg_jounals/LaborContract_add.html', context={'form':order_form, 'depts':depts, 'next_num':order_next_num_, 'year_':year_, 'pos':pos})
+    return render(request, 'reg_jounals/LaborContract_add.html', context={'form':order_form, 'deps':deps, 'next_num':order_next_num_, 'year_':year_, 'pos':pos})
 
 def upd_LaborContract(request, id):
     if request.user.is_authenticated:
         if request.method == "GET":
+            deps = TDep.objects.filter(is_aup=0).filter(notused=0)
             pos = TPos.objects.all()
             order = LaborContract.objects.get(id__iexact=id)
             bound_form = LaborContract_form(instance=order)
-            return render(request, 'reg_jounals/LaborContract_upd.html', context={'form':bound_form, 'order':order, 'pos':pos})
+            return render(request, 'reg_jounals/LaborContract_upd.html', context={'form':bound_form, 'order':order, 'pos':pos, 'deps':deps})
         else:
+
+            updated_bound_employer  = get_employer_from_db(request.POST.get('labor-contract-employer-field',''))
+            updated_department      = get_department_from_db(request.POST.get('labor-contract-department-field',''))
+            updated_position       = get_position_from_db(request.POST.get('sel_pos', ''))
+
             order = LaborContract.objects.get(id__iexact=id)
             bound_form = LaborContract_form(request.POST, instance=order)
             if bound_form.is_valid():
                 user_ = request.user.first_name
                 new_obj = bound_form.save()
+                
+                if updated_bound_employer != new_obj.bound_employer:
+                    new_obj.bound_employer = updated_bound_employer
+                    new_obj.save()
+                
+                if updated_department != new_obj.department:
+                    new_obj.department  =  updated_department
+                    new_obj.save()
+                
+                if updated_position != new_obj.position:
+                    new_obj.position = updated_position
+                    new_obj.save()
+
+
                 return redirect('/laborContracts')
 
 def del_LaborContract(request, id):
@@ -712,7 +826,7 @@ def del_LaborContract(request, id):
 def employment_history(request):
     if request.user.is_authenticated:
        
-        deps = Departments.objects.all().order_by('dep_name')
+        deps = TDep.objects.filter(notused=0).filter(is_aup=0)
 
         search_query = {
             'document_type':                4,
@@ -742,30 +856,43 @@ def nr_EmploymentHistory(request):
     if request.user.is_authenticated:
         pos = TPos.objects.all()
         history_form = EmploymentHistory_form()
-        depts = Departments.objects.all()
+        deps = TDep.objects.filter(notused=0).filter(is_aup=0)
         if request.method == "POST":
             history_form = EmploymentHistory_form(request.POST)
+
+            department = get_department_from_db(request.POST.get('employment-history-department-field', ''))
+            
             if history_form.is_valid():
                 user_ = request.user.first_name
-                history_form.saveFirst(user_)
+                history_form.saveFirst(user_, department)
                 return redirect('../employment_history/')
     else:
         return render(request, 'reg_jounals/no_auth.html')
-    return render(request, 'reg_jounals/EmploymentHistory_add.html', context={'form':history_form, 'depts':depts, 'pos':pos})
+    return render(request, 'reg_jounals/EmploymentHistory_add.html', context={'form':history_form, 'deps':deps, 'pos':pos})
 
 def upd_EmploymentHistory(request, id):
     if request.user.is_authenticated:
         pos = TPos.objects.all()
+        history = EmploymentHistory.objects.get(id__iexact=id)
+        deps = TDep.objects.filter(notused=0).filter(is_aup=0)
+        
         if request.method == "GET":
-            history = EmploymentHistory.objects.get(id__iexact=id)
+           
             bound_form = EmploymentHistory_form(instance=history)
-            return render(request, 'reg_jounals/EmploymentHistory_upd.html', context={'form':bound_form, 'history':history, 'pos':pos})
+            return render(request, 'reg_jounals/EmploymentHistory_upd.html', context={'form':bound_form, 'history':history, 'deps':deps})
         else:
-            order = EmploymentHistory.objects.get(id__iexact=id)
-            bound_form = EmploymentHistory_form(request.POST, instance=order)
+            
+            updated_department = get_department_from_db(request.POST.get('employment-history-department-field', ''))
+
+            bound_form = EmploymentHistory_form(request.POST, instance=history)
             if bound_form.is_valid():
                 user_ = request.user.first_name
                 new_obj = bound_form.save()
+
+                if updated_department != new_obj.department:
+                    new_obj.department = updated_department
+                    new_obj.save()
+
                 return redirect('/employment_history')
 
 def del_EmploymentHistory(request, id):
@@ -894,7 +1021,7 @@ def new_order_on_vacation(request):
     if request.user.is_authenticated:
         items = ""
         orders = []
-        deps = Departments.objects.all()
+        deps = TDep.objects.filter(notused=0).filter(is_aup=0)
 
         
         if int(request.GET.get('search-sign', '0')) == 1:
@@ -956,32 +1083,50 @@ def create_new_order_on_vacation(request, id):
 def new_order_on_vacation_addItem(request, order_id):
     if request.user.is_authenticated:
         item_form = NewOrdersOnVacationItem_form()
+        deps = TDep.objects.filter(notused=0).filter(is_aup=0)
+        
         if request.method == "POST":
             item_form = NewOrdersOnVacationItem_form(request.POST)
+            
+            bound_employer  = get_employer_from_db(request.POST.get('vacation-item-employer-field',''))
+            department      = get_department_from_db(request.POST.get('vacation-item-department-field',''))
+            
             if item_form.is_valid():
                 user_ = request.user.first_name
                 print(order_id)
-                item_form.saveFirst(order_id, user_)
+                item_form.saveFirst(order_id, user_, bound_employer, department)
                 loc = '/orders_on_vacation_new/'+str(order_id)+'/create'
                 return redirect(loc)
     else:
         return render(request, 'reg_jounals/no_auth.html')
-    return render(request, 'reg_jounals/NewOrderOnVacation_addItem.html', context={'form':item_form, 'order_id':order_id})
+    return render(request, 'reg_jounals/NewOrderOnVacation_addItem.html', context={'form':item_form, 'deps':deps, 'order_id':order_id})
 
 def new_order_on_vacation_updItem(request, id):
     if request.user.is_authenticated:
+        deps = TDep.objects.filter(notused=0).filter(is_aup=0)
         item = NewOrdersOnVacation_item.objects.get(id__exact=id)
-        # order = NewOrdersOnVacation.objects.get(id__exact=item.bound_order)
-        # b_order = item.bound_order
         if request.method == "GET":
             bound_form = NewOrdersOnVacationItem_form(instance=item)
-            return render(request, 'reg_jounals/NewOrderOnVacation_updItem.html', context={'form':bound_form, 'item':item, })
+            return render(request, 'reg_jounals/NewOrderOnVacation_updItem.html', context={'form':bound_form, 'item':item, 'deps':deps })
         else:
             item = NewOrdersOnVacation_item.objects.get(id__iexact=id)
             bound_form = NewOrdersOnVacationItem_form(request.POST, instance=item)
+            
+            updated_bound_employer  = get_employer_from_db(request.POST.get('vacation-item-employer-field',''))
+            updated_department      = get_department_from_db(request.POST.get('vacation-item-department-field',''))
+            
             if bound_form.is_valid():
-                user_ = request.user.first_name
-                bound_form.save()
+                user_   = request.user.first_name
+                new_obj = bound_form.save()
+
+                if updated_bound_employer != new_obj.bound_employer:
+                    new_obj.bound_employer = updated_bound_employer
+                    new_obj.save()
+                
+                if updated_department != new_obj.department_new:
+                    new_obj.department_new = updated_department
+                    new_obj.save()
+
                 loc = '/orders_on_vacation_new/'+str(item.bound_order.id)+'/create'
                 return redirect(loc)
 
@@ -1006,7 +1151,7 @@ def new_order_on_vacation_del(request, id):
 
 def identitys(request):
     if request.user.is_authenticated:
-        deps = Departments.objects.all()
+        deps = TDep.objects.filter(notused=0).filter(is_aup=0)
         search_query = request.GET.get('ident_search','')
         sq_dep = request.GET.get('ident_dep_search','')
     
@@ -1035,30 +1180,46 @@ def identitys(request):
 
 def nr_identitys(request):
     if request.user.is_authenticated:
+        deps = TDep.objects.filter(notused=0).filter(is_aup=0)
         ident_form = Identity_form()
         next_num = int(Identity.objects.latest('id').number) + 1
         if request.method == "POST":
             ident_form = Identity_form(request.POST)
             if ident_form.is_valid():
+                bound_employer  = get_employer_from_db(request.POST.get('identity-employer-field'))
+                department      = get_department_from_db(request.POST.get('identity-department-field'))
                 user_ = request.user.first_name
-                ident_form.saveFirst(user_)
+                ident_form.saveFirst(user_, bound_employer, department)
                 return redirect('/identity')
     else:
         return render(request, 'reg_jounals/no_auth.html')
-    return render(request, 'reg_jounals/identity_add.html', context={'form':ident_form, 'next_num':next_num})
+    return render(request, 'reg_jounals/identity_add.html', context={'form':ident_form, 'next_num':next_num, 'deps':deps})
 
 def upd_identitys(request, id):
     if request.user.is_authenticated:
+        ident = Identity.objects.get(id__iexact=id)
+        deps = TDep.objects.filter(notused=0).filter(is_aup=0)
         if request.method == "GET":
-            ident = Identity.objects.get(id__iexact=id)
+            
             bound_form = Identity_form(instance=ident)
-            return render(request, 'reg_jounals/identity_upd.html', context={'form':bound_form, 'ind':ident})
+            return render(request, 'reg_jounals/identity_upd.html', context={'form':bound_form, 'ident':ident, 'deps':deps})
         else:
-            ident = Identity.objects.get(id__iexact=id)
+        
             bound_form = Identity_form(request.POST, instance=ident)
             if bound_form.is_valid():
+                updated_bound_employer  = get_employer_from_db(request.POST.get('identity-employer-field'))
+                updated_department      = get_department_from_db(request.POST.get('identity-department-field'))
                 user_ = request.user.first_name
                 new_obj = bound_form.save()
+                
+                if updated_bound_employer != new_obj.bound_employer:
+                    new_obj.bound_employer = updated_bound_employer
+                    new_obj.save()
+                
+                if updated_department != new_obj.department_new:
+                    new_obj.department_new = updated_department
+                    new_obj.save()
+
                 return redirect('/identity')
 
 def del_identitys(request, id):

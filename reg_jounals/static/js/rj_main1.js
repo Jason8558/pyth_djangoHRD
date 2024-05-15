@@ -311,6 +311,9 @@ function closeAllFields() {
   bound_employer_field = document.getElementById('order-of-personell-bound-employer-field')
   bound_employer_field.parentNode.style.display = 'none'
   bound_employer_field.disabled = true
+
+  document.getElementById('order-of-personnel-no-department').parentNode.style.display = "none"
+  document.getElementById('order-of-personnel-no-employer').parentNode.style.display = "none"
 }
 
 function inviteOnWork() {
@@ -349,7 +352,7 @@ function ResignFromWork() {
 
   
 
-  get_employers_from_department(document.getElementById('dep_for_tabel').value,'order-of-personell-bound-employer-field')
+  get_employers_from_department(document.getElementById('dep_for_tabel').value,'order-of-personell-bound-employer-field', 0)
 
 
 
@@ -361,7 +364,34 @@ function MoveOnOtherWork() {
  
   $('#tab_pos').css('display','')
   $('#tab_pos_select').prop('disabled', false)
+
+  bound_employer_field = document.getElementById('order-of-personell-bound-employer-field')
+  bound_employer_field.parentNode.style.display = 'flex'
+  bound_employer_field.disabled = false
+
+  employer_text_field = document.getElementById('id_op_emloyer')
+  employer_text_field.disabled = true
+  employer_text_field.parentNode.style.display = 'none'
+
   
+
+  get_employers_from_department(document.getElementById('dep_for_tabel').value,'order-of-personell-bound-employer-field', 0)
+  
+}
+
+function OtherOrder() {
+  document.getElementById('order-of-personnel-no-department').parentNode.style.display = 'block'
+  document.getElementById('order-of-personnel-no-employer').parentNode.style.display = 'block'
+
+  employer_text_field = document.getElementById('id_op_emloyer')
+  employer_text_field.disabled = true
+  employer_text_field.parentNode.style.display = 'none'
+
+  bound_employer_field = document.getElementById('order-of-personell-bound-employer-field')
+  bound_employer_field.parentNode.style.display = 'block'
+  bound_employer_field.disabled = false
+  
+  get_employers_from_department(document.getElementById('dep_for_tabel').value,'order-of-personell-bound-employer-field', 0)
 }
 
 // Запись на прием
@@ -620,7 +650,7 @@ function change_stage_panel(prev_panel, next_panel, prev_switch, next_switch, st
   prev_switch.style.display = 'flex'
 }
 
-function get_employers_from_department(department_id, employers_field) {
+function get_employers_from_department(department_id, employers_field, employer_id) {
   department = department_id
   employers_field = document.getElementById(employers_field)
   // Отправляем запрос на сервер
@@ -634,7 +664,7 @@ function get_employers_from_department(department_id, employers_field) {
 
       for (const employer of data) {
         var opt = document.createElement('option');
-        opt.value = employer.id;
+        opt.value = parseInt(employer.id, 10);
         opt.innerHTML = employer.fullname;
         employers_field.appendChild(opt);
       }
@@ -646,6 +676,11 @@ function get_employers_from_department(department_id, employers_field) {
     }
 
 
+
   });
+
+  // if (employer_id != 0) {
+  //   document.getElementById('order-of-personell-bound-employer-field').value = employer_id
+  // }
 
 }

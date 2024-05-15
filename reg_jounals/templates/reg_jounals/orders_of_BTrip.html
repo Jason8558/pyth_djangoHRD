@@ -60,10 +60,10 @@
 
           <th scope="col">Дата приказа</th>
           <th scope="col">Номер</th>
-          <th scope="col">Место назначения</th>
-          <th scope="col">Командируемый сотрудник</th>
+          <th scope="col">Место наз.</th>
+          <th scope="col">Командируемый</th>
           <th scope="col">Подразделение</th>
-          <th scope="col">Ответственный сотрудник</th>
+          <th scope="col">Ответственный</th>
 
 
         </tr>
@@ -77,8 +77,18 @@
         <td id="date">{{order.bt_date|date:"d.m.Y"}}</td>
         <td id="number">{{order.bt_number}}</td>
         <td id="place">{{order.bt_place}}</td>
-        <td id="employer">{{order.bt_emloyer}}</td>
-        <td id="dep">{{order.bt_dep}}</td>
+       
+        {% if order.bt_emloyer %}
+          <td id="employer">{{order.bt_emloyer}}</td>
+        {% else %}
+          <td id="employer">{{order.bound_employer.fullname}}</td>
+        {%endif%}
+        
+        {% if order.bt_dep%}
+          <td id="dep">{{order.bt_dep}}</td>
+        {%else%}
+          <td id="dep">{{order.department}}</td>
+        {%endif%}
         <td id="res_officer">{{order.bt_res_officer}}</td>
 
       </tr>

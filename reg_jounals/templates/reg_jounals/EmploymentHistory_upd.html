@@ -1,62 +1,61 @@
 {% extends "reg_jounals/index.html" %}
 
-{%block title%}Изменить запись{% endblock %}
-{%load static%}
-
-{%block header%}{%block logo%}{{block.super}}{%endblock%}Трудовая книжка №{{history.eh_number}} - {{history.eh_employer}}{% endblock %}
+{%block title%}Добавить запись{% endblock %}
+{%block header%}{%block logo%}{{block.super}}{%endblock%}Добавить запись - Трудовая книжка{% endblock %}
 
 {%block content%}
-<style media="screen">
 
-</style>
 {% if form.errors%}
 
 <div class="alert alert-danger mt-5" role="alert">
-  {{form.errors}}
+{{form.errors}}
 </div>
 {%endif%}
-<form class="add_form" style="grid-gap: 20px;" action="" method="post">
-    {% csrf_token %}
-<a class="btn btn-warning" target="_blank" href="{% url 'employment_history_print_url' id=history.id%}">Печать расписки о получении ТК на руки (при увольнении)</a>
-<p class="p_unite"><span>{{form.eh_number.label}}{{form.eh_number}}</span><span>{{form.eh_isdigital.label}}{{form.eh_isdigital}}</span></p>
-<p class="p_unite"><span>{{form.eh_dateOfInv.label}}{{form.eh_dateOfInv}}</span><span>{{form.eh_OrderInv.label}}{{form.eh_OrderInv}}</span></p>
-<p>{{form.eh_employer.label}}{{form.eh_employer}}</p>
-<p class="p_unite"><span>{{form.eh_pos.label}}
-  <select class="" id="sel_pos" name="">
-    {% for p in pos %}
-      <option value="{{p}}">{{p}}</option>
-    {%endfor%}
-  </select>
-</span>
-<span>{{form.eh_dep.label}}{{form.eh_dep}}</span></p>
-<p class="p_unite"><span>{{form.eh_dateOfResign.label}}{{form.eh_dateOfResign}}</span><span>{{form.eh_OrderResign.label}}{{form.eh_OrderResign}}</span></p>
-<p class="hide_field">{{form.eh_pos}}</p>
+<form class="standart-form standart-panel" action="" method="post">
+  {% csrf_token %}
 
-  <input class="btn btn-success" type="submit" value="Сохранить" />
-  <a id='close' class="btn btn-outline-danger" href="..">Отмена</a>
+  <div class="standart-form-input-group inline">
+    <p><span>{{form.eh_number.label}}:</span>{{form.eh_number}}</p>
+    <p><span>{{form.eh_isdigital.label}}</span>{{form.eh_isdigital}}</p>
+  </div>
+  
+  <div class="standart-form-input-group inline">
+    <p><span>{{form.eh_dateOfInv.label}}: </span>{{form.eh_dateOfInv}}</p>
+    <p><span>{{form.eh_OrderInv.label}}</span>{{form.eh_OrderInv}}</p>
+  </div>
+
+  <div class="standart-form-input-group inline">
+    <p><span>ФИО: </span>{{form.eh_employer}}</p>
+    <p><span>Подразделение: </span><select name="employment-history-department-field" id="employment-history-department-field">
+      {% for dep in deps%}
+        <option value="{{dep.id}}">{{dep.name}}</option>
+      {% endfor %}
+    </select></p>
+  </div>
+
+  <div class="standart-form-input-group inline">
+    <p><span>{{form.eh_dateOfResign.label}}: </span>{{form.eh_dateOfResign}}</p>
+    <p><span>{{form.eh_OrderResign.label}}</span>{{form.eh_OrderResign}}</p>
+  </div>  
 
 
-  <script type="text/javascript">
 
-    $(document).ready(function(){
+<div class="standart-form-input-group inline">
+  <input class="button add" type="submit" value="Сохранить" />
+  <a class="button" target="_blank" href="{% url 'employment_history_print_url' id=history.id%}">Печать расписки</a>
+  <a class="button cancel" href=".">Отмена</a>
+</div>
 
-      $('#sel_pos option').filter(function() {
-        return ($(this).val() == $('#id_eh_pos').val()); //To select Blue
-      }).prop('selected', true);
-
-    })
-
-    prev = document.referrer
-    $('#close').attr('href', prev)
-
-    $('#sel_pos').change(function() {
-      $('#id_eh_pos').val('')
-
-      $('#id_eh_pos').val($('#sel_pos option:selected').text())
-    })
-
-  </script>
 
 </form>
 
+<script type="text/javascript">
+  (function(){
+    document.getElementById('employment-history-department-field').value = '{{history.department_id}}'
+  })()
+</script>
+
 {%endblock%}
+
+
+

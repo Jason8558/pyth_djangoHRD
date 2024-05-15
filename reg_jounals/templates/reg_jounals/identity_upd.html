@@ -1,7 +1,7 @@
 {% extends "reg_jounals/index.html" %}
 
-{%block title%}Добавить запись{% endblock %}
-{%block header%}{%block logo%}{{block.super}}{%endblock%}Изменить запись - Удостоверение № {{ind.number}}{% endblock %}
+{%block title%}Изменить запись{% endblock %}
+{%block header%}{%block logo%}{{block.super}}{%endblock%}Изменить запись{% endblock %}
 
 {%block content%}
 {% if form.errors%}
@@ -11,20 +11,41 @@
 </div>
 {%endif%}
 
-<form class="add_form" action="" method="post">
+<form class="standart-panel standart-form" action="" method="post">
   {% csrf_token %}
-  {% for field in form %}
-  <p>{{field.label}}{{ field }}</p>
-  {% endfor%}
+  <div class="standart-form-header">
+    <h4>Номер удостоверения: <span id="next_num">{{next_num}}</span></h4>
+  </div>
+  
+  <div class="standart-form-input-group inline">
+    <p><span>ФИО: </span><select name="identity-employer-field" id="identity-employer-field">
 
-  <input class="btn btn-success"  type="submit" value="Сохранить" />
-  <a id="close" class="btn btn-outline-danger" href="..">Отмена</a>
+    </select></p>
+
+    <p><span>Подразделение: </span><select onchange="get_employers_from_department(this.value, 'identity-employer-field')" name="identity-department-field" id="identity-department-field">
+      {% for dep in deps %}
+        <option value="{{dep.id}}">{{dep.name}}</option>
+      {% endfor %}
+    </select></p>
+
+    <p><span>Выдано: </span>{{form.date_giving}}</p>
+  </div>
+
+  <div class="standart-form-input-group inline">
+    <input class="button add"  type="submit" value="Сохранить" />
+    <a class="button cancel" href="..">Отмена</a>
+  </div>
+
 
 
 </form>
 
 <script type="text/javascript">
-  prev = document.referrer
-  $('#close').attr('href', prev)
+  (function (){
+    get_employers_from_department('{{ident.department_new_id}}', 'identity-employer-field')
+    document.getElementById('identity-department-field').value = '{{ident.department_new_id}}'
+   setTimeout(function() { document.getElementById('identity-employer-field').value = '{{ident.bound_employer_id}}'}, 500)
+  })()
 </script>
+
 {%endblock%}

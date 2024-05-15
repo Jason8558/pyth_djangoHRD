@@ -74,8 +74,18 @@
         <td id="number">{{let.loi_number}}</td>
         <td id="date">{{let.loi_date|date:"d.m.Y"}}</td>
         <td class="table-non-wrap" id="emloyer">{{let.loi_employee}}</td>
-        <td class="table-non-wrap" id="pos">{{let.loi_position | truncatechars:15}} </td>
-        <td class="table-non-wrap" id="dep">{{let.loi_department}}</td>
+        
+        {% if let.position%}
+          <td class="table-non-wrap" id="pos">{{let.position | truncatechars:15}} </td>
+        {% else %}
+          <td class="table-non-wrap" id="pos">{{let.loi_position | truncatechars:15}} </td>
+        {% endif %}
+        
+        {% if let.department %}
+          <td class="table-non-wrap" id="dep">{{let.department}}</td>
+        {% else %}
+          <td class="table-non-wrap" id="dep">{{let.loi_department}}</td>
+        {%endif %}
         <td id="dateofinv">{{let.loi_dateOfInv|date:"d.m.Y"}}</td>
         <td class="table-non-wrap" id="res_officer">{{let.loi_res_officer}}</td>
 

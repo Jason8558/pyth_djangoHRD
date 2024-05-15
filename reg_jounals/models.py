@@ -25,16 +25,21 @@ class OutBoundDocument(models.Model):
 
 class LetterOfResignation(models.Model):
 
-    lor_date = models.DateField(help_text="Введите дату поступления заявления", verbose_name="Дата поступления заявления", db_index=True)
-    lor_number = models.CharField(default='',max_length=10, help_text="Введите номер документа", verbose_name='Номер документа', db_index=True)
-    lor_employee = models.CharField(max_length=256, help_text="Введите ФИО увольняемого сотрудника", verbose_name="Увольняемый сотрудник")
-    lor_position = models.CharField(max_length=256, help_text="Введите должность увольняемого сотрудника", verbose_name="Должность")
-    lor_departament = models.ForeignKey('Departments', on_delete=models.CASCADE, verbose_name="Подразделение ", default="1")
-    lor_dateOfRes = models.DateField(help_text="Введите дату увольнения", verbose_name="Дата увольнения", db_index=True)
-    lor_additionalData = models.CharField(blank=True, null=True, max_length=256, help_text="Введите примечание", verbose_name="Примечание")
-    lor_itemOfRes = models.ForeignKey('ItemOfResignation', on_delete=models.CASCADE, verbose_name="Основание увольнения", null=True, blank=True)
-    lor_res_officer = models.CharField(blank=True, editable=False,  max_length=256, help_text="Сотрудник, который внес документ в систему ", verbose_name='Ответственный сотрудник')
+    lor_date            = models.DateField(help_text="Введите дату поступления заявления", verbose_name="Дата поступления заявления", db_index=True)
+    lor_number          = models.CharField(default='',max_length=10, help_text="Введите номер документа", verbose_name='Номер документа', db_index=True)
+    lor_employee        = models.CharField(max_length=256, help_text="Введите ФИО увольняемого сотрудника", verbose_name="Увольняемый сотрудник", blank=True, null=True)
+    lor_position        = models.CharField(max_length=256, help_text="Введите должность увольняемого сотрудника", verbose_name="Должность", blank=True, null=True)
+    lor_departament     = models.ForeignKey('Departments', on_delete=models.CASCADE, verbose_name="Подразделение ", default=None, blank=True, null=True)
+    lor_dateOfRes       = models.DateField(help_text="Введите дату увольнения", verbose_name="Дата увольнения", db_index=True)
+    lor_additionalData  = models.CharField(blank=True, null=True, max_length=256, default=None, help_text="Введите примечание", verbose_name="Примечание")
+    lor_itemOfRes       = models.ForeignKey('ItemOfResignation', on_delete=models.CASCADE, verbose_name="Основание увольнения", null=True, blank=True)
+    lor_res_officer     = models.CharField(blank=True, editable=False,  max_length=256, help_text="Сотрудник, который внес документ в систему ", verbose_name='Ответственный сотрудник')
 
+
+    bound_employer      = models.ForeignKey('TURV.Employers', on_delete=models.CASCADE, blank=False, null=True, default=None)
+    department          = models.ForeignKey('TURV.Department', on_delete=models.CASCADE, blank=False, null=True, default=None)
+    position            = models.ForeignKey('TURV.Position', on_delete=models.CASCADE, blank=False, null=True, default=None)
+    
     class Meta:
         ordering = ["id"]
         verbose_name = 'Заявление на увольнение'
@@ -56,15 +61,18 @@ class ItemOfResignation(models.Model):
         return name
 
 class LetterOfInvite(models.Model):
-    loi_date = models.DateField(help_text="Введите дату поступления заявления", verbose_name="Дата поступления заявления", db_index=True)
-    loi_number = models.CharField(default='',max_length=10, help_text="Введите номер документа", verbose_name='Номер документа', db_index=True)
-    loi_employee = models.CharField(max_length=256, help_text="Введите ФИО принимаемого сотрудника", verbose_name="Принимаемый сотрудник")
-    loi_position = models.CharField(max_length=256, help_text="Введите должность принимаемого сотрудника", verbose_name="Должность")
-    loi_department = models.ForeignKey('Departments', on_delete=models.CASCADE, verbose_name="Подразделение ", default="1")
-    loi_dateOfInv = models.DateField(blank=True, null=True, help_text="Введите дату начала работы", verbose_name="Дата начала работы", db_index=True)
-    loi_additionalData = models.CharField(blank=True, default=" ", max_length=256, help_text="Введите примечание", verbose_name="Примечание")
-    loi_res_officer = models.CharField(blank=True, editable=False,  max_length=256, help_text="Сотрудник, который внес документ в систему ", verbose_name='Ответственный сотрудник')
-
+    loi_date            = models.DateField(help_text="Введите дату поступления заявления", verbose_name="Дата поступления заявления", db_index=True)
+    loi_number          = models.CharField(default='',max_length=10, help_text="Введите номер документа", verbose_name='Номер документа', db_index=True)
+    loi_employee        = models.CharField(max_length=256, help_text="Введите ФИО принимаемого сотрудника", verbose_name="Принимаемый сотрудник")
+    loi_position        = models.CharField(max_length=256, help_text="Введите должность принимаемого сотрудника", verbose_name="Должность", null=True, blank=True)
+    loi_department      = models.ForeignKey('Departments', on_delete=models.CASCADE, verbose_name="Подразделение ", default=None, null=True, blank=True)
+    loi_dateOfInv       = models.DateField(blank=True, null=True, help_text="Введите дату начала работы", verbose_name="Дата начала работы", db_index=True)
+    loi_additionalData  = models.CharField(blank=True, default=" ", max_length=256, help_text="Введите примечание", verbose_name="Примечание")
+    loi_res_officer     = models.CharField(blank=True, editable=False,  max_length=256, help_text="Сотрудник, который внес документ в систему ", verbose_name='Ответственный сотрудник')
+    
+    department          = models.ForeignKey('TURV.Department', on_delete=models.CASCADE, blank=False, null=True, default=None)
+    position            = models.ForeignKey('TURV.Position', on_delete=models.CASCADE, blank=False, null=True, default=None)
+    
     class Meta:
         ordering = ["id"]
         verbose_name = 'Заявление на прием'
@@ -101,14 +109,17 @@ class OrdersOnVacation(models.Model):
         verbose_name_plural = 'Приказы на отпуск'
 
 class OrdersOfBTrip(models.Model):
-    bt_number = models.CharField(max_length=5, help_text="Введите номер приказа", verbose_name="Номер приказа", db_index=True)
-    bt_date = models.DateField(help_text="Введите дату приказа", verbose_name="Дата приказа", db_index=True)
-    bt_dep = models.ForeignKey('Departments', on_delete=models.CASCADE, verbose_name="Подразделение ", default="1")
-    bt_place = models.CharField(max_length=256, help_text="Введите место командировки", verbose_name="Место командировки", db_index=True)
-    bt_emloyer = models.CharField(max_length=256, help_text="Введите ФИО сотрудника", verbose_name="ФИО сотрудника", db_index=True)
-    bt_dur_from = models.DateField(default='2000-01-01',help_text="Введите дату начала командировки", verbose_name="Дата начала командировки", db_index=True)
-    bt_dur_to = models.DateField(default='2000-01-01',help_text="Введите дату завершения командировки", verbose_name="Дата завершения командировки", db_index=True)
-    bt_res_officer = models.CharField(blank=True, editable=False,  max_length=256, help_text="Сотрудник, который внес документ в систему ", verbose_name='Ответственный сотрудник')
+    bt_number       = models.CharField(max_length=5, help_text="Введите номер приказа", verbose_name="Номер приказа", db_index=True)
+    bt_date         = models.DateField(help_text="Введите дату приказа", verbose_name="Дата приказа", db_index=True)
+    bt_dep          = models.ForeignKey('Departments', on_delete=models.CASCADE, verbose_name="Подразделение ", default=None, blank=True, null=True)
+    bt_place        = models.CharField(max_length=256, help_text="Введите место командировки", verbose_name="Место командировки", db_index=True)
+    bt_emloyer      = models.CharField(max_length=256, help_text="Введите ФИО сотрудника", verbose_name="ФИО сотрудника", db_index=True, blank=True, null=True)
+    bt_dur_from     = models.DateField(default='2000-01-01',help_text="Введите дату начала командировки", verbose_name="Дата начала командировки", db_index=True)
+    bt_dur_to       = models.DateField(default='2000-01-01',help_text="Введите дату завершения командировки", verbose_name="Дата завершения командировки", db_index=True)
+    bt_res_officer  = models.CharField(blank=True, editable=False,  max_length=256, help_text="Сотрудник, который внес документ в систему ", verbose_name='Ответственный сотрудник')
+
+    bound_employer  = models.ForeignKey('TURV.Employers', on_delete=models.CASCADE, blank=False, null=True, default=None)
+    department      = models.ForeignKey('TURV.Department', on_delete=models.CASCADE, blank=False, null=True, default=None)
 
     class Meta:
         ordering = ["id"]
@@ -133,25 +144,25 @@ class OrdersOnPersonnelTypes(models.Model):
 class OrdersOnPersonnel(models.Model):
     work_type_choices = [('Временно','Временно'), ('Постоянно','Постоянно')]
 
-    op_number = models.CharField(max_length=5, help_text="Введите номер приказа", verbose_name="Номер приказа", db_index=True)
-    op_date = models.DateField(help_text="Введите дату приказа", verbose_name="Дата приказа", db_index=True)
-    op_dateOfInv = models.DateField(default='0001-01-01',blank=True, null=True, help_text="Введите дату приема на работу", verbose_name="Дата приема на работу", db_index=True)
-    op_dateOfRes = models.DateField(default='0001-01-01',blank=True, null=True, help_text="Введите дату увольнения", verbose_name="Дата увольнения", db_index=True)
-    op_typeOfWork = models.CharField(blank=True, null=True, choices=work_type_choices, max_length=256, help_text="Характер работы", verbose_name="Характер работы", db_index=True)
-    op_probation = models.FloatField(blank=True, null=True, help_text="Введите число", verbose_name="Испытательный срок (мес.)")
-    op_type = models.ForeignKey('OrdersOnPersonnelTypes', on_delete=models.CASCADE, verbose_name="Вид приказа ", default="4")
-    op_moveFrom = models.DateField(default='0001-01-01', blank=True, null=True, help_text="Введите начало периода перевода", verbose_name="Перевод с:", db_index=True)
-    op_moveTo = models.DateField(default='0001-01-01', blank=True, null=True, help_text="Введите окончания периода перевода", verbose_name="по:", db_index=True)
-    op_dep = models.ForeignKey('Departments', on_delete=models.CASCADE,  verbose_name="Подразделение ", default="1")
-    op_emloyer = models.CharField(max_length=256, help_text="Введите ФИО сотрудника", verbose_name="ФИО сотрудника", db_index=True, null=True)
-    op_content = models.TextField(help_text="Введите содержание", verbose_name="Содержание приказа")
-    op_selected = models.BooleanField(verbose_name="Выделить в списке", default=False)
-    op_lastcheck = models.BooleanField(verbose_name="Последний проверенный", default=False)
-    op_res_officer = models.CharField(blank=True, editable=False,  max_length=256, help_text="Сотрудник, который внес документ в систему ", verbose_name='Ответственный сотрудник')
+    op_number                   = models.CharField(max_length=5, help_text="Введите номер приказа", verbose_name="Номер приказа", db_index=True)
+    op_date                     = models.DateField(help_text="Введите дату приказа", verbose_name="Дата приказа", db_index=True)
+    op_dateOfInv                = models.DateField(default='0001-01-01',blank=True, null=True, help_text="Введите дату приема на работу", verbose_name="Дата приема на работу", db_index=True)
+    op_dateOfRes                = models.DateField(default='0001-01-01',blank=True, null=True, help_text="Введите дату увольнения", verbose_name="Дата увольнения", db_index=True)
+    op_typeOfWork               = models.CharField(blank=True, null=True, choices=work_type_choices, max_length=256, help_text="Характер работы", verbose_name="Характер работы", db_index=True)
+    op_probation                = models.FloatField(blank=True, null=True, help_text="Введите число", verbose_name="Испытательный срок (мес.)")
+    op_type                     = models.ForeignKey('OrdersOnPersonnelTypes', on_delete=models.CASCADE, verbose_name="Вид приказа ", default="4")
+    op_moveFrom                 = models.DateField(default='0001-01-01', blank=True, null=True, help_text="Введите начало периода перевода", verbose_name="Перевод с:", db_index=True)
+    op_moveTo                   = models.DateField(default='0001-01-01', blank=True, null=True, help_text="Введите окончания периода перевода", verbose_name="по:", db_index=True)
+    op_dep                      = models.ForeignKey('Departments', on_delete=models.CASCADE,  verbose_name="Подразделение ", blank=True, null=True)
+    op_emloyer                  = models.CharField(max_length=256, help_text="Введите ФИО сотрудника", verbose_name="ФИО сотрудника", db_index=True, null=True, blank=True)
+    op_content                  = models.TextField(help_text="Введите содержание", verbose_name="Содержание приказа")
+    op_selected                 = models.BooleanField(verbose_name="Выделить в списке", default=False)
+    op_lastcheck                = models.BooleanField(verbose_name="Последний проверенный", default=False)
+    op_res_officer              = models.CharField(blank=True, editable=False,  max_length=256, help_text="Сотрудник, который внес документ в систему ", verbose_name='Ответственный сотрудник')
 
-    bound_employer              = models.ForeignKey('TURV.Employers', on_delete=models.CASCADE, verbose_name='Связанный работник', null=True)
+    bound_employer              = models.ForeignKey('TURV.Employers', on_delete=models.CASCADE, verbose_name='Связанный работник', null=True, blank=True)
     grounds_for_resignation     = models.ForeignKey('ItemOfResignation', on_delete=models.CASCADE, verbose_name="Основание увольнения", null=True, blank=True)
-    department                  = models.ForeignKey('TURV.Department', on_delete=models.CASCADE, verbose_name='Подразделение', null=True)
+    department                  = models.ForeignKey('TURV.Department', on_delete=models.CASCADE, verbose_name='Подразделение', null=True, blank=True)
 
     class Meta:
         ordering = ["-op_date"]
@@ -163,14 +174,18 @@ class OrdersOnPersonnel(models.Model):
         return doc_fullname
 
 class LaborContract(models.Model):
-    lc_number = models.CharField(max_length=256, help_text="Введите номер договора", verbose_name="Номер договора", db_index=True)
-    lc_date = models.DateField(help_text="Введите дату договора", verbose_name="Дата договора", db_index=True)
-    lc_emloyer = models.CharField(max_length=256, help_text="Введите ФИО принимаемого сотрудника", verbose_name="ФИО принимаемого сотрудника", db_index=True)
-    lc_pos = models.CharField(max_length=256, help_text="Введите должность", verbose_name="Должность", db_index=True, default=' ')
-    lc_dep = models.ForeignKey('Departments', related_name="departments", on_delete=models.CASCADE, verbose_name="Подразделение ", default="1")
-    lc_dateOfInv = models.DateField(help_text="Введите дату приема на работу", verbose_name="Дата приема на работу", db_index=True)
-    lc_workCond = models.TextField(help_text="Введите условие работы", verbose_name="Условие работы", db_index=True)
-    lc_res_officer = models.CharField(blank=True, editable=False,  max_length=256, help_text="Сотрудник, который внес документ в систему ", verbose_name='Ответственный сотрудник')
+    lc_number       = models.CharField(max_length=256, help_text="Введите номер договора", verbose_name="Номер договора", db_index=True)
+    lc_date         = models.DateField(help_text="Введите дату договора", verbose_name="Дата договора", db_index=True)
+    lc_emloyer      = models.CharField(max_length=256, help_text="Введите ФИО принимаемого сотрудника", verbose_name="ФИО принимаемого сотрудника", db_index=True, blank=True, null=True)
+    lc_pos          = models.CharField(max_length=256, help_text="Введите должность", verbose_name="Должность", db_index=True, default=None , null=True, blank=True)
+    lc_dep          = models.ForeignKey('Departments', related_name="departments", on_delete=models.CASCADE, verbose_name="Подразделение ", default=None, null=True, blank=True)
+    lc_dateOfInv    = models.DateField(help_text="Введите дату приема на работу", verbose_name="Дата приема на работу", db_index=True)
+    lc_workCond     = models.TextField(help_text="Введите условие работы", verbose_name="Условия работы", db_index=True)
+    lc_res_officer  = models.CharField(blank=True, editable=False,  max_length=256, help_text="Сотрудник, который внес документ в систему ", verbose_name='Ответственный сотрудник')
+
+    bound_employer  = models.ForeignKey('TURV.Employers', on_delete=models.CASCADE, blank=False, null=True, default=None)
+    department      = models.ForeignKey('TURV.Department', on_delete=models.CASCADE, blank=False, null=True, default=None)
+    position        = models.ForeignKey('TURV.Position', on_delete=models.CASCADE, blank=False, null=True, default=None)
 
     class Meta:
         ordering = ["id"]
@@ -182,16 +197,18 @@ class LaborContract(models.Model):
         return doc_fullname
 
 class EmploymentHistory(models.Model):
-    eh_number = models.CharField(max_length=256, help_text="Введите номер трудовой книжки", verbose_name="Номер\серия", db_index=True)
-    eh_dateOfInv = models.DateField(help_text="Введите дату приема на работу", verbose_name="Дата приема на работу", db_index=True)
-    eh_employer = models.CharField(max_length=256, help_text="Введите ФИО принимаемого сотрудника", verbose_name="ФИО принимаемого сотрудника", db_index=True)
-    eh_pos = models.CharField(max_length=256, help_text="Введите должность", verbose_name="Должность", db_index=True)
-    eh_dep = models.ForeignKey('Departments', on_delete=models.CASCADE, verbose_name="Подразделение ", default="79")
-    eh_OrderInv = models.CharField(max_length=256, help_text="Введите номер приказа о приеме", verbose_name="Приказ о приеме на работу:", db_index=True)
-    eh_OrderResign = models.CharField(null=True, blank=True, max_length=256, help_text="Введите номер приказа об увольнении", verbose_name="Приказ об увольнении:", db_index=True)
-    eh_dateOfResign = models.DateField(null=True, blank=True, help_text="Введите дату увольнения", verbose_name="Дата увольнения", db_index=True)
-    eh_res_officer = models.CharField(blank=True, editable=False,  max_length=256, help_text="Сотрудник, который внес документ в систему ", verbose_name='Ответственный сотрудник')
-    eh_isdigital = models.BooleanField(null=True, blank=True, verbose_name="Электронная", default=False)
+    eh_number           = models.CharField(max_length=256, help_text="Введите номер трудовой книжки", verbose_name="Номер\серия", db_index=True)
+    eh_dateOfInv        = models.DateField(help_text="Введите дату приема на работу", verbose_name="Дата приема на работу", db_index=True)
+    eh_employer         = models.CharField(max_length=256, help_text="Введите ФИО принимаемого сотрудника", verbose_name="ФИО принимаемого сотрудника", db_index=True)
+    eh_pos              = models.CharField(max_length=256, help_text="Введите должность", verbose_name="Должность", db_index=True, null=True, blank=True)
+    eh_dep              = models.ForeignKey('Departments', on_delete=models.CASCADE, verbose_name="Подразделение ", default=None, null=True, blank=True)
+    eh_OrderInv         = models.CharField(max_length=256, help_text="Введите номер приказа о приеме", verbose_name="Приказ о приеме на работу:", db_index=True)
+    eh_OrderResign      = models.CharField(null=True, blank=True, max_length=256, help_text="Введите номер приказа об увольнении", verbose_name="Приказ об увольнении:", db_index=True)
+    eh_dateOfResign     = models.DateField(null=True, blank=True, help_text="Введите дату увольнения", verbose_name="Дата увольнения", db_index=True)
+    eh_res_officer      = models.CharField(blank=True, editable=False,  max_length=256, help_text="Сотрудник, который внес документ в систему ", verbose_name='Ответственный сотрудник')
+    eh_isdigital        = models.BooleanField(null=True, blank=True, verbose_name="Электронная", default=False)
+
+    department          = models.ForeignKey('TURV.Department', on_delete=models.CASCADE, blank=False, null=True, default=None)
 
     class Meta:
         ordering = ["-id"]
@@ -236,11 +253,15 @@ class SickDocument(models.Model):
         return doc_name
 
 class Identity(models.Model):
-    number = models.IntegerField(blank=True, verbose_name = "Номер удостоверения")
-    date_giving = models.DateField(help_text="Введите дату выдачи удостоверения", verbose_name="Дата выдачи удостоверения", db_index=True)
-    employer = models.CharField(max_length=256, help_text="Введите ФИО сотрудника", verbose_name="Сотрудник", db_index=True)
-    department = models.ForeignKey('Departments',  on_delete=models.CASCADE, verbose_name="Подразделение", default="1")
-    res_officer = models.CharField(default="database", blank=True, editable=False,  max_length=256, help_text="Сотрудник, который занес запись", verbose_name='Ответственный сотрудник')
+    number              = models.IntegerField(blank=True, verbose_name = "Номер удостоверения")
+    date_giving         = models.DateField(help_text="Введите дату выдачи удостоверения", verbose_name="Дата выдачи удостоверения", db_index=True)
+    employer            = models.CharField(max_length=256, help_text="Введите ФИО сотрудника", verbose_name="Сотрудник", db_index=True, blank=True, null=True)
+    department_old      = models.ForeignKey('Departments',  on_delete=models.CASCADE, verbose_name="Подразделение", default=None, blank=True, null=True)
+    res_officer         = models.CharField(default="database", blank=True, editable=False,  max_length=256, help_text="Сотрудник, который занес запись", verbose_name='Ответственный сотрудник')
+    
+    bound_employer      = models.ForeignKey('TURV.Employers', on_delete=models.CASCADE, blank=False, null=True, default=None)
+    department_new          = models.ForeignKey('TURV.Department', on_delete=models.CASCADE, blank=False, null=True, default=None)
+
     class Meta:
         ordering = ["-id"]
         verbose_name = 'Удостоверение'
@@ -277,14 +298,18 @@ class NewOrdersOnVacation_item(models.Model):
 
     vac_type_choices = [('Очередной','Очередной'), ('Пенсионный','Пенсионный'), ('Без сохранения ЗП','Без сохранения ЗП'), ('Учебный','Учебный'), ('Донор','Донор'), ('С сохр. ЗП','С сохр. ЗП'), ('Отменен','Отменен')]
 
-    bound_order = models.ForeignKey('NewOrdersOnVacation', on_delete=models.CASCADE, verbose_name="Приказ ")
-    fio = models.CharField(max_length=256, help_text="ФИО сотрудника", verbose_name="ФИО сотрудника", db_index=True)
-    dep = models.ForeignKey('Departments', on_delete=models.CASCADE, verbose_name="Подразделение ", default="79")
-    dur_from = models.DateField(blank = True, null=True, help_text="Введите дату начала отпуска", verbose_name="Начало", db_index=True)
-    dur_to = models.DateField(blank = True, null=True, help_text="Введите дату окончания отпуска", verbose_name="Окончание", db_index=True)
-    days_count = models.CharField(blank = True, null=True, max_length=5, help_text="Количество дней", verbose_name="Количество дней", db_index=True)
-    vac_type = models.CharField(choices=vac_type_choices, max_length=256, help_text="Вид отпуска", verbose_name="Вид отпуска", db_index=True)
-    comm = models.CharField(blank = True, null=True, max_length=256, help_text="Комментарий", verbose_name="Комментарий", db_index=True)
+    bound_order         = models.ForeignKey('NewOrdersOnVacation', on_delete=models.CASCADE, verbose_name="Приказ ")
+    fio                 = models.CharField(max_length=256, help_text="ФИО сотрудника", verbose_name="ФИО сотрудника", db_index=True, blank=True, null=True)
+    dep                 = models.ForeignKey('Departments', on_delete=models.CASCADE, verbose_name="Подразделение ", default=None, blank=True, null=True)
+    dur_from            = models.DateField(blank = True, null=True, help_text="Введите дату начала отпуска", verbose_name="Начало", db_index=True)
+    dur_to              = models.DateField(blank = True, null=True, help_text="Введите дату окончания отпуска", verbose_name="Окончание", db_index=True)
+    days_count          = models.CharField(blank = True, null=True, max_length=5, help_text="Количество дней", verbose_name="Количество дней", db_index=True)
+    vac_type            = models.CharField(choices=vac_type_choices, max_length=256, help_text="Вид отпуска", verbose_name="Вид отпуска", db_index=True)
+    comm                = models.CharField(blank = True, null=True, max_length=256, help_text="Комментарий", verbose_name="Комментарий", db_index=True)
+
+    bound_employer      = models.ForeignKey('TURV.Employers', on_delete=models.CASCADE, blank=False, null=True, default=None)
+    department_new      = models.ForeignKey('TURV.Department', on_delete=models.CASCADE, blank=False, null=True, default=None)
+    
 
     class Meta:
         ordering = ["id"]

@@ -35,21 +35,26 @@ def search(fields):
         # Отпуск
         vacation_type = fields['vacation_type']
 
-        search_result = Vacations.objects.filter(fio__icontains=name).filter(vac_type__icontains=vacation_type).filter(
+        search_result = Vacations.objects.filter(bound_employer__fullname__icontains=name).filter(vac_type__icontains=vacation_type).filter(
             bound_order__order_date__gte=period_from, bound_order__order_date__lte=period_to).order_by('-bound_order__order_date')
 
         if department:
-           search_result = search_result.filter(dep=department)
+           search_result = search_result.filter(department_new=department)
 
     if int(document_type) == 2:
          # Командировки
         destination = fields['destination']
 
-        search_result = BuisnessTrip.objects.filter(bt_emloyer__icontains=name).filter(
+        search_result = BuisnessTrip.objects.filter(bound_employer__fullname__icontains=name).filter(
             bt_date__gte=period_from, bt_date__lte=period_to).filter(bt_place__icontains=destination).order_by('-bt_date')
+        
+        # search_result_2 = BuisnessTrip.objects.filter(bt_emloyer__icontains=name).filter(
+        #     bt_date__gte=period_from, bt_date__lte=period_to).filter(bt_place__icontains=destination).order_by('-bt_date')
+
+        # search_result = search_result_1.union(search_result_2).order_by('-bt_date')
 
         if department:
-            search_result = search_result.filter(bt_dep=department)
+            search_result = search_result.filter(department_id=department)
 
     if int(document_type) == 3:
         # Заявления на прием
@@ -58,7 +63,7 @@ def search(fields):
             loi_date__gte=period_from, loi_date__lte=period_to).order_by('-loi_date')
 
         if department:
-            search_result = search_result.filter(loi_department=department)
+            search_result = search_result.filter(department=department)
 
     if int(document_type) == 4:
         # Трудовые книжки
@@ -68,7 +73,7 @@ def search(fields):
             eh_dateOfInv__gte=period_from, eh_dateOfInv__lte=period_to).order_by('-eh_dateOfInv')
         
         if department:
-            search_result = search_result.filter(eh_dep=department)
+            search_result = search_result.filter(department=department)
 
         if employment_history_type:
             search_result = search_result.filter(eh_isdigital=employment_history_type)
@@ -106,14 +111,28 @@ def search(fields):
 
         if orders_of_personnel_event:
             search_result = search_result.filter(op_type = orders_of_personnel_event)
+        
+        if department:
+            search_result = search_result.filter(department=department)
+
+        search_result_2 = OrdersOnPersonnel.objects.filter(bound_employer__fullname__icontains=name).filter(op_number__icontains=orders_on_personnel_number).filter(
+        op_date__gte=period_from, op_date__lte=period_to).filter(op_content__icontains=content).order_by('-op_date')
+
+        if orders_of_personnel_event:
+            search_result_2 = search_result.filter(op_type = orders_of_personnel_event)
+        
+        if department:
+            search_result_2 = search_result.filter(department=department)
+        
+        search_result = search_result.union(search_result_2).order_by('-op_date')
 
     if int(document_type) == 8:
         # Трудовые договоры
-        search_result = LaborContracts.objects.filter(lc_emloyer__icontains=name).filter(
+        search_result = LaborContracts.objects.filter(bound_employer__fullname__icontains=name).filter(
             lc_date__gte=period_from, lc_date__lte=period_to).order_by('-lc_date')
 
         if department:
-            search_result = search_result.filter(lc_dep = department)
+            search_result = search_result.filter(department = department)
 
     if int(document_type) == 9:
         # Заявления на увольнения
@@ -127,21 +146,21 @@ def search(fields):
             resignation_to = '3999-12-31'
 
         search_result = LettersOfResiganton.objects.filter(
-            lor_employee__icontains=name).filter(
+            bound_employer__fullname__icontains=name).filter(
             lor_date__gte=period_from, lor_date__lte=period_to).filter(
             lor_dateOfRes__gte=resignation_from, lor_dateOfRes__lte=resignation_to).order_by('-lor_date')
 
         if department:
-            search_result = search_result.filter(lor_departament = department)
+            search_result = search_result.filter(department = department)
 
     if int(document_type) == 10:
         # Удостоверения
         search_result = Identitys.objects.filter(
-            employer__icontains=name).filter(
+            bound_employer__fullname__icontains=name).filter(
             date_giving__gte=period_from, date_giving__lte=period_to).order_by('-date_giving')
 
         if department:
-            search_result = search_result.filter(department = department)            
+            search_result = search_result.filter(department_new = department)            
 
     return (search_result)
 

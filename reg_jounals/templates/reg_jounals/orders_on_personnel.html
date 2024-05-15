@@ -110,8 +110,26 @@
         <td><input type="checkbox" class="for_print" name="forprint" value=""></td>
         <td id="date">{{order.op_date|date:"d.m.Y"}}</td>
         <td id='number'>{{order.op_number}}</td>
-        <td id="emloyer">{{order.op_emloyer}}</td>
-        <td id="dep">{{order.op_dep}}</td>
+        {% if order.op_emloyer %}
+          <td id="emloyer">{{order.op_emloyer}}</td>
+        {% else %}
+          {% if order.bound_employer %}
+            <td id="emloyer">{{order.bound_employer.fullname}}</td>
+          {%else%}
+            <td id="emloyer">--</td>
+          {%endif%}
+        {% endif %}
+        
+        {% if order.department %}
+          <td id="dep">{{order.department}}</td>
+        {% else %}
+          {% if order.op_dep %}
+            <td id="dep">{{order.op_dep}}</td>
+          {%else%}
+            <td id="dep">--</td>
+          {%endif%}
+        {%endif%}
+        
         <td id="content">{{order.op_content| truncatechars:30}}</td>
         <td class="table-res-employer" id="res_officer">{{order.op_res_officer}}</td>
 

@@ -61,13 +61,13 @@
       <thead class="thead-dark">
         <tr class="tr-header">
           <th scope="col">Номер</th>
-          <th scope="col">Дата поступления</th>
+          <th scope="col">Дата</th>
           <th scope="col">Увольняемый</th>
           <th scope="col">Подразделение</th>
           <th scope="col">Дата увольнения</th>
-          <th scope="col">Основание увольнения</th>
+          <th scope="col">Основание</th>
           <th scope="col">Примечание</th>
-          <th scope="col">Ответственный сотрудник</th>
+          <th scope="col">Ответственный</th>
 
         </tr>
       </thead>
@@ -78,11 +78,26 @@
 
         <td id="number">{{let.lor_number}}</td>
         <td id="date">{{let.lor_date|date:"d.m.Y"}}</td>
-        <td id="emloyer">{{let.lor_employee}}</td>
-        <td id="dep">{{let.lor_departament}}</td>
+        
+        {% if let.bound_employer %}
+          <td id="emloyer">{{let.bound_employer.fullname}}</td>
+        {%else%}
+          <td id="emloyer">{{let.lor_employee}}</td>
+        {%endif%}
+        
+        {% if let.department %}
+          <td id="dep">{{let.department}}</td>
+        {% else %}
+          <td id="dep">{{let.lor_departament}}</td>
+        {%endif%}
+        
         <td id="dateRes">{{let.lor_dateOfRes|date:"d.m.Y"}}</td>
         <td class="table-non-wrap" id="content">{{let.lor_itemOfRes| truncatechars:15}}</td>
-        <td id="content">{{let.lor_additionalData | truncatechars:15}}</td>
+        {% if let.lor_additionalData%}
+          <td id="content">{{let.lor_additionalData | truncatechars:15}}</td>
+        {% else %}
+          <td id="content"></td>
+        {% endif %}
         <td class="table-non-wrap" id="res_officer">{{let.lor_res_officer}}</td>
 
       </tr>

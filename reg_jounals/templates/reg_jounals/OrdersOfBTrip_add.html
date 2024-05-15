@@ -11,19 +11,47 @@
 {{form.errors}}
 </div>
 {%endif%}
-<form class="add_form" action="" method="post">
+<form class="standart-panel standart-form" action="" method="post">
   {% csrf_token %}
-  <h5>Номер приказа: <span id="next_num">{{next_num}}П</span></h5>
+  
+  <div class="standart-form-header">
+    <h4>Номер приказа: <span id="next_num">{{next_num}}П</span></h4>
+  </div>
+
+<div class="standart-form-input-group inline">
+  <!-- <p><span>{{form.bt_emloyer.label}}: </span>{{form.bt_emloyer}}</p> -->
+  <p><span>Работник: </span><select name="order-of-btrip-bound-employer-field" id="order-of-btrip-bound-employer-field">
+
+  </select></p>
+  <p><span>Подразделение: </span><select onchange="get_employers_from_department(this.value, 'order-of-btrip-bound-employer-field')" name="order-of-btrip-department" id="order-of-btrip-department">
+    {% for dep in deps %}
+      <option value="{{dep.id}}">{{dep.name}}</option>
+    {% endfor %}
+  </select></p>
   <p>{{form.bt_date.label}}{{form.bt_date}}</p>
-  <p>{{form.bt_emloyer.label}}{{form.bt_emloyer}}</p>
-  <p>{{form.bt_dep.label}}{{form.bt_dep}}</p>
-  <p>{{form.bt_place.label}}{{form.bt_place}}</p>
-  <p class="p_unite"><span>{{form.bt_dur_from.label}}{{form.bt_dur_from}}</span><span>{{form.bt_dur_to.label}}{{form.bt_dur_to}}</span></p>
+</div>
 
 
+  
+  <div class="standart-form-input-group inline">
+    <p>{{form.bt_place.label}}{{form.bt_place}}</p>
+    <p><span>Начало: </span>{{form.bt_dur_from}}</p>
+    <p><span>Окончание: </span>{{form.bt_dur_to}}</p>
+   </div>
+  
 
-  <input class="btn btn-success" type="submit" value="Добавить" />
-  <a class="btn btn-outline-danger" href=".">Отмена</a>
+
+  <div class="standart-form-input-group inline">
+    <input class="button add" type="submit" value="Добавить" />
+    <a class="button cancel" href=".">Отмена</a>
+  </div>
 </form>
 
+<script type="text/javascript">
+  (function (){
+    current_department = document.getElementById('order-of-btrip-department').value
+    get_employers_from_department(current_department, 'order-of-btrip-bound-employer-field')
+  })()
+</script>
 {%endblock%}
+

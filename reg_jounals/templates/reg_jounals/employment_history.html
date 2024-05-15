@@ -72,7 +72,6 @@
           <th scope="col">Дата приема</th>
           <th scope="col">ФИО</th>
           <th scope="col">Подразделение</th>
-          <th scope="col">Должность</th>
           <th scope="col">Приказ о приеме</th>
           <th scope="col">Дата увольнения</th>
           <th scope="col">Приказ об увольнении</th>
@@ -92,11 +91,18 @@
         <td id="number">{{history.eh_number}}</td>
         <td id="dateofinv">{{history.eh_dateOfInv|date:"d.m.Y"}}</td>
         <td id="fio">{{history.eh_employer}}</td>
-        <td id="dep">{{history.eh_dep}}</td>
-        <td id="pos">{{history.eh_pos}}</td>
+        {% if history.department %}
+          <td id="dep">{{history.department}}</td>
+        {% else %}
+          <td id="dep">{{history.eh_dep}}</td>
+        {% endif %}
         <td id="orderinv">{{history.eh_OrderInv}}</td>
         <td id="dateofresign">{{history.eh_dateOfResign|date:"d.m.Y"}}</td>
-        <td id="orderres">{{history.eh_OrderResign}}</td>
+        {% if history.eh_OrderResign%}
+          <td id="orderres">{{history.eh_OrderResign}}</td>
+        {% else %}
+          <td id="orderres"></td>
+        {% endif %}
         <td id="res_officer">{{history.eh_res_officer}}</td>
 
 

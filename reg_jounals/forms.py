@@ -3,7 +3,8 @@ from django.core.exceptions import NON_FIELD_ERRORS
 from .models import *
 from django.contrib.auth.forms import AuthenticationForm
 import datetime as DT
-from TURV.models import Employers, Department as TURVDepartment
+from TURV.models import Employers, Department as TURVDepartment, Position as TURVPositions
+from .additionals import *
 
 def last_doc(dname):
     ld = dname.objects.latest("id")
@@ -13,25 +14,23 @@ class LetterOfResignation_form(forms.ModelForm):
     class Meta:
         model = LetterOfResignation
         fields =['lor_date',
-        'lor_employee',
-        'lor_departament',
+        
+        
         'lor_dateOfRes',
-        'lor_position',
+       
         'lor_itemOfRes',
         'lor_additionalData']
 
 
     lor_date = forms.CharField(label="Дата подачи заявления" , widget=forms.TextInput(
         attrs={'placeholder': 'Введите дату',  'type':'date'}))
-    lor_employee = forms.CharField(label="Увольняемый сотрудник")
-
     lor_dateOfRes = forms.DateField(label="Дата увольнения", required=False, widget=forms.TextInput(
         attrs={'placeholder': 'Введите дату',  'type':'date'}))
 
 
 
 
-    def saveFirst(self, user_):
+    def saveFirst(self, user_, bound_employer:Employers, department:TURV_departments):
         current_doc = LetterOfResignation
         letters = LetterOfResignation.objects.all()
         letters_count = len(letters)
@@ -58,15 +57,15 @@ class LetterOfResignation_form(forms.ModelForm):
         )
 
         new_letter = LetterOfResignation.objects.create(
-        lor_date = self.cleaned_data['lor_date'],
-        lor_number = str(letter_next_num_),
-        lor_employee = self.cleaned_data['lor_employee'],
-        lor_position = self.cleaned_data['lor_position'],
-        lor_departament = self.cleaned_data['lor_departament'],
-        lor_dateOfRes = self.cleaned_data['lor_dateOfRes'],
-        lor_additionalData = self.cleaned_data['lor_additionalData'],
-        lor_itemOfRes = self.cleaned_data['lor_itemOfRes'],
-        lor_res_officer = user_
+            lor_date            = self.cleaned_data['lor_date'],
+            lor_number          = str(letter_next_num_),
+            bound_employer      = bound_employer,
+            department          = department,
+            lor_employee        = None,
+            lor_dateOfRes       = self.cleaned_data['lor_dateOfRes'],
+            lor_additionalData  = self.cleaned_data['lor_additionalData'],
+            lor_itemOfRes       = self.cleaned_data['lor_itemOfRes'],
+            lor_res_officer     = user_
         )
 
         return new_letter
@@ -172,7 +171,7 @@ class OrdersOfBTrip_form(forms.ModelForm):
     bt_dur_to = forms.CharField(label="Дата завершения командировки" , widget=forms.TextInput(
         attrs={'placeholder': 'Введите дату', 'type':'date'}))
 
-    def saveFirst(self, user_):
+    def saveFirst(self, user_, employer_id:int, department_id:int):
         current_doc = OrdersOfBTrip
         orders = OrdersOfBTrip.objects.all()
         order_count = len(orders)
@@ -187,27 +186,31 @@ class OrdersOfBTrip_form(forms.ModelForm):
                 order_next_num_ = int(order_prev_num[:cut_symb]) + 1
 
         next_id = int(OrdersOfBTrip.objects.latest('id').id) + 1
+        
+        # Запись в лог
         logs.objects.create(
-        date = DT.datetime.now(),
-        event = logs_event.objects.get(id=1),
-        doc_id = next_id,
-        type = 'Приказ на командировку',
-        number = str(order_next_num_) + "П",
-        doc_date = self.cleaned_data['bt_date'],
-        addData = '',
-        link = '/orders_of_BTrip/' + str(next_id) + '/upd',
-        res_officer = user_
+            date        = DT.datetime.now(),
+            event       = logs_event.objects.get(id=1),
+            doc_id      = next_id,
+            type        = 'Приказ на командировку',
+            number      = str(order_next_num_) + "П",
+            doc_date    = self.cleaned_data['bt_date'],
+            addData     = '',
+            link        = '/orders_of_BTrip/' + str(next_id) + '/upd',
+            res_officer = user_
         )
 
+       
+
         new_order = OrdersOfBTrip.objects.create(
-            bt_date  = self.cleaned_data['bt_date'],
-            bt_number  = str(order_next_num_) + "П",
-            bt_dep = self.cleaned_data['bt_dep'],
-            bt_place = self.cleaned_data['bt_place'],
-            bt_emloyer = self.cleaned_data['bt_emloyer'],
-            bt_dur_from = self.cleaned_data['bt_dur_from'],
-            bt_dur_to = self.cleaned_data['bt_dur_to'],
-            bt_res_officer = user_
+            bound_employer  = get_employer_from_db(employer_id),
+            department      = get_department_from_db(department_id),
+            bt_date         = self.cleaned_data['bt_date'],
+            bt_number       = str(order_next_num_) + "П",
+            bt_place        = self.cleaned_data['bt_place'],
+            bt_dur_from     = self.cleaned_data['bt_dur_from'],
+            bt_dur_to       = self.cleaned_data['bt_dur_to'],
+            bt_res_officer  = user_
         )
 
         return new_order
@@ -216,7 +219,6 @@ class OrdersOnPersonnel_form(forms.ModelForm):
     class Meta:
         model = OrdersOnPersonnel
         fields = [
-    # 'department',
     'grounds_for_resignation',
     'bound_employer',
     'op_date',
@@ -231,8 +233,8 @@ class OrdersOnPersonnel_form(forms.ModelForm):
     'op_lastcheck',
     'op_selected']
 
-    # grounds_for_resignation = forms.ChoiceField(widget=forms.Select(attrs={'id':''}))
-
+    # employers = Employers.objects.none()
+    
     op_date = forms.CharField(label="Дата приказа" , widget=forms.TextInput(
         attrs={'placeholder': 'Введите дату',  'type':'date'}))
     op_emloyer = forms.CharField(label='ФИО сотрудника (полностью!)*', required=False, widget=forms.TextInput(
@@ -249,15 +251,17 @@ class OrdersOnPersonnel_form(forms.ModelForm):
 
     op_moveTo = forms.CharField(label="по" , required=False, widget=forms.TextInput(
         attrs={'placeholder': 'Введите дату',  'type':'date'}))
+    
+    # bound_employer = forms.ChoiceField(widget=forms.Select(attrs={'id':'order-of-personell-bound-employer-field'}))
+    
 
-
-
-    # op_type = forms.ChoiceField(label='Вид приказа: ', widget=forms.Select(attrs={
-    # 'onselect':'lock_fields()' }))
+    
 
     def saveFirst(self, user_, bound_employer_id:int, department_id:int):
-        if bound_employer_id != "":
-           bound_employer_id = Employers.objects.get(id=bound_employer_id) 
+        if bound_employer_id:
+            bound_employer = Employers.objects.get(id=bound_employer_id)
+        else:
+            bound_employer = None
         
         current_doc     = last_doc(OrdersOnPersonnel)
         orders          = OrdersOnPersonnel.objects.all().order_by('id')
@@ -307,9 +311,17 @@ class OrdersOnPersonnel_form(forms.ModelForm):
         else:
             moveTo = self.cleaned_data['op_moveTo']
 
+        if department_id:
+            department = TURVDepartment.objects.get(id=department_id)
+        else:
+            department = None
+        
+        
+
         new_order = OrdersOnPersonnel.objects.create(
-            department                  = TURVDepartment.objects.get(id=department_id),
-            bound_employer              = bound_employer_id,
+            
+            department                  = department,
+            bound_employer              = bound_employer,
             grounds_for_resignation     = self.cleaned_data['grounds_for_resignation'],
             op_date                     = self.cleaned_data['op_date'],
             op_type                     = self.cleaned_data['op_type'],
@@ -320,13 +332,17 @@ class OrdersOnPersonnel_form(forms.ModelForm):
             op_moveFrom                 = moveFrom,
             op_moveTo                   = moveTo,
             op_number                   = str(order_next_num_)+"ЛС",
-            op_dep                      = self.cleaned_data['op_dep'],
+            # op_dep                      = self.cleaned_data['op_dep'],
             op_content                  = self.cleaned_data['op_content'],
             op_emloyer                  = self.cleaned_data['op_emloyer'],
             op_res_officer              = user_
         )
 
         return new_order
+    
+  
+
+        
 
 class OutBoundDocument_form(forms.ModelForm):
     class Meta:
@@ -405,7 +421,7 @@ class LetterOfInvite_form(forms.ModelForm):
     loi_dateOfInv = forms.DateField(label="Дата приема" , required=False, widget=forms.TextInput(
         attrs={'placeholder': 'Введите дату',  'type':'date'}))
 
-    def saveFirst(self, user_):
+    def saveFirst(self, user_, department:TURVDepartment, position:TURVPositions):
         current_doc = last_doc(LetterOfInvite)
         letters = LetterOfInvite.objects.all()
         letters_count = len(letters)
@@ -433,14 +449,14 @@ class LetterOfInvite_form(forms.ModelForm):
         )
 
         new_letter = LetterOfInvite.objects.create(
-        loi_date = self.cleaned_data['loi_date'],
-        loi_number = str(letter_next_num_),
-        loi_employee = self.cleaned_data['loi_employee'],
-        loi_position = self.cleaned_data['loi_position'],
-        loi_department = self.cleaned_data['loi_department'],
-        loi_dateOfInv = self.cleaned_data['loi_dateOfInv'],
-        loi_additionalData = self.cleaned_data['loi_additionalData'],
-        loi_res_officer = user_
+            loi_date            = self.cleaned_data['loi_date'],
+            loi_number          = str(letter_next_num_),
+            loi_employee        = self.cleaned_data['loi_employee'],
+            position            = position,
+            department          = department,
+            loi_dateOfInv       = self.cleaned_data['loi_dateOfInv'],
+            loi_additionalData  = self.cleaned_data['loi_additionalData'],
+            loi_res_officer     = user_
         )
 
         return new_letter
@@ -461,7 +477,7 @@ class LaborContract_form(forms.ModelForm):
     lc_dateOfInv = forms.CharField(label="Дата приема на работу" , widget=forms.TextInput(
         attrs={'placeholder': 'Введите дату', 'type':'date'}))
 
-    def saveFirst(self, user_, year_):
+    def saveFirst(self, user_, year_, bound_employer:Employers, department:TURVDepartment, position:TURVPositions):
         current_doc = last_doc(LaborContract)
         orders = LaborContract.objects.all()
         orders_count = len(orders)
@@ -476,28 +492,30 @@ class LaborContract_form(forms.ModelForm):
                 order_next_num_ = int(order_prev_num[:cut_symb]) + 1
 
         next_id = int(LaborContract.objects.latest('id').id) + 1
+        
         logs.objects.create(
-        date = DT.datetime.now(),
-        event = logs_event.objects.get(id=1),
-        doc_id = next_id,
-        type = 'Трудовой договор',
-        number = str(order_next_num_)+"("+str(year_)+")",
-        doc_date = self.cleaned_data['lc_date'],
-        addData = '',
-        link = '/laborContracts/' + str(next_id) + '/upd',
-        res_officer = user_
+            
+            date        = DT.datetime.now(),
+            event       = logs_event.objects.get(id=1),
+            doc_id      = next_id,
+            type        = 'Трудовой договор',
+            number      = str(order_next_num_)+"("+str(year_)+")",
+            doc_date    = self.cleaned_data['lc_date'],
+            addData     = '',
+            link        = '/laborContracts/' + str(next_id) + '/upd',
+            res_officer = user_
         )
 
 
         new_contract = LaborContract.objects.create(
-            lc_date  = self.cleaned_data['lc_date'],
-            lc_number  = str(order_next_num_)+"("+str(year_)+")",
-            lc_pos  = self.cleaned_data['lc_pos'],
-            lc_dep = self.cleaned_data['lc_dep'],
-            lc_dateOfInv = self.cleaned_data['lc_dateOfInv'],
-            lc_workCond = self.cleaned_data['lc_workCond'],
-            lc_emloyer = self.cleaned_data['lc_emloyer'],
-            lc_res_officer = user_
+            lc_date             = self.cleaned_data['lc_date'],
+            lc_number           = str(order_next_num_)+"("+str(year_)+")",
+            position            = position,
+            department          = department,
+            lc_dateOfInv        = self.cleaned_data['lc_dateOfInv'],
+            lc_workCond         = self.cleaned_data['lc_workCond'],
+            bound_employer      = bound_employer,
+            lc_res_officer      = user_
         )
 
         return new_contract
@@ -523,7 +541,7 @@ class EmploymentHistory_form(forms.ModelForm):
         attrs={'placeholder': 'Введите дату', 'type':'date'}))
 
 
-    def saveFirst(self, user_):
+    def saveFirst(self, user_, department:TURVDepartment):
         next_id = int(EmploymentHistory.objects.latest('id').id) + 1
         logs.objects.create(
         date = DT.datetime.now(),
@@ -545,11 +563,12 @@ class EmploymentHistory_form(forms.ModelForm):
             eh_dateOfInv = self.cleaned_data['eh_dateOfInv'],
             eh_employer = self.cleaned_data['eh_employer'],
             eh_pos = self.cleaned_data['eh_pos'],
-            eh_dep = self.cleaned_data['eh_dep'],
+            department = department,
             eh_OrderInv = self.cleaned_data['eh_OrderInv'],
             eh_OrderResign = self.cleaned_data['eh_OrderResign'],
             eh_dateOfResign = self.cleaned_data['eh_dateOfResign'],
-            eh_res_officer = user_ )
+            eh_res_officer = user_ 
+        )
 
         return new_empHistory
 
@@ -690,30 +709,31 @@ class NewOrdersOnVacationItem_form(forms.ModelForm):
         attrs={'placeholder': 'Введите дату', 'type':'date', 'onchange':'vac_calc()'}))
 
 
-    def saveFirst(self, order_id, user_):
+    def saveFirst(self, order_id, user_, bound_employer:Employers, department:TURVDepartment):
         order = NewOrdersOnVacation.objects.get(id=order_id)
         next_id = int(NewOrdersOnVacation_item.objects.latest('id').id) + 1
 
         logs.objects.create(
-        date = DT.datetime.now(),
-        event = logs_event.objects.get(id=1),
-        doc_id = next_id,
-        type = 'Запись в приказе на отпуск',
-        number = order.order_number,
-        doc_date = order.order_date,
-        addData = 'Приказ: ' + order.order_number + ' ' + str(order.order_date),
-        link = '/orders_on_vacation_new/upditem' + str(next_id),
-        res_officer = user_
+            date        = DT.datetime.now(),
+            event       = logs_event.objects.get(id=1),
+            doc_id      = next_id,
+            type        = 'Запись в приказе на отпуск',
+            number      = order.order_number,
+            doc_date    = order.order_date,
+            addData     = 'Приказ: ' + order.order_number + ' ' + str(order.order_date),
+            link        = '/orders_on_vacation_new/upditem' + str(next_id),
+            res_officer = user_
                 )
+        
         new_item = NewOrdersOnVacation_item.objects.create(
-            bound_order_id = order_id,
-            fio = self.cleaned_data['fio'],
-            dep = self.cleaned_data['dep'],
-            dur_from = self.cleaned_data['dur_from'],
-            dur_to = self.cleaned_data['dur_to'],
-            days_count = self.cleaned_data['days_count'],
-            vac_type = self.cleaned_data['vac_type'],
-            comm = self.cleaned_data['comm']
+            bound_order_id  = order_id,
+            bound_employer  = bound_employer,
+            department_new      = department,
+            dur_from        = self.cleaned_data['dur_from'],
+            dur_to          = self.cleaned_data['dur_to'],
+            days_count      = self.cleaned_data['days_count'],
+            vac_type        = self.cleaned_data['vac_type'],
+            comm            = self.cleaned_data['comm']
 
         )
 
@@ -725,8 +745,7 @@ class Identity_form(forms.ModelForm):
         fields = [
         # 'number',
     'date_giving',
-    'employer',
-    'department']
+    'employer']
 
     number = forms.CharField(label="" ,required=False, widget=forms.TextInput(
         attrs={'type':'text', 'style':'display:none'}))
@@ -734,7 +753,7 @@ class Identity_form(forms.ModelForm):
     date_giving = forms.DateField(label="Дата выдачи" , widget=forms.TextInput(
         attrs={'placeholder': 'Введите дату', 'type':'date'}))
 
-    def saveFirst(self, user_):
+    def saveFirst(self, user_, bound_employer:Employers, department:TURVDepartment):
         ind = Identity.objects.all().order_by("id")
         ind_count = len(ind)
 
@@ -759,11 +778,11 @@ class Identity_form(forms.ModelForm):
                 )
 
         new_identity = Identity.objects.create(
-            number = ind_next_num_,
-            date_giving = self.cleaned_data['date_giving'],
-            employer = self.cleaned_data['employer'],
-            department = self.cleaned_data['department'],
-            res_officer = user_
+            number          = ind_next_num_,
+            date_giving     = self.cleaned_data['date_giving'],
+            bound_employer  = bound_employer,
+            department_new      = department,
+            res_officer     = user_
         )
 
         return new_identity

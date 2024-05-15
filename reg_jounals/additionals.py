@@ -7,7 +7,7 @@ from django.contrib.auth.decorators import login_required
 import datetime as DT
 
 @login_required
-def create_or_update_employer(emp_id:int, emp_info:dict):
+def create_or_update_employer(request, emp_id:int, emp_info:dict):
 
    
     fullname        = emp_info['fullname']
@@ -76,3 +76,23 @@ def get_employers_from_department(request, department_id:int):
     employers = list(employers)
     
     return JsonResponse(employers, safe=False)
+
+
+def get_employer_from_db(id:int):
+    if id:
+        return Employers.objects.get(id=id)
+    else:
+        return None
+
+
+def get_department_from_db(id:int):
+    if id:
+        return Departments.objects.get(id=id)
+    else:
+        return None
+    
+def get_position_from_db(id:int):
+    if id:
+        return Positions.objects.get(id=id)
+    else:
+        return None

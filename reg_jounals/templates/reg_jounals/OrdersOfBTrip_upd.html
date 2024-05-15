@@ -1,7 +1,7 @@
 {% extends "reg_jounals/index.html" %}
 
-{%block title%}Приказ №{{order.bt_number}} {% endblock %}
-{%block header%}{%block logo%}{{block.super}}{%endblock%}Изменить запись - Приказ о командировке №{{order.bt_number}}{% endblock %}
+{%block title%}Изменить запись{% endblock %}
+{%block header%}{%block logo%}{{block.super}}{%endblock%}Изменить запись{% endblock %}
 
 {%block content%}
 
@@ -11,23 +11,49 @@
 {{form.errors}}
 </div>
 {%endif%}
-<form class="add_form" action="" method="post">
+<form class="standart-panel standart-form" action="" method="post">
   {% csrf_token %}
+  
+  <div class="standart-form-header">
+    <h4>Номер приказа: <span id="next_num">{{order.bt_number}}</span></h4>
+  </div>
+
+<div class="standart-form-input-group inline">
+  <!-- <p><span>{{form.bt_emloyer.label}}: </span>{{form.bt_emloyer}}</p> -->
+  <p><span>Работник: </span><select name="order-of-btrip-bound-employer-field" id="order-of-btrip-bound-employer-field">
+
+  </select></p>
+  <p><span>Подразделение: </span><select onchange="get_employers_from_department(this.value, 'order-of-btrip-bound-employer-field')" name="order-of-btrip-department" id="order-of-btrip-department">
+    {% for dep in deps %}
+      <option value="{{dep.id}}">{{dep.name}}</option>
+    {% endfor %}
+  </select></p>
   <p>{{form.bt_date.label}}{{form.bt_date}}</p>
-  <p>{{form.bt_emloyer.label}}{{form.bt_emloyer}}</p>
-  <p>{{form.bt_dep.label}}{{form.bt_dep}}</p>
-  <p>{{form.bt_place.label}}{{form.bt_place}}</p>
-  <p class="p_unite"><span>{{form.bt_dur_from.label}}{{form.bt_dur_from}}</span><span>{{form.bt_dur_to.label}}{{form.bt_dur_to}}</span></p>
+</div>
 
 
-<input class="btn btn-success" type="submit" value="Сохранить" />
-  <a id="close" class="btn btn-outline-danger" href="..">Отмена</a>
+  
+  <div class="standart-form-input-group inline">
+    <p>{{form.bt_place.label}}{{form.bt_place}}</p>
+    <p><span>Начало: </span>{{form.bt_dur_from}}</p>
+    <p><span>Окончание: </span>{{form.bt_dur_to}}</p>
+   </div>
+  
 
+
+  <div class="standart-form-input-group inline">
+    <input class="button add" type="submit" value="Добавить" />
+    <a class="button cancel" href="..">Отмена</a>
+  </div>
 </form>
 
 <script type="text/javascript">
-  prev = document.referrer
-  $('#close').attr('href', prev)
+  (function (){
+    current_department = '{{order.department_id}}'
+    get_employers_from_department(current_department, 'order-of-btrip-bound-employer-field')
+    document.getElementById('order-of-btrip-department').value            = current_department
+    setTimeout(function () {document.getElementById('order-of-btrip-bound-employer-field').value  = '{{order.bound_employer_id}}'}, 1000)
+  })()
 </script>
-
 {%endblock%}
+
