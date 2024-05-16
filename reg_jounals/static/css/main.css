@@ -107,6 +107,10 @@ header {
     height: 100%;
 }
 
+.standart-menu .standart-menu-submenu-container ul {
+   
+}
+
 .standart-menu .standart-menu-submenu-container img {
     height: 100%;
     cursor: pointer;

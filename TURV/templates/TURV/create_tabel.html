@@ -1,4 +1,4 @@
-{% extends 'TURV/index.html'%}
+{% extends 'TURV/tabels.html'%}
 {%load static%}
 {%block title%}{{b_tabel.type}} {{b_tabel.department}} {{month}} {{year}}{%endblock%}
 
@@ -24,19 +24,7 @@
 
 {%block header%}
 
-<div class="tabel-header-info">
 
-<a class="btn btn-danger" onclick="set_zero_cookie(); window.close()"> ЗАКРЫТЬ  </a> 
-<span class="tabel-header-text">
-<span id="id_month" class="not-print" style="display:none">{{month}}</span>
-<span id="id_year" class="not-print" style="display:none">{{year}}</span>
-
-Табель учета <span style="text-transform: lowercase;">{{b_tabel.type}} </span> {% if b_tabel.iscorr %} <span style="color:red;">(КОРРЕКТИРОВКА!)</span> {% endif %}
-<span><b>{{b_tabel.department}}</b></span>
-за: <b><span class="field_month">{{month}}</span> {{year}} г.</b>
-Всего сотрудников в табеле: {{count}}
-</span>
-</div>
 {%endblock%}
 
 {%block scripts%}
