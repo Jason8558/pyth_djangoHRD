@@ -110,7 +110,7 @@ AUTHENTICATION_BACKENDS = (
 # Application definition
 
 INSTALLED_APPS = [
-    'compress'
+    'compressor'
 'work_cal',
 'vac_shed',
         'shift_shed',
