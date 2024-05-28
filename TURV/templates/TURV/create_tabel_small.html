@@ -1,4 +1,4 @@
-{% extends 'TURV/index.html'%}
+{% extends 'TURV/tabels.html'%}
 {%load static%}
 {%block title%}{{b_tabel.type}} {{b_tabel.department}} {{month}} {{year}}{%endblock%}
 
@@ -31,142 +31,137 @@
 
 {%block header%}
 
+  <div class="header-back-button-container">
+    <a href="#"  onclick="window.close()" class="button back">Закрыть</a>
+    {% block logo%}{{block.super}}{% endblock%}
+  </div>
 
+  <div class="header-main-text">
+    <h4>{{b_tabel.type}} № {{b_tabel.id}} {{b_tabel.department.name}} за <span class="field_month">{{month}}</span> {{year}}</h4>
+  </div>
 
-<a class="btn btn-danger" onclick="window.close()"> ЗАКРЫТЬ  </a> |
-<span id="id_month" class="not-print" style="display:none">{{month}}</span>
-<span id="id_year" class="not-print" style="display:none">{{year}}</span>
-
-Табель учета <span style="text-transform: lowercase;">{{b_tabel.type}}</span>
-<span><b>{{b_tabel.department}}</b></span>
-за: <b><span class="field_month">{{month}}</span> {{year}} г.</b>
-Всего сотрудников в табеле: {{count}}
+  {%block username%}{{block.super}}{%endblock%}
 
 {%endblock%}
-
-{%block scripts%}
-  <script src="{% static 'TURV\js\Eighties.js' %}" charset="utf-8"></script>
-  <script src="{% static 'TURV\js\printtabel.js' %}" charset="utf-8"></script>
-  <script src="{% static 'TURV\js\cookie.js' %}" charset="utf-8"></script>
-    <link rel="stylesheet" href="{% static 'TURV\css\printwarning.css'%}">
-  {%endblock%}
 
 {% block body %}
 <span id='tabel-type' style='display:none'>{{b_tabel.type_id}}</span>
 <span id='tabel-corr' style='display:none'>{{b_tabel.iscorr}}</span>
-<!-- <link rel="stylesheet" href="{% static 'TURV\css\tabel_print2.css'%}"> -->
 <div  class="container tabel_container">
-
-<div class="info-block ib-intabel">
-
-    <form action="" class="f_search fs-intabel not-print">
-    <div class="fs-head">
-      <p>ПОИСК</p>
-    </div>
-    <div class="fs-content">
-    <input type="text" name="its_employer"  placeholder="поиск по ФИО" value="">
-    <select class="" name="its_position">
-    <option value="">Поиск по должности</option>
-    {% for pos in positions%}
-    <option value="{{pos}}">{{pos}}</option>
-    {%endfor%}
-    </select>
-    </div>
-    <div class="fs-buttons">
-    <input type="submit" name="" class="btn btn-dark" value="Найти">
-    <a class="btn btn-outline-danger" href="/turv/create/{{b_tabel.id}}">Сбросить поиск</a>
-    </div>
-    </form>
+<div class="standart-menu">
 
 
+<input  type="button" name="" onclick="print_toxic('{{b_tabel.year}}', {{b_tabel.month}}, '{{b_tabel.department.name}}')" value="ПЕЧАТЬ">
+ 
 
-    <div class="info-window iw-intabel">
-    <p class="info-window-head">информация</p>
-    <h5 class="not-print" style="color:red;">ВАЖНО: ПЕРЕД ПЕЧАТЬЮ ТАБЕЛЯ ОБЯЗАТЕЛЬНО ОЗНАКОМТЕСЬ С <span><a style="float: none; margin-left: none;" href="https://docs.google.com/document/d/1Z439AZgEkRSZErC1wrBpQE9ajGD-OPZIZOkNI08mPSg/edit#heading=h.g1x2nyrk0y8c">ИНСТРУКЦИЕЙ,</a></span> ПРОВЕРЬТЕ НАСТРОЙКИ ПЕЧАТИ, А ТАК ЖЕ ПРОВЕРЬТЕ КОРРЕКТНОСТЬ СФОРМИРОВАННОГО ДОКУМЕНТА В ОКНЕ ПРЕДВАРИТЕЛЬНОГО ПРОСМОТРА </h5>
-    <div class="iw-content">
-      {% for mes in messages  %}
-
-              {% if mes.mestype == '1' %}
-                <h5 style="text-align: left !important; {% if mes.important %}color: red;{% endif %} !important">{% if mes.important %}!ВАЖНО!{% endif %}{{mes.text}}</h5>
-              {% else %}
-                <h5 class="iw-movevac-h5" style="text-align: left !important; color:blue; cursor:pointer;" onmouseout="closemovevac()" onmouseover="showmovevac('{{mes.text}}')">Перенос отпусков!</h5>
-            {% endif %}
-
-      {% endfor %}
-      <div style="display:none;" class="iw-movevac" id="iw-movevac">
-        <p></p>
-      </div>
-    </div>
-    </div>
-
-</div>
-<div class="functions f-intabel">
-
-  <div class="t-print">
-
-  <input class="btn btn-warning btn-sm"  type="button" name="" onclick="print_toxic({{b_tabel.year}}, {{b_tabel.month}}, '{{b_tabel.department.name}}')" value="ПЕЧАТЬ">
-
-
-  </div>
-
-  {% if b_tabel.iscorr == 0  %}
-    <div class="t-corr">
-      <a href="{% url 'correct' id=b_tabel.id%}">Корректировка</a>
-    </div>
+  
+  {% if b_tabel.iscorr == 0 %}
+  <a href="{% url 'correct' id=b_tabel.id%}">
+    Корректировка
+  </a>
   {% endif %}
+ 
 
-<div class="sup_check not-print">
-  {% if b_tabel.sup_check %}
-    <h4 style="color: green;">✅ Проверен СУП</h4>
-      {% if granted == 1%}
-      <a class="btn btn-danger btn-sm" href="{% url 'checked' id=b_tabel.id%}">Отменить проверку</a>
-      {%endif%}
-    {%else%}
-      {% if granted == 1%}
-      {%if b_tabel.iscorr != 1%}
-    <a class="btn btn-success btn-sm" href="{% url 'checked' id=b_tabel.id%}">Отметить как проверенный</a>
-      {%else%}
-      {%endif%}
-      {%endif%}
-{%endif%}
+  <p onclick="open_additional_menu(this, 'tabel-control-submenu')">
+    Контроль
+  </p>
+
+
+  {% if b_tabel.del_check == False %}
+    <a  href="{% url 'delcheck_url' id=b_tabel.id %}">Пометить на удаление</a>
+  {%else%}
+    <a  href="{% url 'delcheck_url' id=b_tabel.id %}">Снять пометку удаления</a>
+  {%endif%}
+
+  <div id="tabel-filter-menu" class="standart-menu-submenu-container">
+    <img src="{% static '/img/search.png' %}" onclick="open_additional_menu(this, 'tabel-create-search-panel')" alt="">
+  </div> 
+
+    <!-- <div id="tabel-control-menu" class="standart-menu-submenu-container">
+      <img src="{% static '/img/search.png' %}" onclick="open_additional_menu(this, 'tabel-control-submenu')" alt="">
+    </div> 
+    -->
+
 </div>
 
-<div class="paper_check not-print">
-{% if b_tabel.paper_check %}
-    <h4 style="color: green;">✅ Сдан на бумаге</h4>
 
-    {% if granted == 1%}
-    <a class="btn btn-danger btn-sm" href="{% url 'paper_checked' id=b_tabel.id%}">Отменить наличие бумажной копии</a>
+<div style="display: none" class="standart-panel submenu-panel panel" id="tabel-control-submenu"> 
+  <!-- Контроль -->
+
+  <ul>
+    {% if granted %}
+    
+      {% if b_tabel.sup_check %}
+        <li><a href="{% url 'checked' id=b_tabel.id%}">Отменить проверку</a></li>
+        {% else %}
+        
+        {% if b_tabel.iscorr != 1 %}
+          <li><a href="{% url 'checked' id=b_tabel.id%}">Отметить как проверенный</a></li>
+        {% endif %}
+      {% endif %}
+    
+      {% if b_tabel.paper_check %}
+        <li><a href="{% url 'paper_checked' id=b_tabel.id%}">Отменить наличие бум. копии</a></li>   
+      {%else%}
+        <li><a href="{% url 'paper_checked' id=b_tabel.id%}">Подтвердить наличие бум. копии</a></li>
+      {%endif%}
+  
     {%endif%}
 
-  {%else%}
+    {% if b_tabel.half_month_check %}
+        <li><a id="h-check" href="{% url 'half_month' id=b_tabel.id%}">Снять отметку о заполнении 1\2</a></li>
+    {%else%}
+        <li><a id="h-check" href="{% url 'half_month' id=b_tabel.id%}">Поставить отметку о заполнении 1\2 месяца</a></li>
+    {%endif%}
 
-  {% if granted == 1%}
-  <a class="btn btn-success btn-sm" href="{% url 'paper_checked' id=b_tabel.id%}">Подтвердить наличие бум. копии</a>
-  {%endif%}
-{%endif%}
+   
+  
+  
+  </ul>
+
+ 
+
 </div>
 
+<div id="tabel-status-panel" class="functions f-intabel">
+  <div class="tabel-status-panel-group">
+    {% if b_tabel.sup_check %}
+        <p>✅ Проверен СУП</p> 
+    {%endif%}
 
+    {% if b_tabel.paper_check %}
+      <p>✅ Бумажная копия получена</p> 
+    {%endif%}
 
-<div class="comm">
-<form class="f-comm" action="{% url 'comm' id=b_tabel.id%}" method="post">
-  {% csrf_token %}
-  <input type="text" name="tabel_comm" placeholder="введите коментарий" value="{{b_tabel.comm}}">
-  <input type="submit" class="btn btn-warning btn-sm" value="ИЗМЕНИТЬ">
-</form>
-</div>
-<div class="del_check">
-  {% if b_tabel.del_check == False %}
-    <a class="btn btn-danger btn-sm" href="{% url 'delcheck_url' id=b_tabel.id %}">Пометить на удаление</a>
-  {%else%}
-    <a class="btn btn-danger btn-sm" href="{% url 'delcheck_url' id=b_tabel.id %}">Снять пометку удаления</a>
-  {%endif%}
+    {% if b_tabel.half_month_check %}
+      <p>✅ 1/2 месяца заполнена</p> 
+    {%endif%}
   </div>
+  
 
-
+    <form class="tabel-status-panel-group"action="{% url 'comm' id=b_tabel.id%}" method="post">
+      {% csrf_token %}
+      <input type="text" name="tabel_comm" placeholder="введите коментарий" value="{{b_tabel.comm}}">
+      <input type="submit" class="button " value="ИЗМЕНИТЬ">
+    </form>
+ 
 
 </div>
+
+<form id="tabel-create-search-panel" style="display: none;" class="standart-form standart-panel search panel" action="{%url 'tabel_create_url' id=b_tabel.id%}" method="get">
+  <input type="hidden" id="search-sign" name="search-sign" value="1">
+  <div class="standart-form-header">
+    <h4>Поиск по табелю</h4>
+  </div>
+  <div class="standart-form-input-group inline">
+    <p><span>ФИО:</span><input type="text" name="tabel-create-search-name" id="tabel-create-search-name"></p>
+    <p><span>Должность:</span><input type="text" name="tabel-create-search-position" id="tabel-create-search-position"></p>
+  </div>
+  <div class="standart-form-input-group inline">
+    <input type="submit" class="button add" value="Найти">
+    <a href="../create/{{b_tabel.id}}" class="button cancel">Сбросить</a>
+  </div>
+</form>
   {% if form.errors %}
   {{form.errors}}
   {%endif%}
@@ -245,7 +240,7 @@
   </table>
 </div>
 
-<table id="t_tabel" class="tabel" style="display: none" cellpadding="0.5" cellspacing="1">
+<table id="t_tabel" class="tabel"  cellpadding="0.5" cellspacing="1">
   {% if b_tabel.type.id == 2%}
 
   <thead style="display: table-header-group; background:lightgreen !important; color: black !important;" class="thead-dark" id="tabel_head">
@@ -402,8 +397,8 @@
 
 
 
-    <td class="not-print"></td>
-    <td class="not-print"></td>
+    <td ></td>
+    <td ></td>
 
     <td></td>
     <td></td>
@@ -438,13 +433,10 @@
     <td class="day30"></td>
     <td class="day31"></td>
 
-
-
-
-    <td class="for-print"></td>
-    <td class="for-print"></td>
+    <td></td>
+    
     <td >{{s_days}}</td>
-        <td >{{s_hours}}</td>
+    <td >{{s_hours}}</td>
 
     <!-- <td>{{s_weekends}}</td> -->
 

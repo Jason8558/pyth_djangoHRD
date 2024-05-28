@@ -1,13 +1,30 @@
-{% extends "TURV/index.html" %}
+{% extends "TURV/tabels.html" %}
 
 {%block title%}Новый табель{% endblock %}
-{%block header%}Новый табель учета рабочего времени{% endblock %}
 
+{%block header%}
+<div class="header-back-button-container">
+
+  {% block logo%}{{block.super}}{% endblock%}
+
+</div>
+
+
+
+
+<div class="header-main-text">
+  <h4>Новый табель</h4>
+</div>
+
+{%block username%}{{block.super}}{%endblock%}
+
+
+{%endblock%}
 {%block body%}
 
 <div class="container ">
 
-<form class="add_form new_tabel" action="" method="post">
+<form class="standart-form standart-panel" action="" method="post">
   {%csrf_token%}
 
   {% if form.errors %}
@@ -15,22 +32,27 @@
   <p style="color: red;">{{error_tabel}}</p>  
 
     {%endif%}
-  {{form.type.label}}{{form.type}}
+  
 
-  <label for="t_dep">Подразделение</label>
-  <select onchange="ReSelectDep()" name="t_dep" id="t_dep">
-    {% for dep in deps %}
-    <option value="{{dep.name}}">{{dep.name}}</option>
-  {%endfor%}
-  </select>
+  <div class="standart-form-input-group inline">
+    
+    <p><span>Подразделение: </span><select onchange="ReSelectDep()" name="t_dep" id="t_dep">
+      {% for dep in deps %}
+      <option value="{{dep.name}}">{{dep.name}}</option>
+    {%endfor%}
+    </select></p>
+    <p><span>{{form.type.label}}: </span>{{form.type}}</p>
+  
+  </div>
 
-  <div class="newtabel-date">
+  
+  <div class="standart-form-input-group inline">
 
 
-   <span style="display: none;" id="day">{{form.day}}</span>
+   <p style="display: none;" id="day"><span>День: </span>{{form.day}}</p>
 
 
-
+    <p><span>Месяц: </span>
     <select class="" onchange="SetMonth()" id="t_month" name="t_month">
       <option value="01">Январь</option>
       <option value="02">Февраль</option>
@@ -44,10 +66,10 @@
       <option value="10">Октябрь</option>
       <option value="11">Ноябрь</option>
       <option value="12">Декабрь</option>
-    </select>
+    </select></p>
 
 
-    {{form.year}}
+    <p><span>Год: </span>{{form.year}}</p>
   </div>
 
 
@@ -58,11 +80,14 @@
 <span id="label_{{field.name}}">{{field.name}}</span>{{field}}
 </div>
 
-{{form.comm.label}}{{form.comm}}
+<div class="standart-form-input-group ">
+<p><span>{{form.comm.label}}:</span>{{form.comm}}</p>
+</div>
 
-
-  <input class="btn btn-success" type="submit"  value="Создать" />
-  <a class="btn btn-outline-danger" id="nt-cancel" href="..">Отмена</a>
+<div class="standart-form-input-group inline">
+  <input class="button add" type="submit"  value="Создать" />
+  <a class="button cancel" id="nt-cancel" href="..">Отмена</a>
+</div>
 </form>
 </div>
 

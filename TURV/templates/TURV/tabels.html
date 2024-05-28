@@ -1,60 +1,59 @@
 <!DOCTYPE html>
 {%load static%}
+{% load compress%}
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <link rel="shortcut icon" href="{% static 'TURV/img/favicon.ico'%}" type="image/x-icon">
-  <link rel="stylesheet" href="{% static 'css\main.css'%}">
-  <link rel="stylesheet" href="{% static 'TURV\css\style1.css'%}">
-  <link rel="stylesheet" href="{% static 'css/bootstrap.min.css'%}">
-  <!-- -->
-    <link rel="stylesheet" href="{% static 'TURV\css\cover.css'%}">
+  {% compress css %}
+    
+    <link rel="stylesheet" href="{% static 'css\main.css'%}">
+    <link rel="stylesheet" href="{% static 'TURV\css\style1.css'%}">
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css'%}">
     <link rel="stylesheet" href="{% static 'TURV\js\chosen\chosen.css'%}">
-
-  <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script> -->
-  <script 
-  src="{% static 'TURV\js\jquery-3.6.0.min.js'%}"
-
-  crossorigin="anonymous"></script>
-  <script src="{% static 'TURV\js\turv_main.js'%}" charset="utf-8"></script>
-  <script src="{% static 'TURV\js\chosen\chosen.jquery.js'%}" charset="utf-8"></script>
+  {% endcompress %}
+ 
+  {% compress js %}
+    <script src="{% static 'TURV\js\jquery-3.6.0.min.js'%}" crossorigin="anonymous"></script>
+    <script src="{% static 'TURV\js\turv_main.js'%}" charset="utf-8"></script>
+    <script src="{% static 'TURV\js\chosen\chosen.jquery.js'%}" charset="utf-8"></script>
     <script src="{% static 'TURV\js\chosen\chosen.jquery.min.js'%}" charset="utf-8"></script>
     <script src="{% static 'TURV\js\gettabels.js'%}" charset="utf-8"></script>
-
-  <script src="{% static 'TURV\js\build\date-ru-RU.js'%}" charset="utf-8"></script>
-  <script src="{% static 'TURV\js\MainTabel1.js' %}" charset="utf-8"></script>
+    <script src="{% static 'TURV\js\build\date-ru-RU.js'%}" charset="utf-8"></script>
+    <script src="{% static 'TURV\js\MainTabel1.js' %}" charset="utf-8"></script>
+    <script src="{% static 'TURV\js\printtabel.js' %}" charset="utf-8"></script>
+  {% endcompress %}
   {%block head%}{%endblock%}
-
-
   {%block scripts%}{%endblock%}
+
   <title>{%block title%}Табели{%endblock%}</title>
 
 </head>
 
 <header>
-  <div class="header-logo">
-    <img src="{% static 'img/img_5826.png' %}" alt="">
-  </div>
   {% block header %}
 
-    <!-- <div class="header-back-button-container">
-      <input class="button back" type="button" value="Назад">
-    </div> -->
-    
-    <div class="header-main-text">
-      <h4>ИС "СУП". Табели учета рабочего времени</h4>
+  {% block logo%}
+    <div class="header-logo-container">
+      <div class="header-logo">
+        <img src="{% static 'img/img_5826.png' %}" alt="">
+      </div>
     </div>
+  {% endblock %}
 
-    <div class="header-username">
-      <h5>{{request.user.first_name}}</h5>
-    </div>
+  <div class="header-main-text">
+    <h3>ИС "СУП". Табели учета рабочего времени</h3>
+</div>
 
-  
-   {% endblock %}
-     
+
+  {% block username %}
+    <h4>{{request.user.first_name}}</h4>
+  {% endblock%}
+ 
+    {%endblock%}
+
 </header>
 
 
@@ -92,179 +91,211 @@ function Supchecked() {
 <div class="container main">
 
   <div class="standart-menu">
-    <div class="standart-menu-submenu-container">
-      <p onclick="open_additional_menu(this, 'tabel-graphs-submenu')">Графики</p>
-    </div>
+    
+    <p onclick="open_additional_menu(this, 'tabel-graphs-submenu')">
+      Графики
+    </p>
+  
+    <p onclick="open_additional_menu(this, 'tabel-refs-submenu')">
+      Справочники
+    </p>
+  
+    <p onclick="open_additional_menu(this, 'tabel-info-submenu')">
+      Информация
+    </p>
+
+    {% if granted %}
+      <p onclick="open_additional_menu(this, 'tabel-service-submenu')">
+        Сервис
+      </p>
+    {%endif%}
+
+    <p onclick="open_additional_menu(this, 'tabel-additional-submenu')">
+      Дополнительные
+    </p>
+
+    <!-- <a href="{% url 'archive_url'%}">
+      Архив
+    </a> -->
+
+    <div id="vacshed-filter-menu" class="standart-menu-submenu-container">
+      <img src="{% static '/img/search.png' %}" onclick="open_additional_menu(this, 'tabels-search-panel')" alt="">
+    </div> 
+  
   </div>
   
-  <div class="standart-panel" id="tabel-graphs-submenu"> 
+  <div style="display: none" class="standart-panel submenu-panel panel" id="tabel-graphs-submenu"> 
+    <!-- Графики -->
     <ul class="sprav">
-      <li><a href="{% url 'ss-main'%}"> > Графики сменности</a></li>
+      <li><a href="{% url 'ss-main'%}">Графики сменности</a></li>
       
-      <li><a href="{% url 'vacshed_url' %}"> > График отпусков</a></li>
+      <li><a href="{% url 'vacshed_url' %}">График отпусков</a></li>
     </ul>
   </div>
-  
-  <!-- <div class="subheader"><ul class="menu">
-    
-    
-      
-    <li>Графики <span class='angle-down'>v</span>
-      <ul class="sprav">
-        <li><a href="{% url 'ss-main'%}"> > Графики сменности</a></li>
-        
-        <li><a href="{% url 'vacshed_url' %}"> > График отпусков</a></li>
-      </ul>
-  
-    <li>Справочники <span class='angle-down'>v</span>
+
+  <div style="display: none" class="standart-panel submenu-panel panel" id="tabel-refs-submenu">
+   <!-- Справочники -->
     <ul class="sprav">
-      <li><a href="{% url 'emp_list'%}"> > Работники</a></li>
+        <li><a href="{% url 'emp_list'%}">Работники</a></li>
+      
       {% if granted == 1%}
-      <li><a href="{% url 'pos_list'%}"> > Должности</a></li>
+        <li><a href="{% url 'pos_list'%}">Должности</a></li>
       {%endif%}
+      
       {% if granted == 1 or unite == 1%}
-      <li><a href="{% url 'autos_list'%}"> > Автотранспорт</a></li>
+        <li><a href="{% url 'autos_list'%}">Автотранспорт</a></li>
       {%endif%}
     </ul>
-    </li>
-    <li>Информация <span class='angle-down'>v</span>
+  </div>
+
+  <div style="display: none" class="standart-panel submenu-panel panel" id="tabel-info-submenu">
+    <!-- Информация -->
     <ul class="info">
-      <li><a target="_blank" href="https://docs.google.com/document/d/1Z439AZgEkRSZErC1wrBpQE9ajGD-OPZIZOkNI08mPSg/edit?usp=sharing"> > Инструкция пользователя</a></li>
+      <li><a target="_blank" href="https://docs.google.com/document/d/1Z439AZgEkRSZErC1wrBpQE9ajGD-OPZIZOkNI08mPSg/edit?usp=sharing">Инструкция пользователя</a></li>
       {% if user.is_superuser%}
-      <li><a target="_blank" href="https://docs.google.com/document/d/1MWZ-9vxpc1lO9-VJu_Idzoy7S3Vg8mqFRPYfTSCwzxA/edit?usp=sharing"> > Инструкция администратора</a></li>
+      <li><a target="_blank" href="https://docs.google.com/document/d/1MWZ-9vxpc1lO9-VJu_Idzoy7S3Vg8mqFRPYfTSCwzxA/edit?usp=sharing">Инструкция администратора</a></li>
       {%endif%}
   
     </ul>
-    </li>
-    <!-- <li><a href="/turv/feedbacks/">Оставить обращение</a></li> -->
-    <!-- {% if granted %}
-    <li>Сервис <span class='angle-down'>v</span>
+
+  </div>
+
+  <div style="display: none" class="standart-panel submenu-panel panel" id="tabel-service-submenu">
+    <!-- Сервис -->
     <ul class="service">
-        
-        <li><a href="{% url 'forload_url'%}"> > Показать готовые для выгрузки</a></li>
-        
-        {%if request.user.is_superuser %}
-         <li><a  href="{% url 'del_tabel_url'%}"> > Удалить помеченные на удаление</a></li>
-         <li><a  href="{% url 'overtime_url'%}"> > Обновить годовую норму времени сотрудников</a></li>
-         {%endif%}
+  
+      <li><a href="{% url 'forload_url'%}">Показать готовые для выгрузки</a></li>
+  
+      {%if request.user.is_superuser %}
+      <li><a href="{% url 'del_tabel_url'%}">Удалить помеченные на удаление</a></li>
+      <li><a href="{% url 'overtime_url'%}">Обновить годовую норму времени сотрудников</a></li>
+      {%endif%}
   
   
   
     </ul>
-    </li>
-  
-  {% endif %}
-  
-  {%if granted == 1 or is_atc%}
-    <li>Дополнительные <span class='angle-down'>v</span>
+  </div>
+
+  <div style="display: none" class="standart-panel submenu-panel panel" id="tabel-additional-submenu">
+    <!-- Дополнительные -->
     <ul class="view">
       {%if granted == 1%}
-          <li><a href="{% url 'over-tabels_url' %}">Сверхурочка АТЦ</a></li>
-          <li><a href="{% url 'vac-tabels_url' %}">Выходные АТЦ</a></li>
-          <li><a href="{% url 'nn-tabels_url' %}">Ненормированность АТЦ</a></li>
-      {%else%}
-          <li><a href="{% url 'over-tabels_url' %}">Сверхурочка</a></li>
-          <li><a href="{% url 'vac-tabels_url' %}">Выходные</a></li>
-          <li><a href="{% url 'nn-tabels_url' %}">Ненормированность</a></li>
+          <li><a href="{% url 'over-tabels_url' type=5 %}">Сверхурочка АТЦ</a></li>
+          <li><a href="{% url 'over-tabels_url' type=4 %}">Выходные АТЦ</a></li>
+          <li><a href="{% url 'over-tabels_url' type=8 %}">Ненормированность АТЦ</a></li>
       {%endif%}
-  {%endif%}
+      <!-- Если АТЦ -->
+      {% if is_atc %}
+        <li><a href="{% url 'over-tabels_url' type=5 %}">Сверхурочка</a></li>
+        <li><a href="{% url 'over-tabels_url' type=4 %}">Выходные</a></li>
+        <li><a href="{% url 'over-tabels_url' type=8 %}">Ненормированность</a></li>
+      {%endif%}
+
     </ul>
-    </li>
-   
-    {% if granted == 1 %}
-    <!-- <li>Функции и отчеты <span class='angle-down'>v</span>
-    <ul class="additional">
-         <li><a  href="{% url 'total_url_page' %}"> > Сформировать свод</a></li>
-         <li><a  href="{% url 'messages_list'%}"> > Система оповещения пользователей</a></li>
+  </div>
   
-        </li>
-      </ul> -->
-      <!-- {% endif %}
-    </div> --> 
+  <form id="tabels-search-panel" style="display:none" class="standart-panel standart-form search panel">
+    <!-- Поиск -->
+      <div class="standart-form-header">
+        <h4>Поиск</h4>
+      </div>
+      <div class="standart-form-input-group inline">
+       <p><span>Код: </span><input type="text" id='search_code' placeholder="Код" value=""></p> 
+      
+
+        
+  
+      <p><span>Месяц: </span><select class="" id="search_month" name="search_month">
+        <option value="">Весь год</option>
+        <option value="01">Январь</option>
+        <option value="02">Февраль</option>
+        <option value="03">Март</option>
+        <option value="04">Апрель</option>
+        <option value="05">Май</option>
+        <option value="06">Июнь</option>
+        <option value="07">Июль</option>
+        <option value="08">Август</option>
+        <option value="09">Сентябрь</option>
+        <option value="10">Октябрь</option>
+        <option value="11">Ноябрь</option>
+        <option value="12">Декабрь</option>
+      </select></p>
+      
+      <p><span>Год: </span> <input type="text" id="fs-year" placeholder="20__" name="search_year" value="">
+      </p>
+      </div>
+
+      <div class="standart-form-input-group ">
+        <p><span>Подразделение:</span><select class="" id="t_tab_dep_search" name="t_tab_dep_search">
+          <option value="">-</option>
+          {% for dep in deps%}
+            <option value="{{dep.id}}">{{dep}}</option>
+            {% endfor%}
+        </select></p>
+    
+
+      </div>
+
+      <div class="standart-form-input-group inline">
+        <p><span>Вид:</span><select class="" id="search_type" name="search_type">
+            <option value="">-</option>
+            {%for t in type%}
+            <option value="{{t.id}}">{{t.name}}</option>
+            {%endfor%}
+            <option value="c">Корректировка</option>
+      
+          </select></p>
+      
+        <p><span>Ответственный: </span><select class="" id="tab_user" name="tab_user">
+            <option value="">-</option>
+            
+            {%for u in tab_users %}
+            <option value="{{u.first_name}}">{{u.first_name}}</option>
+            {%endfor%}
+          
+          </select></p>
+      
+      </div>
+      
+      <div class="standart-form-input-group inline">
+        <input type="button" onclick="gettabels_search('{{granted}}')" name="" class="button add" value="Найти">
+        <a class="button cance" onclick="gettabels(0,'{{granted}}', 0)">Сбросить</a>
+      </div>
+
+
+   
+  </form>
+
   <div class="info-block ib-main">
 
+  
 
 
-  <form action="" class="f_search fs-main fs-inline">
- 
-  <div class="fs-content">
-    <h5>ФИЛЬТР И ПОИСК</h5>
-    <input type="text" id='search_code' placeholder="Код" value="">
-
-    <select class="" id="search_month" name="search_month">
-      <option value="">Весь год</option>
-      <option value="01">Январь</option>
-      <option value="02">Февраль</option>
-      <option value="03">Март</option>
-      <option value="04">Апрель</option>
-      <option value="05">Май</option>
-      <option value="06">Июнь</option>
-      <option value="07">Июль</option>
-      <option value="08">Август</option>
-      <option value="09">Сентябрь</option>
-      <option value="10">Октябрь</option>
-      <option value="11">Ноябрь</option>
-      <option value="12">Декабрь</option>
-    </select>
-
-  <input type="text" id="fs-year" placeholder="год..." name="search_year" value="">
-
-    <select class="" id="t_tab_dep_search" name="t_tab_dep_search">
-      <option value="">Подразделение</option>
-      {% for dep in deps%}
-        <option value="{{dep.id}}">{{dep}}</option>
-        {% endfor%}
-    </select>
-
-    <select class="" id="search_type" name="search_type">
-        <option value="">Вид</option>
-      {%for t in type%}
-        <option value="{{t.id}}">{{t.name}}</option>
-      {%endfor%}
-        <option value="c">Корректировка</option>
-
-    </select>
-
-    {% if granted == 1%}
-    <select class="" id="tab_user" name="tab_user">
-      <option value="">Поиск по ответственному</option>
-        {%for u in tab_users %}
-        <option value="{{u.first_name}}">{{u.first_name}}</option>
-        {%endfor%}
-    </select>
-  {%endif%}
-  <input type="button" onclick="gettabels_search('{{granted}}')" name="" class="btn btn-dark" value="Найти">
-
-  <a class="btn btn-outline-danger" onclick="gettabels(0,'{{granted}}')">Сбросить</a>
-  </div>
-  <div class="fs-buttons">
-
-  </div>
-  </form>
+  
 </div>
 
 <div class="tabandbuttons">
 
-<div class="button-block bb-main">
-  <button onclick="gettabels(0,'{{granted}}')"class="type-button">Основные</button>
-  <button onclick="gettabels(2,'{{granted}}')" class="type-button toxic-row">Вредность</button>
-  <button onclick="gettabels(5,'{{granted}}')" class="type-button over-row">Сверхурочка</button>
-  <button onclick="gettabels(4,'{{granted}}')" class="type-button vac-row">Выходные дни</button>
-  <button onclick="gettabels(3,'{{granted}}')" class="type-button unite-row">Совмещение</button>
-  <button onclick="gettabels(6,'{{granted}}')" class="type-button standby-row">Дежурство</button>
-  <button onclick="gettabels(8,'{{granted}}')" class="type-button nn-row">Ненормированность</button>
-  <button onclick="gettabels(9,'{{granted}}')" class="type-button milk-row">Молоко</button>
-  <button onclick="gettabels(10,'{{granted}}')" class="type-button">Корректировки</button>
 
-</div>
 
 <div class="table-block tb-main">
 
   <a class="btn btn-success btn-add"  href="{% url 'new_tabel_url' %}"  >+ Новый табель</a>
 
-  <label for="check_only">Только проверенные на текущий месяц: </label><input type="checkbox" onclick="check_only('{{month_}}',{{year_}})" name="check_only" id="check_only">
+  <!-- <label for="check_only">Только проверенные на текущий месяц: </label><input type="checkbox" onclick="check_only('{{month_}}',{{year_}})" name="check_only" id="check_only"> -->
 
-
+  <div class="button-block bb-main">
+    <button onclick="gettabels(0,'{{granted}}',   0)"class="type-button">Основные</button>
+    <button onclick="gettabels(2,'{{granted}}',   0)" class="type-button toxic-row">Вредность</button>
+    <button onclick="gettabels(5,'{{granted}}',   0)" class="type-button over-row">Сверхурочка</button>
+    <button onclick="gettabels(4,'{{granted}}',   0)" class="type-button vac-row">Выходные дни</button>
+    <button onclick="gettabels(3,'{{granted}}',   0)" class="type-button unite-row">Совмещение</button>
+    <button onclick="gettabels(6,'{{granted}}',   0)" class="type-button standby-row">Дежурство</button>
+    <button onclick="gettabels(8,'{{granted}}',   0)" class="type-button nn-row">Ненормированность</button>
+    <button onclick="gettabels(9,'{{granted}}',   0)" class="type-button milk-row">Молоко</button>
+    <button onclick="gettabels(10,'{{granted}}',  0)" class="type-button">Корректировки</button>
+  
+  </div>
 <div class="tb-table">
 
 
@@ -337,7 +368,7 @@ function Supchecked() {
 
 <script type="text/javascript">
   $('document').ready(function () {
-    gettabels(0,'{{granted}}')
+    gettabels(0,'{{granted}}', 0)
   })
 </script>
 

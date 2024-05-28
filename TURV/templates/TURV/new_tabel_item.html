@@ -1,9 +1,28 @@
-{% extends "TURV/index.html" %}
+{% extends "TURV/tabels.html" %}
 {%load static%}
 {%block scripts%}{%if b_tabel.type.id == 1%}<script src="{% static 'TURV\js\TabelItemAdd1.js' %}" charset="utf-8"></script>{%else%}<script src="{% static 'TURV\js\TabelItemAddSmall.js' %}" charset="utf-8"></script>{%endif%}{%endblock%}
-{%block title%}Заполнение данных о р. времени{%endblock%}
+{%block title%}Заполнение{%endblock%}
 
-{%block header%}<a class="btn btn-dark" href="/turv/create/{{b_tabel.id}}">< Назад</a> | <div class="header-text"><span class="hide" id="id_month">{{month}}</span>Табель <span style="text-transform: lowercase; font-weight: bold;">{{b_tabel.type}}</span> за <span  class='field_month'>{{month}}</span> <span id='id_year'>{{year}}</span> г.</div> {%endblock%}
+{%block header%}
+<div class="header-back-button-container">
+  <a href="#" onclick="window.close()" class="button back">Закрыть</a>
+  {% block logo%}{{block.super}}{% endblock%}
+
+</div>
+
+<span class="hide" id="id_month">{{month}}</span>
+<span class="hide" id='id_year'>{{year}}</span> 
+
+
+<div class="header-main-text">
+  <h4>Табель {{b_tabel.department}} за <span class="field_month">{{month}}</span> <span >{{year}}</span> г.
+  </h4>
+</div>
+
+{%block username%}{{block.super}}{%endblock%}
+
+
+{%endblock%}
 
 {%block body%}
 <span id='tabel-type' style='display:none'>{{b_tabel.type_id}}</span>
@@ -26,12 +45,12 @@
 <div class="container titem">
 
 
-
+<div class="new-tabel-item-employers-list-container">
 
   <div style="grid-area:text;" class="ti-search">
     <h4 style=" text-align:center">Выберите работника из списка</h4>
     <p><input id="tis-input" type="text" name="" placeholder="введите строку для поиска и нажмите ENTER" value="">
-    <button type="button" class="btn btn-outline-danger" id="tis-clear" name="button">Очистить</button></p>
+    <button type="button" class="button cancel" id="tis-clear" name="button">Очистить</button></p>
 
   </div>
 
@@ -72,47 +91,11 @@
   </tbody>
 </table>
 </div>
+</div>
 
 
 <div id="tabel_item" class="tabel_item">
 
-  <div class="info-window iw-initem">
-  <p class="info-window-head">информация</p>
-  <h5 class="not-print" style="color:red;">ВАЖНО: ПЕРЕД ПЕЧАТЬЮ ТАБЕЛЯ ОБЯЗАТЕЛЬНО ОЗНАКОМТЕСЬ С <span><a style="float: none; margin-left: none;" href="https://docs.google.com/document/d/1Z439AZgEkRSZErC1wrBpQE9ajGD-OPZIZOkNI08mPSg/edit#heading=h.g1x2nyrk0y8c">ИНСТРУКЦИЕЙ,</a></span> ПРОВЕРЬТЕ НАСТРОЙКИ ПЕЧАТИ, А ТАК ЖЕ ПРОВЕРЬТЕ КОРРЕКТНОСТЬ СФОРМИРОВАННОГО ДОКУМЕНТА В ОКНЕ ПРЕДВАРИТЕЛЬНОГО ПРОСМОТРА </h5>
-  <div class="iw-content">
-    {% for mes in messages  %}
-    <h5 style="text-align: left !important; {% if mes.important %}color: red;{% endif %} !important">{% if mes.important %}!ВАЖНО!{% endif %}{{mes.text}}</h5>
-    {% endfor %}
-  </div>
-  </div>
-
- <!-- <ul class="in_tabel_list">
-   {% for emp in in_tabel %}
-   <li>{{emp.employer}}</li>
-   {%endfor%}
- </ul> -->
-<!-- <div class="in_tabel_list">
-<table>
-  <thead>
-    <tr>
-      <th>ФИО</th>
-      <th>Должность</th>
-      <th>Разряд</th>
-      <th>Ст. оплаты</th>
-    </tr>
-  </thead>
-  <tbody>
-     {% for emp in in_tabel %}
-    <tr>
-      <td>{{emp.employer.fullname}}</td>
-      <td>{{emp.employer.position}}</td>
-      <td>{{emp.employer.level}}</td>
-      <td>{{emp.employer.positionOfPayment}}</td>
-    </tr>
-    {%endfor%}
-  </tbody>
-</table>
-</div> -->
 
   <div class="t_peoples hide">
 
@@ -289,13 +272,13 @@
   </div>
   <div class="tabel_buttons">
     {% if b_tabel.type_id == 1%}
-    <button type="button" class="btn btn-warning " onclick='auto_fill(0)' name="t_auto_fill">Автозаполнение</button>
-    <button type="button" class="btn btn-warning " onclick='auto_fill(1)' name="t_auto_fill_half">Автозаполнение 1/2</button>
+    <button type="button" class="button" onclick='auto_fill(0)' name="t_auto_fill">Автозаполнение</button>
+    <button type="button" class="button" onclick='auto_fill(1)' name="t_auto_fill_half">Автозаполнение 1/2</button>
     {%else%}
     {%endif%}
-  <button type="button" onclick="Tabel();" class="btn btn-outline-dark" name="button">Расчитать</button>
+  <button type="button" onclick="Tabel();" class="button" name="button">Расчитать</button>
 
-  <input type="button" onclick="Tabel();" class="btn btn-success tItem_submit" name="" value="Расчитать и добавить">
+  <input type="button" onclick="Tabel();" class="button add tItem_submit" name="" value="Расчитать и добавить">
   </div>
 
 

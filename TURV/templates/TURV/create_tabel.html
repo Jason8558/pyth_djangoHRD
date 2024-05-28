@@ -23,497 +23,512 @@
 {%endblock%}
 
 {%block header%}
+<span id="id_month" class="not-print" style="display:none">{{month}}</span>
+<span id="id_year" class="not-print" style="display:none">{{year}}</span>
 
+<div class="header-back-button-container">
+  <a href="#" onclick="window.close()" class="button back">Закрыть</a>
+  {% block logo%}{{block.super}}{% endblock%}
+</div>
+
+<div class="header-main-text">
+  <h4>Табель учета рабочего времени № {{b_tabel.id}} {{b_tabel.department.name}} за <span class="field_month">{{month}}</span> {{year}}
+  </h4>
+</div>
+
+{%block username%}{{block.super}}{%endblock%}
 
 {%endblock%}
 
 {%block scripts%}
-  <script src="{% static 'TURV\js\Eighties.js' %}" charset="utf-8"></script>
-  <script src="{% static 'TURV\js\printtabel.js' %}" charset="utf-8"></script>
-  <script src="{% static 'TURV\js\cookie.js' %}" charset="utf-8"></script>
-    <link rel="stylesheet" href="{% static 'TURV\css\printwarning.css'%}">
-  {%endblock%}
+<script src="{% static 'TURV\js\Eighties.js' %}" charset="utf-8"></script>
+<script src="{% static 'TURV\js\printtabel.js' %}" charset="utf-8"></script>
+<script src="{% static 'TURV\js\cookie.js' %}" charset="utf-8"></script>
+<link rel="stylesheet" href="{% static 'TURV\css\printwarning.css'%}">
+{%endblock%}
 
 {% block body %}
 <span id='tabel-type' style='display:none'>{{b_tabel.type_id}}</span>
 <span id='tabel-corr' style='display:none'>{{b_tabel.iscorr}}</span>
-<!-- <link rel="stylesheet" href="{% static 'TURV\css\tabel_print2.css'%}"> -->
 
 
 
+<div class="container tabel_container">
 
-<!-- <div class="alert alert-danger not-print " >
-<p><b>ВНИМАНИЕ! ИЗМЕНИЛИСЬ НАСТРОЙКИ ПЕЧАТИ! В БРАУЗЕРЕ FIREFOX МАСШТАБ: 85, CHROME: 100. ПОЛЯ ВЕЗДЕ: По умолчанию. Вопросы по т. 2035</b></p>
-</div> -->
+  <div class="for-print not-screen cover">
 
-
-<div  class="container tabel_container">
-<!-- <h5 class="not-print" style="color:red;">ВАЖНО: ПЕЧАТЬ ТАБЕЛЯ ВРЕМЕННО ОСУЩЕСТВЛЯЕТСЯ СЛУЖБОЙ УПРАВЛЕНИЯ ПЕРСОНАЛОМ! ЕСЛИ ВАШ ТАБЕЛЬ ГОТОВ К ПЕЧАТИ, ПОЗВОНИТЕ В СУП И СООБЩИТЕ ОБ ЭТОМ</h5> -->
-<div class="for-print not-screen cover">
-
-<div class="colon">
-<p>Унифицированная форма № Т-12</p>
-<p>Утверждена Постановлением Госкомстата</p>
-<p>России от 05.01.2004 № 1</p>
-</div>
-
-<div class="cover_dep">
-<h3 style="border-bottom: 1px solid black; " class="b-bottom">КГУП "Камчатский водоканал"</h3>
-<p>(наименование организации)</p>
-
-
-<h3 class="b-bottom" style="border-bottom: 1px solid black; font-size: 30px;" id='c_dep'>{{b_tabel.department}}</h3>
-<p>(наименование подразделения)</p>
-</div>
-
-<div class="cover_middle">
-<div class="cover_head">
-<h2>ТАБЕЛЬ</h2>
-<h3>учета рабочего времени и расчета оплаты труда {% if b_tabel.iscorr %} (КОРРЕКТИРОВОЧНЫЙ) {%else%} {%endif%} </h3>
-<h2>УСЛОВНЫЕ ОБОЗНАЧЕНИЯ</h2>
-</div>
-
-<div class="cover-tables">
-<table class="cover_period">
-<thead>
-<tr>
-<th colspan="2">Отчетный период</th>
-
-</tr>
-
-<tr>
-<th>с</th>
-<th>по</th>
-</tr>
-<tbody>
-<td id="cover_from"> </td>
-<td id="cover_to"> </td>
-</tbody>
-</thead>
-</table>
-<table class="cover_number">
-<thead>
-<tr>
-<th>Номер документа</th>
-<th>Дата составления</th>
-</tr>
-<tbody>
-<td> </td>
-<td id="cover_today"> </td>
-</tbody>
-</thead>
-</table>
-</div>
-<img src="{% static 'TURV\img\legend.jpg'%}" alt="">
-</div>
-</div>
-
-<div class="info-block ib-intabel">
-
-    <form action="" class="f_search fs-intabel not-print">
-    <div class="fs-head">
-      <p>ПОИСК</p>
+    <div class="colon">
+      <p>Унифицированная форма № Т-12</p>
+      <p>Утверждена Постановлением Госкомстата</p>
+      <p>России от 05.01.2004 № 1</p>
     </div>
-    <div class="fs-content">
-    <input type="text" name="its_employer"  placeholder="поиск по ФИО" value="">
-    <select class="" name="its_position">
-    <option value="">Поиск по должности</option>
-    {% for pos in positions%}
-    <option value="{{pos}}">{{pos}}</option>
-    {%endfor%}
-    </select>
+
+    <div class="cover_dep">
+      <h3 style="border-bottom: 1px solid black; " class="b-bottom">КГУП "Камчатский водоканал"</h3>
+      <p>(наименование организации)</p>
+
+
+      <h3 class="b-bottom" style="border-bottom: 1px solid black; font-size: 30px;" id='c_dep'>{{b_tabel.department}}
+      </h3>
+      <p>(наименование подразделения)</p>
     </div>
-    <div class="fs-buttons">
-    <input type="submit" name="" class="btn btn-dark" value="Найти">
-    <a class="btn btn-outline-danger" href="/turv/create/{{b_tabel.id}}">Сбросить поиск</a>
+
+    <div class="cover_middle">
+      <div class="cover_head">
+        <h2>ТАБЕЛЬ</h2>
+        <h3>учета рабочего времени и расчета оплаты труда {% if b_tabel.iscorr %} (КОРРЕКТИРОВОЧНЫЙ) {%else%} {%endif%}
+        </h3>
+        <h2>УСЛОВНЫЕ ОБОЗНАЧЕНИЯ</h2>
+      </div>
+
+      <div class="cover-tables">
+        <table class="cover_period">
+          <thead>
+            <tr>
+              <th colspan="2">Отчетный период</th>
+
+            </tr>
+
+            <tr>
+              <th>с</th>
+              <th>по</th>
+            </tr>
+          <tbody>
+            <td id="cover_from"> </td>
+            <td id="cover_to"> </td>
+          </tbody>
+          </thead>
+        </table>
+        <table class="cover_number">
+          <thead>
+            <tr>
+              <th>Номер документа</th>
+              <th>Дата составления</th>
+            </tr>
+          <tbody>
+            <td> </td>
+            <td id="cover_today"> </td>
+          </tbody>
+          </thead>
+        </table>
+      </div>
+      <img src="{% static 'TURV\img\legend.jpg'%}" alt="">
     </div>
+  </div>
+
+
+  <div class="standart-menu">
+
+    {% if b_tabel.type.id == 4 or b_tabel.type.id == 5 or b_tabel.type.id == 6 %}
+    <input type="button" name=""
+      onclick="print_toxic({{b_tabel.year}}, {{b_tabel.month}}, '{{b_tabel.department.name}}')" value="ПЕЧАТЬ">
+    {%else%}
+    <input type="button" name="" onclick="print({{b_tabel.year}}, {{b_tabel.month}}, '{{b_tabel.department.name}}')"
+      value="ПЕЧАТЬ">
+    {%endif%}
+
+    {% if b_tabel.iscorr == 0 and b_tabel.sup_check%}
+    <a href="{% url 'correct' id=b_tabel.id%}">
+      Корректировка
+    </a>
+    {% endif %}
+
+
+    <p onclick="open_additional_menu(this, 'tabel-control-submenu')">
+      Контроль
+    </p>
+
+
+    {% if b_tabel.del_check == False %}
+    <a href="{% url 'delcheck_url' id=b_tabel.id %}">Пометить на удаление</a>
+    {%else%}
+    <a href="{% url 'delcheck_url' id=b_tabel.id %}">Снять пометку удаления</a>
+    {%endif%}
+
+    <div id="tabel-filter-menu" class="standart-menu-submenu-container">
+      <img src="{% static '/img/search.png' %}" onclick="open_additional_menu(this, 'tabel-create-search-panel')" alt="">
+    </div>
+
+    <!-- <div id="tabel-control-menu" class="standart-menu-submenu-container">
+      <img src="{% static '/img/search.png' %}" onclick="open_additional_menu(this, 'tabel-control-submenu')" alt="">
+    </div> 
+    -->
+
+  </div>
+
+
+  <div style="display: none" class="standart-panel submenu-panel panel" id="tabel-control-submenu">
+    <!-- Контроль -->
+
+    <ul>
+      {% if granted %}
+
+      {% if b_tabel.sup_check %}
+      <li><a href="{% url 'checked' id=b_tabel.id%}">Отменить проверку</a></li>
+      {% else %}
+
+      {% if b_tabel.iscorr != 1 %}
+      <li><a href="{% url 'checked' id=b_tabel.id%}">Отметить как проверенный</a></li>
+      {% endif %}
+      {% endif %}
+
+      {% if b_tabel.paper_check %}
+      <li><a href="{% url 'paper_checked' id=b_tabel.id%}">Отменить наличие бум. копии</a></li>
+      {%else%}
+      <li><a href="{% url 'paper_checked' id=b_tabel.id%}">Подтвердить наличие бум. копии</a></li>
+      {%endif%}
+
+      {%endif%}
+
+      {% if b_tabel.half_month_check %}
+      <li><a id="h-check" href="{% url 'half_month' id=b_tabel.id%}">Снять отметку о заполнении 1\2</a></li>
+      {%else%}
+      <li><a id="h-check" href="{% url 'half_month' id=b_tabel.id%}">Поставить отметку о заполнении 1\2 месяца</a></li>
+      {%endif%}
+
+
+
+
+    </ul>
+
+
+
+  </div>
+
+  <form id="tabel-create-search-panel" style="display: none;" class="standart-form standart-panel search panel" action="{%url 'tabel_create_url' id=b_tabel.id%}" method="get">
+    <input type="hidden" id="search-sign" name="search-sign" value="1">
+    <div class="standart-form-header">
+      <h4>Поиск по табелю</h4>
+    </div>
+    <div class="standart-form-input-group inline">
+      <p><span>ФИО:</span><input type="text" name="tabel-create-search-name" id="tabel-create-search-name"></p>
+      <p><span>Должность:</span><input type="text" name="tabel-create-search-position" id="tabel-create-search-position"></p>
+    </div>
+    <div class="standart-form-input-group inline">
+      <input type="submit" class="button add" value="Найти">
+      <input type="button" class="button cancel" value="Сбросить">
+    </div>
+  </form>
+
+  <div id="tabel-status-panel" class="functions f-intabel">
+    <div class="tabel-status-panel-group">
+      {% if b_tabel.sup_check %}
+      <p>✅ Проверен СУП</p>
+      {%endif%}
+
+      {% if b_tabel.paper_check %}
+      <p>✅ Бумажная копия получена</p>
+      {%endif%}
+
+      {% if b_tabel.half_month_check %}
+      <p>✅ 1/2 месяца заполнена</p>
+      {%endif%}
+    </div>
+
+
+    <form class="tabel-status-panel-group" action="{% url 'comm' id=b_tabel.id%}" method="post">
+      {% csrf_token %}
+      <input type="text" name="tabel_comm" placeholder="введите коментарий" value="{{b_tabel.comm}}">
+      <input type="submit" class="button " value="ИЗМЕНИТЬ">
     </form>
 
 
-
-    <div class="info-window iw-intabel">
-    <p class="info-window-head">информация</p>
-    <h5 class="not-print" style="color:red;">ВАЖНО: ПЕРЕД ПЕЧАТЬЮ ТАБЕЛЯ ОБЯЗАТЕЛЬНО ОЗНАКОМТЕСЬ С <span><a style="float: none; margin-left: none;" href="https://docs.google.com/document/d/1Z439AZgEkRSZErC1wrBpQE9ajGD-OPZIZOkNI08mPSg/edit#heading=h.g1x2nyrk0y8c">ИНСТРУКЦИЕЙ,</a></span> ПРОВЕРЬТЕ НАСТРОЙКИ ПЕЧАТИ, А ТАК ЖЕ ПРОВЕРЬТЕ КОРРЕКТНОСТЬ СФОРМИРОВАННОГО ДОКУМЕНТА В ОКНЕ ПРЕДВАРИТЕЛЬНОГО ПРОСМОТРА </h5>
-    <div class="iw-content">
-      {% for mes in messages  %}
-
-        {% if mes.mestype == '1' %}
-          <h5 style="text-align: left !important; {% if mes.important %}color: red;{% endif %} !important">{% if mes.important %}!ВАЖНО!{% endif %}{{mes.text}}</h5>
-        {% else %}
-          <h5 class="iw-movevac-h5" style="text-align: left !important; color:blue; cursor:pointer;" onmouseout="closemovevac()" onmouseover="showmovevac('{{mes.text}}')">Перенос отпусков!</h5>
-        {% endif %}
-
-      {% endfor %}
-      <div style="display:none;" class="iw-movevac" id="iw-movevac">
-        <p></p>
-      </div>
-    </div>
-    </div>
-
-</div>
-
-<div class="functions f-intabel">
-
-  <div class="t-print">
-  {% if b_tabel.type.id == 4 or b_tabel.type.id == 5 or b_tabel.type.id == 6 %}
-  <input class="btn btn-warning btn-sm"  type="button" name="" onclick="print_toxic({{b_tabel.year}}, {{b_tabel.month}}, '{{b_tabel.department.name}}')" value="ПЕЧАТЬ">
-  {%else%}
-  <input class="btn btn-warning btn-sm"   type="button" name="" onclick="print({{b_tabel.year}}, {{b_tabel.month}}, '{{b_tabel.department.name}}')" value="ПЕЧАТЬ">
-  {%endif%}
-
   </div>
 
-  {% if b_tabel.iscorr == 0 %}
-    <div class="t-corr">
-      <a id="correct" href="{% url 'correct' id=b_tabel.id%}">Корректировка</a>
-    </div>
-  {% endif %}
-
-
-  <div class="hm-check">
-    {% if b_tabel.half_month_check %}
-    <h4 style="color: green;">✅ 1\2 готова</h4>
-    <a id="h-check" class="btn btn-danger btn-sm" href="{% url 'half_month' id=b_tabel.id%}">Снять поментку о заполнении 1\2</a>
-    {%else%}
-    <a id="h-check" class="btn btn-success btn-sm" href="{% url 'half_month' id=b_tabel.id%}">Поставить отметку о заполнении 1\2 месяца</a>
-    {%endif%}
-  </div>
-
-<div class="sup_check not-print">
-  {% if b_tabel.sup_check %}
-    <h4 style="color: green;">✅ Проверен СУП</h4>
-      {% if granted == 1%}
-      <a class="btn btn-danger btn-sm" href="{% url 'checked' id=b_tabel.id%}">Отменить проверку</a>
-      {%endif%}
-    {%else%}
-      {% if granted == 1%}
-        {%if b_tabel.iscorr != 1%}
-      <a class="btn btn-success btn-sm" href="{% url 'checked' id=b_tabel.id%}">Отметить как проверенный</a>
-        {%else%}
-        {%endif%}
-      {%endif%}
-{%endif%}
-</div>
-
-<div class="paper_check not-print">
-{% if b_tabel.paper_check %}
-    <h4 style="color: green;">✅ Сдан на бумаге</h4>
-
-    {% if granted == 1%}
-    <a class="btn btn-danger btn-sm" href="{% url 'paper_checked' id=b_tabel.id%}">Отменить наличие бумажной копии</a>
-    {%endif%}
-
-  {%else%}
-
-  {% if granted == 1%}
-  <a class="btn btn-success btn-sm" href="{% url 'paper_checked' id=b_tabel.id%}">Подтвердить наличие бум. копии</a>
-  {%endif%}
-{%endif%}
-</div>
-
-
-
-<div class="comm">
-<form class="f-comm" action="{% url 'comm' id=b_tabel.id%}" method="post">
-  {% csrf_token %}
-  <input type="text" name="tabel_comm" placeholder="введите коментарий" value="{{b_tabel.comm}}">
-  <input type="submit" class="btn btn-warning btn-sm" value="ИЗМЕНИТЬ">
-</form>
-</div>
-<div class="del_check">
-  {% if b_tabel.del_check == False %}
-    <a class="btn btn-danger btn-sm" href="{% url 'delcheck_url' id=b_tabel.id %}">Пометить на удаление</a>
-  {%else%}
-    <a class="btn btn-danger btn-sm" href="{% url 'delcheck_url' id=b_tabel.id %}">Снять пометку удаления</a>
-  {%endif%}
-  </div>
-
-
-
-</div>
 
   {% if form.errors %}
   {{form.errors}}
   {%endif%}
 
   {% if b_tabel.sup_check %}
-    <h2 style="color:green; text-decoration: underline;" class="not-print">Табель проверен, внесение изменений невозможно</h2>
+  <h2 style="color:green; text-decoration: underline;" class="not-print">Табель проверен, внесение изменений невозможно
+  </h2>
   {% else %}
-    {% if b_tabel.del_check %}
-      <h2 style="color:red; text-decoration: underline;" class="not-print">Табель помечен на удаление, внесение изменений невозможно</h2>
-    {%else%}
-        <a class="btn btn-success btn-add not-print" href="{% url 'tabel_addItem_url' id=b_tabel.id%}">НАЧАТЬ ЗАПОЛНЕНИЕ</a>
-    {% endif %}
+  {% if b_tabel.del_check %}
+  <h2 style="color:red; text-decoration: underline;" class="not-print">Табель помечен на удаление, внесение изменений
+    невозможно</h2>
+  {%else%}
+  <div class="create-tabel-add-buttons-container">
+  <a class="btn btn-success btn-add not-print" href="{% url 'tabel_addItem_url' id=b_tabel.id%}">НАЧАТЬ ЗАПОЛНЕНИЕ</a>
+  <!-- <input class="btn-add not-print" type="button" value="АВТОЗАПОЛНЕНИЕ"> -->
+</div>
+  {% endif %}
   {% endif %}
 
-{% if items %}
+  {% if items %}
 
-<div class="headcopy not-print" style="display:none">
-  <table style=" font-size: 8pt !important">
-
-
-  <thead style="display: table-header-group" class="thead-dark">
-  <tr class="tr-header">
-
-    <th  rowspan="2">№</th>
-    <th colspan="3" style="display:none;">ФИО | долж. | разр.</th>
-    <th >ФИО</th>
-    <th >Должн.</th>
-    <th  >Раз.</th>
-    <th >Ст.</th>
-    {%if b_tabel.type.id == 2%}
-      <th>% вред.</th>
-    {%endif%}
-    <th>1</th>
-    <th >2</th>
-    <th>3</th>
-    <th >4</th>
-    <th >5</th>
-    <th >6</th>
-    <th >7</th>
-    <th >8</th>
-    <th >9</th>
-    <th >10</th>
-    <th >11</th>
-    <th >12</th>
-    <th >13</th>
-    <th>14</th>
-    <th >15</th>
-    <th >16</th>
-    <th >17</th>
-    <th >18</th>
-    <th >19</th>
-    <th >20</th>
-    <th >21</th>
-    <th >22</th>
-    <th >23</th>
-    <th >24</th>
-    <th >25</th>
-    <th >26</th>
-    <th >27</th>
-    <th >28</th>
-    <th class="day29 ">29</th>
-    <th class="day30">30</th>
-    <th class="day31 ">31</th>
-    <th >Дни.</th>
-    <th>Час./ЛЧ</th>
-    {% if b_tabel.type.id != 4 and b_tabel.type.id != 5 and b_tabel.type.id != 6%}
-    <th >Св.</th>
-    <th >НЧ</th>
-    <th >в./пр.</th>
-    <th >Сов.</th>
-    <th >Нея.</th>
-    <th >Из них</th>
-
-<th  >Вых.</th>
+  <div class="headcopy not-print" style="display:none">
+    <table style=" font-size: 8pt !important">
 
 
-{%endif%}
+      <thead style="display: table-header-group" class="thead-dark">
+        <tr class="tr-header">
 
-
-
-
-
-
-  </tr>
-  </thead>
-  </table>
-</div>
-
-<table id="t_tabel" class="tabel" style="display: none" cellpadding="0.5" cellspacing="1">
-  {% if b_tabel.type.id == 2%}
-
-  <thead style="display: table-header-group; background:lightgreen !important; color: black !important;" class="thead-dark" id="tabel_head">
-    {%else%}
-    <thead style="display: table-header-group" class="thead-dark" id="tabel_head">
-    {%endif%}
-  <tr class="tr-header">
-
-
-    <th class=" num " rowspan="2">№</th>
-    <th class="for-print  fio " colspan="3">ФИО|долж.|разр.</th>
-    <th class="not-print fio-screen ">ФИО</th>
-    <th class="not-print pos-screen" >Должн.</th>
-    <th class="not-print " >Раз.</th>
-    <th class="thin-itogo">Ст.</th>
-    {%if b_tabel.type.id == 2%}
-      <th class="thin-itogo">% вред</th>
-    {%endif%}
-    <th class="head-hours">1</th>
-    <th class="head-hours">2</th>
-    <th class="head-hours">3</th>
-    <th class="head-hours">4</th>
-    <th class="head-hours">5</th>
-    <th class="head-hours">6</th>
-    <th class="head-hours">7</th>
-    <th class="head-hours">8</th>
-    <th class="head-hours">9</th>
-    <th class="head-hours">10</th>
-    <th class="head-hours">11</th>
-    <th class="head-hours">12</th>
-    <th class="head-hours">13</th>
-    <th class="head-hours">14</th>
-    <th class="head-hours">15</th>
-    <th class="head-hours">16</th>
-    <th class="head-hours">17</th>
-    <th class="head-hours">18</th>
-    <th class="head-hours">19</th>
-    <th class="head-hours">20</th>
-    <th class="head-hours">21</th>
-    <th class="head-hours">22</th>
-    <th class="head-hours">23</th>
-    <th class="head-hours">24</th>
-    <th class="head-hours">25</th>
-    <th class="head-hours">26</th>
-    <th class="head-hours">27</th>
-    <th class="head-hours">28</th>
-    <th class="day29 head-hours">29</th>
-    <th class="day30 head-hours">30</th>
-    <th class="day31 head-hours">31</th>
-    <th class="thin-itogo">Дни.</th>
-    <th class="wide-itogs">Час./ЛЧ</th>
-      {% if b_tabel.type.id != 4 and b_tabel.type.id != 5 and b_tabel.type.id != 6%}
-    <th class="wide-itogs toxic-hide">Св.</th>
-    <th class="thin-itogo toxic-hide">НЧ</th>
-    <th class="thin-itogo toxic-hide">в./пр.</th>
-    <th class="thin-itogo toxic-hide">Сов.</th>
-    <th class="thin-itogo toxic-hide ">Нея.</th>
-    <th class="include toxic-hide">Из них</th>
-
-  <th class="thin-itogo" >Вых.</th>
-{%else%}
-    <th class="thin-itogo">НЧ</th>
-  {%endif%}
-
-
-
-
-
-
-
-
-
-  </tr>
-  </thead>
-
-  {%for item in items %}
-
-
-
-
-    {% if b_tabel.sup_check %}
-      {% if item.bound_tabel.iscorr  %}
-        <tr style="background:lightyellow;" id="{{item.id}}"  onmouseleave="row_highlight_off({{item.id}})"  onmouseover="row_highlight({{item.id}})" class="time_types">
-      {%else%}
-        <tr id="{{item.id}}" onmouseleave="row_highlight_off({{item.id}})" onmouseover="row_highlight({{item.id}})" class="time_types">
-      {%endif%}
-    {%else%}
-      {% if b_tabel.del_check %}
-      <tr id="{{item.id}}" onmouseleave="row_highlight_off({{item.id}})" onmouseover="row_highlight({{item.id}})" class="time_types">
-        {%else%}
-          {% if item.bound_tabel.iscorr%}
-          <tr style="background:lightyellow;" id="{{item.id}}"  onmouseleave="row_highlight_off({{item.id}})" onclick=" set_cookie(); return location.href = '{% url 'tabel_updItem_url' id=item.id%}';"  onmouseover="row_highlight({{item.id}})" class="time_types">
-          {%else%}
-          <tr id="{{item.id}}"  onmouseleave="row_highlight_off({{item.id}})" onclick="set_cookie(); return location.href = '{% url 'tabel_updItem_url' id=item.id%}' "  onmouseover="row_highlight({{item.id}})" class="time_types">
+          <th rowspan="2">№</th>
+          <th colspan="3" style="display:none;">ФИО | долж. | разр.</th>
+          <th>ФИО</th>
+          <th>Должн.</th>
+          <th>Раз.</th>
+          <th>Ст.</th>
+          {%if b_tabel.type.id == 2%}
+          <th>% вред.</th>
           {%endif%}
-        {%endif%}
-    {%endif%}
-      <th class="print-num cell_bb" rowspan="2"></th>
-      <td  class="for-print cell_bb fio" rowspan="2" colspan="3">{{item.employer.fullname}}|{{item.employer.position|truncatechars:10}}|{{item.employer.level}}</td>
+          <th>1</th>
+          <th>2</th>
+          <th>3</th>
+          <th>4</th>
+          <th>5</th>
+          <th>6</th>
+          <th>7</th>
+          <th>8</th>
+          <th>9</th>
+          <th>10</th>
+          <th>11</th>
+          <th>12</th>
+          <th>13</th>
+          <th>14</th>
+          <th>15</th>
+          <th>16</th>
+          <th>17</th>
+          <th>18</th>
+          <th>19</th>
+          <th>20</th>
+          <th>21</th>
+          <th>22</th>
+          <th>23</th>
+          <th>24</th>
+          <th>25</th>
+          <th>26</th>
+          <th>27</th>
+          <th>28</th>
+          <th class="day29 ">29</th>
+          <th class="day30">30</th>
+          <th class="day31 ">31</th>
+          <th>Дни.</th>
+          <th>Час./ЛЧ</th>
+          {% if b_tabel.type.id != 4 and b_tabel.type.id != 5 and b_tabel.type.id != 6%}
+          <th>Св.</th>
+          <th>НЧ</th>
+          <th>в./пр.</th>
+          <th>Сов.</th>
+          <th>Нея.</th>
+          <th>Из них</th>
 
-      <td class="not-print cell_bb" rowspan="2">{{item.employer.fullname}}</td>
-      <td class="not-print cell_bb" rowspan="2">{{item.employer.position}}</td>
-      <td class="not-print cell_bb" rowspan="2">{{item.employer.level}}</td>
-      <td rowspan="2" class="cell_bb">{{item.employer.positionOfPayment}}</td>
-      {%if b_tabel.type.id == 2%}
+          <th>Вых.</th>
+
+
+          {%endif%}
+
+
+
+
+
+
+        </tr>
+      </thead>
+    </table>
+  </div>
+
+  <table id="t_tabel" class="tabel" style="display: none" cellpadding="0.5" cellspacing="1">
+    {% if b_tabel.type.id == 2%}
+
+    <thead style="display: table-header-group; background:lightgreen !important; color: black !important;"
+      class="thead-dark" id="tabel_head">
+      {%else%}
+      <thead style="display: table-header-group" class="thead-dark" id="tabel_head">
+        {%endif%}
+        <tr class="tr-header">
+
+
+          <th class=" num " rowspan="2">№</th>
+          <th class="for-print  fio " colspan="3">ФИО|долж.|разр.</th>
+          <th class="not-print fio-screen ">ФИО</th>
+          <th class="not-print pos-screen">Должн.</th>
+          <th class="not-print ">Раз.</th>
+          <th class="thin-itogo">Ст.</th>
+          {%if b_tabel.type.id == 2%}
+          <th class="thin-itogo">% вред</th>
+          {%endif%}
+          <th class="head-hours">1</th>
+          <th class="head-hours">2</th>
+          <th class="head-hours">3</th>
+          <th class="head-hours">4</th>
+          <th class="head-hours">5</th>
+          <th class="head-hours">6</th>
+          <th class="head-hours">7</th>
+          <th class="head-hours">8</th>
+          <th class="head-hours">9</th>
+          <th class="head-hours">10</th>
+          <th class="head-hours">11</th>
+          <th class="head-hours">12</th>
+          <th class="head-hours">13</th>
+          <th class="head-hours">14</th>
+          <th class="head-hours">15</th>
+          <th class="head-hours">16</th>
+          <th class="head-hours">17</th>
+          <th class="head-hours">18</th>
+          <th class="head-hours">19</th>
+          <th class="head-hours">20</th>
+          <th class="head-hours">21</th>
+          <th class="head-hours">22</th>
+          <th class="head-hours">23</th>
+          <th class="head-hours">24</th>
+          <th class="head-hours">25</th>
+          <th class="head-hours">26</th>
+          <th class="head-hours">27</th>
+          <th class="head-hours">28</th>
+          <th class="day29 head-hours">29</th>
+          <th class="day30 head-hours">30</th>
+          <th class="day31 head-hours">31</th>
+          <th class="thin-itogo">Дни.</th>
+          <th class="wide-itogs">Час./ЛЧ</th>
+          {% if b_tabel.type.id != 4 and b_tabel.type.id != 5 and b_tabel.type.id != 6%}
+          <th class="wide-itogs toxic-hide">Св.</th>
+          <th class="thin-itogo toxic-hide">НЧ</th>
+          <th class="thin-itogo toxic-hide">в./пр.</th>
+          <th class="thin-itogo toxic-hide">Сов.</th>
+          <th class="thin-itogo toxic-hide ">Нея.</th>
+          <th class="include toxic-hide">Из них</th>
+
+          <th class="thin-itogo">Вых.</th>
+          {%else%}
+          <th class="thin-itogo">НЧ</th>
+          {%endif%}
+
+
+
+
+
+
+
+
+
+        </tr>
+      </thead>
+
+      {%for item in items %}
+
+
+
+
+      {% if b_tabel.sup_check %}
+      {% if item.bound_tabel.iscorr %}
+      <tr style="background:lightyellow;" id="{{item.id}}" onmouseleave="row_highlight_off({{item.id}})"
+        onmouseover="row_highlight({{item.id}})" class="time_types">
+        {%else%}
+      <tr id="{{item.id}}" onmouseleave="row_highlight_off({{item.id}})" onmouseover="row_highlight({{item.id}})"
+        class="time_types">
+        {%endif%}
+        {%else%}
+        {% if b_tabel.del_check %}
+      <tr id="{{item.id}}" onmouseleave="row_highlight_off({{item.id}})" onmouseover="row_highlight({{item.id}})"
+        class="time_types">
+        {%else%}
+        {% if item.bound_tabel.iscorr%}
+      <tr style="background:lightyellow;" id="{{item.id}}" onmouseleave="row_highlight_off({{item.id}})"
+        onclick=" set_cookie(); return location.href = '{% url 'tabel_updItem_url' id=item.id%}';"
+        onmouseover="row_highlight({{item.id}})" class="time_types">
+        {%else%}
+      <tr id="{{item.id}}" onmouseleave="row_highlight_off({{item.id}})"
+        onclick="set_cookie(); return location.href = '{% url 'tabel_updItem_url' id=item.id%}' "
+        onmouseover="row_highlight({{item.id}})" class="time_types">
+        {%endif%}
+        {%endif%}
+        {%endif%}
+        <th class="print-num cell_bb" rowspan="2"></th>
+        <td class="for-print cell_bb fio" rowspan="2" colspan="3">
+          {{item.employer.fullname}}|{{item.employer.position|truncatechars:10}}|{{item.employer.level}}</td>
+
+        <td class="not-print cell_bb" rowspan="2">{{item.employer.fullname}}</td>
+        <td class="not-print cell_bb" rowspan="2">{{item.employer.position}}</td>
+        <td class="not-print cell_bb" rowspan="2">{{item.employer.level}}</td>
+        <td rowspan="2" class="cell_bb">{{item.employer.positionOfPayment}}</td>
+        {%if b_tabel.type.id == 2%}
         <td rowspan="2" class="cell_bb"">{{item.toxic_p}}</td>
       {%endif%}
 
-      <td class="cell_ttime">{{item.type_time1}}</td>
-      <td class="cell_ttime">{{item.type_time2}}</td>
-      <td class="cell_ttime">{{item.type_time3}}</td>
-
-      <td class="cell_ttime">{{item.type_time4}}</td>
-
-      <td class="cell_ttime">{{item.type_time5}}</td>
-      <td class="cell_ttime">{{item.type_time6}}</td>
-      <td class="cell_ttime">{{item.type_time7}}</td>
-      <td class="cell_ttime">{{item.type_time8}}</td>
-      <td class="cell_ttime">{{item.type_time9}}</td>
-      <td class="cell_ttime">{{item.type_time10}}</td>
-      <td class="cell_ttime">{{item.type_time11}}</td>
-      <td class="cell_ttime">{{item.type_time12}}</td>
-      <td class="cell_ttime">{{item.type_time13}}</td>
-      <td class="cell_ttime">{{item.type_time14}}</td>
-      <td class="cell_ttime">{{item.type_time15}}</td>
-      <td class="cell_ttime">{{item.type_time16}}</td>
-      <td class="cell_ttime">{{item.type_time17}}</td>
-      <td class="cell_ttime">{{item.type_time18}}</td>
-      <td class="cell_ttime">{{item.type_time19}}</td>
-      <td class="cell_ttime">{{item.type_time20}}</td>
-      <td class="cell_ttime">{{item.type_time21}}</td>
-      <td class="cell_ttime">{{item.type_time22}}</td>
-      <td class="cell_ttime">{{item.type_time23}}</td>
-      <td class="cell_ttime">{{item.type_time24}}</td>
-      <td class="cell_ttime">{{item.type_time25}}</td>
-      <td class="cell_ttime">{{item.type_time26}}</td>
-      <td class="cell_ttime">{{item.type_time27}}</td>
-      <td class="cell_ttime">{{item.type_time28}}</td>
-      <td class="cell_ttime  day29 ">{{item.type_time29}}</td>
-      <td class="cell_ttime day30 ">{{item.type_time30}}</td>
-      <td class="cell_ttime day31">{{item.type_time31}}</td>
-      <td rowspan="2" class="cell_bb">{{item.w_days}}</td>
-      {% if item.sHours19 != 0 %}
-      <td rowspan="2" class="cell_bb wide-itogs">{{item.w_hours|floatformat:-2}}/{{item.sHours19}}</td>
-      {%else%}
-      <td rowspan="2" class="cell_bb wide-itogs">{{item.w_hours|floatformat:-2}}</td>
+      <td class=" cell_ttime">{{item.type_time1}}</td>
+        <td class="cell_ttime">{{item.type_time2}}</td>
+        <td class="cell_ttime">{{item.type_time3}}</td>
+        <td class="cell_ttime">{{item.type_time4}}</td>
+        <td class="cell_ttime">{{item.type_time5}}</td>
+        <td class="cell_ttime">{{item.type_time6}}</td>
+        <td class="cell_ttime">{{item.type_time7}}</td>
+        <td class="cell_ttime">{{item.type_time8}}</td>
+        <td class="cell_ttime">{{item.type_time9}}</td>
+        <td class="cell_ttime">{{item.type_time10}}</td>
+        <td class="cell_ttime">{{item.type_time11}}</td>
+        <td class="cell_ttime">{{item.type_time12}}</td>
+        <td class="cell_ttime">{{item.type_time13}}</td>
+        <td class="cell_ttime">{{item.type_time14}}</td>
+        <td class="cell_ttime">{{item.type_time15}}</td>
+        <td class="cell_ttime">{{item.type_time16}}</td>
+        <td class="cell_ttime">{{item.type_time17}}</td>
+        <td class="cell_ttime">{{item.type_time18}}</td>
+        <td class="cell_ttime">{{item.type_time19}}</td>
+        <td class="cell_ttime">{{item.type_time20}}</td>
+        <td class="cell_ttime">{{item.type_time21}}</td>
+        <td class="cell_ttime">{{item.type_time22}}</td>
+        <td class="cell_ttime">{{item.type_time23}}</td>
+        <td class="cell_ttime">{{item.type_time24}}</td>
+        <td class="cell_ttime">{{item.type_time25}}</td>
+        <td class="cell_ttime">{{item.type_time26}}</td>
+        <td class="cell_ttime">{{item.type_time27}}</td>
+        <td class="cell_ttime">{{item.type_time28}}</td>
+        <td class="cell_ttime  day29 ">{{item.type_time29}}</td>
+        <td class="cell_ttime day30 ">{{item.type_time30}}</td>
+        <td class="cell_ttime day31">{{item.type_time31}}</td>
+        <td rowspan="2" class="cell_bb">{{item.w_days}}</td>
+        {% if item.sHours19 != 0 %}
+          <td rowspan="2" class="cell_bb wide-itogs">{{item.w_hours|floatformat:-2}}/{{item.sHours19}}</td>
+        {%else%}
+          <td rowspan="2" class="cell_bb wide-itogs">{{item.w_hours|floatformat:-2}}</td>
         {%endif%}
-      {% if b_tabel.type.id != 4 and b_tabel.type.id != 5 and b_tabel.type.id != 6%}
+        {% if b_tabel.type.id != 4 and b_tabel.type.id != 5 and b_tabel.type.id != 6%}
+        {% if item.sHours4 > 0 %}
+          <td rowspan="2" class="cell_bb wide-itogs toxic-hide">{{item.sHours4|floatformat:2}}</td>
+        {% else %}
+          <td rowspan="2" class="cell_bb toxic-hide"></td>
+        {%endif%}
 
-          {% if item.sHours4 > 0 %}
-          <td rowspan="2"class="cell_bb wide-itogs toxic-hide">{{item.sHours4|floatformat:2}}</td>
-          {% else %}
-            <td rowspan="2" class="cell_bb toxic-hide"></td>
-          {%endif%}
+        {%if item.sHours2 %}
+          <td rowspan="2" class="cell_bb toxic-hide">{{item.sHours2}}</td>
+        {%else%}
+          <td rowspan="2" class="cell_bb toxic-hide "></td>
+        {%endif%}
+        {%if item.sHours3 %}
+          <td rowspan="2" class="cell_bb toxic-hide">{{item.sHours3}}</td>
+        {%else%}
+          <td rowspan="2" class="cell_bb toxic-hide"></td>
+        {%endif%}
 
-          {%if item.sHours2 %}
-            <td rowspan="2" class="cell_bb toxic-hide">{{item.sHours2}}</td>
-          {%else%}
-            <td rowspan="2" class="cell_bb toxic-hide "></td>
-          {%endif%}
-          {%if item.sHours3 %}
-            <td rowspan="2" class="cell_bb toxic-hide">{{item.sHours3}}</td>
-          {%else%}
-            <td rowspan="2" class="cell_bb toxic-hide"></td>
-          {%endif%}
+        {%if item.sHours35 %}
+          <td rowspan="2" class="cell_bb toxic-hide">{{item.sHours35}}</td>
+        {%else%}
+          <td rowspan="2" class="cell_bb toxic-hide "></td>
+        {%endif%}
 
-          {%if item.sHours35 %}
-            <td rowspan="2" class="cell_bb toxic-hide">{{item.sHours35}}</td>
-          {%else%}
-            <td rowspan="2" class="cell_bb toxic-hide "></td>
-            {%endif%}
+        {% if item.v_days > 0%}
+          <td rowspan="2" class="cell_bb toxic-hide ">{{item.v_days}}</td>
+        {%else%}
+          <td rowspan="2" class="cell_bb toxic-hide "></td>
+        {%endif%}
 
-          {% if item.v_days > 0%}
-            <td rowspan="2" class="cell_bb toxic-hide ">{{item.v_days}}</td>
-          {%else%}
-            <td rowspan="2" class="cell_bb toxic-hide "></td>
-          {%endif%}
-
-          <td rowspan="2"class="vac-include cell_bb toxic-hide" ></td>
+          <td rowspan="2" class="vac-include cell_bb toxic-hide"></td>
 
           <td rowspan="2" class="weekends cell_bb">{{item.sHours24}}</td>
-      {%else%}
-        <td rowspan="2" style="" class="weekends cell_bb">{{item.sHours2}}</td>
-      {%endif%}
+        {%else%}
+          <td rowspan="2" style="" class="weekends cell_bb">{{item.sHours2}}</td>
+        {%endif%}
 
 
 
 
 
 
-    </tr>
+      </tr>
 
-<tr id="{{item.id}}_1">
+      <tr id="{{item.id}}_1">
 
 
         <td class="cell_hours">{{item.hours1}}</td>
@@ -524,103 +539,32 @@
         <td class="cell_hours">{{item.hours5}}</td>
         <td class="cell_hours">{{item.hours6}}</td>
         <td class="cell_hours">{{item.hours7}}</td>
-      <td class="cell_hours">{{item.hours8}}</td>
-      <td class="cell_hours">{{item.hours9}}</td>
-      <td class="cell_hours">{{item.hours10}}</td>
-      <td class="cell_hours">{{item.hours11}}</td>
-      <td class="cell_hours">{{item.hours12}}</td>
-      <td class="cell_hours">{{item.hours13}}</td>
-      <td class="cell_hours">{{item.hours14}}</td>
-      <td class="cell_hours">{{item.hours15}}</td>
-      <td class="cell_hours">{{item.hours16}}</td>
-      <td class="cell_hours">{{item.hours17}}</td>
-      <td class="cell_hours">{{item.hours18}}</td>
-      <td class="cell_hours">{{item.hours19}}</td>
-      <td class="cell_hours">{{item.hours20}}</td>
-      <td class="cell_hours">{{item.hours21}}</td>
-      <td class="cell_hours">{{item.hours22}}</td>
-      <td class="cell_hours">{{item.hours23}}</td>
-      <td class="cell_hours">{{item.hours24}}</td>
-      <td class="cell_hours">{{item.hours25}}</td>
-      <td class="cell_hours">{{item.hours26}}</td>
-      <td class="cell_hours">{{item.hours27}}</td>
-      <td class="cell_hours">{{item.hours28}}</td>
-      <td class="cell_hours day29">{{item.hours29}}</td>
-      <td class="cell_hours day30">{{item.hours30}}</td>
-      <td class="cell_hours day31">{{item.hours31}}</td>
+        <td class="cell_hours">{{item.hours8}}</td>
+        <td class="cell_hours">{{item.hours9}}</td>
+        <td class="cell_hours">{{item.hours10}}</td>
+        <td class="cell_hours">{{item.hours11}}</td>
+        <td class="cell_hours">{{item.hours12}}</td>
+        <td class="cell_hours">{{item.hours13}}</td>
+        <td class="cell_hours">{{item.hours14}}</td>
+        <td class="cell_hours">{{item.hours15}}</td>
+        <td class="cell_hours">{{item.hours16}}</td>
+        <td class="cell_hours">{{item.hours17}}</td>
+        <td class="cell_hours">{{item.hours18}}</td>
+        <td class="cell_hours">{{item.hours19}}</td>
+        <td class="cell_hours">{{item.hours20}}</td>
+        <td class="cell_hours">{{item.hours21}}</td>
+        <td class="cell_hours">{{item.hours22}}</td>
+        <td class="cell_hours">{{item.hours23}}</td>
+        <td class="cell_hours">{{item.hours24}}</td>
+        <td class="cell_hours">{{item.hours25}}</td>
+        <td class="cell_hours">{{item.hours26}}</td>
+        <td class="cell_hours">{{item.hours27}}</td>
+        <td class="cell_hours">{{item.hours28}}</td>
+        <td class="cell_hours day29">{{item.hours29}}</td>
+        <td class="cell_hours day30">{{item.hours30}}</td>
+        <td class="cell_hours day31">{{item.hours31}}</td>
 
-    </tr>
-
-
-
-
-
-
-
-
-  {%endfor%}
-  <tr style="font-weight: bold;">
-
-
-    <td colspan="3">ИТОГО</td>
-
-
-    <td class="for-print"></td>
-    <td class="not-print"></td>
-
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td class="day29"></td>
-    <td class="day30"></td>
-    <td class="day31"></td>
-    <td></td>
-    {%if b_tabel.type.id == 4 or b_tabel.type.id == 5  or b_tabel.type.id == 6%}
-
-      <td>{{s_days}}</td>
-      <td>{{s_hours}}\{{s_lhours}}</td>
-      <td>{{s_night}}</td>
-
-
-
-    {%else%}
-
-      <td>{{s_days}}</td>
-      <td>{{s_hours}}/{{s_lhours}}</td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td>{{s_vac}}</td>
-      <td>{{s_weekends}}</td>
-
-    {%endif%}
+      </tr>
 
 
 
@@ -629,32 +573,107 @@
 
 
 
-  </tr>
-</table>
-{%else%}
-  {% if b_tabel.del_check%}
-    <h2>Табель помечен на удаление, дальнейшая работа не возможна!</h2>
+      {%endfor%}
+      <tr style="font-weight: bold;">
+
+
+        <td colspan="3">ИТОГО</td>
+
+
+        <td class="for-print"></td>
+        <td class="not-print"></td>
+
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td class="day29"></td>
+        <td class="day30"></td>
+        <td class="day31"></td>
+        <td></td>
+        {%if b_tabel.type.id == 4 or b_tabel.type.id == 5 or b_tabel.type.id == 6%}
+
+        <td>{{s_days}}</td>
+        <td>{{s_hours}}\{{s_lhours}}</td>
+        <td>{{s_night}}</td>
+
+
+
+        {%else%}
+
+        <td>{{s_days}}</td>
+        <td>{{s_hours}}/{{s_lhours}}</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td>{{s_vac}}</td>
+        <td>{{s_weekends}}</td>
+
+        {%endif%}
+
+
+
+
+
+
+
+
+      </tr>
+  </table>
   {%else%}
-    <h2>Сотрудников нет</h2>
+  {% if b_tabel.del_check%}
+  <h2>Табель помечен на удаление, дальнейшая работа не возможна!</h2>
+  {%else%}
+  <h2>Сотрудников нет</h2>
   {%endif%}
-{%endif%}
-
-<div class="cover-footer for-print" >
-<h3>Ответственный за составление табеля ________________________________________________________________________________________ __.__.20__ г.</h3>
-<h3>Руководитель структурного подразделения ________________________________________________________________________________________ __.__.20__ г..</h3>
-<h3>Специалист СУП ________________________________________________________________________________________ __.__.20__ г..</h3>
+  {%endif%}
+</div>
+<div class="cover-footer for-print">
+  <h3>Ответственный за составление табеля
+    ________________________________________________________________________________________ __.__.20__ г.</h3>
+  <h3>Руководитель структурного подразделения
+    ________________________________________________________________________________________ __.__.20__ г..</h3>
+  <h3>Специалист СУП ________________________________________________________________________________________ __.__.20__
+    г..</h3>
 </div>
 </div>
 <div style="display:none" class="print_warning">
-  <h1 style="color:red;">ДЛЯ ПЕЧАТИ ТАБЕЛЯ НАЖМИТЕ ЖЕЛТУЮ КНОПКУ ПЕЧАТЬ, КОТОРАЯ НАХОДИТСЯ ВЫШЕ ОСНОВНОЙ ТАБЛИЦЫ ТАБЕЛЯ!</h1>
+  <h1 style="color:red;">ДЛЯ ПЕЧАТИ ТАБЕЛЯ НАЖМИТЕ ЖЕЛТУЮ КНОПКУ ПЕЧАТЬ, КОТОРАЯ НАХОДИТСЯ ВЫШЕ ОСНОВНОЙ ТАБЛИЦЫ ТАБЕЛЯ!
+  </h1>
 </div>
 
 {% if not b_tabel.sup_check %}
 <script type="text/javascript">
-  $(document).ready(function() {
+  $(document).ready(function () {
 
-  $('#correct').attr('href','')
-  $('#correct').attr('onclick', 'alert(" ВНИМАНИЕ! На табель, не провернный сотрудником СУП корректировки делать запрещено! Пожалуйста, внесите корректеровки в текущий табель")')
+    $('#correct').attr('href', '')
+    $('#correct').attr('onclick', 'alert(" ВНИМАНИЕ! На табель, не провернный работником СУП корректировки делать запрещено! Пожалуйста, внесите корректеровки в текущий табель")')
 
   })
 

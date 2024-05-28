@@ -1,9 +1,28 @@
-{% extends "TURV/index.html" %}
+{% extends "TURV/tabels.html" %}
 {%load static%}
 {%block scripts%}<script src="{% static 'TURV\js\TabelItemUpdate2.js' %}" charset="utf-8"></script>{%endblock%}
 {%block title%}{{item.employer.fullname}}{%endblock%}
 
-{%block header%}<a class="btn btn-dark" href="/turv/create/{{b_tabel}}">< Назад</a> | <span class="hide" id="id_month">{{month}}</span> <div class="header-text">Табель <span style="text-transform: lowercase; font-weight: bold;">{{item.bound_tabel.type}} </span>за <span  class='field_month'>{{month}}</span> <span id='id_year'>{{year}}</span> г. - <span class="fullname"></span></div>{%endblock%}
+{%block header%}
+
+<span  class="hide" id="id_month">{{month}}</span>
+<span class="hide" id='id_year'>{{year}}</span>
+<div class="header-back-button-container">
+  <a href="/turv/create/{{item.bound_tabel_id}}" class="button back">Назад</a>
+
+
+{% block logo%}{{block.super}}{% endblock%}
+</div>
+
+<div class="header-main-text">
+  <h3> Изменить запись - <span class="fullname"></span></h3>
+</div>
+
+{%block username%}{{block.super}}{%endblock%}
+
+
+
+{%endblock%}
 
 {%block body%}
 <span id='tabel-type' style='display:none'>{{type}}</span>
@@ -184,11 +203,11 @@
   </div>
   <p style='display: none;'>{{tabel.toxic_p}}{{tabel.auto}}</p>
   <div class="tabel_buttons">
-    <button type="button" onclick="auto_fill_upd()" class="btn btn-warning" name="button">Автозаполнение</button>
-    <button type="button" onclick="Tabel();" class="btn btn-outline-dark" name="button">Пересчитать</button>
+    <button type="button" onclick="auto_fill_upd()" class="button" name="button">Автозаполнение</button>
+    <button type="button" onclick="Tabel();" class="button" name="button">Пересчитать</button>
 
-    <input type="button" onclick="Tabel();"  class="btn btn-success tItem_submit" name="" value="Пересчитать и сохранить">
-    <a  class="btn btn-outline-danger" href="{% url 'tabel_delItem_url' id=item.id%}">Удалить из текущего табеля</a>
+    <input type="button" onclick="Tabel();"  class="button add tItem_submit" name="" value="Пересчитать и сохранить">
+    <a  class="button cancel" href="{% url 'tabel_delItem_url' id=item.id%}">Удалить из текущего табеля</a>
   </div>
 </div>
 

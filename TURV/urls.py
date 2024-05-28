@@ -3,12 +3,10 @@ from . import views
 
 urlpatterns = [
     path('', views.tabels, name='tabels_url'),
-    path('over/', views.over_tabels, name='over-tabels_url'),
-    path('vac/', views.vac_tabels, name='vac-tabels_url'),
-    path('nn/', views.nn_tabels, name='nn-tabels_url'),
+    path('over/<int:type>', views.over_tabels, name='over-tabels_url'),
     path('new/', views.new_tabel, name='new_tabel_url'),
     path('unload/<int:id>', views.tabel_unload_check, name='unload_check_url'),
-
+    path('archive/', views.get_archive, name='archive_url'),
     path('forload/', views.tabels_forload, name='forload_url'),
     path('delcheck/<int:id>', views.tabel_delcheck, name='delcheck_url'),
     path('delete_checked/', views.del_tabel, name='del_tabel_url'),
@@ -31,7 +29,6 @@ urlpatterns = [
     path('messages/new/<int:id>', views.new_message, name='message_new_url'),
     path('feedbacks/', views.feedbacks, name='feedbacks_url'),
     path('feedbacks/new/<int:id>', views.new_feedback, name='feedback_new_url'),
-    # path('unload/', views.unload, name='unload'),
     path('toxic-unload/', views.toxic_unload, name='toxic-unload'),
     path('unite-unload/', views.unite_unload, name='unite-unload'),
     path('milk-unload/', views.milk_unload, name='milk-unload'),
@@ -46,7 +43,7 @@ urlpatterns = [
     path('total/<str:month>/<str:year>/<int:dep>/', views.total_tabels, name='total_url'),
     path('total/open/', views.total_tabels_html, name='total_url_page'),
     path('correct/<int:id>', views.new_corr_tabel, name='correct'),
-    path('gettabels/<int:type>', views.tabels_json, name='gettabels'),
+    path('gettabels/<int:type>/<int:year>', views.tabels_json, name='gettabels'),
     path('gettabels/search/', views.tabels_json_search, name='gettabels_search'),
     path('gettabels/<int:type>/<int:month>/<int:year>/<str:dep>/<int:half_month>', views.tabels_json_multi, name='gettabels_multi'),
     path('getdeps/<int:type>/', views.deps_json, name='getdeps')

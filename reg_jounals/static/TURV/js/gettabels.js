@@ -26,9 +26,9 @@ else {
 
 
 
-function gettabels(type, access) {
+function gettabels(type, access, year) {
 
-  $.getJSON('/turv/gettabels/' + type,  (data) => {
+  $.getJSON('/turv/gettabels/' + type + '/' + year,  (data) => {
     $('#tabels-main-table tbody').empty()
 
 

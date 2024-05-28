@@ -8232,10 +8232,7 @@ for (var i = 0; i < sum_fields.length; i++) {
       }
       else {
         sum_fields[i].style.display = 'block'
-        container_heigth = window.getComputedStyle(container[0]).height;
-        container_heigth = parseInt(container_heigth, 10)
-        container_heigth += 38
-        container[0].style.height = container_heigth + 'px'
+
       }
     }
   }
@@ -8269,7 +8266,7 @@ $(window).on('scroll', function () {
 })
 
 function row_highlight(r_id) {
-  $('#' + r_id + "_1").css('background', '#c7faff')
+  $('#' + r_id + "_1").css('background', '#2dbbff')
 }
 
 function row_highlight_off(r_id) {

@@ -1,0 +1,66 @@
+{% extends 'TURV/tabels.html'%}
+{%load static%}
+{%block title%}Архив{% endblock %}
+{%block header %} 
+
+<div class="header-back-button-container">
+    <a href=".." class="button back">Назад</a>
+
+
+{% block logo%}{{block.super}}{% endblock%}
+</div>
+
+<div class="header-main-text">
+    <h3>Архив</h3>
+</div>
+
+{%block username%}{{block.super}}{%endblock%}
+
+{%endblock%} 
+
+
+
+{% block body%}
+
+
+
+<div class="container">
+    <div class="standart-menu">
+    
+
+        <p onclick="open_additional_menu(this)">Поиск в архиве</p>
+      
+      </div>
+
+    <div class="button-block bb-main">
+        <button onclick="gettabels(0,'{{granted}}', 2023)"class="type-button">Основные</button>
+        <button onclick="gettabels(2,'{{granted}}')" class="type-button toxic-row">Вредность</button>
+        <button onclick="gettabels(5,'{{granted}}')" class="type-button over-row">Сверхур.</button>
+        <button onclick="gettabels(4,'{{granted}}')" class="type-button vac-row">Выходные</button>
+        <button onclick="gettabels(3,'{{granted}}')" class="type-button unite-row">Совмещение</button>
+        <button onclick="gettabels(6,'{{granted}}')" class="type-button standby-row">Дежурство</button>
+        <button onclick="gettabels(8,'{{granted}}')" class="type-button nn-row">Ненормир.</button>
+        <button onclick="gettabels(9,'{{granted}}')" class="type-button milk-row">Молоко</button>
+        <button onclick="gettabels(10,'{{granted}}')" class="type-button">Корректировки</button>
+      
+      </div>
+<table id="tabels-main-table" class="tabels-main-table">
+    <thead class="thead-dark">
+        <tr class="tr-header">
+            <th scope="col">Код</th>
+            <th scope="col">Вид</th>
+            <th scope="col">Период</th>
+            <th scope="col">Подразделение</th>
+            <th scope="col">Комментарий</th>
+
+
+
+
+        </tr>
+    </thead>
+    <tbody>
+
+    </tbody>
+</table>
+</div>
+{% endblock%}

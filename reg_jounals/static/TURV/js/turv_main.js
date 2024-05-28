@@ -1,6 +1,6 @@
 function open_additional_menu(el, additional_menu_panel) {
     // открыть доп меню
-    //close_all_forms()
+    close_all_panels()
   
     additional_menu_panel = document.getElementById(additional_menu_panel)
   
@@ -9,11 +9,19 @@ function open_additional_menu(el, additional_menu_panel) {
     additional_menu_panel.style.display   = 'flex'
     additional_menu_panel.style.position  = 'absolute'
     additional_menu_panel.style.top       = (Number(coords.top) + 40) + 'px'
-    additional_menu_panel.style.left      = coords.left + 'px'
-    additional_menu_panel.style.height    = '67px' 
+    
+    additional_menu_panel.style.height    = 'max-content'
+    if (additional_menu_panel.classList.contains('search')) {
+
+    }
+    else {
+        additional_menu_panel.style.width    = 'max-content'
+        additional_menu_panel.style.left      = coords.left + 'px'
+    }
+     
   
     additional_menu_panel.addEventListener('mouseleave', (vsp) => {
-      //close_all_forms()
+      close_all_panels()
     })
   
     el.onclick = function() {
@@ -31,3 +39,11 @@ function open_additional_menu(el, additional_menu_panel) {
    //el.onclick = 'open_additional_menu(this)'
   
   }
+
+function close_all_panels() {
+    panels = document.getElementsByClassName('panel')
+
+    for (const panel of panels) {
+        panel.style.display = 'none'
+    }
+}
