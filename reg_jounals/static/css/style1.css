@@ -15,18 +15,12 @@ input[type=text]:disabled {
 }
 
 
-
-html {
-
+.test {
+  width: 100%;
 }
 
-header {
 
-}
 
-header img {
-  width: 70px;
-}
 
 
 .navbar-light .navbar-brand {

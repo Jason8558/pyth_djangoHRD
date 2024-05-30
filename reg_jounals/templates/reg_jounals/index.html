@@ -2,10 +2,15 @@
 <html  lang="en">
 <head>
   {%load static%}
+  {%load compress%}
+
+  {% compress css%}
   <link rel="stylesheet" href="{% static 'css/main.css'%}">
   <link rel="stylesheet" href="{% static 'css/style1.css'%}">
   <link rel="stylesheet" href="{% static 'css/VacList.css'%}">
   <link rel="stylesheet" href="{% static 'css/bootstrap.min.css'%}">
+  {%endcompress%}
+
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
@@ -18,8 +23,9 @@
   <link href="https://fonts.googleapis.com/css2?family=Exo+2:ital,wght@0,400;1,200&display=swap" rel="stylesheet">
   {%block addstyles%}{%endblock%}
 
-
+  {% compress js%}
   <script
+ 
   src="{% static 'TURV\js\jquery-3.6.0.min.js'%}"
 
   crossorigin="anonymous"></script>
@@ -27,6 +33,7 @@
   <script src="{% static 'js/rj_main1.js'%}"></script>
   <script src="{% static 'js/op_print.js'%}"></script>
   {%block script%}{%endblock%}
+  {%endcompress%}
 
   <title>{%block title%}ИС "СУП"{%endblock%}</title>
 </head>
@@ -34,7 +41,7 @@
   <header>
 
    
-    <span class="navbar-brand mb-0 h1">{%block header%}{%block logo%}<img src="{% static 'img/IMG_5826.PNG'%}" alt="">{%endblock%}Информационная система "СУП". Кадровый документооборот{%endblock%}</span><span style="text-align: right; float: right;font-size: 14pt;">   {% if request.user.is_superuser%} <a style="color:black;" href="/admin/">{{ user.first_name }}</a><span id="version"> v2.5 </span>{%endif%} {% if request.user.groups.all.0.name == 'Редактирование справочников' %} <a style="color:black;" href="/admin">| Справочники</a> {% endif %}</span>
+    <span class="navbar-brand mb-0 h1">{%block header%}{%block logo%}<img src="{% static 'img/logo.png'%}" alt="">{%endblock%}Информационная система "СУП". Кадровый документооборот{%endblock%}</span><span style="text-align: right; float: right;font-size: 14pt;">   {% if request.user.is_superuser%} <a style="color:black;" href="/admin/">{{ user.first_name }}</a><span id="version"> v2.5 </span>{%endif%} {% if request.user.groups.all.0.name == 'Редактирование справочников' %} <a style="color:black;" href="/admin">| Справочники</a> {% endif %}</span>
 
 
   </header>
@@ -44,9 +51,9 @@
 <div class="container">
     {%block content%}
     <div class='sub-navbar'>
-    <button class="btn btn-dark" onclick="open_vac_calc()" type="button" name="">Калькулятор дат</button>
-    <a class="btn btn-dark" href="{% url 'logs_url' %}">Журналы событий</a>
-    <a class="btn btn-dark" href="{% url 'reports_url'%}">Отчетность</a>
+    <!-- <button class="btn btn-dark" onclick="open_vac_calc()" type="button" name="">Калькулятор дат</button> -->
+    <!-- <a class="btn btn-dark" href="{% url 'logs_url' %}">Журналы событий</a>
+    <a class="btn btn-dark" href="{% url 'reports_url'%}">Отчетность</a> -->
     <a class="btn btn-dark" href="/work_cal">Производственный календарь</a>
     <a class="btn btn-dark" href="/admin">Удаление данных</a>
     <button onclick="GetRecords(5)" class="btn btn-dark">Запись на прием</button>

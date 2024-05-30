@@ -297,7 +297,32 @@ function Supchecked() {
   
   </div>
 <div class="tb-table">
-
+  
+  <table id="tabels-main-table-head-copy" class="tabels-main-table-head-copy">
+    <thead class="thead-dark">
+    <tr class="tr-header">
+      <th scope="col">Код</th>
+      <th  scope="col">Вид</th>
+      <th scope="col">Период</th>
+      <th scope="col">Подразделение</th>
+      {% if granted == 1 or user.is_superuser%}
+      <th scope="col">Ответственный</th>
+      <th scope="col">Сдан на бумаге</th>
+      {%endif%}
+      <th scope="col"> СУП </th>
+      <th scope="col"> 1/2 </th>
+        {% if granted == 1 or user.is_superuser%}
+        <th scope="col"> 1С </th>
+        {%endif%}
+  
+  <th scope="col">Комментарий</th>
+  
+  
+  
+  
+    </tr >
+    </thead>
+  </table>
 
 
 <table id="tabels-main-table" class="tabels-main-table">
@@ -369,6 +394,7 @@ function Supchecked() {
 <script type="text/javascript">
   $('document').ready(function () {
     gettabels(0,'{{granted}}', 0)
+    setTimeout(function() {set_table_head()}, 500)
   })
 </script>
 

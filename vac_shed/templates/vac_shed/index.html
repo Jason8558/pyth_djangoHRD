@@ -20,33 +20,39 @@
   {%block script%}{%endblock%}
  <title>{%block title%} Графики отпусков {%endblock%}</title>
 </head>
+
 <body>
-  <header class="no-print">
+  
 
 
-  {%block header%}
-
-  {%if granted == 1%}
-    <a href="/" class="button back"> < К журналам</a>
-  {%else%}
-    <a href="/turv" class="button back"> < К табелям</a>
-  {%endif%}
-
-  <div class="header-main">
-    {%block logo%}<img src="{% static 'img/IMG_5826.PNG'%}" alt="">{%endblock%}
-    <h1>ИС "СУП". Графики отпусков</h1>
+  <header>
+    {% block header %}
+  
+    {% block logo%}
+      <div class="header-logo-container">
+        <div class="header-logo">
+          <img src="{% static 'img/logo.png' %}" alt="">
+        </div>
+      </div>
+    {% endblock %}
+  
+    <div class="header-main-text">
+      <h3>ИС "СУП". Табели учета рабочего времени</h3>
   </div>
   
   
+    {% block username %}
+      <h4>{{request.user.first_name}}</h4>
+    {% endblock%}
+   
+      {%endblock%}
   
-  {%endblock%}
+  </header>
 
-    <div class="header-user no-print">  <h3 style='float:right;'>{{request.user.first_name}}</h3></div>
-
-    </header>
-
+  
 
   {%block body%}
+
   <div class="container">
     
     <div id="vac_shed-main-menu" class="standart-menu">
@@ -111,7 +117,18 @@
     <!-- 1 -->
      
     <div class="list-container">
-        <table class="vs-table">
+      
+      <table id="vs-table-copy">
+        <thead>
+          <th scope="col">Код</th>
+          <th scope="col">Подразделение</th>
+          <th scope="col">Период</th>
+          <th scope="col">Утв-н. СУП</th>
+          <th scope="col">Ответственный</th>
+        </thead>
+      </table>
+        
+      <table id="vs-table" class="vs-table">
           <thead>
             <th scope="col">Код</th>
             <th scope="col">Подразделение</th>
@@ -141,8 +158,14 @@
 
   </div>
 
+  <script>
+    (function() {
+      setTimeout(function() {set_table_head('vs-table', 'vs-table-copy')}, 500)
+    })()
+  </script>
 
   {%endblock%}
 
 </body>
+
 </html>

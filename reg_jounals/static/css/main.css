@@ -102,9 +102,14 @@ header {
     padding: 11px;
 }
 
+header img {
+   width: 50px
+}
+
 .header-main-text h3,
 header h4 {
     margin: 0 ; 
+    font-weight: bold;
 }
 
 
@@ -136,6 +141,14 @@ header h4 {
     cursor: pointer;
 }
 
+.standart-menu p:hover, 
+.standart-menu a:hover,
+.standart-menu input[type=button]:hover{
+    transition: 0.2s;
+    font-weight: bold;
+}
+
+
 .submenu-panel {
     /* display: none !important; */
     z-index: 999;
@@ -153,6 +166,11 @@ padding: 0;
     text-align: center;
     text-decoration: none;
 }
+
+.submenu-panel ul li *:hover {
+    font-weight: bold;
+}
+
 
 .standart-menu .standart-menu-submenu-container img {
     height: 100%;

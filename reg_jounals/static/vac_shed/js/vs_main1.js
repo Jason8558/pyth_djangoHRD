@@ -836,6 +836,22 @@ function open_search_menu(el) {
 
 }
 
+function set_table_head(original, copy) {
+  // установить фиксированную шапку таблицы
+  original_table_th   = document.querySelectorAll('#' + original + ' th')
+  copy_table_th       = document.querySelectorAll('#' + copy + ' thead th')
+
+  i = 0
+
+  for (const th of copy_table_th) {
+    th.style.width = window.getComputedStyle(original_table_th[i]).width
+    i++ 
+  }
+
+  document.getElementById(copy).style.width = window.getComputedStyle(document.getElementById(original)).width
+  document.getElementById(copy).style.display = 'block'
+}
+
 
 
 

@@ -12,30 +12,40 @@
 <link rel="stylesheet" href="https://unpkg.com/gutenberg-css@0.6/dist/themes/oldstyle.min.css" media="print">
 {%endblock%}
 
-{%block header%}  
+{% block header %}
 
-  <button type="button" onclick="window.close()" class="button" name="button">Закрыть</button>
-  <h1> График отпусков {{vacshed.dep.name}} на {{vacshed.year}} год</h1>
+<div class="header-back-button-container">
+  <a href="#" onclick="window.close()" class="button back">Закрыть</a>
+  {% block logo%}{{block.super}}{% endblock%}
+</div>
+
+<div class="header-main-text">
+  <h3>График отпусков {{vacshed.dep.name}} на <span id="year">{{vacshed.year}}</span>г. </h3>
+</div>
 
 
-{%endblock%}
+{% block username %}
+  <h4>{{request.user.first_name}}</h4>
+{% endblock%}
+
+  {%endblock%}
+
+
 
 
 {% block body %}
 <h1 class="print">График отпусков {{vacshed.dep.name}} на <span id="year">{{vacshed.year}}</span>г.</h1>
 <div class="container vs-create">
 
+  <div class="standart-menu">
   {% if granted %}
-    <a class="button no-print" href="{% url 'additem_url' id=vacshed.id%}"> + Добавить сотрудника в график</a>
+    <a class="button no-print" href="{% url 'additem_url' id=vacshed.id%}"> Добавить сотрудника в график</a>
   {%else%}
     {% if vacshed.sup_check %}
     {%else%}
-      <a class="button no-print" href="{% url 'additem_url' id=vacshed.id%}"> + Добавить сотрудника в график</a>
+      <a class="button no-print" href="{% url 'additem_url' id=vacshed.id%}"> Добавить сотрудника в график</a>
     {%endif%}
   {%endif%}
-  
-  
-  
   {% if granted %}
     {% if vacshed.sup_check %}
     <a class="button no-print" id="checkon" href="{% url 'check_url' id=vacshed.id%}">Отменить утверждение</a>
@@ -50,6 +60,11 @@
   {%else%}
   {%endif%}
 
+</div>
+  
+  
+  
+  
 
 <table class="vs-table-create">
   <thead>

@@ -64,6 +64,7 @@ function gettabels(type, access, year) {
       rows[i].setAttribute('onclick', click)
     }
 
+    set_table_head()
 
   })
 

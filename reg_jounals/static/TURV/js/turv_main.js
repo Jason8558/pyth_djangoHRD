@@ -47,3 +47,18 @@ function close_all_panels() {
         panel.style.display = 'none'
     }
 }
+
+function set_table_head() {
+  original_table_th   = document.querySelectorAll('#tabels-main-table thead th')
+  copy_table_th       = document.querySelectorAll('#tabels-main-table-head-copy thead th')
+
+  i = 0
+
+  for (const th of copy_table_th) {
+    th.style.width = window.getComputedStyle(original_table_th[i]).width
+    i++ 
+  }
+
+  document.getElementById('tabels-main-table-head-copy').style.width = window.getComputedStyle(document.getElementById('tabels-main-table')).width
+  document.getElementById('tabels-main-table-head-copy').style.display = 'block'
+}

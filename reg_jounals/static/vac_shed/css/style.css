@@ -260,6 +260,31 @@ width: 100%;
   display: none;
 }
 
+#vs-table-copy {
+  position: fixed;
+  transition: none;
+  display: none;
+}
+
+.vs-table, 
+#vs-table-copy {
+  margin: 0 !important;
+
+}
+
+.vs-table-create tr:hover {
+  background: none !important;
+} 
+
+#vacshed-additional-menu-panel {
+  z-index: 999;
+}
+
+.vs-table-container {
+  overflow: scroll;
+  height: 700px;
+}
+
 /* шрифты */
 
 @font-face {
