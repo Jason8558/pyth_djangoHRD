@@ -41,7 +41,7 @@
   <header>
 
    
-    <span class="navbar-brand mb-0 h1">{%block header%}{%block logo%}<img src="{% static 'img/logo.png'%}" alt="">{%endblock%}Информационная система "СУП". Кадровый документооборот{%endblock%}</span><span style="text-align: right; float: right;font-size: 14pt;">   {% if request.user.is_superuser%} <a style="color:black;" href="/admin/">{{ user.first_name }}</a><span id="version"> v2.5 </span>{%endif%} {% if request.user.groups.all.0.name == 'Редактирование справочников' %} <a style="color:black;" href="/admin">| Справочники</a> {% endif %}</span>
+    <span class="navbar-brand mb-0 h1">{%block header%}{%block logo%}<img src="{% static 'img/logo.png'%}" alt="">{%endblock%}Информационная система "СУП". Кадровый документооборот{%endblock%}</span><span style="text-align: right; float: right;font-size: 14pt;">   {% if request.user.is_superuser%} <a style="color:black;" href="/admin/">{{ user.first_name }}</a><span id="version"> v3.0.0 </span>{%endif%} {% if request.user.groups.all.0.name == 'Редактирование справочников' %} <a style="color:black;" href="/admin">| Справочники</a> {% endif %}</span>
 
 
   </header>
@@ -50,14 +50,40 @@
 
 <div class="container">
     {%block content%}
-    <div class='sub-navbar'>
-    <!-- <button class="btn btn-dark" onclick="open_vac_calc()" type="button" name="">Калькулятор дат</button> -->
-    <!-- <a class="btn btn-dark" href="{% url 'logs_url' %}">Журналы событий</a>
-    <a class="btn btn-dark" href="{% url 'reports_url'%}">Отчетность</a> -->
-    <a class="btn btn-dark" href="/work_cal">Производственный календарь</a>
-    <a class="btn btn-dark" href="/admin">Удаление данных</a>
-    <button onclick="GetRecords(5)" class="btn btn-dark">Запись на прием</button>
+    <div class='standart-menu'>
 
+    <a onclick="open_additional_menu(this, 'homescreen-tabels-submenu')" href="#">Учет рабочего времени</a>
+    <a onclick="open_additional_menu(this, 'homescreen-ref-submenu')" href="#">Справочники</a>
+    <a onclick="open_additional_menu(this, 'homescreen-additional-submenu')" href="#">Дополнительно</a>
+ 
+
+    </div>
+
+  
+    <div style="display: none" class="standart-panel submenu-panel panel" id="homescreen-additional-submenu"> 
+      <!-- Дополнительно -->
+      <ul class="sprav">
+        <li><a  href="/work_cal">Производственный календарь</a></li>
+        <li><a href="#" onclick="GetRecords(5)" >Запись на прием</a></li>
+        <li><a  href="/admin">Удаление данных</a></li>
+      </ul>
+    </div>
+
+    <div style="display: none" class="standart-panel submenu-panel panel" id="homescreen-tabels-submenu"> 
+      <!-- Учет рабочего времени -->
+      <ul class="sprav">
+        <li><a href="{%url 'tabels_url'%}"  >Табели учета рабочего времени</a></li>
+        <li><a href="{%url 'vacshed_url'%}"  >Графики отпусков</a></li>
+        <li><a href="{%url 'ss-main'%}"  >Графики сменности</a></li>
+      </ul>
+    </div>
+
+    <div style="display: none" class="standart-panel submenu-panel panel" id="homescreen-ref-submenu"> 
+      <!-- Справочники -->
+      <ul class="sprav">
+        <li><a href="{%url 'tabels_url'%}employers/"  >Работники</a></li>
+        <li><a href="{%url 'tabels_url'%}positions/"  >Должности</a></li>
+      </ul>
     </div>
 
   <div id='calc-container' class="date-calc-container">
@@ -130,23 +156,17 @@
 
   <div class="main_container">
     <div class="container_grid">
-      <!-- <a href="//172.16.23.38:8082" class="btn btn-info main_button old_vac" ><img src="{% static 'img/regrepl.png' %}" alt="">Штатное замещение</a> -->
-      <!-- <a href="/vacshed/" class="btn btn-info main_button old_vac" ><img src="{% static 'img/regrepl.png' %}" alt="">Графики отпусков</a> -->
-      <!-- <a href="{% url 'orders_on_vacation' %}" class="btn btn-info main_button old_vac" ><img src="{% static 'img/old.png' %}" alt="">Приказы на отпуск (старые c 1 по 13К-ОТП за 2021г.)</a> -->
-      <a href="{% url 'orders_on_vacation_new' %}" class="btn btn-info main_button" ><img src="{% static 'img/sun.png' %}" alt="">Приказы на отпуск</a>
-      <a href="{% url 'orders_on_others' %}" class="btn btn-info main_button"><img src="{% static 'img/letter.png' %}" alt="">Приказы по другим вопросам</a>
-      <a href="{%url 'outbound'%}" class="btn btn-info main_button"><img src="{% static 'img/envelop.png' %}" alt="">Исходящие документы</a>
-      <a href="{%url 'orders_of_BTrip'%}" class="btn btn-info main_button " ><img src="{% static 'img/btrip.png' %}" alt="">Приказы о командировках</a>
-      <a href="{%url 'orders_on_personnel'%}" class="btn btn-info main_button"><img src="{% static 'img/contact.png' %}" alt="">Приказы по личному составу</a>
-      <a href="{%url 'labor_contracts'%}" class="btn btn-info main_button"><img src="{% static 'img/contract.png' %}" alt="">Трудовые договоры</a>
-      <a href="{%url 'resignation'%}" class="btn btn-info main_button"><img src="{% static 'img/reinsign.png' %}" alt="">Заявления на увольнение</a>
-      <a href="{%url 'invite'%}" class="btn btn-info main_button"><img src="{% static 'img/invite.png' %}" alt="">Заявления на прием</a>
-      <a href="{%url 'employment_history'%}" class="btn btn-info main_button"><img src="{% static 'img/history.png' %}" alt="">Трудовые книжки</a>
-      <!-- <a href="{%url 'sick_regs'%}" class="btn btn-info main_button"><img src="{% static 'img/cross.png' %}" alt="">Реестры больничных листов</a> -->
-      <a href="{%url 'identity'%}" class="btn btn-info main_button"><img src="{% static 'img/card.png' %}" alt="">Удостоверения</a>
-      <a href="{%url 'tabels_url'%}"  class="btn btn-info  main_button"><img src="{% static 'TURV/img/tabel.png' %}" alt="">Табели учета рабочего времени</a>
-      <a href="{%url 'vacshed_url'%}"  class="btn btn-info  main_button"><img src="{% static 'vac_shed/img/vacshed.png' %}" alt="">График отпусков</a>
-      <a href="{%url 'ss-main'%}"  class="btn btn-info  main_button"><img src="{% static 'shift_shed/img/favicon.ico' %}" alt="">Графики сменности</a>
+      <a href="{% url 'orders_on_vacation_new' %}" class="main_button" >Приказы на отпуск</a>
+      <a href="{% url 'orders_on_others' %}" class="main_button">Приказы по другим вопросам</a>
+      <a href="{%url 'outbound'%}" class="main_button">Исходящие документы</a>
+      <a href="{%url 'orders_of_BTrip'%}" class="main_button " >Приказы о командировках</a>
+      <a href="{%url 'orders_on_personnel'%}" class="main_button">Приказы по личному составу</a>
+      <a href="{%url 'labor_contracts'%}" class="main_button">Трудовые договоры</a>
+      <a href="{%url 'resignation'%}" class="main_button">Заявления на увольнение</a>
+      <a href="{%url 'invite'%}" class="main_button">Заявления на прием</a>
+      <a href="{%url 'employment_history'%}" class="main_button">Трудовые книжки</a>
+      <a href="{%url 'identity'%}" class="main_button">Удостоверения</a>
+
       
 
     </div>

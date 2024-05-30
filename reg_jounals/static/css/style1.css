@@ -1,4 +1,12 @@
+:root {
+  --color-background-primary: #e0edff;
+  --color-background-secondary: #0d6efd;
+  --color-background-panels: #609efa;
+  --color-button-main: #2dbbff;
+  --color-button-add: lightgreen;
+  --color-button-cancel: rgb(255, 108, 108);
 
+}
 
 input[type=text]:focus, input[type=number]:focus, input[type=date]:focus,input[type=search]:focus,textarea:focus,select:focus {
 
@@ -176,7 +184,15 @@ width: 70%;
 .add_form textarea {width: 100%;height: 71px;}
 
 
-.container_grid {/* DISPLAY: FLEX; */display: flex;flex-direction: row;flex-wrap: wrap;align-content: center;justify-content: flex-start;width: 100%;align-items: baseline;}
+.container_grid {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-content: center;
+  justify-content: space-around;
+  width: 100%;
+  align-items: baseline;
+}
 
 
 .container_grid  a img {
@@ -314,18 +330,16 @@ transition: 0.3s;
 
 .main_button{
 
-background: #ffffff !important;
-
-color: black !important;
-
-font-size: 17pt !important;
-
-border-color: none !important;
-
-border: none !important;
-
-box-shadow: inset 0px 0px 5px 0px #34f6ff !important;
-width: 32%;height: 82px;margin: 4px;/* flex-wrap: wrap; */}
+  border: 1px solid var(--color-button-main);
+  color: black !important;
+  font-size: 17pt !important;
+  text-align: center;
+  height: 50px;
+  margin: 4px;
+  padding: 9px;
+  width: 46%;
+  text-decoration: none;
+}
 
 .old_vac {
   font-size: 15pt !important;
