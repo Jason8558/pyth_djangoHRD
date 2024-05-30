@@ -34,7 +34,10 @@
 
 <header>
   {% block header %}
-
+  <div class="header-back-button-container">
+    {% if granted %}
+    <a href="\" class="button back">Назад</a>
+    {% endif %}
   {% block logo%}
     <div class="header-logo-container">
       <div class="header-logo">
@@ -42,6 +45,7 @@
       </div>
     </div>
   {% endblock %}
+  </div>
 
   <div class="header-main-text">
     <h3>ИС "СУП". Табели учета рабочего времени</h3>
