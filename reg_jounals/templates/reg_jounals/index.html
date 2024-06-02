@@ -52,9 +52,9 @@
     {%block content%}
     <div class='standart-menu'>
 
-    <a onclick="open_additional_menu(this, 'homescreen-tabels-submenu')" href="#">Учет рабочего времени</a>
-    <a onclick="open_additional_menu(this, 'homescreen-ref-submenu')" href="#">Справочники</a>
-    <a onclick="open_additional_menu(this, 'homescreen-additional-submenu')" href="#">Дополнительно</a>
+      <a onclick="open_additional_menu(this, 'homescreen-tabels-submenu')"      href="#">Учет рабочего времени</a>
+      <a onclick="open_additional_menu(this, 'homescreen-ref-submenu')"         href="#">Справочники</a>
+      <a onclick="open_additional_menu(this, 'homescreen-additional-submenu')"  href="#">Дополнительно</a>
  
 
     </div>
@@ -82,7 +82,9 @@
       <!-- Справочники -->
       <ul class="sprav">
         <li><a href="{%url 'tabels_url'%}employers/"  >Работники</a></li>
-        <li><a href="{%url 'tabels_url'%}positions/"  >Должности</a></li>
+        {% if ref_edit_role or request.user.is_superuser %}
+          <li><a href="{%url 'tabels_url'%}positions/"  >Должности</a></li>
+        {% endif %}
       </ul>
     </div>
 

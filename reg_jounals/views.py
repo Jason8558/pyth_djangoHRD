@@ -24,18 +24,22 @@ def get_user_name(request):
 def index(request):
 
     if request.user.is_authenticated:
-
+        ref_edit_role = False
         user_ = request.user
         u_group = user_.groups.all()
         for group in u_group:
             if (group.name == 'Табельщик') or (group.name == 'Сотрудник РО') :
                 return redirect('/turv/')
+            if group.name == 'Редактирование справочников':
+                ref_edit_role = True
+       
+       
         user_io = request.user.first_name.split(' ')
         if len(user_io) < 3:
             user_io = str(user_io[0])
         else:
             user_io = str(user_io[1]) + " " +str(user_io[2])
-        return render(request, 'reg_jounals/index.html', context={'user_io':user_io})
+        return render(request, 'reg_jounals/index.html', context={'user_io':user_io, 'ref_edit_role':ref_edit_role})
     else:
         return redirect('/accounts/login/')
 
