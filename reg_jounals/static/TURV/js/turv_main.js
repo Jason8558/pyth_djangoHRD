@@ -20,9 +20,9 @@ function open_additional_menu(el, additional_menu_panel) {
     }
      
   
-    additional_menu_panel.addEventListener('mouseleave', (vsp) => {
-      close_all_panels()
-    })
+    // additional_menu_panel.addEventListener('mouseleave', (vsp) => {
+    //   close_all_panels()
+    // })
   
     el.onclick = function() {
       

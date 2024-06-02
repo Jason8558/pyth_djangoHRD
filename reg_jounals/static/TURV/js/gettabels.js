@@ -224,7 +224,7 @@ function gettabels_search(access) {
 
 
   })
-
+   setTimeout(function() {set_table_head()}, 500)  
 }
 
 function clear_all_inputs() {
