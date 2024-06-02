@@ -5,9 +5,9 @@
   < Назад</a>{%block logo%}{{block.super}}{%endblock%} Журнал регистрации приказов по личному составу.{%endblock%}
     {%block content%}
 
-    <div class="standart-menu">
+    <div class="standart-menu no_print">
       <a class="button add" href="{%url 'orders_on_personnel_add_url'%}"> + Добавить</a>
-      <a class="button" onclick="PrintSelected();" class="op_print btn btn-sm btn-warning" href="#">Печать выбранных</a>
+      <a class="button" onclick="window.print();" class="op_print btn btn-sm btn-warning" href="#">Печать</a>
 
       <div class="standart-menu-submenu-container">
         <img src="{% static '/img/filter.png' %}" onclick="open_search_menu(this, 'orders-on-personnel-search-menu')"
@@ -75,7 +75,7 @@
       <thead class="thead-dark">
         <tr class="tr-header">
 
-          <th></th>
+         
           <th scope="col">Дата приказа</th>
           <th scope="col">Номер</th>
           <th scope="col">Сотрудник</th>
@@ -84,7 +84,7 @@
           <th scope='col'>Содержание</th>
 
 
-          <th scope="col">Ответственный сотрудник</th>
+          <th class="no_print" scope="col">Ответственный сотрудник</th>
 
 
 
@@ -107,7 +107,7 @@
       <tr onclick="return location.href = '{% url 'orders_on_personnel_upd_url' id=order.id%}' ">
         {%endif%}
         {%endif%}
-        <td><input type="checkbox" class="for_print" name="forprint" value=""></td>
+       
         <td id="date">{{order.op_date|date:"d.m.Y"}}</td>
         <td id='number'>{{order.op_number}}</td>
         {% if order.op_emloyer %}
@@ -130,8 +130,8 @@
           {%endif%}
         {%endif%}
         
-        <td id="content">{{order.op_content| truncatechars:30}}</td>
-        <td class="table-res-employer" id="res_officer">{{order.op_res_officer}}</td>
+        <td id="content">{{order.op_content}}</td>
+        <td class="table-res-employer no_print" id="res_officer">{{order.op_res_officer}}</td>
 
 
       </tr>
@@ -143,7 +143,7 @@
       {%endfor%}
     </table>
 
-    <nav class="paginator" aria-label="Page navigation example">
+    <nav class="paginator no_print" aria-label="Page navigation example">
       <ul class="pagination">
         {%if orders.has_previous%}
         <li class="page-item">
@@ -178,5 +178,23 @@
       table tr td input {
         background: red;
       }
+
+      @media print {
+        .container {
+          margin: 0;
+          width: 100%;
+        }
+
+        .no_print {
+          display: none;
+        }
+
+        table {
+          width: 146% !important;
+
+        }
+
+      }
+
     </style>
     {%endblock%}
