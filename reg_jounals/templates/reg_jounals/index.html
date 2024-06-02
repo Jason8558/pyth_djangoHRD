@@ -64,7 +64,7 @@
       <!-- Дополнительно -->
       <ul class="sprav">
         <li><a  href="/work_cal">Производственный календарь</a></li>
-        <li><a href="#" onclick="GetRecords(5)" >Запись на прием</a></li>
+        <li><a href="#" onclick="open_additional_menu(this, 'homescreen-invite-checkin')" >Запись на прием</a></li>
         <li><a  href="/admin">Удаление данных</a></li>
       </ul>
     </div>
@@ -104,28 +104,25 @@
 
   </div>
 
-  <div class="popup" id="checkin">
-    <div class="date-calc-nav">
-
-      <button class="btn btn-danger" onclick="javascript: $('#checkin').css('display', 'none')" type="button" name="">Закрыть</button>
-      
+  <form class="standart-form standart-panel popup" id="homescreen-invite-checkin" action="#">
+    <div class="standart-form-input-group inline">
+      <span>Запись на прием</span>
+      <input type="button" class="button cancel" onclick="document.getElementById('homescreen-invite-checkin').style.display = 'none'" value="Закрыть">
     </div>
 
-    <div class="popup-content">
-      <label for="checkinDate">Время записи</label> <input type="datetime-local" name="checkinDate" id="checkinDate">
-      <label for="citizen">ФИО</label> <input type="text" name="citizen" id="citizen" >
-
-
+    <div class="standart-form-input-group inline">
+      <p><span>Время: </span><input type="datetime-local" name="checkinDate" id="checkinDate"></p>
+      <p><span>ФИО: </span><input type="text" name="citizen" id="citizen" ></p>
     </div>
 
-    <div class="popup-buttons">
-      <button onclick="CheckInForInvite()" class="btn btn-success">
+    <div class="standart-form-input-group inline">
+      <p><button onclick="CheckInForInvite()" class="btn btn-success">
         Записать
-      </button>
-      <a href="#" onclick="GetRecords(0)">показать все записи</a>
-
+      </button></p>
+      <p><a href="#" onclick="GetRecords(0)">показать все записи</a></p>
+      
+ 
     </div>
-
     <div class="invite-records">
       <table id="invite-records-table">
         <thead>
@@ -143,8 +140,10 @@
         </tbody>
       </table>
     </div>
+  </form>
 
-  </div>
+
+  
 
 
 

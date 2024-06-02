@@ -697,16 +697,26 @@ function open_additional_menu(el, additional_menu_panel) {
 
   additional_menu_panel.style.display   = 'flex'
   additional_menu_panel.style.position  = 'absolute'
-  additional_menu_panel.style.top       = (Number(coords.top) + 40) + 'px'
   
-  additional_menu_panel.style.height    = 'max-content'
+  
+  
   if (additional_menu_panel.classList.contains('search')) {
 
   }
   else {
       additional_menu_panel.style.width    = 'max-content'
       additional_menu_panel.style.left      = coords.left + 'px'
-  }
+   }
+
+   if (additional_menu_panel.classList.contains('popup')) {
+ 
+   }  
+   else {
+    additional_menu_panel.style.width    = 'max-content'
+    additional_menu_panel.style.left      = coords.left + 'px'
+    additional_menu_panel.style.top       = (Number(coords.top) + 40) + 'px'
+    additional_menu_panel.style.height    = 'max-content'
+   }
    
 
   additional_menu_panel.addEventListener('mouseleave', (vsp) => {
