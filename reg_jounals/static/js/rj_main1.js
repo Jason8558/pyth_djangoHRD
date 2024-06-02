@@ -610,9 +610,9 @@ function open_search_menu(el, smid) {
    search_menu.style.left       = coords.left + 'px'
   //  search_menu.style.height     = 'max-content' 
   
-   search_menu.addEventListener('mouseleave', (sm) => {
-    close_all_panels()
-   })
+  //  search_menu.addEventListener('mouseleave', (sm) => {
+  //   close_all_panels()
+  //  })
 
 }
 
