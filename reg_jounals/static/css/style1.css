@@ -567,7 +567,9 @@ grid-area: main;
 #homescreen-invite-checkin {
 
     top: 332px;
-    left: 471px;
+    left: 471px !important;
+    height: 300px;
+    box-shadow: 0px 0px 547px 1030px #00000091;
  
 }
 
@@ -583,6 +585,7 @@ grid-area: main;
 
 .invite-records {
   overflow-y: scroll;
+  width: 100%;
 }
 
 .info-window {

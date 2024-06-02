@@ -1390,23 +1390,21 @@ def reports(request):
 def invite_checkin(request):
     message = 'standby'
     if request.method == 'POST':
-        data = json.loads(request.body)
-        dinvite = data['checkinDate']
-        citizen = data['citizen']
-        
-        dinvite = dinvite.split('T')
+    
+        dinvite = request.POST.get('checkinDate', '')
+        citizen = request.POST.get('citizen', '')  
+
         new_record = inviteCheckin_model.objects.create(
-            checkinDate =  str(dinvite[0]) + " " + str(dinvite[1]),
+            checkinDate =  dinvite,
             citizen = citizen
         )
-        
-        new_record.checkinDate = dinvite
+  
 
         if new_record.pk:
             message = "Запись создана" + str(new_record.checkinDate)
         else:
             message = "Ошибка"
-    return JsonResponse(message, safe=False)
+    return redirect('/')
 
 def invite_checkin_cancel(request, id):
     record = inviteCheckin_model.objects.get(id=id)

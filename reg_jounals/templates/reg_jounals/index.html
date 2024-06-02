@@ -104,7 +104,8 @@
 
   </div>
 
-  <form style="display: none;" class="standart-form standart-panel popup" id="homescreen-invite-checkin" action="#">
+  <form style="display: none;" class="standart-form standart-panel popup" id="homescreen-invite-checkin" method="post" action="{% url 'invite_checkin_new' %}">
+    {% csrf_token %}
     <div class="standart-form-input-group inline">
       <span>Запись на прием</span>
       <input type="button" class="button cancel" onclick="document.getElementById('homescreen-invite-checkin').style.display = 'none'" value="Закрыть">
@@ -116,10 +117,8 @@
     </div>
 
     <div class="standart-form-input-group inline">
-      <p><button onclick="CheckInForInvite()" class="btn btn-success">
-        Записать
-      </button></p>
-      <p><a href="#" onclick="GetRecords(0)">показать все записи</a></p>
+      <p><input type="submit" value="Записать"></p>
+      <p><a href="#" class="button" onclick="GetRecords(0)">показать все записи</a></p>
       
  
     </div>
@@ -173,7 +172,7 @@
     </div>
 
     <div class="info-window">
-      <h4 style="text-align: center;">Записи на прием <a href="#" onclick="GetRecords(5)"> + </a></h4> 
+      <h4 style="text-align: center;">Записи на прием</h4> 
       <div id="checkins">
         <table>
           <thead>
