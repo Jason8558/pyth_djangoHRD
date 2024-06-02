@@ -4,7 +4,7 @@ from .models import *
 from .forms import *
 from django.shortcuts import redirect
 from django.core.paginator import Paginator
-import datetime as DT
+
 from itertools import groupby
 from django.contrib.auth.models import *
 from .forms import last_doc
@@ -16,6 +16,8 @@ from .search import *
 from django.contrib.auth.decorators import login_required
 import json
 from .additionals import create_or_update_employer
+from datetime import datetime as DT, timedelta, timezone
+# import datetime
 
 def get_user_name(request):
     username = request.user.first_name
@@ -1391,8 +1393,13 @@ def invite_checkin(request):
     message = 'standby'
     if request.method == 'POST':
     
-        dinvite = request.POST.get('checkinDate', '')
+        dinvite = DT.strptime(request.POST.get('checkinDate', ''), '%Y-%m-%dT%H:%M')
+        
         citizen = request.POST.get('citizen', '')  
+
+        dinvite = dinvite + timedelta(hours=12) 
+
+
 
         new_record = inviteCheckin_model.objects.create(
             checkinDate =  dinvite,
@@ -1425,7 +1432,7 @@ def invite_checkin_get(request, count):
     if count == 0:
         records = inviteCheckin_model.objects.filter(cancelled=False).order_by('-checkinDate').values()
     else:
-        records = inviteCheckin_model.objects.filter(cancelled = 0).filter(checkinDate__gte = DT.datetime.now()).order_by('-checkinDate').values()[:count]
+        records = inviteCheckin_model.objects.filter(cancelled = 0).filter(checkinDate__gte = DT.now()).order_by('-checkinDate').values()[:count]
 
     records = list(records)
     
