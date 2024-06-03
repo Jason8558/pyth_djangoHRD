@@ -1224,6 +1224,11 @@ align-items: center;
   z-index: 999;
 }
 
+#positions-search-panel {
+  width: 331px;
+    left: 1111px;
+}
+
 
 
 #tabel-status-panel p {

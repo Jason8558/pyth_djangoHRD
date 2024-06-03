@@ -1422,7 +1422,15 @@ def del_employer(request, id):
 
 def positions_list(request):
     if request.user.is_authenticated:
-        positions = Position.objects.all().order_by('name')
+        search_query = {}
+        if request.GET.get('search-sign', '') == '1':
+            search_query = {
+                'name': request.GET.get('positions-search-name', '')
+            }
+            positions = search_position(search_query)
+        else: 
+            positions = Position.objects.all().order_by('name')
+        
         p_pos = Paginator(positions, 20)
         page_number = request.GET.get('page', 1)
         page = p_pos.get_page(page_number)
