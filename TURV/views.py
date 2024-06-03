@@ -850,13 +850,13 @@ def new_tabel(request):
                 return render(request, 'TURV/new_tabel.html', context={'form':tabel_form, 'deps':deps, 'error_tabel':error_tabel})
             if last_tabel.department_id == 2 or last_tabel.department_id == 3 or last_tabel.department_id == 26 or last_tabel.department_id == 40:
                 if last_tabel.type_id == 4:
-                    return redirect('/turv/vac/')
+                    return redirect('/turv/over/4')
                 else:
                     if last_tabel.type_id == 5:
-                        return redirect('/turv/over/')
+                        return redirect('/turv/over/5')
                     else:
                         if last_tabel.type_id == 8:
-                            return redirect('/turv/nn/')
+                            return redirect('/turv/over/8')
                         else:
                             return redirect('..')
             else:
