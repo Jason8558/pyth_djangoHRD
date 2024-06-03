@@ -5,26 +5,8 @@
 <!-- <script src="{% static 'vac_shed/js/print.js'%}" charset="utf-8"></script> -->
 <link rel="stylesheet" href="https://unpkg.com/gutenberg-css@0.6" media="print">
 <link rel="stylesheet" href="https://unpkg.com/gutenberg-css@0.6/dist/themes/oldstyle.min.css" media="print">{%endblock%}
-  {% block header %}
-  
-  <div class="header-back-button-container">
-    <a href="#" onclick="window.close()" class="button back">Назад</a>
-    {% block logo%}{{block.super}}{% endblock%}
-  </div>
-
-<div class="header-main-text">
-  <h3>Общий график отпусков</h3>
-</div>
-
-
-{% block username %}
-  <h4>{{request.user.first_name}}</h4>
-{% endblock%}
-
-  {%endblock%}
-
-
-  {% block body %}
+{%block header%}  <div class="header-main no-print"><a href="/vacshed" class="button">Закрыть</a><h1> Общий график отпусков </h1></div>{%endblock%}
+{% block body %}
 
 
 
@@ -74,7 +56,6 @@
       {%endfor%}
     </select>
     <input type="text" name="vs-glob-pos" id="vs-glob-pos" placeholder="Должность" value="">
-    
     <select id="vs-glob-fil" name="vs-glob-fil">
       <option value="0">Без филиалов</option>
       <option value="1">Все филиалы</option>
