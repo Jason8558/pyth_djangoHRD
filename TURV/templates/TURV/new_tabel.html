@@ -97,7 +97,7 @@ $(document).ready(function() {
 $('#nt-cancel').attr('href', document.referrer)
 $("#id_day").attr('placeholder','День')
 $("#id_year").attr('placeholder','Год')
-last = document.referrer.split('/')[4]
+last = document.referrer.split('/')[5]
 
 if ($("#id_type option:selected").val() == '4' || $("#id_type option:selected").val() == '5'){
   if ($("#id_department option:selected").val() == "3" || $("#id_department option:selected").val() == "2") {
@@ -112,19 +112,19 @@ $('#day').css('display','none')
 }
 
 switch (last) {
-    case 'vac':
+    case '4':
       $("#id_type option").remove()
       $("#id_type").append('<option value="4">Выходные</option>')
       $('#day').css('display','')
     break;
 
-    case 'over':
+    case '5':
       $("#id_type option").remove()
       $("#id_type").append('<option value="5">Сверхурочные</option>')
       $('#day').css('display','')
     break;
 
-    case 'nn':
+    case '8':
       $("#id_type option").remove()
       $("#id_type").append('<option value="8">Ненормированность</option>')
       // $('#day').css('display','')
