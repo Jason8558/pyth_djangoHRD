@@ -761,7 +761,7 @@ def nr_LaborContract(request):
         order_form = LaborContract_form()
         deps = TDep.objects.filter(is_aup=0).filter(notused=0)
         orders = LaborContract.objects.all()
-        year_ = str(DT.date.today().year)
+        year_ = str(DT.now().year)
         year_ = year_[2:]
         orders_count = len(orders)
         
