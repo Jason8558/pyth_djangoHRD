@@ -11,20 +11,30 @@
 {{form.errors}}
 </div>
 {%endif%}
-<form class="add_form" action="" method="post">
+<form class="standart-panel standart-form" action="" method="post">
   {% csrf_token %}
-  {% for field in form %}
-  <p>{{field.label}}{{ field }}</p>
-  {% endfor%}
+  <h5>Номер документа: <span id="next_num">{{next_num}}</span></h5>
 
-  <input class="btn btn-success" type="submit" value="Сохранить" />
+  <div class="standart-form-input-group inline">
+    <p><span>Вид: </span>{{form.doc_type}}</p>
+    <p><span>Дата: </span>{{form.doc_date}}</p>
+  </div>
 
-  <a id="close" class="btn btn-outline-danger btn-upd" href="..">Отмена</a>
+  <div class="standart-form-input-group">
+    <p><span>Адресат: </span>{{form.doc_dest}}</p>
+  </div>
+
+  
+  <div class="standart-form-input-group">
+    <p><span>Содержание: </span>{{form.doc_additionalData}}</p>
+  </div>
+  
+
+  <div class="standart-form-input-group inline">
+    <input class="button add" type="submit" value="Сохранить" />
+    <a class="button back" href="..">Отмена</a>
+  </div>
+
 </form>
-
-<script type="text/javascript">
-  prev = document.referrer
-  $('#close').attr('href', prev)
-</script>
 
 {%endblock%}
