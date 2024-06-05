@@ -5,23 +5,32 @@
 {%block header%}  <div class="header-main"><a class="button back" href="/vacshed/create/{{vacshed.id}}/"> < НАЗАД</a><h1>Добавить позицию</h1></div>{%endblock%}
 {% block body %}
 <div class="container">
-  <form class="vs-form add" id='addform' action="{% url 'additem_url' id=vacshed.id%}" method="post">
+  <form class="standart-form standart-panel" id='addform' action="{% url 'additem_url' id=vacshed.id%}" method="post">
       {% csrf_token %}
 
-<div class="vs-form-main">
-  <label for="vac_emp">Сотрудник: </label>
-  <select id="vac_emp" class="" name="vac_emp">
+<div class="standart-form-input-group">
+  <p><span>Работник:</span>
+    <select id="vac_emp" class="" name="vac_emp">
 
 
-  </select>
-  <label for="city">Проезд</label>
-  <input  id="city" type="text" placeholder="Город" name="city" value="">
-  <label for="child">Иждивенец (год рождения): </label>
-  <input type="text" name="child" placeholder="Год рождения" value="">
+    </select>
+  </p>
 </div>
+
+<div class="standart-form-input-group inline">
+  <p><span>Проезд: </span>
+    <input  id="city" type="text" placeholder="Город" name="city" value="">
+  </p>
+  <p><span>Иждивенец: </span>
+    <input type="text" name="child" placeholder="Год рождения" value="">
+  </p>
+  
+
+</div>
+
   <div id="vac-form-periods" class=".vac-form-periods">
 
-    <div class="vac-period">
+    <div class="standart-form-input-group vac-period">
       <label for="per-date-from">Отпуск с: </label>
       <input id="per-date-from" type="date" name="per-date-from" value="">
 

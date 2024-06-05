@@ -508,7 +508,7 @@ a {
 }
 
 .add:hover {
-    color: var(--color-button-add) !important;
+    color: black !important;
     transition: 0.1s;
     font-weight: bold;
     text-decoration: underline;
