@@ -35,13 +35,17 @@ function add_emp (){
   eid = $('#vs-glob-emp option:selected').val()
   ename = $('#vs-glob-emp option:selected').text()
 
-  $('#vs-glob-emp-name').val( $('#vs-glob-emp-name').val() + ename + '\n')
-  $('#vs-glob-emp-id').val( $('#vs-glob-emp-id').val() + eid + ',')
+  $('#vs-glob-emp-name').val($('#vs-glob-emp-name').val() + ename + '\n')
+  $('#vs-glob-emp-id').val($('#vs-glob-emp-id').val() + eid + ',')
+
 
 }
 
 
 function getvacshed() {
+  if ($('#vs-glob-emp-id').val) {
+  $('#vs-glob-emp-id').val($('#vs-glob-emp-id').val().slice(0,-1))}
+
     $('#loading').css('display', '')
   year = $('#vs-glob-year').val()
   dep = $('#vs-glob-dep option:selected').val()
@@ -65,13 +69,29 @@ function getvacshed() {
   //   check = 0
   // }
 
-  if (!emps) {
+  //  if (!emps) {
 
 document.title = 'График отпусков на ' + year + ' год'
 
+  url = '?'
+
+  // posuri = encodeURIComponent(document.getElementById('vs-glob-pos').value)
+  
+  url = url +
+   '&vs-glob-year='      + document.getElementById('vs-glob-year').value +
+   '&vs-glob-dep='       + document.getElementById('vs-glob-dep').value  +
+   '&vs-glob-pos='       + document.getElementById('vs-glob-pos').value + 
+   '&vs-glob-fil='       + document.getElementById('vs-glob-fil').value + 
+   '&vs-glob-terr='      + document.getElementById('vs-glob-terr').value +
+   '&vs-glob-per='       + document.getElementById('vs-glob-per').value + 
+   '&vs-glob-emp-id='    + document.getElementById('vs-glob-emp-id').value 
+
+  // url = url.replace('NaN', posuri)
+
+
   $('.vs-table-create tbody').empty()
 
-  $.getJSON('/vacshed/global/' + year + '/' + dep + '/' + per + "/0/" + check + '/' + terr + '/' + pos ,  (data) => {
+  $.getJSON('/vacshed/global/new' + url,  (data) => {
     rowspan = 0
     for (var i = 0; i < data.length; i++) {
 
@@ -85,27 +105,27 @@ document.title = 'График отпусков на ' + year + ' год'
     }
     $('#loading').css('display', 'none')
     $('#vs-global-table').css('display', '')
-  })}
-  else {
+  })
+  // else {
 
-    $('.vs-table-create tbody').empty()
+  //   $('.vs-table-create tbody').empty()
 
-    $.getJSON('/vacshed/global/' + year + '/' + dep + '/' + per + '/' + emps + '/0/0/0',  (data) => {
-      rowspan = 0
-      for (var i = 0; i < data.length; i++) {
+  //   $.getJSON('/vacshed/global/' + year + '/' + dep + '/' + per + '/' + emps + '/0/0/0',  (data) => {
+  //     rowspan = 0
+  //     for (var i = 0; i < data.length; i++) {
 
-        $('.vs-table-create tbody').append(formrow(data[i].emp__department__name, data[i].emp__aup__name, data[i].id, data[i].emp ,data[i].emp__fullname, data[i].emp__position__name, data[i].dur_from, data[i].dur_to, data[i].days_count, data[i].move_from, data[i].move_to, data[i].days_count_move, data[i].child_year, data[i].city, data[i].comm))
+  //       $('.vs-table-create tbody').append(formrow(data[i].emp__department__name, data[i].emp__aup__name, data[i].id, data[i].emp ,data[i].emp__fullname, data[i].emp__position__name, data[i].dur_from, data[i].dur_to, data[i].days_count, data[i].move_from, data[i].move_to, data[i].days_count_move, data[i].child_year, data[i].city, data[i].comm))
 
 
-      }
+  //     }
 
-      for (var i = 0; i < data.length; i++) {
-        emp(data[i].id,data[i].emp)
-      }
-      $('#loading').css('display', 'none')
-      $('#vs-global-table').css('display', '')
-    })
-  }
+  //     for (var i = 0; i < data.length; i++) {
+  //       emp(data[i].id,data[i].emp)
+  //     }
+  //     $('#loading').css('display', 'none')
+  //     $('#vs-global-table').css('display', '')
+  //   })
+  // }
 emps_close()
 
 

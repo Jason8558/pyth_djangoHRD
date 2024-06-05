@@ -32,6 +32,8 @@ input[type=number],
 input[type=date],
 input[type=search],
 input[type=datetime-local],
+.chosen-container-single,
+.chosen-single,
 textarea,
 select {
 
@@ -46,6 +48,15 @@ select {
     border-bottom: 1px solid var(--color-button-main);
 
     line-height: normal;
+}
+
+.chosen-container-single,
+.chosen-single {
+
+}
+
+.chosen-container {
+
 }
 
 /* Таблицы */
@@ -302,6 +313,16 @@ padding: 0;
     width: 100%;
 }
 
+.one_button {
+    flex-direction: row !important;
+    justify-content: center;
+}
+
+.one_line {
+    display: flex;
+    align-items: center;
+}
+
 .standart-form .standart-form-input-group p, .inline p {
     margin: 0;
 }
@@ -512,6 +533,18 @@ a {
     transition: 0.1s;
     font-weight: bold;
     text-decoration: underline;
+}
+
+.special {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    border: 1px solid var(--color-button-main);
+    padding: 7px;
+}
+
+.special img {
+    width: 30px;
 }
 
 .standart-context-menu {
