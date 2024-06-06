@@ -2,7 +2,28 @@
 {%load static%}
 {%block title%}{{emp}}{%endblock%}
 {%block script%}{%endblock%}
-{%block header%}  <div class="header-main"><a class="button back" href="/vacshed/create/{{vacshed}}/"> < НАЗАД</a><h1>{{emp}}</h1></div>{%endblock%}
+{%block header%}  
+<div class="header-back-button-container">
+  <a class="button back" href="/vacshed/create/{{vacshed}}/">Назад</a>
+{% block logo%}
+  {{block.super}}
+{% endblock %}
+</div>
+
+<div class="header-main-text">
+  <h3>Карточка отпуска</h3>
+</div>
+
+
+{% block username %}
+{{block.super}}
+{% endblock%}
+
+
+  
+    
+
+    {%endblock%}
 {% block body %}
 <div class="container">
   <table>

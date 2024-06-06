@@ -2,10 +2,28 @@
 {%load static%}
 {%block title%}Добавить позицию в график{%endblock%}
 {%block script%}{%endblock%}
-{%block header%}  <div class="header-main"><a class="button back" href="/vacshed/create/{{vacshed.id}}/"> < НАЗАД</a><h1>Добавить позицию</h1></div>{%endblock%}
-{% block body %}
+{% block header %}
+
+{% block logo%}
+  {{block.super}}
+{% endblock %}
+</div>
+
+<div class="header-main-text">
+  <h3>Добавить работника в график</h3>
+</div>
+
+
+{% block username %}
+{{block.super}}
+{% endblock%}
+
+  {%endblock%}
+
+
+ {% block body %}
 <div class="container">
-  <form class="standart-form standart-panel" id='addform' action="{% url 'additem_url' id=vacshed.id%}" method="post">
+  <form class="standart-form standart-panel vacshed_new_item" id='addform' action="{% url 'additem_url' id=vacshed.id%}" method="post">
       {% csrf_token %}
 
 <div class="standart-form-input-group">
@@ -29,21 +47,28 @@
 </div>
 
   <div id="vac-form-periods" class=".vac-form-periods">
+    <h4>Периоды:</h4>
 
-    <div class="standart-form-input-group vac-period">
-      <label for="per-date-from">Отпуск с: </label>
-      <input id="per-date-from" type="date" name="per-date-from" value="">
-
-      <label for="per-date-to">по: </label>
-      <input id="per-date-to" onchange="" type="date" name="per-date-to" readonly    value="">
-      <input id="per-days-count" onchange="change_days(0)" placeholder="Кол-во дней" type="text" name="per-days-count" value="">
+    <div class="standart-form-input-group inline vac-period">
+      <p><span>с: </span><input id="per-date-from" type="date" name="per-date-from" value=""></p>
+      <p><span>по: </span><input id="per-date-to" onchange="" type="date" name="per-date-to" readonly    value=""></p>
+      <p><span>дней: </span><input id="per-days-count" onchange="change_days(0)" placeholder="Кол-во дней" type="text" name="per-days-count" value=""></p>
+      
+      
+      
     </div>
 
   </div>
+<div class="standart-form-input-group one_button">
+  <button type="button" class="button" id="form-add-period" name="button">+ Добавить период</button>
+</div>
 
-<button type="button" class="button" id="form-add-period" name="button">+ Добавить период</button>
-<input class="button accept" type="submit" name="" value="Добавить в график">
+<div class="standart-form-input-group inline">
+<input class="button " type="submit" name="" value="Добавить в график">
+<a class="button cancel" href="/vacshed/create/{{vacshed.id}}">Отмена</a>
+</div>
 <textarea style="display: none;" id="vac-form-all-periods" name="vac-form-all-periods"></textarea>
+
   </form>
   </div>
 
@@ -74,7 +99,7 @@
     $('#form-add-period').click(function(){
 
       id = id+1
-      newper = '<div id="per'+ id +'" class="vac-period">  <label for="per-date-from">Отпуск с: </label>  <input type="date" id="per-date-from" name="per-date-from" value="">     <label for="per-date-to">по: </label>   <input type="date" id="per-date-to" readonly   placeholder="Кол-во дней" onchange="change_per(' + id + ')" name="per-date-to" value="">     <input type="text" id="per-days-count" onchange="change_days(' + id + ')" name="per-days-count" value=""></div>'
+      newper = '<div id="per'+ id +'" class="vac-period standart-form-input-group inline ">  <p><span>с:</span> <input type="date" id="per-date-from" name="per-date-from" value=""></p>     <p><span>по: </span>   <input type="date" id="per-date-to" readonly onchange="change_per(' + id + ')" name="per-date-to" value=""></p>     <p><span>дней:</span><input type="text" id="per-days-count" onchange="change_days(' + id + ')" name="per-days-count" value=""></p></div>'
       console.log(newper);
       $('#vac-form-periods').append(newper)
 
