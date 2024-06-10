@@ -35,6 +35,10 @@ header img {
 
 }
 
+#vac_shed-search-panel {
+  z-index: 999;
+}
+
 .vs-create {width: 85%;}
 
 table {
@@ -172,6 +176,10 @@ margin: 0 !important;
     float: left;
 }
 
+#addform{
+  width: 700px;
+}
+
 #vs_glob_emp_chosen {
 width: 100% !important;
 }
@@ -180,12 +188,20 @@ width: 100% !important;
 
 }
 
-.chosen-container-single .chosen-single {
-    height: 100% !important;
-    border: 2px solid #0d6efd !important;
-    padding: 4px !important;
-    background: #efefef !important;
-    border-radius: 12px !important;
+.vacshed_new_item .standart-form-input-group {
+  margin: 5px 0 5px 0;
+}
+
+
+#vacshed-global-search-form .standart-form-input-group input,
+#vacshed-global-search-form .standart-form-input-group select{
+  height: 25px;
+
+}
+
+#vacshed-global-search-form {
+  width: 533px !important;
+  height: 279px !important;
 }
 
 .vs-glob-emp-cont {
