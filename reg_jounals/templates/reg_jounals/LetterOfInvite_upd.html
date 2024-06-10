@@ -47,7 +47,7 @@
 
 <div class="standart-form-input-group inline">
   <input class="button add" type="submit" value="Сохранить" />
-  <a class="button cancel" href=".">Отмена</a>
+  <a class="button cancel" href="..">Отмена</a>
   {% if editing or request.user.is_superuser %}
     <a class="button cancel" onclick="open_additional_menu(this, 'delete-document-popup')" href="#">Удалить</a>
   {% endif %}
