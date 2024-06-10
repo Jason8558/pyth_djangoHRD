@@ -43,8 +43,7 @@ function add_emp (){
 
 
 function getvacshed() {
-  if ($('#vs-glob-emp-id').val) {
-  $('#vs-glob-emp-id').val($('#vs-glob-emp-id').val().slice(0,-1))}
+
 
     $('#loading').css('display', '')
   year = $('#vs-glob-year').val()

@@ -42,11 +42,16 @@ def vacshed_global(request):
 
     if int(search_query['department']) != 0:
         dep_id = search_query['department']
-        
-        if TurvDepartments.objects.get(id=dep_id).is_aup:
-            vacation = vacation.filter(emp__aup_id = dep_id)
+        department = TurvDepartments.objects.get(id=dep_id)
+
+        if department.name == 'АУП':
+            vacation = vacation.filter(emp__department_id=4) | vacation.filter(emp__department_id=31)
         else:
-            vacation = vacation.filter(bound_shed__dep_id = dep_id)
+        
+            if department.is_aup:
+                vacation = vacation.filter(emp__aup_id = dep_id)
+            else:
+                vacation = vacation.filter(bound_shed__dep_id = dep_id)
     
     if search_query['position']:
         vacation = vacation.filter(emp__position__name__icontains=search_query['position'])
@@ -63,9 +68,9 @@ def vacshed_global(request):
     
     if int(search_query['territory']) != 0:
         if int(search_query['territory']) == 1:
-            vacation = vacation.filter(~Q(emp__aup__name__icontains='Елизово')) & vacation.filter(~Q(bound_shed__dep__name__icontains='Елизово')) & vacation.filter(~Q(bound_shed__dep__name__icontains='Быстринский')) & vacation.filter(~Q(bound_shed__dep__name__icontains='Центральный'))
+            vacation = vacation.filter(~Q(emp__aup__name__icontains='Елизово')) & vacation.filter(~Q(bound_shed__dep__name__icontains='Елизово')) & vacation.filter(~Q(emp__department__name__icontains='Елизово')) & vacation.filter(~Q(bound_shed__dep__name__icontains='Быстринский')) & vacation.filter(~Q(bound_shed__dep__name__icontains='Центральный'))
         if int(search_query['territory']) == 2:
-            vacation = vacation.filter(emp__aup__name__icontains='Елизово') | vacation.filter(bound_shed__dep__name__icontains='Елизово')
+            vacation = vacation.filter(emp__aup__name__icontains='Елизово') | vacation.filter(bound_shed__dep__name__icontains='Елизово') | vacation.filter(emp__department__name__icontains='Елизово')
 
     if int(search_query['from']) != 0:
        period = search_query['from']
@@ -73,7 +78,8 @@ def vacshed_global(request):
 
     if search_query['employers']:
         employers = str(search_query['employers']).split(',')
-        vacation = vacation.filter(emp_id__in=employers)
+        employers.pop()
+        vacation = VacShedItems.objects.filter(bound_shed__year=year).filter(emp_id__in=employers).order_by('bound_shed__dep__name', 'emp__fullname', 'dur_from')
 
 
     vacation = list(vacation.values('id', 'emp__department__name' , 'emp__aup__name' ,'emp', 'emp__fullname', 'dur_from', 'dur_to', 'days_count', 'move_from', 'move_to', 'child_year', 'days_count_move', 'city', 'emp__position__name', 'comm'))
