@@ -23,6 +23,31 @@ def get_user_name(request):
     username = request.user.first_name
     return JsonResponse(username, safe=False)
 
+def get_rights(request):
+    # Проверяет текущие права пользователя
+    rights = {
+        'ref_editing':  False,
+        'sup_employer': False,
+        'sup_head':     False,
+        'tabel':        False,
+        'granted':      False
+    }
+
+    for group in request.user.groups.all():
+        if group.name == 'Редактирование справочников':
+            rights['ref_editing'] = True
+        if group.name == 'Руководитель СУП':
+            rights['sup_head'] = True
+        if group.name == 'Сотрудник СУП':
+            rights['sup_employer'] = True
+        if group.name == 'Табельщик':
+            rights['tabel'] = True
+    
+    if request.user.is_superuser:
+        rights['granted'] = True
+
+    return rights
+
 def index(request):
 
     if request.user.is_authenticated:
@@ -53,13 +78,40 @@ def logfile(request):
             log.append(line)
     return render(request, 'reg_jounals/log.html', context={'log':log})
 
+
+def document_delete(request, type, id):
+    # удаление записей журнала
+    if type == 6:
+        OutboundDocuments.objects.get(id=id).delete()
+        return redirect('/outbound_docs')
+    if type == 7:
+        OrdersOnPersonnel.objects.get(id=id).delete()
+        return redirect('/orders_on_personnel')
+    if type == 9:
+        LetterOfResignation.objects.get(id=id).delete()
+        return redirect('/letters_of_resignation') 
+    if type == 4:
+        EmploymentHistory.objects.get(id=id).delete()
+        return redirect('/employment_history')    
+    if type == 5:
+        OrdersOnOtherMatters.objects.get(id=id).delete()
+        return redirect('/orders_on_others')  
+    if type == 2:
+        OrdersOfBTrip.objects.get(id=id).delete()
+        return redirect('/orders_of_BTrip')
+    if type == 8:
+        LaborContract.objects.get(id=id).delete()
+        return redirect('/laborContracts')         
+    if type == 3:
+        LetterOfInvite.objects.get(id=id).delete()
+        return redirect('/letters_of_invite') 
+    if type == 10:
+        Identity.objects.get(id=id).delete()
+        return redirect('/identity')         
 # Исходящие документы -----------------------
 def outbound_docs(request):
     if request.user.is_authenticated:
-        auth = request.user.is_authenticated
-        date_from = request.GET.get('doc_search_from','')
-        date_to = request.GET.get('doc_search_to', '')
-        
+        auth = request.user.is_authenticated 
         search_query = {
             'document_type':            6,
             'outbound_document_type':   request.GET.get('outbound-documents-search-type',''),
@@ -111,10 +163,11 @@ def nr_OutBoundDocument(request):
 
 def upd_OutBoundDocument(request, id):
     if request.user.is_authenticated:
+        editing = get_rights(request)['ref_editing']
         if request.method == "GET":
             document = OutBoundDocument.objects.get(id__iexact=id)
             bound_form = OutBoundDocument_form(instance=document)
-            return render(request, 'reg_jounals/outboundDocs_upd.html', context={'form':bound_form, 'document':document})
+            return render(request, 'reg_jounals/outboundDocs_upd.html', context={'form':bound_form, 'document':document, 'editing':editing})
         else:
             document = OutBoundDocument.objects.get(id__iexact=id)
             bound_form =OutBoundDocument_form(request.POST, instance=document)
@@ -193,6 +246,7 @@ def nr_LetterOfResignation(request):
         return render(request, 'reg_jounals/no_auth.html')
 
 def upd_LetterOfResignation(request, id):
+    editing = get_rights(request)['ref_editing']
     if request.user.is_authenticated:
         deps = TDep.objects.filter(notused=0).filter(is_aup=0)
         letter = LetterOfResignation.objects.get(id__iexact=id)
@@ -200,7 +254,7 @@ def upd_LetterOfResignation(request, id):
         if request.method == "GET":
             
             bound_form = LetterOfResignation_form(instance=letter)
-            return render(request, 'reg_jounals/LetterOfResignation_upd.html', context={'form':bound_form, 'letter':letter, 'deps':deps})
+            return render(request, 'reg_jounals/LetterOfResignation_upd.html', context={'form':bound_form, 'letter':letter, 'deps':deps, 'editing':editing})
         else:
             updated_bound_employer  = get_employer_from_db(request.POST.get('resignation-employer-field', ''))
             updated_department      = get_department_from_db(request.POST.get('resignation-department-field', ''))
@@ -259,6 +313,7 @@ def letter_of_invite(request):
 
 def upd_LetterOfInvite(request, id):
     if request.user.is_authenticated:
+        editing = get_rights(request)['ref_editing']
         pos     = TPos.objects.all()
         deps    = TDep.objects.filter(notused=0).filter(is_aup=0)
         letter  = LetterOfInvite.objects.get(id__iexact=id)
@@ -266,7 +321,7 @@ def upd_LetterOfInvite(request, id):
         if request.method == "GET":
             
             bound_form = LetterOfInvite_form(instance=letter)
-            return render(request, 'reg_jounals/LetterOfInvite_upd.html', context={'form':bound_form, 'letter':letter, 'pos':pos, 'deps':deps})
+            return render(request, 'reg_jounals/LetterOfInvite_upd.html', context={'form':bound_form, 'letter':letter, 'pos':pos, 'deps':deps, 'editing':editing})
         else:
             
             bound_form = LetterOfInvite_form(request.POST, instance=letter)
@@ -380,11 +435,12 @@ def nr_OrderOnOtherMatters(request):
         return render(request, 'reg_jounals/OrdersOnOtherMatters_add.html', context={'form':order_form, 'next_num':order_next_num_})
 
 def upd_OrderOnOtherMatters(request, id):
+    editing = get_rights(request)['ref_editing']
     if request.user.is_authenticated:
         if request.method == "GET":
             order = OrdersOnOtherMatters.objects.get(id__exact=id)
             bound_form = OrdersOnOtherMatters_form(instance=order)
-            return render(request, 'reg_jounals/OrdersOnOtherMatters_upd.html', context={'form':bound_form, 'order':order})
+            return render(request, 'reg_jounals/OrdersOnOtherMatters_upd.html', context={'form':bound_form, 'order':order, 'editing':editing})
         else:
             order = OrdersOnOtherMatters.objects.get(id__iexact=id)
             bound_form = OrdersOnOtherMatters_form(request.POST, instance=order)
@@ -523,12 +579,13 @@ def get_ordersBtrip(request):
         return JsonResponse(orders, safe=False)
 
 def upd_OrderOfBTrip(request, id):
+    editing = get_rights(request)['ref_editing']
     if request.user.is_authenticated:
         if request.method == "GET":
             deps = TDep.objects.filter(notused=0).filter(is_aup=0)
             order = OrdersOfBTrip.objects.get(id=id)
             bound_form = OrdersOfBTrip_form(instance=order)
-            return render(request, 'reg_jounals/OrdersOfBTrip_upd.html', context={'form':bound_form, 'order':order, 'deps':deps})
+            return render(request, 'reg_jounals/OrdersOfBTrip_upd.html', context={'form':bound_form, 'order':order, 'deps':deps, 'editing':editing})
         else:
             order = OrdersOfBTrip.objects.get(id=id)
             bound_form = OrdersOfBTrip_form(request.POST, instance=order)
@@ -566,6 +623,7 @@ def order_on_personnel(request):
     if request.user.is_authenticated:
         deps = TDep.objects.filter(notused=0).filter(is_aup=0)
         events = OrdersOnPersonnelTypes.objects.all()
+       
         
         if int(request.GET.get('search-sign', '0')) == 1:
             search_query = {
@@ -659,13 +717,14 @@ def nr_OrderOnPersonnel(request):
 
 def upd_OrderOnPersonnel(request, id):
     if request.user.is_authenticated:
+        editing = get_rights(request)['ref_editing']
         if request.method == "GET":
             order = OrdersOnPersonnel.objects.get(id__iexact=id)
             bound_form = OrdersOnPersonnel_form(instance=order)
             bound_employer = order.bound_employer
             deps = TDep.objects.filter(notused=0)
             positions = TPos.objects.all().order_by('name')
-            return render(request, 'reg_jounals/OrdersOnPersonnel_upd.html', context={'form':bound_form, 'order':order, 'employer':bound_employer, 'tab_deps':deps.filter(is_aup=0), 'tab_subdeps':deps.filter(is_aup=1), 'tab_pos':positions})
+            return render(request, 'reg_jounals/OrdersOnPersonnel_upd.html', context={'form':bound_form, 'order':order, 'employer':bound_employer, 'tab_deps':deps.filter(is_aup=0), 'tab_subdeps':deps.filter(is_aup=1), 'tab_pos':positions, 'editing':editing})
         else:
             order = OrdersOnPersonnel.objects.get(id__iexact=id)
             bound_form = OrdersOnPersonnel_form(request.POST, instance=order)
@@ -788,13 +847,14 @@ def nr_LaborContract(request):
     return render(request, 'reg_jounals/LaborContract_add.html', context={'form':order_form, 'deps':deps, 'next_num':order_next_num_, 'year_':year_, 'pos':pos})
 
 def upd_LaborContract(request, id):
+    editing = get_rights(request)['ref_editing']
     if request.user.is_authenticated:
         if request.method == "GET":
             deps = TDep.objects.filter(is_aup=0).filter(notused=0)
             pos = TPos.objects.all()
             order = LaborContract.objects.get(id__iexact=id)
             bound_form = LaborContract_form(instance=order)
-            return render(request, 'reg_jounals/LaborContract_upd.html', context={'form':bound_form, 'order':order, 'pos':pos, 'deps':deps})
+            return render(request, 'reg_jounals/LaborContract_upd.html', context={'form':bound_form, 'order':order, 'pos':pos, 'deps':deps, 'editing':editing})
         else:
 
             updated_bound_employer  = get_employer_from_db(request.POST.get('labor-contract-employer-field',''))
@@ -877,6 +937,7 @@ def nr_EmploymentHistory(request):
     return render(request, 'reg_jounals/EmploymentHistory_add.html', context={'form':history_form, 'deps':deps, 'pos':pos})
 
 def upd_EmploymentHistory(request, id):
+    editing = get_rights(request)['ref_editing']
     if request.user.is_authenticated:
         pos = TPos.objects.all()
         history = EmploymentHistory.objects.get(id__iexact=id)
@@ -885,7 +946,7 @@ def upd_EmploymentHistory(request, id):
         if request.method == "GET":
            
             bound_form = EmploymentHistory_form(instance=history)
-            return render(request, 'reg_jounals/EmploymentHistory_upd.html', context={'form':bound_form, 'history':history, 'deps':deps})
+            return render(request, 'reg_jounals/EmploymentHistory_upd.html', context={'form':bound_form, 'history':history, 'deps':deps, 'editing':editing})
         else:
             
             updated_department = get_department_from_db(request.POST.get('employment-history-department-field', ''))
@@ -1203,12 +1264,13 @@ def nr_identitys(request):
 
 def upd_identitys(request, id):
     if request.user.is_authenticated:
-        ident = Identity.objects.get(id__iexact=id)
-        deps = TDep.objects.filter(notused=0).filter(is_aup=0)
+        editing     = get_rights(request)['ref_editing']
+        ident       = Identity.objects.get(id__iexact=id)
+        deps        = TDep.objects.filter(notused=0).filter(is_aup=0)
         if request.method == "GET":
             
             bound_form = Identity_form(instance=ident)
-            return render(request, 'reg_jounals/identity_upd.html', context={'form':bound_form, 'ident':ident, 'deps':deps})
+            return render(request, 'reg_jounals/identity_upd.html', context={'form':bound_form, 'ident':ident, 'deps':deps, 'editing':editing})
         else:
         
             bound_form = Identity_form(request.POST, instance=ident)

@@ -1,7 +1,24 @@
 {% extends "vac_shed/index.html" %}
 
 {%block title%}Новый график отпусков{% endblock %}
-{%block header%}Новый график отпусков{% endblock %}
+{%block header%}
+
+
+<div class="header-back-button-container">
+
+  {% block logo%}{{block.super}}{% endblock%}
+</div>
+
+<div class="header-main-text">
+  <h3>Новый график</h3>
+</div>
+
+
+{% block username %}
+  <h4>{{request.user.first_name}}</h4>
+{% endblock%}
+
+{% endblock %}
 
 {%block body%}
 
@@ -11,14 +28,14 @@
   {{form.errors}}
 {%endif%}
 
-<form class="vs-form" action="" method="post">
+<form class="standart-form standart-panel" action="" method="post">
   {%csrf_token%}
 
-  {{form.dep}}
-
-  <div class="newtabel-date">
-    {{form.year}}
-  </div>
+<div class="standart-form-input-group inline">
+  
+  <p><span>Подразделение: </span>{{form.dep}}</p>
+  <p><span>Год: </span> {{form.year}}</p>
+</div>
 
 <div class="hide">
 {{form.department}}
@@ -27,8 +44,11 @@
 <span id="label_{{field.name}}">{{field.name}}</span>{{field}}
 </div>
 
-  <input class="button accept" type="submit"  value="Создать" />
+<div class="standart-form-input-group inline">
+
+  <input class="button add" type="submit"  value="Создать" />
   <a class="button cancel" id="nt-cancel" href="..">Отмена</a>
+</div>
 </form>
 </div>
 
