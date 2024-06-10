@@ -2,34 +2,56 @@
 {%load static%}
 {%block title%}{{item.emp.fullname}} c {{item.dur_from}}{%endblock%}
 {%block script%}{%endblock%}
-{%block header%}  <div class="header-main"><a class="button back" href="/vacshed/create/{{item.bound_shed.id}}"> < НАЗАД</a><h1>Изменить позицию - {{item.emp.fullname}} период с {{item.dur_from}}</h1></div>{%endblock%}
+{%block header%} 
+ 
+<div class="header-back-button-container">
+<a class="button back" href="/vacshed/create/{{item.bound_shed.id}}"> назад </a>
+  
+{% block logo%}
+{{block.super}}
+{% endblock %}
+</div>
+
+<div class="header-main-text">
+<h3>Изменить запись {{item.emp.fullname}} Период: {{item.dur_from|date:"d.m.Y"}}</h3>
+</div>
+
+
+{% block username %}
+{{block.super}}
+{% endblock%}
+
+  
+  {%endblock%}
 {% block body %}
 <div class="container">
-  <form class="vs-form add" id='addform' action="{%url 'upditem_url' id=item.id type=type%}" method="post">
+  <form class="standart-form standart-panel" id='addform' action="{%url 'upditem_url' id=item.id type=type%}" method="post">
       {% csrf_token %}
 
-<div class="vs-form-main">
+
 {%if type == 1%}
+<div class="standart-form-header">
   <h4>Введите новые данные</h4>
-  <label for="city">Проезд</label>
-  <input  id="city" type="text" placeholder="Город" name="city" value="{{item.city}}">
-  <label for="child">Иждивенец (год рождения): </label>
-  <input type="text" name="child" placeholder="Год рождения" value="{{item.child_year}}">
 </div>
+
+<div class="standart-form-input-group">
+<p><span>Проезд: </span><input  id="city" type="text" placeholder="Город" name="city" value="{{item.city}}"></p>
+<p><span>Иждивенец: </span><input type="text" name="child" placeholder="Год рождения, через запятую" value="{{item.child_year}}"></p>
+</div>
+
+  
+
 {%else%}
 {%endif%}
 
 {%if type == 2%}
   <div id="vac-form-periods" class=".vac-form-periods">
-
-    <div class="vac-period">
-      <h4>Введите новые данные о периоде</h4>
-      <label for="per-date-from">Отпуск с: </label>
-      <input id="per-date-from" type="date" name="per-date-from" value="{{item.dur_from}}">
-
-      <label for="per-date-to">по: </label>
-      <input id="per-date-to"  readonly type="date" name="per-date-to" value="{{item.dur_to}}">
-      <input id="per-days-count" onchange="change_days(0)" placeholder="Кол-во дней" type="text" name="per-days-count" value="">
+    <div class="standart-form-header"><h4>Введите новые данные о периоде</h4></div>
+    
+    <div class="standart-form-input-group inline vac-period">
+      <p><span>с: </span><input id="per-date-from" type="date" name="per-date-from" value="{{item.dur_from|date:'Y-m-d'}}"></p>
+      <p><span>по: </span><input id="per-date-to"  readonly type="date" name="per-date-to" value="{{item.dur_to|date:'Y-m-d'}}"></p>
+      <p><span>дни: </span><input id="per-days-count" onchange="change_days(0)" placeholder="Кол-во дней" type="text" name="per-days-count" value="{{item.days_count}}"></p>      
     </div>
 
   </div>
@@ -38,42 +60,61 @@
 
 
   {%if type == 3%}
-    <div id="vac-form-periods" class=".vac-form-periods">
-      <h4>Оформление переноса периода: {{item.dur_from|date:"d.m.Y"}} по {{item.dur_to|date:"d.m.Y"}} кол-во дней: {{item.days_count}}</h4>
-      <div class="vac-period">
-        <h4>Введите данные о переносе</h4>
-        <label for="per-date-move-from">Отпуск с: </label>
-        <input id="per-date-from" type="date" name="per-date-move-from" value="">
-
-        <label for="per-date-move-to">по: </label>
-        <input id="per-date-to"  readonly type="date" name="per-date-move-to" value="">
-        <input id="per-days-count" onchange="change_days(0)" placeholder="Кол-во дней" type="text" name="per-days-move-count" value="">
-        <label for="move-reason">Основание переноса: </label>
-        <textarea name="move-reason" id="move-reason" rows="8" cols="80"></textarea>
+  <h4>Оформление переноса периода: {{item.dur_from|date:"d.m.Y"}} по {{item.dur_to|date:"d.m.Y"}} в кол-ве: {{item.days_count}} дней</h4>
+  <h4>Введите данные о переносе</h4>
+ 
+      
+      <div class="vac-period standart-form-input-group inline">
+        
+        <p><span>с:</span><input id="per-date-from" type="date" name="per-date-move-from" value=""></p>
+        <p><span>по: </span><input id="per-date-to"  readonly type="date" name="per-date-move-to" value=""></p>
+        <p><span>дней:</span><input id="per-days-count" onchange="change_days(0)" placeholder="Кол-во дней" type="text" name="per-days-move-count" value="">
+        </p>
+      </div>
+      
+      <div class="vac-period standart-form-input-group inline">
+        <p>
+      <span>Основание переноса: </span>
+      <textarea name="move-reason" id="move-reason" rows="8" cols="80"></textarea></p>
       </div>
 
-    </div>
+
+ 
     {%else%}
     {%endif%}
 
     {%if type == 4%}
-      <div id="vac-form-periods" class=".vac-form-periods">
-        <h4>Добавить комментарий: {{item.dur_from|date:"d.m.Y"}} по {{item.dur_to|date:"d.m.Y"}} кол-во дней: {{item.days_count}}</h4>
-        <textarea name="comm" rows="8" cols="80">{{item.comm}}</textarea>
-
+      <div class="standart-form-header"> 
+        <h4>Добавить комментарий</h4>
       </div>
+      
+      <div class="standart-form-input-group">
+        
+        <textarea name="comm" rows="8" cols="80">{{item.comm}}</textarea>
+      </div>
+
       {%else%}
       {%endif%}
 
+<div class="standart-form-input-group inline">
+  <input class="button" type="submit" name="" value="Сохранить">
+  <a href="{% url 'delitem_url' id=item.id%}" class="button cancel">Удалить период</a>
+</div>
 
-<input class="button accept" type="submit" name="" value="Сохранить">
-<a href="{% url 'delitem_url' id=item.id%}" class="button cancel">Удалить период</a>
 
   </form>
   </div>
 
 <script type="text/javascript">
   $(document).ready(function(){
+    type = '{{type}}'
+    
+    if (type == '1' || type == '2') {
+      document.getElementById('addform').style.width = '300px'
+    } 
+
+    
+
 
     $('.vac-period').attr('id', 'per0')
 

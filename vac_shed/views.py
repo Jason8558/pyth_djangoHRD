@@ -59,7 +59,9 @@ def vacshed_new(request):
 
 def vacshed_global_json(request, year, dep, per, emps, fil_only, terr, pos):
     if request.user.is_authenticated:
-        print(pos)
+
+
+
         if dep !=0 and per != 0 and emps == '0':
             items_main = VacantionSheduleItem.objects.filter(bound_shed__year=year).filter(emp__department_id = dep).filter(dur_from__month=per).exclude(move_from__isnull=False).values('id', 'emp__department__name' , 'emp__aup__name' , 'emp', 'emp__fullname', 'dur_from', 'dur_to', 'days_count', 'move_from', 'move_to', 'child_year', 'days_count_move', 'city', 'emp__position__name', 'comm').order_by('emp__department__dir__name', 'emp__department__union__name', 'emp__aup__name', 'emp__department__name', 'emp', 'id', 'dur_from')
             items_move = VacantionSheduleItem.objects.filter(bound_shed__year=year).filter(emp__department_id = dep).filter(move_from__month=per).values('id', 'emp__department__name' , 'emp__aup__name' , 'emp', 'emp__fullname', 'dur_from', 'dur_to', 'days_count', 'move_from', 'move_to', 'child_year', 'days_count_move', 'city', 'emp__position__name', 'comm').order_by('emp__department__dir__name', 'emp__department__union__name', 'emp__aup__name', 'emp__department__name',  'emp', 'id', 'dur_from')

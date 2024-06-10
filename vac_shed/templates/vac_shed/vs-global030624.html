@@ -5,26 +5,8 @@
 <!-- <script src="{% static 'vac_shed/js/print.js'%}" charset="utf-8"></script> -->
 <link rel="stylesheet" href="https://unpkg.com/gutenberg-css@0.6" media="print">
 <link rel="stylesheet" href="https://unpkg.com/gutenberg-css@0.6/dist/themes/oldstyle.min.css" media="print">{%endblock%}
-  {% block header %}
-  
-  <div class="header-back-button-container">
-    <a href=".." onclick="window.close()" class="button back">Назад</a>
-    {% block logo%}{{block.super}}{% endblock%}
-  </div>
-
-<div class="header-main-text">
-  <h3>Общий график отпусков</h3>
-</div>
-
-
-{% block username %}
-  <h4>{{request.user.first_name}}</h4>
-{% endblock%}
-
-  {%endblock%}
-
-
-  {% block body %}
+{%block header%}  <div class="header-main no-print"><a href="/vacshed" class="button">Закрыть</a><h1> Общий график отпусков </h1></div>{%endblock%}
+{% block body %}
 
 
 
@@ -54,7 +36,7 @@
       </thead>
       <tbody>
         <tr>
-          <th>Врио директора КГУП "Камчатский водоканал"</th><td>______________</td><th>Луговых Д.Л.</th>
+          <th>Директор КГУП "Камчатский водоканал"</th><td>______________</td><th>Супрун А.С.</th>
         </tr>
         <tr>
           <td colspan="3">______ _______ ______ г.</td>
@@ -65,107 +47,71 @@
 
   <h1 class="print print-head">График отпусков <span id="ph-dep"></span> на <span id="ph-year"></span>г. </h1>
 
-  <div class="standart-menu no-print">
-    <a onclick="open_additional_menu(this, 'vacshed-global-search-form')" href="#">Параметры</a>
-    <a href="#" onclick="window.print()">Печать</a>
-  </div>
-
-  <div id="vacshed-global-search-form"  style="visibility: hidden;" class="standart-form standart-panel no-print search">
-
-    
-    <div class="standart-form-input-group inline">
-      <p><span>Год:</span><input type="text" name="vs-glob-year" id="vs-glob-year" placeholder="20__" value=""></p>
-      <p><span>Подразделение: </span><select id="vs-glob-dep" class="chosen-select" name="vs-glob-dep">
-        <option value="0">Подразделение</option>
-        {% for d in deps %}
-          <option value="{{d.id}}">{{d.name}}</option>
-        {%endfor%}
-      </select></p>
-      
-      <p><span>Должность:</span><input type="text" name="vs-glob-pos" id="vs-glob-pos" value=""></p>
-    </div>
-
-    <div class="standart-form-input-group inline">
-     <p><span>Филиал:</span><select id="vs-glob-fil" name="vs-glob-fil">
-        <option value="0">Без филиалов</option>
-        <option value="1">Все филиалы</option>
-        <option value="2">Центральный</option>
-        <option value="3">Быстринский</option>
-      </select></p> 
+  <div class="vs-form global no-print">
+    <input type="text" name="vs-glob-year" id="vs-glob-year" placeholder="Введите год" value="">
+    <select id="vs-glob-dep" class="chosen-select" name="vs-glob-dep">
+      <option value="0">Подразделение</option>
+      {% for d in deps %}
+        <option value="{{d.id}}">{{d.name}}</option>
+      {%endfor%}
+    </select>
+    <input type="text" name="vs-glob-pos" id="vs-glob-pos" placeholder="Должность" value="">
+    <select id="vs-glob-fil" name="vs-glob-fil">
+      <option value="0">Без филиалов</option>
+      <option value="1">Все филиалы</option>
+      <option value="2">Центральный</option>
+      <option value="3">Быстринский</option>
+    </select>
 
 
-      <p><span>Территория:</span><select class="" id="vs-glob-terr" name="vs-glob-terr">
-        <option value="0">ЕМР + ПКГО</option>
-        <option value="1">ПКГО</option>
-        <option value="2">ЕМР</option>
-      </select></p>
+    <select class="" id="vs-glob-terr" name="vs-glob-terr">
+      <option value="0">ЕМР + ПКГО</option>
+      <option value="1">ПКГО</option>
+      <option value="2">ЕМР</option>
+    </select>
 
-      <p><span>Месяц начала:</span><select class="" id="vs-glob-per" name="vs-glob-per">
-        <option value="0">-</option>
-        <option value="1">Январь</option>
-        <option value="2">Февраль</option>
-        <option value="3">Март</option>
-        <option value="4">Апрель</option>
-        <option value="5">Май</option>
-        <option value="6">Июнь</option>
-        <option value="7">Июль</option>
-        <option value="8">Август</option>
-        <option value="9">Сентябрь</option>
-        <option value="10">Октябрь</option>
-        <option value="11">Ноябрь</option>
-        <option value="12">Декабрь</option>
-  
-      </select></p>
 
-    
 
-    </div>
-    
-    <div class="standart-form-input-group one_button">
-      <p><button type="button" onclick="open_emps()" class="button special" name="button"><img src="{% static 'img/people.png' %}" alt="#"> Подбор работников</button></p>
-    </div>
+    <select class="" id="vs-glob-per" name="vs-glob-per">
+      <option value="0">Месяц начала периода (переноса)</option>
+      <option value="1">Январь</option>
+      <option value="2">Февраль</option>
+      <option value="3">Март</option>
+      <option value="4">Апрель</option>
+      <option value="5">Май</option>
+      <option value="6">Июнь</option>
+      <option value="7">Июль</option>
+      <option value="8">Август</option>
+      <option value="9">Сентябрь</option>
+      <option value="10">Октябрь</option>
+      <option value="11">Ноябрь</option>
+      <option value="12">Декабрь</option>
 
-    <div class="standart-form-input-group one_button">
-      <p id="comment_print_switch" class="one_line">
-        <span>Не печатать комментарии:</span>
-        <input type="checkbox" onchange="comment_print_visible()" name="set_comment_print" id="set_comment_print">
-      </p>
-    </div>
-
-    
-    <div class="standart-form-input-group">  
-      
-      
-    </div>
-
-    
-
-    <div style="display:none !important;" id="vs-glob-emp-cont" class="vs-glob-emp-cont">
+    </select>
+    <button type="button" onclick="open_emps()" class="button" name="button">Подбор сотрудников</button>
+<div style="display:none !important;" id="vs-glob-emp-cont" class="vs-glob-emp-cont">
   <select id="vs-glob-emp" class="chosen-select" name="">
     <option value="0">Подбор сотрудников</option>
     {%for e in emps%}
       <option value="{{e.id}}">{{e.fullname}} - {{e.position.name}}</option>
     {%endfor%}
   </select>
-  
-  
   <input style="display:none;" readonly id='vs-glob-emp-id' type="text" name="vs-glob-emp" value="">
   <button id="vs-glob-emp-btn" class="button" type="button" onclick="add_emp()" name="button">Добавить</button>
   <textarea readonly id='vs-glob-emp-name' name="name" rows="15" cols="80"></textarea>
   <button type="button" class="button cancel" onclick="emps_close()" name="button">Закрыть</button>
 </div>
 
-<div class="standart-form-input-group inline">
-    <a class="button add" onclick="getvacshed()" href="#">Сформировать</a>
-    <a href="#" onclick="this.parentNode.parentNode.style.display = 'none'" class="button cancel">Закрыть</a>
-</div>
-   
+
+    <input type="button" class="button" name="" onclick="getvacshed()" value="Сформировать">
+    <a class="button no-print" onclick="window.print()" ref="#"> Печать графика </a>
     <!-- <button type="button"  onclick="tableToExcel('vs-global-table','График отпусков', ' График отпусков')" name="button">excel</button> -->
 
-
-  
-
-</div>
+    <Div id="comment_print_switch" style="display: none;">
+    <label for="set_comment_print">Не печатать комментарии</label>
+    <input type="checkbox" onchange="comment_print_visible()" name="set_comment_print" id="set_comment_print">
+  </Div>
+  </div>
 
 <h1 id="loading" style="display:none;">Загрузка</h1>
 

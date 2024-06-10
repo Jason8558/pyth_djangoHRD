@@ -27,7 +27,8 @@
 
   <header>
     {% block header %}
-  
+    <div class="header-back-button-container">
+      <a href="/"  class="button back">Назад</a>
     {% block logo%}
       <div class="header-logo-container">
         <div class="header-logo">
@@ -35,9 +36,10 @@
         </div>
       </div>
     {% endblock %}
+    </div>
   
     <div class="header-main-text">
-      <h3>ИС "СУП". Табели учета рабочего времени</h3>
+      <h3>ИС "СУП". Графики отпусков</h3>
   </div>
   
   
@@ -60,7 +62,7 @@
       <a href="{% url 'new_vacshed_url'%}" class="button add">Новый график</a>
       {%if granted == 1%}
       <div class="standart-menu-submenu-container">
-          <img onclick="open_additional_menu(this)" src="{% static '/img/menu-burger.png' %}" alt="">
+          <img onclick="open_additional_menu(this,'vacshed-additional-menu-panel')" src="{% static '/img/menu-burger.png' %}" alt="">
 
       </div>
       <!-- <div class="menu-button-dropdown-container">
@@ -109,7 +111,7 @@
       </div>
 
       <div class="search-panel-input-group">
-        <input class="button add" type="submit" value="Применить">
+        <input class="button add" type="submit" value="Найти">
         <a class="button cancel" href="." >Сбросить</a>
       </div>
 

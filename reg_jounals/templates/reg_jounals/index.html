@@ -41,7 +41,9 @@
   <header class="no_print">
 
    
-    <span class="navbar-brand mb-0 h1">{%block header%}{%block logo%}<img src="{% static 'img/logo.png'%}" alt="">{%endblock%}Информационная система "СУП". Кадровый документооборот{%endblock%}</span><span style="text-align: right; float: right;font-size: 14pt;">   {% if request.user.is_superuser%} <a style="color:black;" href="/admin/">{{ user.first_name }}</a><span id="version"> v3.0.0 </span>{%endif%} {% if request.user.groups.all.0.name == 'Редактирование справочников' %} <a style="color:black;" href="/admin">| Справочники</a> {% endif %}</span>
+    <span class="navbar-brand mb-0 h1">{%block header%}
+      {%block logo%}<img src="{% static 'img/logo.png'%}" alt="">{%endblock%}
+      Информационная система "СУП". Кадровый документооборот{%endblock%}</span><span style="text-align: right; float: right;font-size: 14pt;">  {{ user.first_name }} {% if request.user.is_superuser%} <a style="color:black;" href="/admin/">{{ user.first_name }}</a><span id="version"> v3.0.0 </span>{%endif%} </span>
 
 
   </header>
@@ -65,8 +67,7 @@
       <ul class="sprav">
         <li><a  href="/work_cal">Производственный календарь</a></li>
         <li><a href="#" onclick="open_additional_menu(this, 'homescreen-invite-checkin')" >Запись на прием</a></li>
-        <li><a  href="/admin">Удаление данных</a></li>
-      </ul>
+     </ul>
     </div>
 
     <div style="display: none" class="standart-panel submenu-panel panel" id="homescreen-tabels-submenu"> 

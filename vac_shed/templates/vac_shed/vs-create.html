@@ -39,11 +39,11 @@
 
   <div class="standart-menu">
   {% if granted %}
-    <a class="button no-print" href="{% url 'additem_url' id=vacshed.id%}"> Добавить сотрудника в график</a>
+    <a class="button no-print" href="{% url 'additem_url' id=vacshed.id%}"> Добавить работника в график</a>
   {%else%}
     {% if vacshed.sup_check %}
     {%else%}
-      <a class="button no-print" href="{% url 'additem_url' id=vacshed.id%}"> Добавить сотрудника в график</a>
+      <a class="button no-print" href="{% url 'additem_url' id=vacshed.id%}"> Добавить работника в график</a>
     {%endif%}
   {%endif%}
   {% if granted %}
@@ -68,7 +68,7 @@
 
 <table class="vs-table-create">
   <thead>
-    <th>Сотрудник</th>
+    <th>ФИО|Долж.</th>
     <th>Дата</th>
     <th>Дни</th>
     {% if granted %}

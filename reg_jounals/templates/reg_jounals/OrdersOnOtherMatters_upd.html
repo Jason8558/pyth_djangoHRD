@@ -26,8 +26,23 @@
   <div class="standart-form-input-group inline">
     <input class="button add" type="submit" value="Сохранить" />
     <a class="button cancel" href="..">Отмена</a>
+    {% if editing or request.user.is_superuser %}
+      <a class="button cancel" onclick="open_additional_menu(this, 'delete-document-popup')" href="#">Удалить</a>
+    {% endif %}
   </div>
 
 </form>
+
+<div id="delete-document-popup" style="display: none;" class="standart-panel standart-form popup"> 
+  <div class="standart-form-header">
+    <h4>Вы уверены?</h4>
+  </div>
+
+  <div class="standart-form-input-group inline">
+    <a class="button add" href="{% url 'document_delete' type=5 id=order.id %}">Да</a>
+    <a class="button cancel" onclick="this.parentNode.parentNode.style.display = 'none' ">Нет</a>
+  </div>
+
+</div> 
 
 {%endblock%}

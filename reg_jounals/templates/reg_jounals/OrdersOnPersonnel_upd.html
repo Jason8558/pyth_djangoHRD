@@ -115,6 +115,9 @@
         <div class="standart-form-input-group inline">
           <input class="button add" type="submit" value="Добавить" />
           <a class="button cancel" href="..">Отмена</a>
+          {% if editing or request.user.is_superuser%}
+            <a onclick="open_additional_menu(this, 'delete-document-popup')" href="#">Удалить приказ</a>
+          {% endif %}
         </div>
       </div>
     </div>
@@ -176,7 +179,17 @@
 
 </div>
 
+<div id="delete-document-popup" style="display: none;" class="standart-panel standart-form popup"> 
+  <div class="standart-form-header">
+    <h4>Вы уверены?</h4>
+  </div>
 
+  <div class="standart-form-input-group inline">
+    <a class="button add" href="{% url 'document_delete' type=7 id=order.id %}">Да</a>
+    <a class="button cancel" onclick="this.parentNode.parentNode.style.display = 'none' ">Нет</a>
+  </div>
+
+</div> 
 
 <script type="text/javascript">
   (function () {
