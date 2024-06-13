@@ -361,13 +361,15 @@ function ResignFromWork() {
 function MoveOnOtherWork() {
   $('#op_typeOfWork').css('display','')
   $('#op_moveFrom').css('display','')
-  $('#id_op_moveFrom').val($('#move_from_check').text())
+  
 
+  if (document.location.href.split('/')[document.location.href.split('/').length - 1] == 'upd') {
+    $('#id_op_moveFrom').val($('#move_from_check').text())
   if (document.getElementById('move_to_check').innerText != '0001-01-01') {
     document.getElementById('op_moveTo').style.display = ''
     document.getElementById('id_op_moveTo').value = document.getElementById('move_to_check').innerText
   }
- 
+  }
   $('#tab_pos').css('display','')
   $('#tab_pos_select').prop('disabled', false)
 
