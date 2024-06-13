@@ -361,6 +361,7 @@ function ResignFromWork() {
 function MoveOnOtherWork() {
   $('#op_typeOfWork').css('display','')
   $('#op_moveFrom').css('display','')
+
   
 
   if (document.location.href.split('/')[document.location.href.split('/').length - 1] == 'upd') {
@@ -370,6 +371,7 @@ function MoveOnOtherWork() {
     document.getElementById('id_op_moveTo').value = document.getElementById('move_to_check').innerText
   }
   }
+
   $('#tab_pos').css('display','')
   $('#tab_pos_select').prop('disabled', false)
 
@@ -399,25 +401,7 @@ function OtherOrder() {
   bound_employer_field.parentNode.style.display = 'block'
   bound_employer_field.disabled = false
   
-  // Если нет работника
-  if (bound_employer_field.value == '' && document.location.href.split('/')[document.location.href.split('/').length-1] == 'upd')  {
-    bound_employer_field.innerHTML = ''
-    bound_employer_field.innerHTML = '<option value=""> -- </option>'
-    document.getElementById('order-of-personnel-no-employer').checked = true
-  }
-  else {
-    get_employers_from_department(document.getElementById('dep_for_tabel').value,'order-of-personell-bound-employer-field', 0)
-  }
-
-  // Если нет подразделения
-  department_field = document.getElementById('dep_for_tabel')
-  if (department_field.value == '') {
-    department_field.innerHTML = ''
-    department_field.innerHTML = '<option value=""> -- </option>'
-    document.getElementById('order-of-personnel-no-department').checked = true
-  }
-
-  
+  get_employers_from_department(document.getElementById('dep_for_tabel').value,'order-of-personell-bound-employer-field', 0)
 }
 
 // Запись на прием

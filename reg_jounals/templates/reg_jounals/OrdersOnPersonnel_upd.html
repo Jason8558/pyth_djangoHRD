@@ -26,8 +26,6 @@
   }
 </style>
 
-
-
 <div class="standart-panel form-stages">
   <div id="stage-container-1" class="stage-container stage-container-active">
     <div class="stage-number">
@@ -103,9 +101,7 @@
        
         <p id="op_typeOfWork"><span>{{form.op_typeOfWork.label}}:</span>{{form.op_typeOfWork}}</p>
         <p id="op_probation"><span>{{form.op_probation.label}}:</span>{{form.op_probation}}</p>
-        <span style="display: none;" id="move_from_check">{{order.op_moveFrom | date:"Y-m-d"}}</span>
         <p id="op_moveFrom"><span>{{form.op_moveFrom.label}}:</span>{{form.op_moveFrom}}</p>
-        <span style="display: none;" id="move_to_check">{{order.op_moveTo | date:"Y-m-d"}}</span>
         <p id="op_moveTo"><span>{{form.op_moveTo.label}}:</span>{{form.op_moveTo}}</p>
       </div>
       
@@ -120,7 +116,7 @@
           <input class="button add" type="submit" value="Добавить" />
           <a class="button cancel" href="..">Отмена</a>
           {% if editing or request.user.is_superuser%}
-            <a onclick="open_additional_menu(this, 'delete-document-popup')" class="button cancel" href="#">Удалить</a>
+            <a onclick="open_additional_menu(this, 'delete-document-popup')" href="#">Удалить приказ</a>
           {% endif %}
         </div>
       </div>
@@ -200,7 +196,7 @@
     
     document.getElementById('id_op_type').parentNode.style.display = 'none'
 
-    
+    // get_employers_from_department( '{{order.department}}','id_bound_order', 0)
 
     setTimeout(function() {
       bound_employer_field = document.getElementById('order-of-personell-bound-employer-field')
@@ -239,7 +235,6 @@
         all_off()
         closeAllFields()
         OtherOrder()
-        
         
         break;
 
