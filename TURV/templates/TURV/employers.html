@@ -1,8 +1,26 @@
-{% extends 'TURV/index.html'%}
+{% extends 'TURV/tabels.html'%}
+{% load static%}
 
 {%block title%}Работники{% endblock %}
 
-{%block header%}  <div class="tabel-header-info refs"> <a class="btn btn-dark" href=".."> < Назад </a> | Работники. Всего: {{count}} </div>{%endblock%}
+{%block header%}
+  
+  <span id="id_month" class="not-print" style="display:none">{{month}}</span>
+  <span id="id_year" class="not-print" style="display:none">{{year}}</span>
+
+  <div class="header-back-button-container">
+    <a id="button-back" href=".."  class="button back">назад</a>
+    {% block logo%}{{block.super}}{% endblock%}
+  </div>
+
+  <div class="header-main-text">
+    <h4>Работники
+    </h4>
+  </div>
+
+  {%block username%}{{block.super}}{%endblock%}
+
+{%endblock%}
 
 {% block body %}
 
@@ -10,34 +28,55 @@
 
 <div class="container">
 
-  <form  class="f_search fs-employers fs-inline"  action="{% url 'emp_list'%}" >
-  <h5>ПОИСК:</h5> 
-  <div class="fs-content">
-    <input type="text" name="emp" placeholder="Поиск по ФИО..." value="">
+  <div class="standart-menu">
+    <a class="button add"  href="{% url 'emp_new'%}"  >Добавить работника</a>
+    
+    <div id="vacshed-filter-menu" class="standart-menu-submenu-container">
+      <img src="{% static '/img/search.png' %}" onclick="open_additional_menu(this, 'employers-search-panel')" alt="">
+    </div> 
+  </div>
 
-
-
-    <select class="" name="emp_dep">
-      <option value="">Подразделение</option>
-      {% for dep in deps%}
-        <option value="{{dep.id}}">{{dep}}</option>
-        {% endfor%}
-    </select>
-
-      <select class="" name="emp_shift">
-        <option value="">Режим работы</option>
-        <option value="1">Сменные</option>
-        <option value="2">Дневные</option>
+  <form style="display: none;" class="standart-panel standart-form search" id="employers-search-panel"  action="{% url 'emp_list'%}" >
+    <input type="hidden" name="search-sign" value=1>
+    <div class="standart-form-input-group inline">
+      <p><span>ФИО: </span><input type="text" name="emp"  value=""></p>
+      <p><span>Подразделение</span>  <select class="" name="emp_dep">
+        <option value="">--</option>
+        {% for dep in deps%}
+          <option value="{{dep.id}}">{{dep}}</option>
+          {% endfor%}
       </select>
-  <input class="btn btn-dark"type="submit" name="" value="Найти">
-  <a href="?&emp_fired=1" class="btn btn-outline-danger">Уволенные</a>
-</div>
+  </p>
+  <p><span>Режим работы: </span>  
+    <select class="" name="emp_shift">
+      <option value="">--</option>
+      <option value="1">Сменные</option>
+      <option value="2">Дневные</option>
+    </select></p>
+    </div>
+
+    <div style="border-bottom: 1px solid black;" class="standart-form-input-group one_button">
+      <p  class="one_line"><span>Уволенные: </span><input type="checkbox" name="employers-search-fired" id="employers-search-fired"></p>
+    </div>
+    
+    <div class="standart-form-input-group inline">
+      <input class="button add" type="submit" name="" value="Найти">
+      <a class="button cance" href="{% url 'emp_list' %}">Сбросить</a>
+    </div>
+    
+
+
+
+
+  
+
+
 
 
 
   </form>
 
-  <a class="btn btn-success btn-add"  href="{% url 'emp_new'%}"  >+ Добавить работника</a>
+ 
 
 {%if employers%}
 
@@ -145,4 +184,14 @@
 <h2>Работники не найдены</h2>
 {%endif%}
 </div>
+
+<script>
+  (function() {
+    // document.getElementById('button-back').href = document.referrer
+    if (document.location.href.indexOf('search-sign') != -1 ) {
+      document.getElementsByClassName('paginator')[0].style.display = 'none'
+    }
+  })()
+</script>
+
 {%endblock%}

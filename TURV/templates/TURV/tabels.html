@@ -155,7 +155,7 @@ function Supchecked() {
   <div style="display: none" class="standart-panel submenu-panel panel" id="tabel-info-submenu">
     <!-- Информация -->
     <ul class="info">
-      <li><a target="_blank" href="https://docs.google.com/document/d/1Z439AZgEkRSZErC1wrBpQE9ajGD-OPZIZOkNI08mPSg/edit?usp=sharing">Инструкция пользователя</a></li>
+      <li><a download href="{% static 'docs/tabels.docx' %}">Инструкция пользователя</a></li>
       {% if user.is_superuser%}
       <li><a target="_blank" href="https://docs.google.com/document/d/1MWZ-9vxpc1lO9-VJu_Idzoy7S3Vg8mqFRPYfTSCwzxA/edit?usp=sharing">Инструкция администратора</a></li>
       {%endif%}

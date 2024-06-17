@@ -1214,19 +1214,25 @@ align-items: center;
 
 #tabels-search-panel {
   width: 450px;
-    left: 1166px;
+    left: 918px;
     z-index: 999;
 }
 
 #tabel-create-search-panel {
   width: 450px;
-  left: 1417px;
+  left: 918px;
   z-index: 999;
 }
 
 #positions-search-panel {
   width: 331px;
-    left: 1111px;
+    left: 918px;
+}
+
+#employers-search-panel {
+  width: 441px;
+    left: 531px;
+    z-index: 999;
 }
 
 

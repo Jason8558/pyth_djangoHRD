@@ -35,7 +35,8 @@ input[type=datetime-local],
 .chosen-container-single,
 .chosen-single,
 textarea,
-select {
+select,
+.standart-menu-quick-search input[type=text] {
 
     border-top: none;
 
@@ -48,6 +49,10 @@ select {
     border-bottom: 1px solid var(--color-button-main);
 
     line-height: normal;
+}
+
+.standart-menu-quick-search input[type=text] {
+    background-color: white !important;
 }
 
 .chosen-container-single,
@@ -565,6 +570,11 @@ a {
 .standart-menu .menu-button-dropdown-container::after {
     content: '>';
     transform: rotate(90);
+}
+
+.standart-menu-quick-search {
+display: flex;
+flex-flow: row;
 }
 
 

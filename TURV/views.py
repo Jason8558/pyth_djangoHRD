@@ -1277,76 +1277,34 @@ def employers_list(request):
         user_ = request.user
         granted = access_check(request)
 
-        # Переменные
-        sq_emp = request.GET.get('emp', '')
-        sq_dep = request.GET.get('emp_dep', '')
-        sq_shift = request.GET.get('emp_shift', '')
-        sq_fired = request.GET.get('emp_fired','')
-
         if (granted == False):
-            deps = Department.objects.all().filter(user=user_.id)
-            allow_departments = []
-            for dep in deps:
-                allow_departments.append(dep.id)
-            # Алгоритм поиска
-            pag = 1000
-            if (sq_emp):
-                employers = Employers.objects.all().filter(department_id__in=allow_departments).filter(fullname__icontains=sq_emp).filter(fired=False) 
-            else:
-                if (sq_dep) and (sq_shift):
-                    if (sq_shift == 1):
-                        employers = Employers.objects.all().filter(department_id=sq_dep).filter(shift_personnel=True).filter(fired=False) 
-                    else:
-
-                        employers = Employers.objects.all().filter(department_id=sq_dep).filter(shift_personnel=False).filter(fired=False) 
-                else:
-                    if (sq_dep):
-                        if (sq_fired):
-                            employers = Employers.objects.all().filter(department_id=sq_dep).filter(fired=True) 
-                        else:
-                            employers = Employers.objects.all().filter(department_id=sq_dep).filter(fired=False)
-                    else:
-                        if (sq_shift == '1'):
-                                employers = Employers.objects.all().filter(department_id__in=allow_departments).filter(shift_personnel=True).filter(fired=False) 
-                        else:
-                            if (sq_shift == '2'):
-                                employers = Employers.objects.all().filter(department_id__in=allow_departments).filter(shift_personnel=False).filter(fired=False) 
-                            else:
-                                if (sq_fired):
-                                   employers = Employers.objects.all().filter(department_id__in=allow_departments).filter(fired=True)
-                                else: 
-                                    pag = 50
-                                    employers = Employers.objects.all().filter(department_id__in=allow_departments).filter(fired=False) 
-
+            deps = list(Department.objects.all().filter(user=user_.id).values('id'))
+            employers = Employers.objects.filter(fired=0).filter(department_id__in=deps)
+            pag = 20
         else:
-            deps = Department.objects.all()
-            # Алгоритм поиска
-            pag = 1000
-            if (sq_emp):
-                employers = Employers.objects.all().filter(fullname__icontains=sq_emp).filter(fired=False) 
+            deps = Department.objects.filter(notused=0).filter(is_aup=0)
+            employers = Employers.objects.filter(fired=0)
+            pag = 20
+
+        if request.GET.get('search-sign', ''):
+
+            if not granted:
+                department_permission = list(Department.objects.all().filter(user=user_.id).values('id'))
             else:
-                if (sq_dep) and (sq_shift):
-                    if (sq_shift == 1):
-                        employers = Employers.objects.all().filter(department_id=sq_dep).filter(shift_personnel=True).filter(fired=False) 
-                    else:
+                department_permission = 'all'
 
-                        employers = Employers.objects.all().filter(department_id=sq_dep).filter(shift_personnel=False).filter(fired=False) 
-                else:
-                    if (sq_dep):
-                        employers = Employers.objects.all().filter(department_id=sq_dep).filter(fired=False) 
-                    else:
-                        if (sq_shift == '1'):
-                                employers = Employers.objects.all().filter(shift_personnel=True).filter(fired=False) 
-                        else:
-                            if (sq_shift == '2'):
-                                employers = Employers.objects.all().filter(shift_personnel=False).filter(fired=False) 
-                            else:
-                                if (sq_fired):
-                                  employers = Employers.objects.all().filter(shift_personnel=False).filter(fired=True)
-                                else:
-                                    pag = 50
-                                    employers = Employers.objects.all().filter(fired=False) 
 
+            search_query = {
+            'in_fired'              :request.GET.get('employers-search-fired', ''),
+            'name'                  :request.GET.get('emp',                    ''),
+            'department'            :request.GET.get('emp_dep',                ''),
+            'shift'                 :request.GET.get('emp_shift',              ''),
+            'department_permission' :department_permission
+            }   
+
+            employers = search_employers(search_query)
+            pag = 1000
+    
 
 
 
