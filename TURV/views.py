@@ -1278,8 +1278,8 @@ def employers_list(request):
         granted = access_check(request)
 
         if (granted == False):
-            deps = list(Department.objects.all().filter(user=user_.id).values('id'))
-            employers = Employers.objects.filter(fired=0).filter(department_id__in=deps)
+            deps = Department.objects.all().filter(user=user_.id)
+            employers = Employers.objects.filter(fired=0).filter(department_id__in=deps.values_list('id'))
             pag = 20
         else:
             deps = Department.objects.filter(notused=0).filter(is_aup=0)
@@ -1289,7 +1289,7 @@ def employers_list(request):
         if request.GET.get('search-sign', ''):
 
             if not granted:
-                department_permission = list(Department.objects.all().filter(user=user_.id).values('id'))
+                department_permission = list(Department.objects.all().filter(user=user_.id).values_list('id'))
             else:
                 department_permission = 'all'
 
