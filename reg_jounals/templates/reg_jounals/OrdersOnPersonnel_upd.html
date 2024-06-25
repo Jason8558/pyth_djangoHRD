@@ -198,7 +198,7 @@
     
     document.getElementById('id_op_type').parentNode.style.display = 'none'
 
-    // get_employers_from_department( '{{order.department}}','id_bound_order', 0)
+    
 
     setTimeout(function() {
       bound_employer_field = document.getElementById('order-of-personell-bound-employer-field')
@@ -219,6 +219,10 @@
         closeAllFields()
         all_on()
         inviteOnWork()
+
+        get_employers_from_department( '{{order.department_id}}','order-of-personell-bound-employer-field', 0)
+        document.getElementById('order-of-personell-bound-employer-field').disabled = false
+
         break;
 
       case '2':
