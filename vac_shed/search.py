@@ -82,6 +82,6 @@ def vacshed_global(request):
         vacation = VacShedItems.objects.filter(bound_shed__year=year).filter(emp_id__in=employers).order_by('bound_shed__dep__name', 'emp__fullname', 'dur_from')
 
 
-    vacation = list(vacation.values('id', 'emp__department__name' , 'emp__aup__name' ,'emp', 'emp__fullname', 'dur_from', 'dur_to', 'days_count', 'move_from', 'move_to', 'child_year', 'days_count_move', 'city', 'emp__position__name', 'comm'))
+    vacation = list(vacation.values('id', 'emp__department__name' , 'emp__aup__name' ,'emp', 'emp__fullname', 'dur_from', 'dur_to', 'days_count', 'move_from', 'move_to', 'child_year', 'days_count_move', 'city', 'emp__position__name', 'comm').order_by('emp__department__name', 'emp__aup__name', 'dur_from'))
     
     return JsonResponse(vacation, safe=False)
