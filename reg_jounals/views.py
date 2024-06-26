@@ -732,50 +732,50 @@ def upd_OrderOnPersonnel(request, id):
             updated_bound_employer  = request.POST.get('order-of-personell-bound-employer-field','')
             updated_department      = request.POST.get('dep_for_tabel', '')
 
-            if bound_form.is_valid():
-                user_ = request.user.first_name
-                new_obj = bound_form.save()
+            # if bound_form.is_valid():
+            #     user_ = request.user.first_name
+            #     new_obj = bound_form.save()
                 
-                if new_obj.bound_employer_id != updated_bound_employer:
-                    if updated_bound_employer:
-                        new_obj.bound_employer = TEmps.objects.get(id=updated_bound_employer)
-                    else:
-                        new_obj.bound_employer = None
-                    new_obj.save()
+            #     if new_obj.bound_employer_id != updated_bound_employer:
+            #         if updated_bound_employer:
+            #             new_obj.bound_employer = TEmps.objects.get(id=updated_bound_employer)
+            #         else:
+            #             new_obj.bound_employer = None
+            #         new_obj.save()
                
-                if new_obj.department_id != updated_department:
-                    if updated_department:
-                        new_obj.department_id = TDep.objects.get(id=updated_department)
-                    else:
-                        new_obj.department_id = None
-                    new_obj.save()
+            #     if new_obj.department_id != updated_department:
+            #         if updated_department:
+            #             new_obj.department_id = TDep.objects.get(id=updated_department)
+            #         else:
+            #             new_obj.department_id = None
+            #         new_obj.save()
                 
 
 
-                if order.bound_employer and order.op_type == 1:
-                    # Обновить информацию о работнике в приказе
-                    emp_info = {
-                    'fullname':         request.POST.get('short_fio',''),
-                    'position':         request.POST.get('tab_pos',''),
-                    'department':       request.POST.get('dep_for_tabel',''),
-                    'sub_department':   request.POST.get('subdep_for_tabel',''),
-                    'level':            request.POST.get('tab_level',''),
-                    'payment_level':    request.POST.get('tab_payment',''),
-                    'shift':            request.POST.get('tab_work', ''),
-                    'sex':              request.POST.get('tab_sex','')  
+            if (order.bound_employer) and (order.op_type_id == 1):
+                # Обновить информацию о работнике в приказе
+                emp_info = {
+                'fullname':         request.POST.get('short_fio',''),
+                'position':         request.POST.get('tab_pos',''),
+                'department':       request.POST.get('dep_for_tabel',''),
+                'sub_department':   request.POST.get('subdep_for_tabel',''),
+                'level':            request.POST.get('tab_level',''),
+                'payment_level':    request.POST.get('tab_payment',''),
+                'shift':            request.POST.get('tab_work', ''),
+                'sex':              request.POST.get('tab_sex','')  
 
-                    }
+                }
 
-                    if emp_info['fullname'] and emp_info['position'] and emp_info['department'] and emp_info['level'] and emp_info['payment_level'] and emp_info['shift']:
-                        create_or_update_employer(order.bound_employer_id,emp_info)
+                if emp_info['fullname'] and emp_info['position'] and emp_info['department'] and emp_info['level'] and emp_info['payment_level'] and emp_info['shift']:
+                    create_or_update_employer(order.bound_employer_id,emp_info)
                 
                 return redirect('/orders_on_personnel')
-            else:
-                ers = bound_form.errors.as_data()
+            # else:
+            #     ers = bound_form.errors.as_data()
 
-                for e in ers.keys():
-                    print(str(e) + ' ' + str(ers.get(e)))
-                return render(request, 'reg_jounals/OrdersOnPersonnel_upd.html', context={'form':bound_form, 'order':order})
+            #     for e in ers.keys():
+            #         print(str(e) + ' ' + str(ers.get(e)))
+            #     return render(request, 'reg_jounals/OrdersOnPersonnel_upd.html', context={'form':bound_form, 'order':order})
 
 
 
