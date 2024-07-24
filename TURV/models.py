@@ -4,6 +4,8 @@ import datetime
 
 class Employers(models.Model):
     sex_choices = [('М','М'),('Ж','Ж')]
+    level_choices = [('1','1'),('2','2'),('3','3'),('4','4'),('5','5'),('6','6'),('7','7'),('8', 'спец.'),('9','рук.')]
+    
     fullname = models.CharField(verbose_name = 'ФИО сотрудника', db_index=True, max_length=256)
     sex = models.CharField(verbose_name = 'Пол', choices=sex_choices, db_index=True, max_length=1, default="М")
     position = models.ForeignKey('Position', verbose_name='Должность', db_index=True, on_delete=models.CASCADE)
@@ -11,7 +13,7 @@ class Employers(models.Model):
     fired = models.BooleanField(verbose_name='Сотрудник уволен', default=False)
     stand_worktime = models.FloatField(verbose_name='Норма часов', default=0, null=True, blank=True)
     department = models.ForeignKey('Department', verbose_name='Подразделение', on_delete=models.CASCADE)
-    level = models.CharField(verbose_name='Разряд/категория', max_length=256)
+    level = models.CharField(verbose_name='Разряд/категория', choices=level_choices, max_length=256)
     positionOfPayment = models.CharField(verbose_name='Ступень оплаты', max_length=3)
     mainworkplace = models.BooleanField(verbose_name='Основная специальность', default=True, blank=True)
     aup = models.ForeignKey('Department', verbose_name='Подчиненное подразделение', related_name="dep_aup", blank=True, null=True, default="", on_delete=models.CASCADE)
