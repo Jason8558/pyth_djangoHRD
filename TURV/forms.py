@@ -372,47 +372,32 @@ class Employer_form(forms.ModelForm):
 
     def saveFirst(self):
 
-        # #  Приводим ФИО сотрудника в надлежащий вид
-        # fullname = self.cleaned_data['fullname'].split(' ')
-        #
-        # for l in fullname:
-        #     if ' ' in fullname:
-        #         fullname.remove(' ')
-        #
-        # lastname = fullname[0]
-        #
-        # for l in fullname:
-        #     if lastname in fullname:
-        #         fullname.remove(lastname)
-        #
-        # for l in fullname:
-        #     if '.' in fullname:
-        #         fullname.remove('.')
-        #
-        # for l in fullname:
-        #     if l != '':
-        #         secondname = l.split('.')
-        #         if len(secondname) > 0:
-        #             firstname = secondname[0]
-        #             middlename = secondname[1]
-        #
-        # fullname = str(lastname.capitalize() + ' ' + firstname[0].upper() + '.' + secondname[1].upper() + '.')
-        #  =====================================================
+        # Установка нормы времени на основании введеной в программу, если сменщик
+        
+        if self.cleaned_data['shift_personnel']:
 
+            now_year = str(DT.datetime.today().year) + '-01-01'
 
+            stand_worktime = Overtime.objects.filter(year=now_year)[0]
+
+            if self.cleaned_data['sex'] == 'М':
+                stand_worktime = stand_worktime.value_m
+            else:
+                stand_worktime = stand_worktime.value_w
+        # -----------------------------------------------------------
 
         new_employer = Employers.objects.create(
-            fullname  = self.cleaned_data['fullname'],
-            sex = self.cleaned_data['sex'],
-            position = self.cleaned_data['position'],
-            shift_personnel = self.cleaned_data['shift_personnel'],
-            fired = self.cleaned_data['fired'],
-            stand_worktime = self.cleaned_data['stand_worktime'],
-            department = self.cleaned_data['department'],
-            level = self.cleaned_data['level'],
-            positionOfPayment = self.cleaned_data['positionOfPayment'],
-            mainworkplace = self.cleaned_data['mainworkplace'],
-            aup = self.cleaned_data['aup']
+            fullname            = self.cleaned_data['fullname'],
+            sex                 = self.cleaned_data['sex'],
+            position            = self.cleaned_data['position'],
+            shift_personnel     = self.cleaned_data['shift_personnel'],
+            fired               = self.cleaned_data['fired'],
+            stand_worktime      = stand_worktime,
+            department          = self.cleaned_data['department'],
+            level               = self.cleaned_data['level'],
+            positionOfPayment   = self.cleaned_data['positionOfPayment'],
+            mainworkplace       = self.cleaned_data['mainworkplace'],
+            aup                 = self.cleaned_data['aup']
 
     )
         return new_employer

@@ -9,7 +9,7 @@ class Employers(models.Model):
     position = models.ForeignKey('Position', verbose_name='Должность', db_index=True, on_delete=models.CASCADE)
     shift_personnel = models.BooleanField(verbose_name='Сменный персонал', default=False)
     fired = models.BooleanField(verbose_name='Сотрудник уволен', default=False)
-    stand_worktime = models.FloatField(verbose_name='Норма часов', default=0)
+    stand_worktime = models.FloatField(verbose_name='Норма часов', default=0, null=True, blank=True)
     department = models.ForeignKey('Department', verbose_name='Подразделение', on_delete=models.CASCADE)
     level = models.CharField(verbose_name='Разряд/категория', max_length=256)
     positionOfPayment = models.CharField(verbose_name='Ступень оплаты', max_length=3)

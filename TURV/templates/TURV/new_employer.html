@@ -1,10 +1,25 @@
-{% extends 'TURV/index.html'%}
+{% extends 'TURV/tabels.html'%}
 {%load static%}
 {%block title%}Новый работник{% endblock %}
 
 {%block scripts%}<script src="{% static 'TURV\js\EmployerAdd.js' %}" charset="utf-8"></script>{%endblock%}
 
-{%block header%}Добавить нового работника{%endblock%}
+{%block header%}<div class="header-back-button-container">
+ 
+  
+
+{% block logo%}{{block.super}}{% endblock %}
+</div>
+
+<div class="header-main-text">
+  <h3>Новый работник</h3>
+</div>
+
+
+{% block username %}
+  {{block.super}}
+{% endblock%}
+{%endblock%}
 
 {% block body %}
 
@@ -38,7 +53,7 @@
 
 <p class="workplace">{{emp.mainworkplace.label}}: {{emp.mainworkplace}}</p>
 <p>{{emp.shift_personnel.label}}: {{emp.shift_personnel}}</p>
-<p> {{emp.stand_worktime.label}}: {{emp.stand_worktime}}</p>
+<!-- <p> {{emp.stand_worktime.label}}: {{emp.stand_worktime}}</p> -->
 
 
 
