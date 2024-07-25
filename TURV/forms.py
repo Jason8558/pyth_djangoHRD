@@ -372,6 +372,8 @@ class Employer_form(forms.ModelForm):
 
     def saveFirst(self):
 
+        stand_worktime = 0
+
         # Установка нормы времени на основании введеной в программу, если сменщик
         
         if self.cleaned_data['shift_personnel']:
