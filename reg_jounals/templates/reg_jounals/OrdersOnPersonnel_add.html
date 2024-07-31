@@ -272,6 +272,12 @@
         break;
 
       case '3':
+
+        level = ""
+        if (/[0-9]+/.test(document.getElementById('tab_level').options[document.getElementById('tab_level').selectedIndex].innerText)) {
+          level = ' ' + document.getElementById('tab_level').value + ' разряда'
+        }
+
         date_from = $('#id_op_moveFrom').val().split('-')
         date_from = date_from[2] + '.' + date_from[1] + '.' + date_from[0]
 
