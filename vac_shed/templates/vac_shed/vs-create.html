@@ -60,13 +60,15 @@
   {%else%}
   {%endif%}
 
+  <span onclick = "exportTableToExcel('vs-table-create')" class = "button no-print">Выгрузить в EXCEL </span>
+
 </div>
   
   
   
   
 
-<table class="vs-table-create">
+<table id="vs-table-create" class="vs-table-create">
   <thead>
     <th>ФИО|Долж.</th>
     <th>Дата</th>

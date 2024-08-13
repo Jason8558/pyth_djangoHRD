@@ -886,5 +886,15 @@ function set_table_head(original, copy) {
 }
 
 
+function exportTableToExcel(tableId, filename = 'график отпусков.xls') {
+  let dataType = 'application/vnd.ms-excel';
+  let tableSelect = document.getElementById(tableId);
+  let tableHTML = encodeURIComponent(tableSelect.outerHTML.replace(/ or .*?>/g, '>'));
+  let link = document.createElement("a");
+  link.href = `data:${dataType}, ${tableHTML}`;
+  link.download = filename;
+  link.click();
+}
+
 
 
