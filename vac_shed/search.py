@@ -74,7 +74,8 @@ def vacshed_global(request):
 
     if int(search_query['from']) != 0:
        period = search_query['from']
-       vacation = vacation.filter(dur_from__month=period) | vacation.filter(move_from__month=period)
+       vacation = vacation.filter(dur_from__month=period).filter(move_from=None) | vacation.filter(move_from__month=period)
+    #    vacation = vacation.filter(dur_from__month=period) | vacation.filter(move_from__month=period)
 
     if search_query['employers']:
         employers = str(search_query['employers']).split(',')
