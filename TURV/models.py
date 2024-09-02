@@ -4,7 +4,7 @@ import datetime
 
 class Employers(models.Model):
     sex_choices = [('М','М'),('Ж','Ж')]
-    level_choices = [('1','1'),('2','2'),('3','3'),('4','4'),('5','5'),('6','6'),('7','7'),('спец.', 'спец.'),('рук.','рук.')]
+    level_choices = [('1','1'),('2','2'),('3','3'),('4','4'),('5','5'),('6','6'),('7','7'),('8','8'),('спец.', 'спец.'),('рук.','рук.')]
     
     fullname = models.CharField(verbose_name = 'ФИО сотрудника', db_index=True, max_length=256)
     sex = models.CharField(verbose_name = 'Пол', choices=sex_choices, db_index=True, max_length=1, default="М")
