@@ -250,6 +250,7 @@
   {%else%}
   <div class="create-tabel-add-buttons-container">
   <a class="btn btn-success btn-add not-print" href="{% url 'tabel_addItem_url' id=b_tabel.id%}">НАЧАТЬ ЗАПОЛНЕНИЕ</a>
+  <a class="btn btn-add not-print" href="{% url 'tabel_autofill_url' id=b_tabel.id %}">АВТОЗАПОЛНЕНИЕ</a>
   <!-- <input class="btn-add not-print" type="button" value="АВТОЗАПОЛНЕНИЕ"> -->
 </div>
   {% endif %}

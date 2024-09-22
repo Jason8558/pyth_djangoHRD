@@ -1,5 +1,5 @@
 from django.urls import path
-from . import views
+from . import views, additionals
 
 urlpatterns = [
     path('', views.tabels, name='tabels_url'),
@@ -11,6 +11,7 @@ urlpatterns = [
     path('delcheck/<int:id>', views.tabel_delcheck, name='delcheck_url'),
     path('delete_checked/', views.del_tabel, name='del_tabel_url'),
     path('create/<int:id>', views.tabel_create, name='tabel_create_url'),
+    path('create/<int:id>/autofill', additionals.tabel_auto_fill, name='tabel_autofill_url'),
     path('additem/<int:id>', views.tabel_additem, name='tabel_addItem_url'),
     path('upditem/<int:id>', views.tabel_upditem, name='tabel_updItem_url'),
     path('delitem/<int:id>', views.tabel_delitem, name='tabel_delItem_url'),
@@ -47,6 +48,7 @@ urlpatterns = [
     path('gettabels/search/', views.tabels_json_search, name='gettabels_search'),
     path('gettabels/<int:type>/<int:month>/<int:year>/<str:dep>/<int:half_month>', views.tabels_json_multi, name='gettabels_multi'),
     path('getdeps/<int:type>/', views.deps_json, name='getdeps')
+
 
 
      ]
