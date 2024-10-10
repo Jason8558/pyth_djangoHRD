@@ -4,7 +4,8 @@ from work_cal.models import WorkCalendarRecord
 import calendar
 
 
-def vacshed_get_vacantions(emp, month, year):
+
+def vacshed_get_vacantions(request, emp, month, year):
     v_items = VacantionSheduleItem.objects.filter(emp_id=emp).filter(bound_shed__year=year)
  
     emp_ = Employers.objects.get(id=emp)

@@ -1,8 +1,9 @@
 from .models import TabelItem, Position, Employers, Tabel as TabelModel
 from work_cal.models import WorkCalendarRecord
 import calendar
-from vac_shed.additionals import *
+from vac_shed.views import *
 from django.shortcuts import redirect
+import json
 
 def search_tabel_item(search_query: dict):
     items = TabelItem.objects.filter(bound_tabel_id=search_query['tabel_id']).filter(
@@ -179,8 +180,9 @@ def tabel_auto_fill(request, id):
 
         if TabelItems.count() == 0:
         
-            vacation = vacshed_get_vacantions(e.id, tabel_month, tabel.year)
-            vacation = vacation[0]['days']
+            vacation = vacshed_get_vacantions(request, e.id, tabel_month, tabel.year)
+            js_vacation = json.loads(vacation.content)
+            vacation = js_vacation[0]['days']
         
 
             data = {
@@ -220,18 +222,11 @@ def tabel_auto_fill(request, id):
 
                 for v in vacation:
                     tt = 'type_time' + str(v)
-                    if tt in data:
-                        if data[tt] == 'Я' :
-                            data[tt] = 'ОТ' 
-                            h = 'hours' + str(v)
-                            data[h] = '8'
-                            # vacation_days   = vacation_days     + 1
-                            # vacation_hours  = vacation_hours    + 8
-                            # work_days = work_days - 1
-                            # if v in pre_celebs:
-                            #     work_hours = work_hours - 7
-                            # else:
-                            #     work_hours = work_hours - 8
+                    data[tt] = 'ОТ' 
+                    h = 'hours' + str(v)
+                    data[h] = '8'
+
+   
                             
             totals = TimeSummary(data=data)
 

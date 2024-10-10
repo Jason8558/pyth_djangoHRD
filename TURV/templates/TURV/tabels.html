@@ -169,11 +169,9 @@ function Supchecked() {
     <ul class="service">
   
       <li><a href="{% url 'forload_url'%}">Показать готовые для выгрузки</a></li>
-  
-      {%if request.user.is_superuser %}
       <li><a href="{% url 'del_tabel_url'%}">Удалить помеченные на удаление</a></li>
       <li><a href="{% url 'overtime_url'%}">Обновить годовую норму времени сотрудников</a></li>
-      {%endif%}
+     
   
   
   

@@ -365,30 +365,46 @@ def vacshed_check(request,id):
 @login_required   
 def vacshed_get_vacantions(request,emp, month, year):
     v_items = VacantionSheduleItem.objects.filter(emp_id=emp).filter(bound_shed__year=year)
-    print(v_items)
+ 
     emp_ = Employers.objects.get(id=emp)
     if emp_.sex == 'М':
         norm = Overtime.objects.get(year__year=year).value_m
     else:
         norm = Overtime.objects.get(year__year=year).value_w 
 
-    print(norm)
+
 
     days = list()
     vac_info = list()
     for item in v_items:
-        m_from      = int(str(item.dur_from).split('-')[1])
-        m_to        = int(str(item.dur_to).split('-')[1])
-        y_from      = int(str(item.dur_from).split('-')[0])
-        y_to        = int(str(item.dur_to).split('-')[0])
-        d_from      = int(str(item.dur_from).split('-')[2])
-        d_to        = int(str(item.dur_to).split('-')[2])
+        if item.move_from:
+            m_from      = int(str(item.move_from).split('-')[1])
+            y_from      = int(str(item.move_from).split('-')[0])
+            d_from      = int(str(item.move_from).split('-')[2])
+        else:
+            m_from      = int(str(item.dur_from).split('-')[1])
+            y_from      = int(str(item.dur_from).split('-')[0])
+            d_from      = int(str(item.dur_from).split('-')[2])
+        
+        if item.move_to:
+            m_to        = int(str(item.move_to).split('-')[1])
+            y_to        = int(str(item.move_to).split('-')[0]) 
+            d_to        = int(str(item.move_to).split('-')[2])
+        else:
+            m_to        = int(str(item.dur_to).split('-')[1])
+            y_to        = int(str(item.dur_to).split('-')[0]) 
+            d_to        = int(str(item.dur_to).split('-')[2])
+
+        
+        
+        
+        
         if y_from == y_to: #если не переходит на след. год
-            if int(str(item.dur_to).split('-')[1]) == int(str(item.dur_from).split('-')[1]):
+            if m_to == m_from:
                 if m_from == month:
                 
-                    for i in range(int(str(item.dur_from).split('-')[2]), int(str(item.dur_to).split('-')[2])+1):
-                        print(i)
+                    for i in range(d_from, d_to+1):
+                    
                         days.append(i)
             else:
                 duration = m_to - m_from
@@ -400,15 +416,15 @@ def vacshed_get_vacantions(request,emp, month, year):
                         for i in range (1, calendar.monthrange(int(year), int(month))[1]+1):
                             days.append(i)
             
-                    if int(str(item.dur_from).split('-')[1]) == int(month):
+                    if m_from == int(month):
                 
                         m_end = calendar.monthrange(int(year), int(month))
-                        for i in range (int(str(item.dur_from).split('-')[2]), m_end[1]+1):
+                        for i in range (d_from, m_end[1]+1):
                             days.append(i)
                     
-                    if int(str(item.dur_to).split('-')[1]) == int(month):
+                    if m_to == int(month):
                 
-                        for i in range (1, int(str(item.dur_to).split('-')[2])+1):
+                        for i in range (1, d_to+1):
                             days.append(i)
         else:
             
@@ -422,6 +438,8 @@ def vacshed_get_vacantions(request,emp, month, year):
                 #     for day in range(1, calendar.monthrange(y_from, i)[1]+1):
                 #         days.append(day)
 
+
+   
 
    
 
