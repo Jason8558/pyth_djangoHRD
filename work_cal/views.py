@@ -23,6 +23,7 @@ def get_month(request, year, month):
 
 @login_required
 def new_record(request):
+    pass
     if request.method == 'GET':
         form = work_cal_form(request.GET)
         return render(request, 'work_cal/record.html', context={'form':form})
@@ -30,7 +31,7 @@ def new_record(request):
         form = work_cal_form(request.POST)
         if form.is_valid():
             form.save()
-            return redirect('/turv')
+            return redirect('/work_cal')
 
 @login_required
 def upd_record(request, year):
