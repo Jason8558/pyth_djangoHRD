@@ -158,7 +158,7 @@ def tabel_auto_fill(request, id):
 
 
     for x in range(1, monthrange+1):
-        day = calendar.weekday(2024,5,x)
+        day = calendar.weekday(int(tabel.year),tabel_month,x)
         if day in [5,6]:
             weekends.append(x)
         if celebs:
