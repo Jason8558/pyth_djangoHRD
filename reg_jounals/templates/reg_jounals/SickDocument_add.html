@@ -16,11 +16,7 @@
 
 </div>
 {%endif%}
-<script type="text/javascript">
-  $(document).ready(function() {
-    $('header').css('display','none')
-    $('body').css('background', 'white !important') })
-</script>
+
 <form class="add_form sick_list" action="" method="post">
   {% csrf_token %}
 
@@ -38,11 +34,11 @@
 
 
 
-<!-- <input class="btn btn-success" onclick="ClearEnter()" type="submit" value="Добавить больничный лист в реестр" />
+<input class="btn btn-success" onclick="ClearEnter()" type="submit" value="Добавить больничный лист в реестр" />
 
 
 
-  <a class="btn btn-outline-danger" href="/sick_regs">Отмена</a> -->
+  <a class="btn btn-outline-danger" href="/sick_regs">Отмена</a>
 </form>
 
 {%endblock%}

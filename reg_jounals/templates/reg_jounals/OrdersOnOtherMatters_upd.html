@@ -1,34 +1,48 @@
 {% extends "reg_jounals/index.html" %}
 
-{%block title%}Добавить запись{% endblock %}
-{%block header%}Изменить запись - Приказ {{order.oom_number}} от {{order.oom_date}}{% endblock %}
+{%block title%}{{order.oom_number}} от {{order.oom_date}}{% endblock %}
+{%block header%}{%block logo%}{{block.super}}{%endblock%}Изменить запись - Приказ {{order.oom_number}} от {{order.oom_date}}{% endblock %}
 
 {%block content%}
-<script type="text/javascript">
-  $(document).ready(function() {
-    $('header').css('display','none')
-    $('body').css('background', 'white !important') })
-</script>
+
 {% if form.errors%}
 
 <div class="alert alert-danger mt-5" role="alert">
 {{form.errors}}
 </div>
 {%endif%}
-<form class="add_form op" action="" method="post">
+
+<form class="standart-form standart-panel search" action="" method="post">
   {% csrf_token %}
   {% for field in form %}
-  <p>{{field.label}}{{ field }}</p>
+ 
+  <div class="standart-form-input-group">
+    <p><span>{{field.label}}:</span>{{ field }}</p>
+  </div>
+ 
   {% endfor%}
 
-  <!-- <input class="btn btn-success" type="submit" value="Сохранить" />
-  <a class="btn btn-outline-danger btn-upd" id="sure_btn" onclick="OpenSureDialog()">Удалить запись</a>
-  <div id="sure" style="display: none;" class="yousure">
-    <p>Вы уверены? <span style="color: red;"><b>ЭТО ДЕЙСТВИЕ НЕОБРАТИМО</b></span></p>
-    <a class="btn btn-outline-danger" href="{% url 'orders_on_others_del_url' id=order.id%}">Да</a>
 
+  <div class="standart-form-input-group inline">
+    <input class="button add" type="submit" value="Сохранить" />
+    <a class="button cancel" href="..">Отмена</a>
+    {% if editing or request.user.is_superuser %}
+      <a class="button cancel" onclick="open_additional_menu(this, 'delete-document-popup')" href="#">Удалить</a>
+    {% endif %}
   </div>
-  <a class="btn btn-outline-info btn-upd" href="..">Отмена</a> -->
+
 </form>
+
+<div id="delete-document-popup" style="display: none;" class="standart-panel standart-form popup"> 
+  <div class="standart-form-header">
+    <h4>Вы уверены?</h4>
+  </div>
+
+  <div class="standart-form-input-group inline">
+    <a class="button add" href="{% url 'document_delete' type=5 id=order.id %}">Да</a>
+    <a class="button cancel" onclick="this.parentNode.parentNode.style.display = 'none' ">Нет</a>
+  </div>
+
+</div> 
 
 {%endblock%}

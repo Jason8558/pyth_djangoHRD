@@ -1,13 +1,49 @@
-{% extends 'TURV/index.html'%}
-
+{% extends 'TURV/tabels.html'%}
+{% load static%}
 {%block title%}Должности{% endblock %}
 
-{%block header%}  <a class="btn btn-dark" href=".."> < Назад </a> | Должности.{%endblock%}
+{% block header %}
+<div class="header-back-button-container">
+ 
+  <a href="\" class="button back">Назад</a>
+
+{% block logo%}{{block.super}}{% endblock %}
+</div>
+
+<div class="header-main-text">
+  <h3>Должности</h3>
+</div>
+
+
+{% block username %}
+  {{block.super}}
+{% endblock%}
+
+{%endblock%}
 
 {% block body %}
 
 <div class="container positions">
-  <a class="btn btn-success btn-add"  href="{% url 'pos_new'%}"  >+ Новая должность</a>
+  <div class="standart-menu ">
+    <a class="button add"  href="{% url 'pos_new'%}"  >Новая должность</a>
+    <div class="standart-menu-submenu-container">
+      <img src="{% static '/img/search.png' %}" onclick="open_additional_menu(this, 'positions-search-panel')" alt="">
+    </div>
+  </div>
+
+  <form id="positions-search-panel" style="display: none;" class="standart-form standart-panel search panel" action="#" method="get">
+    <input type="hidden" id="search-sign" name="search-sign" value="1">
+
+    <div class="standart-form-input-group inline">
+      <p><span>Название:</span><input type="text" name="positions-search-name" id="positions-search-name"></p>
+ 
+    </div>
+    <div class="standart-form-input-group inline">
+      <input type="submit" class="button add" value="Найти">
+      <a href="../positions" class="button cancel">Сбросить</a>
+    </div>
+  </form>
+  
 
 
 {%if positions%}
@@ -39,6 +75,33 @@
   </tr>
   {%endfor%}
 </table>
+<nav  class="paginator" aria-label="Page navigation example">
+  <ul class="pagination">
+    {%if positions.has_previous%}
+        <li class="page-item">
+          <a class="page-link" aria-label="previous" href="?page=1">
+              <span aria-hidden="true">Первая</span></a>
+        </li>
+        <li class="page-item">
+          <a class="page-link" href='?page={{positions.previous_page_number}}' aria-label="previous">
+    <span aria-hidden="true">{{positions.previous_page_number}}</span>
+          </a>
+        </li>
+  {%endif%}
+
+   <li class="page-item active"><a class="page-link" href="">{{ positions.number }}</a></li>
+
+{%if positions.has_next%}
+    <li class="page-item">
+      <a class="page-link" href='?page={{positions.next_page_number}}' aria-label="Next">{{positions.next_page_number}}</a>
+      </li>
+  {%endif%}
+
+  <li class="page-item">
+  <a class="page-link" href="?page={{ positions.paginator.num_pages }}">Последняя</a>
+  </li>
+</ul>
+</nav>
 {%else%}
 <h2>Должности не найдены</h2>
 {%endif%}

@@ -1,0 +1,159 @@
+{% extends 'shift_shed/index.html'%}
+{%load static%}
+{%block title%}{{shed_info.dep}} - {{shed_info.year}} г.{%endblock%}
+{%block button%}<a class="close" href="" onclick="window.close()">Закрыть</a>{%endblock%} 
+{%block header%} График № {{id}} - {{shed_info.dep}} - {{shed_info.year}} г. {%endblock%}
+{%block scripts%}
+
+<script src="{% static '/shift_shed/js/items.js' %}" charset="utf-8"></script>
+
+{%endblock%}
+{%block body%}
+<div class="container">
+<div class="hidden">
+  <span id="year">{{shed_info.year}}</span>
+</div>
+<div class="cover print">
+  <div id="res_head">
+    <h2>Согласовано</h2>
+    <p>___________________________________________________________________</p>
+    <p>"_____" _________________  20__г.</p>
+  </div>
+  <div id="director">
+    <h2>Утверждаю</h2>
+    <p style="font-weight: bold;">Директор КГУП "Камчатский водоканал"</p>
+    <p>_____________________________  А.С. Супрун</p>
+    <p>"_____" _________________  20__г.</p>
+    
+  </div>
+</div>
+<h1 class="shedule-head print"> График сменности работников {{shed_info.dep}} ({{shed_info.comment}}) за {{shed_info.year}} г.</h1>
+<div class="button-bar noprint">
+  <form action="{% url 'ss-changecomm' id=shed_info.id %}" class="ss-form-in-bar">
+    <input type="text" name="shedule-comment" id="shedule-comment" placeholder="введите комментарий" value="{{shed_info.comment}}">
+    <button class="button secondary" type="submit">Изменить комментарий</button>
+  </form>
+  {% if granted %}
+  <a class="button btn-add" href="{% url 'ss-setcheck' id=shed_info.id %}">Утвердить</a>
+  {% else %}
+  {%endif%}
+  <a class="button secondary" onclick="window.print()" href="#">Печать</a>
+</div>
+<div class="shed-month-container">
+  {% for key, value in months.items %}
+  <div class="shed-month">
+  <a href="{% url 'ss-edit' year=shed_info.year month=key shed=id %}">{{value}}</a>
+    <table id="table{{key}}" class="shift-table">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Сотр.|Должн.</th>
+          <th scope="col">1</th>
+          <th>2</th>
+          <th>3</th>
+          <th>4</th>
+          <th>5</th>
+          <th>6</th>
+          <th>7</th>
+          <th>8</th>
+          <th>9</th>
+          <th>10</th>
+          <th>11</th>
+          <th>12</th>
+          <th>13</th>
+          <th>14</th>
+          <th>15</th>
+          <th>16</th>
+          <th>17</th>
+          <th>18</th>
+          <th>19</th>
+          <th>20</th>
+          <th>21</th>
+          <th>22</th>
+          <th>23</th>
+          <th>24</th>
+          <th>25</th>
+          <th>26</th>
+          <th>27</th>
+          <th>28</th>
+          <th>29</th>
+          <th>30</th>
+          <th>31</th>
+          <th>Факт</th>
+          <th>Норма</th>
+          <th>Празд.</th>
+          <th>Откл.(+,-)</th>
+        </tr>
+      </thead>
+      <tbody>
+
+        {% for s in shedule %}
+
+
+        {% if s.month == key%}
+        <tr onclick='return document.location.href = "/shift_shed/shedule/upditem/{{s.id}}"' id="{{s.month_s.emp.id}}">
+          <td class="number"></td>
+          <td>{{s.employer.fullname}}|{{s.employer.position.name|truncatechars:15}}</td>
+
+          {% for day in s.days %}
+            {% for k,v in day.items%}
+              {%if v != None%}
+                <td id=day{{forloop.counter}}>{{v}}</td>
+              {%else%}
+                <td id=day>X</td>
+              {%endif%}
+
+
+            {%endfor%}
+
+
+          {%endfor%}
+          <td class="table-itogs">{{s.fact|floatformat:-2}}</td>
+          <td class="table-itogs">{{s.norma|floatformat:-2}}</td>
+          <td class="table-itogs">{{s.celeb|floatformat:-2}}</td>
+          <td class="table-itogs">{{s.deviation|floatformat:-2}}</td>
+
+        </tr>
+        {%endif%}
+        {%endfor%}
+      </tbody>
+    </table>
+  </div>
+
+    {%endfor%}
+    <div class="shed-month-single">
+      <h3>Итоги</h3>
+      <table class="total">
+        <thead>
+          <tr>
+            <th>Сотрудник</th>
+            <th>Факт ч.</th>
+            <th>Норма ч.</th>
+            <th>Праздн. ч.</th>
+            <th>Откл.</th>
+            <th>Ознакомлен</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for item in total %}
+            <tr style="background: {{item.color}};">
+              <td>{{item.emp.fullname}}|{{item.emp.position.name|truncatechars:15}}</td>
+              <td>{{item.s_fact|floatformat:-2}}</td>
+              <td>{{item.s_norma|floatformat:-2}}</td>
+              <td>{{item.s_celeb|floatformat:-2}}</td>
+              <td>{{item.s_dev|floatformat:-2}}</td>
+              <td></td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+</div>
+  <div class="sings print">
+    <p>Руководитель подразделения ______________________________________ ___________________ </p>
+    <p><h4>Согласовано: </h4></p>
+    <p>Руководитель СУП _____________________________________ Е.В. Бондарчук</p>
+    <p>Председатель профкома __________________________________________ Т.А. Пустовит</p>
+  </div>
+  </div>
+{%endblock%}

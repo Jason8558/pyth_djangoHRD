@@ -1,34 +1,80 @@
 {% extends "reg_jounals/index.html" %}
 
-{%block title%}Добавить запись{% endblock %}
-{%block header%}Изменить запись - Заявление на увольнение № {{letter.id}} от {{letter.lor_date}}{% endblock %}
+{%block title%}Изменить запись{% endblock %}
+{%block header%}{%block logo%}{{block.super}}{%endblock%}Изменить запись - Заявление на увольнение{% endblock %}
 
 {%block content%}
-<script type="text/javascript">
-  $(document).ready(function() {
-    $('header').css('display','none')
-    $('body').css('background', 'white !important') })
-</script>
+
 {% if form.errors%}
 
 <div class="alert alert-danger mt-5" role="alert">
 {{form.errors}}
 </div>
 {%endif%}
-<form class="add_form" action="" method="post">
+<form class="standart-form standart-panel" action="" method="post">
   {% csrf_token %}
-  {% for field in form %}
-  <p>{{field.label}}{{ field }}</p>
-  {% endfor%}
+  <div class="standart-form-header">
+    <h4>Номер заявления: <span id="next_num">{{letter.lor_number}}</span></h4>
+  </div>
+  
+  <div class="standart-form-input-group inline">
+    <p><span>Работник: </span><select name="resignation-employer-field" id="resignation-employer-field">
+  
+      </select></p>
 
-  <!-- <input class="btn btn-success" type="submit" value="Сохранить" />
-  <a class="btn btn-outline-danger" id="sure_btn" onclick="OpenSureDialog()">Удалить запись</a>
-  <div id="sure" style="display: none;" class="yousure">
-    <p>Вы уверены? <span style="color: red;"><b>ЭТО ДЕЙСТВИЕ НЕОБРАТИМО</b></span></p>
-    <a class="btn btn-outline-danger" href="{% url 'letter_resignation_del_url' id=letter.id%}">Да</a>
+    <p><span>Подразделение: </span><select name="resignation-department-field" id="resignation-department-field" onchange="get_employers_from_department(this.value, 'resignation-employer-field')">
+      {% for dep in deps%}
+        <option value="{{dep.id}}">{{dep.name}}</option>
+      {%endfor%}
+    </select></p>
+
+
 
   </div>
-  <a class="btn btn-outline-info" href="..">Отмена</a> -->
+  
+  <div class="standart-form-input-group inline">
+    <p><span>Дата заявления: </span>{{form.lor_date}}
+    <p><span>{{form.lor_dateOfRes.label}}: </span>{{form.lor_dateOfRes}}</p>
+  </div>
+
+
+<div class="standart-form-input-group">
+  <p><span>Основание: </span>{{form.lor_itemOfRes}}</p>
+</div>
+
+<div class="standart-form-input-group">
+  <p><span>{{form.lor_additionalData.label}}: </span>{{form.lor_additionalData}}</p>
+</div>
+
+<div class="standart-form-input-group inline">
+  <input class="button add" type="submit" value="Добавить" />
+  <a class="button cancel" href=".">Отмена</a>
+  {% if editing or request.user.is_superuser %}
+  <a class="button cancel" onclick="open_additional_menu(this, 'delete-document-popup')" href="#">Удалить</a>
+  {% endif %}
+</div>
 </form>
+
+
+<div id="delete-document-popup" style="display: none;" class="standart-panel standart-form popup"> 
+  <div class="standart-form-header">
+    <h4>Вы уверены?</h4>
+  </div>
+
+  <div class="standart-form-input-group inline">
+    <a class="button add" href="{% url 'document_delete' type=9 id=letter.id %}">Да</a>
+    <a class="button cancel" onclick="this.parentNode.parentNode.style.display = 'none' ">Нет</a>
+  </div>
+
+</div> 
+
+
+<script type="text/javascript">
+  (function (){
+    document.getElementById('resignation-department-field').value = '{{letter.department_id}}'
+    get_employers_from_department('{{letter.department_id}}', 'resignation-employer-field')
+    setTimeout(function() {document.getElementById('resignation-employer-field').value = '{{letter.bound_employer_id}}'}, 500)
+  })()
+</script>
 
 {%endblock%}

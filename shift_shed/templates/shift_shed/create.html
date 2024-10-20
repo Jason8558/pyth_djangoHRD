@@ -1,0 +1,48 @@
+{% extends 'shift_shed/index.html'%}
+{%load static%}
+{%block title%}Создание графика{%endblock%}
+{%block scripts%}<script src="{% static 'shift_shed\js\create.js'%}" charset="utf-8"></script>{%endblock%}
+{%block header%}Создать график{%endblock%}
+{%block body%}
+<div class="container">
+ 
+  <form id="ss-create-form" action="{% url 'ss-create'%}" method="post">
+{%csrf_token%}
+
+<section class="main">
+  <h2>Укажите год и подразделение</h2>
+  <div>
+    <p>{{form.dep.label}}{{form.dep}}</p>
+    <p>{{form.year.label}}{{form.year}}</p>
+  </div>
+    <input type="button" onclick="form_submit()" class='button btn-add' name="" value="СОЗДАТЬ">
+    <a class="button cancel" href="/shift_shed">отмена</a>  
+
+</section>
+<!-- <section class="employers">
+  <h2>Внесите сотрудников в график</h2>
+  <p>{{form.emps}}</p>
+
+    <button type="button" onclick="add_emp_to_table()" class="button secondary" name="button">Добавить в список</button>
+
+
+
+  <table id="emps-table">
+    <thead>
+      <tr>
+        <th>Код</th>
+        <th>ФИО, должность</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+
+    </tbody>
+  </table>
+{{form.emps_list}}
+
+</section> -->
+
+  </form>
+</div>
+{%endblock%}

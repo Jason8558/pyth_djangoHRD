@@ -1,107 +1,0 @@
-@media print {
-
-* {
-  background: white !important;
-  box-shadow: none !important;
-  font-size: 12px;
-}
-
-th {
-  color: black;
-  text-decoration: underline;
-}
-
-nav {
-  display: none !important;
-}
-
-.not-print {
-  display: none;
-}
-
-.cover {
-  display: block !important;
-}
-
-.cover h3, .cover p, .cover h2, .cover h1{
-  text-align: center;
-  margin: 0;
-}
-
-.cover .colon p {
-  text-align: right;
-}
-
-.cover .cover-tables {
-
-}
-
-.cover .cover-tables table{
-width: 366px;
-float: right;
-margin-bottom: 0;
-margin-right: 47px;
-}
-
-.cover img {
-  width: 100%
-}
-
-.cover-footer {
-  display: block !important;
-}
-
-table  .for-print {
-  display: table-cell !important;
-}
-
-.cell_bb {
-  /* border-bottom: 2px solid black !important; */
-}
-
-.fio {
-  text-align: left;
-  width: 246px !important;
-}
-
-.thin-itogo {
-width: 36px;
-}
-
-.num {
-width: 18px;
-}
-
-.include {
-width: 72px;
-}
-
-.vac-include {
-font-size: 10px;
-}
-
-.cover {
-  page-break-after: always;
-}
-
-.head-hours {
-width: 35px !important;
-}
-
-.wide-itogs {
-width: 46px;
-/* font-size: 1px !important; */
-}
-
-td {
-  font-weight: 700 !important;
-  /* border: 2px solid black !important; */
-}
-
-@page {
-  size: A3 landscape;
-
-
-}
-
-}

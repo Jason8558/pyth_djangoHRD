@@ -1,0 +1,34 @@
+{%load static%}
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="stylesheet" href="{% static '/shift_shed/css/style.css'%}">
+    <link rel="stylesheet" href="{% static 'TURV\js\chosen\chosen.css'%}">
+    <link rel="shortcut icon" href="{% static 'shift_shed/img/favicon.ico'%}" type="image/x-icon">
+  <script
+  src="{% static 'TURV\js\jquery-3.6.0.min.js'%}"
+
+  crossorigin="anonymous"></script>
+  <script src="{% static 'TURV\js\build\date-ru-RU.js'%}" charset="utf-8"></script>
+  <script src="{% static 'TURV\js\chosen\chosen.jquery.js'%}" charset="utf-8"></script>
+    <script src="{% static 'TURV\js\chosen\chosen.jquery.min.js'%}" charset="utf-8"></script>
+
+
+  {%block scripts%}{%endblock%}
+  <title>{%block title%}Графики сменности{%endblock%}</title>
+</head>
+<body>
+  <header class="noprint">
+    <div class="header-main">
+      {%block logo%} <div class="logo"><img src="{% static 'img/IMG_5826.PNG'%}" alt="">{%block button%}{%endblock%}</div>  {%endblock%}
+      <h1> {%block header%} {%endblock%}</h1>
+      <h3>{{request.user.first_name}}</h3>
+    </div>
+
+  </header>
+  {%block body%}{%endblock%}
+</body>
+</html>

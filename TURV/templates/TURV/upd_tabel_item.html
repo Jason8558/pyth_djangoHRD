@@ -1,11 +1,31 @@
-{% extends "TURV/index.html" %}
+{% extends "TURV/tabels.html" %}
 {%load static%}
 {%block scripts%}<script src="{% static 'TURV\js\TabelItemUpdate2.js' %}" charset="utf-8"></script>{%endblock%}
 {%block title%}{{item.employer.fullname}}{%endblock%}
 
-{%block header%}<a class="btn btn-dark" href="/turv/create/{{b_tabel.id}}">< Назад</a> | <span class="hide" id="id_month">{{month}}</span>Табель за <span  class='field_month'>{{month}}</span> <span id='id_year'>{{year}}</span> г. - <span class="fullname"></span>{%endblock%}
+{%block header%}
+
+<span  class="hide" id="id_month">{{month}}</span>
+<span class="hide" id='id_year'>{{year}}</span>
+<div class="header-back-button-container">
+  <a href="/turv/create/{{item.bound_tabel_id}}" class="button back">Назад</a>
+
+
+{% block logo%}{{block.super}}{% endblock%}
+</div>
+
+<div class="header-main-text">
+  <h3> Изменить запись - <span class="fullname"></span></h3>
+</div>
+
+{%block username%}{{block.super}}{%endblock%}
+
+
+
+{%endblock%}
 
 {%block body%}
+<span id='tabel-type' style='display:none'>{{type}}</span>
 <div class="alert alert-danger errors" role="alert">
 
 </div>
@@ -55,6 +75,7 @@
   <h5 id="position"></h5>
   <h5 id="level"></h5>
   <h5 id="payment"></h5>
+  <h5 id="sex"></h5>
   <h5 id="shift"></h5>
   <span id="n_time_span">Норма времени</span><h5 id="n_time"></h5>
   </div>
@@ -67,6 +88,10 @@
     <p><span>{{tabel.sHours4.label}}</span>{{tabel.sHours4}}</p>
       <p><label style="color: blue;" for="manual_overwork">Ввести сверхурочные вручную</label><input type="checkbox" id="manover" name="manual_overwork" value=""></p>
     <p><span><label for="weekends">Выходных дней</label></span><input id="weekends" type="number" readonly name="weekends" value=""></p>
+
+    {%if type == 2 or type == 8%}
+    <p><span style="font-size:12pt;">Процент доплаты</span>{{tabel.toxic_p}}</p>
+    {%endif%}
   </div>
 </div>
 
@@ -176,11 +201,13 @@
     {{tabel.hours30}}
     {{tabel.hours31}}
   </div>
+  <p style='display: none;'>{{tabel.toxic_p}}{{tabel.auto}}</p>
   <div class="tabel_buttons">
-    <button type="button" onclick="Tabel();" class="btn btn-outline-dark" name="button">Пересчитать</button>
+    <button type="button" onclick="auto_fill_upd()" class="button" name="button">Автозаполнение</button>
+    <button type="button" onclick="Tabel();" class="button" name="button">Пересчитать</button>
 
-    <input type="button" onclick="Tabel();"  class="btn btn-success tItem_submit" name="" value="Пересчитать и сохранить">
-    <a  class="btn btn-outline-danger" href="{% url 'tabel_delItem_url' id=item.id%}">Удалить из текущего табеля</a>
+    <input type="button" onclick="Tabel();"  class="button add tItem_submit" name="" value="Пересчитать и сохранить">
+    <a  class="button cancel" href="{% url 'tabel_delItem_url' id=item.id%}">Удалить из текущего табеля</a>
   </div>
 </div>
 
@@ -215,6 +242,7 @@
     <p class="st">   {{tabel.sHours28.label}}{{tabel.sHours28}}</p>
     <p class="st">   {{tabel.sHours37.label}}{{tabel.sHours37}}</p>
       <p class='st'>{{tabel.sHours38.label}}{{tabel.sHours38}}</p>
+          <p class='st'>{{tabel.sHours39.label}}{{tabel.sHours39}}</p>
   <!-- {{tabel.sHours29.label}}{{tabel.sHours29}} -->
   <!-- {{tabel.sHours30.label}}{{tabel.sHours30}}
   {{tabel.sHours31.label}}{{tabel.sHours31}}

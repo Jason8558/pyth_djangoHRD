@@ -1,0 +1,87 @@
+{% extends 'vac_shed/index.html'%}
+{%load static%}
+
+
+
+
+  {%block header%}
+
+    <a href="/" class="button back">Назад</a>
+  <div class="header-main">
+    {%block logo%}<img src="{% static 'img/logo.PNG'%}" alt="">{%endblock%}
+    <h1>АУП</h1>
+  </div>
+
+  <div class="header-user no-print">  <h3 style='float:right;'>{{request.user.first_name}}</h3></div>
+
+  
+
+
+  {%endblock%}
+
+
+
+
+
+  {%block body%}
+  <div class="container">
+    
+    <div id="vac_shed-main-menu" class="standart-menu">
+      <a href="{% url 'new_vacshed_url'%}" class="button add">Новый график</a>
+    </div>
+
+
+
+    <div class="vs-table-container">
+      <table id="vs-table-copy" class="vs-table">
+        <thead>
+          <th scope="col">Код</th>
+          <th scope="col">Подразделение</th>
+          <th scope="col">Период</th>
+          <th scope="col">Утвержд. СУП</th>
+          <th scope="col">Ответственный</th>
+        </thead>
+
+      <table id="vs-table" class="vs-table">
+        <thead>
+          <th scope="col">Код</th>
+          <th scope="col">Подразделение</th>
+          <th scope="col">Период</th>
+          <th scope="col">Утвержд. СУП</th>
+          <th scope="col">Ответственный</th>
+        </thead>
+        <tbody>
+          {% for s in vacsheds%}
+          <tr id="{{s.id}}" onclick="return window.open('{% url 'vacshed_create_url' vs=s.id%}')">
+            <td>{{s.id}}</td>
+            <td>{{s.dep.name}}</td>
+            <td>{{s.year}}</td>
+            {% if s.sup_check %}
+            <td>✅</td>
+            {%else%}
+            <td>❌</td>
+            {%endif%}
+            <td>{{s.res_officer}}</td>
+          </tr>
+          {%endfor%}
+        </tbody>
+    
+    
+      </table>
+    </div>
+
+
+
+
+
+  </div>
+
+
+  <script>
+    (function() {
+      setTimeout(function() {set_table_head('vs-table', 'vs-table-copy')}, 500)
+    })()
+  </script>
+
+
+{%endblock%}

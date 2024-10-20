@@ -1,0 +1,220 @@
+{% extends 'TURV/index.html'%}
+{%load static%}
+{%block title%}Создать (изменить) сообщение{% endblock %}
+
+
+
+{%block header%}Создать (изменить) сообщение{%endblock%}
+
+{% block body %}
+
+<div class="container ">
+  {% if form.errors %}
+<div class="errors">
+  {% for error in form.errors  %}
+  <h5>{{error}}</h5>
+
+  {% endfor %}
+
+</div>
+
+{% endif %}
+
+<form class="add-form af-feedback" action="" method="post">
+{% csrf_token %}
+
+{% if state == 'upd' %}
+
+      <div class="aff-type">
+        <p>Тип сообщения</p>
+        <p>{{feedback.type}}</p>
+      </div>
+
+      <div class="aff-about">
+        <p>Тема</p>
+        <p>{{feedback.about}}</p>
+      </div>
+
+      <div class="aff-text">
+        <p>Сообщение</p>
+        <p>{{feedback.text}}</p>
+      </div>
+
+      <div class="aff-type hide">
+        <p>{{form.type.label}}</p>
+        <p>{{form.type}}</p>
+      </div>
+
+      <div class="aff-about hide">
+        <p>{{form.about.label}}</p>
+        <p>{{form.about}}</p>
+      </div>
+
+      <div class="aff-text hide">
+        <p>{{form.text.label}}</p>
+        <p>{{form.text}}</p>
+      </div>
+
+      <div class="aff-readed hide">
+        <p>{{form.readed.label}}<span>{{form.readed}}</span></p>
+      </div>
+
+      <div class="aff-inwork hide">
+        <p>{{form.inwork.label}}<span>{{form.inwork}}</span></p>
+      </div>
+
+      <div class="aff-answer hide">
+        <p>Введите ответ: <span>{{form.answer}}</span></p>
+      </div>
+
+{% else %}
+
+    <div class="aff-type">
+      <p>{{form.type.label}}</p>
+      <p>{{form.type}}</p>
+    </div>
+
+    <div class="aff-about">
+      <p>{{form.about.label}}</p>
+      <p>{{form.about}}</p>
+    </div>
+
+    <div class="aff-text">
+      <p>{{form.text.label}}</p>
+      <p>{{form.text}}</p>
+    </div>
+
+{%endif%}
+
+{%if request.user.is_superuser%}
+
+  <div class="aff-readed">
+    <p>{{form.readed.label}}<span>{{form.readed}}</span></p>
+  </div>
+
+  <div class="aff-inwork">
+    <p>{{form.inwork.label}}<span>{{form.inwork}}</span></p>
+  </div>
+
+  <div class="aff-answer">
+    <p>Введите ответ: <span>{{form.answer}}</span></p>
+  </div>
+{% else %}
+
+
+    {% if feedback.answer %}
+
+      <div class="aff-answer">
+        <p class="aff-answer-head">Ответ на сообщение</p>
+        <p class="aff-answer-content">  {{feedback.answer}}</p>
+      </div>
+
+
+
+    {% endif %}
+
+
+
+{%endif%}
+
+
+
+
+
+
+
+
+
+{%if state == 'upd'%}
+  {%if request.user.is_superuser %}
+    <div class="buttons"><input type="submit" name="" class="btn btn-success" value="ОК">
+    <a href="/turv/feedbacks/"  class="btn btn-outline-danger">Отмена</a></div>
+  {%else%}
+    <div class="buttons"><input type="submit" name="" class="btn btn-success" value="Прочитано">
+  {%endif%}
+
+{%else%}
+      <div class="buttons"><input type="submit" name="" class="btn btn-success" value="ОК"> 
+    <a href="/turv/feedbacks/"  class="btn btn-outline-danger">Отмена</a></div>
+{%endif%}
+
+
+</form>
+</div>
+
+
+
+<!-- <script type="text/javascript">
+  $(document).ready(function(){
+      if ($('#id_always').prop('checked') == true) {
+
+      }
+      else {
+          $('#afm-per').css('display', 'block')
+      }
+
+      if ($('#id_alldeps').prop('checked') == true) {
+
+      }
+      else {
+          $('#afm-show-deps').css('display', 'block')
+      }
+// Виды табеля
+      if ($('#id_alltypes').prop('checked') == true) {
+
+      }
+      else {
+          $('#afm-show-types').css('display', 'block')
+      }
+// -----------
+      if ($('#id_mestype option:selected').val() == 2) {
+
+        $('#id_viewin option').filter(function() {
+            return ($(this).val() != 2); //To select Blue
+        }).remove();
+        $('#afm-views').css('display', 'none')
+        $('#afm-intypes').css('display', 'none')
+      }
+      else {
+          $('#id_viewin').append('<option value="2">Окно табеля</option>')
+          $('#id_viewin').append('<option value="3">Окно редактирования табеля</option>')
+          $('#afm-views').css('display', 'block')
+          $('#afm-intypes').css('display', 'block')
+
+      }
+  })
+
+  $('#id_always').change(function(){
+    if ($('#afm-per').css('display') == 'block') {
+      $('#afm-per').css('display', 'none')
+
+    }
+    else {
+      $('#afm-per').css('display', 'block')
+    }
+
+  })
+
+  $('#id_alldeps').change(function(){
+    if ($('#afm-show-deps').css('display') == 'block') {
+      $('#afm-show-deps').css('display', 'none')
+    }
+    else {
+      $('#afm-show-deps').css('display', 'block')
+    }
+  })
+
+  $('#id_alltypes').change(function(){
+    if ($('#afm-show-types').css('display') == 'block') {
+      $('#afm-show-types').css('display', 'none')
+    }
+    else {
+      $('#afm-show-types').css('display', 'block')
+    }
+  })
+
+
+
+
+</script> -->
+{%endblock%}

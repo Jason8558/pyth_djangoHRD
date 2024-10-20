@@ -1,4 +1,4 @@
-settings.py
+
 log.txt
 db.sqlite3
 # Byte-compiled / optimized / DLL files
@@ -60,7 +60,8 @@ coverage.xml
 
 # Django stuff:
 *.log
-local_settings.py
+# local_settings.py
+manage.py
 
 
 # Flask stuff:
@@ -128,5 +129,4 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
-hrd_docFlow/settings.py
-hrd_docFlow/settings.py
+

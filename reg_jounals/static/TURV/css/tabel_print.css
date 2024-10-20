@@ -1,0 +1,137 @@
+@media print {
+  #print_button {
+    display: none !important;
+  }
+}
+
+* {
+  background: white !important;
+  box-shadow: none !important;
+  font-size: 10px;
+  border-collapse: collapse;
+}
+
+th {
+  color: black;
+  font-size: 10pt;
+  text-transform: uppercase;
+  text-decoration: underline;
+  font-weight: bolder;
+}
+
+nav {
+  display: none !important;
+}
+
+.emp {
+  text-align: left !important;
+}
+
+.not-print {
+  display: none;
+}
+
+.cover {
+  display: block !important;
+}
+
+.cover h3, .cover p, .cover h2, .cover h1{
+  text-align: center;
+  margin: 0;
+  font-size: 16px;
+  /* border-bottom: 1px solid; */
+}
+
+.cover .colon p {
+  text-align: right;
+}
+
+.cover .cover-tables {
+
+}
+
+.cover .cover-tables table{
+
+width: 366px !important;
+
+float: right !important;
+
+margin-bottom: 0;
+
+margin-right: 47px;
+}
+
+.cover img {
+  width: 100%
+}
+
+.cover-footer {
+  display: block !important;
+}
+
+.cover-footer h3 {
+  font-size: 14pt !important;
+  margin: 4px 0px;
+}
+
+table  .for-print {
+  display: table-cell !important;
+}
+
+.cell_bb {
+  /* border-bottom: 2px solid black !important; */
+}
+
+/* .fio {
+
+  width: 278px !important;
+} */
+
+.thin-itogo {
+
+width: 36px;
+}
+
+.num {
+
+width: 18px;
+}
+
+.include {
+
+width: 60px;
+}
+
+.vac-include {
+
+font-size: 10px;
+}
+
+.cover {
+  page-break-after: always;
+}
+
+.head-hours {
+
+width: 40px !important;
+}
+
+.wide-itogs {
+
+width: 46px;
+
+/* font-size: 1px !important; */
+}
+
+td {
+  font-weight: 700 !important;
+  /* word-wrap: break-word; не забыть убрать эту херню! */
+  /* border: 2px solid black !important; */
+  font-size: 11pt;
+}
+
+@page {
+  size: A3 landscape;
+
+
+}

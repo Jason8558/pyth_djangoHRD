@@ -1,14 +1,21 @@
 from django.urls import path
-from . import views
+from . import views, additionals
 
 urlpatterns = [
     path('', views.tabels, name='tabels_url'),
+    path('over/<int:type>', views.over_tabels, name='over-tabels_url'),
     path('new/', views.new_tabel, name='new_tabel_url'),
+    path('unload/<int:id>', views.tabel_unload_check, name='unload_check_url'),
+    path('archive/', views.get_archive, name='archive_url'),
+    path('forload/', views.tabels_forload, name='forload_url'),
+    path('delcheck/<int:id>', views.tabel_delcheck, name='delcheck_url'),
     path('delete_checked/', views.del_tabel, name='del_tabel_url'),
     path('create/<int:id>', views.tabel_create, name='tabel_create_url'),
+    path('create/<int:id>/autofill', additionals.tabel_auto_fill, name='tabel_autofill_url'),
     path('additem/<int:id>', views.tabel_additem, name='tabel_addItem_url'),
     path('upditem/<int:id>', views.tabel_upditem, name='tabel_updItem_url'),
     path('delitem/<int:id>', views.tabel_delitem, name='tabel_delItem_url'),
+    path('getitem/<int:tab>/<int:emp>', views.tabel_getitem, name='tabel_getItem_url'),
     path('employers/', views.employers_list, name='emp_list'),
     path('employers/new', views.new_employer, name='emp_new'),
     path('employers/upd/<int:id>', views.upd_employer, name='emp_upd'),
@@ -16,7 +23,32 @@ urlpatterns = [
     path('positions/', views.positions_list, name='pos_list'),
     path('positions/new', views.new_position, name='pos_new'),
     path('positions/upd/<int:id>', views.upd_position, name='pos_upd'),
-    path('unload/', views.unload, name='unload'),
+    path('autos/', views.autos, name='autos_list'),
+    path('autos/new', views.nr_autos, name='new_auto_url'),
+    path('autos/edit/<int:id>', views.edit_autos, name='edit_auto_url'),
+    path('messages/', views.messages_ref, name='messages_list'),
+    path('messages/new/<int:id>', views.new_message, name='message_new_url'),
+    path('feedbacks/', views.feedbacks, name='feedbacks_url'),
+    path('feedbacks/new/<int:id>', views.new_feedback, name='feedback_new_url'),
+    path('toxic-unload/', views.toxic_unload, name='toxic-unload'),
+    path('unite-unload/', views.unite_unload, name='unite-unload'),
+    path('milk-unload/', views.milk_unload, name='milk-unload'),
     path('checked/<int:id>', views.tabel_sup_check, name='checked'),
-    path('delcheck/<int:id>', views.tabel_del_check, name='delcheck')
+    path('half_month/<int:id>', views.tabel_half_month_check, name='half_month'),
+    path('paper/<int:id>', views.tabel_paper_check, name='paper_checked'),
+    path('comm/<int:id>/', views.upd_comm, name='comm'),
+    path('overtime/', views.upd_norma, name='overtime_url'),
+    path('overtime/upd', views.new_norma, name='overtime_new_url'),
+    path('overtime/add', views.add_norma, name='overtime-add'),
+    path('close/', views.w_close, name='close_url'),
+    path('total/<str:month>/<str:year>/<int:dep>/', views.total_tabels, name='total_url'),
+    path('total/open/', views.total_tabels_html, name='total_url_page'),
+    path('correct/<int:id>', views.new_corr_tabel, name='correct'),
+    path('gettabels/<int:type>/<int:year>', views.tabels_json, name='gettabels'),
+    path('gettabels/search/', views.tabels_json_search, name='gettabels_search'),
+    path('gettabels/<int:type>/<int:month>/<int:year>/<str:dep>/<int:half_month>', views.tabels_json_multi, name='gettabels_multi'),
+    path('getdeps/<int:type>/', views.deps_json, name='getdeps')
+
+
+
      ]

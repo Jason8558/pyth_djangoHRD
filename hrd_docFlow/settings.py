@@ -110,6 +110,10 @@ AUTHENTICATION_BACKENDS = (
 # Application definition
 
 INSTALLED_APPS = [
+    'compressor',
+'work_cal',
+'vac_shed',
+        'shift_shed',
     'TURV',
     'reg_jounals',
     'django.contrib.admin',
@@ -230,3 +234,18 @@ STATICFILES_DIRS = [
     BASE_DIR / "static",
 
 ]
+
+
+COMPRESS_ROOT = BASE_DIR / 'compress'
+
+COMPRESS_ENABLED = True
+
+# COMPRESS_OFFLINE = True
+
+STATICFILES_FINDERS = (
+    'django.contrib.staticfiles.finders.FileSystemFinder',
+    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+    # other finders..
+    'compressor.finders.CompressorFinder',
+)
+

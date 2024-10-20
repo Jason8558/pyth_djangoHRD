@@ -1,7 +1,7 @@
 {%extends "reg_jounals/index.html" %}
 
 {%block title%}Поиск - {{search_query}}{%endblock%}
-{%block header%} <a class="btn btn-outline-info" href="/orders_on_vacation_new/"> < назад</a> Поиск по запросу "{{search_query}}". Найдено: {{sdocs_count}} {%endblock%}
+{%block header%} {%block logo%}{{block.super}}{%endblock%}<a class="btn btn-dark" href="/orders_on_vacation_new/"> < назад</a> Поиск по запросу "{{search_query}}". Найдено: {{sdocs_count}} {%endblock%}
 {%block content%}
 <table>
   <thead class="thead-dark">
@@ -27,8 +27,19 @@
 <tr onclick="return location.href = '{% url 'orders_on_vacation_new_create_url' id=item.bound_order_id%}' "">
 
     <td>{{item.bound_order.order_number}} от {{item.bound_order.order_date|date:"d.m.Y"}}</td>
-    <td>{{item.fio}}</td>
-    <td>{{item.dep}}</td>
+    
+    {% if item.bound_employer%}
+      <td id="name">{{item.bound_employer.fullname}}</td>
+    {%else%}
+      <td id="name">{{item.fio}}</td>
+    {%endif%}
+    
+    {% if item.department_new %}
+      <td id="dep">{{item.department_new}}</td>
+    {% else %}
+      <td id="dep">{{item.dep}}</td>
+    {% endif %}
+    
     <td>{{item.dur_from|date:"d.m.Y"}}</td>
     <td>{{item.dur_to|date:"d.m.Y"}}</td>
     <td>{{item.days_count}}</td>

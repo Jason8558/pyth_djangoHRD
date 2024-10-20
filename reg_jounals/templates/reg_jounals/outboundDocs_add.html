@@ -1,29 +1,40 @@
 {% extends "reg_jounals/index.html" %}
 
 {%block title%}Добавить запись{% endblock %}
-{%block header%}Добавить запись - Исходящий документ{% endblock %}
+{%block header%}{%block logo%}{{block.super}}{%endblock%}Добавить запись - Исходящий документ{% endblock %}
 
 {%block content%}
-<script type="text/javascript">
-  $(document).ready(function() {
-    $('header').css('display','none')
-    $('body').css('background', 'white !important') })
-</script>
+
 {% if form.errors%}
 
 <div class="alert alert-danger mt-5" role="alert">
 {{form.errors}}
 </div>
 {%endif%}
-<form class="add_form" action="" method="post">
+<form class="standart-panel standart-form" action="" method="post">
   {% csrf_token %}
   <h5>Номер документа: <span id="next_num">{{next_num}}</span></h5>
-  {% for field in form %}
-  <p>{{field.label}}{{ field }}</p>
-  {% endfor%}
 
-  <!-- <input class="btn btn-success" type="submit" value="Добавить" />
-  <a class="btn btn-outline-danger" href=".">Отмена</a> -->
+  <div class="standart-form-input-group inline">
+    <p><span>Вид: </span>{{form.doc_type}}</p>
+    <p><span>Дата: </span>{{form.doc_date}}</p>
+  </div>
+
+  <div class="standart-form-input-group">
+    <p><span>Адресат: </span>{{form.doc_dest}}</p>
+  </div>
+
+  
+  <div class="standart-form-input-group">
+    <p><span>Содержание: </span>{{form.doc_additionalData}}</p>
+  </div>
+  
+
+  <div class="standart-form-input-group inline">
+    <input class="button add" type="submit" value="Добавить" />
+    <a class="button back" href=".">Отмена</a>
+  </div>
+
 </form>
 
 {%endblock%}

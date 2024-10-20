@@ -1,10 +1,25 @@
-{% extends 'TURV/index.html'%}
+{% extends 'TURV/tabels.html'%}
 {%load static%}
-{%block title%}Добавить сотрудника{% endblock %}
+{%block title%}Новый работник{% endblock %}
 
 {%block scripts%}<script src="{% static 'TURV\js\EmployerAdd.js' %}" charset="utf-8"></script>{%endblock%}
 
-{%block header%}Новый сотрудник.{%endblock%}
+{%block header%}<div class="header-back-button-container">
+ 
+  
+
+{% block logo%}{{block.super}}{% endblock %}
+</div>
+
+<div class="header-main-text">
+  <h3>Новый работник</h3>
+</div>
+
+
+{% block username %}
+  {{block.super}}
+{% endblock%}
+{%endblock%}
 
 {% block body %}
 
@@ -12,25 +27,49 @@
 
 <form class="new_emp" action="" method="post">
 {% csrf_token %}
-<p class="fio">{{emp.fullname.label}}: {{emp.fullname}}
-<p>{{emp.position.label}}: {{emp.position}}</p>
+
+<div class="ef-block">
+<h5>Основное</h5>
+<p class="fio">{{emp.fullname.label}}: {{emp.fullname}}</p>
+
+<p class="sex">{{emp.sex.label}}: {{emp.sex}}</p>
+
+</div>
+
+<div class="ef-block emp_deps">
+  <h5>Рабочее место</h5>
+
+  <p>{{emp.position.label}}: {{emp.position}}</p>
+
 <p>{{emp.department.label}}:
 <select id="e_deps" onchange="ReSelectDep();" name="e_deps">
   {% for dep in deps %}
   <option value="{{dep.id}}">{{dep.name}}</option>
   {% endfor %}
+
 </select></p>
+{{emp.department}}
+<p><span>Подчиненное подразделение(если есть): </span>{{emp.aup}}</p>
+
+<p class="workplace">{{emp.mainworkplace.label}}: {{emp.mainworkplace}}</p>
+<p>{{emp.shift_personnel.label}}: {{emp.shift_personnel}}</p>
+<!-- <p> {{emp.stand_worktime.label}}: {{emp.stand_worktime}}</p> -->
 
 
 
- {{emp.department}}
+ </div>
+ <div class="ef-block">
+   <h5>Оплата труда</h5>
 <p>{{emp.level.label}}: {{emp.level}}</p>
 <p>{{emp.positionOfPayment.label}}: {{emp.positionOfPayment}}</p>
-<p>{{emp.shift_personnel.label}}: {{emp.shift_personnel}}</p>
-<p> {{emp.stand_worktime.label}}: {{emp.stand_worktime}}</p>
+</div>
 
-<div class="buttons"><input type="submit" name="" class="btn btn-success" value="Добавить">
-<a href="." class="btn btn-outline-danger">Отмена</a></div>
+<p> {{emp.fired.label}}: {{emp.fired}}</p>
+<div class="buttons"><input type="submit" name="" class="btn btn-success"  value="Сохранить">
+
+
+<a href="#" onclick="window.close()"  id="ue_cancel" class="btn btn-outline-danger">Закрыть</a></div>
+
 
 
 </form>

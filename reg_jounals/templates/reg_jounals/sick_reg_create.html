@@ -1,7 +1,7 @@
 {%extends "reg_jounals/index.html" %}
 
-{%block title%}Реестр № {{rnum}}{%endblock%}
-{%block header%} <a class="btn btn-dark" href="/sick_regs/"> < назад</a> Реестр № {{rnum}}. Больничных листов в реестре: {{count}}  {%endblock%}
+{%block title%}Реестр № {{rnum}} за {{year}} г.{%endblock%}
+{%block header%} <a class="btn btn-dark" href="/sick_regs/"> < назад</a> Реестр № {{rnum}} за {{year}} г. Больничных листов в реестре: {{count}}  {%endblock%}
 {%block content%}
 <!-- <form action="{% url 'orders_on_personnel' %}">
   <input type="search" name="op_search" placeholder="Поиск по ФИО..">
@@ -15,7 +15,7 @@
   @media print {
 
     @page {
-    	size: landscape
+    	size: A4 landscape
     }
 
 body {
@@ -54,8 +54,10 @@ body {
 
 <a class=" btn btn-sm btn-warning print" onclick="javascript:window.print();" style="margin-top: 5px;" href="">Печать реестра</a>
 <!-- <a class=" btn btn-sm btn-danger print"  style="margin-top: 5px;" href="">Удалить реестр</a> -->
+<a class="btn-add btn btn-success btn-sm print" href="{% url 'sick_reg_addItem_url' id=reg.id %}">+ Добавить б\л в реестр</a>
 {% if positions %}
-<h3 class="print-allow" style="text-align: center;"> Реестр больничных листов № {{rnum}}. Листов в реестре: {{count}}</h3>
+<h3 class="print-allow" style="text-align: center;"> Реестр больничных листов № {{rnum}} за {{year}}г. Листов в реестре: {{count}}</h3>
+
 <table>
   <thead class="thead-dark">
   <tr class="tr-header">
@@ -75,8 +77,8 @@ body {
   </thead>
 
   {%for pos in positions %}
-
-<tr id="{{pos.id}}" onclick="open_for_upd({{pos.id}})">
+    <tr  onclick="return location.href = '{% url 'sick_reg_updDoc_url' id=pos.id%}' ">
+<!-- <tr id="{{pos.id}}" onclick="open_for_upd({{pos.id}})"> -->
 
     <td id="number" class="tnumber">{{pos.sd_number}}</td>
     <td id="fio">{{pos.sd_emp}}</td>
@@ -90,8 +92,8 @@ body {
   {%endfor%}
 
 </table>
-
+<a class="btn-add btn btn-success btn-sm print" href="{% url 'sick_reg_addItem_url' id=reg.id %}">+ Добавить б\л в реестр</a>
 {%endif%}
-<button type="button" class="btn btn-success btn-sm m-bottom btn-add print " onclick="open_frame_new()" > + Добавить больничный лист в реестр</button>
-<!-- <a class="btn btn-success btn-lg m-bottom btn-sm btn-add print" href="{%url 'sick_reg_addItem_url' sr_number_=rnum%}"> + Добавить больничный лист в реестр</a> -->
+
+
 {%endblock%}

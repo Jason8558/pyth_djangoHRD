@@ -1,0 +1,78 @@
+{% extends 'TURV/index.html'%}
+
+{%block title%}Сообщения{% endblock %}
+
+{%block header%}  <a class="btn btn-dark" href=".."> < Назад </a> | Сообщения {%endblock%}
+
+{% block body %}
+
+<div class="container">
+  <a class="btn btn-success btn-add"  onclick="return location.href = '{% url 'message_new_url' id=0%}' "  >+ Новое сообщение</a>
+
+{%if messages %}
+
+<table>
+  <thead class="thead-dark">
+  <tr class="tr-header">
+
+
+    <th scope="col">❗</th>
+    <th scope="col">Код</th>
+    <th scope="col">Содержание</th>
+
+
+
+
+
+
+  </tr >
+  </thead>
+
+  {% for mes in messages %}
+
+  <tr  onclick="return location.href = '{% url 'message_new_url' id=mes.id%}'" >
+
+
+
+    <td>{% if mes.important %}❗{%else%}{% endif %}</td>
+    <td>{{mes.id}}</td>
+    <td>{{mes.text}}</td>
+
+
+  </tr>
+  {%endfor%}
+</table>
+
+<nav  class="paginator" aria-label="Page navigation example">
+  <ul class="pagination">
+    {%if messages.has_previous%}
+        <li class="page-item">
+          <a class="page-link" aria-label="previous" href="?page=1">
+              <span aria-hidden="true">Первая</span></a>
+        </li>
+        <li class="page-item">
+          <a class="page-link" href='?page={{messages.previous_page_number}}' aria-label="previous">
+    <span aria-hidden="true">{{messages.previous_page_number}}</span>
+          </a>
+        </li>
+  {%endif%}
+
+   <li class="page-item active"><a class="page-link" href="">{{ messages.number }}</a></li>
+
+{%if messages.has_next%}
+    <li class="page-item">
+      <a class="page-link" href='?page={{messages.next_page_number}}' aria-label="Next">{{messages.next_page_number}}</a>
+      </li>
+  {%endif%}
+
+  <li class="page-item">
+  <a class="page-link" href="?page={{ messages.paginator.num_pages }}">Последняя</a>
+  </li>
+</ul>
+</nav>
+
+{%else%}
+<h2>Автотранспорт не найден</h2>
+{%endif%}
+</div>
+{%endblock%}

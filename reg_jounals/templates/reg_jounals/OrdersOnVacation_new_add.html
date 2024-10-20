@@ -1,14 +1,10 @@
 {% extends "reg_jounals/index.html" %}
 
 {%block title%}Добавить запись{% endblock %}
-{%block header%}Добавить приказ{% endblock %}
+{%block header%}{%block logo%}{{block.super}}{%endblock%}Добавить приказ{% endblock %}
 
 {%block content%}
-<script type="text/javascript">
-  $(document).ready(function() {
-    $('header').css('display','none')
-    $('body').css('background', 'white !important') })
-</script>
+
 {% if form.errors%}
 </div>
 
@@ -17,19 +13,24 @@
 {{form.errors}}
 </div>
 {%endif%}
-<span id="next_num">{{next_num}}</span>
-<form class="add_form" action="" method="post">
+
+
+<form id="order-of-vacation-add-form" class="standart-panel standart-form" action="" method="post">
   {% csrf_token %}
+<div class="stanart-form-header"><h5 id="next_num">{{next_num}}</h5></div>
+  
 
   {% for field in form %}
-
-  <p>{{field.label}}{{ field }}</p>
+  <div class="standart-form-input-group">
+  <p><span>{{field.label}}</span>{{ field }}</p>
+</div>
   {% endfor%}
 
 
-
-  <!-- <input class="btn btn-success" type="submit" value="Добавить" />
-  <a class="btn btn-outline-danger" href=".">Отмена</a> -->
+  <div class="standart-form-input-group inline">
+    <input class="button add" type="submit" value="Добавить" />
+    <a class="button cancel" href=".">Отмена</a>
+  </div>
 </form>
 
 {%endblock%}

@@ -1,0 +1,8 @@
+@media print {
+header, form, .container, .alert {
+  display: none;
+}
+  .print_warning, .print_warning h1, body{
+    display: block !important;
+  }
+}

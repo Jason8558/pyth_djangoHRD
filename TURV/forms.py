@@ -1,13 +1,17 @@
 from django import forms
+from django.forms import ValidationError
 from .models import *
 from django.contrib.auth.forms import AuthenticationForm
 import datetime as DT
+from reg_jounals.models import logs, logs_event
 
 class TabelItem_form(forms.ModelForm):
         class Meta:
             model = TabelItem
             fields = [
             'employer',
+            'toxic_p',
+            'auto',
             'type_time1',
             'type_time2',
             'type_time3',
@@ -107,11 +111,48 @@ class TabelItem_form(forms.ModelForm):
             'sHours35',
             'sHours37',
             'sHours38',
+            'sHours39',
             'w_days',
             'w_hours',
             'v_days',
             'v_hours'
             ]
+
+        auto = forms.ModelChoiceField(required=False, queryset=Automobile.objects.filter(used=1))
+
+
+        type_time1 = forms.CharField(required=False, widget=forms.TextInput(attrs={'placeholder': 'К', 'class': 'dig_code', 'type':'text'}))
+        type_time2 = forms.CharField(required=False, widget=forms.TextInput(attrs={'placeholder': 'К', 'class': 'dig_code', 'type':'text'}))
+        type_time3 = forms.CharField(required=False, widget=forms.TextInput(attrs={'placeholder': 'К', 'class': 'dig_code', 'type':'text'}))
+        type_time4 = forms.CharField(required=False, widget=forms.TextInput(attrs={'placeholder': 'К', 'class': 'dig_code', 'type':'text'}))
+        type_time5 = forms.CharField(required=False, widget=forms.TextInput(attrs={'placeholder': 'К', 'class': 'dig_code', 'type':'text'}))
+        type_time6 = forms.CharField(required=False, widget=forms.TextInput(attrs={'placeholder': 'К', 'class': 'dig_code', 'type':'text'}))
+        type_time7 = forms.CharField(required=False, widget=forms.TextInput(attrs={'placeholder': 'К', 'class': 'dig_code', 'type':'text'}))
+        type_time8 = forms.CharField(required=False, widget=forms.TextInput(attrs={'placeholder': 'К', 'class': 'dig_code', 'type':'text'}))
+        type_time9 = forms.CharField(required=False, widget=forms.TextInput(attrs={'placeholder': 'К', 'class': 'dig_code', 'type':'text'}))
+        type_time10 = forms.CharField(required=False, widget=forms.TextInput(attrs={'placeholder': 'К', 'class': 'dig_code', 'type':'text'}))
+        type_time11 = forms.CharField(required=False, widget=forms.TextInput(attrs={'placeholder': 'К', 'class': 'dig_code', 'type':'text'}))
+        type_time12 = forms.CharField(required=False, widget=forms.TextInput(attrs={'placeholder': 'К', 'class': 'dig_code', 'type':'text'}))
+        type_time13 = forms.CharField(required=False, widget=forms.TextInput(attrs={'placeholder': 'К', 'class': 'dig_code', 'type':'text'}))
+        type_time14 = forms.CharField(required=False, widget=forms.TextInput(attrs={'placeholder': 'К', 'class': 'dig_code', 'type':'text'}))
+        type_time15 = forms.CharField(required=False, widget=forms.TextInput(attrs={'placeholder': 'К', 'class': 'dig_code', 'type':'text'}))
+        type_time16 = forms.CharField(required=False, widget=forms.TextInput(attrs={'placeholder': 'К', 'class': 'dig_code', 'type':'text'}))
+        type_time17 = forms.CharField(required=False, widget=forms.TextInput(attrs={'placeholder': 'К', 'class': 'dig_code', 'type':'text'}))
+        type_time18 = forms.CharField(required=False, widget=forms.TextInput(attrs={'placeholder': 'К', 'class': 'dig_code', 'type':'text'}))
+        type_time19 = forms.CharField(required=False, widget=forms.TextInput(attrs={'placeholder': 'К', 'class': 'dig_code', 'type':'text'}))
+        type_time20 = forms.CharField(required=False, widget=forms.TextInput(attrs={'placeholder': 'К', 'class': 'dig_code', 'type':'text'}))
+        type_time21 = forms.CharField(required=False, widget=forms.TextInput(attrs={'placeholder': 'К', 'class': 'dig_code', 'type':'text'}))
+        type_time22 = forms.CharField(required=False, widget=forms.TextInput(attrs={'placeholder': 'К', 'class': 'dig_code', 'type':'text'}))
+        type_time23 = forms.CharField(required=False, widget=forms.TextInput(attrs={'placeholder': 'К', 'class': 'dig_code', 'type':'text'}))
+        type_time24 = forms.CharField(required=False, widget=forms.TextInput(attrs={'placeholder': 'К', 'class': 'dig_code', 'type':'text'}))
+        type_time25 = forms.CharField(required=False, widget=forms.TextInput(attrs={'placeholder': 'К', 'class': 'dig_code', 'type':'text'}))
+        type_time26 = forms.CharField(required=False, widget=forms.TextInput(attrs={'placeholder': 'К', 'class': 'dig_code', 'type':'text'}))
+        type_time27 = forms.CharField(required=False, widget=forms.TextInput(attrs={'placeholder': 'К', 'class': 'dig_code', 'type':'text'}))
+        type_time28 = forms.CharField(required=False, widget=forms.TextInput(attrs={'placeholder': 'К', 'class': 'dig_code', 'type':'text'}))
+        type_time29 = forms.CharField(required=False, widget=forms.TextInput(attrs={'placeholder': 'К', 'class': 'dig_code', 'type':'text'}))
+        type_time30 = forms.CharField(required=False, widget=forms.TextInput(attrs={'placeholder': 'К', 'class': 'dig_code', 'type':'text'}))
+        type_time31 = forms.CharField(required=False, widget=forms.TextInput(attrs={'placeholder': 'К', 'class': 'dig_code', 'type':'text'}))
+
 
         hours1 = forms.CharField(required=False, widget=forms.TextInput(attrs={'placeholder': 'Ч', 'class': 'dig_hours', 'type':'text'}))
         hours2 = forms.CharField(required=False, widget=forms.TextInput(attrs={'placeholder': 'Ч', 'class': 'dig_hours', 'type':'text'}))
@@ -163,7 +204,7 @@ class TabelItem_form(forms.ModelForm):
 
             new_item = TabelItem.objects.create(
 
-            bound_tabel = bound_tabel,
+            bound_tabel_id = b_tabel.id,
             employer = emp,
             year = year_,
             month = month,
@@ -265,10 +306,13 @@ class TabelItem_form(forms.ModelForm):
             sHours34 = self.cleaned_data['sHours34'],
             sHours35 = self.cleaned_data['sHours35'],
             sHours38 = self.cleaned_data['sHours38'],
+            sHours39 = self.cleaned_data['sHours38'],
             w_days = self.cleaned_data['w_days'],
             w_hours = self.cleaned_data['w_hours'],
             v_days = self.cleaned_data['v_days'],
             v_hours = self.cleaned_data['v_hours'],
+            toxic_p = self.cleaned_data['toxic_p'],
+            auto = self.cleaned_data['auto']
 
 
 
@@ -279,39 +323,83 @@ class TabelItem_form(forms.ModelForm):
 class Tabel_form(forms.ModelForm):
     class Meta:
         model = Tabel
-        fields = ['year', 'month', 'department', 'del_check', 'sup_check']
+        fields = ['year', 'month', 'department', 'del_check', 'sup_check', 'type', 'day', 'comm', 'corr']
 
     year = forms.CharField(label="Год (ТОЛЬКО 4 ЦИФРЫ!)", widget=forms.NumberInput(attrs={'maxlength':'4'}))
+
+    def clean(self):
+        super().clean()
+        exist_tabels = Tabel.objects.filter(year=self.cleaned_data['year']).filter(type_id=1).filter(month=self.cleaned_data['month']).filter(department=self.cleaned_data['department'])
+        if len(exist_tabels) > 0 and self.cleaned_data['type'].id == 1:
+            raise ValidationError("Основной табель на этот период уже существует!")
+
     def saveFirst(self, user_):
-        log = open('log.txt', 'a')
-        log.write(str(DT.date.today()) + " пользователь " +str(user_) + " создал табель " + str(self.cleaned_data['department']) + " за " + str(self.cleaned_data['year']) + '.' + str(self.cleaned_data['month'] ))
-        log.close()
+
+        next_id = int(Tabel.objects.latest('id').id) + 1
+        logs.objects.create(
+            date = DT.datetime.now(),
+            event = logs_event.objects.get(id=3),
+            doc_id = next_id,
+            type = 'Табель',
+            number = next_id,
+            year = self.cleaned_data['year'],
+            doc_date = DT.datetime.strptime(str(self.cleaned_data['year'] + '-' + self.cleaned_data['month'] + '-' + str(DT.datetime.now().day)), '%Y-%M-%d'),
+            addData = 'Табель: ' + str(self.cleaned_data['type'].name) + ' '  + str(self.cleaned_data['department'].name) + ' за: ' + str(self.cleaned_data['month']) + ' ' + str(self.cleaned_data['year']) ,
+            link = '/turv/create/' + str(next_id),
+            res_officer = user_)
+
+
         new_tabel = Tabel.objects.create(
             year = self.cleaned_data['year'],
             month = self.cleaned_data['month'],
             department = self.cleaned_data['department'],
-            res_officer = user_
+            type = self.cleaned_data['type'],
+            day = self.cleaned_data['day'],
+            comm = self.cleaned_data['comm'],
 
-
-        )
+            res_officer = user_)
 
         return new_tabel
 
 class Employer_form(forms.ModelForm):
     class Meta:
         model = Employers
-        fields = ['fullname', 'position', 'department', 'level', 'positionOfPayment', 'shift_personnel', 'stand_worktime', 'fired']
+        fields = ['fullname', 'sex', 'position', 'department', 'level', 'positionOfPayment', 'shift_personnel', 'stand_worktime', 'fired', 'mainworkplace', 'aup']
+
+    aup = forms.ModelChoiceField(required=False, queryset=Department.objects.filter(is_aup=1))
+    fullname = forms.CharField(label="ФИО сотрудника" , required=True, widget=forms.TextInput(
+        attrs={'placeholder': 'Введите ФИО (только фамилия и инициалы)',  'type':'text', 'onchange':'setfullname()'}))
 
     def saveFirst(self):
+
+        stand_worktime = 0
+
+        # Установка нормы времени на основании введеной в программу, если сменщик
+        
+        if self.cleaned_data['shift_personnel']:
+
+            now_year = str(DT.datetime.today().year) + '-01-01'
+
+            stand_worktime = Overtime.objects.filter(year=now_year)[0]
+
+            if self.cleaned_data['sex'] == 'М':
+                stand_worktime = stand_worktime.value_m
+            else:
+                stand_worktime = stand_worktime.value_w
+        # -----------------------------------------------------------
+
         new_employer = Employers.objects.create(
-            fullname  = self.cleaned_data['fullname'],
-            position = self.cleaned_data['position'],
-            shift_personnel = self.cleaned_data['shift_personnel'],
-            fired = self.cleaned_data['fired'],
-            stand_worktime = self.cleaned_data['stand_worktime'],
-            department = self.cleaned_data['department'],
-            level = self.cleaned_data['level'],
-            positionOfPayment = self.cleaned_data['positionOfPayment']
+            fullname            = self.cleaned_data['fullname'],
+            sex                 = self.cleaned_data['sex'],
+            position            = self.cleaned_data['position'],
+            shift_personnel     = self.cleaned_data['shift_personnel'],
+            fired               = self.cleaned_data['fired'],
+            stand_worktime      = stand_worktime,
+            department          = self.cleaned_data['department'],
+            level               = self.cleaned_data['level'],
+            positionOfPayment   = self.cleaned_data['positionOfPayment'],
+            mainworkplace       = self.cleaned_data['mainworkplace'],
+            aup                 = self.cleaned_data['aup']
 
     )
         return new_employer
@@ -326,3 +414,84 @@ class Position_form(forms.ModelForm):
             name = self.cleaned_data['name']
         )
         return new_position
+
+class Automobile_form(forms.ModelForm):
+    class Meta:
+        model = Automobile
+        fields = ['number', 'model', 'unite_p', 'used']
+    def saveFirst(self):
+        new_automobile = Automobile.objects.create(
+        number = self.cleaned_data['number'],
+        model = self.cleaned_data['model'],
+        unite_p = self.cleaned_data['unite_p'],
+        used = self.cleaned_data['used']
+        )
+        return new_automobile
+
+class InfoMessages_form(forms.ModelForm):
+    class Meta:
+        model = InfoMessages
+        fields = ['text', 'alldeps', 'deps', 'active', 'dfrom' , 'dto', 'always', 'viewin', 'alltypes', 'intypes', 'mestype', 'important']
+
+    dfrom = forms.DateField(label="Дата начала показа" , required=False, widget=forms.TextInput(
+        attrs={'placeholder': 'Введите дату',  'type':'date'}))
+
+    dto = forms.DateField(label="Дата окончания показа" , required=False, widget=forms.TextInput(
+        attrs={'placeholder': 'Введите дату',  'type':'date'}))
+
+    def saveFirst(self):
+        deps = self.cleaned_data.get('deps')
+        intypes = self.cleaned_data.get('intypes')
+
+        new_message = InfoMessages.objects.create(
+        text = self.cleaned_data['text'],
+        alldeps = self.cleaned_data['alldeps'],
+        active = self.cleaned_data['active'],
+        dfrom = self.cleaned_data['dfrom'],
+        dto = self.cleaned_data['dto'],
+        always = self.cleaned_data['always'],
+        viewin = self.cleaned_data['viewin'],
+        alltypes = self.cleaned_data['alltypes'],
+        mestype = self.cleaned_data['mestype'],
+        important = self.cleaned_data['important']
+
+        )
+        new_message.deps.set(deps)
+        new_message.intypes.set(intypes)
+        return new_message
+
+class FeedBack_form(forms.ModelForm):
+    class Meta:
+        model = FeedBack
+        fields = ['text', 'about', 'type', 'answer', 'readed', 'inwork']
+
+    def saveFirst(self, user_id):
+        user = User.objects.get(id=user_id)
+        new_feedback = FeedBack.objects.create(
+            mes_from = user,
+            type = self.cleaned_data['type'],
+            text = self.cleaned_data['text'],
+            about = self.cleaned_data['about'],
+            answer = self.cleaned_data['answer'],
+            readed = self.cleaned_data['readed'],
+            inwork = self.cleaned_data['inwork']
+
+        )
+        return new_feedback
+
+class OvertimeUpdate_form(forms.ModelForm):
+    class Meta:
+        model = Overtime
+        fields = ['year', 'value_m', 'value_w']
+    
+    year = forms.DateField(label="Период" , widget=forms.TextInput(
+        attrs={'placeholder': 'Введите дату', 'type':'date'}))
+    
+    def saveFirst(self):
+        new_overtime = Overtime.objects.create(
+            year = self.cleaned_data['year'],
+            value_m = self.cleaned_data['value_m'],
+            value_w = self.cleaned_data['value_w']
+        )
+
+        return new_overtime

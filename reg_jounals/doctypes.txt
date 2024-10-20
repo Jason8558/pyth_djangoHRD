@@ -1,0 +1,24 @@
+Приказы на отпуск       - 1
+Командировки            - 2
+Заявления на прием      - 3
+Трудовые книжки         - 4
+По другим вопросам      - 5
+Исходящие документы     - 6
+Личный состав           - 7
+Трудовые договоры       - 8
+Заявления на увольнение - 9
+Удостоверения           - 10
+
+
+
+ if int(request.GET.get('search-sign', '0')) == 1:
+        search_query = {
+            'document_type':    2,
+            'name':             request.GET.get('bt_search', ''),
+            'destination':      request.GET.get('orders-of-buisness-trip-search-destination',''),
+            'period_from':      request.GET.get('orders-of-buisness-trip-search-from',''),
+            'period_to':        request.GET.get('orders-of-buisness-trip-search-to',''),
+            'department':       request.GET.get('bt_search_dep','')
+        }
+       
+       

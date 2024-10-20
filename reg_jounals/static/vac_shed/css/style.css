@@ -1,0 +1,352 @@
+/* проверка 321 */
+
+* {
+  font-family: "RobotoRegular";
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.not-print {
+  display: none;
+}
+
+
+
+body {
+ background: #e0edff ;
+}
+
+
+
+
+
+header .header-main * {
+  float: left;
+}
+
+header img {
+  width: 39px;
+}
+
+.container {width: 700px;margin: 0px auto;margin-top: 24px;}
+
+#vac_shed-main-buttons-panel {
+
+}
+
+#vac_shed-search-panel {
+  z-index: 999;
+}
+
+.vs-create {width: 85%;}
+
+table {
+  border-collapse: collapse;
+text-align: center;width: 100%;margin-top: 19px;}
+
+table tr {
+page-break-before: avoid;}
+
+thead {background: #0d6efd;}
+tbody {background: white;}
+
+
+
+
+
+
+
+
+td,th {border: 1px solid black;padding: 3px;}
+
+tbody tr:hover {
+  cursor:
+  pointer;
+  /*background: #ffffd7; 
+  text-decoration:
+  underline; */
+  transition: 0.3s;
+  color: black;
+  /* border: 2px solid #0d6efd; */
+  }
+
+.vs-form {
+
+background: white;
+
+padding: 9px;
+
+border: 3px solid #0d6efd;
+
+display: flex;
+
+flex-flow: column;
+
+justify-content: center;
+
+width: 321px;
+
+align-items: stretch;
+
+margin: 0 auto;
+
+float: none;
+}
+
+.vs-form input, .vs-form button, .vs-form select {
+
+margin-bottom: 14px;
+}
+
+.vs-form div {
+  display: flex;
+  flex-flow: column;
+}
+
+.accept {
+
+background: #7bed7b;
+
+border-color: green;
+}
+
+
+
+.global {
+
+display: flex;
+
+flex-direction: row;
+
+align-items: stretch;
+
+justify-content: space-evenly;
+
+/* box-sizing: content-box; */
+
+width: 100%;
+
+margin: 0;
+
+box-shadow: 0px 0px 5px 2px black;
+
+flex-wrap: nowrap;
+
+align-content: center;
+}
+
+.global * {
+
+margin: 0 !important;
+}
+
+#vs-glob-year {
+      width: 48px;
+      text-align: center;
+}
+
+.print {
+  display: none;
+}
+
+
+
+.emp {
+  text-align: left !important;
+}
+
+.cover {
+    float: right;
+    margin: 0px auto;
+    width: 100%;
+}
+
+.cover table {
+    float: right;
+    width: 686px;
+    margin-right: 20px;
+}
+
+.cover table * {
+    border: none !important;
+}
+
+#prof {
+    float: left;
+}
+
+#addform{
+  width: 700px;
+}
+
+#vs_glob_emp_chosen {
+width: 100% !important;
+}
+
+#vs_glob_dep_chosen .chosen-container-single .chosen-single {
+
+}
+
+.vacshed_new_item .standart-form-input-group {
+  margin: 5px 0 5px 0;
+}
+
+
+#vacshed-global-search-form .standart-form-input-group input,
+#vacshed-global-search-form .standart-form-input-group select{
+  height: 25px;
+
+}
+
+#vacshed-global-search-form {
+  width: 533px !important;
+  height: 279px !important;
+}
+
+.vs-glob-emp-cont {
+
+position: fixed;
+
+padding: 7px;
+
+background: white;
+
+border: 5px solid #0d6efd;
+
+right: 7px;
+
+z-index: 99;
+
+box-shadow: 0px 0px 10px 0px black;
+
+top: 173px;
+
+display: flex !important;
+
+flex-direction: column;
+
+width: 431px;
+
+justify-content: center;
+}
+
+.vs-glob-emp-cont * {
+    margin-bottom: 6px !important;
+}
+
+.colums {
+
+display: flex;
+
+flex-direction: row;
+
+justify-content: space-around;
+}
+
+.graph_col {display: flex;flex-direction: column;align-items: center;}
+
+.col_color {
+
+background: red;
+
+/* height: 100px; */
+
+width: 100%;
+}
+
+.col_days {}
+
+/* Контекстное меню */ 
+
+#context-menu-container {
+  background: white;
+  border: 1px solid black;
+  padding: 2px;
+}
+
+/* форма комментария отмены */
+  #cancel-reason-container {
+
+  }
+
+/* то, что не должно быть на экране изначально */
+
+.no-display {
+  display: none;
+}
+
+#vs-table-copy {
+  position: fixed;
+  transition: none;
+  display: none;
+}
+
+.vs-table, 
+#vs-table-copy {
+  margin: 0 !important;
+
+}
+
+.vs-table-create tr:hover {
+  background: none !important;
+} 
+
+#vacshed-additional-menu-panel {
+  z-index: 999;
+}
+
+.vs-table-container {
+  overflow: scroll;
+  height: 700px;
+}
+
+/* шрифты */
+
+@font-face {
+  /* название шрифта(чтобы не запутаться лучше указать название папки со шрифтом) */
+  font-family: "RobotoRegular"; 
+  /* адрес шрифта и тип */ 
+  
+  src: url("/static/fonts/Roboto-Regular.ttf") format("truetype"); 
+  font-style: normal; 
+  font-weight: normal; 
+} 
+
+@media print {
+  @page {
+    size: A4 landscape;
+
+
+
+  }
+
+  #footer {
+    margin-top: 35px;
+}
+
+    #footer td {
+    border: none;
+}
+
+  body {
+      zoom: 50%;
+  }
+
+  table {page-break-before: avoid;
+  page-break-inside: auto  !important;
+  border-bottom: none !important}
+  .container {
+    width: 100%;
+}
+  .print {display: inherit !important;}
+
+  .print-sign {display: table-cell !important;}
+
+  body {padding: 0 !important;}
+
+  h1,h3 {font-family: sans-serif !important; }
+
+  header {display: none;}
+
+}

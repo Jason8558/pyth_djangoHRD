@@ -1,25 +1,52 @@
 {%extends "reg_jounals/index.html" %}
-
+{% load static %}
 {%block title%}Удостоверения{%endblock%}
-{%block header%}<a class="btn btn-dark" href="../">< назад</a> Журнал регистрации удостоверений. Всего: {{count}}.  {%endblock%}
+{%block header%}<a class="button back" href="../">< назад</a>{%block logo%}{{block.super}}{%endblock%}Журнал регистрации удостоверений.{%endblock%}
 {%block content%}
-<div id="frame_" class="frame idents">
-  <iframe id="iframe" class="iidents" src="" width="" height=""></iframe>
-  <button type="button" class="btn btn-success" onclick="send_submit()" name="button">Сохранить</button>
-  <button type="button" onclick="close_frame()"class="btn btn-outline-danger" name="button">Отмена</button>
+
+<div class="standart-menu">
+  <a class="button add" href="{% url 'identity_add_url'%}">Добавить</a>
+
+
+  <div class="standart-menu-submenu-container">
+    <img src="{% static '/img/filter.png' %}" onclick="open_search_menu(this, 'identitys-search-menu')"
+      alt="">
+  </div>
+
 </div>
-<form action="{% url 'identity' %}">
-  <input type="search" name="ident_search" placeholder="Поиск по ФИО..">
-  <select class="" name="ident_dep_search">
-    <option value="">Выберите подразделения для поиска</option>
-    {%for dep in deps%}
+
+<form id="identitys-search-menu" style="display: none;" class="standart-panel search panel" action="{% url 'identity' %}">
+  
+  <input type="hidden" name="search-sign" value="1">
+  
+  <div class="search-panel-input-group">
+    <input type="search" name="ident_search" placeholder="ФИО">
+  </div>
+  
+  <div class="search-panel-input-group">
+    <div class="search-panel-input-group-header">
+      <h5>Период:</h5>
+    </div>
+    <input type="date" name="identity-search-date-from" id="">
+    <input type="date" name="identity-search-date-to" id="">
+  </div>
+
+  <div class="search-panel-input-group">
+    <select class="" name="ident_dep_search">
+      <option value="">Подразделение</option>
+      {%for dep in deps%}
       <option value="{{dep.id}}">{{dep}}</option>
-    {%endfor%}
-  </select>
-  <button class="btn btn-sm btn-dark" type="submit" name="" value="Найти">Найти</button>
+      {%endfor%}
+    </select>
+  </div>
+  
+  <div class="search-panel-input-group">
+    <button class="button add" type="submit" name="" value="Найти">Найти</button>
+    <a href="." class="button cancel">Сбросить</a>
+  </div>
+
 </form>
-<button class="btn btn-success btn-lg m-bottom btn-add " type="button" name="button" onclick="open_frame_new()"> + Добавить</button>
-<!-- <a class="btn btn-success btn-lg m-bottom btn-add" href="{% url 'identity_add_url'%}"> + Добавить</a> -->
+
 {% if idents %}
 <table>
   <thead class="thead-dark">
@@ -37,12 +64,22 @@
 
   {%for ident in idents%}
 
-<tr id="{{ident.id}}" onclick="open_for_upd({{ident.id}})">
+<!-- <tr id="{{ident.id}}" onclick="open_for_upd({{ident.id}})"> -->
+    <tr  onclick="return location.href = '{% url 'identity_upd_url' id=ident.id%}' ">
 
     <td id="number">{{ident.number}}</td>
     <td id="date">{{ident.date_giving|date:"d.m.Y"}}</td>
-    <td id="fio">{{ident.employer}}</td>
-    <td id="dep">{{ident.department}}</td>
+    {% if ident.bound_employer %}
+      <td id="fio">{{ident.bound_employer.fullname}}</td>
+    {% else %}
+      <td id="fio">{{ident.employer}}</td>
+    {% endif %}
+
+    {% if ident.department_new %}
+      <td id="dep">{{ident.department_new}}</td>
+    {% else %}
+      <td id="dep">{{ident.department_old}}</td>
+    {% endif %}
     <td id="res_officer">{{ident.res_officer}}</td>
 
 </tr>
@@ -54,33 +91,30 @@
 
 <nav  class="paginator" aria-label="Page navigation example">
   <ul class="pagination">
-    <li class="page-item">
-      <a class="page-link" href="#" aria-label="Previous">
-<span aria-hidden="true">&laquo;</span>
-      </a>
-    </li>
-{% for p in idents.paginator.page_range %}
-  {% if idents.number == p%}
-   <li class="page-item active"><a class="page-link" href="?page={{p}}">{{ p }}</a></li>
-   {%else%}
-        <li class="page-item"><a class="page-link" href="?page={{p}}">{{ p }}</a></li>
-    {%endif%}
-  {% endfor %}
+    {%if idents.has_previous%}
+        <li class="page-item">
+          <a class="page-link" aria-label="previous" href="?page=1">
+              <span aria-hidden="true">Первая</span></a>
+        </li>
+        <li class="page-item">
+          <a class="page-link" href='?page={{idents.previous_page_number}}' aria-label="previous">
+    <span aria-hidden="true">{{idents.previous_page_number}}</span>
+          </a>
+        </li>
+  {%endif%}
+
+   <li class="page-item active"><a class="page-link" href="">{{ idents.number }}</a></li>
 
 {%if idents.has_next%}
     <li class="page-item">
-      <a class="page-link" href='?page={{idents.next_page_number}}' aria-label="Next">
-<span aria-hidden="true">&raquo;</span>
-      </a>
-    </li>
-  {%else%}
-  <li class="page-item disabled">
-    <a class="page-link" href='#' aria-disabled='true' aria-label="Next">
-      <span aria-hidden="true">&raquo;</span>
-    </a>
-  </li>
+      <a class="page-link" href='?page={{idents.next_page_number}}' aria-label="Next">{{idents.next_page_number}}</a>
+      </li>
   {%endif%}
-  </ul>
+
+  <li class="page-item">
+  <a class="page-link" href="?page={{ idents.paginator.num_pages }}">Последняя</a>
+  </li>
+</ul>
 </nav>
 
 {%endblock%}

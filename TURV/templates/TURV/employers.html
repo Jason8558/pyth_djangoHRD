@@ -1,36 +1,82 @@
-{% extends 'TURV/index.html'%}
+{% extends 'TURV/tabels.html'%}
+{% load static%}
 
-{%block title%}Сотрудники{% endblock %}
+{%block title%}Работники{% endblock %}
 
-{%block header%}  <a class="btn btn-dark" href=".."> < Назад </a> | Сотрудники. Всего: {{count}}.{%endblock%}
+{%block header%}
+  
+  <span id="id_month" class="not-print" style="display:none">{{month}}</span>
+  <span id="id_year" class="not-print" style="display:none">{{year}}</span>
+
+  <div class="header-back-button-container">
+    <a id="button-back" href=".."  class="button back">назад</a>
+    {% block logo%}{{block.super}}{% endblock%}
+  </div>
+
+  <div class="header-main-text">
+    <h4>Работники
+    </h4>
+  </div>
+
+  {%block username%}{{block.super}}{%endblock%}
+
+{%endblock%}
 
 {% block body %}
 
-<form  class="f_search"  action="{% url 'emp_list'%}" >
-<p><u>ПОИСК: </u></p>
-  <input type="text" name="emp" placeholder="Поиск по ФИО..." value="">
 
-
-<label for="emp_dep_search">Подразделение: </label>
-  <select class="" name="emp_dep">
-    <option value="">---</option>
-    {% for dep in deps%}
-      <option value="{{dep.id}}">{{dep}}</option>
-      {% endfor%}
-  </select>
-    <label for="emp_shift">Режим работы: </label>
-    <select class="" name="emp_shift">
-      <option value="">---</option>
-      <option value="1">Сменные</option>
-      <option value="2">Дневные</option>
-    </select>
-
-    <input class="btn btn-dark"type="submit" name="" value="Найти">
-
-</form>
 
 <div class="container">
-  <a class="btn btn-success btn-add"  href="{% url 'emp_new'%}"  >+ Новый сотрудник</a>
+
+  <div class="standart-menu">
+    <a class="button add"  href="{% url 'emp_new'%}"  >Добавить работника</a>
+    
+    <div id="vacshed-filter-menu" class="standart-menu-submenu-container">
+      <img src="{% static '/img/search.png' %}" onclick="open_additional_menu(this, 'employers-search-panel')" alt="">
+    </div> 
+  </div>
+
+  <form style="display: none;" class="standart-panel standart-form search" id="employers-search-panel"  action="{% url 'emp_list'%}" >
+    <input type="hidden" name="search-sign" value=1>
+    <div class="standart-form-input-group inline">
+      <p><span>ФИО: </span><input type="text" name="emp"  value=""></p>
+      <p><span>Подразделение</span>  <select class="" name="emp_dep">
+        <option value="">--</option>
+        {% for dep in deps%}
+          <option value="{{dep.id}}">{{dep}}</option>
+          {% endfor%}
+      </select>
+  </p>
+  <p><span>Режим работы: </span>  
+    <select class="" name="emp_shift">
+      <option value="">--</option>
+      <option value="1">Сменные</option>
+      <option value="2">Дневные</option>
+    </select></p>
+    </div>
+
+    <div style="border-bottom: 1px solid black;" class="standart-form-input-group one_button">
+      <p  class="one_line"><span>Уволенные: </span><input type="checkbox" name="employers-search-fired" id="employers-search-fired"></p>
+    </div>
+    
+    <div class="standart-form-input-group inline">
+      <input class="button add" type="submit" name="" value="Найти">
+      <a class="button cance" href="{% url 'emp_list' %}">Сбросить</a>
+    </div>
+    
+
+
+
+
+  
+
+
+
+
+
+  </form>
+
+ 
 
 {%if employers%}
 
@@ -38,14 +84,15 @@
   <thead class="thead-dark">
   <tr class="tr-header">
 
-
+    <th scope="col">Код</th>
     <th scope="col">ФИО</th>
     <th scope="col">Должность</th>
     <th scope="col">Подразделение</th>
     <th scope="col">Ступень оплаты</th>
     <th scope="col">Разряд\категория</th>
-    <th scope="col">Сменный персонал</th>
-
+    <th scope="col">Сменщик</th>
+    <th scope="col">Пол</th>
+    <th scope="col">Осн. специальность</th>
 
 
 
@@ -55,9 +102,9 @@
   {%for emp in employers %}
 
   {% if emp.fired %}
-  <tr style="text-decoration: line-through" onclick="return location.href = '{% url 'emp_upd' id=emp.id%}' " >
+  <tr style="text-decoration: line-through" onclick="return window.open('{% url 'emp_upd' id=emp.id%}') " >
 
-
+    <td>{{emp.id}}</td>
     <td>{{emp.fullname}}</td>
     <td>{{emp.position}}</td>
     <td>{{emp.department}}</td>
@@ -68,18 +115,32 @@
     {%else%}
     <td>❌</td>
     {%endif%}
+    <td>{{emp.sex}}</td>
+
+    {% if emp.mainworkplace %}
+    <td>✅</td>
+    {%else%}
+    <td>❌</td>
+    {%endif%}
 
   {%else%}
 
-  <tr  onclick="return location.href = '{% url 'emp_upd' id=emp.id%}' " >
+  <tr  onclick="return window.open('{% url 'emp_upd' id=emp.id%}') " >
 
-
+    <td>{{emp.id}}</td>
     <td>{{emp.fullname}}</td>
     <td>{{emp.position}}</td>
     <td>{{emp.department}}</td>
     <td>{{emp.positionOfPayment}}</td>
     <td>{{emp.level}}</td>
     {% if emp.shift_personnel %}
+    <td>✅</td>
+    {%else%}
+    <td>❌</td>
+    {%endif%}
+    <td>{{emp.sex}}</td>
+
+    {% if emp.mainworkplace %}
     <td>✅</td>
     {%else%}
     <td>❌</td>
@@ -90,8 +151,47 @@
   </tr>
   {%endfor%}
 </table>
+
+<nav  class="paginator" aria-label="Page navigation example">
+  <ul class="pagination">
+    {%if employers.has_previous%}
+        <li class="page-item">
+          <a class="page-link" aria-label="previous" href="?page=1">
+              <span aria-hidden="true">Первая</span></a>
+        </li>
+        <li class="page-item">
+          <a class="page-link" href='?page={{employers.previous_page_number}}' aria-label="previous">
+    <span aria-hidden="true">{{employers.previous_page_number}}</span>
+          </a>
+        </li>
+  {%endif%}
+
+   <li class="page-item active"><a class="page-link" href="">{{ employers.number }}</a></li>
+
+{%if employers.has_next%}
+    <li class="page-item">
+      <a class="page-link" href='?page={{employers.next_page_number}}' aria-label="Next">{{employers.next_page_number}}</a>
+      </li>
+  {%endif%}
+
+  <li class="page-item">
+  <a class="page-link" href="?page={{ employers.paginator.num_pages }}">Последняя</a>
+  </li>
+</ul>
+</nav>
+
 {%else%}
-<h2>Сотрудники не найдены</h2>
+<h2>Работники не найдены</h2>
 {%endif%}
 </div>
+
+<script>
+  (function() {
+    // document.getElementById('button-back').href = document.referrer
+    if (document.location.href.indexOf('search-sign') != -1 ) {
+      document.getElementsByClassName('paginator')[0].style.display = 'none'
+    }
+  })()
+</script>
+
 {%endblock%}

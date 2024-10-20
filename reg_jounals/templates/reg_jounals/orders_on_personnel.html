@@ -1,120 +1,200 @@
 {%extends "reg_jounals/index.html" %}
-
+{%load static%}
 {%block title%}Приказы по личному составу{%endblock%}
-{%block header%} <a class="btn btn-dark" href="../"> < Назад</a> Журнал регистрации приказов по личному составу. Всего: {{count}}.  {%endblock%}
-{%block content%}
-<div id="frame_" class="frame">
-  <iframe id="iframe" src="" width="" height=""></iframe>
-  <button type="button" class="btn btn-success" onclick="send_submit()" name="button">Сохранить</button>
-  <button type="button" onclick="close_frame()"class="btn btn-outline-danger" name="button">Отмена</button>
-</div>
+{%block header%}<a class="button back" href="../">
+  < Назад</a>{%block logo%}{{block.super}}{%endblock%} Журнал регистрации приказов по личному составу.{%endblock%}
+    {%block content%}
 
-<div style="display: inline-flex" class="op_header">
+    <div class="standart-menu no_print">
+      <a class="button add" href="{%url 'orders_on_personnel_add_url'%}"> + Добавить</a>
+      <a class="button" onclick="window.print();" class="op_print btn btn-sm btn-warning" href="#">Печать</a>
 
-  <form style="margin-right: 15px;" action="{% url 'orders_on_personnel' %}">
-    <input type="date" id="search_date" name="op_search_from" placeholder="Период с:">
-    <input type="date" id="search_date2" name="op_search_to" placeholder="по">
-    <button class="btn btn-sm btn-dark" type="submit" name="" value="Найти">Найти</button>
-  </form>
-<form action="{% url 'orders_on_personnel' %}">
-  <input type="search" name="op_search" placeholder="Поиск по ФИО..">
-  <button class="btn btn-sm btn-dark" type="submit" name="" value="Найти">Найти</button>
-</form>
+      <div class="standart-menu-submenu-container">
+        <img src="{% static '/img/filter.png' %}" onclick="open_search_menu(this, 'orders-on-personnel-search-menu')"
+          alt="">
+      </div>
 
-<a style="margin-left: 10px" onclick="PrintSelected();" class="op_print btn btn-sm btn-warning" href="#">Печать выбранных</a>
-</div>
-<!-- <a class="btn btn-success btn-lg m-bottom btn-add " href="{%url 'orders_on_personnel_add_url'%}"> + Добавить</a> -->
-<button class="btn btn-success btn-lg m-bottom btn-add " type="button" name="button" onclick="open_frame_new()"> + Добавить</button>
-{% if orders %}
-<table>
-  <thead class="thead-dark">
-  <tr class="tr-header">
-
-    <th></th>
-    <th scope="col">Дата приказа</th>
-    <th scope="col">Номер</th>
-    <th scope="col">Сотрудник</th>
-    <th scope="col">Подразделение</th>
-
-    <th scope='col'>Содержание</th>
-
-
-    <th scope="col">Ответственный сотрудник</th>
+    </div>
 
 
 
+    <form id="orders-on-personnel-search-menu" class="standart-panel search panel" style="display: none;"
+      action="{% url 'orders_on_personnel' %}">
 
-  </tr>
-  </thead>
+      <input type="hidden" name="search-sign" value="1">
 
-  {%for order in orders%}
-{%if order.op_selected %}
+      <div class="search-panel-input-group">
+        <input name="orders-on-personnel-search-number" type="text" placeholder="Номер">
+      </div>
+
+      <div class="search-panel-input-group">
+        <input type="search" name="op_search" placeholder="ФИО">
+        <select class="" name="op_event">
+          <option value="">--событие--</option>
+          {% for e in events%}
+          <option value="{{e.id}}">{{e.name}}</option>
+          {%endfor%}
+      
+        </select>
+      </div>
+
+      
+      <div class="search-panel-input-group">
+        <input name="orders-on-personnel-search-content" type="text" placeholder="Содержание">
+      </div>
+
+      <div class="search-panel-input-group">
+        <div class="search-panel-input-group-header">
+          <h5>Период: </h5>
+        </div>
+        <input type="date" id="search_date" name="op_search_from" placeholder="Период с:">
+        <input type="date" id="search_date2" name="op_search_to" placeholder="по">
+      </div>
+     
+      <div class="search-panel-input-group">
+        <select class="" name="orders-on-personnel-search-department">
+          <option value="">Подразделение</option>
+          {%for dep in deps%}
+          <option value="{{dep.id}}">{{dep}}</option>
+          {%endfor%}
+        </select>
+      </div>
 
 
-<tr id="{{order.id}}" style="background: #f9dd89;" class="t_row" ondblclick="open_for_upd({{order.id}})">
-    {%else%}
-    {%if order.op_lastcheck %}
-    <tr id="{{order.id}}" style="background: darkseagreen;" class="t_row" ondblclick="open_for_upd({{order.id}})">
+     
+      <div class="search-panel-input-group">
+        <button class="button add" type="submit" name="" value="Найти">Найти</button>
+        <a class="button cancel"  href=".">Сбросить</a>
+      </div>
+    
+    </form>
+
+
+    {% if orders %}
+    <table>
+      <thead class="thead-dark">
+        <tr class="tr-header">
+
+         
+          <th scope="col">Дата приказа</th>
+          <th scope="col">Номер</th>
+          <th scope="col">Сотрудник</th>
+          <th scope="col">Подразделение</th>
+
+          <th scope='col'>Содержание</th>
+
+
+          <th class="no_print" scope="col">Ответственный сотрудник</th>
+
+
+
+
+        </tr>
+      </thead>
+
+      {%for order in orders%}
+      {%if order.op_selected %}
+
+      <tr style="background: #f9dd89;"
+        onclick="return location.href = '{% url 'orders_on_personnel_upd_url' id=order.id%}' ">
+        <!-- <tr id="{{order.id}}" style="background: #f9dd89;" class="t_row" ondblclick="open_for_upd({{order.id}})"> -->
         {%else%}
-          <tr id="{{order.id}}"  class="t_row" ondblclick="open_for_upd({{order.id}})">
-            {%endif%}
-            {%endif%}
-    <td><input type="checkbox" class="for_print" name="forprint" value=""></td>
-    <td id="date">{{order.op_date|date:"d.m.Y"}}</td>
-    <td id='number'>{{order.op_number}}</td>
-    <td id="emloyer">{{order.op_emloyer}}</td>
-    <td id="dep">{{order.op_dep}}</td>
-    <td id="content">{{order.op_content}}</td>
-    <td id="res_officer">{{order.op_res_officer}}</td>
+        {%if order.op_lastcheck %}
+      <tr style="background: darkseagreen;"
+        ondblclick="return location.href = '{% url 'orders_on_personnel_upd_url' id=order.id%}' ">
+        <!-- <tr id="{{order.id}}"  class="t_row" ondblclick="open_for_upd({{order.id}})"> -->
+        {%else%}
+      <tr onclick="return location.href = '{% url 'orders_on_personnel_upd_url' id=order.id%}' ">
+        {%endif%}
+        {%endif%}
+       
+        <td id="date">{{order.op_date|date:"d.m.Y"}}</td>
+        <td id='number'>{{order.op_number}}</td>
+        {% if order.op_emloyer %}
+          <td id="emloyer">{{order.op_emloyer}}</td>
+        {% else %}
+          {% if order.bound_employer %}
+            <td id="emloyer">{{order.bound_employer.fullname}}</td>
+          {%else%}
+            <td id="emloyer">--</td>
+          {%endif%}
+        {% endif %}
+        
+        {% if order.department %}
+          <td id="dep">{{order.department}}</td>
+        {% else %}
+          {% if order.op_dep %}
+            <td id="dep">{{order.op_dep}}</td>
+          {%else%}
+            <td id="dep">--</td>
+          {%endif%}
+        {%endif%}
+        
+        <td id="content">{{order.op_content}}</td>
+        <td class="table-res-employer no_print" id="res_officer">{{order.op_res_officer}}</td>
 
 
-</tr>
+      </tr>
 
 
 
 
 
-  {%endfor%}
-</table>
-<nav  class="paginator" aria-label="Page navigation example">
-  <ul class="pagination">
-    <li class="page-item">
-      <a class="page-link" href="#" aria-label="Previous">
-<span aria-hidden="true">&laquo;</span>
-      </a>
-    </li>
-{% for p in orders.paginator.page_range %}
-  {% if orders.number == p%}
-   <li class="page-item active"><a class="page-link" href="?page={{p}}">{{ p }}</a></li>
-   {%else%}
-        <li class="page-item"><a class="page-link" href="?page={{p}}">{{ p }}</a></li>
+      {%endfor%}
+    </table>
+
+    <nav class="paginator no_print" aria-label="Page navigation example">
+      <ul class="pagination">
+        {%if orders.has_previous%}
+        <li class="page-item">
+          <a class="page-link" aria-label="previous" href="?page=1">
+            <span aria-hidden="true">Первая</span></a>
+        </li>
+        <li class="page-item">
+          <a class="page-link" href='?page={{orders.previous_page_number}}' aria-label="previous">
+            <span aria-hidden="true">{{orders.previous_page_number}}</span>
+          </a>
+        </li>
+        {%endif%}
+
+        <li class="page-item active"><a class="page-link" href="">{{ orders.number }}</a></li>
+
+        {%if orders.has_next%}
+        <li class="page-item">
+          <a class="page-link" href='?page={{orders.next_page_number}}'
+            aria-label="Next">{{orders.next_page_number}}</a>
+        </li>
+        {%endif%}
+
+        <li class="page-item">
+          <a class="page-link" href="?page={{ orders.paginator.num_pages }}">Последняя</a>
+        </li>
+      </ul>
+    </nav>
+    {%else%}
+    <h2>Записей нет</h2>
     {%endif%}
-  {% endfor %}
+    <style>
+      table tr td input {
+        background: red;
+      }
 
-{%if orders.has_next%}
-    <li class="page-item">
-      <a class="page-link" href='?page={{orders.next_page_number}}' aria-label="Next">
-<span aria-hidden="true">&raquo;</span>
-      </a>
-    </li>
-  {%else%}
-  <li class="page-item disabled">
-    <a class="page-link" href='#' aria-disabled='true' aria-label="Next">
-      <span aria-hidden="true">&raquo;</span>
-    </a>
-  </li>
-  {%endif%}
-  </ul>
-</nav>
+      @media print {
+        .container {
+          margin: 0;
+          width: 100%;
+        }
 
-{%else%}
-<h2>Записей нет</h2>
-{%endif%}
-<style>
-table tr td input {
-  background: red;
-}
+        .no_print {
+          display: none;
+        }
 
+        table {
+          width: 146% !important;
 
-</style>
-{%endblock%}
+        }
+
+      }
+
+    </style>
+    {%endblock%}

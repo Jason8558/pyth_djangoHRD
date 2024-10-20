@@ -1,89 +1,144 @@
 {%extends "reg_jounals/index.html" %}
-
+{%load static%}
 {%block title%}Трудовые книжки{%endblock%}
-{%block header%} <a class="btn btn-dark" href="../"> < назад</a> Журнал учета трудовых книжек. Всего: {{count}}.  {%endblock%}
-{%block content%}
-<div id="frame_" class="frame">
-  <iframe id="iframe" src="" width="" height=""></iframe>
-  <button type="button" class="btn btn-success" onclick="send_submit()" name="button">Сохранить</button>
-  <button type="button" onclick="close_frame()"class="btn btn-outline-danger" name="button">Отмена</button>
-</div>
-<form action="{% url 'employment_history' %}">
-  <input type="search" name="eh_search" placeholder="Поиск по ФИО...">
-  <button class="btn btn-sm btn-dark" type="submit" name="" value="Найти">Найти</button>
-</form>
-<!-- <a class="btn btn-success btn-lg m-bottom btn-add " href="{%url 'employment_history_add_url'%}"> + Добавить</a> -->
-<button class="btn btn-success btn-lg m-bottom btn-add " type="button" name="button" onclick="open_frame_new()"> + Добавить</button>
-{% if histories %}
-<table>
-  <thead class="thead-dark">
-  <tr class="tr-header">
+{%block header%}<a class="button back" href="../"> < назад</a>{%block logo%}{{block.super}}{%endblock%}  Журнал учета трудовых книжек.{%endblock%}
+    {%block content%}
 
-    <th scope="col">Номер ТК</th>
-    <th scope="col">Дата приема</th>
-    <th scope="col">ФИО работника</th>
-    <th scope="col">Подразделение</th>
-    <th scope="col">Должность</th>
-    <th scope="col">Приказ о приеме</th>
-    <th scope="col">Дата увольнения</th>
-    <th scope="col">Приказ об увольнении</th>
-    <th scope="col">Ответственный сотрудник</th>
+    <div class="standart-menu">
+      <a class="button add" href="{%url 'employment_history_add_url'%}">Добавить</a>
 
 
+      <div class="standart-menu-submenu-container">
+        <img src="{% static '/img/filter.png' %}" onclick="open_search_menu(this, 'employment-history-search-menu')"
+          alt="">
+      </div>
 
-  </tr>
-  </thead>
-
-  {%for history in histories %}
-
-<tr id={{history.id}} onclick="open_for_upd({{history.id}}) ">
-
-    <td id="number">{{history.eh_number}}</td>
-    <td id="dateofinv">{{history.eh_dateOfInv|date:"d.m.Y"}}</td>
-    <td id="fio">{{history.eh_employer}}</td>
-    <td id="dep">{{history.eh_dep}}</td>
-    <td id="pos">{{history.eh_pos}}</td>
-    <td id="orderinv">{{history.eh_OrderInv}}</td>
-    <td id="dateofresign">{{history.eh_dateOfResign|date:"d.m.Y"}}</td>
-    <td id="orderres">{{history.eh_OrderResign}}</td>
-    <td id="res_officer">{{history.eh_res_officer}}</td>
+    </div>
 
 
-</tr>
-  {%endfor%}
-</table>
-<nav  class="paginator" aria-label="Page navigation example">
-  <ul class="pagination">
-    <li class="page-item">
-      <a class="page-link" href="#" aria-label="Previous">
-<span aria-hidden="true">&laquo;</span>
-      </a>
-    </li>
-{% for p in histories.paginator.page_range %}
-  {% if histories.number == p%}
-   <li class="page-item active"><a class="page-link" href="?page={{p}}">{{ p }}</a></li>
-   {%else%}
-        <li class="page-item"><a class="page-link" href="?page={{p}}">{{ p }}</a></li>
+    <form id="employment-history-search-menu" style="display: none;" class="standart-panel search panel"
+      action="{% url 'employment_history' %}">
+
+      <input type="hidden" name="search-sign" value="1">
+
+      <div class="search-panel-input-group">
+        <input type="search" name="eh_search" placeholder="ФИО">
+      </div>
+
+      <div class="search-panel-input-group">
+        <select class="" name="employment-history-search-department">
+          <option value="">Подразделение</option>
+          {%for dep in deps%}
+          <option value="{{dep.id}}">{{dep}}</option>
+          {%endfor%}
+        </select>
+      </div>
+
+      <div class="search-panel-input-group">
+        <div class="search-panel-input-group-header">
+          <h5>Дата приема:</h5>
+        </div>
+        <input type="date" name="employment-history-search-date-invite-from" id="">
+        <input type="date" name="employment-history-search-date-invite-to" id="">
+      </div>
+
+
+      <div class="search-panel-input-group">
+        <div class="search-panel-input-group-header">
+          <h5>Вид</h5>
+        </div>
+        <select id="eh_search_type" name="eh_search_type">
+          <option value="">Все</option>
+          <option value="1">Электронные</option>
+          <option value="0">Бумажные</option>
+
+        </select>
+      </div>
+
+      <div class="search-panel-input-group">
+        <button class="button add" type="submit" name="" value="Найти">Найти</button>
+        <a class="button cancel" href=".">Сбросить</a>
+      </div>
+    
+    </form>
+    <!-- <a class="btn btn-success btn-lg m-bottom btn-add " > + Добавить</a> -->
+    <!-- <button class="btn btn-success btn-lg m-bottom btn-add " type="button" name="button" onclick="open_frame_new()"> + Добавить</button> -->
+    {% if histories %}
+    <table>
+      <thead class="thead-dark">
+        <tr class="tr-header">
+
+          <th scope="col">Номер ТК</th>
+          <th scope="col">Дата приема</th>
+          <th scope="col">ФИО</th>
+          <th scope="col">Подразделение</th>
+          <th scope="col">Приказ о приеме</th>
+          <th scope="col">Дата увольнения</th>
+          <th scope="col">Приказ об увольнении</th>
+          <th scope="col">Ответственный</th>
+
+
+
+        </tr>
+      </thead>
+
+      {%for history in histories %}
+
+
+      <tr onclick="return location.href = '{% url 'employment_history_upd_url' id=history.id%}' ">
+
+
+        <td id="number">{{history.eh_number}}</td>
+        <td id="dateofinv">{{history.eh_dateOfInv|date:"d.m.Y"}}</td>
+        <td id="fio">{{history.eh_employer}}</td>
+        {% if history.department %}
+          <td id="dep">{{history.department}}</td>
+        {% else %}
+          <td id="dep">{{history.eh_dep}}</td>
+        {% endif %}
+        <td id="orderinv">{{history.eh_OrderInv}}</td>
+        <td id="dateofresign">{{history.eh_dateOfResign|date:"d.m.Y"}}</td>
+        {% if history.eh_OrderResign%}
+          <td id="orderres">{{history.eh_OrderResign}}</td>
+        {% else %}
+          <td id="orderres"></td>
+        {% endif %}
+        <td id="res_officer">{{history.eh_res_officer}}</td>
+
+
+      </tr>
+      {%endfor%}
+    </table>
+    <nav class="paginator" aria-label="Page navigation example">
+      <ul class="pagination">
+        {%if histories.has_previous%}
+        <li class="page-item">
+          <a class="page-link" aria-label="previous" href="?page=1">
+            <span aria-hidden="true">Первая</span></a>
+        </li>
+        <li class="page-item">
+          <a class="page-link" href='?page={{histories.previous_page_number}}' aria-label="previous">
+            <span aria-hidden="true">{{histories.previous_page_number}}</span>
+          </a>
+        </li>
+        {%endif%}
+
+        <li class="page-item active"><a class="page-link" href="">{{ histories.number }}</a></li>
+
+        {%if histories.has_next%}
+        <li class="page-item">
+          <a class="page-link" href='?page={{histories.next_page_number}}'
+            aria-label="Next">{{histories.next_page_number}}</a>
+        </li>
+        {%endif%}
+
+        <li class="page-item">
+          <a class="page-link" href="?page={{ histories.paginator.num_pages }}">Последняя</a>
+        </li>
+      </ul>
+    </nav>
+
+    {%else%}
+    <h2>Записей нет</h2>
     {%endif%}
-  {% endfor %}
-
-{%if histories.has_next%}
-    <li class="page-item">
-      <a class="page-link" href='?page={{histories.next_page_number}}' aria-label="Next">
-<span aria-hidden="true">&raquo;</span>
-      </a>
-    </li>
-  {%else%}
-  <li class="page-item disabled">
-    <a class="page-link" href='#' aria-disabled='true' aria-label="Next">
-      <span aria-hidden="true">&raquo;</span>
-    </a>
-  </li>
-  {%endif%}
-  </ul>
-</nav>
-
-{%else%}
-<h2>Записей нет</h2>
-{%endif%}
-{%endblock%}
+    {%endblock%}

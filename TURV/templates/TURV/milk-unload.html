@@ -1,0 +1,37 @@
+{% extends 'TURV/index.html'%}
+{%load static%}
+{%block title%}Выгрузить молоко{% endblock %}
+<!-- {%block scripts%}<script src="{% static 'TURV\js\unload.js' %}" charset="utf-8"></script>{%endblock%} -->
+{%block header%} <a class=" btn btn-dark" href="/turv">Назад</a> Выгрузить молоко{%endblock%}
+
+{% block body %}
+
+<form id="unload_form" action="{% url 'milk-unload'%}">
+<label for="u_month">Месяц</label>
+  <select class=""  id="u_month" name="month">
+    <option value="01">Январь</option>
+    <option value="02">Февраль</option>
+    <option value="03">Март</option>
+    <option value="04">Апрель</option>
+    <option value="05">Май</option>
+    <option value="06">Июнь</option>
+    <option value="07">Июль</option>
+    <option value="08">Август</option>
+    <option value="09">Сентябрь</option>
+    <option value="10">Октябрь</option>
+    <option value="11">Ноябрь</option>
+    <option value="12">Декабрь</option>
+  </select>
+
+ <label for="year">Год</label>
+<input type="text" name="year" value="" required>
+
+
+
+
+
+<input type="submit" name="" class="btn btn-success btn-add" onclick="write_deps()" value="Выгрузить">
+<p><input type="checkbox" name="nounload_only" value="1" checked> <label for="nounload_only"> только невыгруженные</label></p>
+</form>
+
+{%endblock%}

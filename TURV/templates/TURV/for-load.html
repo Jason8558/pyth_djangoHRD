@@ -1,0 +1,65 @@
+{% extends 'TURV/index.html'%}
+
+{%block title%}Выгрузка{% endblock %}
+
+{%block header%}
+  <a href="/turv/" class="btn btn-dark"> < Назад </a>
+    Табели, готовые к выгрузке. Всего: {{count}}.
+
+
+{%endblock%}
+
+{% block body %}
+<div class="container">
+<form action="{% url 'forload_url'%} " class="f_search fs-forload fs-inline" method="post">
+  {% csrf_token %}
+  <select class="" id="search_month" name="fl-month">
+    <option value="">Текущие</option>
+    <option value="01">Январь</option>
+    <option value="02">Февраль</option>
+    <option value="03">Март</option>
+    <option value="04">Апрель</option>
+    <option value="05">Май</option>
+    <option value="06">Июнь</option>
+    <option value="07">Июль</option>
+    <option value="08">Август</option>
+    <option value="09">Сентябрь</option>
+    <option value="10">Октябрь</option>
+    <option value="11">Ноябрь</option>
+    <option value="12">Декабрь</option>
+  </select>
+
+<input type="text" id="fs-year" placeholder="год..." name="fl-year" value="">
+<p>
+<label for="fl-half">Для аванса: </label>
+<input type="checkbox" name="fl-half" value="1"> </p>
+<button type="submit" class="btn btn-success" name="button">Получить</button>
+<button class="btn btn-outline-warning" onclick="window.print()">Печать</button>
+</form>
+
+<table>
+  <thead class="thead-dark">
+  <tr class="tr-header">
+    <th scope="col">Код</th>
+    <th scope="col">Период составления</th>
+    <th scope="col">Подразделение</th>
+    <th scope="col">Ответственный</th>
+    <th scope="col">Комментарий</th>
+  </tr>
+  </thead>
+  <tbody>
+    {% for t in tabels%}
+      <tr>
+        <td>{{t.id}}</td>
+        <td>{{t.month}}{{t.year}}</td>
+        <td>{{t.department.name}}</td>
+        <td>{{t.res_officer}}</td>
+        <td>{{r.comm}}</td>
+
+      </tr>
+    {%endfor%}
+  </tbody>
+</table>
+</div>
+
+{%endblock%}

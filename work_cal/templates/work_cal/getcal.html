@@ -1,0 +1,71 @@
+{% extends "work_cal/record.html" %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'TURV\css\style1.css' %}">
+    <title>Производственный календарь на {{year}} </title>
+</head>
+
+
+<body>
+    {% block header %}
+        <header>
+            <h1> <a href="/work_cal">Назад</a> Производственный календарь на {{year}} </h1>
+        </header> 
+    {% endblock %}
+    {% block body %}
+    
+    <div style="display: none" id="areyousure">
+        <h3>Уверены что хотите стереть производственный календарь на {{year}} год? Это повлечет за собой нарушение работы графиков и табельного учета!</h3>
+        <div class="buttons">
+            <a class="btn" href="clear">Да</a>
+            <button onclick="off_ays()" class="btn cancel">Нет</button>
+        </div>
+    </div>
+    <div class="container">
+
+        <table>
+            <thead>
+            <tr>
+                <th>Месяц</th>
+                <th>Дни</th>
+            </tr>
+            </thead>
+            <tbody>
+
+           
+       
+        {% for c in cal %}
+                <tr>
+           <td>{{c.month_text}}</td> <td>{{c.days}}</td>
+                </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    <div class="buttons">  
+        <a class='btn' href="upd">Изменить </a>
+        <a class='btn cancel' onclick="on_ays()">Стереть</a>
+    </div>
+  
+</div>
+<script>
+    function on_ays() {
+        $('#areyousure').css('display','block')
+
+    }
+
+    function off_ays() {
+        $('#areyousure').css('display','none')
+
+    }
+</script>
+    {% endblock %}
+
+</body>
+
+
+</html>

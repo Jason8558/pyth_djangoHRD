@@ -1,34 +1,76 @@
 {% extends "reg_jounals/index.html" %}
 
 {%block title%}Изменить запись{% endblock %}
-{%block header%}Изменить запись - Заявление на прием № {{letter.id}} от {{letter.loi_date}}{% endblock %}
+{%block header%}{%block logo%}{{block.super}}{%endblock%}Изменить запись{% endblock %}
 
 {%block content%}
-<script type="text/javascript">
-  $(document).ready(function() {
-    $('header').css('display','none')
-    $('body').css('background', 'white !important') })
-</script>
+
 {% if form.errors%}
 
 <div class="alert alert-danger mt-5" role="alert">
 {{form.errors}}
 </div>
 {%endif%}
-<form class="add_form" action="" method="post">
+<form class="standart-form standart-panel" action="" method="post">
   {% csrf_token %}
-  {% for field in form %}
-  <p>{{field.label}}{{ field }}</p>
-  {% endfor%}
+  <div class="standart-form-header">
+    <h4>Номер заявления: <span id="next_num">{{letter.loi_number}}</span></h4>
+  </div>
+  
+  <div class="standart-form-input-group inline">
+    <p><span>ФИО (полностью): </span> {{form.loi_employee}}</p>
+    <p><span>Дата: </span>{{form.loi_date}}</p>
+    <p><span>{{form.loi_dateOfInv.label}}: </span>{{form.loi_dateOfInv}}</p>
+  </div>
 
-  <!-- <input class="btn btn-success" type="submit" value="Сохранить" />
-  <a class="btn btn-outline-danger btn-upd" id="sure_btn" onclick="OpenSureDialog()"">Удалить запись</a>
-  <div id="sure" style="display: none;" class="yousure">
-    <p>Вы уверены? <span style="color: red;"><b>ЭТО ДЕЙСТВИЕ НЕОБРАТИМО</b></span></p>
-    <a class="btn btn-outline-danger" href="{% url 'invite_del_url' id=letter.id%}">Да</a>
+  <div class="standart-form-input-group inline">
+    <p><span>Подразделение: </span><select name="invite-department-field" id="invite-department-field">
+      {% for dep in deps %}
+        <option value="{{dep.id}}">{{dep.name}}</option>
+      {% endfor %}
+    </select></p>
+    
+    <p><span>Должность: </span><select class="" id="sel_pos" name="sel_pos">
+      {%for p in pos%}
+        <option value="{{p.id}}">{{p}}</option>
+      {%endfor%}
+    </select></p>
+
+    
 
   </div>
-  <a class="btn btn-outline-info btn-upd" href="..">Отмена</a> -->
+  <div class="standart-form-input-group">
+    <p><span>{{form.loi_additionalData.label}}: </span>{{form.loi_additionalData}}</p>
+  </div>
+ 
+  
+
+<div class="standart-form-input-group inline">
+  <input class="button add" type="submit" value="Сохранить" />
+  <a class="button cancel" href="..">Отмена</a>
+  {% if editing or request.user.is_superuser %}
+    <a class="button cancel" onclick="open_additional_menu(this, 'delete-document-popup')" href="#">Удалить</a>
+  {% endif %}
+</div>
 </form>
+
+<div id="delete-document-popup" style="display: none;" class="standart-panel standart-form popup"> 
+  <div class="standart-form-header">
+    <h4>Вы уверены?</h4>
+  </div>
+
+  <div class="standart-form-input-group inline">
+    <a class="button add" href="{% url 'document_delete' type=3 id=letter.id %}">Да</a>
+    <a class="button cancel" onclick="this.parentNode.parentNode.style.display = 'none' ">Нет</a>
+  </div>
+
+</div> 
+
+<script type="text/javascript">
+(function(){
+  document.getElementById('invite-department-field').value  = '{{letter.department_id}}'
+  document.getElementById('sel_pos').value                  = '{{letter.position_id}}'
+})()
+</script>
 
 {%endblock%}

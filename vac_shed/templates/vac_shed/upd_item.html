@@ -1,0 +1,190 @@
+{% extends 'vac_shed/index.html'%}
+{%load static%}
+{%block title%}{{item.emp.fullname}} c {{item.dur_from}}{%endblock%}
+{%block script%}{%endblock%}
+{%block header%} 
+ 
+<div class="header-back-button-container">
+<a class="button back" href="/vacshed/create/{{item.bound_shed.id}}"> назад </a>
+  
+{% block logo%}
+{{block.super}}
+{% endblock %}
+</div>
+
+<div class="header-main-text">
+<h3>Изменить запись {{item.emp.fullname}} Период: {{item.dur_from|date:"d.m.Y"}}</h3>
+</div>
+
+
+{% block username %}
+{{block.super}}
+{% endblock%}
+
+  
+  {%endblock%}
+{% block body %}
+<div class="container">
+  <form class="standart-form standart-panel" id='addform' action="{%url 'upditem_url' id=item.id type=type%}" method="post">
+      {% csrf_token %}
+
+
+{%if type == 1%}
+<div class="standart-form-header">
+  <h4>Введите новые данные</h4>
+</div>
+
+<div class="standart-form-input-group">
+<p><span>Проезд: </span><input  id="city" type="text" placeholder="Город" name="city" value="{{item.city}}"></p>
+<p><span>Иждивенец: </span><input type="text" name="child" placeholder="Год рождения, через запятую" value="{{item.child_year}}"></p>
+</div>
+
+  
+
+{%else%}
+{%endif%}
+
+{%if type == 2%}
+  <div id="vac-form-periods" class=".vac-form-periods">
+    <div class="standart-form-header"><h4>Введите новые данные о периоде</h4></div>
+    
+    <div class="standart-form-input-group inline vac-period">
+      <p><span>с: </span><input id="per-date-from" type="date" name="per-date-from" value="{{item.dur_from|date:'Y-m-d'}}"></p>
+      <p><span>по: </span><input id="per-date-to"  readonly type="date" name="per-date-to" value="{{item.dur_to|date:'Y-m-d'}}"></p>
+      <p><span>дни: </span><input id="per-days-count" onchange="change_days(0)" placeholder="Кол-во дней" type="text" name="per-days-count" value="{{item.days_count}}"></p>      
+    </div>
+
+  </div>
+  {%else%}
+  {%endif%}
+
+
+  {%if type == 3%}
+  <h4>Оформление переноса периода: {{item.dur_from|date:"d.m.Y"}} по {{item.dur_to|date:"d.m.Y"}} в кол-ве: {{item.days_count}} дней</h4>
+  <h4>Введите данные о переносе</h4>
+ 
+      
+      <div class="vac-period standart-form-input-group inline">
+        
+        <p><span>с:</span><input id="per-date-from" type="date" name="per-date-move-from" value=""></p>
+        <p><span>по: </span><input id="per-date-to"  readonly type="date" name="per-date-move-to" value=""></p>
+        <p><span>дней:</span><input id="per-days-count" onchange="change_days(0)" placeholder="Кол-во дней" type="text" name="per-days-move-count" value="">
+        </p>
+      </div>
+      
+      <div class="vac-period standart-form-input-group inline">
+        <p>
+      <span>Основание переноса: </span>
+      <textarea name="move-reason" id="move-reason" rows="8" cols="80"></textarea></p>
+      </div>
+
+
+ 
+    {%else%}
+    {%endif%}
+
+    {%if type == 4%}
+      <div class="standart-form-header"> 
+        <h4>Добавить комментарий</h4>
+      </div>
+      
+      <div class="standart-form-input-group">
+        
+        <textarea name="comm" rows="8" cols="80">{{item.comm}}</textarea>
+      </div>
+
+      {%else%}
+      {%endif%}
+
+<div class="standart-form-input-group inline">
+  <input class="button" type="submit" name="" value="Сохранить">
+  <a href="{% url 'delitem_url' id=item.id%}" class="button cancel">Удалить период</a>
+</div>
+
+
+  </form>
+  </div>
+
+<script type="text/javascript">
+  $(document).ready(function(){
+    type = '{{type}}'
+    
+    if (type == '1' || type == '2') {
+      document.getElementById('addform').style.width = '300px'
+    } 
+
+    
+
+
+    $('.vac-period').attr('id', 'per0')
+
+    $("input[type=text], input[type=date] ").keydown(function(event){
+     if(event.keyCode == 13){
+       event.preventDefault();
+         return false;
+         }
+       })
+
+    url = "/vacshed/getemps/" + {{vacshed.dep_id}}
+
+    $.getJSON(url,  (data) => {
+      for (var i = 0; i < data.length; i++) {
+        if (data[i].fullname != data[i+1].fullname) {
+        $('#vac_emp').append('<option value=' + data[i].id + '>' + data[i].fullname + '</option>')}
+      }
+    })
+
+    $('.vac-period').attr('id', 'per0')
+
+    id = 0
+    $('#form-add-period').click(function(){
+
+      id = id+1
+      newper = '<div id="per'+ id +'" class="vac-period">  <label for="per-date-from">Отпуск с: </label>  <input type="date" id="per-date-from" name="per-date-from" value="">     <label for="per-date-to">по: </label>   <input type="date" id="per-date-to" placeholder="Кол-во дней" onchange="change_per(' + id + ')" name="per-date-to" value="">     <input type="text" id="per-days-count" onchange="change_days(' + id + ')" name="per-days-count" value=""></div>'
+      console.log(newper);
+      $('#vac-form-periods').append(newper)
+
+    })
+    $('#addform').submit(function(){
+
+      pers = $('.vac-period')
+      for (var i = 0; i < pers.length; i++) {
+
+
+        txt = $('#vac-form-all-periods').val() + $('#per' + i + ' #per-date-from' ).val() + ':' + $('#per' + i + ' #per-date-to' ).val() + ':' + $('#per' + i + " #per-days-count").val()  + '|'
+        $('#vac-form-all-periods').val(txt)
+      }
+    })
+
+  })
+
+  function change_per(id){
+    vac_calc($('#per' + id + ' #per-date-from').val(), $('#per' + id + ' #per-date-to').val())
+    $('#per' + id + ' #per-days-count').val(vac_calc($('#per' + id + ' #per-date-from').val(), $('#per' + id + ' #per-date-to').val()))
+
+  }
+
+  function change_days(id){
+
+    $('#per' + id + ' #per-date-to').val(end_count($('#per' + id + ' #per-date-from').val(), $('#per' + id + ' #per-days-count').val()))
+  celebrates_new($('#per' + id + ' #per-date-from').val(), $('#per' + id + ' #per-date-to').val(), id)
+  }
+
+  function vac_calc(date_from, date_to) {
+
+    date_from = date_from.split('-')[2] + '.' + date_from.split('-')[1] + '.' + date_from.split('-')[0]
+
+    date_to = date_to.split('-')[2] + '.' + date_to.split('-')[1] + '.' + date_to.split('-')[0]
+
+    console.log(Date.parse(date_to));
+    console.log(date_from);
+
+    dcount = (( Date.parse(date_to) - Date.parse(date_from)) / 24 / 60 / 60 / 1000) + 1
+
+    console.log(dcount);
+
+    return(dcount)
+}
+</script>
+
+{%endblock%}

@@ -1,28 +1,59 @@
 {% extends "reg_jounals/index.html" %}
 
 {%block title%}Добавить запись{% endblock %}
-{%block header%}Добавить запись - Трудовая книжка{% endblock %}
+{%block header%}{%block logo%}{{block.super}}{%endblock%}Добавить запись - Трудовая книжка{% endblock %}
 
 {%block content%}
-<script type="text/javascript">
-  $(document).ready(function() {
-    $('header').css('display','none')
-    $('body').css('background', 'white !important') })
-</script>
+
 {% if form.errors%}
 
 <div class="alert alert-danger mt-5" role="alert">
 {{form.errors}}
 </div>
 {%endif%}
-<form class="add_form" action="" method="post">
+<form class="standart-form standart-panel" action="" method="post">
   {% csrf_token %}
-  {% for field in form %}
-  <p>{{field.label}}{{ field }}</p>
-  {% endfor%}
 
-  <!-- <input class="btn btn-success" type="submit" value="Добавить" />
-  <a class="btn btn-outline-danger" href=".">Отмена</a> -->
+  <div class="standart-form-input-group inline">
+    <p><span>{{form.eh_number.label}}:</span>{{form.eh_number}}</p>
+    <p><span>{{form.eh_isdigital.label}}</span>{{form.eh_isdigital}}</p>
+  </div>
+  
+  <div class="standart-form-input-group inline">
+    <p><span>{{form.eh_dateOfInv.label}}: </span>{{form.eh_dateOfInv}}</p>
+    <p><span>{{form.eh_OrderInv.label}}</span>{{form.eh_OrderInv}}</p>
+  </div>
+
+  <div class="standart-form-input-group inline">
+    <p><span>ФИО: </span>{{form.eh_employer}}</p>
+    <p><span>Подразделение: </span><select name="employment-history-department-field" id="employment-history-department-field">
+      {% for dep in deps%}
+        <option value="{{dep.id}}">{{dep.name}}</option>
+      {% endfor %}
+    </select></p>
+  </div>
+
+  <div class="standart-form-input-group inline">
+    <p><span>{{form.eh_dateOfResign.label}}: </span>{{form.eh_dateOfResign}}</p>
+    <p><span>{{form.eh_OrderResign.label}}</span>{{form.eh_OrderResign}}</p>
+  </div>  
+
+
+
+<div class="standart-form-input-group inline">
+  <input class="button add" type="submit" value="Добавить" />
+  <a class="button cancel" href=".">Отмена</a>
+</div>
+
+
 </form>
+
+<script type="text/javascript">
+$('#sel_pos').change(function() {
+  $('#id_eh_pos').val('')
+
+  $('#id_eh_pos').val($('#sel_pos option:selected').text())
+})
+</script>
 
 {%endblock%}

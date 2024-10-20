@@ -1,35 +1,92 @@
 {% extends "reg_jounals/index.html" %}
 
-{%block title%}Трудовой договор №{{order.op_number}}{% endblock %}
-{%block header%}Изменить запись - Трудовой договор № {{order.lc_number}}{% endblock %}
+{%block title%}Изменить запись{% endblock %}
+{%block header%}{%block logo%}{{block.super}}{%endblock%}Изменить запись{% endblock %}
 
 {%block content%}
-<script type="text/javascript">
-  $(document).ready(function() {
-    $('header').css('display','none')
-    $('body').css('background', 'white !important') })
-</script>
-
+<!--  -->
 {% if form.errors%}
 
-<div class="alert alert-danger mt-5" role="alert">
+<div class="alert alert-danger mt-5" id="form_error" role="alert">
 {{form.errors}}
 </div>
 {%endif%}
-<form class="add_form" action="" method="post">
+<form class="standart-form standart-panel " action="" method="post">
   {% csrf_token %}
-  {% for field in form %}
-  <p>{{field.label}}{{ field }}</p>
-  {% endfor%}
-
-  <!-- <input class="btn btn-success" type="submit" value="Сохранить" />
-  <a class="btn btn-outline-danger" id="sure_btn" onclick="OpenSureDialog()">Удалить</a>
-  <!-- <div id="sure" style="display: none;" class="yousure">
-    <p>Вы уверены? <span style="color: red;"><b>ЭТО ДЕЙСТВИЕ НЕОБРАТИМО</b></span></p>
-    <a class="btn btn-outline-danger" href="{% url 'labor_contracts_del_url' id=order.id%}">Да</a>
-
+  <div class="standart-form-header">
+    <h4>Номер договора: <span id="next_num">{{order.lc_number}}</span></h4>
   </div>
-  <a class="btn btn-outline-info" href="..">Отмена</a> --> 
+  
+  <div class="standart-form-input-group inline">
+    <p><span>Работник: </span><select name="labor-contract-employer-field" id="labor-contract-employer-field">
+
+    </select></p>
+    <p><span>{{form.lc_date.label}}:</span> {{form.lc_date}}</p> 
+  </div>
+
+  <div class="standart-form-input-group inline">
+    <p><span>Подразделение: </span><select onchange="get_employers_from_department(this.value, 'labor-contract-employer-field')" name="labor-contract-department-field" id="labor-contract-department-field">
+      {% for dep in deps%}
+        <option value="{{dep.id}}">{{dep.name}}</option>
+      {%endfor%}
+    </select></p>
+    
+    <p> <span> {{form.lc_pos.label}}: </span> <select id="sel_pos" class="" name="">
+      {%for p in pos %}
+      <option value="{{p.id}}">{{p}}</option>
+      {%endfor%}
+    </select>
+
+    <p><span>{{form.lc_dateOfInv.label}}:</span> {{form.lc_dateOfInv}}</p>
+  </div>
+
+
+
+ 
+
+<div class="standart-form-input-group">
+  <p><span>{{form.lc_workCond.label}}: </span>{{form.lc_workCond}}</p>
+</div>
+  
+
+
+
+<div class="standart-form-input-group inline">
+  <input class="button add" type="submit" value="Добавить" />
+  <a class="button cancel" href="..">Отмена</a>
+  {% if editing or request.user.is_superuser %}
+    <a class="button cancel" onclick="open_additional_menu(this, 'delete-document-popup')" href="#">Удалить</a>
+  {% endif %}
+</div>
+
 </form>
+
+<div id="delete-document-popup" style="display: none;" class="standart-panel standart-form popup"> 
+  <div class="standart-form-header">
+    <h4>Вы уверены?</h4>
+  </div>
+
+  <div class="standart-form-input-group inline">
+    <a class="button add" href="{% url 'document_delete' type=8 id=order.id %}">Да</a>
+    <a class="button cancel" onclick="this.parentNode.parentNode.style.display = 'none' ">Нет</a>
+  </div>
+
+</div> 
+
+<script type="text/javascript">
+  (function(){
+    get_employers_from_department('{{order.department_id}}', 'labor-contract-employer-field')
+
+    document.getElementById('labor-contract-department-field').value  = '{{order.department_id}}'
+    document.getElementById('sel_pos').value                          = '{{order.position_id}}'
+  
+  })()
+
+$('#sel_pos').change(function() {
+  $('#id_lc_pos').val('')
+
+  $('#id_lc_pos').val($('#sel_pos option:selected').text())
+})
+</script>
 
 {%endblock%}

@@ -1,26 +1,65 @@
 {%extends "reg_jounals/index.html" %}
-
+{%load static%}
 {%block title%}Приказы по другим вопросам{%endblock%}
-{%block header%} <a class="btn btn-dark" href="../"> < Назад</a> Журнал регистрации приказов по другим вопросам. Всего: {{count}}.  {%endblock%}
+{%block header%}<a class="button back" href="../"> < Назад</a>{%block logo%}{{block.super}}{%endblock%}  Журнал регистрации приказов по другим вопросам.  {%endblock%}
 {%block content%}
 
-<div id="frame_" class="frame">
+<!-- <div id="frame_" class="frame">
   <iframe id="iframe" src="" width="" height=""></iframe>
   <button type="button" class="btn btn-success" onclick="send_submit()" name="button">Сохранить</button>
   <button type="button" onclick="close_frame()"class="btn btn-outline-danger" name="button">Отмена</button>
+</div> -->
+
+<div class="standart-menu">
+  <a class="button add " href="{%url 'orders_on_others_add_url'%}">Добавить</a>
+
+  <div class="standart-menu-submenu-container">
+    <img src="{% static '/img/filter.png' %}" onclick="open_search_menu(this, 'orders-on-others-search-menu')"
+      alt="">
+
+  </div>
+
 </div>
-<form action="{% url 'orders_on_others' %}">
-  <input type="date" id="search_date" name="oom_search_from" placeholder="C">
-  <input type="date" id="search_date2" name="oom_search_to" placeholder="По">
-  <select class=""  name="oom_search_res">
-    <option value="">Поиск по ответственному сотруднику</option>
+
+<form id="orders-on-others-search-menu" class="standart-panel search panel" style="display: none;"
+  action="{% url 'orders_on_others' %}">
+  
+  <input type="hidden" name="search-sign" value="1">
+  
+  <div class="search-panel-input-group">
+    <input type="text" name="orders-on-others-search-number" placeholder="Номер">
+  </div>
+
+  <div class="search-panel-input-group">
+    <input type="text" name="orders-on-others-search-content" placeholder="Содержание">
+  </div>
+
+
+  <div class="search-panel-input-group">
+    <div class="search-panel-input-group-header">
+      <h5>Период: </h5>
+    </div>
+    <input type="date" id="search_date" name="oom_search_from" placeholder="C">
+    <input type="date" id="search_date2" name="oom_search_to" placeholder="По">
+  </div>
+  
+  <div class="search-panel-input-group">
+    <select class="" name="oom_search_res">
+      <option value="">Поиск по ответственному сотруднику</option>
       {%for u in res_users %}
       <option value="{{u.first_name}}">{{u.first_name}}</option>
       {%endfor%}
-  </select>
-  <button class="btn btn-sm btn-dark" type="submit" name="" value="Найти">Найти</button>
+    </select>
+  </div>
+
+  <div class="search-panel-input-group">
+    <button class="button add" type="submit" name="" value="Найти">Найти</button>
+    <a class="button cancel">Сбросить</a>
+  </div>
+
 </form>
-<button type="button" class="btn btn-success btn-lg m-bottom btn-add " onclick="open_frame_new()" > + Добавить</button>
+
+
 
 
 
@@ -40,7 +79,7 @@
 
   {%for order in orders%}
 
-<tr  id="{{order.id}}" onclick="open_for_upd({{order.id}})">
+<tr id="{{item.id}}" onclick="return location.href = '{% url 'orders_on_others_upd_url' id=order.id%}' ">
 
     <td id="date">{{order.oom_date|date:"d.m.Y"}}</td>
     <td id="number">{{order.oom_number}}</td>
@@ -50,34 +89,43 @@
 </tr>
   {%endfor%}
 </table>
+
+
 <nav  class="paginator" aria-label="Page navigation example">
   <ul class="pagination">
-    <li class="page-item">
-      <a class="page-link" href="#" aria-label="Previous">
-<span aria-hidden="true">&laquo;</span>
-      </a>
-    </li>
-{% for p in orders.paginator.page_range %}
-  {% if orders.number == p%}
-   <li class="page-item active"><a class="page-link" href="?page={{p}}">{{ p }}</a></li>
-   {%else%}
-        <li class="page-item"><a class="page-link" href="?page={{p}}">{{ p }}</a></li>
-    {%endif%}
-  {% endfor %}
+    {%if orders.has_previous%}
+        <li class="page-item">
+          <a class="page-link" aria-label="previous" href="?page=1">
+              <span aria-hidden="true">Первая</span></a>
+        </li>
+        <li class="page-item">
+          <a class="page-link" href='?page={{orders.previous_page_number}}' aria-label="previous">
+    <span aria-hidden="true">{{orders.previous_page_number}}</span>
+          </a>
+        </li>
+
+  {%endif%}
+
+
+
+   <li class="page-item active"><a class="page-link" href="">{{ orders.number }}</a></li>
+
+
+
 
 {%if orders.has_next%}
     <li class="page-item">
-      <a class="page-link" href='?page={{orders.next_page_number}}' aria-label="Next">
-<span aria-hidden="true">&raquo;</span>
-      </a>
-    </li>
-  {%else%}
-  <li class="page-item disabled">
-    <a class="page-link" href='#' aria-disabled='true' aria-label="Next">
-      <span aria-hidden="true">&raquo;</span>
-    </a>
-  </li>
+      <a class="page-link" href='?page={{orders.next_page_number}}' aria-label="Next">{{orders.next_page_number}}</a>
+      </li>
+
+
+
   {%endif%}
+  <li class="page-item">
+  <a class="page-link" href="?page={{ orders.paginator.num_pages }}">Последняя</a>
+  </li>
+
+
   </ul>
 </nav>
 

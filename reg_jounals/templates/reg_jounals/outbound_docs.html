@@ -1,21 +1,53 @@
 {%extends "reg_jounals/index.html" %}
+{%load static%}
 
 {%block title%}Исходящие документы{%endblock%}
-{%block header%}  <a class="btn btn-dark" href="../"> < назад</a> Журнал регистрации исходящих документов. Всего: {{count}}. {%endblock%}
+{%block header%} <a class="button back" href="../"> < назад</a> {%block logo%}{{block.super}}{%endblock%}  Журнал регистрации исходящих документов. {%endblock%}
 {%block content%}
 <div id="frame_" class="frame">
   <iframe id="iframe" src="" width="" height=""></iframe>
   <button type="button" class="btn btn-success" onclick="send_submit()" name="button">Сохранить</button>
   <button type="button" onclick="close_frame()"class="btn btn-outline-danger" name="button">Отмена</button>
 </div>
-<form action="{% url 'outbound' %}">
-  <span>Поиск по периоду:</span>
-  <input type="date" id="search_date" name="doc_search_from" placeholder="C">
-  <input type="date" id="search_date2" name="doc_search_to" placeholder="По">
-  <button class="btn btn-sm btn-dark" type="submit" name="" value="Найти">Найти</button>
+
+<div class="standart-menu">
+  <a class="button add" href="{% url 'doc_outbound_add_url' %}"> + Добавить</a>
+
+  <div class="standart-menu-submenu-container">
+    <img src="{% static '/img/filter.png' %}" onclick="open_search_menu(this, 'outbound-documents-search-menu')"
+      alt="">
+
+  </div>
+
+</div>
+
+<form id="outbound-documents-search-menu" class="standart-panel search panel" style="display: none;" action="{% url 'outbound' %}">
+
+  <input type="hidden" name="search-sign" value="1">
+
+  <div class="search-panel-input-group">
+    <input type="text" placeholder="Вид документа" name="outbound-documents-search-type">
+  </div>
+
+  <div class="search-panel-input-group">
+    <input type="text" placeholder="Адресат" name="outbound-documents-search-destination">
+  </div>
+  
+  <div class="search-panel-input-group">
+    <div class="search-panel-input-group-header">
+      <h5>Период: </h5>
+    </div>
+    <input type="date" id="search_date" name="doc_search_from" placeholder="C">
+    <input type="date" id="search_date2" name="doc_search_to" placeholder="По">
+  </div>
+  <div class="search-panel-input-group">
+    <button class="button add" type="submit" name="" value="Найти">Найти</button>
+    <a class="button cancel" href=".">Сбросить</a>
+  </div>
 </form>
-<!-- <a class="btn btn-success btn-lg m-bottom btn-add " href="{% url 'doc_outbound_add_url' %}"> + Добавить</a> -->
-<button class="btn btn-success btn-lg m-bottom btn-add " type="button" name="button" onclick="open_frame_new()"> + Добавить</button>
+
+
+<!-- <button class="btn btn-success btn-lg m-bottom btn-add " type="button" name="button" onclick="open_frame_new()"> + Добавить</button> -->
 {% if documents %}
 <table>
   <thead class="thead-dark">
@@ -32,48 +64,45 @@
 
   {%for doc in documents%}
 
-  <!-- <tr onclick="return location.href = '{% url 'doc_outbound_upd_url' id=doc.id%}' "> -->
-  <tr id="{{doc.id}}" onclick="open_for_upd({{doc.id}})">
+  <tr onclick="return location.href = '{% url 'doc_outbound_upd_url' id=doc.id%}' ">
+  <!-- <tr id="{{doc.id}}" onclick="open_for_upd({{doc.id}})"> -->
 
     <td id="date">{{doc.doc_date|date:"d.m.Y"}}</td>
     <td id="number">{{doc.doc_number}}</td>
     <td id="type">{{doc.doc_type}}</td>
     <td id="dest">{{doc.doc_dest}}</td>
     <td id="content">{{doc.doc_additionalData}}</td>
-    <td id="res_officer">{{doc.doc_res_officer}}</td>
+    <td class="table-res-employer" id="res_officer">{{doc.doc_res_officer}}</td>
 </tr>
   {%endfor%}
 </table>
 
 <nav  class="paginator" aria-label="Page navigation example">
   <ul class="pagination">
-    <li class="page-item">
-      <a class="page-link" href="#" aria-label="Previous">
-<span aria-hidden="true">&laquo;</span>
-      </a>
-    </li>
-{% for p in documents.paginator.page_range %}
-  {% if documents.number == p%}
-   <li class="page-item active"><a class="page-link" href="?page={{p}}">{{ p }}</a></li>
-   {%else%}
-        <li class="page-item"><a class="page-link" href="?page={{p}}">{{ p }}</a></li>
-    {%endif%}
-  {% endfor %}
+    {%if documents.has_previous%}
+        <li class="page-item">
+          <a class="page-link" aria-label="previous" href="?page=1">
+              <span aria-hidden="true">Первая</span></a>
+        </li>
+        <li class="page-item">
+          <a class="page-link" href='?page={{documents.previous_page_number}}' aria-label="previous">
+    <span aria-hidden="true">{{documents.previous_page_number}}</span>
+          </a>
+        </li>
+  {%endif%}
+
+   <li class="page-item active"><a class="page-link" href="">{{ documents.number }}</a></li>
 
 {%if documents.has_next%}
     <li class="page-item">
-      <a class="page-link" href='?page={{documents.next_page_number}}' aria-label="Next">
-<span aria-hidden="true">&raquo;</span>
-      </a>
-    </li>
-  {%else%}
-  <li class="page-item disabled">
-    <a class="page-link" href='#' aria-disabled='true' aria-label="Next">
-      <span aria-hidden="true">&raquo;</span>
-    </a>
-  </li>
+      <a class="page-link" href='?page={{documents.next_page_number}}' aria-label="Next">{{documents.next_page_number}}</a>
+      </li>
   {%endif%}
-  </ul>
+
+  <li class="page-item">
+  <a class="page-link" href="?page={{ documents.paginator.num_pages }}">Последняя</a>
+  </li>
+</ul>
 </nav>
 
 {%else%}

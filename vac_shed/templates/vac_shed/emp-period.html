@@ -1,0 +1,54 @@
+{% extends 'vac_shed/index.html'%}
+{%load static%}
+{%block title%}{{emp}}{%endblock%}
+{%block script%}{%endblock%}
+{%block header%}  
+<div class="header-back-button-container">
+  <a class="button back" href="/vacshed/create/{{vacshed}}/">Назад</a>
+{% block logo%}
+  {{block.super}}
+{% endblock %}
+</div>
+
+<div class="header-main-text">
+  <h3>Карточка отпуска</h3>
+</div>
+
+
+{% block username %}
+{{block.super}}
+{% endblock%}
+
+
+  
+    
+
+    {%endblock%}
+{% block body %}
+<div class="container">
+  <table>
+    <thead>
+    <tr>
+      <th colspan="2">Информация об отпуске: {{emp}} за {{year}}г.</th>
+    </tr>
+    <tr>
+      <th>Периоды</th><th>Переносы</th>
+    </tr>
+    </thead>
+    <tbody>
+      {% for per in pers %}
+      <tr>
+        <td>{{per.dur_from}} - {{per.dur_to}} | {{per.days_count}} д.</td><td>{%if per.move_from != None %} {{per.move_from}} - {{per.move_to}} | {{per.days_count_move}} д. {%endif%}</td>
+      </tr>
+      {%endfor%}
+      <tr>
+        <td colspan="2">Проезд: {{city}}</td>
+      </tr>
+      <tr>
+        <td colspan="2">Иждивенцы: {{child}}</td>
+      </tr>
+    </tbody>
+  </table>
+
+</div>
+{%endblock%}

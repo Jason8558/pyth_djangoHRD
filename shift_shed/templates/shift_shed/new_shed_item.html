@@ -1,0 +1,345 @@
+{% extends "TURV/index.html" %}
+{%load static%}
+{%block scripts%}<script src="{% static 'shift_shed\js\items.js' %}" charset="utf-8"></script>
+<link rel="stylesheet" href="{% static 'shift_shed\css\style.css' %}">
+{%endblock%}
+{%block title%}{{shed.dep.name}}{%endblock%}
+
+{%block header%} <a class="close" href="/shift_shed/shedule/{{shed.id}}">< назад</a> <h2>Добавить сотрудника в график за <span style="text-transform: lowercase; font-weight: bold;"> {{month}} </span> </h2> {%endblock%}
+
+{%block body%}
+
+<div class="hidden">
+  <span id="year">{{shed.year}}</span>
+  <span id="month">{{month_dig}}</span>
+</div>
+
+<span id='tabel-type' style='display:none'>{{b_tabel.type_id}}</span>
+<style media="screen">
+  #t_emps_chosen {
+    display:none;
+  }
+</style>
+<div class="alert alert-danger errors" role="alert">
+
+</div>
+<div class=" hide intabel">
+
+  {% for item in in_tabel %}
+  <li class="intabel_pos" id="{{item.employer.id}}">{{item.employer.fullname}}|{{item.employer.id}}</li>
+  {%endfor%}
+</div>
+<div class="container titem">
+
+
+
+
+  <div style="grid-area:text;" class="ti-search">
+    <h4 style=" text-align:center">Выберите сотрудника из списка</h4>
+    <p><input id="tis-input" type="text" name="" placeholder="введите строку для поиска и нажмите ENTER" value="">
+    <button type="button" class="btn btn-outline-danger" id="tis-clear" name="button">Очистить</button></p>
+
+  </div>
+
+
+<div class="indep">
+
+  <table style="box-shadow: none; font-size: 11pt;">
+    <thead>
+      <th>ФИО</th>
+      <th>Должн.</th>
+      <th>Раз.\кат.</th>
+      <th>Ст.опл.</th>
+      <th>Реж.</th>
+
+    </thead>
+
+  <tbody>
+
+
+  {% for emp in emps %}
+
+  <tr id={{emp.id}} onclick="get_emp_info({{emp.id}}, {{month_dig}}, {{shed.year}})">
+    <td class='id-fio'>{{emp.fullname}}</td>
+    <td>{{emp.position}}</td>
+    <td>{{emp.level}}</td>
+    <td>{{emp.positionOfPayment}}</td>
+
+    {% if emp.shift_personnel %}
+      <td>Смен.</td>
+      {% else %}
+      <td>Днев.</td>
+    {%endif%}
+  </tr>
+  <!-- <li onclick="emp_info({{emp.id}})" id={{emp.id}}>{{emp.fullname}}|{{emp.position}}|{{emp.level}}|{{emp.positionOfPayment}}|<span class="posid" style="color:white">{{emp.id}}</span></li> -->
+ 
+  {%endfor%}
+  </tbody>
+</table>
+</div>
+
+
+<div id="tabel_item" class="shed_item add">
+
+
+ <!-- <ul class="in_tabel_list">
+   {% for emp in in_tabel %}
+   <li>{{emp.employer}}</li>
+   {%endfor%}
+ </ul> -->
+<!-- <div class="in_tabel_list">
+<table>
+  <thead>
+    <tr>
+      <th>ФИО</th>
+      <th>Должность</th>
+      <th>Разряд</th>
+      <th>Ст. оплаты</th>
+    </tr>
+  </thead>
+  <tbody>
+     {% for emp in in_tabel %}
+    <tr>
+      <td>{{emp.employer.fullname}}</td>
+      <td>{{emp.employer.position}}</td>
+      <td>{{emp.employer.level}}</td>
+      <td>{{emp.employer.positionOfPayment}}</td>
+    </tr>
+    {%endfor%}
+  </tbody>
+</table>
+</div> -->
+
+  <div class="t_peoples hide">
+
+
+  {{tabel.department}}
+
+  </div>
+
+{% if tabel.errors%}
+
+<div class="alert alert-danger mt-5" role="alert">
+{{tabel.errors}}
+</div>
+{%endif%}
+
+<div class="nt_body">
+<form id="shed-item-form" class="" action="" onsubmit="alert('Сотрудник добавлен!')" method="post">
+  {%csrf_token%}
+
+
+
+  <div class="nt_body_employer">
+    <!-- <h4>Выберите сотрудника из списка: (фио, должность, разряд): </h4> -->
+    <select style='display:none' class="chosen-select" id='t_emps' onchange="ReSelectEmp()" name="t_emps">
+      {% for emp in emps%}
+        {% if emp.fired %}
+        {%else%}
+      <option id="{{emp.id}}" value="{{emp.id}}">{{emp.fullname}}, {{emp.position}}, {{emp.level}}, {% if emp.shift_personnel %} Смен. {% else %} Днев. {%endif%}</option>
+      {%endif%}
+      {%endfor%}
+    </select>
+    <!-- <a href="{% url 'emp_new'%}" target="_blank" class="btn btn-outline-info "> + новый сотрудник </a> -->
+
+    {{form.employer}}
+
+  </div>
+<div class="nt_text_employer add-emp">
+  <div class="nt_emp_info">
+  <h5 class="btn btn-link" style="font-size: 1.25rem; padding:0;" id="fullname"><span id="sex"></span></h5>
+  <h5 id="sex">Пол: </h5>
+  <h5 id="position"></h5>
+  <h5 id="level"></h5>
+  <h5 id="payment"></h5>
+  <h5 id="shift"></h5>
+  <h5><span id="main_norma">{{main_norma}}</span></h5>
+ 
+  </div>
+
+  <div class="results">
+    <p><span>Факт</span>{{form.fact}}</p>
+    <p id="p_n_time"><span>Норма времени</span>{{form.norma}}</p>
+    <p><span>Праздники</span>{{form.celeb}}</p>
+    <p><span>Отклонение (+,-)</span>{{form.deviation}}</p>
+  </div>
+</div>
+
+  <div class="nt_body_times add-emp">
+    <div class="first_half">
+
+    <span>1</span>
+    <span>2</span>
+    <span>3</span>
+    <span>4</span>
+    <span>5</span>
+    <span>6</span>
+    <span>7</span>
+    <span>8</span>
+    <span>9</span>
+    <span>10</span>
+    <span>11</span>
+    <span>12</span>
+    <span>13</span>
+    <span>14</span>
+    <span>15</span>
+<!--     
+    {{tabel.type_time1}}
+    {{tabel.type_time2}}
+    {{tabel.type_time3}}
+    {{tabel.type_time4}}
+    {{tabel.type_time5}}
+    {{tabel.type_time6}}
+    {{tabel.type_time7}}
+    {{tabel.type_time8}}
+    {{tabel.type_time9}}
+    {{tabel.type_time10}}
+    {{tabel.type_time11}}
+    {{tabel.type_time12}}
+    {{tabel.type_time13}}
+    {{tabel.type_time14}}
+    {{tabel.type_time15}} -->
+
+
+    {{form.day_1}}
+    {{form.day_2}}
+    {{form.day_3}}
+    {{form.day_4}}
+    {{form.day_5}}
+    {{form.day_6}}
+    {{form.day_7}}
+    {{form.day_8}}
+    {{form.day_9}}
+    {{form.day_10}}
+    {{form.day_11}}
+    {{form.day_12}}
+    {{form.day_13}}
+    {{form.day_14}}
+    {{form.day_15}}
+
+</div>
+
+<div class="second_half">
+
+    <span>16
+      {{form.day_16}}
+    </span>
+    <span>17
+      {{form.day_17}}</span>
+    <span>18
+      {{form.day_18}}</span>
+    <span>19
+      {{form.day_19}}</span>
+    <span>20
+      {{form.day_20}}
+    </span>
+    <span>21
+      {{form.day_21}}
+    </span>
+    <span>22
+      {{form.day_22}}
+    </span>
+    <span>23
+      {{form.day_23}}
+    </span>
+    <span>24
+      {{form.day_24}}
+    </span>
+    <span>25
+      {{form.day_25}}
+    </span>
+    <span>26
+      {{form.day_26}}
+    </span>
+    <span>27
+      {{form.day_27}}
+    </span>
+    <span>28
+      {{form.day_28}}
+    </span>
+    <span id="d29">29
+    {{form.day_29}}
+
+    </span>
+    <span id="d30">30
+      {{form.day_30}}
+    </span>
+    <span id="d31">31
+      {{form.day_31}}
+    </span>
+
+
+   
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+
+  
+  </div>
+  <div class="shed_item_buttons buttons-add">
+    {% if b_tabel.type_id == 1%}
+    <button type="button" class="button btn-warning " onclick='auto_fill(0)' name="t_auto_fill">Автозаполнение</button>
+    <button type="button" class="button btn-warning " onclick='auto_fill(1)' name="t_auto_fill_half">Автозаполнение 1/2</button>
+    {%else%}
+    {%endif%}
+  <button type="button" onclick="calculate();" class="button btn-outline-dark" name="button">Расчитать</button>
+
+  <input type="button" onclick="send_submit()" class="button sItem_submit" name="" value="Расчитать и добавить">
+  </div>
+
+
+</form>
+</div>
+</div>
+</div>
+
+<script type="text/javascript">
+
+if ($('#tabel-type').text() == '9') {
+  $('#litres').text('Литров')
+
+  for (var field of $('.dig_hours')) {
+    field.setAttribute('placeholder', 'Л')
+  }
+
+}
+
+  $('#tis-clear').click(function(){
+    $('#tis-input').val('')
+    allrows = $('.indep table tbody tr')
+    for (var row of allrows) {
+    $('.indep table tbody #' + row.id).css('display', '')
+    }
+  })
+
+  $('#tis-input').change(function(){
+    query =   $('#tis-input').val()
+    res = $('.indep table tbody tr .id-fio').filter(function(){ return $(this).text().toLowerCase().includes(query.toLowerCase())})
+    allrows = $('.indep table tbody tr')
+    for (var row of allrows) {
+      row.style.display = 'none'
+    }
+
+    for (var r of res) {
+      r.parentElement.style.display = ''
+    }
+
+
+
+
+  })
+
+
+</script>
+
+
+{%endblock%}

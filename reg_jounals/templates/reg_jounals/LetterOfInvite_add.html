@@ -1,29 +1,62 @@
 {% extends "reg_jounals/index.html" %}
 
 {%block title%}Добавить запись{% endblock %}
-{%block header%}Добавить запись - Заявление на прием №{{next_num}}{% endblock %}
+{%block header%}{%block logo%}{{block.super}}{%endblock%}Добавить запись - Заявление на прием №{{next_num}}{% endblock %}
 
 {%block content%}
-<script type="text/javascript">
-  $(document).ready(function() {
-    $('header').css('display','none')
-    $('body').css('background', 'white !important') })
-</script>
+
 {% if form.errors%}
 
 <div class="alert alert-danger mt-5" role="alert">
 {{form.errors}}
 </div>
 {%endif%}
-<form class="add_form" action="" method="post">
+<form class="standart-form standart-panel" action="" method="post">
   {% csrf_token %}
-  <h3>Номер заявления: <span id="next_num">{{next_num}}</span></h3>
-  {% for field in form %}
-  <p>{{field.label}}{{ field }}</p>
-  {% endfor%}
+  <div class="standart-form-header">
+    <h4>Номер заявления: <span id="next_num">{{next_num}}</span></h4>
+  </div>
+  
+  <div class="standart-form-input-group inline">
+    <p><span>ФИО (полностью): </span> {{form.loi_employee}}</p>
+    <p><span>Дата: </span>{{form.loi_date}}</p>
+    <p><span>{{form.loi_dateOfInv.label}}: </span>{{form.loi_dateOfInv}}</p>
+  </div>
 
-  <!-- <input class="btn btn-success" type="submit" value="Добавить" />
-  <a class="btn btn-outline-danger" href=".">Отмена</a> -->
+  <div class="standart-form-input-group inline">
+    <p><span>Подразделение: </span><select name="invite-department-field" id="invite-department-field">
+      {% for dep in deps %}
+        <option value="{{dep.id}}">{{dep.name}}</option>
+      {% endfor %}
+    </select></p>
+    
+    <p><span>Должность: </span><select class="" id="sel_pos" name="sel_pos">
+      {%for p in pos%}
+        <option value="{{p.id}}">{{p}}</option>
+      {%endfor%}
+    </select></p>
+
+    
+
+  </div>
+  <div class="standart-form-input-group">
+    <p><span>{{form.loi_additionalData.label}}: </span>{{form.loi_additionalData}}</p>
+  </div>
+ 
+  
+
+<div class="standart-form-input-group inline">
+  <input class="button add" type="submit" value="Добавить" />
+  <a class="button cancel" href=".">Отмена</a>
+</div>
 </form>
+
+<script type="text/javascript">
+$('#sel_pos').change(function() {
+  $('#id_loi_position').val('')
+
+  $('#id_loi_position').val($('#sel_pos option:selected').text())
+})
+</script>
 
 {%endblock%}

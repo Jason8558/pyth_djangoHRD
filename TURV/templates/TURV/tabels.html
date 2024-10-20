@@ -1,53 +1,80 @@
-{% extends 'TURV/index.html'%}
+<!DOCTYPE html>
+{%load static%}
+{% load compress%}
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="shortcut icon" href="{% static 'TURV/img/favicon.ico'%}" type="image/x-icon">
+  {% compress css %}
+    
+    <link rel="stylesheet" href="{% static 'css\main.css'%}">
+    <link rel="stylesheet" href="{% static 'TURV\css\style1.css'%}">
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css'%}">
+    <link rel="stylesheet" href="{% static 'TURV\js\chosen\chosen.css'%}">
+  {% endcompress %}
+ 
+  {% compress js %}
+    <script src="{% static 'TURV\js\jquery-3.6.0.min.js'%}" crossorigin="anonymous"></script>
+    <script src="{% static 'TURV\js\turv_main.js'%}" charset="utf-8"></script>
+    <script src="{% static 'TURV\js\chosen\chosen.jquery.js'%}" charset="utf-8"></script>
+    <script src="{% static 'TURV\js\chosen\chosen.jquery.min.js'%}" charset="utf-8"></script>
+    <script src="{% static 'TURV\js\gettabels.js'%}" charset="utf-8"></script>
+    <script src="{% static 'TURV\js\build\date-ru-RU.js'%}" charset="utf-8"></script>
+    <script src="{% static 'TURV\js\MainTabel1.js' %}" charset="utf-8"></script>
+    <script src="{% static 'TURV\js\printtabel.js' %}" charset="utf-8"></script>
+  {% endcompress %}
+  {%block head%}{%endblock%}
+  {%block scripts%}{%endblock%}
 
-{%block title%}Табели{% endblock %}
+  <title>{%block title%}Табели{%endblock%}</title>
 
-{%block header%}
-    {% if granted == 1 or user.is_superuser%}<a href="/" class="btn btn-dark"> < Назад </a>{%endif%}
-    Табели учета рабочего времени. Всего: {{count}}.
-    <ul class="menu">
-      <li>Справочники <span class='angle-down'>v</span>
-      <ul class="sprav">
-        <li><a href="{% url 'emp_list'%}"> > Сотрудники</a></li>
-        <li><a href="{% url 'pos_list'%}"> > Должности</a></li>
-      </ul>
-      </li>
-      <li>Информация <span class='angle-down'>v</span>
-      <ul class="info">
-        <li><a target="_blank" href="https://docs.google.com/document/d/1Z439AZgEkRSZErC1wrBpQE9ajGD-OPZIZOkNI08mPSg/edit?usp=sharing"> > Инструкция пользователя</a></li>
-        {% if user.is_superuser%}
-        <li><a target="_blank" href="https://docs.google.com/document/d/1MWZ-9vxpc1lO9-VJu_Idzoy7S3Vg8mqFRPYfTSCwzxA/edit?usp=sharing"> > Инструкция администратора</a></li>
-        {%endif%}
+</head>
 
-      </ul>
-      </li>
-{%if request.user.is_superuser %}
-      <li>Сервис <span class='angle-down'>v</span>
-      <ul class="service">
-           <li><a  href="{% url 'unload'%}"> > Выгрузить для 1С</a></li>
-                                              <li><a href="{% url 'del_tabel_url'%}"> > Удалить помеченные на удаление</a></li>
+<header>
+  {% block header %}
+  <div class="header-back-button-container">
+    {% if granted %}
+    <a href="\" class="button back">Назад</a>
+    {% endif %}
+  {% block logo%}
+    <div class="header-logo-container">
+      <div class="header-logo">
+        <img src="{% static 'img/logo.png' %}" alt="">
+      </div>
+    </div>
+  {% endblock %}
+  </div>
+
+  <div class="header-main-text">
+    <h3>ИС "СУП". Табели учета рабочего времени</h3>
+</div>
 
 
-      </ul>
-      </li>
-  {%endif%}
-      <li>Вид <span class='angle-down'>v</span>
-      <ul class="view">
-      <li> <a  href="?this_month=1"> > Показать только за текущий месяц</a></li>
-      {% if granted == 1%}
-      <li><a  href="?chk_this_month=1"> > Показать проверенные за текущий месяц</a></li>
-      {%endif%}
-      </ul>
-      </li>
-    </ul>
+  {% block username %}
+    <h4>{{request.user.first_name}}</h4>
+  {% endblock%}
+ 
+    {%endblock%}
+
+</header>
+
+
+
+
+  
+    
 
 
 
 
 
-{%endblock%}
 
 {% block body %}
+
+
+
 <script type="text/javascript">
 function Supchecked() {
 
@@ -61,106 +88,278 @@ function Supchecked() {
 }
 </script>
 
-<form action="" class="f_search">
-  <p>ПОИСК</p>
-  <label for="search_month">Месяц:</label>
-  <select class="" name="search_month">
-    <option value="">Весь год</option>
-    <option value="01">Январь</option>
-    <option value="02">Февраль</option>
-    <option value="03">Март</option>
-    <option value="04">Апрель</option>
-    <option value="05">Май</option>
-    <option value="06">Июнь</option>
-    <option value="07">Июль</option>
-    <option value="08">Август</option>
-    <option value="09">Сентябрь</option>
-    <option value="10">Октябрь</option>
-    <option value="11">Ноябрь</option>
-    <option value="12">Декабрь</option>
-  </select>
 
-<input type="text" placeholder="год..." name="search_year" value="">
-<label for="t_tab_dep_search">Подразделение: </label>
-  <select class="" name="t_tab_dep_search">
-    <option value="">---</option>
-    {% for dep in deps%}
-      <option value="{{dep.id}}">{{dep}}</option>
-      {% endfor%}
-  </select>
 
-  {% if granted == 1%}
-  <select class=""  name="tab_user">
-    <option value="">Поиск по табельщику</option>
-      {%for u in tab_users %}
-      <option value="{{u.first_name}}">{{u.first_name}}</option>
-      {%endfor%}
-  </select>
-{%endif%}
-<input type="submit" name="" class="btn btn-dark" value="Найти">
 
-<a class="btn btn-outline-danger" href="/turv">Сбросить поиск</a>
-</form>
 
 <div class="container main">
-  <a class="btn btn-success btn-add"  href="{% url 'new_tabel_url' %}"  >+ Новый табель</a>
 
+  <div class="standart-menu">
+    
+    <p onclick="open_additional_menu(this, 'tabel-graphs-submenu')">
+      Графики
+    </p>
+  
+    <p onclick="open_additional_menu(this, 'tabel-refs-submenu')">
+      Справочники
+    </p>
+  
+    <p onclick="open_additional_menu(this, 'tabel-info-submenu')">
+      Информация
+    </p>
 
-{%if tabels%}
+    {% if granted %}
+      <p onclick="open_additional_menu(this, 'tabel-service-submenu')">
+        Сервис
+      </p>
+    {%endif%}
 
-<table>
-  <thead class="thead-dark">
-  <tr class="tr-header">
+    <p onclick="open_additional_menu(this, 'tabel-additional-submenu')">
+      Дополнительные
+    </p>
 
+    <!-- <a href="{% url 'archive_url'%}">
+      Архив
+    </a> -->
 
-    <th scope="col">Период составления</th>
-    <th scope="col">Подразделение</th>
-    <th scope="col">Табельщик</th>
-    <th scope="col">Проверен СУП</th>
-      {% if granted == 1 or user.is_superuser%}
-      <th scope="col"> Загружен в 1С </th>
+    <div id="vacshed-filter-menu" class="standart-menu-submenu-container">
+      <img src="{% static '/img/search.png' %}" onclick="open_additional_menu(this, 'tabels-search-panel')" alt="">
+    </div> 
+  
+  </div>
+  
+  <div style="display: none" class="standart-panel submenu-panel panel" id="tabel-graphs-submenu"> 
+    <!-- Графики -->
+    <ul class="sprav">
+      <li><a href="{% url 'ss-main'%}">Графики сменности</a></li>
+      
+      <li><a href="{% url 'vacshed_url' %}">График отпусков</a></li>
+    </ul>
+  </div>
+
+  <div style="display: none" class="standart-panel submenu-panel panel" id="tabel-refs-submenu">
+   <!-- Справочники -->
+    <ul class="sprav">
+        <li><a href="{% url 'emp_list'%}">Работники</a></li>
+      
+      {% if granted == 1%}
+        <li><a href="{% url 'pos_list'%}">Должности</a></li>
+      {%endif%}
+      
+      {% if granted == 1 or unite == 1%}
+        <li><a href="{% url 'autos_list'%}">Автотранспорт</a></li>
+      {%endif%}
+    </ul>
+  </div>
+
+  <div style="display: none" class="standart-panel submenu-panel panel" id="tabel-info-submenu">
+    <!-- Информация -->
+    <ul class="info">
+      <li><a download href="{% static 'docs/tabels.docx' %}">Инструкция пользователя</a></li>
+      {% if user.is_superuser%}
+      <li><a target="_blank" href="https://docs.google.com/document/d/1MWZ-9vxpc1lO9-VJu_Idzoy7S3Vg8mqFRPYfTSCwzxA/edit?usp=sharing">Инструкция администратора</a></li>
+      {%endif%}
+  
+    </ul>
+
+  </div>
+
+  <div style="display: none" class="standart-panel submenu-panel panel" id="tabel-service-submenu">
+    <!-- Сервис -->
+    <ul class="service">
+  
+      <li><a href="{% url 'forload_url'%}">Показать готовые для выгрузки</a></li>
+      <li><a href="{% url 'del_tabel_url'%}">Удалить помеченные на удаление</a></li>
+      <li><a href="{% url 'overtime_url'%}">Обновить годовую норму времени сотрудников</a></li>
+     
+  
+  
+  
+    </ul>
+  </div>
+
+  <div style="display: none" class="standart-panel submenu-panel panel" id="tabel-additional-submenu">
+    <!-- Дополнительные -->
+    <ul class="view">
+      {%if granted == 1%}
+          <li><a href="{% url 'over-tabels_url' type=5 %}">Сверхурочка АТЦ</a></li>
+          <li><a href="{% url 'over-tabels_url' type=4 %}">Выходные АТЦ</a></li>
+          <li><a href="{% url 'over-tabels_url' type=8 %}">Ненормированность АТЦ</a></li>
+      {%endif%}
+      <!-- Если АТЦ -->
+      {% if is_atc %}
+        <li><a href="{% url 'over-tabels_url' type=5 %}">Сверхурочка</a></li>
+        <li><a href="{% url 'over-tabels_url' type=4 %}">Выходные</a></li>
+        <li><a href="{% url 'over-tabels_url' type=8 %}">Ненормированность</a></li>
       {%endif%}
 
+    </ul>
+  </div>
+  
+  <form id="tabels-search-panel" style="display:none" class="standart-panel standart-form search panel">
+    <!-- Поиск -->
+      <div class="standart-form-header">
+        <h4>Поиск</h4>
+      </div>
+      <div class="standart-form-input-group inline">
+       <p><span>Код: </span><input type="text" id='search_code' placeholder="Код" value=""></p> 
+      
 
+        
+  
+      <p><span>Месяц: </span><select class="" id="search_month" name="search_month">
+        <option value="">Весь год</option>
+        <option value="01">Январь</option>
+        <option value="02">Февраль</option>
+        <option value="03">Март</option>
+        <option value="04">Апрель</option>
+        <option value="05">Май</option>
+        <option value="06">Июнь</option>
+        <option value="07">Июль</option>
+        <option value="08">Август</option>
+        <option value="09">Сентябрь</option>
+        <option value="10">Октябрь</option>
+        <option value="11">Ноябрь</option>
+        <option value="12">Декабрь</option>
+      </select></p>
+      
+      <p><span>Год: </span> <input type="text" id="fs-year" placeholder="20__" name="search_year" value="">
+      </p>
+      </div>
+
+      <div class="standart-form-input-group ">
+        <p><span>Подразделение:</span><select class="" id="t_tab_dep_search" name="t_tab_dep_search">
+          <option value="">-</option>
+          {% for dep in deps%}
+            <option value="{{dep.id}}">{{dep}}</option>
+            {% endfor%}
+        </select></p>
+    
+
+      </div>
+
+      <div class="standart-form-input-group inline">
+        <p><span>Вид:</span><select class="" id="search_type" name="search_type">
+            <option value="">-</option>
+            {%for t in type%}
+            <option value="{{t.id}}">{{t.name}}</option>
+            {%endfor%}
+            <option value="c">Корректировка</option>
+      
+          </select></p>
+      
+        <p><span>Ответственный: </span><select class="" id="tab_user" name="tab_user">
+            <option value="">-</option>
+            
+            {%for u in tab_users %}
+            <option value="{{u.first_name}}">{{u.first_name}}</option>
+            {%endfor%}
+          
+          </select></p>
+      
+      </div>
+      
+      <div class="standart-form-input-group inline">
+        <input type="button" onclick="close_all_panels(); gettabels_search('{{granted}}')" name="" class="button add" value="Найти">
+        <a class="button cance" onclick="gettabels(0,'{{granted}}', 0)">Сбросить</a>
+      </div>
+
+
+   
+  </form>
+
+  <div class="info-block ib-main">
+
+  
+
+
+  
+</div>
+
+<div class="tabandbuttons">
+
+
+
+<div class="table-block tb-main">
+
+  <a class="btn btn-success btn-add"  href="{% url 'new_tabel_url' %}"  >+ Новый табель</a>
+
+  <!-- <label for="check_only">Только проверенные на текущий месяц: </label><input type="checkbox" onclick="check_only('{{month_}}',{{year_}})" name="check_only" id="check_only"> -->
+
+  <div class="button-block bb-main">
+    <button onclick="gettabels(0,'{{granted}}',   0)"class="type-button">Основные</button>
+    <button onclick="gettabels(2,'{{granted}}',   0)" class="type-button toxic-row">Вредность</button>
+    <button onclick="gettabels(5,'{{granted}}',   0)" class="type-button over-row">Сверхурочка</button>
+    <button onclick="gettabels(4,'{{granted}}',   0)" class="type-button vac-row">Выходные дни</button>
+    <button onclick="gettabels(3,'{{granted}}',   0)" class="type-button unite-row">Совмещение</button>
+    <button onclick="gettabels(6,'{{granted}}',   0)" class="type-button standby-row">Дежурство</button>
+    <button onclick="gettabels(8,'{{granted}}',   0)" class="type-button nn-row">Ненормированность</button>
+    <button onclick="gettabels(9,'{{granted}}',   0)" class="type-button milk-row">Молоко</button>
+    <button onclick="gettabels(10,'{{granted}}',  0)" class="type-button">Корректировки</button>
+  
+  </div>
+<div class="tb-table">
+  
+  <table id="tabels-main-table-head-copy" class="tabels-main-table-head-copy">
+    <thead class="thead-dark">
+    <tr class="tr-header">
+      <th scope="col">Код</th>
+      <th  scope="col">Вид</th>
+      <th scope="col">Период</th>
+      <th scope="col">Подразделение</th>
+      {% if granted == 1 or user.is_superuser%}
+      <th scope="col">Ответственный</th>
+      <th scope="col">Сдан на бумаге</th>
+      {%endif%}
+      <th scope="col"> СУП </th>
+      <th scope="col"> 1/2 </th>
+        {% if granted == 1 or user.is_superuser%}
+        <th scope="col"> 1С </th>
+        {%endif%}
+  
+  <th scope="col">Комментарий</th>
+  
+  
+  
+  
+    </tr >
+    </thead>
+  </table>
+
+
+<table id="tabels-main-table" class="tabels-main-table">
+  <thead class="thead-dark">
+  <tr class="tr-header">
+    <th scope="col">Код</th>
+    <th  scope="col">Вид</th>
+    <th scope="col">Период</th>
+    <th scope="col">Подразделение</th>
+    {% if granted == 1 or user.is_superuser%}
+    <th scope="col">Ответственный</th>
+    <th scope="col">Сдан на бумаге</th>
+    {%endif%}
+    <th scope="col"> СУП </th>
+    <th scope="col"> 1/2 </th>
+      {% if granted == 1 or user.is_superuser%}
+      <th scope="col"> 1С </th>
+      {%endif%}
+
+<th scope="col">Комментарий</th>
 
 
 
 
   </tr >
   </thead>
+  <tbody>
 
-  {%for tabel in tabels %}
-
-
-  {% if tabel.del_check %}
-<tr style='background: red !important;' onclick="return window.open('{% url 'tabel_create_url' id=tabel.id%}')"</tr>
-  {%else%}
-<tr  onclick="return window.open('{% url 'tabel_create_url' id=tabel.id%}')" >
-  {%endif%}
-
-    <td><span class="field_month">{{tabel.month}}</span> {{tabel.year}}  </td>
-    <td>{{tabel.department}}</td>
-    <td>{{tabel.res_officer}}</td>
-    {%if tabel.sup_check%}
-      <td>✅</td>
-    {%else%}
-      <td>❌</td>
-    {%endif%}
-    {% if granted == 1 or user.is_superuser%}
-      {%if tabel.unloaded%}
-        <td>✅</td>
-      {%else%}
-        <td>❌</td>
-      {%endif%}
-    {%endif%}
-
-
-
-
-</tr>
-  {%endfor%}
+  </tbody>
 </table>
-<nav  class="paginator" aria-label="Page navigation example">
+
+</div>
+</div>
+</div>
+<!-- <nav  class="paginator" aria-label="Page navigation example">
   <ul class="pagination">
     <li class="page-item">
       <a class="page-link" href="#" aria-label="Previous">
@@ -189,10 +388,17 @@ function Supchecked() {
   </li>
   {%endif%}
   </ul>
-</nav>
+</nav> -->
 
-{%else%}
-<h2>Табели не найдены</h2>
-{%endif%}
 </div>
+
+
+<script type="text/javascript">
+  $('document').ready(function () {
+    gettabels(0,'{{granted}}', 0)
+    setTimeout(function() {set_table_head()}, 500)
+  })
+</script>
+
+
 {%endblock%}

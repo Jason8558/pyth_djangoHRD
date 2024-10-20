@@ -1,0 +1,45 @@
+{% extends "work_cal/record.html" %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'TURV\css\style1.css' %}">
+    <title>Производственный календарь</title>
+</head>
+
+
+<body>
+    {% block header %}
+        <header>
+            <h1> <a href="/">Назад</a> Производственный календарь</h1>
+        </header> 
+    {% endblock %}
+    {% block body %}
+        <div class="container">
+        <div class="buttons">
+            <a class="btn" style="width: 100%; text-align: center;" href="{% url 'wc-newrecord'%}">Добавить запись</a>
+        </div>
+        
+        <table>
+            <thead>
+                <tr>
+
+                    <th>Год</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for c in cal %}
+                    <tr onclick= "return location.href = '{% url 'wc-get-html' year=c.year%}' ">
+
+                        <td>{{c.year}}</td>
+                    </tr>
+                {%endfor%}
+            </tbody>
+        </table>
+    </div>
+    {% endblock %}
+</body>
+</html>

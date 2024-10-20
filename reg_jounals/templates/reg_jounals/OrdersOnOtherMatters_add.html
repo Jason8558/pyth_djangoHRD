@@ -1,15 +1,11 @@
 {% extends "reg_jounals/index.html" %}
 
 {%block title%}Добавить запись{% endblock %}
-{%block header%}Добавить запись - Приказ по другим вопросам{% endblock %}
+{%block header%}{%block logo%}{{block.super}}{%endblock%}Добавить запись - Приказ по другим вопросам{% endblock %}
 
 
 {%block content%}
-<script type="text/javascript">
-  $(document).ready(function() {
-    $('header').css('display','none')
-    $('body').css('background', 'white !important') })
-</script>
+
 {% if form.errors%}
 
 
@@ -17,17 +13,21 @@
 {{form.errors}}
 </div>
 {%endif%}
-<form class="add_form" action="" method="post">
+<form class="standart-form standart-panel search" action="" method="post">
   {% csrf_token %}
-  <p>№ приказа - <span id='next_num'>{{next_num}}-К</span></p>
+  <div class="standart-form-header">  <p>№ приказа - <span id='next_num'>{{next_num}}-К</span></p></div>
+
   {% for field in form %}
 
-  <p>{{field.label}}{{ field }}</p>
+  <div class="standart-form-input-group">
+    <p><span>{{field.label}}:</span>{{ field }}</p>
+  </div>
   {% endfor%}
 
-
-  <!-- <input class="btn btn-success" type="submit" value="Добавить" />
-  <a class="btn btn-outline-danger" href=".">Отмена</a> -->
+<div class="standart-form-input-group inline"> 
+  <input class="button add" type="submit" value="Добавить" />
+  <a class="button cancel" href=".">Отмена</a>
+</div>
 </form>
 
 {%endblock%}

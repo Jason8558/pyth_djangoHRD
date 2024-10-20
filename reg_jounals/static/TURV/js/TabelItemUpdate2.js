@@ -13,6 +13,7 @@ function emp_info() {
   $('#position').text('Должность: ' + emp_s[1])
   $('#payment').text('Ступень оплаты: ' + emp_s[3])
   $('#level').text('Разряд/категория: ' + emp_s[2])
+  $('#sex').text(emp_s[7])
   $("#id_position option:contains(" + emp_s[1] + ")").prop('selected', true);
   if (emp_s[5] == 'False') {
     $('#shift').text('Дневной персонал')
@@ -343,3 +344,115 @@ for (var i = 1; i < (days_count+1); i++) {
 }
 
 })
+
+function auto_fill_upd() {
+  month_  = $('#id_month').text()
+  year_ = $('#id_year').text()
+  let rMonth = 0
+
+  switch (month_) {
+  case '01':
+    rMonth = 0
+  break;
+
+  case '02':
+    rMonth = 1
+  break;
+
+  case '03':
+    rMonth = 2
+  break;
+
+  case '04':
+    rMonth = 3
+  break;
+
+  case '05':
+    rMonth = 4
+  break;
+
+  case '06':
+    rMonth = 5
+  break;
+
+  case '07':
+    rMonth = 6
+  break;
+
+  case '08':
+    rMonth = 7
+  break;
+
+  case '09':
+    rMonth = 8
+  break;
+
+  case '10':
+    rMonth = 9
+  break;
+
+  case '11':
+    rMonth = 10
+  break;
+
+  case '12':
+    rMonth = 11
+  break;
+  }
+
+
+  days_count = Date.getDaysInMonth(year_, rMonth)
+
+  emp_select = $('#id_employer option:selected').text().split(",")
+  codes = $('.dig_code')
+  hours = $('.dig_hours')
+  sex = $('#sex').text()
+  shift = emp_select[5]
+  if (shift == 'False') {
+
+    for (var i = 0; i < days_count; i++) {
+      if (codes[i].style.background == 'lightgreen' && hours[i].style.background == 'lightgreen') {
+          codes[i].value = 'В'
+          hours[i].value = '8'
+        }}
+
+
+  for (var i = 0; i < days_count; i++) {
+
+
+      if (hours[i].value == '' && codes[i].value == '') {
+
+    hours[i].value = '8'
+    console.log(codes[i+1].value);
+    if (sex == 'Ж' && codes[i+1].value == 'В' && codes[i].value != 'В' ) {
+
+      if ($('#tabel-type').text() != 2) {
+      codes[i].value = 'Я/ЛЧ'
+      hours[i].value = '4/4'}
+      else {
+        codes[i].value = 'Я'
+        hours[i].value = '4'
+      }
+    }
+
+
+    switch (codes[i].value) {
+
+    case 'В':
+    codes[i].value = 'В'
+    break;
+
+    case '':
+    codes[i].value = 'Я'
+    break;
+    default:
+
+    }
+
+  }
+}
+}
+else {
+  alert('Для сотрудников, работающих в сменном режиме, автозаполнение недоступно!')
+}
+}

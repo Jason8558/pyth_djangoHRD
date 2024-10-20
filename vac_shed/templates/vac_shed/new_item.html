@@ -1,0 +1,151 @@
+{% extends 'vac_shed/index.html'%}
+{%load static%}
+{%block title%}Добавить позицию в график{%endblock%}
+{%block script%}{%endblock%}
+{% block header %}
+
+{% block logo%}
+  {{block.super}}
+{% endblock %}
+</div>
+
+<div class="header-main-text">
+  <h3>Добавить работника в график</h3>
+</div>
+
+
+{% block username %}
+{{block.super}}
+{% endblock%}
+
+  {%endblock%}
+
+
+ {% block body %}
+<div class="container">
+  <form class="standart-form standart-panel vacshed_new_item" id='addform' action="{% url 'additem_url' id=vacshed.id%}" method="post">
+      {% csrf_token %}
+
+<div class="standart-form-input-group">
+  <p><span>Работник:</span>
+    <select id="vac_emp" class="" name="vac_emp">
+
+
+    </select>
+  </p>
+</div>
+
+<div class="standart-form-input-group inline">
+  <p><span>Проезд: </span>
+    <input  id="city" type="text" placeholder="Город" name="city" value="">
+  </p>
+  <p><span>Иждивенец: </span>
+    <input type="text" name="child" placeholder="Год рождения" value="">
+  </p>
+  
+
+</div>
+
+  <div id="vac-form-periods" class=".vac-form-periods">
+    <h4>Периоды:</h4>
+
+    <div class="standart-form-input-group inline vac-period">
+      <p><span>с: </span><input id="per-date-from" type="date" name="per-date-from" value=""></p>
+      <p><span>по: </span><input id="per-date-to" onchange="" type="date" name="per-date-to" readonly    value=""></p>
+      <p><span>дней: </span><input id="per-days-count" onchange="change_days(0)" placeholder="Кол-во дней" type="text" name="per-days-count" value=""></p>
+      
+      
+      
+    </div>
+
+  </div>
+<div class="standart-form-input-group one_button">
+  <button type="button" class="button" id="form-add-period" name="button">+ Добавить период</button>
+</div>
+
+<div class="standart-form-input-group inline">
+<input class="button " type="submit" name="" value="Добавить в график">
+<a class="button cancel" href="/vacshed/create/{{vacshed.id}}">Отмена</a>
+</div>
+<textarea style="display: none;" id="vac-form-all-periods" name="vac-form-all-periods"></textarea>
+
+  </form>
+  </div>
+
+<script type="text/javascript">
+  $(document).ready(function(){
+
+    $("input[type=text], input[type=date] ").keydown(function(event){
+     if(event.keyCode == 13){
+       event.preventDefault();
+         return false;
+         }
+       })
+
+    url = "/vacshed/getemps/" + {{vacshed.dep_id}}
+
+    $.getJSON(url,  (data) => {
+      console.log(data.length);
+
+      for (var i = 0; i <= data.length; i++) {
+            $('#vac_emp').append('<option value=' + data[i].id + '>' + data[i].fullname + '</option>')}
+
+
+
+       })
+    $('.vac-period').attr('id', 'per0')
+
+    id = 0
+    $('#form-add-period').click(function(){
+
+      id = id+1
+      newper = '<div id="per'+ id +'" class="vac-period standart-form-input-group inline ">  <p><span>с:</span> <input type="date" id="per-date-from" name="per-date-from" value=""></p>     <p><span>по: </span>   <input type="date" id="per-date-to" readonly onchange="change_per(' + id + ')" name="per-date-to" value=""></p>     <p><span>дней:</span><input type="text" id="per-days-count" onchange="change_days(' + id + ')" name="per-days-count" value=""></p></div>'
+      console.log(newper);
+      $('#vac-form-periods').append(newper)
+
+    })
+    $('#addform').submit(function(){
+
+      pers = $('.vac-period')
+      for (var i = 0; i < pers.length; i++) {
+
+
+        txt = $('#vac-form-all-periods').val() + $('#per' + i + ' #per-date-from' ).val() + ':' + $('#per' + i + ' #per-date-to' ).val() + ':' + $('#per' + i + " #per-days-count").val()  + '|'
+        $('#vac-form-all-periods').val(txt)
+      }
+    })
+
+  })
+
+  function change_per(id){
+    vac_calc($('#per' + id + ' #per-date-from').val(), $('#per' + id + ' #per-date-to').val())
+    $('#per' + id + ' #per-days-count').val(vac_calc($('#per' + id + ' #per-date-from').val(), $('#per' + id + ' #per-date-to').val()))
+
+  }
+
+  function change_days(id){
+
+    $('#per' + id + ' #per-date-to').val(end_count($('#per' + id + ' #per-date-from').val(), $('#per' + id + ' #per-days-count').val()))
+
+    celebrates_new($('#per' + id + ' #per-date-from').val(), $('#per' + id + ' #per-date-to').val(), id)
+
+  }
+
+  function vac_calc(date_from, date_to) {
+
+    date_from = date_from.split('-')[2] + '.' + date_from.split('-')[1] + '.' + date_from.split('-')[0]
+
+    date_to = date_to.split('-')[2] + '.' + date_to.split('-')[1] + '.' + date_to.split('-')[0]
+
+    console.log(Date.parse(date_to));
+    console.log(date_from);
+
+    dcount = (( Date.parse(date_to) - Date.parse(date_from)) / 24 / 60 / 60 / 1000) + 1
+
+    console.log(dcount);
+
+    return(dcount)
+}
+</script>
+
+{%endblock%}

@@ -1,7 +1,7 @@
 {% extends "reg_jounals/index.html" %}
 
 {%block title%}Добавить запись{% endblock %}
-{%block header%}Добавить запись - Приказ на отпуск{% endblock %}
+{%block header%}{%block logo%}{{block.super}}{%endblock%}Добавить запись - Приказ на отпуск{% endblock %}
 
 {%block content%}
 {% if form.errors%}

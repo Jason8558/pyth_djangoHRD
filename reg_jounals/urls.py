@@ -1,5 +1,6 @@
 from django.urls import path
 from . import views
+from .additionals import *
 
 urlpatterns = [
     path('', views.index, name='index'),
@@ -43,9 +44,9 @@ urlpatterns = [
     path('employment_history/<int:id>/del', views.del_EmploymentHistory, name='employment_history_del_url'),
     path('employment_history/<int:id>/print', views.print_EmploymentHistory, name='employment_history_print_url'),
     path('sick_regs/', views.sick_regs, name='sick_regs'),
-    path('sick_reg/<int:sr_number>/create/', views.create_SickRegistry, name='sick_reg_create_url'),
+    path('sick_reg/<int:id>/create/', views.create_SickRegistry, name='sick_reg_create_url'),
     path('sick_reg/add', views.add_SickRegistry, name='sick_reg_add_url'),
-    path('sick_reg/<int:sr_number_>/addItem', views.add_SickDocument, name='sick_reg_addItem_url'),
+    path('sick_reg/<int:id>/addItem', views.add_SickDocument, name='sick_reg_addItem_url'),
     path('sick_reg/updItem/<int:id>', views.upd_SickDocument, name='sick_reg_updDoc_url'),
     path('sick_reg/Itemdel/<int:id>', views.ItemDel_SickList, name='sick_reg_delDoc_url'),
     path('sick_reg/checkdoc/<int:num>', views.check_SickDocument, name='sick_reg_checkdoc_url'),
@@ -60,4 +61,12 @@ urlpatterns = [
     path('identity/add', views.nr_identitys, name='identity_add_url'),
     path('identity/upd/<int:id>', views.upd_identitys, name='identity_upd_url'),
     path('identity/del/<int:id>', views.del_identitys, name='identity_del_url'),
+    path('getusername/', views.get_user_name, name='getusername_url'),
+    path('logs/', views.logs_, name='logs_url'),
+    path('reports/', views.reports, name='reports_url'),
+    path('invite_checkin/new', views.invite_checkin, name='invite_checkin_new'),
+    path('invite_checkin/<int:count>', views.invite_checkin_get, name='invite_checkin_new'),
+    path('invite_checkin/cancel/<int:id>', views.invite_checkin_cancel, name='invite_checkin_cancel'),
+    path('api/get_employers/<int:department_id>', get_employers_from_department, name='api_employers'),
+    path('delete/<int:type>/<int:id>', views.document_delete, name='document_delete')
      ]

@@ -1,11 +1,38 @@
-{% extends "TURV/index.html" %}
+{% extends "TURV/tabels.html" %}
 {%load static%}
-{%block scripts%}<script src="{% static 'TURV\js\TabelItemAdd3.js' %}" charset="utf-8"></script>{%endblock%}
-{%block title%}Заполнение сотрудника{%endblock%}
+{%block scripts%}{%if b_tabel.type.id == 1%}<script src="{% static 'TURV\js\TabelItemAdd1.js' %}" charset="utf-8"></script>{%else%}<script src="{% static 'TURV\js\TabelItemAddSmall.js' %}" charset="utf-8"></script>{%endif%}{%endblock%}
+{%block title%}Заполнение{%endblock%}
 
-{%block header%}<a class="btn btn-dark" href="/turv/create/{{b_tabel.id}}">< Назад</a> | <span class="hide" id="id_month">{{month}}</span>Табель за <span  class='field_month'>{{month}}</span> <span id='id_year'>{{year}}</span> г.{%endblock%}
+{%block header%}
+<div class="header-back-button-container">
+  <a href="/turv/create/{{b_tabel.id}}" class="button back">Назад</a>
+  {% block logo%}{{block.super}}{% endblock%}
+
+</div>
+
+<span class="hide" id="id_month">{{month}}</span>
+<span class="hide" id='id_year'>{{year}}</span> 
+
+
+<div class="header-main-text">
+  <h4>{{b_tabel.type}} №{{b_tabel.id}} - {{b_tabel.department}} за <span class="field_month">{{month}}</span> <span >{{year}}</span> г.
+  </h4>
+</div>
+
+{%block username%}{{block.super}}{%endblock%}
+
+
+{%endblock%}
 
 {%block body%}
+<span id='tabel-type' style='display:none'>{{b_tabel.type_id}}</span>
+<span id='tabel-year' style='display:none'>{{b_tabel.year}}</span>
+<span id='tabel-month' style='display:none'>{{b_tabel.month}}</span>
+<style media="screen">
+  #t_emps_chosen {
+    display:none;
+  }
+</style>
 <div class="alert alert-danger errors" role="alert">
 
 </div>
@@ -18,49 +45,57 @@
 <div class="container titem">
 
 
+<div class="new-tabel-item-employers-list-container">
+
+  <div style="grid-area:text;" class="ti-search">
+    <h4 style=" text-align:center">Выберите работника из списка</h4>
+    <p><input id="tis-input" type="text" name="" placeholder="введите строку для поиска и нажмите ENTER" value="">
+    <button type="button" class="button cancel" id="tis-clear" name="button">Очистить</button></p>
+
+  </div>
+
 
 <div class="indep">
 
-<ul>
+  <table style="box-shadow: none; font-size: 11pt;">
+    <thead>
+      <th>ФИО</th>
+      <th>Должн.</th>
+      <th>Раз.\кат.</th>
+      <th>Ст.опл.</th>
+      <th>Реж.</th>
+
+    </thead>
+
+  <tbody>
+
+
   {% for emp in emps %}
   {% if emp.fired%}
   {%else%}
-  <li id={{emp.id}}>{{emp.fullname}}|{{emp.position}}|{{emp.level}}|{{emp.positionOfPayment}}|<span class="posid" style="color:white">{{emp.id}}</span></li>
+  <tr id={{emp.id}} onclick="emp_info({{emp.id}}, {{b_tabel.id}}, '{{b_tabel.iscorr}}', {{b_tabel.month}}, {{b_tabel.year}})">
+    <td class='id-fio'>{{emp.fullname}}</td>
+    <td>{{emp.position}}</td>
+    <td>{{emp.level}}</td>
+    <td>{{emp.positionOfPayment}}</td>
+
+    {% if emp.shift_personnel %}
+      <td>Смен.</td>
+      {% else %}
+      <td>Днев.</td>
+    {%endif%}
+  </tr>
+  <!-- <li onclick="emp_info({{emp.id}})" id={{emp.id}}>{{emp.fullname}}|{{emp.position}}|{{emp.level}}|{{emp.positionOfPayment}}|<span class="posid" style="color:white">{{emp.id}}</span></li> -->
   {%endif%}
   {%endfor%}
-</ul>
+  </tbody>
+</table>
+</div>
 </div>
 
 
 <div id="tabel_item" class="tabel_item">
 
- <!-- <ul class="in_tabel_list">
-   {% for emp in in_tabel %}
-   <li>{{emp.employer}}</li>
-   {%endfor%}
- </ul> -->
-<!-- <div class="in_tabel_list">
-<table>
-  <thead>
-    <tr>
-      <th>ФИО</th>
-      <th>Должность</th>
-      <th>Разряд</th>
-      <th>Ст. оплаты</th>
-    </tr>
-  </thead>
-  <tbody>
-     {% for emp in in_tabel %}
-    <tr>
-      <td>{{emp.employer.fullname}}</td>
-      <td>{{emp.employer.position}}</td>
-      <td>{{emp.employer.level}}</td>
-      <td>{{emp.employer.positionOfPayment}}</td>
-    </tr>
-    {%endfor%}
-  </tbody>
-</table>
-</div> -->
 
   <div class="t_peoples hide">
 
@@ -77,14 +112,14 @@
 {%endif%}
 
 <div class="nt_body">
-<form class="" action="" method="post">
+<form class="" action="" onsubmit="alert('Работник добавлен!')" method="post">
   {%csrf_token%}
 
 
 
   <div class="nt_body_employer">
-    <h4>Выберите сотрудника из списка: (фио, должность, разряд): </h4>
-    <select class="chosen-select" id='t_emps' onchange="ReSelectEmp()" name="t_emps">
+    <!-- <h4>Выберите сотрудника из списка: (фио, должность, разряд): </h4> -->
+    <select style='display:none' class="chosen-select" id='t_emps' onchange="ReSelectEmp()" name="t_emps">
       {% for emp in emps%}
         {% if emp.fired %}
         {%else%}
@@ -92,14 +127,15 @@
       {%endif%}
       {%endfor%}
     </select>
-    <a href="{% url 'emp_new'%}" target="_blank" class="btn btn-outline-info "> + новый сотрудник </a>
+    <!-- <a href="{% url 'emp_new'%}" target="_blank" class="btn btn-outline-info "> + новый сотрудник </a> -->
 
     {{tabel.employer}}
 
   </div>
 <div class="nt_text_employer">
   <div class="nt_emp_info">
-  <h5 id="fullname"></h5>
+  <h5 class="btn btn-link" style="font-size: 1.25rem; padding:0;" id="fullname"></h5>
+  <h5>Пол: <span id="sex"></span></h5>
   <h5 id="position"></h5>
   <h5 id="level"></h5>
   <h5 id="payment"></h5>
@@ -109,12 +145,18 @@
 
   <div class="results">
     <p><span>{{tabel.w_days.label}}</span>{{tabel.w_days}}</p>
-    <p><span>{{tabel.w_hours.label}}</span>{{tabel.w_hours}}</p>
+    <p><span id='litres'>{{tabel.w_hours.label}}</span>{{tabel.w_hours}}</p>
     <p><span>{{tabel.v_days.label}}</span>{{tabel.v_days}}</p>
     <p><span>{{tabel.sHours35.label}}</span>{{tabel.sHours35}}</p>
     <p><span>{{tabel.sHours4.label}}</span>{{tabel.sHours4}}</p>
     <p><label style="color: blue;" for="manual_overwork">Ввести сверхурочные вручную</label><input type="checkbox" id="manover" name="manual_overwork" value=""></p>
     <p><span><label for="weekends">Выходных дней</label></span><input id="weekends" type="number" readonly name="weekends" value=""></p>
+    {%if b_tabel.type.id == 2 or b_tabel.type.id == 8%}
+    <p><span style="font-size:12pt;">Процент доплаты </span>{{tabel.toxic_p}}</p>
+    {%endif%}
+    {%if b_tabel.type.id == 3%}
+    <p><span style="font-size:12pt;">Номер автомобиля(процент)</span>{{tabel.auto}}</p>
+    {%endif%}
   </div>
 </div>
 
@@ -136,6 +178,7 @@
     <span>13</span>
     <span>14</span>
     <span>15</span>
+    {%if b_tabel.type.id == 1 or b_tabel.type.id == 4 or b_tabel.type.id == 5 %}
     {{tabel.type_time1}}
     {{tabel.type_time2}}
     {{tabel.type_time3}}
@@ -151,6 +194,7 @@
     {{tabel.type_time13}}
     {{tabel.type_time14}}
     {{tabel.type_time15}}
+    {%endif%}
 
     {{tabel.hours1}}
     {{tabel.hours2}}
@@ -189,6 +233,7 @@
     <span id="day30">30</span>
     <span id="day31">31</span>
 
+{%if b_tabel.type.id == 1 or b_tabel.type.id == 4 or b_tabel.type.id == 5  %}
     {{tabel.type_time16}}
     {{tabel.type_time17}}
     {{tabel.type_time18}}
@@ -205,6 +250,7 @@
     {{tabel.type_time29}}
     {{tabel.type_time30}}
     {{tabel.type_time31}}
+    {%endif%}
 
 
     {{tabel.hours16}}
@@ -225,10 +271,37 @@
     {{tabel.hours31}}
   </div>
   <div class="tabel_buttons">
-  <button type="button" onclick="Tabel();" class="btn btn-outline-dark" name="button">Расчитать</button>
-  <input type="button" onclick="Tabel();" class="btn btn-success tItem_submit" name="" value="Расчитать и добавить">
+    {% if b_tabel.type_id == 1%}
+    <button type="button" class="button" onclick='auto_fill(0)' name="t_auto_fill">Автозаполнение</button>
+    <button type="button" class="button" onclick='auto_fill(1)' name="t_auto_fill_half">Автозаполнение 1/2</button>
+    {%else%}
+    {%endif%}
+  <button type="button" onclick="Tabel();" class="button" name="button">Расчитать</button>
+
+  <input type="button" onclick="Tabel();" class="button add tItem_submit" name="" value="Расчитать и добавить">
   </div>
-</div>
+
+
+
+  <!-- {% if b_tabel.type_id == 1%}
+  <div class="warning">
+    <h4 style="color: red">Внимание! При заполнении неполных часов (напр. 3.5; 3.2) следует разделять цифры ТОЧКОЙ, а не запятой</h4>
+
+  </div>
+  {%else%}
+  {% if b_tabel.type_id == 4%}
+  <div class="warning">
+    <h4 style="color: red">Внимание! При заполнении табеля работы в выходные, следует указывать только ночные и дневные явки! Также заполнении неполных часов (напр. 3.5; 3.2) следует разделять цифры ТОЧКОЙ, а не запятой</h4>
+
+  </div>
+  {%else%}
+  <div class="warning">
+    <h4 style="color: red">Внимание! При заполнении табеля вредности или совмещения, отпуска, ЛЧ и ночные указывать не нужно! Только фактическое количество отработаных часов! Также заполнении неполных часов (напр. 3.5; 3.2) следует разделять цифры ТОЧКОЙ, а не запятой</h4>
+
+  </div>
+  {%endif%}
+  {%endif%}
+</div> -->
 
   <div class="summary_times">
    <p class="st">{{tabel.sHours1.label}}{{tabel.sHours1}}</p>
@@ -261,6 +334,7 @@
     <p class="st">   {{tabel.sHours28.label}}{{tabel.sHours28}}</p>
     <p class="st">   {{tabel.sHours37.label}}{{tabel.sHours37}}</p>
   <p class='st'>{{tabel.sHours38.label}}{{tabel.sHours38}}</p>
+    <p class='st'>{{tabel.sHours39.label}}{{tabel.sHours39}}</p>
   <!-- {{tabel.sHours30.label}}{{tabel.sHours30}}
   {{tabel.sHours31.label}}{{tabel.sHours31}}
   {{tabel.sHours32.label}}{{tabel.sHours32}}
@@ -275,4 +349,45 @@
 </div>
 </div>
 </div>
+
+<script type="text/javascript">
+
+if ($('#tabel-type').text() == '9') {
+  $('#litres').text('Литров')
+
+  for (var field of $('.dig_hours')) {
+    field.setAttribute('placeholder', 'Л')
+  }
+
+}
+
+  $('#tis-clear').click(function(){
+    $('#tis-input').val('')
+    allrows = $('.indep table tbody tr')
+    for (var row of allrows) {
+    $('.indep table tbody #' + row.id).css('display', '')
+    }
+  })
+
+  $('#tis-input').change(function(){
+    query =   $('#tis-input').val()
+    res = $('.indep table tbody tr .id-fio').filter(function(){ return $(this).text().toLowerCase().includes(query.toLowerCase())})
+    allrows = $('.indep table tbody tr')
+    for (var row of allrows) {
+      row.style.display = 'none'
+    }
+
+    for (var r of res) {
+      r.parentElement.style.display = ''
+    }
+
+
+
+
+  })
+
+
+</script>
+
+
 {%endblock%}

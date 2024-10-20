@@ -1,87 +1,142 @@
 {%extends "reg_jounals/index.html" %}
-
+{%load static%}
 {%block title%}Заявления на увольнение{%endblock%}
-{%block header%}<a class="btn btn-dark" href="../"> < назад</a> Журнал регистрации заявлений на увольнение. Всего: {{count}}.  {%endblock%}
-{%block content%}
-<div id="frame_" class="frame">
-  <iframe id="iframe" src="" width="" height=""></iframe>
-  <button type="button" class="btn btn-success" onclick="send_submit()" name="button">Сохранить</button>
-  <button type="button" onclick="close_frame()"class="btn btn-outline-danger" name="button">Отмена</button>
-</div>
-<form action="{% url 'resignation' %}">
-  <input type="search" name="lor_search" placeholder="Поиск по ФИО..">
-  <button class="btn btn-sm btn-dark" type="submit" name="" value="Найти">Найти</button>
-</form>
-<!-- <a class="btn btn-success btn-lg m-bottom  btn-add" href="{%url 'letter_resignation_add_url' %}"> + Добавить</a> -->
-<button class="btn btn-success btn-lg m-bottom btn-add " type="button" name="button" onclick="open_frame_new()"> + Добавить</button>
-{% if letters %}
-<table>
-  <thead class="thead-dark">
-  <tr class="tr-header">
-    <th scope="col">Номер</th>
-    <th scope="col">Дата поступления</th>
-    <th scope="col">Увольняемый</th>
-    <th scope="col">Должность</th>
-    <th scope="col">Подразделение</th>
-    <th scope="col">Дата увольнения</th>
-    <th scope="col">Примечание</th>
-    <th scope="col">Ответственный сотрудник</th>
+{%block header%}<a class="button back" href="../">
+  < назад</a>{%block logo%}{{block.super}}{%endblock%} Журнал регистрации заявлений на увольнение.{%endblock%}
+    {%block content%}
 
-  </tr>
-  </thead>
+    <div class="standart-menu">
+      <a class="button add" href="{%url 'letter_resignation_add_url' %}">Добавить</a>
 
-  {%for let in letters.object_list%}
 
- <tr id="{{let.id}}" onclick="open_for_upd({{let.id}})">
+      <div class="standart-menu-submenu-container">
+        <img src="{% static '/img/filter.png' %}" onclick="open_search_menu(this, 'letters-of-resignation-search-menu')"
+          alt="">
+      </div>
 
-    <td id="number">{{let.lor_number}}</td>
-    <td id="date">{{let.lor_date|date:"d.m.Y"}}</td>
-    <td id="emloyer">{{let.lor_employee}}</td>
-    <td id="pos">{{let.lor_position}}</td>
-    <td id="dep">{{let.lor_departament}}</td>
-    <td id="dateRes">{{let.lor_dateOfRes|date:"d.m.Y"}}</td>
-    <td id="content">{{let.lor_additionalData}}</td>
-    <td id="res_officer">{{let.lor_res_officer}}</td>
+    </div>
 
-</tr>
-  {%endfor%}
-</table>
+    <form id="letters-of-resignation-search-menu" class="standart-panel search panel" style="display: none;" action="{% url 'resignation' %}">
+     
+      <input type="hidden" name="search-sign" value="1">
 
-<nav  class="paginator" aria-label="Page navigation example">
-  <ul class="pagination">
-    <li class="page-item">
-      <a class="page-link" href="#" aria-label="Previous">
-<span aria-hidden="true">&laquo;</span>
-      </a>
-    </li>
-{% for p in letters.paginator.page_range %}
-  {% if letters.number == p%}
-   <li class="page-item active"><a class="page-link" href="?page={{p}}">{{ p }}</a></li>
-   {%else%}
-        <li class="page-item"><a class="page-link" href="?page={{p}}">{{ p }}</a></li>
+      <div class="search-panel-input-group">
+        <input type="search" name="lor_search" placeholder="ФИО">
+      </div>
+
+      <div class="search-panel-input-group">
+        <div class="search-panel-input-group-header">
+          <h5>Период:</h5>
+        </div>
+        <input type="date" name="letters-of-resignation-search-from" id="">
+        <input type="date" name="letters-of-resignation-search-to" id="">
+      </div>
+
+      <div class="search-panel-input-group">
+        <div class="search-panel-input-group-header">
+          <h5>Дата увольнения:</h5>
+        </div>
+        <input type="date" name="letters-of-resignation-search-date-of-resigantion-from" id="">
+        <input type="date" name="letters-of-resignation-search-date-of-resigantion-to" id="">
+      </div>
+
+      <div class="search-panel-input-group">
+        <select class="" name="letters-of-resignation-search-department">
+          <option value="">Подразделение</option>
+          {%for dep in deps%}
+          <option value="{{dep.id}}">{{dep}}</option>
+          {%endfor%}
+        </select>
+      </div>
+
+      <div class="search-panel-input-group">
+        <button class="button add" type="submit" name="" value="Найти">Найти</button>
+        <a class="button cancel" href=".">Сбросить</a>
+      </div>
+    </form>
+
+    <!-- <button class="btn btn-success btn-lg m-bottom btn-add " type="button" name="button" onclick="open_frame_new()"> + Добавить</button> -->
+    {% if letters %}
+    <table>
+      <thead class="thead-dark">
+        <tr class="tr-header">
+          <th scope="col">Номер</th>
+          <th scope="col">Дата</th>
+          <th scope="col">Увольняемый</th>
+          <th scope="col">Подразделение</th>
+          <th scope="col">Дата увольнения</th>
+          <th scope="col">Основание</th>
+          <th scope="col">Примечание</th>
+          <th scope="col">Ответственный</th>
+
+        </tr>
+      </thead>
+
+      {%for let in letters.object_list%}
+
+      <tr onclick="return location.href = '{% url 'letter_resignation_upd_url' id=let.id%}' ">
+
+        <td id="number">{{let.lor_number}}</td>
+        <td id="date">{{let.lor_date|date:"d.m.Y"}}</td>
+        
+        {% if let.bound_employer %}
+          <td id="emloyer">{{let.bound_employer.fullname}}</td>
+        {%else%}
+          <td id="emloyer">{{let.lor_employee}}</td>
+        {%endif%}
+        
+        {% if let.department %}
+          <td id="dep">{{let.department}}</td>
+        {% else %}
+          <td id="dep">{{let.lor_departament}}</td>
+        {%endif%}
+        
+        <td id="dateRes">{{let.lor_dateOfRes|date:"d.m.Y"}}</td>
+        <td class="table-non-wrap" id="content">{{let.lor_itemOfRes| truncatechars:15}}</td>
+        {% if let.lor_additionalData%}
+          <td id="content">{{let.lor_additionalData | truncatechars:15}}</td>
+        {% else %}
+          <td id="content"></td>
+        {% endif %}
+        <td class="table-non-wrap" id="res_officer">{{let.lor_res_officer}}</td>
+
+      </tr>
+      {%endfor%}
+    </table>
+
+    <nav class="paginator" aria-label="Page navigation example">
+      <ul class="pagination">
+        {%if letters.has_previous%}
+        <li class="page-item">
+          <a class="page-link" aria-label="previous" href="?page=1">
+            <span aria-hidden="true">Первая</span></a>
+        </li>
+        <li class="page-item">
+          <a class="page-link" href='?page={{letters.previous_page_number}}' aria-label="previous">
+            <span aria-hidden="true">{{letters.previous_page_number}}</span>
+          </a>
+        </li>
+        {%endif%}
+
+        <li class="page-item active"><a class="page-link" href="">{{ letters.number }}</a></li>
+
+        {%if letters.has_next%}
+        <li class="page-item">
+          <a class="page-link" href='?page={{letters.next_page_number}}'
+            aria-label="Next">{{letters.next_page_number}}</a>
+        </li>
+        {%endif%}
+
+        <li class="page-item">
+          <a class="page-link" href="?page={{ letters.paginator.num_pages }}">Последняя</a>
+        </li>
+      </ul>
+    </nav>
+
+
+
+    {%else%}
+    <h2>Записей нет</h2>
     {%endif%}
-  {% endfor %}
 
-{%if letters.has_next%}
-    <li class="page-item">
-      <a class="page-link" href='?page={{letters.next_page_number}}' aria-label="Next">
-<span aria-hidden="true">&raquo;</span>
-      </a>
-    </li>
-  {%else%}
-  <li class="page-item disabled">
-    <a class="page-link" href='#' aria-disabled='true' aria-label="Next">
-      <span aria-hidden="true">&raquo;</span>
-    </a>
-  </li>
-  {%endif%}
-  </ul>
-</nav>
-
-
-
-{%else%}
-<h2>Записей нет</h2>
-{%endif%}
-
-{%endblock%}
+    {%endblock%}

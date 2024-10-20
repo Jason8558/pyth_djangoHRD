@@ -1,7 +1,7 @@
 {% extends "reg_jounals/index.html" %}
 
-{%block title%}Добавить запись{% endblock %}
-{%block header%}Изменить запись - Удостоверение № {{ind.number}}{% endblock %}
+{%block title%}Изменить запись{% endblock %}
+{%block header%}{%block logo%}{{block.super}}{%endblock%}Изменить запись{% endblock %}
 
 {%block content%}
 {% if form.errors%}
@@ -10,18 +10,55 @@
 {{form.errors}}
 </div>
 {%endif%}
-<script type="text/javascript">
-  $(document).ready(function() {
-    $('header').css('display','none')
-    $('body').css('background', 'white !important') })
-</script>
-<form class="add_form" action="" method="post">
-  {% csrf_token %}
-  {% for field in form %}
-  <p>{{field.label}}{{ field }}</p>
-  {% endfor%}
 
+<form class="standart-panel standart-form" action="" method="post">
+  {% csrf_token %}
+  <div class="standart-form-header">
+    <h4>Номер удостоверения: <span id="next_num">{{next_num}}</span></h4>
+  </div>
   
+  <div class="standart-form-input-group inline">
+    <p><span>ФИО: </span><select name="identity-employer-field" id="identity-employer-field">
+
+    </select></p>
+
+    <p><span>Подразделение: </span><select onchange="get_employers_from_department(this.value, 'identity-employer-field')" name="identity-department-field" id="identity-department-field">
+      {% for dep in deps %}
+        <option value="{{dep.id}}">{{dep.name}}</option>
+      {% endfor %}
+    </select></p>
+
+    <p><span>Выдано: </span>{{form.date_giving}}</p>
+  </div>
+
+  <div class="standart-form-input-group inline">
+    <input class="button add"  type="submit" value="Сохранить" />
+    <a class="button cancel" href="..">Отмена</a>
+    {% if editing or request.user.is_superuser %}
+      <a class="button cancel" onclick="open_additional_menu(this, 'delete-document-popup')" href="#">Удалить</a>
+    {% endif %}
+  </div>
+
+
+
 </form>
+<div id="delete-document-popup" style="display: none;" class="standart-panel standart-form popup"> 
+  <div class="standart-form-header">
+    <h4>Вы уверены?</h4>
+  </div>
+
+  <div class="standart-form-input-group inline">
+    <a class="button add" href="{% url 'document_delete' type=10 id=ident.id %}">Да</a>
+    <a class="button cancel" onclick="this.parentNode.parentNode.style.display = 'none' ">Нет</a>
+  </div>
+
+</div> 
+<script type="text/javascript">
+  (function (){
+    get_employers_from_department('{{ident.department_new_id}}', 'identity-employer-field')
+    document.getElementById('identity-department-field').value = '{{ident.department_new_id}}'
+   setTimeout(function() { document.getElementById('identity-employer-field').value = '{{ident.bound_employer_id}}'}, 500)
+  })()
+</script>
 
 {%endblock%}

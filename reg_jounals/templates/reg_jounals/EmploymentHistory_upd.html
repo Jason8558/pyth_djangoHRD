@@ -1,39 +1,76 @@
 {% extends "reg_jounals/index.html" %}
 
-{%block title%}Изменить запись{% endblock %}
-{%load static%}
-
-{%block header%}Трудовая книжка №{{history.eh_number}} - {{history.eh_employer}}{% endblock %}
+{%block title%}Добавить запись{% endblock %}
+{%block header%}{%block logo%}{{block.super}}{%endblock%}Добавить запись - Трудовая книжка{% endblock %}
 
 {%block content%}
-<script type="text/javascript">
-  $(document).ready(function() {
-    $('header').css('display','none')
-    $('body').css('background', 'white !important') })
-</script>
+
 {% if form.errors%}
 
 <div class="alert alert-danger mt-5" role="alert">
-  {{form.errors}}
+{{form.errors}}
 </div>
 {%endif%}
-<form class="add_form" style="grid-gap: 20px;" action="" method="post">
-    {% csrf_token %}
-<a class="btn btn-warning" target="_blank" href="{% url 'employment_history_print_url' id=history.id%}">Печать расписки о получении ТК на руки (при увольнении)</a>
-    {% for field in form %}
-    <p>{{field.label}}{{ field }}</p>
-    {% endfor%}
+<form class="standart-form standart-panel" action="" method="post">
+  {% csrf_token %}
 
-  <!-- <input class="btn btn-success" type="submit" value="Сохранить" />
-  <a class="btn btn-outline-info" href="..">Отмена</a>
-  <a id="sure_btn" class="btn btn-outline-danger" onclick="OpenSureDialog()">Удалить</a>
-  <div id="sure" style="display: none;" class="yousure">
-    <p>Вы уверены? <span style="color: red;"><b>ЭТО ДЕЙСТВИЕ НЕОБРАТИМО</b></span></p>
-    <a class="btn btn-outline-danger" href="{% url 'employment_history_del_url' id=history.id%}">Да</a>
+  <div class="standart-form-input-group inline">
+    <p><span>{{form.eh_number.label}}:</span>{{form.eh_number}}</p>
+    <p><span>{{form.eh_isdigital.label}}</span>{{form.eh_isdigital}}</p>
+  </div>
+  
+  <div class="standart-form-input-group inline">
+    <p><span>{{form.eh_dateOfInv.label}}: </span>{{form.eh_dateOfInv}}</p>
+    <p><span>{{form.eh_OrderInv.label}}</span>{{form.eh_OrderInv}}</p>
+  </div>
 
-  </div> -->
+  <div class="standart-form-input-group inline">
+    <p><span>ФИО: </span>{{form.eh_employer}}</p>
+    <p><span>Подразделение: </span><select name="employment-history-department-field" id="employment-history-department-field">
+      {% for dep in deps%}
+        <option value="{{dep.id}}">{{dep.name}}</option>
+      {% endfor %}
+    </select></p>
+  </div>
+
+  <div class="standart-form-input-group inline">
+    <p><span>{{form.eh_dateOfResign.label}}: </span>{{form.eh_dateOfResign}}</p>
+    <p><span>{{form.eh_OrderResign.label}}</span>{{form.eh_OrderResign}}</p>
+  </div>  
+
+
+
+<div class="standart-form-input-group inline">
+  <input class="button add" type="submit" value="Сохранить" />
+  <a class="button" target="_blank" href="{% url 'employment_history_print_url' id=history.id%}">Печать расписки</a>
+  <a class="button cancel" href=".">Отмена</a>
+  {% if editing or request.user.is_superuser %}
+    <a class="button cancel" onclick="open_additional_menu(this, 'delete-document-popup')" href="#">Удалить</a>
+  {% endif %}
+</div>
 
 
 </form>
 
+<div id="delete-document-popup" style="display: none;" class="standart-panel standart-form popup"> 
+  <div class="standart-form-header">
+    <h4>Вы уверены?</h4>
+  </div>
+
+  <div class="standart-form-input-group inline">
+    <a class="button add" href="{% url 'document_delete' type=4 id=history.id %}">Да</a>
+    <a class="button cancel" onclick="this.parentNode.parentNode.style.display = 'none' ">Нет</a>
+  </div>
+
+</div> 
+
+<script type="text/javascript">
+  (function(){
+    document.getElementById('employment-history-department-field').value = '{{history.department_id}}'
+  })()
+</script>
+
 {%endblock%}
+
+
+

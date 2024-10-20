@@ -1,0 +1,618 @@
+:root {
+    --color-background-primary: #e0edff;
+    --color-background-secondary: #0d6efd;
+    --color-background-panels: #609efa;
+    --color-button-main: #2dbbff;
+    --color-button-add: rgb(0, 0, 0);
+    --color-button-cancel: rgb(255, 108, 108);
+
+}
+
+body {
+    background-color: var(--color-background-primary);
+}
+
+* {
+    font-family: 'RobotoRegular';
+}
+
+a {
+    color: black !important;
+}
+
+
+
+
+/* Поля ввода */
+
+
+
+input[type=text],
+input[type=number],
+input[type=date],
+input[type=search],
+input[type=datetime-local],
+.chosen-container-single,
+.chosen-single,
+textarea,
+select,
+.standart-menu-quick-search input[type=text] {
+
+    border-top: none;
+
+    border-left: none;
+
+    border-right: none;
+
+    outline: none;
+
+    border-bottom: 1px solid var(--color-button-main);
+
+    line-height: normal;
+}
+
+.standart-menu-quick-search input[type=text] {
+    background-color: white !important;
+}
+
+.chosen-container-single,
+.chosen-single {
+
+}
+
+.chosen-container {
+
+}
+
+/* Таблицы */
+
+thead {
+    background-color: var(--color-background-secondary);
+}
+
+tbody tr:hover {
+    background-color: var(--color-button-main) !important;
+}
+
+table tr:nth-child(even) {
+    background: var(--color-background-primary);
+  }
+
+.tabel tbody tr{
+    background-color: white ;
+}
+
+table .table-non-wrap {
+    text-wrap: nowrap;
+}
+
+
+/* Контейнеры */
+
+.list-container {
+
+    overflow: scroll;
+
+    height: 657px;
+}
+
+.header-back-button-container {
+    display: flex;
+    flex-direction: row;
+    align-content: center;
+    align-items: center;
+}
+
+/* Блоки и панели */
+
+
+header {
+    position: relative;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+    background: var(--color-background-secondary);
+    padding: 11px;
+}
+
+header img {
+   width: 50px
+}
+
+.header-main-text h3,
+header h4 {
+    margin: 0 ; 
+    font-weight: bold;
+}
+
+
+
+.standart-menu {
+    background-color: var(--color-background-panels);
+    margin-bottom: 1rem;
+    height: 2.5rem;
+    padding: 5px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+.standart-menu .standart-menu-submenu-container {
+    height: 100%;
+}
+
+.standart-menu p, 
+.standart-menu a,
+.standart-menu input{
+    text-transform: uppercase;
+    margin: 0;
+    background: none;
+    outline: none;
+    border: none;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.standart-menu p:hover, 
+.standart-menu a:hover,
+.standart-menu input[type=button]:hover{
+    transition: 0.2s;
+    font-weight: bold;
+}
+
+
+.submenu-panel {
+    /* display: none !important; */
+    z-index: 999;
+}
+
+.submenu-panel ul {
+margin: 0;
+width: 100%;
+list-style: none;
+padding: 0;
+}
+
+.submenu-panel ul li, .submenu-panel ul li * {
+    text-transform: uppercase;
+    text-align: center;
+    text-decoration: none;
+}
+
+.submenu-panel ul li *:hover {
+    font-weight: bold;
+}
+
+
+.standart-menu .standart-menu-submenu-container img {
+    height: 100%;
+    cursor: pointer;
+}
+
+.standart-panel {
+    background-color: var(--color-background-primary);
+    position: absolute;
+    height: 202px;
+    width: 366px;
+    padding: 9px;
+    display: flex;
+    justify-content: space-around;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+
+
+.search {
+    border-bottom:  1px solid var(--color-background-secondary);
+    border-left:    1px solid var(--color-background-secondary);
+    border-right:   1px solid var(--color-background-secondary);
+}
+
+.search .search-panel-header {
+    width: 100%;
+}
+
+.search .search-panel-header h4 {
+    text-transform: uppercase;
+    text-align: center;
+    width: 100%;
+}
+
+.search .search-panel-input-group {
+
+    display: flex;
+
+    flex-direction: row;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    width: 100%;
+}
+
+.search .search-panel-input-group input[type=button],
+.search .search-panel-input-group input[type=text],
+.search .search-panel-input-group input[type=search],
+.search .search-panel-input-group select {
+    width: 100%;
+}
+
+.search .search-panel-input-group .search-panel-input-group-header {
+
+}
+.search .search-panel-input-group .search-panel-input-group-header h5 {
+    margin: 0;
+    font-size: 13pt;
+}
+
+
+.buttons-panel {}
+
+.standart-form {
+
+    width: 50%;
+    
+    position: static;
+    
+    height: max-content;
+    
+    display: flex;
+    
+    flex-direction: column;
+    
+    align-content: space-between;
+    
+    justify-content: space-around;
+    
+    margin: auto;
+    
+    align-items: center;
+    
+    border: 1px solid var(--color-background-secondary);
+
+    }
+    
+    .standart-form .standart-form-header {
+        width: 100%;
+    }
+    
+    .standart-form .standart-form-header * {
+        text-align: center;
+        width: 100%;
+        border-bottom: 1px solid black;
+    }
+    
+    
+    
+    .standart-form .inline {}
+    
+    .standart-form .inline p {
+        margin-right: 0.5rem;
+    }
+    
+    .standart-form .standart-form-stage-panel {
+    
+        height: 243px;
+    
+        display: flex;
+    
+        flex-direction: column;
+    
+        justify-content: space-around;
+    
+        align-items: stretch;
+    
+        width: 100%;
+    }
+    
+
+.standart-form .standart-form-input-group {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.one_button {
+    flex-direction: row !important;
+    justify-content: center;
+}
+
+.one_line {
+    display: flex;
+    align-items: center;
+}
+
+.standart-form .standart-form-input-group p, .inline p {
+    margin: 0;
+}
+
+.standart-form .standart-form-input-group p span {
+    margin-right: 1rem;
+}
+
+.standart-form .standart-form-input-group p textarea,
+.standart-form .standart-form-input-group p select,
+.standart-form .standart-form-input-group p input[type=text],
+.standart-form .standart-form-input-group p input[type=date],
+.standart-form .standart-form-input-group p textarea {
+    width: 100% !important;
+}
+
+.standart-form .standart-form-footer {
+    width: 100%;
+}
+
+.standart-form .inline {}
+
+.standart-form .inline p {
+    margin-right: 0.5rem; 
+    width: 100%;
+}
+
+.standart-form .inline p:last-child {
+    margin-right: 0; 
+    width: 100%;
+}
+
+.standart-form .standart-form-stage-panel {
+
+    height: min-content;
+
+    display: flex;
+
+    flex-direction: column;
+
+    justify-content: space-around;
+
+    align-items: stretch;
+
+    width: 100%;
+}
+
+.form-stages {
+
+    position: static;
+
+    width: 100%;
+
+    margin-bottom: 20px;
+
+    height: 77px;
+
+    display: flex;
+
+    flex-direction: row;
+
+    justify-content: space-around;
+}
+
+.form-stages .stage-container {
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+    cursor: pointer;
+}
+
+.form-stages .stage-container .stage-number {
+
+    border: 1px solid black;
+
+    padding: 2px;
+
+    border-radius: 14px;
+
+    width: 33px;
+
+    background: white;
+}
+
+
+
+.form-stages .stage-container .stage-number h3 {
+    margin: 0;
+    width: 100%;
+    text-align: center;
+}
+
+.stage-container-disabled .stage-number {
+    color: lightgray;
+    border-color: lightslategray !important;
+}
+
+
+.stage-container-disabled .stage-name  {
+    color: lightgray;
+}
+
+.stage-container-active .stage-number {
+    color: var(--color-button-main);
+    border-color: lightslategray !important;
+}
+
+
+.stage-container-active .stage-name  {
+    color: var(--color-button-main);
+}
+
+.form-stages-container {
+
+    display: flex;
+
+    flex-direction: row;
+
+    justify-content: space-between;
+
+    align-items: stretch;
+}
+
+
+.form-stages-container .form-stages-container-next-stage {
+
+width: 52px;
+
+background-color: var(--color-background-primary);
+
+display: flex;
+
+flex-direction: column;
+
+justify-content: center;
+
+align-items: center;
+
+cursor: pointer;
+}
+
+.form-stages-container .form-stages-container-next-stage:hover {
+    
+box-shadow: 0px 0px 7px 1px var(--color-button-main);
+    
+transition: 0.2s;
+}
+
+.back .form-stages-container-next-stage-icon {
+    transform: rotate(180deg);
+}
+
+.form-stages-container .form-stages-container-next-stage .form-stages-container-next-stage-icon {
+    width: 80%;
+}
+
+.form-stages-container .form-stages-container-next-stage .form-stages-container-next-stage-icon img {
+    width: 100%;
+}
+
+
+/* ---------------------- */
+
+/* кнопки */
+
+a {
+    text-decoration: none;
+    color: black;
+}
+
+.button {
+    background: none;
+    outline: none;
+    text-decoration: none;
+    border: none;
+    cursor: pointer;
+    text-transform: uppercase;
+    transition: 0.1s;
+
+}
+
+.add:hover {
+    color: black !important;
+    transition: 0.1s;
+    font-weight: bold;
+    text-decoration: underline;
+}
+
+.back:hover {
+    color: var(--color-background-primary) !important;
+    transition: 0.1s;
+    font-weight: bold;
+    text-decoration: underline;
+}
+
+.cancel:hover {
+    color: var(--color-button-cancel) !important;
+    transition: 0.1s;
+    font-weight: bold;
+    text-decoration: underline;
+}
+
+.button:hover {
+    /* color: black !important;  */
+    transition: 0.1s;
+    font-weight: bold;
+    text-decoration: underline;
+}
+
+.special {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    border: 1px solid var(--color-button-main);
+    padding: 7px;
+}
+
+.special img {
+    width: 30px;
+}
+
+.standart-context-menu {
+    height: 38px;
+    width: max-content;
+    border: 2px solid var(--color-background-panels);
+    padding: 0;
+    display: flex; 
+}
+
+.standart-menu .menu-button-dropdown-container {
+    cursor: pointer;
+}
+
+.standart-menu .menu-button-dropdown-container .menu-button-dropdown {}
+
+
+.standart-menu .menu-button-dropdown-container::after {
+    content: '>';
+    transform: rotate(90);
+}
+
+.standart-menu-quick-search {
+display: flex;
+flex-flow: row;
+}
+
+
+
+
+
+
+.standart-menu .button {}
+
+
+
+
+
+
+
+
+/* ----- */
+.inline {
+    display: flex !important;
+    flex-flow: row;
+    align-items: flex-end;
+    flex-direction: row !important;
+    justify-content: space-between;
+    align-content: center;
+}
+
+.no-display {
+    display: none;
+}
+
+/* шрифты */
+
+@font-face {
+    /* название шрифта(чтобы не запутаться лучше указать название папки со шрифтом) */
+    font-family: "RobotoRegular";
+    /* адрес шрифта и тип */
+
+    src: url("/static/fonts/Roboto-Regular.ttf") format("truetype");
+    font-style: normal;
+    font-weight: normal;
+}
