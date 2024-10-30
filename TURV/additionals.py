@@ -74,12 +74,10 @@ def tabel_auto_fill(request, id):
 
                 setattr(newitem,    tt,    data[tt])
                 setattr(newitem,    h,     data[h])
+                
             
             newitem.save()
     pass        
-
-
-
 
     def TimeSummary(data):
     
@@ -141,20 +139,14 @@ def tabel_auto_fill(request, id):
     monthrange = str(monthrange).split(',')[1]
     monthrange = int(str(monthrange).replace(' ','').replace(')',''))
 
-    celebs = WorkCalendarRecord.objects.filter(year=tabel.year).filter(month=tabel_month)
+   
+   
 
-    if celebs.count() == 1:
-        celebs_in_str = str(celebs[0].days).split(',')
-        celebs_in_int = []
-        for c in celebs_in_str:
-            celebs_in_int.append(int(c))
-            if (int(c) - 1) > 0:
-                pre_celebs.append(int(c) - 1) 
-        celebs = celebs_in_int
-    else:
-        celebs = False
-
-
+    # celebs = WorkCalendarRecord.objects.filter(year=tabel.year).filter(month=tabel_month)
+    # Получение правздничных и предпраздничных дней
+    CelebsAndPreCelebs  = get_celebs(tabel_month, tabel.year)
+    celebs              = CelebsAndPreCelebs['Celebs']
+    pre_celebs          = CelebsAndPreCelebs['PreCelebs']
 
 
     for x in range(1, monthrange+1):
@@ -245,4 +237,53 @@ def tabel_auto_fill(request, id):
     return redirect('/turv/create/' + str(tabel.id))
 
 
+def get_celebs(month, year):
+# Поулчаем праздничные и предпраздничные дни за месяц   
     
+    Celebs      = WorkCalendarRecord.objects.filter(year=year).filter(month=month)
+    PreCelebs  = []
+  
+    if Celebs.count() == 1:
+        celebs_in_str = str(Celebs[0].days).split(',')
+        celebs_in_int = []
+        for c in celebs_in_str:
+            celebs_in_int.append(int(c))
+            if (int(c) - 1) > 0:
+                PreCelebs.append(int(c) - 1) 
+        Celebs = celebs_in_int
+    else:
+        Celebs = False  
+    
+    result = {
+        'Celebs':Celebs,
+        'PreCelebs':PreCelebs
+    }
+
+    return result
+
+def get_celebs_ofyear(year):
+    # формируем структуру ответа
+    Result = {
+        1:[],
+        2:[],
+        3:[],
+        4:[],
+        5:[],
+        6:[],
+        7:[],
+        8:[],
+        9:[],
+        10:[],
+        11:[],
+        12:[]
+
+    }
+
+    # получаем праздничные за весь год
+    Celebs = WorkCalendarRecord.objects.filter(year=year)
+
+    for El in Celebs:
+        Result[El.month] = list(map(int, El.days.split(',')))
+    
+
+    return Result

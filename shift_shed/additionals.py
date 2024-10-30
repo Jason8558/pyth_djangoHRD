@@ -1,5 +1,6 @@
 from vac_shed.models import VacantionSheduleItem
-from shift_shed.models import ShiftShedItem
+from shift_shed.models import ShiftShedItem, ShiftShedModel
+from TURV.additionals import get_celebs_ofyear
 from django.db.models import Avg, Count, Min, Sum
 from TURV.models import Employers
 import datetime
@@ -214,3 +215,100 @@ def additional_formtotal(shed):
             's_dev':deviations
         })
     return total
+
+def additional_recount(shed_id):
+    # пересчет графика
+    Shed        = ShiftShedModel.objects.get(pk=shed_id)
+    ShedItems   = ShiftShedItem.objects.filter(bound_shed_id=shed_id)
+        
+    CelebsCalendar = get_celebs_ofyear(year=Shed.year)
+        
+    HaveVacation    = False
+    Fact            = 0
+    Celebs          = 0
+    Days            = 31
+    EmptyTime       = False
+    
+    
+    
+    # for (const code of codes) {
+
+    #     code.value = code.value.toUpperCase()
+        
+    #    if (code.value != 'ОТ' && code.value != '' && code.value != 'В') {
+    #     fact = fact + parseInt(code.value, 10)
+    #    } 
+    #    if (code.value == 'ОТ') {
+    #     have_vacaton = true
+    #    }
+
+    #    if (code.style.backgroundColor == 'blue') {
+    #     if (code.value != '' && code.value != 'В' && code.value != 'ОТ') {
+    #     celebs = celebs + parseInt(code.value)}
+    #     else if (code.value == 'ОТ') {
+    #         code.value = 'В'
+    #     }
+    #    }
+
+    for Item in ShedItems:
+        for Day in range(1, Days):
+            Code                = getattr(Item, 'day_'+Day)
+            CelebsOfThisMonth   = CelebsCalendar[Item.month]
+            
+            if (Code != 'ОТ' and Code !='' and Code !='В'):
+                Fact = Fact + int(Code)
+            if Code == 'ОТ':
+                HaveVacation = True
+            
+            if Code in CelebsOfThisMonth:
+                Celebs = Celebs + int(Code)
+
+
+
+            
+
+
+
+    $('#id_fact').val(fact)
+    $('#id_celeb').val(celebs)
+
+    if (have_vacaton == false) {
+        
+        if (fact != 0) {
+        dev = fact - parseFloat($('#id_norma').val()) - $('#id_celeb').val() 
+        $('#id_deviation').val(dev) }
+        else {
+            $('#id_norma').val(0)
+            $('#id_devitation').val(0)
+            $('#id_celebs').val(0)
+            $('#id_fact').val(0)
+        }
+    }
+   
+    else {
+ 
+
+        if (fact > parseFloat($('#id_norma').val())) {
+        
+           dev = fact - parseFloat($('#id_norma').val()) - $('#id_celeb').val()
+            $('#id_deviation').val(dev)
+        }
+        else {
+            if (fact != 0){
+            
+            $('#id_norma').val(fact)
+            $('#id_fact').val(fact)
+            
+            $('#id_deviation').val(0)}
+            
+            else {
+                $('#id_norma').val(0)
+                $('#id_devitation').val(0)
+                $('#id_celebs').val(0)
+                $('#id_fact').val(0)
+            }
+            
+           
+        }
+
+    }
