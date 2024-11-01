@@ -1,6 +1,6 @@
 
 import os
-os.environ.setdefault("DJANGO_SETTINGS_MODULE", "hrd_docFlow.settings_local_workDB")
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", "hrd_docFlow.settings_local")
 import django
 django.setup()
 from TURV.models import *
@@ -53,10 +53,11 @@ def move_from_department(NewDep):
 
 # 2. Переносим график отпусков
 def move_from_vacshed(VsYear, NewVS):
+    NewDep = VacantionShedule.objects.get(pk=NewVS).dep_id
     VSItems = VacantionSheduleItem.objects.filter(bound_shed__year = VsYear)
 
     for VSI in VSItems:
-        cursor.execute("SELECT new_id FROM move_employers WHERE old_id=%s and old_dep=%s", [VSI.emp_id, VSI.bound_shed.dep_id])
+        cursor.execute("SELECT new_id FROM move_employers WHERE old_id=%s and new_dep=%s", [VSI.emp_id, NewDep])
         NewEmp = cursor.fetchone()
         if NewEmp:
 
@@ -69,10 +70,11 @@ def move_from_vacshed(VsYear, NewVS):
 
 # 3. Переносим график сменности
 def move_from_shiftshed(SsYear, NewSS):
+    NewDep  = ShiftShedModel.objects.get(pk=NewSS).dep_id
     SSItems = ShiftShedItem.objects.filter(bound_shed__year = str(SsYear))
 
     for SSI in SSItems:
-        cursor.execute("SELECT new_id FROM move_employers WHERE old_id=%s", [SSI.employer_id])
+        cursor.execute("SELECT new_id FROM move_employers WHERE old_id=%s and new_dep", [SSI.employer_id, NewDep])
         NewEmp = cursor.fetchone()
         if NewEmp:
 
