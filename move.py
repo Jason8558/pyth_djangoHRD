@@ -1,12 +1,18 @@
-# -*- coding: utf-8 -*-
+
 import os
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "hrd_docFlow.settings_local")
 import django
 django.setup()
 from TURV.models import *
 from vac_shed.models import *
+from shift_shed.models import *
 from django.db import connection
 import json
+import tkinter as tk
+import io
+from tkinter import filedialog as fd 
+
+
 
 
 # Старое подразделение
@@ -30,23 +36,23 @@ cursor = connection.cursor()
 #         print(r[0])
 
 # 1. Собрать работников КИП, которые не уволены, и у которых основное рабочее место
-def move_from_department(OldDep, NewDep, Pos):
+def move_from_department(OldDep, NewDep):
 
-    kip = Employers.objects.filter(department_id=OldDep).filter(fired=0).filter(mainworkplace=1)
-    if Pos:
-        kip = kip.filter(position_id=Pos)
+    EmployersToMove = read_json()
     
-    for k in kip:
-        OldId = k.pk
-        k.pk = None
-        k.department = Department.objects.get(id=NewDep)
-        k.save()
+    for Emp in EmployersToMove:
+        EmpFromDb = get_employer_from_db(Emp)
+        if EmpFromDb:
+            OldId = Emp
+            EmpFromDb.pk = None
+            EmpFromDb.department = Department.objects.get(id=NewDep)
+            EmpFromDb.save()
 
-        cursor.execute("INSERT INTO move_employers(old_id,new_id,old_dep,new_dep) VALUES (%s,%s,%s,%s)", [OldId, k.id, OldDep, NewDep])
+        cursor.execute("INSERT INTO move_employers(fullname,old_id,new_id,old_dep,new_dep) VALUES (%s,%s,%s,%s,%s)", [EmpFromDb.fullname, OldId, EmpFromDb.pk, OldDep, NewDep])
 
 # 2. Переносим график отпусков
-def move_from_vacshed(OldVS, NewVS):
-    VSItems = VacantionSheduleItem.objects.filter(bound_shed = OldVS)
+def move_from_vacshed(VsYear, NewVS):
+    VSItems = VacantionSheduleItem.objects.filter(bound_shed__year = VsYear)
 
     for VSI in VSItems:
         cursor.execute("SELECT new_id FROM move_employers WHERE old_id=%s", [VSI.emp_id])
@@ -60,5 +66,66 @@ def move_from_vacshed(OldVS, NewVS):
         else:
             continue
 
+# 3. Переносим график сменности
+def move_from_shiftshed(SsYear, NewSS):
+    SSItems = ShiftShedItem.objects.filter(bound_shed__year = str(SsYear))
+
+    for SSI in SSItems:
+        cursor.execute("SELECT new_id FROM move_employers WHERE old_id=%s", [SSI.employer_id])
+        NewEmp = cursor.fetchone()
+        if NewEmp:
+
+            SSI.pk = None
+            SSI.bound_shed  = ShiftShedModel.objects.get(pk=NewSS)
+            SSI.employer    = Employers.objects.get(pk=NewEmp[0])
+            SSI.save()
+        else:
+            continue
+
+
+# Вспомогательные функции
+
+def read_json():
+
+    name = fd.askopenfilename(title="Выберите файл с работниками") 
+    
+    JsonFile = io.open(name, encoding='utf-8', mode='r')
+    try:
+        JsonToCheck = json.load(JsonFile)
+    except Exception:
+        print('Ошибка чтения JSON: ' + Exception)
+        exit()
+
+    NamesToCompare = []
+
+    for Emp in JsonToCheck:
+        NamesToCompare.append(SetNameToCompare(Emp['name']))
+
+    ComparedEmps = compare_with_db(NamesToCompare)
+
+    return ComparedEmps
+
+def compare_with_db(NamesToCompare: list):
+    ComparedEmps = Employers.objects.filter(fullname__in = NamesToCompare).filter(fired=0).filter(mainworkplace=1)
+    ComparedEmps = list(ComparedEmps.values_list('id', flat=True))
+    
+    return ComparedEmps
+
+def SetNameToCompare(NameToComapre: str):
+    NameSplit = NameToComapre.split(" ")
+    for NS in NameSplit:
+        if NS == "":
+            NameSplit.pop(NameSplit.index(NS))
+    
+    NewNameToCompare = NameSplit[0] + " " + NameSplit[1][0] + "." + NameSplit[2][0] + "."
+
+    return NewNameToCompare
+
+def get_employer_from_db(id):
+    Emps = Employers.objects.filter(id=id)
+    if Emps:
+        return Emps[0]
+    else:
+        return None
 
 
