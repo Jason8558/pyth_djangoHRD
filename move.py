@@ -1,6 +1,6 @@
 
 import os
-os.environ.setdefault("DJANGO_SETTINGS_MODULE", "hrd_docFlow.settings_local")
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", "hrd_docFlow.settings_local_workDB")
 import django
 django.setup()
 from TURV.models import *
@@ -74,7 +74,7 @@ def move_from_shiftshed(SsYear, NewSS):
     SSItems = ShiftShedItem.objects.filter(bound_shed__year = str(SsYear))
 
     for SSI in SSItems:
-        cursor.execute("SELECT new_id FROM move_employers WHERE old_id=%s and new_dep", [SSI.employer_id, NewDep])
+        cursor.execute("SELECT new_id FROM move_employers WHERE old_id=%s and new_dep=%s", [SSI.employer_id, NewDep])
         NewEmp = cursor.fetchone()
         if NewEmp:
 
