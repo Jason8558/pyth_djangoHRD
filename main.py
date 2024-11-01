@@ -8,10 +8,10 @@ if com == 'vacshed':
     move_from_vacshed(VsYear,NewVs)
 
 elif com == 'move':
-    OldDep  = input('Введите ID старого подразделения: ')
+    # OldDep  = input('Введите ID старого подразделения: ')
     NewDep  = input('Введите ID нового подразделения: ')
     # Pos     = input('Введите ID должности: ')
-    move_from_department(OldDep,NewDep)
+    move_from_department(NewDep)
 
 elif com == 'shiftshed':
     print('Перенос графика сменности')

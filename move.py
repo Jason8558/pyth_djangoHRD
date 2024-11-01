@@ -1,6 +1,6 @@
 
 import os
-os.environ.setdefault("DJANGO_SETTINGS_MODULE", "hrd_docFlow.settings_local")
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", "hrd_docFlow.settings_local_workDB")
 import django
 django.setup()
 from TURV.models import *
@@ -36,7 +36,7 @@ cursor = connection.cursor()
 #         print(r[0])
 
 # 1. Собрать работников КИП, которые не уволены, и у которых основное рабочее место
-def move_from_department(OldDep, NewDep):
+def move_from_department(NewDep):
 
     EmployersToMove = read_json()
     
@@ -44,6 +44,7 @@ def move_from_department(OldDep, NewDep):
         EmpFromDb = get_employer_from_db(Emp)
         if EmpFromDb:
             OldId = Emp
+            OldDep = EmpFromDb.department_id
             EmpFromDb.pk = None
             EmpFromDb.department = Department.objects.get(id=NewDep)
             EmpFromDb.save()
@@ -55,7 +56,7 @@ def move_from_vacshed(VsYear, NewVS):
     VSItems = VacantionSheduleItem.objects.filter(bound_shed__year = VsYear)
 
     for VSI in VSItems:
-        cursor.execute("SELECT new_id FROM move_employers WHERE old_id=%s", [VSI.emp_id])
+        cursor.execute("SELECT new_id FROM move_employers WHERE old_id=%s and old_dep=%s", [VSI.emp_id, VSI.bound_shed.dep_id])
         NewEmp = cursor.fetchone()
         if NewEmp:
 
