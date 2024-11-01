@@ -1,6 +1,6 @@
 
 import os
-os.environ.setdefault("DJANGO_SETTINGS_MODULE", "hrd_docFlow.settings_local_workDB")
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", "hrd_docFlow.settings_local")
 import django
 django.setup()
 from TURV.models import *
@@ -41,9 +41,14 @@ def move_from_department(NewDep):
     EmployersToMove = read_json()
     
     for Emp in EmployersToMove:
-        EmpFromDb = get_employer_from_db(Emp)
+        cursor.execute("SELECT * FROM move_employers WHERE fullname=%s",[Emp['fullname']])
+        EmpDubl = cursor.fetchone()
+        if EmpDubl:
+            continue        
+      
+        EmpFromDb = get_employer_from_db(Emp['id'])
         if EmpFromDb:
-            OldId = Emp
+            OldId = Emp['id']
             OldDep = EmpFromDb.department_id
             EmpFromDb.pk = None
             EmpFromDb.department = Department.objects.get(id=NewDep)
@@ -57,8 +62,12 @@ def move_from_vacshed(VsYear, NewVS):
     VSItems = VacantionSheduleItem.objects.filter(bound_shed__year = VsYear)
 
     for VSI in VSItems:
+        
         cursor.execute("SELECT new_id FROM move_employers WHERE old_id=%s and new_dep=%s", [VSI.emp_id, NewDep])
         NewEmp = cursor.fetchone()
+        DublVSI = VacantionSheduleItem.objects.filter(bound_shed_id=NewVS).filter(emp_id=NewEmp)
+        if DublVSI.count() > 0:
+            continue
         if NewEmp:
 
             VSI.pk = None
@@ -76,6 +85,9 @@ def move_from_shiftshed(SsYear, NewSS):
     for SSI in SSItems:
         cursor.execute("SELECT new_id FROM move_employers WHERE old_id=%s and new_dep=%s", [SSI.employer_id, NewDep])
         NewEmp = cursor.fetchone()
+        DublSSI = VacantionSheduleItem.objects.filter(bound_shed_id=NewSS).filter(emp_id=NewEmp)
+        if DublSSI.count() > 0:
+            continue
         if NewEmp:
 
             SSI.pk = None
@@ -110,7 +122,7 @@ def read_json():
 
 def compare_with_db(NamesToCompare: list):
     ComparedEmps = Employers.objects.filter(fullname__in = NamesToCompare).filter(fired=0).filter(mainworkplace=1)
-    ComparedEmps = list(ComparedEmps.values_list('id', flat=True))
+    ComparedEmps = ComparedEmps.values('id', 'fullname')
     
     return ComparedEmps
 
