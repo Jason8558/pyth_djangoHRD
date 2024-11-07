@@ -211,6 +211,6 @@ def additional_formtotal(shed):
             's_fact':totals['s_fact'],
             's_celeb':totals['s_celeb'],
             's_norma':totals['s_norma'],
-            's_dev':totals['s_deviations'],
+            's_dev':totals['s_deviations']
         })
     return total
