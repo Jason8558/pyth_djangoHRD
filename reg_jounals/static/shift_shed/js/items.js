@@ -5,10 +5,13 @@ $(document).ready( function() {
     $('#id_employer').css('visibility','hidden')  
     $('#id_employer').css('height','-10px')
     $('#id_celeb').val(0)
-    $('#id_deviation').val(0)
+    // $('#id_deviation').val(0)
 
     if (document.location.href.split('/')[5] == 'upditem' ) {
         get_celeb( $('#year').text(), $('#month').text() )
+    }
+    else {
+        $('#id_deviation').val(0)
     }
 
     draw_days(year, month)
@@ -103,6 +106,10 @@ function calculate() {
     $('#id_fact').val(fact)
     $('#id_celeb').val(celebs)
 
+    DevOverride = document.getElementById('id_deviation_override')
+
+    if (!DevOverride.checked) { // если отклонение вводится вручную
+
     if (have_vacaton == false) {
         
         if (fact != 0) {
@@ -110,7 +117,7 @@ function calculate() {
         $('#id_deviation').val(dev) }
         else {
             $('#id_norma').val(0)
-            $('#id_devitation').val(0)
+            $('#id_deviation').val(0)
             $('#id_celebs').val(0)
             $('#id_fact').val(0)
         }
@@ -134,7 +141,7 @@ function calculate() {
             
             else {
                 $('#id_norma').val(0)
-                $('#id_devitation').val(0)
+                $('#id_deviation').val(0)
                 $('#id_celebs').val(0)
                 $('#id_fact').val(0)
             }
@@ -142,7 +149,8 @@ function calculate() {
            
         }
 
-    }
+    } 
+}
 
     
 

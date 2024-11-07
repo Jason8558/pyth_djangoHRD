@@ -91,7 +91,8 @@ class SS_AddItem_form(forms.ModelForm):
     'fact',
     'celeb',
     'deviation',
-    'norma']
+    'norma',
+    'deviation_override']
     
     day_1 = forms.CharField(required=False, widget=forms.TextInput(attrs={'placeholder': 'ОТ\Ч', 'class': 'dig_code', 'type':'text'}))
     day_2 = forms.CharField(required=False, widget=forms.TextInput(attrs={'placeholder': 'ОТ\Ч', 'class': 'dig_code', 'type':'text'}))
@@ -170,7 +171,9 @@ class SS_AddItem_form(forms.ModelForm):
             fact = self.cleaned_data['fact'],
             celeb = self.cleaned_data['celeb'],
 
+
             deviation = dev,
+            deviation_override = self.cleaned_data['deviation_override'],
             norma = self.cleaned_data['norma']
 
         )
