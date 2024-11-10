@@ -39,8 +39,10 @@ def get_rights(request):
             rights['ref_editing'] = True
         if group.name == 'Руководитель СУП':
             rights['sup_head'] = True
+            rights['granted'] = True
         if group.name == 'Сотрудник СУП':
             rights['sup_employer'] = True
+            rights['granted'] = True
         if group.name == 'Табельщик':
             rights['tabel'] = True
         if group.name == 'Сотрудник ОТиЗП':
