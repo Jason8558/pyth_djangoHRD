@@ -13,6 +13,7 @@ import os
 from pathlib import Path
 import pymysql
 
+pymysql.version_info = (1, 4, 3, "final", 0)
 pymysql.install_as_MySQLdb()
 # import ldap
 # from django_auth_ldap.config import *
@@ -177,7 +178,7 @@ DATABASES = {
         'NAME': 'hrd_docflow_test',
         'USER': 'hrd_user',
         'PASSWORD': 'hrdpassword',
-        'HOST': '172.16.23.38',
+        'HOST': '192.168.3.6',
         # 'HOST': 'localhost',   # Or an IP Address that your DB is hosted on
         'PORT': '3306',
     }
