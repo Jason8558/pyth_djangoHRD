@@ -43,7 +43,7 @@
    
     <span class="navbar-brand mb-0 h1">{%block header%}
       {%block logo%}<img src="{% static 'img/logo.png'%}" alt="">{%endblock%}
-      Информационная система "СУП". Кадровый документооборот{%endblock%}</span><span style="text-align: right; float: right;font-size: 14pt;">  {{ user.first_name }} {% if request.user.is_superuser%} <a style="color:black;" href="/admin/">{{ user.first_name }}</a><span id="version"> v3.0.0 </span>{%endif%} </span>
+      Информационная система "СУП". Отдел кадров{%endblock%}</span><span style="text-align: right; float: right;font-size: 14pt;">  {{ user.first_name }} {% if request.user.is_superuser%} <a style="color:black;" href="/admin/">{{ user.first_name }}</a><span id="version"> v3.0.0 </span>{%endif%} </span>
 
 
   </header>
