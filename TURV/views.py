@@ -16,6 +16,7 @@ from django.contrib.auth.models import *
 import json
 from django.contrib.auth.decorators import login_required
 from .additionals import *
+from reg_jounals.views import get_rights
 
 def w_close(request):
     return render(request, 'TURV/close.html')
@@ -82,11 +83,13 @@ def tabels(request):
         user_ = request.user
         u_group = user_.groups.all()
         is_ro = 0
-        granted = 0
+        # granted = 0
         unite = False
         is_atc = False
         answers = len(FeedBack.objects.filter(mes_from_id=request.user.id).filter(~Q(answer=None)).filter(~Q(answer='')).filter(answer_readed=0))
 
+        # Права полтзователя
+        Rights = get_rights(request)
 
         # Определение текущего месяца и года
         now = datetime.datetime.now()
@@ -97,44 +100,44 @@ def tabels(request):
         year_ = now.year
 
         # Проверка на права пользователя
-        for group in u_group:
-            if (group.name == 'Сотрудник СУП') or (group.name == 'Сотрудник РО'):
-                granted = True
+        # for group in u_group:
+        #     if (group.name == 'Сотрудник СУП') or (group.name == 'Сотрудник РО'):
+        #         granted = True
 
-        if request.user.is_superuser:
-            granted = True
+        # if request.user.is_superuser:
+        #     granted = True
 
 
         # Сообщения
         # Полный доступ
-        meslist = []
-        messages = InfoMessages.objects.filter(viewin=1).filter(active=1).order_by('-important','-id')
-        if granted == True:
-            # Проверяем на постоянные и непостояннные
-            for mes in messages:
-                if mes.always:
-                    meslist.append(mes.id)
-                else:
-                    if mes.dfrom <= datetime.datetime.now().date() and mes.dfrom >= datetime.datetime.now().date():
-                        meslist.append(mes.id)
-            messages = messages.filter(id__in=meslist)
+        # meslist = []
+        # messages = InfoMessages.objects.filter(viewin=1).filter(active=1).order_by('-important','-id')
+        # if Rights['granted'] == True:
+        #     # Проверяем на постоянные и непостояннные
+        #     for mes in messages:
+        #         if mes.always:
+        #             meslist.append(mes.id)
+        #         else:
+        #             if mes.dfrom <= datetime.datetime.now().date() and mes.dfrom >= datetime.datetime.now().date():
+        #                 meslist.append(mes.id)
+        #     messages = messages.filter(id__in=meslist)
 
-        else:
-            deps = Department.objects.all().filter(user=user_.id)
-            allow_departments = []
-            for dep in deps:
-                allow_departments.append(dep.id)
-            for mes in messages:
-                if mes.alldeps:
-                    meslist.append(mes.id)
-                else:
-                    if mes.deps.filter(id__in=allow_departments):
-                        meslist.append(mes.id)
-            messages = messages.filter(id__in=meslist)
+        # else:
+        #     deps = Department.objects.all().filter(user=user_.id)
+        #     allow_departments = []
+        #     for dep in deps:
+        #         allow_departments.append(dep.id)
+        #     for mes in messages:
+        #         if mes.alldeps:
+        #             meslist.append(mes.id)
+        #         else:
+        #             if mes.deps.filter(id__in=allow_departments):
+        #                 meslist.append(mes.id)
+        #     messages = messages.filter(id__in=meslist)
 
 
 
-        if (granted == False):
+        if (Rights['granted'] == False):
             # если пользователь только с правами на определенные подразделения, собираем их тут:
             deps = Department.objects.all().filter(user=user_.id)
             allow_departments = []
@@ -147,22 +150,39 @@ def tabels(request):
 
                 if (dep.id == 3) or (dep.id == 2):
                     is_atc = True
-        else:
+        if Rights['granted'] or Rights['payment_department']:
             deps = Department.objects.all().order_by('name')
 
 
 
-        return render(request, 'TURV/tabels.html', context={'answers':answers, 'type':type, 'tab_users':tab_users, 'deps':deps, 'granted':granted, 'ro':is_ro, 'month_':month_, "year_":year_, 'unite':unite, 'is_atc':is_atc, 'messages':messages})
+        return render(request, 'TURV/tabels.html', context={'answers':      answers,
+                                                             'type':        type,
+                                                             'tab_users':   tab_users,
+                                                             'deps':        deps,
+                                                             'granted':     Rights['granted'],
+                                                             'ro':          is_ro,
+                                                             'month_':      month_,
+                                                             "year_":       year_,
+                                                             'unite':       unite,
+                                                             'is_atc':      is_atc
+                                                            #  'messages':    messages
+                                                             })
     else:
         return redirect('/accounts/login/')
 
 @login_required
 def tabels_new(request):
+    if request.user.is_authenticated:
+            # Права полтзователя
+        Rights = get_rights(request)
+    else:
+        return redirect('/accounts/login/')        
 
         # Переменные
     type = TabelType.objects.all()
     group = Group.objects.get(name__icontains='Табельщик')
     tab_users = group.user_set.all().order_by('first_name')
+    
     sq_period_month = request.GET.get('search_month', '')
     sq_period_year = request.GET.get('search_year', '')
     sq_dep = request.GET.get('t_tab_dep_search', '')
@@ -171,6 +191,7 @@ def tabels_new(request):
     sq_this_month = request.GET.get('this_month','')
     sq_check_this_month = request.GET.get('chk_this_month','')
     sq_type = request.GET.get('search_type', '')
+    
     user_ = request.user
     u_group = user_.groups.all()
     is_ro = 0
@@ -179,8 +200,7 @@ def tabels_new(request):
     is_atc = False
     answers = len(FeedBack.objects.filter(mes_from_id=request.user.id).filter(~Q(answer=None)).filter(~Q(answer='')).filter(answer_readed=0))
 
-
-    # Определение текущего месяца и года
+        # Определение текущего месяца и года
     now = datetime.datetime.now()
     if len(str(now.month)) == 1:
         month_ = str(0) + str(now.month)
@@ -188,45 +208,45 @@ def tabels_new(request):
         month_ = now.month
     year_ = now.year
 
-    # Проверка на права пользователя
-    for group in u_group:
-        if (group.name == 'Сотрудник СУП') or (group.name == 'Сотрудник РО'):
-            granted = True
+    # # Проверка на права пользователя
+    # for group in u_group:
+    #     if (group.name == 'Сотрудник СУП') or (group.name == 'Сотрудник РО'):
+    #         granted = True
 
-    if request.user.is_superuser:
-        granted = True
-
-
-    # Сообщения
-    # Полный доступ
-    meslist = []
-    messages = InfoMessages.objects.filter(viewin=1).filter(active=1).order_by('-important','-id')
-    if granted == True:
-        # Проверяем на постоянные и непостояннные
-        for mes in messages:
-            if mes.always:
-                meslist.append(mes.id)
-            else:
-                if mes.dfrom <= datetime.datetime.now().date() and mes.dfrom >= datetime.datetime.now().date():
-                    meslist.append(mes.id)
-        messages = messages.filter(id__in=meslist)
-
-    else:
-        deps = Department.objects.all().filter(user=user_.id).filter(is_aup=0)
-        allow_departments = []
-        for dep in deps:
-            allow_departments.append(dep.id)
-        for mes in messages:
-            if mes.alldeps:
-                meslist.append(mes.id)
-            else:
-                if mes.deps.filter(id__in=allow_departments):
-                    meslist.append(mes.id)
-        messages = messages.filter(id__in=meslist)
+    # if request.user.is_superuser:
+    #     granted = True
 
 
+    # # Сообщения
+    # # Полный доступ
+    # meslist = []
+    # messages = InfoMessages.objects.filter(viewin=1).filter(active=1).order_by('-important','-id')
+    # if granted == True:
+    #     # Проверяем на постоянные и непостояннные
+    #     for mes in messages:
+    #         if mes.always:
+    #             meslist.append(mes.id)
+    #         else:
+    #             if mes.dfrom <= datetime.datetime.now().date() and mes.dfrom >= datetime.datetime.now().date():
+    #                 meslist.append(mes.id)
+    #     messages = messages.filter(id__in=meslist)
 
-    if (granted == False):
+    # else:
+    #     deps = Department.objects.all().filter(user=user_.id).filter(is_aup=0)
+    #     allow_departments = []
+    #     for dep in deps:
+    #         allow_departments.append(dep.id)
+    #     for mes in messages:
+    #         if mes.alldeps:
+    #             meslist.append(mes.id)
+    #         else:
+    #             if mes.deps.filter(id__in=allow_departments):
+    #                 meslist.append(mes.id)
+    #     messages = messages.filter(id__in=meslist)
+
+
+
+    if Rights['granted'] == False:
         # если пользователь только с правами на определенные подразделения, собираем их тут:
         deps = Department.objects.all().filter(user=user_.id).filter(is_aup=0)
         allow_departments = []
@@ -239,12 +259,28 @@ def tabels_new(request):
 
             if (dep.id == 3) or (dep.id == 2):
                 is_atc = True
-    else:
+    if Rights['granted'] or Rights['payment_department']:
         deps = Department.objects.all().order_by('name').filter(is_aup=0)
 
+    # Определяем, какой интерфейс будет открыт
+    if Rights['payment_department']:       
+        InterfaceTemplate = 'TURV/tabels_payment.html'
+    else:
+        InterfaceTemplate = 'TURV/tabels.html'
 
 
-    return render(request, 'TURV/tabels_new.html', context={'answers':answers, 'type':type, 'tab_users':tab_users, 'deps':deps, 'granted':granted, 'ro':is_ro, 'month_':month_, "year_":year_, 'unite':unite, 'is_atc':is_atc, 'messages':messages})
+
+    return render(request, InterfaceTemplate, context={'answers':answers,
+                                                            'type':type,
+                                                            'tab_users':tab_users,
+                                                            'deps':deps,
+                                                            'granted':granted,
+                                                            'ro':is_ro,
+                                                            'month_':month_,
+                                                            "year_":year_,
+                                                            'unite':unite,
+                                                            'is_atc':is_atc
+                                                            })
 
 
 
@@ -252,29 +288,32 @@ def tabels_new(request):
 # =========================================А
 
 def tabels_json(request, type, year):
+
+    Rights = get_rights(request)
+
     if year != 0:
         year = year
     else:
         year = str(DT.datetime.now().year)
     if type == 0:
-        if access_check(request) == False:
+        if Rights['granted'] == False:
             deps = Department.objects.filter(user=request.user.id)
             tabels = Tabel.objects.values('id', 'month', 'year', 'type__name', 'department', 'department__name', 'del_check', 'sup_check', 'paper_check', 'unloaded', 'res_officer', 'comm', 'iscorr', 'half_month_check').filter(iscorr=0).filter(department_id__in=deps).filter(type=1).filter(year=year).order_by('-year', '-month', 'department__name', 'id')
-        else:
+        if Rights['granted'] or Rights['payment_department']:
              tabels = Tabel.objects.values('id', 'month', 'year', 'type__name', 'department', 'department__name', 'del_check', 'sup_check', 'paper_check', 'unloaded', 'res_officer', 'comm', 'iscorr', 'half_month_check').filter(iscorr=0).filter(type=1).filter(year=year).order_by('-year', '-month', 'department__name', 'id')
             # tabels = Tabel.objects.values('id', 'month', 'year', 'type__name', 'department', 'department__name', 'del_check', 'sup_check', 'paper_check', 'unloaded', 'res_officer', 'comm', 'iscorr', 'half_month_check').filter(iscorr=0).filter(type=1).order_by('-year', '-month', 'department__name', 'id')
     else:
         if type == 10:
-            if access_check(request) == False:
+            if Rights['granted'] == False:
                 deps = Department.objects.filter(user=request.user.id)
                 tabels = Tabel.objects.values('id', 'month', 'year', 'type__name', 'department', 'department__name', 'del_check', 'sup_check', 'paper_check', 'unloaded', 'res_officer', 'comm', 'iscorr','half_month_check').filter(iscorr=1).filter(year=year).filter(department_id__in=deps).order_by('-year', '-month', 'department__name', 'id')
-            else:
+            if Rights['granted'] or Rights['payment_department']:
                 tabels = Tabel.objects.values('id', 'month', 'year', 'type__name', 'department', 'department__name', 'del_check', 'sup_check', 'paper_check', 'unloaded', 'res_officer', 'comm', 'iscorr','half_month_check').filter(iscorr=1).filter(year=year).order_by('-year', '-month', 'department__name', 'id')
         else:
-            if access_check(request) == False:
+            if Rights['granted'] == False:
                 deps = Department.objects.filter(user=request.user.id)
                 tabels = Tabel.objects.values('id', 'month', 'year', 'type__name', 'department', 'department__name', 'del_check', 'sup_check', 'paper_check', 'unloaded', 'res_officer', 'comm', 'iscorr','half_month_check').filter(iscorr=0).filter(year=year).filter(department_id__in=deps).filter(type=type).order_by('-year', '-month', 'department__name', 'id')
-            else:
+            if Rights['granted'] or Rights['payment_department']:
                 tabels = Tabel.objects.values('id', 'month', 'year', 'type__name', 'department', 'department__name', 'del_check', 'sup_check', 'paper_check', 'unloaded', 'res_officer', 'comm', 'iscorr','half_month_check').filter(iscorr=0).filter(year=year).filter(type=type).order_by('-year', '-month', 'department__name', 'id')
 
     tabels = list(tabels)
@@ -344,6 +383,7 @@ def tabel_half_month_check(request, id):
 
 
 def tabels_json_search(request):
+    Rights = get_rights(request)
 
     sq_period_month = request.GET.get('search_month', '')
     sq_period_year = request.GET.get('search_year', '')
@@ -356,7 +396,7 @@ def tabels_json_search(request):
     sq_code = request.GET.get('search_code', '')
 
     # Алгоритм поиска
-    if access_check(request) == False:
+    if not Rights['granted']:
         allow_departments = Department.objects.filter(user=request.user.id)
 
 
@@ -391,7 +431,7 @@ def tabels_json_search(request):
 
 
 
-    else:
+    if Rights['granted'] or Rights['payment_department']:
         # если у пользователя полные права, то выдаем все
         deps = Department.objects.all().order_by('name')
         # Алгоритм поиска
@@ -826,47 +866,46 @@ def upd_comm(request,id):
 
 def new_tabel(request):
     if request.user.is_authenticated:
-        user_ = request.user
-        u_group = user_.groups.all()
-        granted = 0
-
-        for group in u_group:
-            if group.name == 'Сотрудник СУП':
-                granted = 1
-        if (request.user.is_superuser) or (granted == 1):
-            deps = Department.objects.filter(is_aup=0)
-        else:
-            deps = Department.objects.filter(user=user_.id)
-        tabel_form = Tabel_form()
-        if request.method == "POST":
-            tabel_form = Tabel_form(request.POST)
-            if tabel_form.is_valid():
-                user_ = request.user.first_name
-                tabel_form.saveFirst(user_)
-                last_tabel = Tabel.objects.latest('id')
-            else:
-                error_tabel = tabel_form.errors.as_text().split('*')[2]
-
-                return render(request, 'TURV/new_tabel.html', context={'form':tabel_form, 'deps':deps, 'error_tabel':error_tabel})
-            if last_tabel.department_id == 2 or last_tabel.department_id == 3 or last_tabel.department_id == 26 or last_tabel.department_id == 40:
-                if last_tabel.type_id == 4:
-                    return redirect('/turv/over/4')
-                else:
-                    if last_tabel.type_id == 5:
-                        return redirect('/turv/over/5')
-                    else:
-                        if last_tabel.type_id == 8:
-                            return redirect('/turv/over/8')
-                        else:
-                            return redirect('..')
-            else:
-                return redirect('..')
-
-        else:
-
-            return render(request, 'TURV/new_tabel.html', context={'form':tabel_form, 'deps':deps})
+        Rights = get_rights(request)
     else:
         return render(request, 'reg_jounals/no_auth.html')
+        
+    user_ = request.user
+
+    if Rights['granted'] or Rights['payment_department']:
+        deps = Department.objects.filter(is_aup=0)
+    else:
+        deps = Department.objects.filter(user=user_.id)
+    tabel_form = Tabel_form()
+    
+    if request.method == "POST":
+        tabel_form = Tabel_form(request.POST)
+        if tabel_form.is_valid():
+            user_ = request.user.first_name
+            tabel_form.saveFirst(user_)
+            last_tabel = Tabel.objects.latest('id')
+        else:
+            error_tabel = tabel_form.errors.as_text().split('*')[2]
+
+            return render(request, 'TURV/new_tabel.html', context={'form':tabel_form, 'deps':deps, 'error_tabel':error_tabel})
+        if last_tabel.department_id == 2 or last_tabel.department_id == 3 or last_tabel.department_id == 26 or last_tabel.department_id == 40:
+            if last_tabel.type_id == 4:
+                return redirect('/turv/over/4')
+            else:
+                if last_tabel.type_id == 5:
+                    return redirect('/turv/over/5')
+                else:
+                    if last_tabel.type_id == 8:
+                        return redirect('/turv/over/8')
+                    else:
+                        return redirect('..')
+        else:
+            return redirect('..')
+
+    else:
+
+        return render(request, 'TURV/new_tabel.html', context={'form':tabel_form, 'deps':deps})
+
 
 # ===============================
 
@@ -1273,46 +1312,50 @@ def new_feedback(request, id):
 
 def employers_list(request):
     if request.user.is_authenticated:
-        # Проверка пользователя и прав
-        user_ = request.user
-        granted = access_check(request)
-
-        if (granted == False):
-            deps = Department.objects.all().filter(user=user_.id)
-            employers = Employers.objects.filter(fired=0).filter(department_id__in=deps.values_list('id'))
-            pag = 20
-        else:
-            deps = Department.objects.filter(notused=0).filter(is_aup=0)
-            employers = Employers.objects.filter(fired=0)
-            pag = 20
-
-        if request.GET.get('search-sign', ''):
-
-            if not granted:
-                department_permission = list(Department.objects.all().filter(user=user_.id).values_list('id'))
-            else:
-                department_permission = 'all'
-
-
-            search_query = {
-            'in_fired'              :request.GET.get('employers-search-fired', ''),
-            'name'                  :request.GET.get('emp',                    ''),
-            'department'            :request.GET.get('emp_dep',                ''),
-            'shift'                 :request.GET.get('emp_shift',              ''),
-            'department_permission' :department_permission
-            }   
-
-            employers = search_employers(search_query)
-            pag = 1000
+        Rights = get_rights(request)
+    else:
+        return redirect('/accounts/login')
+    
+    user_ = request.user
     
 
+    if not Rights['granted'] or Rights['payment_department']:
+        deps = Department.objects.all().filter(user=user_.id)
+        employers = Employers.objects.filter(fired=0).filter(department_id__in=deps.values_list('id'))
+        pag = 20
+    if Rights['granted'] or Rights['payment_department']:
+        deps = Department.objects.filter(notused=0).filter(is_aup=0)
+        employers = Employers.objects.filter(fired=0)
+        pag = 20
+
+    if request.GET.get('search-sign', ''):
+
+        if not Rights['granted']:
+            department_permission = list(Department.objects.all().filter(user=user_.id).values_list('id'))
+        if Rights['granted'] or Rights['payment_department']:
+            department_permission = 'all'
 
 
-        p_emps = Paginator(employers, pag)
-        page_number = request.GET.get('page', 1)
-        page = p_emps.get_page(page_number)
-        count = len(employers)
-        return render(request, 'TURV/employers.html', context={'employers':page, 'count':count, 'deps':deps})
+        search_query = {
+        'in_fired'              :request.GET.get('employers-search-fired', ''),
+        'name'                  :request.GET.get('emp',                    ''),
+        'department'            :request.GET.get('emp_dep',                ''),
+        'shift'                 :request.GET.get('emp_shift',              ''),
+        'department_permission' :department_permission
+        }   
+
+        employers = search_employers(search_query)
+        pag = 1000
+
+    p_emps = Paginator(employers, pag)
+    page_number = request.GET.get('page', 1)
+    page = p_emps.get_page(page_number)
+    count = len(employers)
+    return render(request, 'TURV/employers.html', context={'employers':              page,
+                                                            'count':                 count,
+                                                            'deps':                  deps,
+                                                            'IsPaymentDepartment':   Rights['payment_department']
+                                                            })
 
 def new_employer(request):
     if request.user.is_authenticated:
@@ -1343,31 +1386,39 @@ def new_employer(request):
 
 def upd_employer(request, id):
     if request.user.is_authenticated:
-        if request.method == "GET":
-            emp = Employers.objects.get(id=id)
-            fio = emp.fullname
-            user_ = request.user
-            u_group = user_.groups.all()
-            granted = False
-            for group in u_group:
-                if group.name == 'Сотрудник СУП':
-                    granted = True
-            if (request.user.is_superuser) or (granted == True):
-                deps = Department.objects.all()
-            else:
-                deps = Department.objects.all().filter(user=user_.id)
-            emp_form = Employer_form(instance=emp)
-            return render(request, 'TURV/upd_employer.html', context={'emp':emp_form, 'emp_':emp, 'name':fio,  'deps':deps})
-        else:
-            emp = Employers.objects.get(id=id)
-            emp_form = Employer_form(request.POST, instance=emp)
-            if emp_form.is_valid():
-                user_ = request.user.first_name
-                emp_form.save()
-                loc = '/turv/close'
-                return redirect(loc)
+        Rights = get_rights(request)
     else:
         return render(request, 'reg_jounals/no_auth.html')
+    
+    if request.method == "GET":
+        emp = Employers.objects.get(id=id)
+        fio = emp.fullname
+        user_ = request.user
+        u_group = user_.groups.all()
+        granted = False
+       
+        
+        if Rights['granted'] or Rights['payment_department']:
+            deps = Department.objects.all()
+        else:
+            deps = Department.objects.all().filter(user=user_.id)
+        
+        emp_form = Employer_form(instance=emp)
+        return render(request, 'TURV/upd_employer.html', context={'emp':                    emp_form,
+                                                                  'emp_':                   emp,
+                                                                  'name':                   fio,
+                                                                  'deps':                   deps,
+                                                                  'IsPaymentDepartment':    Rights['payment_department']})
+    else:
+        emp = Employers.objects.get(id=id)
+        emp_form = Employer_form(request.POST, instance=emp)
+        if emp_form.is_valid():
+            user_ = request.user.first_name
+            emp_form.save()
+            loc = '/turv/close'
+            return redirect(loc)
+
+        
 
 def del_employer(request, id):
     if request.user.is_authenticated:

@@ -855,9 +855,9 @@ function open_search_menu(el) {
   vacshed_search_panel.style.left       = coords.left + 'px'
   vacshed_search_panel.style.height     = '81px' 
 
-  vacshed_search_panel.addEventListener('mouseleave', (vsp) => {
-    close_all_forms()
-  })
+  // vacshed_search_panel.addEventListener('mouseleave', (vsp) => {
+  //   close_all_forms()
+  // })
 
   el.onclick = function() {
     if (vacshed_search_panel.style.display == 'none') {

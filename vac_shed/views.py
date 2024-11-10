@@ -9,6 +9,7 @@ from .search import *
 import calendar
 from django.db.models import Sum, F, Case, When, Q
 from django.contrib.auth.decorators import login_required
+from reg_jounals.views import get_rights
 
 def current_user(request):
     return request.user.id
@@ -166,41 +167,47 @@ def vacshed_global_create(request):
         return render(request, 'vac_shed/vs-global.html', context={'deps':deps, 'emps':emps})
 
 def vacsheds(request):
+    # Проверка на права или авторизацию
     if request.user.is_authenticated:
-        
-        print(ugroup(request))
-       
-       
-
-        if int(request.GET.get('search-sign','0')) == 1:
-            search_request = {
-                'department':   request.GET.get('search-department',''),
-                'year':         request.GET.get('search-year','') }
-
-               
-            vacsheds = main_search(search_request)
-            if ugroup(request) == 1:
-                deps_for_filter = Department.objects.filter(notused=0).filter(is_aup=0).order_by('name')
-            else:
-                deps_for_filter = Department.objects.filter(user=current_user(request))
-            
-        else:
-            if ugroup(request) == 1:
-                vacsheds = VacantionShedule.objects.all().exclude(dep__is_aup=1).order_by('year','dep__name')
-                deps_for_filter = Department.objects.filter(notused=0).filter(is_aup=0).order_by('name')
-            else:
-                deps_for_filter = Department.objects.filter(user=current_user(request))
-                vacsheds = VacantionShedule.objects.filter(dep__in=deps_for_filter)
-       
-        return render(request, 'vac_shed/index.html', context={'vacsheds':vacsheds, 'granted':ugroup(request), 'deps_for_filter':deps_for_filter})
+        Rights = get_rights(request)
     else:
         return redirect('/accounts/login/')
+    
+    if int(request.GET.get('search-sign','0')) == 1:
+        search_request = {
+            'department':   request.GET.get('search-department',''),
+            'year':         request.GET.get('search-year','') }
+
+            
+        vacsheds = main_search(search_request)
+        if Rights['granted'] or Rights['payment_department']:
+            deps_for_filter = Department.objects.filter(notused=0).filter(is_aup=0).order_by('name')
+        else:
+            deps_for_filter = Department.objects.filter(user=current_user(request))
+        
+    else:
+        if Rights['granted'] or Rights['payment_department']:
+            vacsheds = VacantionShedule.objects.all().exclude(dep__is_aup=1).order_by('-year','dep__name')
+            deps_for_filter = Department.objects.filter(notused=0).filter(is_aup=0).order_by('name')
+        else:
+            deps_for_filter = Department.objects.filter(user=current_user(request))
+            vacsheds = VacantionShedule.objects.filter(dep__in=deps_for_filter).order_by('-year','dep__name')
+    
+    return render(request, 'vac_shed/index.html', context={'vacsheds':              vacsheds,
+                                                           'granted':               Rights['granted'],
+                                                           'deps_for_filter':       deps_for_filter,
+                                                           'IsPaymentDepartment':   Rights['payment_department']})
 
 def vacsheds_aup(request):
     if request.user.is_authenticated:
+        Rights = get_rights(request)
+        
         deps = Department.objects.filter(is_aup=1).values('id')
         vacsheds = VacantionShedule.objects.filter(dep__in=deps)
-        return render(request, 'vac_shed/aup-vs.html', context={'vacsheds':vacsheds, 'granted':ugroup(request)})
+        return render(request, 'vac_shed/aup-vs.html', context={'vacsheds':              vacsheds,
+                                                                'granted':              Rights['granted'],
+                                                                'IsPaymentDepartment':  Rights['payment_department']
+                                                                })
     else:
         return redirect('/accounts/login/')
 
@@ -220,15 +227,23 @@ def vacshed_emp_info(request, year, emp):
                     child = per['child_year']
     return render(request, 'vac_shed/emp-period.html', context={'pers':pers, 'city':city, 'child':child, 'emp':emp, 'year':year, 'vacshed':vacshed})
 
-
-
-
 def vacshed_create(request,vs):
     if request.user.is_authenticated:
-        granted = ugroup(request)
-        vacshed = VacantionShedule.objects.get(id=vs)
+        Rights = get_rights(request)
+    else:
+        return redirect('/accounts/login/')
+    
+    vacshed = VacantionShedule.objects.get(id=vs)
 
-        return render(request, 'vac_shed/vs-create.html', context={'vacshed':vacshed, 'granted':granted})
+    if Rights['granted']:
+        granted = 1
+    else:
+        granted = 0
+
+    return render(request, 'vac_shed/vs-create.html', 
+                  context={ 'vacshed':              vacshed,
+                            'granted':              granted,
+                            'IsPaymentDepartment':  Rights['payment_department']})
 
 def getvacshed_json(request, vs):
     if request.user.is_authenticated:

@@ -26,11 +26,12 @@ def get_user_name(request):
 def get_rights(request):
     # Проверяет текущие права пользователя
     rights = {
-        'ref_editing':  False,
-        'sup_employer': False,
-        'sup_head':     False,
-        'tabel':        False,
-        'granted':      False
+        'ref_editing':          False,
+        'sup_employer':         False,
+        'sup_head':             False,
+        'tabel':                False,
+        'granted':              False,
+        'payment_department':   False
     }
 
     for group in request.user.groups.all():
@@ -42,6 +43,8 @@ def get_rights(request):
             rights['sup_employer'] = True
         if group.name == 'Табельщик':
             rights['tabel'] = True
+        if group.name == 'Сотрудник ОТиЗП':
+            rights['payment_department'] = True
     
     if request.user.is_superuser:
         rights['granted'] = True
@@ -51,22 +54,25 @@ def get_rights(request):
 def index(request):
 
     if request.user.is_authenticated:
-        ref_edit_role = False
+        rights = get_rights(request)
+        # ref_edit_role = False
         user_ = request.user
-        u_group = user_.groups.all()
-        for group in u_group:
-            if (group.name == 'Табельщик') or (group.name == 'Сотрудник РО') :
-                return redirect('/turv/')
-            if group.name == 'Редактирование справочников':
-                ref_edit_role = True
-       
-       
+        # u_group = user_.groups.all()
+        # for group in u_group:
+        #     if (group.name == 'Табельщик') or (group.name == 'Сотрудник РО') :
+        #         return redirect('/turv/')
+        #     if group.name == 'Редактирование справочников':
+        #         ref_edit_role = True
+
+        if rights['tabel'] or rights['payment_department']:
+            return redirect('/turv/')
+
         user_io = request.user.first_name.split(' ')
         if len(user_io) < 3:
             user_io = str(user_io[0])
         else:
             user_io = str(user_io[1]) + " " +str(user_io[2])
-        return render(request, 'reg_jounals/index.html', context={'user_io':user_io, 'ref_edit_role':ref_edit_role})
+        return render(request, 'reg_jounals/index.html', context={'user_io':user_io, 'ref_edit_role':rights['ref_editing']})
     else:
         return redirect('/accounts/login/')
 

@@ -64,8 +64,10 @@
 </div>
 
 <p> {{emp.fired.label}}: {{emp.fired}}</p>
-<div class="buttons"><input type="submit" name="" class="btn btn-success"  value="Сохранить">
 
+{% if not IsPaymentDepartment %}
+<div class="buttons"><input type="submit" name="" class="btn btn-success"  value="Сохранить">
+{% endif %}
 
 <a href="#" onclick="window.close()"  id="ue_cancel" class="btn btn-outline-danger">Закрыть</a></div>
 
