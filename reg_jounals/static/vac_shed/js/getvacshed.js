@@ -2,7 +2,7 @@
 
 
 
-function getvacshed(granted,check) {
+function getvacshed(granted,check, PaymentDep) {
   id = document.location.href.split('/')[5]
 
   $.getJSON('/vacshed/getvacshed/' + id + '/',  (data) => {
@@ -15,7 +15,7 @@ function getvacshed(granted,check) {
     }
 
     for (var i = 0; i < data.length; i++) {
-      emp(data[i].id,data[i].emp,check,granted)
+      emp(data[i].id,data[i].emp,check,granted, PaymentDep)
     }
 
   })
@@ -59,23 +59,55 @@ function formrow(id, emp, emp__fullname, emp__position__name, dur_from, dur_to, 
     comm = ''
   }
 
-
-
-
-
-
-
   if (granted == 0) {
-    row = '<tr class="vs_row" id="'+ id + '_' + emp + '"><td id="emp_' + emp + '" class="clr_higlight_main emp '+emp+'" onmouseover="set_higlight_main(this)" onmouseleave="unset_higlight(this)">' + emp__fullname + ' | ' + emp__position__name + '</td><td id="durfrom_'+ id +'_' + emp + '">' + dur_from + '</td><td class="count_'+ emp + '">' + days_count + '</td><td class=" clr_higlight_main totaldays'+emp+'" onmouseover="set_higlight_main(this)" onmouseleave="unset_higlight(this)"> ' + days_count + '</td><td class="clr_higlight_main child' + emp + '" onmouseover="set_higlight_main(this)" onmouseleave="unset_higlight(this)">'+child_year+'</td><td id="city_'+ id + '" class="clr_higlight_main city city' + emp + '" onmouseover="set_higlight_main(this)" onmouseleave="unset_higlight(this)">'+city+'</td><td class="print print-sign sign sign'+ emp +'"></td></tr>'
+    row = '<tr class="vs_row" id="'+ id + '_' + emp + '"><td id="emp_'
+    + emp + '" class="clr_higlight_main emp '
+    +emp+'" onmouseover="set_higlight_main(this)" onmouseleave="unset_higlight(this)">' 
+    + emp__fullname + ' | ' + emp__position__name 
+    + '</td>'
+    +'<td onmouseover="set_higlight_period(this)" onmouseleave="unset_higlight(this)" class="clr_higlight_period" id="durfrom_'+ id +'_' + emp + '">' 
+    + dur_from + '  </td>'
+    +'<td onmouseover="set_higlight_period(this)" onmouseleave="unset_higlight(this)" class="clr_higlight_period count_'+ emp + '">' + days_count 
+    + '</td>'
+    +'<td class=" clr_higlight_main totaldays'
+    + emp+'" onmouseover="set_higlight_main(this)" onmouseleave="unset_higlight(this)"> ' 
+    + days_count 
+    + '</td><td class="clr_higlight_main child' 
+    + emp + '" onmouseover="set_higlight_main(this)" onmouseleave="unset_higlight(this)">'
+    + child_year+'</td><td id="city_'
+    + id + '" class="clr_higlight_main city city' 
+    + emp + '" onmouseover="set_higlight_main(this)" onmouseleave="unset_higlight(this)">'
+    + city +'</td><td class="print print-sign sign sign'+ emp +'"></td></tr>'
   }
   else {
-    row = '<tr class="vs_row" id="'+ id + '_' + emp + '"><td id="emp_' + emp + '" class="clr_higlight_main emp '+emp+'" onmouseover="set_higlight_main(this)" onmouseleave="unset_higlight(this)">' + emp__fullname + ' | ' + emp__position__name + '</td><td class = "clr_higlight_period" id="durfrom_' + id + '_' + emp + '" onmouseover="show_context_menu(' + 'this,' + id + '); set_higlight_period(this)" onmouseleave="unset_higlight(this)">' + dur_from + '</td><td class=" clr_higlight_period count_'+ emp + '" onmouseover="set_higlight_period(this)" onmouseleave="unset_higlight(this)">' + days_count + '</td><td id="movefrom' + id + '" class=" clr_higlight_period movefrom" onmouseover="set_higlight_period(this)" onmouseleave="unset_higlight(this)">'+ move_from + ' - ' + move_reason + '</td><td class="clr_higlight_period movecount_'+ emp +'" onmouseover="set_higlight_period(this)" onmouseleave="unset_higlight(this)">'+ days_count_move +'</td><td id="comm_' + id + '"  class="clr_higlight_period comm no-print" onmouseover="set_higlight_period(this)" onmouseleave="unset_higlight(this)">'+ comm +'</td><td class="clr_higlight_main totaldays'+emp+'" onmouseover="set_higlight_main(this)" onmouseleave="unset_higlight(this)"> '+ days_count + ' </td><td class="clr_higlight_main child' + emp + '" onmouseover="set_higlight_main(this)" onmouseleave="unset_higlight(this)">'+child_year+'</td><td id="city_'+ id + '" class="clr_higlight_main city city' + emp + '" onmouseover="set_higlight_main(this)" onmouseleave="unset_higlight(this)">'+city+'</td><td class="print print-sign sign sign'+ emp +'"></td></tr>'
+    row = '<tr class="vs_row" id="'+ id + '_' 
+    + emp + '"><td id="emp_' + emp + '" class="clr_higlight_main emp '
+    + emp+'" onmouseover="set_higlight_main(this)" onmouseleave="unset_higlight(this)">' 
+    + emp__fullname + ' | ' + emp__position__name + '</td><td class = "clr_higlight_period" id="durfrom_' 
+    + id + '_' + emp + '" onmouseover="show_context_menu(' + 'this,' + id + '); set_higlight_period(this)" onmouseleave="unset_higlight(this)">' 
+    + dur_from + '</td><td class=" clr_higlight_period count_'
+    + emp + '" onmouseover="set_higlight_period(this)" onmouseleave="unset_higlight(this)">' 
+    + days_count + '</td><td id="movefrom' 
+    + id + '" class=" clr_higlight_period movefrom" onmouseover="set_higlight_period(this)" onmouseleave="unset_higlight(this)">'
+    + move_from + ' - ' + move_reason + '</td><td class="clr_higlight_period movecount_'
+    + emp +'" onmouseover="set_higlight_period(this)" onmouseleave="unset_higlight(this)">'
+    + days_count_move +'</td><td id="comm_' 
+    + id + '"  class="clr_higlight_period comm no-print" onmouseover="set_higlight_period(this)" onmouseleave="unset_higlight(this)">'
+    + comm +'</td><td class="clr_higlight_main totaldays' 
+    + emp +'" onmouseover="set_higlight_main(this)" onmouseleave="unset_higlight(this)"> '
+    + days_count + ' </td><td class="clr_higlight_main child' 
+    + emp + '" onmouseover="set_higlight_main(this)" onmouseleave="unset_higlight(this)">'
+    + child_year+'</td><td id="city_'
+    + id + '" class="clr_higlight_main city city' 
+    + emp + '" onmouseover="set_higlight_main(this)" onmouseleave="unset_higlight(this)">'
+    + city+'</td><td class="print print-sign sign sign'
+    + emp +'"></td></tr>'
   }
 
   return row
 }
 
-function emp(rid,id,check,granted){
+function emp(rid,id,check,granted, PaymentDep){
   rows_emp = $('.' + id)
   tdays = $('.count_' + id)
   tmovedays = $('.movecount_' + id)
@@ -131,7 +163,7 @@ if (tmovedays.length != 0) {
     // tcell[0].innerText = tdays[0].innerText
 
   }
-if (check == 'True' && granted == 0) {
+if ((check == 'True' && granted == 0) || (PaymentDep == 'True')) {
   unset_onclick()
 }
 else {

@@ -41,7 +41,7 @@
   {% if granted %}
     <a class="button no-print" href="{% url 'additem_url' id=vacshed.id%}"> Добавить работника в график</a>
   {%else%}
-    {% if vacshed.sup_check %}
+    {% if vacshed.sup_check or IsPaymentDepartment %}
     {%else%}
       <a class="button no-print" href="{% url 'additem_url' id=vacshed.id%}"> Добавить работника в график</a>
     {%endif%}
@@ -127,10 +127,7 @@
 <script type="text/javascript">
   $(document).ready(function() {
 
-  getvacshed({{granted}},'{{vacshed.sup_check}}')
-
-
-
+  getvacshed({{granted}},'{{vacshed.sup_check}}', '{{IsPaymentDepartment}}')
 
 })
 

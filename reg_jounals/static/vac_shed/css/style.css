@@ -48,6 +48,10 @@ text-align: center;width: 100%;margin-top: 19px;}
 table tr {
 page-break-before: avoid;}
 
+table tr:nth-child(even) {
+  background: none;
+}
+
 thead {background: #0d6efd;}
 tbody {background: white;}
 

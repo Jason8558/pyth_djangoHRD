@@ -59,19 +59,15 @@
     
     <div id="vac_shed-main-menu" class="standart-menu">
       
+      {% if not IsPaymentDepartment %}
       <a href="{% url 'new_vacshed_url'%}" class="button add">Новый график</a>
-      {%if granted == 1%}
+      {% endif %}
+    
       <div class="standart-menu-submenu-container">
           <img onclick="open_additional_menu(this,'vacshed-additional-menu-panel')" src="{% static '/img/menu-burger.png' %}" alt="">
 
       </div>
-      <!-- <div class="menu-button-dropdown-container">
-        <input type="button" class="button" value="Дополнительно">
-      </div> -->
-  
-      {%else%}
-      {%endif%}
-     
+       
       <div id="vacshed-filter-menu" class="standart-menu-submenu-container">
         <img src="{% static '/img/filter.png' %}" onclick="open_search_menu(this)" alt="">
 
@@ -88,7 +84,9 @@
 
     <!-- панель доп меню -->
     <div id="vacshed-additional-menu-panel" class="standart-panel" style="display: none;">
-      <a href="{%url 'global_url'%}" class="button ">Сформировать общий график</a> 
+      {%if granted == 1%}
+      <a href="{%url 'global_url'%}" class="button ">Сформировать общий график</a> \
+      {% endif %}
       <a href="{%url 'vacshed_aup_url'%}" class="button ">Графики АУП</a>
     </div>
     <!-- ----------------------------- -->
