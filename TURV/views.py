@@ -383,6 +383,7 @@ def tabel_half_month_check(request, id):
 
 
 def tabels_json_search(request):
+    Rights = get_rights(request)
 
     sq_period_month = request.GET.get('search_month', '')
     sq_period_year = request.GET.get('search_year', '')
@@ -395,7 +396,7 @@ def tabels_json_search(request):
     sq_code = request.GET.get('search_code', '')
 
     # Алгоритм поиска
-    if access_check(request) == False:
+    if not Rights['granted']:
         allow_departments = Department.objects.filter(user=request.user.id)
 
 
@@ -430,7 +431,7 @@ def tabels_json_search(request):
 
 
 
-    else:
+    if Rights['granted'] or Rights['payment_department']:
         # если у пользователя полные права, то выдаем все
         deps = Department.objects.all().order_by('name')
         # Алгоритм поиска
@@ -865,47 +866,46 @@ def upd_comm(request,id):
 
 def new_tabel(request):
     if request.user.is_authenticated:
-        user_ = request.user
-        u_group = user_.groups.all()
-        granted = 0
-
-        for group in u_group:
-            if group.name == 'Сотрудник СУП':
-                granted = 1
-        if (request.user.is_superuser) or (granted == 1):
-            deps = Department.objects.filter(is_aup=0)
-        else:
-            deps = Department.objects.filter(user=user_.id)
-        tabel_form = Tabel_form()
-        if request.method == "POST":
-            tabel_form = Tabel_form(request.POST)
-            if tabel_form.is_valid():
-                user_ = request.user.first_name
-                tabel_form.saveFirst(user_)
-                last_tabel = Tabel.objects.latest('id')
-            else:
-                error_tabel = tabel_form.errors.as_text().split('*')[2]
-
-                return render(request, 'TURV/new_tabel.html', context={'form':tabel_form, 'deps':deps, 'error_tabel':error_tabel})
-            if last_tabel.department_id == 2 or last_tabel.department_id == 3 or last_tabel.department_id == 26 or last_tabel.department_id == 40:
-                if last_tabel.type_id == 4:
-                    return redirect('/turv/over/4')
-                else:
-                    if last_tabel.type_id == 5:
-                        return redirect('/turv/over/5')
-                    else:
-                        if last_tabel.type_id == 8:
-                            return redirect('/turv/over/8')
-                        else:
-                            return redirect('..')
-            else:
-                return redirect('..')
-
-        else:
-
-            return render(request, 'TURV/new_tabel.html', context={'form':tabel_form, 'deps':deps})
+        Rights = get_rights(request)
     else:
         return render(request, 'reg_jounals/no_auth.html')
+        
+    user_ = request.user
+
+    if Rights['granted'] or Rights['payment_department']:
+        deps = Department.objects.filter(is_aup=0)
+    else:
+        deps = Department.objects.filter(user=user_.id)
+    tabel_form = Tabel_form()
+    
+    if request.method == "POST":
+        tabel_form = Tabel_form(request.POST)
+        if tabel_form.is_valid():
+            user_ = request.user.first_name
+            tabel_form.saveFirst(user_)
+            last_tabel = Tabel.objects.latest('id')
+        else:
+            error_tabel = tabel_form.errors.as_text().split('*')[2]
+
+            return render(request, 'TURV/new_tabel.html', context={'form':tabel_form, 'deps':deps, 'error_tabel':error_tabel})
+        if last_tabel.department_id == 2 or last_tabel.department_id == 3 or last_tabel.department_id == 26 or last_tabel.department_id == 40:
+            if last_tabel.type_id == 4:
+                return redirect('/turv/over/4')
+            else:
+                if last_tabel.type_id == 5:
+                    return redirect('/turv/over/5')
+                else:
+                    if last_tabel.type_id == 8:
+                        return redirect('/turv/over/8')
+                    else:
+                        return redirect('..')
+        else:
+            return redirect('..')
+
+    else:
+
+        return render(request, 'TURV/new_tabel.html', context={'form':tabel_form, 'deps':deps})
+
 
 # ===============================
 
