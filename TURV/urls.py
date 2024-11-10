@@ -2,7 +2,7 @@ from django.urls import path
 from . import views, additionals
 
 urlpatterns = [
-    path('', views.tabels, name='tabels_url'),
+    path('', views.tabels_new, name='tabels_url'),
     path('over/<int:type>', views.over_tabels, name='over-tabels_url'),
     path('new/', views.new_tabel, name='new_tabel_url'),
     path('unload/<int:id>', views.tabel_unload_check, name='unload_check_url'),

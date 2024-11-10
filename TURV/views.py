@@ -266,7 +266,7 @@ def tabels_new(request):
     if Rights['payment_department']:       
         InterfaceTemplate = 'TURV/tabels_payment.html'
     else:
-        InterfaceTemplate = 'TURV/tabels_new.html'
+        InterfaceTemplate = 'TURV/tabels.html'
 
 
 
@@ -1312,46 +1312,50 @@ def new_feedback(request, id):
 
 def employers_list(request):
     if request.user.is_authenticated:
-        # Проверка пользователя и прав
-        user_ = request.user
-        granted = access_check(request)
-
-        if (granted == False):
-            deps = Department.objects.all().filter(user=user_.id)
-            employers = Employers.objects.filter(fired=0).filter(department_id__in=deps.values_list('id'))
-            pag = 20
-        else:
-            deps = Department.objects.filter(notused=0).filter(is_aup=0)
-            employers = Employers.objects.filter(fired=0)
-            pag = 20
-
-        if request.GET.get('search-sign', ''):
-
-            if not granted:
-                department_permission = list(Department.objects.all().filter(user=user_.id).values_list('id'))
-            else:
-                department_permission = 'all'
-
-
-            search_query = {
-            'in_fired'              :request.GET.get('employers-search-fired', ''),
-            'name'                  :request.GET.get('emp',                    ''),
-            'department'            :request.GET.get('emp_dep',                ''),
-            'shift'                 :request.GET.get('emp_shift',              ''),
-            'department_permission' :department_permission
-            }   
-
-            employers = search_employers(search_query)
-            pag = 1000
+        Rights = get_rights(request)
+    else:
+        return redirect('/accounts/login')
+    
+    user_ = request.user
     
 
+    if not Rights['granted'] or Rights['payment_department']:
+        deps = Department.objects.all().filter(user=user_.id)
+        employers = Employers.objects.filter(fired=0).filter(department_id__in=deps.values_list('id'))
+        pag = 20
+    if Rights['granted'] or Rights['payment_department']:
+        deps = Department.objects.filter(notused=0).filter(is_aup=0)
+        employers = Employers.objects.filter(fired=0)
+        pag = 20
+
+    if request.GET.get('search-sign', ''):
+
+        if not Rights['granted']:
+            department_permission = list(Department.objects.all().filter(user=user_.id).values_list('id'))
+        if Rights['granted'] or Rights['payment_department']:
+            department_permission = 'all'
 
 
-        p_emps = Paginator(employers, pag)
-        page_number = request.GET.get('page', 1)
-        page = p_emps.get_page(page_number)
-        count = len(employers)
-        return render(request, 'TURV/employers.html', context={'employers':page, 'count':count, 'deps':deps})
+        search_query = {
+        'in_fired'              :request.GET.get('employers-search-fired', ''),
+        'name'                  :request.GET.get('emp',                    ''),
+        'department'            :request.GET.get('emp_dep',                ''),
+        'shift'                 :request.GET.get('emp_shift',              ''),
+        'department_permission' :department_permission
+        }   
+
+        employers = search_employers(search_query)
+        pag = 1000
+
+    p_emps = Paginator(employers, pag)
+    page_number = request.GET.get('page', 1)
+    page = p_emps.get_page(page_number)
+    count = len(employers)
+    return render(request, 'TURV/employers.html', context={'employers':              page,
+                                                            'count':                 count,
+                                                            'deps':                  deps,
+                                                            'IsPaymentDepartment':   Rights['payment_department']
+                                                            })
 
 def new_employer(request):
     if request.user.is_authenticated:
@@ -1382,31 +1386,39 @@ def new_employer(request):
 
 def upd_employer(request, id):
     if request.user.is_authenticated:
-        if request.method == "GET":
-            emp = Employers.objects.get(id=id)
-            fio = emp.fullname
-            user_ = request.user
-            u_group = user_.groups.all()
-            granted = False
-            for group in u_group:
-                if group.name == 'Сотрудник СУП':
-                    granted = True
-            if (request.user.is_superuser) or (granted == True):
-                deps = Department.objects.all()
-            else:
-                deps = Department.objects.all().filter(user=user_.id)
-            emp_form = Employer_form(instance=emp)
-            return render(request, 'TURV/upd_employer.html', context={'emp':emp_form, 'emp_':emp, 'name':fio,  'deps':deps})
-        else:
-            emp = Employers.objects.get(id=id)
-            emp_form = Employer_form(request.POST, instance=emp)
-            if emp_form.is_valid():
-                user_ = request.user.first_name
-                emp_form.save()
-                loc = '/turv/close'
-                return redirect(loc)
+        Rights = get_rights(request)
     else:
         return render(request, 'reg_jounals/no_auth.html')
+    
+    if request.method == "GET":
+        emp = Employers.objects.get(id=id)
+        fio = emp.fullname
+        user_ = request.user
+        u_group = user_.groups.all()
+        granted = False
+       
+        
+        if Rights['granted'] or Rights['payment_department']:
+            deps = Department.objects.all()
+        else:
+            deps = Department.objects.all().filter(user=user_.id)
+        
+        emp_form = Employer_form(instance=emp)
+        return render(request, 'TURV/upd_employer.html', context={'emp':                    emp_form,
+                                                                  'emp_':                   emp,
+                                                                  'name':                   fio,
+                                                                  'deps':                   deps,
+                                                                  'IsPaymentDepartment':    Rights['payment_department']})
+    else:
+        emp = Employers.objects.get(id=id)
+        emp_form = Employer_form(request.POST, instance=emp)
+        if emp_form.is_valid():
+            user_ = request.user.first_name
+            emp_form.save()
+            loc = '/turv/close'
+            return redirect(loc)
+
+        
 
 def del_employer(request, id):
     if request.user.is_authenticated:

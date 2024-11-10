@@ -130,3 +130,10 @@ dmypy.json
 # Pyre type checker
 .pyre/
 
+emps.json
+.vscode/launch.json
+manage.py
+manage.py
+/reg_jounals/static/vac_shed/js/moment
+/shift_shed/migrations
+/TURV/migrations

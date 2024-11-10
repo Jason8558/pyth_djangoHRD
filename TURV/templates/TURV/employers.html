@@ -29,7 +29,9 @@
 <div class="container">
 
   <div class="standart-menu">
+    {% if not IsPaymentDepartment %}
     <a class="button add"  href="{% url 'emp_new'%}"  >Добавить работника</a>
+    {% endif %}
     
     <div id="vacshed-filter-menu" class="standart-menu-submenu-container">
       <img src="{% static '/img/search.png' %}" onclick="open_additional_menu(this, 'employers-search-panel')" alt="">
