@@ -10,6 +10,7 @@ class ShiftShedModel(models.Model):
     del_check = models.BooleanField(verbose_name='Пометка удаления', default=0)
 
     class Meta:
+        ordering = ['-year', 'checked', 'dep']
         verbose_name = 'График сменности'
         verbose_name_plural = 'Графики сменности'
 
