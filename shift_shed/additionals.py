@@ -196,9 +196,9 @@ def additional_formtotal(shed):
     emps = ShiftShedItem.objects.filter(bound_shed_id=shed).filter(month=1).values('employer').order_by('employer')
     total = list()
     for emp in emps:
-        totals = ShiftShedItem.objects.filter(employer=emp['employer']).filter(bound_shed_id=shed).aggregate(s_fact=Sum('fact'), s_celeb=Sum('celeb'), s_norma=Sum('norma'))
+        totals = ShiftShedItem.objects.filter(employer=emp['employer']).filter(bound_shed_id=shed).aggregate(s_fact=Sum('fact'), s_celeb=Sum('celeb'), s_norma=Sum('norma'), s_deviations=Sum('deviation'))
 
-        deviations = totals['s_fact'] - totals['s_norma'] - totals['s_celeb']
+        deviations = totals['s_deviations']
 
         if deviations > 120 or deviations < 0:
             color = 'red'

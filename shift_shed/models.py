@@ -63,6 +63,10 @@ class ShiftShedItem(models.Model):
     deviation = models.FloatField(verbose_name='Отклонение', null = True, default=0, blank=True)
     norma = models.FloatField(verbose_name='Норма', null = True, default=0, blank=True)
 
+# Ручной ввод отклонения
+    deviation_override = models.BooleanField(verbose_name='Ручной ввод отклонения', default=False)
+
+
     class Meta:
         ordering = ['employer']
         verbose_name = 'Сотрудник в графике'
