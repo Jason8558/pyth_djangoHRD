@@ -11,6 +11,7 @@ from .additionals import *
 from django.http import HttpResponse, JsonResponse
 from django.db.models import Q
 from io import BytesIO
+from reg_jounals.views import get_rights
 # from reportlab.pdfgen import canvas
 # from reportlab.lib.pagesizes import A4, landscape
 # from reportlab.platypus import SimpleDocTemplate, Table, TableStyle
@@ -39,37 +40,45 @@ def access_check(request):
 
 def ss_main(request):
     if request.user.is_authenticated:
-        if access_check(request) == True:
-            ss = ShiftShedModel.objects.all()
-        else:
-            ss = ShiftShedModel.objects.filter(dep__user=request.user)
-     
-        return render(request, 'shift_shed/ss-main.html', context={'ss':ss})
+        Rights = get_rights(request)
     else:
         return redirect('/accounts/login/')
+    
+    if Rights['granted'] or Rights['payment_department']:
+        ss = ShiftShedModel.objects.all()
+    else:
+        ss = ShiftShedModel.objects.filter(dep__user=request.user)
+    
+    return render(request, 'shift_shed/ss-main.html', context={'ss':ss})
+
+        
 
 def ss_create(request):
     if request.user.is_authenticated:
-        if request.method == 'GET':
-            form = ShiftShed_form(request.GET)
-            if access_check(request) == True:
-                form.fields['dep'].queryset = Department.objects.filter(notused=0)
-            else:
-                form.fields['dep'].queryset = Department.objects.filter(user=request.user)
-            return render(request, 'shift_shed/create.html', context={'form':form})
-        if request.method == 'POST':
-            form = ShiftShed_form(request.POST)
-            if access_check(request) == True:
-                form.fields['dep'].queryset = Department.objects.filter(notused=0)
-            else:
-                form.fields['dep'].queryset = Department.objects.filter(user=request.user)
-            # form.fields['emps'].queryset = Employers.objects.filter(department=form['dep'].value())
-            if form.is_valid():
+        Rights = get_rights(request)
+    else:
+        return redirect('/accounts/login/')
 
-                form.save()
-                return redirect('/shift_shed/')
-            else:
-                return render(request, 'shift_shed/create.html', context={'form':form})
+    if request.method == 'GET':
+        form = ShiftShed_form(request.GET)
+        if Rights['granted'] or Rights['payment_department']:
+            form.fields['dep'].queryset = Department.objects.filter(notused=0)
+        else:
+            form.fields['dep'].queryset = Department.objects.filter(user=request.user)
+        return render(request, 'shift_shed/create.html', context={'form':form})
+    
+    if request.method == 'POST':
+        form = ShiftShed_form(request.POST)
+        if Rights['granted'] or Rights['payment_department']:
+            form.fields['dep'].queryset = Department.objects.filter(notused=0)
+        else:
+            form.fields['dep'].queryset = Department.objects.filter(user=request.user)
+
+        if form.is_valid():
+            form.save()
+            return redirect('/shift_shed/')
+        else:
+            return render(request, 'shift_shed/create.html', context={'form':form})
 
 
 def ss_get_employers(request, dep):
