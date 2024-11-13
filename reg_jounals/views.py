@@ -25,13 +25,18 @@ def get_user_name(request):
 
 def get_rights(request):
     # Проверяет текущие права пользователя
+
+    if not request.user.is_authenticated:
+        return render('/accounts/login')
+
     rights = {
         'ref_editing':          False,
         'sup_employer':         False,
         'sup_head':             False,
         'tabel':                False,
         'granted':              False,
-        'payment_department':   False
+        'payment_department':   False,
+        'IsSuperUser':          False
     }
 
     for group in request.user.groups.all():
@@ -49,7 +54,8 @@ def get_rights(request):
             rights['payment_department'] = True
     
     if request.user.is_superuser:
-        rights['granted'] = True
+        rights['granted']       = True
+        rights['IsSuperUser']   = True
 
     return rights
 

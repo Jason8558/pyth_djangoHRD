@@ -295,6 +295,21 @@ justify-content: space-between;
     border-radius: 5px;
     text-transform: uppercase;}
 
+.btn-cancel {    
+    background: white;
+    border: 1px solid #9c1f1f;
+    color: #9c1f1f;
+    border-radius: 5px;
+    text-transform: uppercase;}
+    
+
+.btn-cancel:hover {
+
+    background: #ff7979;
+        
+    color: black;
+    }
+
 .btn-add:hover {
     
 background: #a4e1a4;

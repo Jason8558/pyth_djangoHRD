@@ -29,13 +29,21 @@
 </div>
 <h1 class="shedule-head print"> График сменности работников {{shed_info.dep}} ({{shed_info.comment}}) за {{shed_info.year}} г.</h1>
 <div class="button-bar noprint">
+  {% if shed_info.checked %}
+    <a href="#">График утвержден</a>
+  {% endif %}
   <form action="{% url 'ss-changecomm' id=shed_info.id %}" class="ss-form-in-bar">
     <input type="text" name="shedule-comment" id="shedule-comment" placeholder="введите комментарий" value="{{shed_info.comment}}">
     <button class="button secondary" type="submit">Изменить комментарий</button>
   </form>
-  {% if granted %}
-  <a class="button btn-add" href="{% url 'ss-setcheck' id=shed_info.id %}">Утвердить</a>
-  {% else %}
+  {% if granted or IsPaymentDepartment %}
+  
+    {% if shed_info.checked %}
+      <a class="button btn-cancel" href="{% url 'ss-setcheck' id=shed_info.id %}">Отм. утверждение</a>
+    {% else %}
+      <a class="button btn-add" href="{% url 'ss-setcheck' id=shed_info.id %}">Утвердить</a>
+    {% endif %}
+
   {%endif%}
   <a class="button secondary" onclick="window.print()" href="#">Печать</a>
 </div>

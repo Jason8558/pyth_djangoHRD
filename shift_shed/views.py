@@ -94,26 +94,26 @@ def ss_get_emp_single(request, id):
         return JsonResponse(emp, safe=False)
 
 def ss_shedule(request, id):
-    if request.user.is_authenticated:
-        granted = False
-        if request.user.is_superuser:
-            granted = True    
-        u_group = request.user.groups.all()
+    Rights = get_rights(request)
+  
+    days = []
+    for i in range(1,32):
+        days.append(i)
+    months = {'1':'Январь','2':"Февраль",'3':"Март",'4':"Апрель",'5':"Май",'6':"Июнь",'7':"Июль",'8':"Август",'9':"Сентябрь",'10':"Октябрь",'11':"Ноябрь",'12':"Декабрь"}
+    shedule = addition_shedform(id)
+    total = additional_formtotal(id)
 
-        for g in u_group:
-            if g.name == 'Сотрудник СУП':
-                granted = True
+    shed_info = ShiftShedModel.objects.get(id=id)
 
-        days = []
-        for i in range(1,32):
-            days.append(i)
-        months = {'1':'Январь','2':"Февраль",'3':"Март",'4':"Апрель",'5':"Май",'6':"Июнь",'7':"Июль",'8':"Август",'9':"Сентябрь",'10':"Октябрь",'11':"Ноябрь",'12':"Декабрь"}
-        shedule = addition_shedform(id)
-        total = additional_formtotal(id)
-
-        shed_info = ShiftShedModel.objects.get(id=id)
-
-        return render(request, 'shift_shed/shedule.html', context={'shedule':shedule, 'granted':granted, 'shed_info':shed_info, 'months':months, 'days':days, 'id':id, 'total':total})
+    return render(request, 'shift_shed/shedule.html', context={'shedule':               shedule,
+                                                               'granted':               Rights['granted'],
+                                                               'IsPaymentDepartment':   Rights['payment_department'],
+                                                               'shed_info':             shed_info,
+                                                               'months':                months,
+                                                               'days':                  days,
+                                                               'id':                    id,
+                                                               'total':                 total
+                                                               })
 
 def ss_edit(request,shed,month,year):
     if request.user.is_authenticated:
