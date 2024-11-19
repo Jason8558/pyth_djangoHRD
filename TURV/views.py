@@ -274,7 +274,7 @@ def tabels_new(request):
                                                             'type':type,
                                                             'tab_users':tab_users,
                                                             'deps':deps,
-                                                            'granted':granted,
+                                                            'granted':Rights['granted'],
                                                             'ro':is_ro,
                                                             'month_':month_,
                                                             "year_":year_,
