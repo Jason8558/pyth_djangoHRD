@@ -161,22 +161,22 @@
     <!-- Контроль -->
 
     <ul>
-      {% if granted %}
+      {% if granted or IsPaymentDepartment %}
 
-      {% if b_tabel.sup_check %}
-      <li><a href="{% url 'checked' id=b_tabel.id%}">Отменить проверку</a></li>
-      {% else %}
+        {% if b_tabel.sup_check %}
+        <li><a href="{% url 'checked' id=b_tabel.id%}">Отменить проверку</a></li>
+        {% else %}
 
-      {% if b_tabel.iscorr != 1 %}
-      <li><a href="{% url 'checked' id=b_tabel.id%}">Отметить как проверенный</a></li>
-      {% endif %}
-      {% endif %}
+        {% if b_tabel.iscorr != 1 %}
+        <li><a href="{% url 'checked' id=b_tabel.id%}">Отметить как проверенный</a></li>
+        {% endif %}
+        {% endif %}
 
-      {% if b_tabel.paper_check %}
-      <li><a href="{% url 'paper_checked' id=b_tabel.id%}">Отменить наличие бум. копии</a></li>
-      {%else%}
-      <li><a href="{% url 'paper_checked' id=b_tabel.id%}">Подтвердить наличие бум. копии</a></li>
-      {%endif%}
+        {% if b_tabel.paper_check %}
+        <li><a href="{% url 'paper_checked' id=b_tabel.id%}">Отменить наличие бум. копии</a></li>
+        {%else%}
+        <li><a href="{% url 'paper_checked' id=b_tabel.id%}">Подтвердить наличие бум. копии</a></li>
+        {%endif%}
 
       {%endif%}
 
