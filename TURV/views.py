@@ -816,7 +816,7 @@ def tabel_create(request, id):
                                                                                         'count':                count,
                                                                                         'b_tabel':              b_tabel,
                                                                                         'granted':              Rights['granted'],
-                                                                                        'IsPaymentDepartment':  Rights['paymment_department']})
+                                                                                        'IsPaymentDepartment':  Rights['payment_department']})
             else:
 
                 return render(request, 'TURV/create_tabel.html', context={
