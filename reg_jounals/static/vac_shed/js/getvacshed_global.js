@@ -55,6 +55,10 @@ function getvacshed() {
   terr = $('#vs-glob-terr').val()
   pos = $('#vs-glob-pos').val()
 
+  if (year == '') {
+    year = new Date().getFullYear();
+  }
+  
   if (pos == '') {
     pos = 0
   }
