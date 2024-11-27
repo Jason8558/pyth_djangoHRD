@@ -181,7 +181,7 @@ function Supchecked() {
   <div style="display: none" class="standart-panel submenu-panel panel" id="tabel-additional-submenu">
     <!-- Дополнительные -->
     <ul class="view">
-      {%if granted == 1%}
+      {%if granted %}
           <li><a href="{% url 'over-tabels_url' type=5 %}">Сверхурочка АТЦ</a></li>
           <li><a href="{% url 'over-tabels_url' type=4 %}">Выходные АТЦ</a></li>
           <li><a href="{% url 'over-tabels_url' type=8 %}">Ненормированность АТЦ</a></li>
