@@ -647,30 +647,13 @@ def tabels_forload(request):
 # ========== Основные функции =============
 
 def tabel_create(request, id):
-    if request.user.is_authenticated:
-        sq_employer = request.GET.get('its_employer','')
-        sq_position = request.GET.get('its_position','')
-        u_group = request.user.groups.all()
-        user_ = request.user
-        granted = 0
-        is_ro = 0
-        allow_print = 0
-        b_tabel = Tabel.objects.get(id=id)
-        if request.user.is_superuser:
-            granted = 1
-        else:
-            for group in u_group:
-                if (group.name == 'Сотрудник СУП'):
-                    granted = 1
-                if (group.name == 'Сотрудник РО'):
-                    is_ro = 1
-                if (group.name == 'Печать табеля'):
-                    allow_print = 1
-        if request.method == "GET":
-
-
-
-
+    Rights = get_rights(request)
+    
+    sq_employer = request.GET.get('its_employer','')
+    sq_position = request.GET.get('its_position','')
+    user_ = request.user
+    b_tabel = Tabel.objects.get(id=id)
+    if request.method == "GET":
             
             c_tabels = Tabel.objects.filter(iscorr=1).filter(corr_id=id).filter(sup_check=1).order_by('-id').filter(type_id=1)
 
@@ -754,60 +737,60 @@ def tabel_create(request, id):
                 s_vac = hours['s_vac']
                 s_weekends = hours['s_weekends']
 
-            # Сообщения
-            # Полный доступ
-            meslist = []
-            messages = InfoMessages.objects.filter(viewin=2).filter(active=1).order_by('-important','-id')
-            if granted == True:
-                # Проверяем на пренадлежность к виду табеля
-                for mes in messages:
-                    if mes.alltypes:
-                        meslist.append(mes.id)
-                    else:
-                        if mes.intypes.filter(id=b_tabel.type_id):
-                            meslist.append(mes.id)
+            # # Сообщения
+            # # Полный доступ
+            # meslist = []
+            # messages = InfoMessages.objects.filter(viewin=2).filter(active=1).order_by('-important','-id')
+            # if granted == True:
+            #     # Проверяем на пренадлежность к виду табеля
+            #     for mes in messages:
+            #         if mes.alltypes:
+            #             meslist.append(mes.id)
+            #         else:
+            #             if mes.intypes.filter(id=b_tabel.type_id):
+            #                 meslist.append(mes.id)
 
-                messages = messages.filter(id__in=meslist)
-                meslist = []
+            #     messages = messages.filter(id__in=meslist)
+            #     meslist = []
                 
-                # Сортировка по периодам
-                for mes in messages:
-                    if mes.always:
-                        meslist.append(mes.id)
-                    else:
-                        if mes.dfrom <= datetime.datetime.now().date() and mes.dfrom >= datetime.datetime.now().date():
-                            meslist.append(mes.id)
+            #     # Сортировка по периодам
+            #     for mes in messages:
+            #         if mes.always:
+            #             meslist.append(mes.id)
+            #         else:
+            #             if mes.dfrom <= datetime.datetime.now().date() and mes.dfrom >= datetime.datetime.now().date():
+            #                 meslist.append(mes.id)
 
 
-                messages = messages.filter(id__in=meslist)
-                meslist = []
-                
-
-                # Сортировка по подразделениям
-                for mes in messages:
-                    if  mes.alldeps:
-                        meslist.append(mes.id)
-                    else:
-                        if mes.deps.filter(id=b_tabel.department_id):
-                            meslist.append(mes.id)
-
-                        messages = messages.filter(id__in=meslist)
-
+            #     messages = messages.filter(id__in=meslist)
+            #     meslist = []
                 
 
-            #неполный доступ
-            else:
-                deps = Department.objects.all().filter(user=user_.id)
-                allow_departments = []
-                for dep in deps:
-                    allow_departments.append(dep.id)
-                for mes in messages:
-                    if mes.alldeps:
-                        meslist.append(mes.id)
-                    else:
-                        if mes.deps.filter(id=b_tabel.department_id):
-                            meslist.append(mes.id)
-                messages = messages.filter(id__in=meslist)
+            #     # Сортировка по подразделениям
+            #     for mes in messages:
+            #         if  mes.alldeps:
+            #             meslist.append(mes.id)
+            #         else:
+            #             if mes.deps.filter(id=b_tabel.department_id):
+            #                 meslist.append(mes.id)
+
+            #             messages = messages.filter(id__in=meslist)
+
+                
+
+            # #неполный доступ
+            # else:
+            #     deps = Department.objects.all().filter(user=user_.id)
+            #     allow_departments = []
+            #     for dep in deps:
+            #         allow_departments.append(dep.id)
+            #     for mes in messages:
+            #         if mes.alldeps:
+            #             meslist.append(mes.id)
+            #         else:
+            #             if mes.deps.filter(id=b_tabel.department_id):
+            #                 meslist.append(mes.id)
+            #     messages = messages.filter(id__in=meslist)
 
 
 
@@ -817,36 +800,54 @@ def tabel_create(request, id):
             t_dep = b_tabel.department
             if (b_tabel.type_id != 1) and (b_tabel.type_id != 4) and (b_tabel.type_id != 5):
 
-                return render(request, 'TURV/create_tabel_small.html', context={ 's_hours':s_hours, 's_lhours':s_lhours, 's_days':s_days, 's_over':s_over, 's_night':s_night, 's_vacwork':s_vacwork,
-    's_vac':s_vac,
-    's_weekends':s_weekends,
-
-            'hours':hours,'form':tabel_form, 'items':items, 'print':allow_print, 'month':t_month, 'year':t_year, 'count':count, 'b_tabel':b_tabel, 'granted':granted, 'ro':is_ro, 'messages':messages})
+                return render(request, 'TURV/create_tabel_small.html', context={        's_hours':              s_hours,
+                                                                                        's_lhours':             s_lhours,
+                                                                                        's_days':               s_days,
+                                                                                        's_over':               s_over,
+                                                                                        's_night':              s_night,
+                                                                                        's_vacwork':            s_vacwork,
+                                                                                        's_vac':                s_vac,
+                                                                                        's_weekends':           s_weekends,
+                                                                                        'hours':                hours,
+                                                                                        'form':                 tabel_form,
+                                                                                        'items':                items,
+                                                                                        'month':                t_month,
+                                                                                        'year':                 t_year,
+                                                                                        'count':                count,
+                                                                                        'b_tabel':              b_tabel,
+                                                                                        'granted':              Rights['granted'],
+                                                                                        'IsPaymentDepartment':  Rights['payment_department']})
             else:
 
                 return render(request, 'TURV/create_tabel.html', context={
-                's_hours':s_hours,
-    's_lhours':s_lhours,
-    's_days':s_days,
-    's_over':s_over,
-    's_night':s_night,
-    's_vacwork':s_vacwork,
-    's_vac':s_vac,
-    's_weekends':s_weekends,
-
-                'hours':hours,'form':tabel_form, 'items':items, 'print':allow_print, 'month':t_month, 'year':t_year, 'count':count, 'b_tabel':b_tabel, 'granted':granted, 'ro':is_ro, 'messages':messages})
-
-        else:
-
-                b_tabel = Tabel.objects.get(id=id)
-                bound_form = Tabel_form(request.POST, instance=b_tabel)
-                if bound_form.is_valid():
-
-                    bound_form.save()
-                    return render(request, 'TURV/close.html')
+                                                                            's_hours':              s_hours,
+                                                                            's_lhours':             s_lhours,
+                                                                            's_days':               s_days,
+                                                                            's_over':               s_over,
+                                                                            's_night':              s_night,
+                                                                            's_vacwork':            s_vacwork,
+                                                                            's_vac':                s_vac,
+                                                                            's_weekends':           s_weekends,
+                                                                            'hours':                hours,
+                                                                            'form':                 tabel_form, 
+                                                                            'items':                items,
+                                                                            'month':                t_month,
+                                                                            'year':                 t_year,
+                                                                            'count':                count,
+                                                                            'b_tabel':              b_tabel,
+                                                                            'granted':              Rights['granted'],
+                                                                            'IsPaymentDepartment':  Rights['payment_department']
+                                                                            })
 
     else:
-        return render(request, 'reg_jounals/no_auth.html')
+
+            b_tabel = Tabel.objects.get(id=id)
+            bound_form = Tabel_form(request.POST, instance=b_tabel)
+            if bound_form.is_valid():
+
+                bound_form.save()
+                return render(request, 'TURV/close.html')
+
 
 # Добавление комментария к табелю
 
