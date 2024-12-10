@@ -26,6 +26,8 @@ class LetterOfResignation_form(forms.ModelForm):
         attrs={'placeholder': 'Введите дату',  'type':'date'}))
     lor_dateOfRes = forms.DateField(label="Дата увольнения", required=False, widget=forms.TextInput(
         attrs={'placeholder': 'Введите дату',  'type':'date'}))
+    lor_additionalData = forms.CharField(label="Причина увольнения", required=False, widget=forms.TextInput(
+        attrs={'list':'additional-metadata'}))
 
 
 
@@ -56,6 +58,25 @@ class LetterOfResignation_form(forms.ModelForm):
 
         )
 
+        ExistAdditionalMetadata = AdditionalMetadata.objects.filter(owner="LetterOfResignation")
+       
+        if not str(self.cleaned_data['lor_additionalData']).replace(" ", "") == "":
+            owner = "LetterOfResignation"
+            if ExistAdditionalMetadata.count() == 0:
+                NewEam = AdditionalMetadata.objects.create(
+                    owner = owner,
+                    text = self.cleaned_data['lor_additionalData']
+                )
+            else: 
+                for EAM in ExistAdditionalMetadata:
+                    if EAM.text.replace(" ", "").lower() != str(self.cleaned_data['lor_additionalData']).replace(" ", "").lower():
+                        NewEam = AdditionalMetadata.objects.create(
+                            owner = owner,
+                            text = self.cleaned_data['lor_additionalData']
+                        )
+
+                        NewEam.save()
+
         new_letter = LetterOfResignation.objects.create(
             lor_date            = self.cleaned_data['lor_date'],
             lor_number          = str(letter_next_num_),
@@ -67,6 +88,8 @@ class LetterOfResignation_form(forms.ModelForm):
             lor_itemOfRes       = self.cleaned_data['lor_itemOfRes'],
             lor_res_officer     = user_
         )
+
+
 
         return new_letter
 
@@ -420,6 +443,8 @@ class LetterOfInvite_form(forms.ModelForm):
         attrs={'placeholder': 'Введите дату',  'type':'date'}))
     loi_dateOfInv = forms.DateField(label="Дата приема" , required=False, widget=forms.TextInput(
         attrs={'placeholder': 'Введите дату',  'type':'date'}))
+    loi_additionalData = forms.CharField(label="Причина", required=False, widget=forms.TextInput(
+        attrs={'list':'additional-metadata'}))
 
     def saveFirst(self, user_, department:TURVDepartment, position:TURVPositions):
         current_doc = last_doc(LetterOfInvite)
@@ -447,6 +472,25 @@ class LetterOfInvite_form(forms.ModelForm):
         link = '/letters_of_invite/' + str(next_id) + '/edit',
         res_officer = user_
         )
+
+        ExistAdditionalMetadata = AdditionalMetadata.objects.filter(owner="LetterOfInvite")
+       
+        if not str(self.cleaned_data['loi_additionalData']).replace(" ", "") == "":
+            owner = "LetterOfInvite"
+            if ExistAdditionalMetadata.count() == 0:
+                NewEam = AdditionalMetadata.objects.create(
+                    owner = owner,
+                    text = self.cleaned_data['loi_additionalData']
+                )
+            else: 
+                for EAM in ExistAdditionalMetadata:
+                    if EAM.text.replace(" ", "").lower() != str(self.cleaned_data['loi_additionalData']).replace(" ", "").lower():
+                        NewEam = AdditionalMetadata.objects.create(
+                            owner = owner,
+                            text = self.cleaned_data['loi_additionalData']
+                        )
+
+                        NewEam.save()
 
         new_letter = LetterOfInvite.objects.create(
             loi_date            = self.cleaned_data['loi_date'],

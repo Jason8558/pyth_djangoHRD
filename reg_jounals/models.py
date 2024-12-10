@@ -363,3 +363,16 @@ class logs(models.Model):
 
     def __str__(self):
         return 'Запись от: ' + str(self.date) + ' по: ' + str(self.type)
+
+
+class AdditionalMetadata(models.Model):
+    owner   = models.CharField(blank=False, null=False,     verbose_name='Владелец', max_length=200)
+    text    = models.TextField(blank=True, null=True,       verbose_name="Текст")
+    number  = models.IntegerField(blank=True, null=True,    verbose_name="Число")
+    bolean  = models.BooleanField(default=False,            verbose_name="Булево")
+    flt     = models.FloatField(blank=True, null=True,      verbose_name='Десятичное значение')
+
+    class Meta:
+        ordering                = ['id', 'owner']
+        verbose_name            = "Дополнительный реквезит"
+        verbose_name_plural     = "Дополнительные реквезиты"

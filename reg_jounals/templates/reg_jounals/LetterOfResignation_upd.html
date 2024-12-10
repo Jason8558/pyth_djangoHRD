@@ -44,6 +44,13 @@
 
 <div class="standart-form-input-group">
   <p><span>{{form.lor_additionalData.label}}: </span>{{form.lor_additionalData}}</p>
+
+  <datalist id="additional-metadata">
+    {% for Row in AddMetadata %}
+      <option value="{{Row.text}}"></option>
+    {% endfor %}
+</datalist>
+
 </div>
 
 <div class="standart-form-input-group inline">

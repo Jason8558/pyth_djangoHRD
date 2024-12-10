@@ -232,6 +232,7 @@ def letter_of_resignation(request):
 def nr_LetterOfResignation(request):
     if request.user.is_authenticated:
         # pos = TPos.objects.all()
+        AddMetadata = AdditionalMetadata.objects.filter(owner="LetterOfResignation")
         letter_form = LetterOfResignation_form()
         deps = TDep.objects.filter(notused=0).filter(is_aup=0)
         letters = LetterOfResignation.objects.all()
@@ -255,12 +256,13 @@ def nr_LetterOfResignation(request):
                 return redirect('../letters_of_resignation/')
         else:
 
-            return render(request, 'reg_jounals/LetterOfResignation_add.html', context={'form':letter_form, 'next_num':letter_next_num_, 'deps':deps})
+            return render(request, 'reg_jounals/LetterOfResignation_add.html', context={'form':letter_form, 'next_num':letter_next_num_, 'deps':deps, 'AddMetadata':AddMetadata})
     else:
         return render(request, 'reg_jounals/no_auth.html')
 
 def upd_LetterOfResignation(request, id):
     editing = get_rights(request)['ref_editing']
+    AddMetadata = AdditionalMetadata.objects.filter(owner="LetterOfResignation")
     if request.user.is_authenticated:
         deps = TDep.objects.filter(notused=0).filter(is_aup=0)
         letter = LetterOfResignation.objects.get(id__iexact=id)
@@ -268,7 +270,7 @@ def upd_LetterOfResignation(request, id):
         if request.method == "GET":
             
             bound_form = LetterOfResignation_form(instance=letter)
-            return render(request, 'reg_jounals/LetterOfResignation_upd.html', context={'form':bound_form, 'letter':letter, 'deps':deps, 'editing':editing})
+            return render(request, 'reg_jounals/LetterOfResignation_upd.html', context={'form':bound_form, 'letter':letter, 'deps':deps, 'editing':editing, 'AddMetadata':AddMetadata})
         else:
             updated_bound_employer  = get_employer_from_db(request.POST.get('resignation-employer-field', ''))
             updated_department      = get_department_from_db(request.POST.get('resignation-department-field', ''))
@@ -327,6 +329,7 @@ def letter_of_invite(request):
 
 def upd_LetterOfInvite(request, id):
     if request.user.is_authenticated:
+        AddMetadata = AdditionalMetadata.objects.filter(owner = 'LetterOfInvite')
         editing = get_rights(request)['ref_editing']
         pos     = TPos.objects.all()
         deps    = TDep.objects.filter(notused=0).filter(is_aup=0)
@@ -335,7 +338,7 @@ def upd_LetterOfInvite(request, id):
         if request.method == "GET":
             
             bound_form = LetterOfInvite_form(instance=letter)
-            return render(request, 'reg_jounals/LetterOfInvite_upd.html', context={'form':bound_form, 'letter':letter, 'pos':pos, 'deps':deps, 'editing':editing})
+            return render(request, 'reg_jounals/LetterOfInvite_upd.html', context={'form':bound_form, 'letter':letter, 'pos':pos, 'deps':deps, 'editing':editing, 'AddMetadata':AddMetadata})
         else:
             
             bound_form = LetterOfInvite_form(request.POST, instance=letter)
@@ -360,6 +363,7 @@ def upd_LetterOfInvite(request, id):
 
 def nr_LetterOfInvite(request):
     if request.user.is_authenticated:
+        AddMetadata = AdditionalMetadata.objects.filter(owner = 'LetterOfInvite')
         pos = TPos.objects.all()
         letter_form = LetterOfInvite_form()
         deps = TDep.objects.filter(notused=0).filter(is_aup=0)
@@ -380,7 +384,7 @@ def nr_LetterOfInvite(request):
                 user_ = request.user.first_name
                 letter_form.saveFirst(user_, department, position)
                 return redirect('../letters_of_invite/')
-        return render(request, 'reg_jounals/LetterOfInvite_add.html', context={'form':letter_form, 'next_num':letter_next_num_, 'pos':pos, 'deps':deps})
+        return render(request, 'reg_jounals/LetterOfInvite_add.html', context={'form':letter_form, 'next_num':letter_next_num_, 'pos':pos, 'deps':deps, 'AddMetadata':AddMetadata})
     else:
         return render(request, 'reg_jounals/no_auth.html')
 
