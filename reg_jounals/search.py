@@ -22,7 +22,7 @@ def search(fields):
     department      = fields['department']
     period_from     = fields['period_from']
     period_to       = fields['period_to']
-    reason          = fields['reason']
+    
 
     # если приходят пустые даты
     if period_from == '':
@@ -59,6 +59,7 @@ def search(fields):
 
     if int(document_type) == 3:
         # Заявления на прием
+        reason          = fields['reason']
 
         search_result = LettersOfInvite.objects.filter(loi_employee__icontains=name).filter(
             loi_date__gte=period_from, loi_date__lte=period_to).order_by('-loi_date')
@@ -140,6 +141,9 @@ def search(fields):
 
     if int(document_type) == 9:
         # Заявления на увольнения
+        reason          = fields['reason']
+
+
         resignation_from    = fields['resignation_from']
         resignation_to      = fields['resignation_to']
         
