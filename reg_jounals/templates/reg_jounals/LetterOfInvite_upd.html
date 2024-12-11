@@ -38,17 +38,19 @@
 
     
 
-  </div>
-  <div class="standart-form-input-group">
-    <p><span>{{form.loi_additionalData.label}}: </span>{{form.loi_additionalData}}</p>
-
-    <datalist id="additional-metadata">
-      {% for Row in AddMetadata %}
-        <option value="{{Row.text}}"></option>
-      {% endfor %}
-  </datalist>
-
-  </div>
+    <div class="standart-form-input-group">
+      <p><span>{{form.loi_additionalData.label}}: </span>{{form.loi_additionalData}}</p>
+    </div>
+  
+    <div class="standart-form-input-group">
+      <p><span>{{form.reason.label}}: </span>{{form.reason}}</p>
+          <datalist id="additional-metadata">
+            {% for Row in AddMetadata %}
+              <option value="{{Row.text}}"></option>
+            {% endfor %}
+          </datalist>
+    </div>
+    
  
   
 

@@ -19,9 +19,10 @@ def search(fields):
 
     # Общие
     name = fields['name']
-    department = fields['department']
-    period_from = fields['period_from']
-    period_to = fields['period_to']
+    department      = fields['department']
+    period_from     = fields['period_from']
+    period_to       = fields['period_to']
+    reason          = fields['reason']
 
     # если приходят пустые даты
     if period_from == '':
@@ -64,6 +65,9 @@ def search(fields):
 
         if department:
             search_result = search_result.filter(department=department)
+        
+        if reason:
+            search_result = search_result.filter(reason__iexact=reason)
 
     if int(document_type) == 4:
         # Трудовые книжки
@@ -138,6 +142,7 @@ def search(fields):
         # Заявления на увольнения
         resignation_from    = fields['resignation_from']
         resignation_to      = fields['resignation_to']
+        
 
         if resignation_from == '':
             resignation_from = '0001-01-01'
@@ -152,6 +157,9 @@ def search(fields):
 
         if department:
             search_result = search_result.filter(department = department)
+        
+        if reason:
+            search_result = search_result.filter(lor_additionalData__iexact=reason)
 
     if int(document_type) == 10:
         # Удостоверения

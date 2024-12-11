@@ -5,9 +5,12 @@
   < назад</a>{%block logo%}{{block.super}}{%endblock%} Журнал регистрации заявлений на увольнение.{%endblock%}
     {%block content%}
 
-    <div class="standart-menu">
+    <div class="standart-menu d-print-none">
       <a class="button add" href="{%url 'letter_resignation_add_url' %}">Добавить</a>
 
+      <a href="#" 
+      class="button add" 
+      onclick="close_all_panels(); window.print()">Печать</a>
 
       <div class="standart-menu-submenu-container">
         <img src="{% static '/img/filter.png' %}" onclick="open_search_menu(this, 'letters-of-resignation-search-menu')"
@@ -50,6 +53,17 @@
       </div>
 
       <div class="search-panel-input-group">
+        <input type="text" id="letters-of-resignation-search-reason" name="letters-of-resignation-search-reason" list="additional-metadata" placeholder="Причина">
+
+        <datalist id="additional-metadata">          
+          {%for Metadata in AddMetadata%}
+            <option value="{{Metadata.text}}"></option>
+          {%endfor%}
+        </datalist>
+
+      </div>
+
+      <div class="search-panel-input-group">
         <button class="button add" type="submit" name="" value="Найти">Найти</button>
         <a class="button cancel" href=".">Сбросить</a>
       </div>
@@ -66,8 +80,8 @@
           <th scope="col">Подразделение</th>
           <th scope="col">Дата увольнения</th>
           <th scope="col">Основание</th>
-          <th scope="col">Примечание</th>
-          <th scope="col">Ответственный</th>
+          <th scope="col">Причина</th>
+          <th class="d-print-none" scope="col">Ответственный</th>
 
         </tr>
       </thead>
@@ -98,13 +112,13 @@
         {% else %}
           <td id="content"></td>
         {% endif %}
-        <td class="table-non-wrap" id="res_officer">{{let.lor_res_officer}}</td>
+        <td class="table-non-wrap d-print-none" id="res_officer">{{let.lor_res_officer}}</td>
 
       </tr>
       {%endfor%}
     </table>
 
-    <nav class="paginator" aria-label="Page navigation example">
+    <nav class="paginator d-print-none" aria-label="Page navigation example">
       <ul class="pagination">
         {%if letters.has_previous%}
         <li class="page-item">

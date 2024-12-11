@@ -70,6 +70,7 @@ class LetterOfInvite(models.Model):
     loi_additionalData  = models.CharField(blank=True, default=" ", max_length=256, help_text="Введите примечание", verbose_name="Примечание")
     loi_res_officer     = models.CharField(blank=True, editable=False,  max_length=256, help_text="Сотрудник, который внес документ в систему ", verbose_name='Ответственный сотрудник')
     
+    reason              = models.CharField(max_length=256, verbose_name="Причина", null=True, blank=True)
     department          = models.ForeignKey('TURV.Department', on_delete=models.CASCADE, blank=False, null=True, default=None)
     position            = models.ForeignKey('TURV.Position', on_delete=models.CASCADE, blank=False, null=True, default=None)
     

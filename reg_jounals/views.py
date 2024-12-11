@@ -200,6 +200,7 @@ def del_OutBoundDocument(request, id):
 def letter_of_resignation(request):
     if request.user.is_authenticated:
         
+        AddMetadata = AdditionalMetadata.objects.filter(owner='LetterOfResignation')
         deps = TDep.objects.filter(notused=0).filter(is_aup=0).order_by('name')
 
         if int(request.GET.get('search-sign', '0')) == 1:
@@ -210,7 +211,8 @@ def letter_of_resignation(request):
                 'period_to':        request.GET.get('letters-of-resignation-search-to',''),
                 'resignation_from': request.GET.get('letters-of-resignation-search-date-of-resigantion-from',''),
                 'resignation_to':   request.GET.get('letters-of-resignation-search-date-of-resigantion-to',''),
-                'department':       request.GET.get('letters-of-resignation-search-department','')
+                'department':       request.GET.get('letters-of-resignation-search-department',''),
+                'reason':           request.GET.get('letters-of-resignation-search-reason','')
             }
             
             letters = search(search_query)
@@ -225,7 +227,7 @@ def letter_of_resignation(request):
         page = p_letters.get_page(page_number)
         count = len(letters)
 
-        return render(request, 'reg_jounals/letters_of_resignation.html', context={'letters':page, 'deps':deps})
+        return render(request, 'reg_jounals/letters_of_resignation.html', context={'letters':page, 'deps':deps, 'AddMetadata':AddMetadata})
     else:
         return render(request, 'reg_jounals/no_auth.html')
 
@@ -300,6 +302,7 @@ def del_LetterOfResignation(request, id):
 def letter_of_invite(request):
         if request.user.is_authenticated:
             
+            AddMetedata = AdditionalMetadata.objects.filter(owner="LetterOfInvite")
             deps = TDep.objects.filter(notused=0).filter(is_aup=0)
 
             if int(request.GET.get('search-sign', '0')) == 1:
@@ -308,7 +311,8 @@ def letter_of_invite(request):
                     'name':             request.GET.get('loi_search', ''),
                     'period_from':      request.GET.get('letters-of-invite-search-from',''),
                     'period_to':        request.GET.get('letters-of-invite-search-to',''),
-                    'department':       request.GET.get('letters-of-invite-search-department','')
+                    'department':       request.GET.get('letters-of-invite-search-department',''),
+                    'reason':           request.GET.get('letters-of-invite-search-reason', '')
                 }
 
                 letters = search(search_query)
@@ -323,7 +327,7 @@ def letter_of_invite(request):
                 count = len(letters)
 
 
-            return render(request, 'reg_jounals/letters_of_invite.html', context={'letters':page, 'deps':deps})
+            return render(request, 'reg_jounals/letters_of_invite.html', context={'letters':page, 'deps':deps, 'AddMetadata':AddMetedata})
         else:
             return render(request, 'reg_jounals/no_auth.html')
 

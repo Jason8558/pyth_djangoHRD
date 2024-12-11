@@ -616,3 +616,8 @@ flex-flow: row;
     font-style: normal;
     font-weight: normal;
 }
+
+/* Медиа */
+@media print {
+    
+}

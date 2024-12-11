@@ -432,18 +432,21 @@ class UserLoginForm(AuthenticationForm):
 class LetterOfInvite_form(forms.ModelForm):
     class Meta:
         model = LetterOfInvite
-        fields = [ 'loi_date',
-    'loi_employee',
-    'loi_position',
-    'loi_department',
-    'loi_dateOfInv',
-    'loi_additionalData']
+        fields = [ 
+                'loi_date',
+                'loi_employee',
+                'loi_position',
+                'loi_department',
+                'loi_dateOfInv',
+                'loi_additionalData',
+                'reason'
+                ]
 
     loi_date = forms.CharField(label="Дата документа" , widget=forms.TextInput(
         attrs={'placeholder': 'Введите дату',  'type':'date'}))
     loi_dateOfInv = forms.DateField(label="Дата приема" , required=False, widget=forms.TextInput(
         attrs={'placeholder': 'Введите дату',  'type':'date'}))
-    loi_additionalData = forms.CharField(label="Причина", required=False, widget=forms.TextInput(
+    reason = forms.CharField(label="Причина", required=False, widget=forms.TextInput(
         attrs={'list':'additional-metadata'}))
 
     def saveFirst(self, user_, department:TURVDepartment, position:TURVPositions):
@@ -475,19 +478,19 @@ class LetterOfInvite_form(forms.ModelForm):
 
         ExistAdditionalMetadata = AdditionalMetadata.objects.filter(owner="LetterOfInvite")
        
-        if not str(self.cleaned_data['loi_additionalData']).replace(" ", "") == "":
+        if not str(self.cleaned_data['reason']).replace(" ", "") == "":
             owner = "LetterOfInvite"
             if ExistAdditionalMetadata.count() == 0:
                 NewEam = AdditionalMetadata.objects.create(
                     owner = owner,
-                    text = self.cleaned_data['loi_additionalData']
+                    text = self.cleaned_data['reason']
                 )
             else: 
                 for EAM in ExistAdditionalMetadata:
-                    if EAM.text.replace(" ", "").lower() != str(self.cleaned_data['loi_additionalData']).replace(" ", "").lower():
+                    if EAM.text.replace(" ", "").lower() != str(self.cleaned_data['reason']).replace(" ", "").lower():
                         NewEam = AdditionalMetadata.objects.create(
                             owner = owner,
-                            text = self.cleaned_data['loi_additionalData']
+                            text = self.cleaned_data['reason']
                         )
 
                         NewEam.save()
@@ -500,6 +503,7 @@ class LetterOfInvite_form(forms.ModelForm):
             department          = department,
             loi_dateOfInv       = self.cleaned_data['loi_dateOfInv'],
             loi_additionalData  = self.cleaned_data['loi_additionalData'],
+            reason              = self.cleaned_data['reason'],
             loi_res_officer     = user_
         )
 
