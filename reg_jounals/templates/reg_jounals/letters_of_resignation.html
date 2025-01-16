@@ -108,7 +108,7 @@
         <td id="dateRes">{{let.lor_dateOfRes|date:"d.m.Y"}}</td>
         <td class="table-non-wrap" id="content">{{let.lor_itemOfRes| truncatechars:15}}</td>
         {% if let.lor_additionalData%}
-          <td id="content">{{let.lor_additionalData | truncatechars:15}}</td>
+          <td class="reason_content" id="content">{{let.lor_additionalData}}</td>
         {% else %}
           <td id="content"></td>
         {% endif %}
@@ -152,5 +152,11 @@
     {%else%}
     <h2>Записей нет</h2>
     {%endif%}
+
+    <script>
+      $(document).ready(function(){
+        TruncateFieldText(false)
+      })
+    </script>
 
     {%endblock%}

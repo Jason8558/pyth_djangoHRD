@@ -748,3 +748,38 @@ function open_additional_menu(el, additional_menu_panel) {
  //el.onclick = 'open_additional_menu(this)'
 
 }
+
+// Сокращение текста при печати
+const PrintMediaQuery = window.matchMedia('print')
+
+let reasonsText = []
+
+function TruncateFieldText(truncate) {
+
+  reasons = document.querySelectorAll('.reason_content')
+ 
+
+ 
+
+  if (!truncate) {
+
+    for (const reason of reasons) {
+      reasonsText.push(reason.innerText)
+      reason.innerText = reason.innerText.substr(0, 15)
+    }
+    
+  }
+  else {
+    for (let i = 0; i < reasons.length; i++) {
+      reasons[i].innerText = reasonsText[i]
+      
+    }
+  }
+
+
+
+}
+
+PrintMediaQuery.addEventListener('change', function (event) {
+  TruncateFieldText(PrintMediaQuery.matches)
+})
